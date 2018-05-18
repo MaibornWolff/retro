@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Header from "../Header";
-import Home from "../Home";
-import Retroformats from "../Retroformats";
+import {Header} from "../Header";
+import {Home} from "../Home";
+import {RetroFormats} from "../RetroFormats";
 import './App.css';
 
 const App = () => (
@@ -12,7 +12,7 @@ const App = () => (
       <Header />
       <Switch>
         <Route path="/" component={Home} exact />
-        <Route path="/retro-formats" component={Retroformats} exact />
+        <Route path="/retro-formats" component={RetroFormats} exact />
       </Switch>
     </div>
   </BrowserRouter>

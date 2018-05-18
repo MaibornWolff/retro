@@ -1,7 +1,7 @@
 import React from "react";
 import {DragDropContext} from "react-beautiful-dnd";
 
-import List from "../List";
+import {List} from "../List";
 import "./Board.css";
 
 const getItems = (count, offset = 0) => {
@@ -100,4 +100,4 @@ class Board extends React.Component {
   }
 }
 
-export default Board;
+export {Board};

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Board from "../Board";
+import {Board} from "../Board";
 
 const Home = () => (
   <div id="home" className="container">
@@ -8,4 +8,4 @@ const Home = () => (
   </div>
 );
 
-export default Home;
+export {Home};

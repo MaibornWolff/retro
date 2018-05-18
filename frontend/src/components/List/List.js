@@ -6,7 +6,7 @@ import "./List.css"
 
 const grid = 8;
 
-export default (props) => (
+const List = (props) => (
   <div className="list">
     <h3>{props.title}</h3>
     <Droppable droppableId={props.droppableId}>
@@ -36,3 +36,5 @@ const getListStyle = isDraggingOver => ({
   padding: grid,
   width: 250
 });
+
+export {List};

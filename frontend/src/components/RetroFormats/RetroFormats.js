@@ -1,7 +1,7 @@
 import React from "react";
 
-const Retroformats = () => (
+const RetroFormats = () => (
   <h1>This is the Retroformats page</h1>
 );
 
-export default Retroformats;
+export {RetroFormats};
