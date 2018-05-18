@@ -1,8 +1,10 @@
 import React from "react";
 
+import Board from "../Board";
+
 const Home = () => (
   <div id="home">
-    <h1>This is the Home page</h1>
+    <Board />
   </div>
 );
 
