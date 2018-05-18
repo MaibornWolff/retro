@@ -41,11 +41,6 @@ class Board extends React.Component {
     selected: getItems(5, 10)
   };
 
-  /**
-   * A semi-generic way to handle multiple lists. Matches
-   * the IDs of the droppable container to the names of the
-   * source arrays stored in the state.
-   */
   idToList = {
     list1: 'items',
     list2: 'selected'
@@ -56,7 +51,6 @@ class Board extends React.Component {
   onDragEnd = result => {
     const {source, destination} = result;
 
-    // dropped outside the list
     if (!destination) {
       return;
     }
@@ -69,10 +63,8 @@ class Board extends React.Component {
       );
 
       let state = {items};
-
-      if (source.droppableId === 'droppable2') {
+      if (source.droppableId === 'droppable2')
         state = {selected: items};
-      }
 
       this.setState(state);
     } else {
