@@ -1,5 +1,5 @@
 import React from "react";
-import { Droppable } from "react-beautiful-dnd";
+import {Droppable} from "react-beautiful-dnd";
 
 import RetroItem from "../RetroItem";
 import "./List.css"
@@ -8,7 +8,10 @@ const grid = 8;
 
 const List = (props) => (
   <div className="list">
-    <h3>{props.title}</h3>
+    <h3>
+      {props.title}
+      <button className="btn btn-success float-right" type="button">+</button>
+    </h3>
     <Droppable droppableId={props.droppableId}>
       {(provided, snapshot) => (
         <div
