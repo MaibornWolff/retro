@@ -7,7 +7,9 @@ import "./Board.css";
 const getItems = (count, offset = 0) => {
   return Array.from({length: count}, (v, k) => k).map(k => ({
     id: `item-${k + offset}`,
-    content: `item ${k + offset}`
+    content: `This is a text about item ${k + offset}`,
+    author: `Max Mustermann`,
+    points: 0
   }));
 };
 

@@ -1,6 +1,8 @@
 import React from "react";
 import {Draggable} from "react-beautiful-dnd";
 
+import {Card} from "../Card";
+
 const grid = 8;
 
 export default (props) => (
@@ -16,20 +18,12 @@ export default (props) => (
         {...provided.dragHandleProps}
         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
       >
-        <div className="card text-center">
-          <div className="card-header">
-            Featured
-          </div>
-          <div className="card-body">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" className="btn btn-primary">Go somewhere</a>
-          </div>
-          <div className="card-footer text-muted">
-            2 days ago
-          </div>
-        </div>
 
+        <Card
+          cardHeader={props.author}
+          cardTitle={props.content}
+          cardPoints={props.points}
+        />
 
       </div>
     )}

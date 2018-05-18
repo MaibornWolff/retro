@@ -21,7 +21,9 @@ const List = (props) => (
                 key={item.id}
                 draggableId={item.id}
                 index={index}
+                author={item.author}
                 content={item.content}
+                points={item.points}
               />
             ))
           }
