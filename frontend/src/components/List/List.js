@@ -1,34 +1,38 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 
-import Card from "../Card";
+import RetroItem from "../RetroItem";
+import "./List.css"
 
 const grid = 8;
 
 export default (props) => (
-  <Droppable droppableId={props.droppableId}>
-    {(provided, snapshot) => (
-      <div
-        ref={provided.innerRef}
-        style={getListStyle(snapshot.isDraggingOver)}
-      >
-        {
-          props.items.map((item, index) => (
-            <Card
-              key={item.id}
-              draggableId={item.id}
-              index={index}
-              content={item.content}
-            />
-          ))
-        }
-      </div>
-    )}
-  </Droppable>
+  <div className="list">
+    <h3>{props.title}</h3>
+    <Droppable droppableId={props.droppableId}>
+      {(provided, snapshot) => (
+        <div
+          ref={provided.innerRef}
+          style={getListStyle(snapshot.isDraggingOver)}
+        >
+          {
+            props.items.map((item, index) => (
+              <RetroItem
+                key={item.id}
+                draggableId={item.id}
+                index={index}
+                content={item.content}
+              />
+            ))
+          }
+        </div>
+      )}
+    </Droppable>
+  </div>
 );
 
 const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'red',
+  background: isDraggingOver ? 'lightblue' : 'blue',
   padding: grid,
   width: 250
 });

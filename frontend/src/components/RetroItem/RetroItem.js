@@ -1,5 +1,5 @@
 import React from "react";
-import { Draggable } from "react-beautiful-dnd";
+import {Draggable} from "react-beautiful-dnd";
 
 const grid = 8;
 
@@ -16,7 +16,21 @@ export default (props) => (
         {...provided.dragHandleProps}
         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
       >
-        {props.content}
+        <div className="card text-center">
+          <div className="card-header">
+            Featured
+          </div>
+          <div className="card-body">
+            <h5 className="card-title">Special title treatment</h5>
+            <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" className="btn btn-primary">Go somewhere</a>
+          </div>
+          <div className="card-footer text-muted">
+            2 days ago
+          </div>
+        </div>
+
+
       </div>
     )}
   </Draggable>
@@ -27,9 +41,6 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
 
   // styles we need to apply on draggables
   ...draggableStyle

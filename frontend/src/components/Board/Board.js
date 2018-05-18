@@ -92,8 +92,8 @@ class Board extends React.Component {
     return (
       <div id="board">
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <List droppableId="list1" items={this.state.items} />
-          <List droppableId="list2" items={this.state.selected} />
+          <List droppableId="list1" items={this.state.items} title="List 1" />
+          <List droppableId="list2" items={this.state.selected} title="List 2" />
         </DragDropContext>
       </div>
     );
