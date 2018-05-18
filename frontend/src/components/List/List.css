@@ -1,3 +1,10 @@
 .list {
     margin-right: 50px;
+    margin-top: 10px;
+}
+
+.droppableContainer {
+    padding: 8px;
+    width: 400px;
+    border: 1px solid black;
 }

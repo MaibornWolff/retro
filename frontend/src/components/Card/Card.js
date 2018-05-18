@@ -6,7 +6,7 @@ const Card = (props) => (
       {props.cardHeader}
     </div>
     <div className="card-body">
-      <h5 className="card-title">{props.cardTitle}</h5>
+      <p className="card-title">{props.cardTitle}</p>
     </div>
     <div className="card-footer text-muted">
       Votes: {props.cardPoints}

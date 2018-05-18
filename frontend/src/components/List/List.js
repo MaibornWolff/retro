@@ -14,6 +14,7 @@ const List = (props) => (
         <div
           ref={provided.innerRef}
           style={getListStyle(snapshot.isDraggingOver)}
+          className="droppableContainer"
         >
           {
             props.items.map((item, index) => (
@@ -34,9 +35,9 @@ const List = (props) => (
 );
 
 const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'blue',
   padding: grid,
-  width: 250
+  width: 400,
+  borderColor: "black 1px solid"
 });
 
 export {List};
