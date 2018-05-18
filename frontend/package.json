@@ -17,5 +17,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "e2e": "jest --watch"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.72.0"
   }
 }
