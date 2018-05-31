@@ -1,11 +1,11 @@
 import React from "react";
-import {DragDropContext} from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 
-import {List} from "../List";
-import "./Board.css";
+import { List } from "./List";
+import "../styles/Board.css";
 
 const getItems = (count, offset = 0) => {
-  return Array.from({length: count}, (v, k) => k).map(k => ({
+  return Array.from({ length: count }, (v, k) => k).map(k => ({
     id: `item-${k + offset}`,
     content: `This is a text about item ${k + offset}`,
     author: `Max Mustermann`,
@@ -35,21 +35,21 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   return result;
 };
 
-class Board extends React.Component {
+export class Board extends React.Component {
   state = {
     items: getItems(10),
     selected: getItems(5, 10)
   };
 
   idToList = {
-    list1: 'items',
-    list2: 'selected'
+    list1: "items",
+    list2: "selected"
   };
 
   getList = id => this.state[this.idToList[id]];
 
   onDragEnd = result => {
-    const {source, destination} = result;
+    const { source, destination } = result;
 
     if (!destination) {
       return;
@@ -62,9 +62,8 @@ class Board extends React.Component {
         destination.index
       );
 
-      let state = {items};
-      if (source.droppableId === 'droppable2')
-        state = {selected: items};
+      let state = { items };
+      if (source.droppableId === "droppable2") state = { selected: items };
 
       this.setState(state);
     } else {
@@ -87,11 +86,13 @@ class Board extends React.Component {
       <div id="board">
         <DragDropContext onDragEnd={this.onDragEnd}>
           <List droppableId="list1" items={this.state.items} title="List 1" />
-          <List droppableId="list2" items={this.state.selected} title="List 2" />
+          <List
+            droppableId="list2"
+            items={this.state.selected}
+            title="List 2"
+          />
         </DragDropContext>
       </div>
     );
   }
 }
-
-export {Board};

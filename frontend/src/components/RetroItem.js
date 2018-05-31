@@ -1,11 +1,11 @@
 import React from "react";
-import {Draggable} from "react-beautiful-dnd";
+import { Draggable } from "react-beautiful-dnd";
 
-import {Card} from "../Card";
+import { Card } from "./Card";
 
 const grid = 8;
 
-export default (props) => (
+export const RetroItem = props => (
   <Draggable
     key={props.key}
     draggableId={props.draggableId}
@@ -18,20 +18,18 @@ export default (props) => (
         {...provided.dragHandleProps}
         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
       >
-
         <Card
           cardHeader={props.author}
           cardTitle={props.content}
           cardPoints={props.points}
         />
-
       </div>
     )}
   </Draggable>
 );
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: 'none',
+  userSelect: "none",
   padding: grid,
   margin: `0 0 ${grid}px 0`,
 

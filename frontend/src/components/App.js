@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import {Header} from "../Header";
-import {Home} from "../Home";
-import {RetroFormats} from "../RetroFormats";
-import './App.css';
+import { Header } from "./Header";
+import { Home } from "./Home";
+import { RetroFormats } from "./RetroFormats";
+import "../styles/App.css";
 
-const App = () => (
+export const App = () => (
   <BrowserRouter>
     <div className="App">
       <Header />
@@ -17,5 +17,3 @@ const App = () => (
     </div>
   </BrowserRouter>
 );
-
-export default App;
