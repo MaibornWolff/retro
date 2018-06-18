@@ -19,9 +19,9 @@ export const RetroItem = props => (
         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
       >
         <Card
-          cardHeader={props.author}
-          cardTitle={props.content}
-          cardPoints={props.points}
+          header={props.author}
+          content={props.content}
+          points={props.points}
         />
       </div>
     )}

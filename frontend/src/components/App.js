@@ -1,19 +1,18 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import {Router} from "@reach/router"
 
-import { Header } from "./Header";
+import { Navbar } from "./Navbar";
 import { Home } from "./Home";
 import { RetroFormats } from "./RetroFormats";
-import "../styles/App.css";
 
 export const App = () => (
-  <BrowserRouter>
-    <div className="App">
-      <Header />
-      <Switch>
-        <Route path="/" component={Home} exact />
-        <Route path="/retro-formats" component={RetroFormats} exact />
-      </Switch>
+  <div>
+    <Navbar/>
+    <div className="container">
+      <Router>
+        <Home path="/" />
+        <RetroFormats path="/retroformats" />
+      </Router>
     </div>
-  </BrowserRouter>
+  </div>
 );

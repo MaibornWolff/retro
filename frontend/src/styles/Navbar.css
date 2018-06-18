@@ -1,0 +1,13 @@
+#app-header {
+  margin-bottom: 1em;
+}
+
+#navbrand {
+  color: black;
+  font-family: "Lobster", cursive !important;
+  font-size: 2em;
+}
+
+#navitem {
+  color: black;
+}
