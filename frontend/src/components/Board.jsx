@@ -7,7 +7,7 @@ import Column from "./Column";
 export default class Board extends React.Component {
   state = seed;
 
-  onDragEnd = result => {
+  onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
     const { columns } = this.state;
 
@@ -16,8 +16,8 @@ export default class Board extends React.Component {
     }
 
     if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
+      destination.droppableId === source.droppableId
+      && destination.index === source.index
     ) {
       return;
     }
@@ -32,8 +32,8 @@ export default class Board extends React.Component {
       ...this.state,
       columns: {
         ...columns,
-        [newColumn.id]: newColumn
-      }
+        [newColumn.id]: newColumn,
+      },
     };
 
     this.setState(newState);
@@ -42,7 +42,7 @@ export default class Board extends React.Component {
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        {this.state.columnOrder.map(colId => {
+        {this.state.columnOrder.map((colId) => {
           const column = this.state.columns[colId];
           const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
 
