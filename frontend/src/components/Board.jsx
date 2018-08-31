@@ -8,7 +8,35 @@ export default class Board extends React.Component {
   state = seed;
 
   onDragEnd = result => {
-    // TODO: reorder our column
+    const { destination, source, draggableId } = result;
+    const { columns } = this.state;
+
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    const column = columns[source.droppableId];
+    const newTaskIds = Array.from(column.taskIds);
+    newTaskIds.splice(source.index, 1);
+    newTaskIds.splice(destination.index, 0, draggableId);
+
+    const newColumn = { ...column, taskIds: newTaskIds };
+    const newState = {
+      ...this.state,
+      columns: {
+        ...columns,
+        [newColumn.id]: newColumn
+      }
+    };
+
+    this.setState(newState);
   };
 
   render() {
