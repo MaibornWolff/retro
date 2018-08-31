@@ -28,6 +28,19 @@ const CardList = styled.div`
   min-height: 100px;
 `;
 
+class InnerList extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    const { tasks } = this.props;
+    if (nextProps.tasks === tasks) return false;
+    return true;
+  }
+
+  render() {
+    const { tasks } = this.props;
+    return tasks.map((t, i) => <Card key={t.id} task={t} index={i} />);
+  }
+}
+
 const Column = props => {
   const { column, tasks, index } = props;
 
@@ -47,9 +60,7 @@ const Column = props => {
                 {...providedDroppable.droppableProps}
                 isDraggingOver={snapshot.isDraggingOver}
               >
-                {tasks.map((task, i) => (
-                  <Card key={task.id} task={task} index={i} />
-                ))}
+                <InnerList tasks={tasks} />
                 {providedDroppable.placeholder}
               </CardList>
             )}

@@ -1,3 +1,5 @@
+/* eslint-disable react/no-multi-comp */
+
 import React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
@@ -8,6 +10,14 @@ import Column from "./Column";
 const Container = styled.div`
   display: flex;
 `;
+
+class InnerList extends React.PureComponent {
+  render() {
+    const { column, taskMap, index } = this.props;
+    const tasks = column.taskIds.map(id => taskMap[id]);
+    return <Column column={column} tasks={tasks} index={index} />;
+  }
+}
 
 export default class Board extends React.Component {
   state = seed;
@@ -91,6 +101,8 @@ export default class Board extends React.Component {
   };
 
   render() {
+    const { columns, tasks } = this.state;
+
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable
@@ -104,16 +116,12 @@ export default class Board extends React.Component {
               innerRef={provided.innerRef}
             >
               {this.state.columnOrder.map((columnId, index) => {
-                const column = this.state.columns[columnId];
-                const tasks = column.taskIds.map(
-                  taskId => this.state.tasks[taskId]
-                );
-
+                const column = columns[columnId];
                 return (
-                  <Column
+                  <InnerList
                     key={column.id}
                     column={column}
-                    tasks={tasks}
+                    taskMap={tasks}
                     index={index}
                   />
                 );
