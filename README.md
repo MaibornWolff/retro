@@ -1,6 +1,6 @@
-# Retro
+# Retro - Make Retrospectives Great Again
 
-A digital board for your retrospectives
+The goal of Retro is to have a good UX in retrospectives with distributed teams.
 
 ## Backend
 
