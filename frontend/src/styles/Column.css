@@ -1,0 +1,14 @@
+#column-container {
+  margin: 8px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+}
+
+#column-title {
+  padding: 8px;
+}
+
+#column-tasks-container {
+  padding: 8px;
+}
+

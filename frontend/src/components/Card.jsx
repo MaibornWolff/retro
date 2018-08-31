@@ -1,17 +1,25 @@
 import React from "react";
+import { Draggable } from "react-beautiful-dnd";
 
-const Card = ({ header, content, points }) => (
-  <div className="card has-text-centered">
-    <header className="card-header">
-      <p className="card-header-title">{header}</p>
-    </header>
-    <div className="card-content">
-      <div className="content">{content}</div>
-    </div>
-    <footer className="card-footer">
-      <p className="card-footer-item">{points} Votes</p>
-    </footer>
-  </div>
-);
+import "../styles/Card.css";
 
-export default Card;
+export default class Card extends React.Component {
+  render() {
+    const { task, index } = this.props;
+
+    return (
+      <Draggable draggableId={task.id} index={index}>
+        {provided => (
+          <div
+            id="card-container"
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+            {task.content}
+          </div>
+        )}
+      </Draggable>
+    );
+  }
+}
