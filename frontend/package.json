@@ -7,6 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "test-e2e": "jest",
+    "lint": "eslint ./src --fix",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -18,6 +19,7 @@
   },
   "devDependencies": {
     "bulma": "^0.7.1",
+    "eslint": "^5.4.0",
     "puppeteer": "^1.7.0"
   },
   "proxy": "http://localhost:8081"

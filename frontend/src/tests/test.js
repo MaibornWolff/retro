@@ -1,3 +1,4 @@
+/* eslint-disable */
 import puppeteer from "puppeteer";
 
 const appUrl = "http://localhost:3000/";
