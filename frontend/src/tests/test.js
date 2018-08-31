@@ -1,4 +1,3 @@
-/* eslint-disable */
 import puppeteer from "puppeteer";
 
 const appUrl = "http://localhost:3000/";
@@ -18,10 +17,10 @@ beforeAll(async () => {
 
 describe("navigation", () => {
   test("can navigate to home", async () => {
-     await page.goto(routes.home);
-     await page.waitForSelector(".App");
-     await page.click("#homeNavButton");
-     await page.waitForSelector("#home");
+    await page.goto(routes.home);
+    await page.waitForSelector(".App");
+    await page.click("#homeNavButton");
+    await page.waitForSelector("#home");
   });
 });
 

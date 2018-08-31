@@ -4,14 +4,13 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { List } from "./List";
 import "../styles/Board.css";
 
-const getItems = (count, offset = 0) => {
-  return Array.from({ length: count }, (v, k) => k).map(k => ({
+const getItems = (count, offset = 0) =>
+  Array.from({ length: count }, (v, k) => k).map(k => ({
     id: `item-${k + offset}`,
     content: `This is a text about item ${k + offset}`,
-    author: `Max Mustermann`,
+    author: "Max Mustermann",
     points: 0
   }));
-};
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -35,7 +34,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   return result;
 };
 
-export class Board extends React.Component {
+export default class Board extends React.Component {
   state = {
     items: getItems(10),
     selected: getItems(5, 10)
@@ -67,7 +66,7 @@ export class Board extends React.Component {
 
       this.setState(state);
     } else {
-      const result = move(
+      const r = move(
         this.getList(source.droppableId),
         this.getList(destination.droppableId),
         source,
@@ -75,8 +74,8 @@ export class Board extends React.Component {
       );
 
       this.setState({
-        items: result.list1,
-        selected: result.list2
+        items: r.list1,
+        selected: r.list2
       });
     }
   };

@@ -2,21 +2,25 @@ import React from "react";
 import { Link } from "@reach/router";
 
 import "../styles/Navbar.css";
-import {Button} from "./Button";
+import Button from "./Button";
 
-export const Navbar = () => (
+const Navbar = () => (
   <header id="app-header">
     <nav className="navbar is-primary" aria-label="main navigation">
       <div className="navbar-brand">
         <div className="navbar-item">
-          <Link id="navbrand" to="/">Retro</Link>
+          <Link id="navbrand" to="/">
+            Retro
+          </Link>
         </div>
       </div>
 
       <div className="navbar-menu">
         <div className="navbar-start">
           <div className="navbar-item">
-            <Link id="navitem" to="retroformats">Formats</Link>
+            <Link id="navitem" to="retroformats">
+              Formats
+            </Link>
           </div>
         </div>
       </div>
@@ -34,7 +38,8 @@ export const Navbar = () => (
           </div>
         </div>
       </div>
-
     </nav>
   </header>
 );
+
+export default Navbar;

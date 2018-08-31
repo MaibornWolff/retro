@@ -1,13 +1,13 @@
 import React from "react";
-import {Router} from "@reach/router"
+import { Router } from "@reach/router";
 
 import { Navbar } from "./Navbar";
 import { Home } from "./Home";
 import { RetroFormats } from "./RetroFormats";
 
-export const App = () => (
+const App = () => (
   <div>
-    <Navbar/>
+    <Navbar />
     <div className="container">
       <Router>
         <Home path="/" />
@@ -16,3 +16,5 @@ export const App = () => (
     </div>
   </div>
 );
+
+export default App;

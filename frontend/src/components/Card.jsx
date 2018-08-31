@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Card = ({ header, content, points }) => (
+const Card = ({ header, content, points }) => (
   <div className="card has-text-centered">
     <header className="card-header">
       <p className="card-header-title">{header}</p>
@@ -11,5 +11,7 @@ export const Card = ({ header, content, points }) => (
     <footer className="card-footer">
       <p className="card-footer-item">{points} Votes</p>
     </footer>
-  </div >
+  </div>
 );
+
+export default Card;

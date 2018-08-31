@@ -1,11 +1,19 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
-import { Card } from "./Card";
+import Card from "./Card";
 
 const grid = 8;
 
-export const RetroItem = props => (
+const getItemStyle = (isDragging, draggableStyle) => ({
+  userSelect: "none",
+  padding: grid,
+  margin: `0 0 ${grid}px 0`,
+
+  ...draggableStyle
+});
+
+const RetroItem = props => (
   <Draggable
     key={props.key}
     draggableId={props.draggableId}
@@ -28,10 +36,4 @@ export const RetroItem = props => (
   </Draggable>
 );
 
-const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: "none",
-  padding: grid,
-  margin: `0 0 ${grid}px 0`,
-
-  ...draggableStyle
-});
+export default RetroItem;

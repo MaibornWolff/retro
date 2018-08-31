@@ -1,9 +1,11 @@
 import React from "react";
 
-import { Board } from "./Board";
+import Board from "./Board";
 
-export const Home = () => (
+const Home = () => (
   <div id="home" className="container-fluid">
-    <Board/>
+    <Board />
   </div>
 );
+
+export default Home;

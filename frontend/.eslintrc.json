@@ -1,35 +1,25 @@
 {
+    "extends": "airbnb",
+    "parser": "babel-eslint",
     "env": {
         "browser": true,
-        "es6": true
+        "jest": true
     },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
     "rules": {
-        "indent": [
-            "error",
-            2
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
         "quotes": [
             "error",
             "double"
         ],
-        "semi": [
-            "error",
-            "always"
-        ]
-    }
+        "react/destructuring-assignment": "off",
+        "react/prop-types": "off"
+    },
+    "overrides": [{
+        "files": ["registerServiceWorker.js", "test.js"],
+        "rules": {
+            "no-console": "off",
+            "no-param-reassign": "off",
+            "no-use-before-define": "off",
+            "import/no-extraneous-dependencies": "off"
+        }
+    }]
 }
