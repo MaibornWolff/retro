@@ -3,7 +3,7 @@ import puppeteer from "puppeteer";
 const appUrl = "http://localhost:3000/";
 const routes = {
   home: `${appUrl}`,
-  retroFormats: `${appUrl}/retro-formats`
+  retroFormats: `${appUrl}/retro-formats`,
 };
 
 let browser;
