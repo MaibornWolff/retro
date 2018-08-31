@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "watch": "node_modules/nodemon/bin/nodemon.js src/index.js"
+    "start": "node_modules/nodemon/bin/nodemon.js src/server.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -13,6 +13,6 @@
     "socket.io": "^2.1.1"
   },
   "devDependencies": {
-    "nodemon": "^1.17.4"
+    "nodemon": "^1.18.4"
   }
 }

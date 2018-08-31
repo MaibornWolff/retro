@@ -2,23 +2,23 @@
   "name": "retro",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@reach/router": "^1.1.1",
-    "puppeteer": "^1.4.0",
-    "react": "^16.3.2",
-    "react-beautiful-dnd": "^7.1.2",
-    "react-dom": "^16.3.2",
-    "react-scripts": "1.1.4"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "e2e": "jest --watch"
+    "test-e2e": "jest",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@reach/router": "^1.1.1",
+    "react": "^16.4.2",
+    "react-beautiful-dnd": "^9.0.2",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.5"
   },
   "devDependencies": {
-    "bulma": "^0.7.1"
+    "bulma": "^0.7.1",
+    "puppeteer": "^1.7.0"
   },
-  "proxy": "http://localhost:1234"
+  "proxy": "http://localhost:8081"
 }
