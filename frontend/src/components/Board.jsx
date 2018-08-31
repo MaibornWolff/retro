@@ -1,7 +1,7 @@
 import React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 
-import { List } from "./List";
+import List from "./List";
 import "../styles/Board.css";
 
 const getItems = (count, offset = 0) =>

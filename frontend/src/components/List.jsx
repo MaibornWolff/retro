@@ -1,7 +1,7 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 
-import { RetroItem } from "./RetroItem";
+import RetroItem from "./RetroItem";
 import Button from "./Button";
 
 import "../styles/List.css";
