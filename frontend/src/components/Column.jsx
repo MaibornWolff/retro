@@ -1,5 +1,5 @@
 import React from "react";
-import { Droppable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 import Card from "./Card";
@@ -10,6 +10,7 @@ const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgrey;
   border-radius: 2px;
+  background-color: white;
 
   display: flex;
   flex-direction: column;
@@ -22,32 +23,40 @@ const StyledTitle = styled(Title)`
 const CardList = styled.div`
   padding: 8px;
   transition: background-color 0.2s ease;
-  background-color: ${props => (props.isDraggingOver ? "lightblue" : "white")}
+  background-color: ${props => (props.isDraggingOver ? "lightblue" : "inherit")}
   flex-grow: 1;
   min-height: 100px;
 `;
 
-const Column = (props) => {
-  const { column, tasks } = props;
+const Column = props => {
+  const { column, tasks, index } = props;
 
   return (
-    <Container>
-      <StyledTitle>{column.title}</StyledTitle>
-      <Droppable droppableId={column.id}>
-        {(provided, snapshot) => (
-          <CardList
-            innerRef={provided.innerRef}
-            {...provided.droppableProps}
-            isDraggingOver={snapshot.isDraggingOver}
-          >
-            {tasks.map((task, index) => (
-              <Card key={task.id} task={task} index={index} />
-            ))}
-            {provided.placeholder}
-          </CardList>
-        )}
-      </Droppable>
-    </Container>
+    <Draggable draggableId={column.id} index={index}>
+      {providedDraggable => (
+        <Container
+          {...providedDraggable.draggableProps}
+          {...providedDraggable.dragHandleProps}
+          innerRef={providedDraggable.innerRef}
+        >
+          <StyledTitle>{column.title}</StyledTitle>
+          <Droppable droppableId={column.id} type="task">
+            {(providedDroppable, snapshot) => (
+              <CardList
+                innerRef={providedDroppable.innerRef}
+                {...providedDroppable.droppableProps}
+                isDraggingOver={snapshot.isDraggingOver}
+              >
+                {tasks.map((task, i) => (
+                  <Card key={task.id} task={task} index={i} />
+                ))}
+                {providedDroppable.placeholder}
+              </CardList>
+            )}
+          </Droppable>
+        </Container>
+      )}
+    </Draggable>
   );
 };
 

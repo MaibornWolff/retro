@@ -10,6 +10,10 @@
             "error",
             "double"
         ],
+        "arrow-parens": "off",
+        "comma-dangle": "off",
+        "operator-linebreak": "off",
+        "object-curly-newline": "off",
         "react/destructuring-assignment": "off",
         "react/prop-types": "off"
     },

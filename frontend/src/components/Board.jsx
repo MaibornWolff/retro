@@ -1,5 +1,5 @@
 import React from "react";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 import seed from "../utils/seed";
@@ -12,18 +12,32 @@ const Container = styled.div`
 export default class Board extends React.Component {
   state = seed;
 
-  onDragEnd = (dragResult) => {
-    const { draggableId, source, destination } = dragResult;
-    const { columns } = this.state;
+  onDragEnd = dragResult => {
+    const { draggableId, source, destination, type } = dragResult;
+    const { columns, columnOrder } = this.state;
 
     if (!destination) {
       return;
     }
 
     if (
-      destination.droppableId === source.droppableId
-      && destination.index === source.index
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
     ) {
+      return;
+    }
+
+    if (type === "column") {
+      const newColumnOrder = Array.from(columnOrder);
+      newColumnOrder.splice(source.index, 1);
+      newColumnOrder.splice(destination.index, 0, draggableId);
+
+      const newState = {
+        ...this.state,
+        columnOrder: newColumnOrder
+      };
+
+      this.setState(newState);
       return;
     }
 
@@ -41,8 +55,8 @@ export default class Board extends React.Component {
         ...this.state,
         columns: {
           ...columns,
-          [newColumn.id]: newColumn,
-        },
+          [newColumn.id]: newColumn
+        }
       };
 
       this.setState(newState);
@@ -54,14 +68,14 @@ export default class Board extends React.Component {
     startTaskIds.splice(source.index, 1);
     const newStart = {
       ...start,
-      taskIds: startTaskIds,
+      taskIds: startTaskIds
     };
 
     const finishTaskIds = Array.from(finish.taskIds);
     finishTaskIds.splice(destination.index, 0, draggableId);
     const newFinish = {
       ...finish,
-      taskIds: finishTaskIds,
+      taskIds: finishTaskIds
     };
 
     const newState = {
@@ -69,8 +83,8 @@ export default class Board extends React.Component {
       columns: {
         ...columns,
         [newStart.id]: newStart,
-        [newFinish.id]: newFinish,
-      },
+        [newFinish.id]: newFinish
+      }
     };
 
     this.setState(newState);
@@ -79,14 +93,35 @@ export default class Board extends React.Component {
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <Container>
-          {this.state.columnOrder.map((colId) => {
-            const column = this.state.columns[colId];
-            const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+        <Droppable
+          droppableId="allColumns"
+          direction="horizontal"
+          type="column"
+        >
+          {provided => (
+            <Container
+              {...provided.droppableProps}
+              innerRef={provided.innerRef}
+            >
+              {this.state.columnOrder.map((columnId, index) => {
+                const column = this.state.columns[columnId];
+                const tasks = column.taskIds.map(
+                  taskId => this.state.tasks[taskId]
+                );
 
-            return <Column key={column.id} column={column} tasks={tasks} />;
-          })}
-        </Container>
+                return (
+                  <Column
+                    key={column.id}
+                    column={column}
+                    tasks={tasks}
+                    index={index}
+                  />
+                );
+              })}
+              {provided.placeholder}
+            </Container>
+          )}
+        </Droppable>
       </DragDropContext>
     );
   }
