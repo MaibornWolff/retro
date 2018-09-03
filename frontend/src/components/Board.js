@@ -13,9 +13,9 @@ const Container = styled.div`
 
 class InnerList extends React.PureComponent {
   render() {
-    const { column, taskMap, index } = this.props;
-    const tasks = column.taskIds.map(id => taskMap[id]);
-    return <BoardColumn column={column} tasks={tasks} index={index} />;
+    const { column, itemMap, index } = this.props;
+    const items = column.itemIds.map(id => itemMap[id]);
+    return <BoardColumn column={column} items={items} index={index} />;
   }
 }
 
@@ -101,7 +101,7 @@ export default class Board extends React.Component {
   };
 
   render() {
-    const { columns, tasks } = this.state;
+    const { columns, items } = this.state;
 
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
@@ -121,7 +121,7 @@ export default class Board extends React.Component {
                   <InnerList
                     key={column.id}
                     column={column}
-                    taskMap={tasks}
+                    itemMap={items}
                     index={index}
                   />
                 );

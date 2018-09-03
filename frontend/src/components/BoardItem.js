@@ -9,10 +9,10 @@ const Container = styled.div`
 `;
 
 const BoardItem = props => {
-  const { task, index } = props;
+  const { item, index } = props;
 
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable draggableId={item.id} index={index}>
       {(provided, snapshot) => (
         <Container
           {...provided.draggableProps}
@@ -21,9 +21,9 @@ const BoardItem = props => {
           isDragging={snapshot.isDragging}
         >
           <Card
-            cardTitle={task.author}
-            cardContent={task.content}
-            cardFooter={`Points: ${task.points}`}
+            cardTitle={item.author}
+            cardContent={item.content}
+            cardFooter={`Points: ${item.points}`}
           />
         </Container>
       )}

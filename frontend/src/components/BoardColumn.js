@@ -38,13 +38,13 @@ class InnerList extends React.Component {
   }
 
   render() {
-    const { tasks } = this.props;
-    return tasks.map((t, i) => <BoardItem key={t.id} task={t} index={i} />);
+    const { items } = this.props;
+    return items.map((item, i) => <BoardItem key={item.id} item={item} index={i} />);
   }
 }
 
 const BoardColumn = props => {
-  const { column, tasks, index } = props;
+  const { column, items, index } = props;
 
   return (
     <Draggable draggableId={column.id} index={index}>
@@ -62,7 +62,7 @@ const BoardColumn = props => {
                 {...providedDroppable.droppableProps}
                 isDraggingOver={snapshot.isDraggingOver}
               >
-                <InnerList tasks={tasks} />
+                <InnerList items={items} />
                 {providedDroppable.placeholder}
               </CardList>
             )}
