@@ -11,6 +11,9 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.4",
+    "@fortawesome/free-solid-svg-icons": "^5.3.1",
+    "@fortawesome/react-fontawesome": "^0.1.2",
     "@reach/router": "^1.1.1",
     "react": "^16.4.2",
     "react-beautiful-dnd": "^9.0.2",

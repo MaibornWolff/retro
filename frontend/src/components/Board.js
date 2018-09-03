@@ -5,7 +5,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 import seed from "../utils/seed";
-import Column from "./Column";
+import BoardColumn from "./BoardColumn";
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ class InnerList extends React.PureComponent {
   render() {
     const { column, taskMap, index } = this.props;
     const tasks = column.taskIds.map(id => taskMap[id]);
-    return <Column column={column} tasks={tasks} index={index} />;
+    return <BoardColumn column={column} tasks={tasks} index={index} />;
   }
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
-import Card from "./Card";
+import BoardItem from "./BoardItem";
 import Title from "./common/Title";
 
 const Container = styled.div`
@@ -18,6 +18,8 @@ const Container = styled.div`
 
 const StyledTitle = styled(Title)`
   padding: 8px;
+  background-color: #eceff1;
+  margin-bottom: 0 !important;
 `;
 
 const CardList = styled.div`
@@ -37,11 +39,11 @@ class InnerList extends React.Component {
 
   render() {
     const { tasks } = this.props;
-    return tasks.map((t, i) => <Card key={t.id} task={t} index={i} />);
+    return tasks.map((t, i) => <BoardItem key={t.id} task={t} index={i} />);
   }
 }
 
-const Column = props => {
+const BoardColumn = props => {
   const { column, tasks, index } = props;
 
   return (
@@ -71,4 +73,4 @@ const Column = props => {
   );
 };
 
-export default Column;
+export default BoardColumn;
