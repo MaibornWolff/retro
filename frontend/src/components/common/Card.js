@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 
+/* eslint-disable jsx-a11y/anchor-is-valid */
 const Card = ({ cardTitle, cardContent, cardFooter }) => (
   <div className="card">
     <header className="card-header">
@@ -14,10 +15,10 @@ const Card = ({ cardTitle, cardContent, cardFooter }) => (
       <p className="card-footer-item">
         {cardFooter}
       </p>
-      <a href="google.de" className="card-footer-item">
+      <a href="#" className="card-footer-item">
         <FontAwesomeIcon icon={faThumbsUp} />
       </a>
-      <a href="google.de" className="card-footer-item">
+      <a href="#" className="card-footer-item">
         <FontAwesomeIcon icon={faThumbsDown} />
       </a>
     </footer>
