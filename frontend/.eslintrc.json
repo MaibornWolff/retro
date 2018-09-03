@@ -16,7 +16,8 @@
         "object-curly-newline": "off",
         "implicit-arrow-linebreak": "off",
         "react/destructuring-assignment": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "react/jsx-filename-extension": "off"
     },
     "overrides": [{
         "files": ["registerServiceWorker.js", "test.js"],
