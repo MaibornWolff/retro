@@ -56,11 +56,11 @@ export default class Board extends React.Component {
 
     // column is the same
     if (start === finish) {
-      const newTaskIds = Array.from(start.taskIds);
-      newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, draggableId);
+      const newItemIds = Array.from(start.itemIds);
+      newItemIds.splice(source.index, 1);
+      newItemIds.splice(destination.index, 0, draggableId);
 
-      const newColumn = { ...start, taskIds: newTaskIds };
+      const newColumn = { ...start, itemIds: newItemIds };
       const newState = {
         ...this.state,
         columns: {
@@ -74,18 +74,18 @@ export default class Board extends React.Component {
     }
 
     // moving from one column to another one
-    const startTaskIds = Array.from(start.taskIds);
-    startTaskIds.splice(source.index, 1);
+    const startItemIds = Array.from(start.itemIds);
+    startItemIds.splice(source.index, 1);
     const newStart = {
       ...start,
-      taskIds: startTaskIds
+      itemIds: startItemIds
     };
 
-    const finishTaskIds = Array.from(finish.taskIds);
-    finishTaskIds.splice(destination.index, 0, draggableId);
+    const finishItemIds = Array.from(finish.itemIds);
+    finishItemIds.splice(destination.index, 0, draggableId);
     const newFinish = {
       ...finish,
-      taskIds: finishTaskIds
+      itemIds: finishItemIds
     };
 
     const newState = {

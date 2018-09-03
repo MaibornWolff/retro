@@ -32,8 +32,8 @@ const CardList = styled.div`
 
 class InnerList extends React.Component {
   shouldComponentUpdate(nextProps) {
-    const { tasks } = this.props;
-    if (nextProps.tasks === tasks) return false;
+    const { items } = this.props;
+    if (nextProps.items === items) return false;
     return true;
   }
 
@@ -55,7 +55,7 @@ const BoardColumn = props => {
           innerRef={providedDraggable.innerRef}
         >
           <StyledTitle>{column.title}</StyledTitle>
-          <Droppable droppableId={column.id} type="task">
+          <Droppable droppableId={column.id} type="item">
             {(providedDroppable, snapshot) => (
               <CardList
                 innerRef={providedDroppable.innerRef}
