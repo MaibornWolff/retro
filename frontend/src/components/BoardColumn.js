@@ -1,9 +1,12 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import BoardItem from "./BoardItem";
 import Title from "./common/Title";
+import Button from "./common/Button";
 
 const Container = styled.div`
   width: 400px;
@@ -18,7 +21,6 @@ const Container = styled.div`
 
 const StyledTitle = styled(Title)`
   padding: 8px;
-  background-color: #eceff1;
   margin-bottom: 0 !important;
 `;
 
@@ -30,6 +32,13 @@ const CardList = styled.div`
   min-height: 100px;
 `;
 
+const ColumnHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: #eceff1;
+  padding: 8px;
+`;
+
 class InnerList extends React.Component {
   shouldComponentUpdate(nextProps) {
     const { items } = this.props;
@@ -39,8 +48,14 @@ class InnerList extends React.Component {
 
   render() {
     const { items } = this.props;
-    return items.map((item, i) => <BoardItem key={item.id} item={item} index={i} />);
+    return items.map((item, i) => (
+      <BoardItem key={item.id} item={item} index={i} />
+    ));
   }
+}
+
+const handleClick = () => {
+  alert("you clicked me!");
 }
 
 const BoardColumn = props => {
@@ -54,7 +69,15 @@ const BoardColumn = props => {
           {...providedDraggable.dragHandleProps}
           innerRef={providedDraggable.innerRef}
         >
-          <StyledTitle>{column.title}</StyledTitle>
+          <ColumnHeader>
+            <StyledTitle className="is-5">{column.title}</StyledTitle>
+            <Button
+              className="is-info"
+              onClick={handleClick}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </Button>
+          </ColumnHeader>
           <Droppable droppableId={column.id} type="item">
             {(providedDroppable, snapshot) => (
               <CardList

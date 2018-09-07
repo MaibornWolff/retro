@@ -23,7 +23,7 @@ const BoardItem = props => {
           <Card
             cardTitle={item.author}
             cardContent={item.content}
-            cardFooter={`Points: ${item.points}`}
+            cardFooter={`${item.points} Points`}
           />
         </Container>
       )}

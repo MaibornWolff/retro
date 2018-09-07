@@ -1,4 +1,5 @@
-const seed = {
+const board = {
+  title: "This is the title of our retrospective",
   items: {
     "item-1": {
       id: "item-1",
@@ -45,4 +46,4 @@ const seed = {
   columnOrder: ["column-1", "column-2", "column-3"]
 };
 
-export default seed;
+export default board;

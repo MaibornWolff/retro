@@ -7,7 +7,7 @@ import Home from "./Home";
 const App = () => (
   <div>
     <Navbar />
-    <div className="container">
+    <div className="container-fluid">
       <Router>
         <Home path="/" />
       </Router>

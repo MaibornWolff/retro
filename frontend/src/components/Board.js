@@ -4,8 +4,9 @@ import React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
-import seed from "../utils/seed";
+import board from "../utils/seed";
 import BoardColumn from "./BoardColumn";
+import BoardHeader from "./BoardHeader";
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ class InnerList extends React.PureComponent {
 }
 
 export default class Board extends React.Component {
-  state = seed;
+  state = board;
 
   onDragEnd = dragResult => {
     const { draggableId, source, destination, type } = dragResult;
@@ -101,36 +102,39 @@ export default class Board extends React.Component {
   };
 
   render() {
-    const { columns, items } = this.state;
+    const { columns, items, title } = this.state;
 
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable
-          droppableId="allColumns"
-          direction="horizontal"
-          type="column"
-        >
-          {provided => (
-            <Container
-              {...provided.droppableProps}
-              innerRef={provided.innerRef}
-            >
-              {this.state.columnOrder.map((columnId, index) => {
-                const column = columns[columnId];
-                return (
-                  <InnerList
-                    key={column.id}
-                    column={column}
-                    itemMap={items}
-                    index={index}
-                  />
-                );
-              })}
-              {provided.placeholder}
-            </Container>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <div>
+        <BoardHeader title={title} />
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Droppable
+            droppableId="allColumns"
+            direction="horizontal"
+            type="column"
+          >
+            {provided => (
+              <Container
+                {...provided.droppableProps}
+                innerRef={provided.innerRef}
+              >
+                {this.state.columnOrder.map((columnId, index) => {
+                  const column = columns[columnId];
+                  return (
+                    <InnerList
+                      key={column.id}
+                      column={column}
+                      itemMap={items}
+                      index={index}
+                    />
+                  );
+                })}
+                {provided.placeholder}
+              </Container>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
     );
   }
 }
