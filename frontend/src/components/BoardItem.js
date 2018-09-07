@@ -5,7 +5,8 @@ import { Draggable } from "react-beautiful-dnd";
 import Card from "./common/Card";
 
 const Container = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  box-shadow: 2px 2px 1px lightgrey;
 `;
 
 const BoardItem = props => {
@@ -23,7 +24,7 @@ const BoardItem = props => {
           <Card
             cardTitle={item.author}
             cardContent={item.content}
-            cardFooter={`${item.points} Points`}
+            cardPoints={`${item.points} Points`}
           />
         </Container>
       )}
