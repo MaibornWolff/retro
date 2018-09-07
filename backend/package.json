@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node_modules/nodemon/bin/nodemon.js src/server.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
