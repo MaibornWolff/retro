@@ -1,6 +1,15 @@
 import React from "react";
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faEdit } from "@fortawesome/free-solid-svg-icons";
+
+import Button from "./Button";
+
+const CardFooter = styled.div`
+  padding: .8em;
+  display: flex;
+  justify-content: space-between;
+`;
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 const Card = ({ cardTitle, cardContent, cardPoints }) => (
@@ -14,14 +23,20 @@ const Card = ({ cardTitle, cardContent, cardPoints }) => (
     <div className="card-content">
       <div className="content">{cardContent}</div>
     </div>
-    <footer className="card-footer">
-      <a href="#" className="card-footer-item">
+    <CardFooter>
+      <Button
+        className="is-info is-rounded is-outlined"
+        type="button"
+      >
         <FontAwesomeIcon icon={faEdit} />
-      </a>
-      <a href="#" className="card-footer-item">
+      </Button>
+      <Button
+        className="is-info is-rounded is-outlined"
+        type="button"
+      >
         <FontAwesomeIcon icon={faThumbsUp} />
-      </a>
-    </footer>
+      </Button>
+    </CardFooter>
   </div>
 );
 

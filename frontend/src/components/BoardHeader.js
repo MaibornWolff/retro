@@ -11,7 +11,7 @@ import BoardColumnForm from "./BoardColumnForm";
 import "../styles/Modal.css";
 
 const Container = styled.div`
-  margin: 10px;
+  margin: 1.5em 1.5em 0em 1.5em;
   display: flex;
   justify-content: space-between;
 `;
@@ -44,7 +44,7 @@ export default class BoardHeader extends React.Component {
     return (
       <Container>
         <StyledTitle className="is-4">{title}</StyledTitle>
-        <Button className="is-primary is-rounded" onClick={this.onOpenModal}>
+        <Button className="is-info is-rounded" onClick={this.onOpenModal}>
           <FontAwesomeIcon icon={faPlus} />
           &nbsp; Column
         </Button>

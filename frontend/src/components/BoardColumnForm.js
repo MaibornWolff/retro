@@ -38,7 +38,7 @@ export default class BoardColumnForm extends React.Component {
             />
           </div>
         </div>
-        <Button type="submit" className="is-primary">
+        <Button type="submit" className="is-info is-rounded">
           Submit
         </Button>
       </form>

@@ -1,5 +1,5 @@
 #navbrand {
-  color: black;
+  color: white;
   font-family: "Lobster", cursive !important;
   font-size: 2em;
 }
@@ -9,5 +9,5 @@
 }
 
 #app-header {
-  box-shadow: 2px 2px 1px lightgrey;
+  box-shadow: 0 6px 6px -2px grey;
 }

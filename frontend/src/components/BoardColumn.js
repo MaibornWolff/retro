@@ -14,7 +14,7 @@ import "../styles/Modal.css";
 
 const Container = styled.div`
   width: 400px;
-  margin: 10px;
+  margin: 1em;
   border: 1px solid lightgrey;
   border-radius: 2px;
   background-color: white;
@@ -29,7 +29,7 @@ const StyledTitle = styled(Title)`
 `;
 
 const CardList = styled.div`
-  padding: 8px;
+  padding: 1em;
   transition: background-color 0.2s ease;
   background-color: ${props =>
     (props.isDraggingOver ? "lightgrey" : "inherit")};
@@ -40,8 +40,8 @@ const CardList = styled.div`
 const ColumnHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: #eceff1;
-  padding: 8px;
+  background-color: #f5f5f5;
+  padding: 1em;
 `;
 
 export default class BoardColumn extends React.Component {
@@ -76,7 +76,7 @@ export default class BoardColumn extends React.Component {
             <ColumnHeader>
               <StyledTitle className="is-5">{column.title}</StyledTitle>
               <Button
-                className="is-primary is-rounded"
+                className="is-info is-rounded is-small"
                 onClick={this.onOpenModal}
               >
                 <FontAwesomeIcon icon={faPlus} />

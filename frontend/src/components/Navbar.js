@@ -13,7 +13,7 @@ const handleClick = () => {
 
 const Navbar = () => (
   <header id="app-header">
-    <nav className="navbar is-primary" aria-label="main navigation">
+    <nav className="navbar is-info" aria-label="main navigation">
       <div className="navbar-brand">
         <div className="navbar-item">
           <Link id="navbrand" to="/">
@@ -26,7 +26,7 @@ const Navbar = () => (
         <div className="navbar-item">
           <div className="field is-grouped">
             <p className="control">
-              <Button className="is-primary is-rounded is-inverted" onClick={handleClick}>
+              <Button className="is-info is-rounded is-inverted is-outlined" onClick={handleClick}>
                 <FontAwesomeIcon icon={faCog} />
                 &nbsp;Settings
               </Button>

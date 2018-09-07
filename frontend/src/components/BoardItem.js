@@ -5,8 +5,8 @@ import { Draggable } from "react-beautiful-dnd";
 import Card from "./common/Card";
 
 const Container = styled.div`
-  margin-bottom: 10px;
-  box-shadow: 2px 2px 1px lightgrey;
+  margin-bottom: 1.5em;
+  box-shadow: 4px 4px 1px lightgrey;
 `;
 
 const BoardItem = props => {
