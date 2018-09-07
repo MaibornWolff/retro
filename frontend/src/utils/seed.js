@@ -1,5 +1,5 @@
 const board = {
-  title: "This is the Title of our Retrospective",
+  title: "PROJECT RETRO",
   items: {
     "item-1": {
       id: "item-1",
