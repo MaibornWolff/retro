@@ -1,14 +1,14 @@
 import React from "react";
-import { Droppable, Draggable } from "react-beautiful-dnd";
+import Modal from "react-responsive-modal";
 import styled from "styled-components";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import Modal from "react-responsive-modal";
 
-import BoardItem from "./BoardItem";
 import Title from "./common/Title";
 import Button from "./common/Button";
-import CreateCard from "./CreateCard";
+import BoardItemForm from "./BoardItemForm";
+import BoardColumnInnerList from "./BoardColumnInnerList";
 
 import "../styles/Modal.css";
 
@@ -31,7 +31,8 @@ const StyledTitle = styled(Title)`
 const CardList = styled.div`
   padding: 8px;
   transition: background-color 0.2s ease;
-  background-color: ${props => (props.isDraggingOver ? "lightgrey" : "inherit")};
+  background-color: ${props =>
+    (props.isDraggingOver ? "lightgrey" : "inherit")};
   flex-grow: 1;
   min-height: 100px;
 `;
@@ -43,37 +44,25 @@ const ColumnHeader = styled.div`
   padding: 8px;
 `;
 
-class InnerList extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    const { items } = this.props;
-    if (nextProps.items === items) return false;
-    return true;
-  }
-
-  render() {
-    const { items } = this.props;
-    return items.map((item, i) => (
-      <BoardItem key={item.id} item={item} index={i} />
-    ));
-  }
-}
-
 export default class BoardColumn extends React.Component {
-  state = {
-    open: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = { open: false };
 
-  onOpenModal = () => {
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
+  }
+
+  onOpenModal() {
     this.setState({ open: true });
-  };
+  }
 
-  onCloseModal = () => {
+  onCloseModal() {
     this.setState({ open: false });
-  };
+  }
 
   render() {
     const { open } = this.state;
-
     const { column, items, index } = this.props;
 
     return (
@@ -92,8 +81,13 @@ export default class BoardColumn extends React.Component {
               >
                 <FontAwesomeIcon icon={faPlus} />
               </Button>
-              <Modal open={open} onClose={this.onCloseModal} center classNames={{ modal: 'custom-modal' }} >
-                <CreateCard/>
+              <Modal
+                open={open}
+                onClose={this.onCloseModal}
+                center
+                classNames={{ modal: "custom-modal" }}
+              >
+                <BoardItemForm />
               </Modal>
             </ColumnHeader>
             <Droppable droppableId={column.id} type="item">
@@ -103,7 +97,7 @@ export default class BoardColumn extends React.Component {
                   {...providedDroppable.droppableProps}
                   isDraggingOver={snapshot.isDraggingOver}
                 >
-                  <InnerList items={items} />
+                  <BoardColumnInnerList items={items} />
                   {providedDroppable.placeholder}
                 </CardList>
               )}

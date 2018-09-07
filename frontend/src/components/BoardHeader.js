@@ -1,15 +1,16 @@
 import React from "react";
+import Modal from "react-responsive-modal";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import Title from "./common/Title";
 import Button from "./common/Button";
+import BoardColumnForm from "./BoardColumnForm";
+
+import "../styles/Modal.css";
 
 const Container = styled.div`
-`;
-
-const ContentContainer = styled.div`
   margin: 10px;
   display: flex;
   justify-content: space-between;
@@ -19,20 +20,43 @@ const StyledTitle = styled(Title)`
   margin: 0 !important;
 `;
 
-const handleClick = () => {
-  alert("you clicked the new column button!");
-};
+export default class BoardHeader extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { open: false };
 
-const BoardHeader = ({ title }) => (
-  <Container>
-    <ContentContainer>
-      <StyledTitle className="is-4">{title}</StyledTitle>
-      <Button className="is-primary is-rounded" onClick={handleClick}>
-        <FontAwesomeIcon icon={faPlus} />
-        &nbsp; Column
-      </Button>
-    </ContentContainer>
-  </Container>
-);
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
+  }
 
-export default BoardHeader;
+  onOpenModal() {
+    this.setState({ open: true });
+  }
+
+  onCloseModal() {
+    this.setState({ open: false });
+  }
+
+  render() {
+    const { open } = this.state;
+    const { title } = this.props;
+
+    return (
+      <Container>
+        <StyledTitle className="is-4">{title}</StyledTitle>
+        <Button className="is-primary is-rounded" onClick={this.onOpenModal}>
+          <FontAwesomeIcon icon={faPlus} />
+          &nbsp; Column
+        </Button>
+        <Modal
+          open={open}
+          onClose={this.onCloseModal}
+          center
+          classNames={{ modal: "custom-modal" }}
+        >
+          <BoardColumnForm />
+        </Modal>
+      </Container>
+    );
+  }
+}
