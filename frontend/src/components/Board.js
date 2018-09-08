@@ -15,7 +15,7 @@ const Container = styled.div`
   display: flex;
 `;
 
-class InnerList extends React.PureComponent {
+class BoardInnerList extends React.PureComponent {
   render() {
     const { column, itemMap, index, boardItemsCount } = this.props;
     const items = column.itemIds.map(id => itemMap[id]);
@@ -151,7 +151,7 @@ export default class Board extends React.Component {
                 {this.state.columnOrder.map((columnId, index) => {
                   const column = columns[columnId];
                   return (
-                    <InnerList
+                    <BoardInnerList
                       key={column.id}
                       column={column}
                       itemMap={items}
