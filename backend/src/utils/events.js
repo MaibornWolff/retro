@@ -1,9 +1,11 @@
-const CONNECTION_EVENT = "connection";
-const DISCONNECT_EVENT = "disconnect";
-const CREATE_CARD_EVENT = "create card";
+const CONNECTION = "connection";
+const DISCONNECT = "disconnect";
+const CREATE_CARD = "create card";
+const CREATE_COLUMN = "create column";
 
 module.exports = {
-  CONNECTION_EVENT,
-  DISCONNECT_EVENT,
-  CREATE_CARD_EVENT
+  CONNECTION,
+  DISCONNECT,
+  CREATE_CARD,
+  CREATE_COLUMN
 }

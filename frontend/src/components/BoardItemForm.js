@@ -2,7 +2,7 @@ import React from "react";
 import socketIO from "socket.io-client";
 
 import Button from "./common/Button";
-import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD_EVENT } from "../utils/constants";
+import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD } from "../utils/constants";
 
 export default class BoardItemForm extends React.Component {
   constructor(props) {
@@ -41,7 +41,7 @@ export default class BoardItemForm extends React.Component {
       points
     };
 
-    socket.emit(CREATE_CARD_EVENT, newCard, columnId);
+    socket.emit(CREATE_CARD, newCard, columnId);
     this.setState({ author: "", content: "" });
     document.querySelector(".custom-modal > button").click();
   }

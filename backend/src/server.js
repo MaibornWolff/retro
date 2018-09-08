@@ -10,22 +10,27 @@ const server = http.createServer(app);
 const io = socketIO(server);
 
 const {
-  CONNECTION_EVENT,
-  DISCONNECT_EVENT,
-  CREATE_CARD_EVENT
+  CONNECTION,
+  DISCONNECT,
+  CREATE_CARD,
+  CREATE_COLUMN
 } = require("./utils/events");
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 
-io.on(CONNECTION_EVENT, client => {
+io.on(CONNECTION, client => {
   console.log("Client connected");
 
-  client.on(CREATE_CARD_EVENT, (card, columnId) => {
-    io.sockets.emit(CREATE_CARD_EVENT, card, columnId);
+  client.on(CREATE_CARD, (card, columnId) => {
+    io.sockets.emit(CREATE_CARD, card, columnId);
   });
 
-  client.on(DISCONNECT_EVENT, () => console.log("Client disconnected"));
+  client.on(CREATE_COLUMN, column => {
+    console.log(column);
+  });
+
+  client.on(DISCONNECT, () => console.log("Client disconnected"));
 });
 
 const port = process.env.PORT;
