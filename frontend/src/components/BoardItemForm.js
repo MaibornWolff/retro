@@ -10,13 +10,14 @@ export default class BoardItemForm extends React.Component {
     this.state = {
       author: "",
       content: "",
-      points: 0
     };
 
     this.handleAuthorChange = this.handleAuthorChange.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  closeModal = () => document.querySelector(".custom-modal > button").click();
 
   handleAuthorChange(event) {
     this.setState({ author: event.target.value });
@@ -29,21 +30,21 @@ export default class BoardItemForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { author, content, points } = this.state;
-    const { boardItemsCount, columnId } = this.props;
-    const newCardId = boardItemsCount + 1;
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
+    const { author, content } = this.state;
+    const { boardItemsCount, columnId } = this.props;
+    const id = boardItemsCount + 1;
 
     const newCard = {
-      id: `item-${newCardId}`,
+      id: `item-${id}`,
       author,
       content,
-      points
+      points: 0
     };
 
     socket.emit(CREATE_CARD, newCard, columnId);
     this.setState({ author: "", content: "" });
-    document.querySelector(".custom-modal > button").click();
+    this.closeModal();
   }
 
   render() {

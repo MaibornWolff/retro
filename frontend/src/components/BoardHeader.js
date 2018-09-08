@@ -39,7 +39,7 @@ export default class BoardHeader extends React.Component {
 
   render() {
     const { open } = this.state;
-    const { title } = this.props;
+    const { title, boardColumnsCount } = this.props;
 
     return (
       <Container>
@@ -54,7 +54,7 @@ export default class BoardHeader extends React.Component {
           center
           classNames={{ modal: "custom-modal" }}
         >
-          <BoardColumnForm />
+          <BoardColumnForm boardColumnsCount={boardColumnsCount} />
         </Modal>
       </Container>
     );

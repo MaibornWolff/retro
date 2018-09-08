@@ -1,6 +1,8 @@
 import React from "react";
+import socketIO from "socket.io-client";
 
 import Button from "./common/Button";
+import { LOCAL_BACKEND_ENDPOINT, CREATE_COLUMN } from "../utils/constants";
 
 export default class BoardColumnForm extends React.Component {
   constructor(props) {
@@ -11,14 +13,25 @@ export default class BoardColumnForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  closeModal = () => document.querySelector(".custom-modal > button").click();
+
   handleTitleChange(event) {
     this.setState({ title: event.target.value });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    alert(`title: ${this.state.title}`);
+
+    const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
+    const { title } = this.state;
+    const { boardColumnsCount } = this.props;
+    const id = `column-${boardColumnsCount + 1}`;
+
+    const newColumn = { id, title, itemIds: [] };
+    socket.emit(CREATE_COLUMN, newColumn);
+    
     this.setState({ title: "" });
+    this.closeModal();
   }
 
   render() {

@@ -27,7 +27,7 @@ io.on(CONNECTION, client => {
   });
 
   client.on(CREATE_COLUMN, column => {
-    console.log(column);
+    io.sockets.emit(CREATE_COLUMN, column);
   });
 
   client.on(DISCONNECT, () => console.log("Client disconnected"));

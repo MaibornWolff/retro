@@ -9,7 +9,11 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import board from "../utils/seed";
 import BoardColumn from "./BoardColumn";
 import BoardHeader from "./BoardHeader";
-import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD } from "../utils/constants";
+import {
+  LOCAL_BACKEND_ENDPOINT,
+  CREATE_CARD,
+  CREATE_COLUMN
+} from "../utils/constants";
 
 const Container = styled.div`
   display: flex;
@@ -39,7 +43,7 @@ export default class Board extends React.Component {
 
   componentDidMount() {
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
-    const { items, columns } = this.state;
+    const { items, columns, columnOrder } = this.state;
 
     socket.on(CREATE_CARD, (card, columnId) => {
       items[card.id] = card;
@@ -48,6 +52,15 @@ export default class Board extends React.Component {
         items,
         columns,
         boardItemsCount: _.size(items),
+      });
+    });
+
+    socket.on(CREATE_COLUMN, column => {
+      columns[column.id] = column;
+      columnOrder.push(column.id);
+      this.setState({
+        columns,
+        columnOrder,
         boardColumnsCount: _.size(columns)
       });
     });
@@ -132,11 +145,17 @@ export default class Board extends React.Component {
   };
 
   render() {
-    const { columns, items, title, boardItemsCount } = this.state;
+    const {
+      columns,
+      items,
+      title,
+      boardItemsCount,
+      boardColumnsCount
+    } = this.state;
 
     return (
       <div>
-        <BoardHeader title={title} />
+        <BoardHeader title={title} boardColumnsCount={boardColumnsCount} />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable
             droppableId="allColumns"
