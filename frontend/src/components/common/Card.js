@@ -16,9 +16,6 @@ const Card = ({ cardTitle, cardContent, cardPoints }) => (
   <div className="card">
     <header className="card-header">
       <p className="card-header-title">{cardTitle}</p>
-      <p className="card-footer-item">
-        <strong>{cardPoints}</strong>
-      </p>
     </header>
     <div className="card-content">
       <div className="content">{cardContent}</div>
@@ -30,6 +27,9 @@ const Card = ({ cardTitle, cardContent, cardPoints }) => (
       >
         <FontAwesomeIcon icon={faEdit} />
       </Button>
+      <p>
+        <strong>{cardPoints}</strong>
+      </p>
       <Button
         className="is-info is-rounded is-outlined"
         type="button"
