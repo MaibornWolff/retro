@@ -1,13 +1,16 @@
 import React from "react";
+import socketIO from "socket.io-client";
 
 import Button from "./common/Button";
+import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD_EVENT } from "../utils/constants";
 
 export default class BoardItemForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       author: "",
-      content: ""
+      content: "",
+      points: 0
     };
 
     this.handleAuthorChange = this.handleAuthorChange.bind(this);
@@ -25,11 +28,22 @@ export default class BoardItemForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    alert(
-      `author: ${this.state.author}
-      conent: ${this.state.content}`
-    );
+
+    const { author, content, points } = this.state;
+    const { boardItemsCount, columnId } = this.props;
+    const newCardId = boardItemsCount + 1;
+    const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
+
+    const newCard = {
+      id: `item-${newCardId}`,
+      author,
+      content,
+      points
+    };
+
+    socket.emit(CREATE_CARD_EVENT, newCard, columnId);
     this.setState({ author: "", content: "" });
+    document.querySelector(".custom-modal > button").click();
   }
 
   render() {

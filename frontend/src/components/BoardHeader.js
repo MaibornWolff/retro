@@ -11,7 +11,7 @@ import BoardColumnForm from "./BoardColumnForm";
 import "../styles/Modal.css";
 
 const Container = styled.div`
-  margin: 1.5em 1.5em 0em 1.5em;
+  margin: 1.5em 1em 0em 1em;
   display: flex;
   justify-content: space-between;
 `;

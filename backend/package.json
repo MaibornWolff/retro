@@ -5,12 +5,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon ./src/server.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "mongoose": "^5.2.13",
     "socket.io": "^2.1.1"
   },
   "devDependencies": {

@@ -63,7 +63,7 @@ export default class BoardColumn extends React.Component {
 
   render() {
     const { open } = this.state;
-    const { column, items, index } = this.props;
+    const { column, items, index, boardItemsCount } = this.props;
 
     return (
       <Draggable draggableId={column.id} index={index}>
@@ -87,7 +87,10 @@ export default class BoardColumn extends React.Component {
                 center
                 classNames={{ modal: "custom-modal" }}
               >
-                <BoardItemForm />
+                <BoardItemForm
+                  columnId={column.id}
+                  boardItemsCount={boardItemsCount}
+                />
               </Modal>
             </ColumnHeader>
             <Droppable droppableId={column.id} type="item">

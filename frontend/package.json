@@ -15,11 +15,13 @@
     "@fortawesome/free-solid-svg-icons": "^5.3.1",
     "@fortawesome/react-fontawesome": "^0.1.2",
     "@reach/router": "^1.1.1",
+    "lodash": "^4.17.10",
     "react": "^16.4.2",
     "react-beautiful-dnd": "^9.0.2",
     "react-dom": "^16.4.2",
     "react-responsive-modal": "^3.3.0",
     "react-scripts": "1.1.5",
+    "socket.io-client": "^2.1.1",
     "styled-components": "^3.4.5"
   },
   "devDependencies": {
