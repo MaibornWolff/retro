@@ -11,7 +11,6 @@ const io = socketIO(server);
 
 const {
   CONNECTION,
-  DISCONNECT,
   CREATE_CARD,
   CREATE_COLUMN
 } = require("./utils/events");
@@ -27,8 +26,6 @@ io.on(CONNECTION, client => {
   client.on(CREATE_COLUMN, column => {
     io.sockets.emit(CREATE_COLUMN, column);
   });
-
-  client.on(DISCONNECT, () => console.log("Client disconnected"));
 });
 
 const port = process.env.PORT;
