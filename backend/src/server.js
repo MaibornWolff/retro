@@ -20,8 +20,6 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 
 io.on(CONNECTION, client => {
-  console.log("Client connected");
-
   client.on(CREATE_CARD, (card, columnId) => {
     io.sockets.emit(CREATE_CARD, card, columnId);
   });

@@ -3,12 +3,13 @@ import Modal from "react-responsive-modal";
 import styled from "styled-components";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import Title from "./common/Title";
 import Button from "./common/Button";
 import BoardItemForm from "./BoardItemForm";
 import BoardColumnInnerList from "./BoardColumnInnerList";
+import BoardDeleteColumnForm from "./BoardDeleteColumnForm";
 
 import "../styles/Modal.css";
 
@@ -31,10 +32,10 @@ const StyledTitle = styled(Title)`
 const CardList = styled.div`
   padding: 1em;
   transition: background-color 0.2s ease;
-  background-color: ${props =>
-    (props.isDraggingOver ? "lightgrey" : "inherit")};
   flex-grow: 1;
   min-height: 100px;
+  background-color: ${props =>
+    props.isDraggingOver ? "lightgrey" : "inherit"};
 `;
 
 const ColumnHeader = styled.div`
@@ -44,25 +45,42 @@ const ColumnHeader = styled.div`
   padding: 1em;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+`;
+
 export default class BoardColumn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { open: false };
+    this.state = {
+      openCreateColumnModal: false,
+      openDeleteColumnModal: false
+    };
 
-    this.onOpenModal = this.onOpenModal.bind(this);
-    this.onCloseModal = this.onCloseModal.bind(this);
+    this.onOpenCreateColumnModal = this.onOpenCreateColumnModal.bind(this);
+    this.onOpenDeleteColumnModal = this.onOpenDeleteColumnModal.bind(this);
+    this.onCloseCreateColumnModal = this.onCloseCreateColumnModal.bind(this);
+    this.onCloseDeleteColumnModal = this.onCloseDeleteColumnModal.bind(this);
   }
 
-  onOpenModal() {
-    this.setState({ open: true });
+  onOpenCreateColumnModal() {
+    this.setState({ openCreateColumnModal: true });
   }
 
-  onCloseModal() {
-    this.setState({ open: false });
+  onOpenDeleteColumnModal() {
+    this.setState({ openDeleteColumnModal: true });
+  }
+
+  onCloseCreateColumnModal() {
+    this.setState({ openCreateColumnModal: false });
+  }
+
+  onCloseDeleteColumnModal() {
+    this.setState({ openDeleteColumnModal: false });
   }
 
   render() {
-    const { open } = this.state;
+    const { openCreateColumnModal, openDeleteColumnModal } = this.state;
     const { column, items, index, boardItemsCount } = this.props;
 
     return (
@@ -75,15 +93,25 @@ export default class BoardColumn extends React.Component {
           >
             <ColumnHeader>
               <StyledTitle className="is-5">{column.title}</StyledTitle>
-              <Button
-                className="is-info is-rounded is-small"
-                onClick={this.onOpenModal}
-              >
-                <FontAwesomeIcon icon={faPlus} />
-              </Button>
+
+              <ButtonContainer>
+                <Button
+                  className="is-success is-rounded is-small"
+                  onClick={this.onOpenCreateColumnModal}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                </Button>
+                <Button
+                  className="is-danger is-rounded is-small"
+                  onClick={this.onOpenDeleteColumnModal}
+                >
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                </Button>
+              </ButtonContainer>
+
               <Modal
-                open={open}
-                onClose={this.onCloseModal}
+                open={openCreateColumnModal}
+                onClose={this.onCloseCreateColumnModal}
                 center
                 classNames={{ modal: "custom-modal" }}
               >
@@ -91,6 +119,15 @@ export default class BoardColumn extends React.Component {
                   columnId={column.id}
                   boardItemsCount={boardItemsCount}
                 />
+              </Modal>
+
+              <Modal
+                open={openDeleteColumnModal}
+                onClose={this.onCloseDeleteColumnModal}
+                center
+                classNames={{ modal: "custom-modal" }}
+              >
+                <BoardDeleteColumnForm />
               </Modal>
             </ColumnHeader>
             <Droppable droppableId={column.id} type="item">
