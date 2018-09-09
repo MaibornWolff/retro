@@ -29,7 +29,7 @@ export default class BoardColumnForm extends React.Component {
 
     const newColumn = { id, title, itemIds: [] };
     socket.emit(CREATE_COLUMN, newColumn);
-    
+
     this.setState({ title: "" });
     this.closeModal();
   }

@@ -1,5 +1,3 @@
-/* eslint-disable react/no-multi-comp */
-
 import React from "react";
 import _ from "lodash";
 import socketIO from "socket.io-client";
@@ -7,8 +5,8 @@ import styled from "styled-components";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import board from "../utils/seed";
-import BoardColumn from "./BoardColumn";
 import BoardHeader from "./BoardHeader";
+import BoardInnerList from "./BoardInnerList";
 import {
   LOCAL_BACKEND_ENDPOINT,
   CREATE_CARD,
@@ -19,21 +17,6 @@ import {
 const Container = styled.div`
   display: flex;
 `;
-
-class BoardInnerList extends React.PureComponent {
-  render() {
-    const { column, itemMap, index, boardItemsCount } = this.props;
-    const items = column.itemIds.map(id => itemMap[id]);
-    return (
-      <BoardColumn
-        column={column}
-        items={items}
-        index={index}
-        boardItemsCount={boardItemsCount}
-      />
-    );
-  }
-}
 
 export default class Board extends React.Component {
   state = {
