@@ -8,7 +8,11 @@ The goal of Retro is to have a good UX in retrospectives with distributed teams.
 
 ## Frontend
 
-- React App along with [Bulma](https://bulma.io/) and [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
+- React App along with 
+  - [Bulma](https://bulma.io/)
+  - [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
+  - [react-responsive-modal](https://react-responsive-modal.leopradel.com/)
+  - [styled-components](https://www.styled-components.com/)
 
 ## Development
 
