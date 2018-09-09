@@ -127,7 +127,7 @@ export default class BoardColumn extends React.Component {
                 center
                 classNames={{ modal: "custom-modal" }}
               >
-                <BoardDeleteColumnForm />
+                <BoardDeleteColumnForm columnId={column.id} />
               </Modal>
             </ColumnHeader>
             <Droppable droppableId={column.id} type="item">

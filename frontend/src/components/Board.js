@@ -12,7 +12,8 @@ import BoardHeader from "./BoardHeader";
 import {
   LOCAL_BACKEND_ENDPOINT,
   CREATE_CARD,
-  CREATE_COLUMN
+  CREATE_COLUMN,
+  DELETE_COLUMN
 } from "../utils/constants";
 
 const Container = styled.div`
@@ -61,6 +62,24 @@ export default class Board extends React.Component {
       this.setState({
         columns,
         columnOrder,
+        boardColumnsCount: _.size(columns)
+      });
+    });
+
+    socket.on(DELETE_COLUMN, columnId => {
+      // remove items for the removed column
+      const itemIdsToRemove = columns[columnId].itemIds;
+      itemIdsToRemove.forEach(id => _.unset(items, id));
+
+      // remove column itself
+      _.pull(columnOrder, columnId);
+      _.unset(columns, columnId);
+
+      this.setState({
+        items,
+        columns,
+        columnOrder,
+        boardItemsCount: _.size(items),
         boardColumnsCount: _.size(columns)
       });
     });

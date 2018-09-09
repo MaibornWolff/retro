@@ -12,7 +12,8 @@ const io = socketIO(server);
 const {
   CONNECTION,
   CREATE_CARD,
-  CREATE_COLUMN
+  CREATE_COLUMN,
+  DELETE_COLUMN
 } = require("./utils/events");
 
 app.use(bodyParser.json());
@@ -25,6 +26,10 @@ io.on(CONNECTION, client => {
 
   client.on(CREATE_COLUMN, column => {
     io.sockets.emit(CREATE_COLUMN, column);
+  });
+
+  client.on(DELETE_COLUMN, columnId => {
+    io.sockets.emit(DELETE_COLUMN, columnId);
   });
 });
 

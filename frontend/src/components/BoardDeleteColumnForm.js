@@ -1,6 +1,8 @@
 import React from "react";
+import socketIO from "socket.io-client";
 
 import Button from "./common/Button";
+import { LOCAL_BACKEND_ENDPOINT, DELETE_COLUMN } from "../utils/constants";
 
 export default class BoardDeleteColumnForm extends React.Component {
   constructor(props) {
@@ -12,6 +14,12 @@ export default class BoardDeleteColumnForm extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
+
+    const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
+    const { columnId } = this.props;
+
+    socket.emit(DELETE_COLUMN, columnId);
+
     this.closeModal();
   }
 
