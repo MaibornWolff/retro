@@ -14,8 +14,9 @@ const {
   CREATE_CARD,
   CREATE_COLUMN,
   DELETE_COLUMN,
-  REORDER_COLUMN
-} = require("./utils/events");
+  REORDER_COLUMN,
+  BOARD_UPDATE
+} = require("./utils/socketEvents");
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
@@ -35,6 +36,10 @@ io.on(CONNECTION, client => {
 
   client.on(REORDER_COLUMN, columnOrder => {
     io.sockets.emit(REORDER_COLUMN, columnOrder);
+  });
+
+  client.on(BOARD_UPDATE, board => {
+    io.sockets.emit(BOARD_UPDATE, board);
   });
 });
 

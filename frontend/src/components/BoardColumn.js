@@ -124,7 +124,6 @@ export default class BoardColumn extends React.Component {
                   boardItemsCount={boardItemsCount}
                 />
               </Modal>
-
               <Modal
                 open={openDeleteColumnModal}
                 onClose={this.onCloseDeleteColumnModal}
@@ -134,6 +133,7 @@ export default class BoardColumn extends React.Component {
                 <BoardDeleteColumnForm columnId={column.id} />
               </Modal>
             </ColumnHeader>
+
             <Droppable droppableId={column.id} type="item">
               {(providedDroppable, snapshot) => (
                 <CardList
