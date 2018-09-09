@@ -12,7 +12,6 @@ import {
   CREATE_CARD,
   CREATE_COLUMN,
   DELETE_COLUMN,
-  REORDER_COLUMN,
   BOARD_UPDATE
 } from "../utils/constants";
 
@@ -69,10 +68,6 @@ export default class Board extends React.Component {
       });
     });
 
-    socket.on(REORDER_COLUMN, newColumnOrder => {
-      this.setState({ columnOrder: newColumnOrder });
-    });
-
     socket.on(BOARD_UPDATE, newBoard => {
       this.setState({ ...newBoard });
     });
@@ -105,7 +100,7 @@ export default class Board extends React.Component {
       };
 
       this.setState(newState);
-      socket.emit(REORDER_COLUMN, newState.columnOrder);
+      socket.emit(BOARD_UPDATE, newState);
       return;
     }
 

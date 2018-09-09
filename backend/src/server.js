@@ -14,7 +14,6 @@ const {
   CREATE_CARD,
   CREATE_COLUMN,
   DELETE_COLUMN,
-  REORDER_COLUMN,
   BOARD_UPDATE
 } = require("./utils/socketEvents");
 
@@ -32,10 +31,6 @@ io.on(CONNECTION, client => {
 
   client.on(DELETE_COLUMN, columnId => {
     io.sockets.emit(DELETE_COLUMN, columnId);
-  });
-
-  client.on(REORDER_COLUMN, columnOrder => {
-    io.sockets.emit(REORDER_COLUMN, columnOrder);
   });
 
   client.on(BOARD_UPDATE, board => {
