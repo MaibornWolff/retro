@@ -49,6 +49,10 @@ const ButtonContainer = styled.div`
   display: flex;
 `;
 
+const ColumnActionButton = styled(Button)`
+  margin-left: 0.2em;
+`;
+
 export default class BoardColumn extends React.Component {
   constructor(props) {
     super(props);
@@ -95,18 +99,18 @@ export default class BoardColumn extends React.Component {
               <StyledTitle className="is-5">{column.title}</StyledTitle>
 
               <ButtonContainer>
-                <Button
+                <ColumnActionButton
                   className="is-success is-rounded is-small"
                   onClick={this.onOpenCreateColumnModal}
                 >
                   <FontAwesomeIcon icon={faPlus} />
-                </Button>
-                <Button
+                </ColumnActionButton>
+                <ColumnActionButton
                   className="is-danger is-rounded is-small"
                   onClick={this.onOpenDeleteColumnModal}
                 >
                   <FontAwesomeIcon icon={faTrashAlt} />
-                </Button>
+                </ColumnActionButton>
               </ButtonContainer>
 
               <Modal
