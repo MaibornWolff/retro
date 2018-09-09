@@ -13,7 +13,8 @@ const {
   CONNECTION,
   CREATE_CARD,
   CREATE_COLUMN,
-  DELETE_COLUMN
+  DELETE_COLUMN,
+  REORDER_COLUMN
 } = require("./utils/events");
 
 app.use(bodyParser.json());
@@ -30,6 +31,10 @@ io.on(CONNECTION, client => {
 
   client.on(DELETE_COLUMN, columnId => {
     io.sockets.emit(DELETE_COLUMN, columnId);
+  });
+
+  client.on(REORDER_COLUMN, columnOrder => {
+    io.sockets.emit(REORDER_COLUMN, columnOrder);
   });
 });
 

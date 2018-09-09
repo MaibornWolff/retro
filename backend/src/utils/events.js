@@ -3,5 +3,6 @@ module.exports = {
   DISCONNECT: "disconnect",
   CREATE_CARD: "create card",
   CREATE_COLUMN: "create column",
-  DELETE_COLUMN: "delete column"
+  DELETE_COLUMN: "delete column",
+  REORDER_COLUMN: "reorder column"
 };

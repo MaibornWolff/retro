@@ -11,7 +11,8 @@ import {
   LOCAL_BACKEND_ENDPOINT,
   CREATE_CARD,
   CREATE_COLUMN,
-  DELETE_COLUMN
+  DELETE_COLUMN,
+  REORDER_COLUMN
 } from "../utils/constants";
 
 const Container = styled.div`
@@ -66,9 +67,14 @@ export default class Board extends React.Component {
         boardColumnsCount: _.size(columns)
       });
     });
+
+    socket.on(REORDER_COLUMN, newColumnOrder => {
+      this.setState({ columnOrder: newColumnOrder });
+    });
   }
 
   onDragEnd = dragResult => {
+    const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
     const { draggableId, source, destination, type } = dragResult;
     const { columns, columnOrder } = this.state;
 
@@ -94,6 +100,7 @@ export default class Board extends React.Component {
       };
 
       this.setState(newState);
+      socket.emit(REORDER_COLUMN, newState.columnOrder);
       return;
     }
 
