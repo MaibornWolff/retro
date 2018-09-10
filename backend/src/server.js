@@ -14,7 +14,7 @@ const {
   CREATE_CARD,
   CREATE_COLUMN,
   DELETE_COLUMN,
-  BOARD_UPDATE
+  BOARD_UPDATE,
 } = require("./utils/socketEvents");
 
 app.use(bodyParser.json());

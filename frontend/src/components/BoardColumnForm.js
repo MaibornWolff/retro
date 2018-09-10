@@ -5,21 +5,13 @@ import Button from "./common/Button";
 import { LOCAL_BACKEND_ENDPOINT, CREATE_COLUMN } from "../utils/constants";
 
 export default class BoardColumnForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { title: "" };
-
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = { title: "" };
 
   closeModal = () => document.querySelector(".custom-modal > button").click();
 
-  handleTitleChange(event) {
-    this.setState({ title: event.target.value });
-  }
+  handleTitleChange = event => this.setState({ title: event.target.value });
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
@@ -32,7 +24,7 @@ export default class BoardColumnForm extends React.Component {
 
     this.setState({ title: "" });
     this.closeModal();
-  }
+  };
 
   render() {
     const { title } = this.state;

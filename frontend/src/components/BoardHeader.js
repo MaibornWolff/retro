@@ -21,21 +21,11 @@ const StyledTitle = styled(Title)`
 `;
 
 export default class BoardHeader extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { open: false };
+  state = { open: false };
 
-    this.onOpenModal = this.onOpenModal.bind(this);
-    this.onCloseModal = this.onCloseModal.bind(this);
-  }
-
-  onOpenModal() {
-    this.setState({ open: true });
-  }
-
-  onCloseModal() {
-    this.setState({ open: false });
-  }
+  onOpenModal = () => this.setState({ open: true });
+  
+  onCloseModal = () => this.setState({ open: false });
 
   render() {
     const { open } = this.state;

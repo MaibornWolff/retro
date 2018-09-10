@@ -7,9 +7,7 @@ import Button from "./common/Button";
 
 import "../styles/Navbar.css";
 
-const handleClick = () => {
-  alert("you clicked the settings button!");
-};
+const handleClick = () => alert("you clicked the settings button!");
 
 const Navbar = () => (
   <header id="app-header">

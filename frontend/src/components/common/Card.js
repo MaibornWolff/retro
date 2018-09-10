@@ -6,12 +6,11 @@ import { faThumbsUp, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Button from "./Button";
 
 const CardFooter = styled.div`
-  padding: .8em;
+  padding: 0.8em;
   display: flex;
   justify-content: space-between;
 `;
 
-/* eslint-disable jsx-a11y/anchor-is-valid */
 const Card = ({ cardTitle, cardContent, cardPoints }) => (
   <div className="card">
     <header className="card-header">
@@ -21,18 +20,15 @@ const Card = ({ cardTitle, cardContent, cardPoints }) => (
       <div className="content">{cardContent}</div>
     </div>
     <CardFooter>
-      <Button
-        className="is-info is-rounded is-outlined"
-        type="button"
-      >
+      <Button type="button" className="is-info is-rounded is-outlined">
         <FontAwesomeIcon icon={faEdit} />
       </Button>
       <p>
-        <strong>{cardPoints}</strong>
+        <strong>{cardPoints} Points</strong>
       </p>
       <Button
-        className="is-info is-rounded is-outlined"
         type="button"
+        className="is-info is-rounded is-outlined"
       >
         <FontAwesomeIcon icon={faThumbsUp} />
       </Button>

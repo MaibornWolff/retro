@@ -5,29 +5,18 @@ import Button from "./common/Button";
 import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD } from "../utils/constants";
 
 export default class BoardItemForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      author: "",
-      content: "",
-    };
-
-    this.handleAuthorChange = this.handleAuthorChange.bind(this);
-    this.handleContentChange = this.handleContentChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    author: "",
+    content: ""
+  };
 
   closeModal = () => document.querySelector(".custom-modal > button").click();
 
-  handleAuthorChange(event) {
-    this.setState({ author: event.target.value });
-  }
+  handleAuthorChange = event => this.setState({ author: event.target.value });
 
-  handleContentChange(event) {
-    this.setState({ content: event.target.value });
-  }
+  handleContentChange = event => this.setState({ content: event.target.value });
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
@@ -45,7 +34,7 @@ export default class BoardItemForm extends React.Component {
     socket.emit(CREATE_CARD, newCard, columnId);
     this.setState({ author: "", content: "" });
     this.closeModal();
-  }
+  };
 
   render() {
     const { author, content } = this.state;

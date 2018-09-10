@@ -54,37 +54,18 @@ const ColumnActionButton = styled(Button)`
 `;
 
 export default class BoardColumn extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      openCreateColumnModal: false,
-      openDeleteColumnModal: false
-    };
+  state = {
+    isCreateColumn: false,
+    isDeleteColumn: false
+  };
 
-    this.onOpenCreateColumnModal = this.onOpenCreateColumnModal.bind(this);
-    this.onOpenDeleteColumnModal = this.onOpenDeleteColumnModal.bind(this);
-    this.onCloseCreateColumnModal = this.onCloseCreateColumnModal.bind(this);
-    this.onCloseDeleteColumnModal = this.onCloseDeleteColumnModal.bind(this);
-  }
-
-  onOpenCreateColumnModal() {
-    this.setState({ openCreateColumnModal: true });
-  }
-
-  onOpenDeleteColumnModal() {
-    this.setState({ openDeleteColumnModal: true });
-  }
-
-  onCloseCreateColumnModal() {
-    this.setState({ openCreateColumnModal: false });
-  }
-
-  onCloseDeleteColumnModal() {
-    this.setState({ openDeleteColumnModal: false });
-  }
+  onOpenCreate = () => this.setState({ isCreateColumn: true });
+  onCloseCreate = () => this.setState({ isCreateColumn: false });
+  onOpenDelete = () => this.setState({ isDeleteColumn: true });
+  onCloseDelete = () => this.setState({ isDeleteColumn: false });
 
   render() {
-    const { openCreateColumnModal, openDeleteColumnModal } = this.state;
+    const { isCreateColumn, isDeleteColumn } = this.state;
     const { column, items, index, boardItemsCount } = this.props;
 
     return (
@@ -101,21 +82,21 @@ export default class BoardColumn extends React.Component {
               <ButtonContainer>
                 <ColumnActionButton
                   className="is-success is-rounded is-small"
-                  onClick={this.onOpenCreateColumnModal}
+                  onClick={this.onOpenCreate}
                 >
                   <FontAwesomeIcon icon={faPlus} />
                 </ColumnActionButton>
                 <ColumnActionButton
                   className="is-danger is-rounded is-small"
-                  onClick={this.onOpenDeleteColumnModal}
+                  onClick={this.onOpenDelete}
                 >
                   <FontAwesomeIcon icon={faTrashAlt} />
                 </ColumnActionButton>
               </ButtonContainer>
 
               <Modal
-                open={openCreateColumnModal}
-                onClose={this.onCloseCreateColumnModal}
+                open={isCreateColumn}
+                onClose={this.onCloseCreate}
                 center
                 classNames={{ modal: "custom-modal" }}
               >
@@ -125,8 +106,8 @@ export default class BoardColumn extends React.Component {
                 />
               </Modal>
               <Modal
-                open={openDeleteColumnModal}
-                onClose={this.onCloseDeleteColumnModal}
+                open={isDeleteColumn}
+                onClose={this.onCloseDelete}
                 center
                 classNames={{ modal: "custom-modal" }}
               >
