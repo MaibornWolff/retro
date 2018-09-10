@@ -20,7 +20,7 @@ const Card = ({ cardTitle, cardContent, cardPoints }) => (
       <div className="content">{cardContent}</div>
     </div>
     <CardFooter>
-      <Button type="button" className="is-info is-rounded is-outlined">
+      <Button type="button" className="is-info is-rounded is-inverted">
         <FontAwesomeIcon icon={faEdit} />
       </Button>
       <p>
@@ -28,7 +28,7 @@ const Card = ({ cardTitle, cardContent, cardPoints }) => (
       </p>
       <Button
         type="button"
-        className="is-info is-rounded is-outlined"
+        className="is-info is-rounded is-inverted"
       >
         <FontAwesomeIcon icon={faThumbsUp} />
       </Button>
