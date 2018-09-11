@@ -4,18 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "./common/Button";
+import { closeModal } from "../utils/helpers";
 import { LOCAL_BACKEND_ENDPOINT, DELETE_COLUMN } from "../utils/constants";
 
 export default class DeleteColumnForm extends React.Component {
-  closeModal = () => document.querySelector(".custom-modal > button").click();
-
   handleClick = event => {
     event.preventDefault();
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
     const { columnId } = this.props;
 
     socket.emit(DELETE_COLUMN, columnId);
-    this.closeModal();
+    closeModal();
   };
 
   render() {

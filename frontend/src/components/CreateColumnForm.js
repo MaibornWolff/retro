@@ -2,12 +2,11 @@ import React from "react";
 import socketIO from "socket.io-client";
 
 import Button from "./common/Button";
+import { closeModal } from "../utils/helpers";
 import { LOCAL_BACKEND_ENDPOINT, CREATE_COLUMN } from "../utils/constants";
 
 export default class CreateColumnForm extends React.Component {
   state = { title: "" };
-
-  closeModal = () => document.querySelector(".custom-modal > button").click();
 
   handleTitleChange = event => this.setState({ title: event.target.value });
 
@@ -23,7 +22,7 @@ export default class CreateColumnForm extends React.Component {
     socket.emit(CREATE_COLUMN, newColumn);
 
     this.setState({ title: "" });
-    this.closeModal();
+    closeModal();
   };
 
   render() {

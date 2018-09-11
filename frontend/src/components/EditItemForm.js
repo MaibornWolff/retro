@@ -2,12 +2,11 @@ import React from "react";
 import socketIO from "socket.io-client";
 
 import Button from "./common/Button";
+import { closeModal } from "../utils/helpers";
 import { LOCAL_BACKEND_ENDPOINT, EDIT_CARD } from "../utils/constants";
 
 export default class EditItemForm extends React.Component {
   state = { ...this.props };
-
-  closeModal = () => document.querySelector(".custom-modal > button").click();
 
   handleTitleChange = event => this.setState({ cardTitle: event.target.value });
 
@@ -22,7 +21,7 @@ export default class EditItemForm extends React.Component {
 
     socket.emit(EDIT_CARD, cardTitle, cardContent, cardId);
     this.setState({ cardTitle: "", cardContent: "" });
-    this.closeModal();
+    closeModal();
   };
 
   render() {

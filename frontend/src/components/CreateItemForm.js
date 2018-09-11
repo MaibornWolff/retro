@@ -2,6 +2,7 @@ import React from "react";
 import socketIO from "socket.io-client";
 
 import Button from "./common/Button";
+import { closeModal } from "../utils/helpers";
 import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD } from "../utils/constants";
 
 export default class CreateItemForm extends React.Component {
@@ -9,8 +10,6 @@ export default class CreateItemForm extends React.Component {
     author: "",
     content: ""
   };
-
-  closeModal = () => document.querySelector(".custom-modal > button").click();
 
   handleAuthorChange = event => this.setState({ author: event.target.value });
 
@@ -33,7 +32,7 @@ export default class CreateItemForm extends React.Component {
 
     socket.emit(CREATE_CARD, newCard, columnId);
     this.setState({ author: "", content: "" });
-    this.closeModal();
+    closeModal();
   };
 
   render() {
