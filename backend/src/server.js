@@ -16,7 +16,8 @@ const {
   DELETE_COLUMN,
   BOARD_UPDATE,
   UPVOTE_CARD,
-  EDIT_CARD
+  EDIT_CARD,
+  SORT_COLUMN
 } = require("./utils/socketEvents");
 
 app.use(bodyParser.json());
@@ -45,6 +46,10 @@ io.on(CONNECTION, client => {
 
   client.on(EDIT_CARD, (author, content, id) => {
     io.sockets.emit(EDIT_CARD, author, content, id);
+  });
+
+  client.on(SORT_COLUMN, (id, items) => {
+    io.sockets.emit(SORT_COLUMN, id, items);
   });
 });
 

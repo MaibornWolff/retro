@@ -14,7 +14,8 @@ import {
   DELETE_COLUMN,
   BOARD_UPDATE,
   UPVOTE_CARD,
-  EDIT_CARD
+  EDIT_CARD,
+  SORT_COLUMN
 } from "../utils/constants";
 
 const Container = styled.div`
@@ -35,6 +36,7 @@ export default class Board extends React.Component {
     socket.on(CREATE_CARD, (card, columnId) => {
       items[card.id] = card;
       columns[columnId].itemIds.push(card.id);
+
       this.setState({
         items,
         columns,
@@ -45,6 +47,7 @@ export default class Board extends React.Component {
     socket.on(CREATE_COLUMN, column => {
       columns[column.id] = column;
       columnOrder.push(column.id);
+
       this.setState({
         columns,
         columnOrder,
@@ -76,6 +79,7 @@ export default class Board extends React.Component {
 
     socket.on(UPVOTE_CARD, cardId => {
       items[cardId].points += 1;
+
       this.setState({ items });
     });
 
@@ -83,7 +87,18 @@ export default class Board extends React.Component {
       const card = items[cardId];
       card.author = cardAuthor;
       card.content = cardContent;
+
       this.setState({ items });
+    });
+
+    socket.on(SORT_COLUMN, (colId, colItems) => {
+      const sortedItemIds = [];
+      const sortedItems = _.orderBy(colItems, "points", "desc");
+
+      sortedItems.forEach(item => sortedItemIds.push(item.id));
+      columns[colId].itemIds = sortedItemIds;
+
+      this.setState({ columns });
     });
   }
 
@@ -170,13 +185,7 @@ export default class Board extends React.Component {
   };
 
   render() {
-    const {
-      columns,
-      items,
-      title,
-      itemsCount,
-      columnsCount
-    } = this.state;
+    const { columns, items, title, itemsCount, columnsCount } = this.state;
 
     return (
       <div>

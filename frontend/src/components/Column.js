@@ -1,15 +1,21 @@
 import React from "react";
+import socketIO from "socket.io-client";
 import Modal from "react-responsive-modal";
 import styled from "styled-components";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faTrashAlt,
+  faSortAmountDown
+} from "@fortawesome/free-solid-svg-icons";
 
 import Title from "./common/Title";
 import Button from "./common/Button";
 import CreateItemForm from "./CreateItemForm";
 import DeleteColumnForm from "./DeleteColumnForm";
 import Items from "./Items";
+import { LOCAL_BACKEND_ENDPOINT, SORT_COLUMN } from "../utils/constants";
 
 import "../styles/Modal.css";
 
@@ -67,6 +73,11 @@ export default class Column extends React.Component {
 
   onCloseDelete = () => this.setState({ isDeleteColumn: false });
 
+  onSort = (columnId, items) => {
+    const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
+    socket.emit(SORT_COLUMN, columnId, items);
+  };
+
   render() {
     const { isCreateColumn, isDeleteColumn } = this.state;
     const { column, items, index, itemsCount } = this.props;
@@ -95,6 +106,12 @@ export default class Column extends React.Component {
                 >
                   <FontAwesomeIcon icon={faTrashAlt} />
                 </ColumnActionButton>
+                <ColumnActionButton
+                  className="is-info is-rounded is-small"
+                  onClick={() => this.onSort(column.id, items)}
+                >
+                  <FontAwesomeIcon icon={faSortAmountDown} />
+                </ColumnActionButton>
               </ButtonContainer>
 
               <Modal
@@ -103,10 +120,7 @@ export default class Column extends React.Component {
                 center
                 classNames={{ modal: "custom-modal" }}
               >
-                <CreateItemForm
-                  columnId={column.id}
-                  itemsCount={itemsCount}
-                />
+                <CreateItemForm columnId={column.id} itemsCount={itemsCount} />
               </Modal>
 
               <Modal
