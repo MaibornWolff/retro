@@ -4,20 +4,15 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import { HeaderContainer, BoardTitleStyles } from "../styles/styledComponents";
 import Title from "./common/Title";
 import Button from "./common/Button";
 import CreateColumnForm from "./CreateColumnForm";
 
 import "../styles/Modal.css";
 
-const Container = styled.div`
-  margin: 1.5em 1em 0em 1em;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const StyledTitle = styled(Title)`
-  margin: 0 !important;
+const BoardTitle = styled(Title)`
+  ${BoardTitleStyles};
 `;
 
 export default class Header extends React.Component {
@@ -32,8 +27,8 @@ export default class Header extends React.Component {
     const { title, columnsCount } = this.props;
 
     return (
-      <Container>
-        <StyledTitle className="is-4">{title}</StyledTitle>
+      <HeaderContainer>
+        <BoardTitle className="is-4">{title}</BoardTitle>
         <Button className="is-info is-rounded" onClick={this.onOpenModal}>
           <FontAwesomeIcon icon={faPlus} />
           &nbsp; Column
@@ -46,7 +41,7 @@ export default class Header extends React.Component {
         >
           <CreateColumnForm columnsCount={columnsCount} />
         </Modal>
-      </Container>
+      </HeaderContainer>
     );
   }
 }

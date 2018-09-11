@@ -1,13 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 
+import { ItemContainer } from "../styles/styledComponents";
 import Card from "./common/Card";
-
-const Container = styled.div`
-  margin-bottom: 1.5em;
-  box-shadow: 4px 4px 1px lightgrey;
-`;
 
 const Item = props => {
   const { item, index } = props;
@@ -15,7 +10,7 @@ const Item = props => {
   return (
     <Draggable draggableId={item.id} index={index}>
       {(provided, snapshot) => (
-        <Container
+        <ItemContainer
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           innerRef={provided.innerRef}
@@ -27,7 +22,7 @@ const Item = props => {
             cardContent={item.content}
             cardPoints={item.points}
           />
-        </Container>
+        </ItemContainer>
       )}
     </Draggable>
   );

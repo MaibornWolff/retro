@@ -10,6 +10,14 @@ import {
   faSortAmountDown
 } from "@fortawesome/free-solid-svg-icons";
 
+import {
+  ColumnContainer,
+  ColumnHeader,
+  FlexContainer,
+  ItemsContainerStyles,
+  ColumnTitleStyles,
+  ColumnActionButtonStyles
+} from "../styles/styledComponents";
 import Title from "./common/Title";
 import Button from "./common/Button";
 import CreateItemForm from "./CreateItemForm";
@@ -19,44 +27,16 @@ import { LOCAL_BACKEND_ENDPOINT, SORT_COLUMN } from "../utils/constants";
 
 import "../styles/Modal.css";
 
-const Container = styled.div`
-  width: 400px;
-  margin: 1em;
-  border: 1px solid lightgrey;
-  border-radius: 2px;
-  background-color: white;
-  box-shadow: 2px 2px 1px lightgrey;
-  display: flex;
-  flex-direction: column;
-`;
-
-const StyledTitle = styled(Title)`
-  padding: 8px;
-  margin-bottom: 0 !important;
-`;
-
 const ItemsContainer = styled.div`
-  padding: 1em;
-  transition: background-color 0.2s ease;
-  flex-grow: 1;
-  min-height: 100px;
-  background-color: ${props =>
-    props.isDraggingOver ? "lightgrey" : "inherit"};
+  ${ItemsContainerStyles};
 `;
 
-const ColumnHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  background-color: #f5f5f5;
-  padding: 1em;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
+const ColumnTitle = styled(Title)`
+  ${ColumnTitleStyles};
 `;
 
 const ColumnActionButton = styled(Button)`
-  margin-left: 0.2em;
+  ${ColumnActionButtonStyles};
 `;
 
 export default class Column extends React.Component {
@@ -85,15 +65,15 @@ export default class Column extends React.Component {
     return (
       <Draggable draggableId={column.id} index={index}>
         {providedDraggable => (
-          <Container
+          <ColumnContainer
             {...providedDraggable.draggableProps}
             {...providedDraggable.dragHandleProps}
             innerRef={providedDraggable.innerRef}
           >
             <ColumnHeader>
-              <StyledTitle className="is-5">{column.title}</StyledTitle>
+              <ColumnTitle className="is-5">{column.title}</ColumnTitle>
 
-              <ButtonContainer>
+              <FlexContainer>
                 <ColumnActionButton
                   className="is-success is-rounded is-small"
                   onClick={this.onOpenCreate}
@@ -112,7 +92,7 @@ export default class Column extends React.Component {
                 >
                   <FontAwesomeIcon icon={faSortAmountDown} />
                 </ColumnActionButton>
-              </ButtonContainer>
+              </FlexContainer>
 
               <Modal
                 open={isCreateColumn}
@@ -145,7 +125,7 @@ export default class Column extends React.Component {
                 </ItemsContainer>
               )}
             </Droppable>
-          </Container>
+          </ColumnContainer>
         )}
       </Draggable>
     );

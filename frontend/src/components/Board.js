@@ -1,9 +1,9 @@
 import React from "react";
 import _ from "lodash";
 import socketIO from "socket.io-client";
-import styled from "styled-components";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
+import { FlexContainer } from "../styles/styledComponents";
 import board from "../utils/seed";
 import Header from "./Header";
 import Columns from "./Columns";
@@ -17,10 +17,6 @@ import {
   EDIT_CARD,
   SORT_COLUMN
 } from "../utils/constants";
-
-const Container = styled.div`
-  display: flex;
-`;
 
 export default class Board extends React.Component {
   state = {
@@ -197,7 +193,7 @@ export default class Board extends React.Component {
             type="column"
           >
             {provided => (
-              <Container
+              <FlexContainer
                 {...provided.droppableProps}
                 innerRef={provided.innerRef}
               >
@@ -214,7 +210,7 @@ export default class Board extends React.Component {
                   );
                 })}
                 {provided.placeholder}
-              </Container>
+              </FlexContainer>
             )}
           </Droppable>
         </DragDropContext>
