@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import Modal from "react-responsive-modal";
 import socketIO from "socket.io-client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,19 +6,10 @@ import { faThumbsUp, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "./Button";
 import EditItemForm from "../EditItemForm";
+import { CardFooter, CardPoints } from "../../styles/styledComponents";
 import { LOCAL_BACKEND_ENDPOINT, UPVOTE_CARD } from "../../utils/constants";
 
 import "../../styles/Modal.css";
-
-const CardFooter = styled.div`
-  padding: 0.8em;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const CardPoints = styled.p`
-  font-weight: bold;
-`;
 
 export default class Card extends React.Component {
   state = { open: false };

@@ -1,4 +1,3 @@
-/* eslint-disable react/button-has-type */
 import React from "react";
 
 const Button = ({ className, onClick, children, type }) => (

@@ -33,6 +33,16 @@ export const ItemContainer = styled.div`
   box-shadow: 4px 4px 1px lightgrey;
 `;
 
+export const CardFooter = styled.div`
+  padding: 0.8em;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const CardPoints = styled.p`
+  font-weight: bold;
+`;
+
 export const ItemsContainerStyles = css`
   padding: 1em;
   transition: background-color 0.2s ease;
