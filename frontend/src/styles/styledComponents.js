@@ -34,13 +34,21 @@ export const ItemContainer = styled.div`
 `;
 
 export const CardFooter = styled.div`
-  padding: 0.8em;
+  padding: .5em;
   display: flex;
   justify-content: space-between;
 `;
 
-export const CardPoints = styled.p`
+export const CardPoints = styled.div`
   font-weight: bold;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  height: 2em;
+  width: 2em;
+  margin: .5em;
 `;
 
 export const ItemsContainerStyles = css`

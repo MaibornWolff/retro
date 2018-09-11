@@ -15,7 +15,8 @@ import {
   BOARD_UPDATE,
   UPVOTE_CARD,
   EDIT_CARD,
-  SORT_COLUMN
+  SORT_COLUMN,
+  DELETE_CARD
 } from "../utils/constants";
 
 export default class Board extends React.Component {
@@ -95,6 +96,17 @@ export default class Board extends React.Component {
       columns[colId].itemIds = sortedItemIds;
 
       this.setState({ columns });
+    });
+
+    socket.on(DELETE_CARD, cardId => {
+      _.unset(items, cardId);
+      _.forIn(columns, col => _.remove(col.itemIds, id => id === cardId));
+
+      this.setState({
+        items,
+        columns,
+        itemsCount: _.size(items)
+      });
     });
   }
 

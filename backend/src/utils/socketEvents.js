@@ -7,5 +7,6 @@ module.exports = {
   BOARD_UPDATE: "board update",
   UPVOTE_CARD: "upvote card",
   EDIT_CARD: "edit card",
-  SORT_COLUMN: "sort column"
+  SORT_COLUMN: "sort column",
+  DELETE_CARD: "delete card"
 };
