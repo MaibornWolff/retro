@@ -75,7 +75,7 @@ export default class Column extends React.Component {
 
               <FlexContainer>
                 <ColumnActionButton
-                  className="is-success is-rounded is-small"
+                  className="is-primary is-rounded is-small"
                   onClick={this.onOpenCreate}
                 >
                   <FontAwesomeIcon icon={faPlus} />
