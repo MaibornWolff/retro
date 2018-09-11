@@ -9,7 +9,7 @@ const Container = styled.div`
   box-shadow: 4px 4px 1px lightgrey;
 `;
 
-export default class BoardItem extends React.Component {
+export default class Item extends React.Component {
   render() {
     const { item, index } = this.props;
 

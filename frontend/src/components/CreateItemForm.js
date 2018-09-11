@@ -4,7 +4,7 @@ import socketIO from "socket.io-client";
 import Button from "./common/Button";
 import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD } from "../utils/constants";
 
-export default class BoardItemForm extends React.Component {
+export default class CreateItemForm extends React.Component {
   state = {
     author: "",
     content: ""
@@ -21,8 +21,8 @@ export default class BoardItemForm extends React.Component {
 
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
     const { author, content } = this.state;
-    const { boardItemsCount, columnId } = this.props;
-    const id = boardItemsCount + 1;
+    const { itemsCount, columnId } = this.props;
+    const id = itemsCount + 1;
 
     const newCard = {
       id: `item-${id}`,

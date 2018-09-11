@@ -6,7 +6,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import Title from "./common/Title";
 import Button from "./common/Button";
-import BoardColumnForm from "./BoardColumnForm";
+import CreateColumnForm from "./CreateColumnForm";
 
 import "../styles/Modal.css";
 
@@ -20,7 +20,7 @@ const StyledTitle = styled(Title)`
   margin: 0 !important;
 `;
 
-export default class BoardHeader extends React.Component {
+export default class Header extends React.Component {
   state = { open: false };
 
   onOpenModal = () => this.setState({ open: true });
@@ -29,7 +29,7 @@ export default class BoardHeader extends React.Component {
 
   render() {
     const { open } = this.state;
-    const { title, boardColumnsCount } = this.props;
+    const { title, columnsCount } = this.props;
 
     return (
       <Container>
@@ -44,7 +44,7 @@ export default class BoardHeader extends React.Component {
           center
           classNames={{ modal: "custom-modal" }}
         >
-          <BoardColumnForm boardColumnsCount={boardColumnsCount} />
+          <CreateColumnForm columnsCount={columnsCount} />
         </Modal>
       </Container>
     );

@@ -13,6 +13,10 @@ const CardFooter = styled.div`
   justify-content: space-between;
 `;
 
+const CardPoints = styled.p`
+  font-weight: bold;
+`;
+
 export default class Card extends React.Component {
   handleUpvote = cardId => {
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
@@ -34,9 +38,7 @@ export default class Card extends React.Component {
           <Button type="button" className="is-info is-rounded is-inverted">
             <FontAwesomeIcon icon={faEdit} />
           </Button>
-          <p>
-            <strong>{cardPoints} Points</strong>
-          </p>
+          <CardPoints>{cardPoints} Points</CardPoints>
           <Button
             type="button"
             className="is-info is-rounded is-inverted"

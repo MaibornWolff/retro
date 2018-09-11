@@ -7,9 +7,9 @@ import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import Title from "./common/Title";
 import Button from "./common/Button";
-import BoardItemForm from "./BoardItemForm";
-import BoardColumnInnerList from "./BoardColumnInnerList";
-import BoardDeleteColumnForm from "./BoardDeleteColumnForm";
+import CreateItemForm from "./CreateItemForm";
+import DeleteColumnForm from "./DeleteColumnForm";
+import Items from "./Items";
 
 import "../styles/Modal.css";
 
@@ -29,7 +29,7 @@ const StyledTitle = styled(Title)`
   margin-bottom: 0 !important;
 `;
 
-const CardList = styled.div`
+const ItemsContainer = styled.div`
   padding: 1em;
   transition: background-color 0.2s ease;
   flex-grow: 1;
@@ -53,7 +53,7 @@ const ColumnActionButton = styled(Button)`
   margin-left: 0.2em;
 `;
 
-export default class BoardColumn extends React.Component {
+export default class Column extends React.Component {
   state = {
     isCreateColumn: false,
     isDeleteColumn: false
@@ -69,7 +69,7 @@ export default class BoardColumn extends React.Component {
 
   render() {
     const { isCreateColumn, isDeleteColumn } = this.state;
-    const { column, items, index, boardItemsCount } = this.props;
+    const { column, items, index, itemsCount } = this.props;
 
     return (
       <Draggable draggableId={column.id} index={index}>
@@ -103,31 +103,32 @@ export default class BoardColumn extends React.Component {
                 center
                 classNames={{ modal: "custom-modal" }}
               >
-                <BoardItemForm
+                <CreateItemForm
                   columnId={column.id}
-                  boardItemsCount={boardItemsCount}
+                  itemsCount={itemsCount}
                 />
               </Modal>
+
               <Modal
                 open={isDeleteColumn}
                 onClose={this.onCloseDelete}
                 center
                 classNames={{ modal: "custom-modal" }}
               >
-                <BoardDeleteColumnForm columnId={column.id} />
+                <DeleteColumnForm columnId={column.id} />
               </Modal>
             </ColumnHeader>
 
             <Droppable droppableId={column.id} type="item">
               {(providedDroppable, snapshot) => (
-                <CardList
+                <ItemsContainer
                   innerRef={providedDroppable.innerRef}
                   {...providedDroppable.droppableProps}
                   isDraggingOver={snapshot.isDraggingOver}
                 >
-                  <BoardColumnInnerList items={items} />
+                  <Items items={items} />
                   {providedDroppable.placeholder}
-                </CardList>
+                </ItemsContainer>
               )}
             </Droppable>
           </Container>

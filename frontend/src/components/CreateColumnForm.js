@@ -4,7 +4,7 @@ import socketIO from "socket.io-client";
 import Button from "./common/Button";
 import { LOCAL_BACKEND_ENDPOINT, CREATE_COLUMN } from "../utils/constants";
 
-export default class BoardColumnForm extends React.Component {
+export default class CreateColumnForm extends React.Component {
   state = { title: "" };
 
   closeModal = () => document.querySelector(".custom-modal > button").click();
@@ -16,8 +16,8 @@ export default class BoardColumnForm extends React.Component {
 
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
     const { title } = this.state;
-    const { boardColumnsCount } = this.props;
-    const id = `column-${boardColumnsCount + 1}`;
+    const { columnsCount } = this.props;
+    const id = `column-${columnsCount + 1}`;
 
     const newColumn = { id, title, itemIds: [] };
     socket.emit(CREATE_COLUMN, newColumn);

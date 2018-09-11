@@ -4,7 +4,7 @@ import socketIO from "socket.io-client";
 import Button from "./common/Button";
 import { LOCAL_BACKEND_ENDPOINT, DELETE_COLUMN } from "../utils/constants";
 
-export default class BoardDeleteColumnForm extends React.Component {
+export default class DeleteColumnForm extends React.Component {
   closeModal = () => document.querySelector(".custom-modal > button").click();
 
   handleClick = event => {

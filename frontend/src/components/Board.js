@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import board from "../utils/seed";
-import BoardHeader from "./BoardHeader";
-import ColumnContainer from "./ColumnContainer";
+import Header from "./Header";
+import Columns from "./Columns";
 import {
   LOCAL_BACKEND_ENDPOINT,
   CREATE_CARD,
@@ -23,8 +23,8 @@ const Container = styled.div`
 export default class Board extends React.Component {
   state = {
     ...board,
-    boardItemsCount: _.size(board.items),
-    boardColumnsCount: _.size(board.columns)
+    itemsCount: _.size(board.items),
+    columnsCount: _.size(board.columns)
   };
 
   componentDidMount() {
@@ -37,7 +37,7 @@ export default class Board extends React.Component {
       this.setState({
         items,
         columns,
-        boardItemsCount: _.size(items)
+        itemsCount: _.size(items)
       });
     });
 
@@ -47,7 +47,7 @@ export default class Board extends React.Component {
       this.setState({
         columns,
         columnOrder,
-        boardColumnsCount: _.size(columns)
+        itemsCount: _.size(columns)
       });
     });
 
@@ -64,8 +64,8 @@ export default class Board extends React.Component {
         items,
         columns,
         columnOrder,
-        boardItemsCount: _.size(items),
-        boardColumnsCount: _.size(columns)
+        itemsCount: _.size(items),
+        columnsCount: _.size(columns)
       });
     });
 
@@ -166,13 +166,13 @@ export default class Board extends React.Component {
       columns,
       items,
       title,
-      boardItemsCount,
-      boardColumnsCount
+      itemsCount,
+      columnsCount
     } = this.state;
 
     return (
       <div>
-        <BoardHeader title={title} boardColumnsCount={boardColumnsCount} />
+        <Header title={title} columnsCount={columnsCount} />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable
             droppableId="allColumns"
@@ -187,12 +187,12 @@ export default class Board extends React.Component {
                 {this.state.columnOrder.map((columnId, index) => {
                   const column = columns[columnId];
                   return (
-                    <ColumnContainer
+                    <Columns
                       key={column.id}
                       column={column}
                       itemMap={items}
                       index={index}
-                      boardItemsCount={boardItemsCount}
+                      itemsCount={itemsCount}
                     />
                   );
                 })}
