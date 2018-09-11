@@ -9,28 +9,28 @@ const Container = styled.div`
   box-shadow: 4px 4px 1px lightgrey;
 `;
 
-export default class Item extends React.Component {
-  render() {
-    const { item, index } = this.props;
+const Item = props => {
+  const { item, index } = props;
 
-    return (
-      <Draggable draggableId={item.id} index={index}>
-        {(provided, snapshot) => (
-          <Container
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            innerRef={provided.innerRef}
-            isDragging={snapshot.isDragging}
-          >
-            <Card
-              cardId={item.id}
-              cardTitle={item.author}
-              cardContent={item.content}
-              cardPoints={item.points}
-            />
-          </Container>
-        )}
-      </Draggable>
-    );
-  }
-}
+  return (
+    <Draggable draggableId={item.id} index={index}>
+      {(provided, snapshot) => (
+        <Container
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          innerRef={provided.innerRef}
+          isDragging={snapshot.isDragging}
+        >
+          <Card
+            cardId={item.id}
+            cardTitle={item.author}
+            cardContent={item.content}
+            cardPoints={item.points}
+          />
+        </Container>
+      )}
+    </Draggable>
+  );
+};
+
+export default Item;

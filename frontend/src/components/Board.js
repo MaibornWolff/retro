@@ -13,7 +13,8 @@ import {
   CREATE_COLUMN,
   DELETE_COLUMN,
   BOARD_UPDATE,
-  UPVOTE_CARD
+  UPVOTE_CARD,
+  EDIT_CARD
 } from "../utils/constants";
 
 const Container = styled.div`
@@ -75,6 +76,13 @@ export default class Board extends React.Component {
 
     socket.on(UPVOTE_CARD, cardId => {
       items[cardId].points += 1;
+      this.setState({ items });
+    });
+
+    socket.on(EDIT_CARD, (cardAuthor, cardContent, cardId) => {
+      const card = items[cardId];
+      card.author = cardAuthor;
+      card.content = cardContent;
       this.setState({ items });
     });
   }
