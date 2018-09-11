@@ -6,13 +6,14 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import board from "../utils/seed";
 import BoardHeader from "./BoardHeader";
-import BoardInnerList from "./BoardInnerList";
+import ColumnContainer from "./ColumnContainer";
 import {
   LOCAL_BACKEND_ENDPOINT,
   CREATE_CARD,
   CREATE_COLUMN,
   DELETE_COLUMN,
-  BOARD_UPDATE
+  BOARD_UPDATE,
+  UPVOTE_CARD
 } from "../utils/constants";
 
 const Container = styled.div`
@@ -70,6 +71,11 @@ export default class Board extends React.Component {
 
     socket.on(BOARD_UPDATE, newBoard => {
       this.setState({ ...newBoard });
+    });
+
+    socket.on(UPVOTE_CARD, cardId => {
+      items[cardId].points += 1;
+      this.setState({ items });
     });
   }
 
@@ -181,7 +187,7 @@ export default class Board extends React.Component {
                 {this.state.columnOrder.map((columnId, index) => {
                   const column = columns[columnId];
                   return (
-                    <BoardInnerList
+                    <ColumnContainer
                       key={column.id}
                       column={column}
                       itemMap={items}

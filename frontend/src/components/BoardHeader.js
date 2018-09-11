@@ -24,7 +24,7 @@ export default class BoardHeader extends React.Component {
   state = { open: false };
 
   onOpenModal = () => this.setState({ open: true });
-  
+
   onCloseModal = () => this.setState({ open: false });
 
   render() {

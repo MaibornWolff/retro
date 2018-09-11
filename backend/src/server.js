@@ -15,6 +15,7 @@ const {
   CREATE_COLUMN,
   DELETE_COLUMN,
   BOARD_UPDATE,
+  UPVOTE_CARD
 } = require("./utils/socketEvents");
 
 app.use(bodyParser.json());
@@ -36,6 +37,10 @@ io.on(CONNECTION, client => {
   client.on(BOARD_UPDATE, board => {
     io.sockets.emit(BOARD_UPDATE, board);
   });
+
+  client.on(UPVOTE_CARD, (cardId) => {
+    io.sockets.emit(UPVOTE_CARD, cardId);
+  })
 });
 
 const port = process.env.PORT;

@@ -60,8 +60,11 @@ export default class BoardColumn extends React.Component {
   };
 
   onOpenCreate = () => this.setState({ isCreateColumn: true });
+
   onCloseCreate = () => this.setState({ isCreateColumn: false });
+
   onOpenDelete = () => this.setState({ isDeleteColumn: true });
+
   onCloseDelete = () => this.setState({ isDeleteColumn: false });
 
   render() {
