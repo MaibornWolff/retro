@@ -1,9 +1,9 @@
 import React from "react";
 import socketIO from "socket.io-client";
 
-import Button from "./common/Button";
-import { closeModal } from "../utils/helpers";
-import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD } from "../utils/constants";
+import Button from "../common/Button";
+import { closeModal } from "../../utils/helpers";
+import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD } from "../../utils/constants";
 
 export default class CreateItemForm extends React.Component {
   state = {

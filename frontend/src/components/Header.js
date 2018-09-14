@@ -7,7 +7,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { HeaderContainer, BoardTitleStyles } from "../styles/styledComponents";
 import Title from "./common/Title";
 import Button from "./common/Button";
-import CreateColumnForm from "./CreateColumnForm";
+import CreateColumnForm from "./forms/CreateColumnForm";
 
 import "../styles/Modal.css";
 

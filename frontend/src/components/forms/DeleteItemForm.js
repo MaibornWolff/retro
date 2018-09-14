@@ -3,17 +3,17 @@ import socketIO from "socket.io-client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
-import Button from "./common/Button";
-import { closeModal } from "../utils/helpers";
-import { LOCAL_BACKEND_ENDPOINT, DELETE_COLUMN } from "../utils/constants";
+import Button from "../common/Button";
+import { closeModal } from "../../utils/helpers";
+import { LOCAL_BACKEND_ENDPOINT, DELETE_CARD } from "../../utils/constants";
 
-export default class DeleteColumnForm extends React.Component {
+export default class DeleteItemForm extends React.Component {
   handleClick = event => {
     event.preventDefault();
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
-    const { columnId } = this.props;
+    const { cardId } = this.props;
 
-    socket.emit(DELETE_COLUMN, columnId);
+    socket.emit(DELETE_CARD, cardId);
     closeModal();
   };
 
@@ -25,7 +25,7 @@ export default class DeleteColumnForm extends React.Component {
           <FontAwesomeIcon icon={faExclamationCircle} />
         </h3>
         <h5 className="subtitle is-5">
-          Do you really want to delete this column?
+          Do you really want to delete this card?
         </h5>
         <Button className="is-danger is-rounded" onClick={this.handleClick}>
           Delete

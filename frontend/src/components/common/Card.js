@@ -9,8 +9,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "./Button";
-import EditItemForm from "../EditItemForm";
-import DeleteItemForm from "../DeleteItemForm";
+import EditItemForm from "../forms/EditItemForm";
+import DeleteItemForm from "../forms/DeleteItemForm";
 import { CardFooter, CardPoints } from "../../styles/styledComponents";
 import { LOCAL_BACKEND_ENDPOINT, UPVOTE_CARD } from "../../utils/constants";
 

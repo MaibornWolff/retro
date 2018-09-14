@@ -51,6 +51,10 @@ export const CardPoints = styled.div`
   margin: .5em;
 `;
 
+export const NavbarButton = styled.div`
+  margin: .5em;
+`;
+
 export const ItemsContainerStyles = css`
   padding: 1em;
   transition: background-color 0.2s ease;

@@ -20,8 +20,8 @@ import {
 } from "../styles/styledComponents";
 import Title from "./common/Title";
 import Button from "./common/Button";
-import CreateItemForm from "./CreateItemForm";
-import DeleteColumnForm from "./DeleteColumnForm";
+import CreateItemForm from "./forms/CreateItemForm";
+import DeleteColumnForm from "./forms/DeleteColumnForm";
 import Items from "./Items";
 import { LOCAL_BACKEND_ENDPOINT, SORT_COLUMN } from "../utils/constants";
 
