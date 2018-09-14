@@ -18,7 +18,8 @@ const {
   UPVOTE_CARD,
   EDIT_CARD,
   SORT_COLUMN,
-  DELETE_CARD
+  DELETE_CARD,
+  CREATE_BOARD
 } = require("./utils/socketEvents");
 
 app.use(bodyParser.json());
@@ -55,6 +56,10 @@ io.on(CONNECTION, client => {
 
   client.on(DELETE_CARD, cardId => {
     io.sockets.emit(DELETE_CARD, cardId);
+  });
+
+  client.on(CREATE_BOARD, newBoard => {
+    io.sockets.emit(CREATE_BOARD, newBoard);
   });
 });
 

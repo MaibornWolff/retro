@@ -4,6 +4,18 @@ export const FlexContainer = styled.div`
   display: flex;
 `;
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1em;
+`;
+
+export const Greeting = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 1.5em;
+`;
+
 export const ColumnContainer = styled.div`
   width: 400px;
   margin: 1em;
@@ -34,7 +46,7 @@ export const ItemContainer = styled.div`
 `;
 
 export const CardFooter = styled.div`
-  padding: .5em;
+  padding: 0.5em;
   display: flex;
   justify-content: space-between;
 `;
@@ -48,11 +60,11 @@ export const CardPoints = styled.div`
   border-radius: 50%;
   height: 2em;
   width: 2em;
-  margin: .5em;
+  margin: 0.5em;
 `;
 
 export const NavbarButton = styled.div`
-  margin: .5em;
+  margin: 0.5em;
 `;
 
 export const ItemsContainerStyles = css`

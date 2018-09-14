@@ -3,8 +3,8 @@ import _ from "lodash";
 import socketIO from "socket.io-client";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-import { FlexContainer } from "../styles/styledComponents";
-import board from "../utils/seed";
+import { FlexContainer, Greeting } from "../styles/styledComponents";
+import emptyBoard from "../utils/boards/emptyBoard";
 import Header from "./Header";
 import Columns from "./Columns";
 import {
@@ -16,14 +16,16 @@ import {
   UPVOTE_CARD,
   EDIT_CARD,
   SORT_COLUMN,
-  DELETE_CARD
+  DELETE_CARD,
+  CREATE_BOARD
 } from "../utils/constants";
 
 export default class Board extends React.Component {
   state = {
-    ...board,
-    itemsCount: _.size(board.items),
-    columnsCount: _.size(board.columns)
+    ...emptyBoard,
+    itemsCount: _.size(emptyBoard.items),
+    columnsCount: _.size(emptyBoard.columns),
+    boardEmpty: true
   };
 
   componentDidMount() {
@@ -48,7 +50,8 @@ export default class Board extends React.Component {
       this.setState({
         columns,
         columnOrder,
-        itemsCount: _.size(columns)
+        columnsCount: _.size(columns),
+        boardEmpty: false
       });
     });
 
@@ -89,13 +92,16 @@ export default class Board extends React.Component {
     });
 
     socket.on(SORT_COLUMN, (colId, colItems) => {
-      const sortedItemIds = [];
-      const sortedItems = _.orderBy(colItems, "points", "desc");
+      let sortedItemIds = [];
 
+      let sortedItems = _.orderBy(colItems, "points", "desc");
       sortedItems.forEach(item => sortedItemIds.push(item.id));
-      columns[colId].itemIds = sortedItemIds;
 
+      columns[colId].itemIds = sortedItemIds;
       this.setState({ columns });
+
+      sortedItemIds = [];
+      sortedItems = [];
     });
 
     socket.on(DELETE_CARD, cardId => {
@@ -106,6 +112,15 @@ export default class Board extends React.Component {
         items,
         columns,
         itemsCount: _.size(items)
+      });
+    });
+
+    socket.on(CREATE_BOARD, newBoard => {
+      this.setState({
+        ...newBoard,
+        itemsCount: 0,
+        columnsCount: 0,
+        boardEmpty: false
       });
     });
   }
@@ -192,12 +207,46 @@ export default class Board extends React.Component {
     socket.emit(BOARD_UPDATE, newState);
   };
 
+  renderGreeting() {
+    return (
+      <Greeting>
+        Welcome to Retro! To start your retrospective click the
+        {" "}
+        <q>New Board</q>
+        button above!
+      </Greeting>
+    );
+  }
+
+  renderBoard(columns, items, itemsCount) {
+    return this.state.columnOrder.map((columnId, index) => {
+      const column = columns[columnId];
+      return (
+        <Columns
+          key={column.id}
+          column={column}
+          itemMap={items}
+          index={index}
+          itemsCount={itemsCount}
+        />
+      );
+    });
+  }
+
   render() {
-    const { columns, items, title, itemsCount, columnsCount } = this.state;
+    const {
+      columns,
+      items,
+      title,
+      itemsCount,
+      columnsCount,
+      boardEmpty
+    } = this.state;
 
     return (
       <div>
-        <Header title={title} columnsCount={columnsCount} />
+        <Header title={title} columnsCount={columnsCount} boardEmpty={boardEmpty} />
+        {boardEmpty ? this.renderGreeting() : null}
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable
             droppableId="allColumns"
@@ -209,18 +258,7 @@ export default class Board extends React.Component {
                 {...provided.droppableProps}
                 innerRef={provided.innerRef}
               >
-                {this.state.columnOrder.map((columnId, index) => {
-                  const column = columns[columnId];
-                  return (
-                    <Columns
-                      key={column.id}
-                      column={column}
-                      itemMap={items}
-                      index={index}
-                      itemsCount={itemsCount}
-                    />
-                  );
-                })}
+                {this.renderBoard(columns, items, itemsCount)}
                 {provided.placeholder}
               </FlexContainer>
             )}

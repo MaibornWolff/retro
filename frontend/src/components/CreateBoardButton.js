@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-responsive-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "./common/Button";
 import { NavbarButton } from "../styles/styledComponents";
@@ -25,7 +25,7 @@ export default class CreateBoardButton extends React.Component {
           className="is-info is-rounded is-inverted is-outlined"
           onClick={this.onOpenModal}
         >
-          <FontAwesomeIcon icon={faCalendarPlus} />
+          <FontAwesomeIcon icon={faPlus} />
           &nbsp;New Board
         </Button>
 

@@ -8,5 +8,6 @@ module.exports = {
   UPVOTE_CARD: "upvote card",
   EDIT_CARD: "edit card",
   SORT_COLUMN: "sort column",
-  DELETE_CARD: "delete card"
+  DELETE_CARD: "delete card",
+  CREATE_BOARD: "create board"
 };

@@ -1,4 +1,4 @@
-const board = {
+const exampleBoard = {
   title: "PROJECT RETRO",
   items: {
     "item-1": {
@@ -46,4 +46,4 @@ const board = {
   columnOrder: ["column-1", "column-2", "column-3"]
 };
 
-export default board;
+export default exampleBoard;

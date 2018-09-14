@@ -1,10 +1,17 @@
 import React from "react";
+import isEmpty from "lodash/isEmpty";
 
 import Column from "./Column";
 
 const Columns = (props) => {
   const { column, itemMap, index, itemsCount } = props;
-  const items = column.itemIds.map(id => itemMap[id]);
+
+  let items;
+  if (isEmpty(column)) {
+    items = [];
+  } else {
+    items = column.itemIds.map(id => itemMap[id]);
+  }
 
   return (
     <Column
