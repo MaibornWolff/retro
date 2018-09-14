@@ -1,7 +1,7 @@
 import React from "react";
 import socketIO from "socket.io-client";
 
-import Button from "../common/Button";
+import { Form, Input, Button } from "../common";
 import { closeModal } from "../../utils/helpers";
 import { LOCAL_BACKEND_ENDPOINT, CREATE_COLUMN } from "../../utils/constants";
 
@@ -29,23 +29,17 @@ export default class CreateColumnForm extends React.Component {
     const { title } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="field">
-          <label className="label">Column Title</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              value={title}
-              onChange={this.handleTitleChange}
-              placeholder="New Column Title"
-            />
-          </div>
-        </div>
+      <Form onSubmit={this.handleSubmit}>
+        <Input
+          label="Column Title"
+          value={title}
+          onChange={this.handleTitleChange}
+          placeholder="New Column Title"
+        />
         <Button type="submit" className="is-info is-rounded">
           Submit
         </Button>
-      </form>
+      </Form>
     );
   }
 }

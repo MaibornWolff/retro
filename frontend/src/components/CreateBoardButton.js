@@ -3,9 +3,9 @@ import Modal from "react-responsive-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 
-import Button from "./common/Button";
-import CreateBoardForm from "./forms/CreateBoardForm";
+import { Button } from "./common/Button";
 import { NavbarButton } from "../styles/styledComponents";
+import CreateBoardForm from "./forms/CreateBoardForm";
 
 import "../styles/Modal.css";
 

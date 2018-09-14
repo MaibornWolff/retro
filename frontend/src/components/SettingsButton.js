@@ -3,7 +3,7 @@ import Modal from "react-responsive-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
-import Button from "./common/Button";
+import { Button } from "./common";
 import { NavbarButton } from "../styles/styledComponents";
 
 import "../styles/Modal.css";

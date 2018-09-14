@@ -8,7 +8,7 @@ import {
   faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 
-import Button from "./Button";
+import { Button } from "./Button";
 import EditItemForm from "../forms/EditItemForm";
 import DeleteItemForm from "../forms/DeleteItemForm";
 import { CardFooter, CardPoints } from "../../styles/styledComponents";
@@ -16,7 +16,7 @@ import { LOCAL_BACKEND_ENDPOINT, UPVOTE_CARD } from "../../utils/constants";
 
 import "../../styles/Modal.css";
 
-export default class Card extends React.Component {
+export class Card extends React.Component {
   state = { isEdit: false, isDelete: false };
 
   onOpenEdit = () => this.setState({ isEdit: true });

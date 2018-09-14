@@ -1,7 +1,7 @@
 import React from "react";
 import socketIO from "socket.io-client";
 
-import Button from "../common/Button";
+import { Form, Input, Textarea, Button } from "../common";
 import { closeModal } from "../../utils/helpers";
 import { LOCAL_BACKEND_ENDPOINT, EDIT_CARD } from "../../utils/constants";
 
@@ -28,34 +28,23 @@ export default class EditItemForm extends React.Component {
     const { cardTitle, cardContent } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="field">
-          <label className="label">Author</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              value={cardTitle}
-              onChange={this.handleTitleChange}
-              placeholder="Your Name"
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Content</label>
-          <div className="control">
-            <textarea
-              className="textarea"
-              value={cardContent}
-              onChange={this.handleContentChange}
-              placeholder="Your Feedback"
-            />
-          </div>
-        </div>
+      <Form onSubmit={this.handleSubmit}>
+        <Input
+          label="Author"
+          value={cardTitle}
+          onChange={this.handleTitleChange}
+          placeholder="Your Name"
+        />
+        <Textarea
+          label="Content"
+          value={cardContent}
+          onChange={this.handleContentChange}
+          placeholder="Your Feedback"
+        />
         <Button type="submit" className="is-info is-rounded">
           Edit
         </Button>
-      </form>
+      </Form>
     );
   }
 }

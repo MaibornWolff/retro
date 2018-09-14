@@ -1,7 +1,7 @@
 import React from "react";
 import socketIO from "socket.io-client";
 
-import Button from "../common/Button";
+import { Form, Input, Textarea, Button } from "../common";
 import { closeModal } from "../../utils/helpers";
 import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD } from "../../utils/constants";
 
@@ -39,34 +39,23 @@ export default class CreateItemForm extends React.Component {
     const { author, content } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="field">
-          <label className="label">Author</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              value={author}
-              onChange={this.handleAuthorChange}
-              placeholder="Your Name"
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Content</label>
-          <div className="control">
-            <textarea
-              className="textarea"
-              value={content}
-              onChange={this.handleContentChange}
-              placeholder="Your Feedback"
-            />
-          </div>
-        </div>
+      <Form onSubmit={this.handleSubmit}>
+        <Input
+          label="Author"
+          value={author}
+          onChange={this.handleAuthorChange}
+          placeholder="Your Name"
+        />
+        <Textarea
+          label="Content"
+          value={content}
+          onChange={this.handleContentChange}
+          placeholder="Your Feedback"
+        />
         <Button type="submit" className="is-info is-rounded">
           Submit
         </Button>
-      </form>
+      </Form>
     );
   }
 }

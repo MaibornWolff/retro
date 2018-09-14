@@ -2,7 +2,7 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
 import { ItemContainer } from "../styles/styledComponents";
-import Card from "./common/Card";
+import { Card } from "./common";
 
 const Item = props => {
   const { item, index } = props;

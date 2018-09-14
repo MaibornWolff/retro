@@ -18,8 +18,7 @@ import {
   ColumnTitleStyles,
   ColumnActionButtonStyles
 } from "../styles/styledComponents";
-import Title from "./common/Title";
-import Button from "./common/Button";
+import { Title, Button } from "./common";
 import CreateItemForm from "./forms/CreateItemForm";
 import DeleteColumnForm from "./forms/DeleteColumnForm";
 import Items from "./Items";

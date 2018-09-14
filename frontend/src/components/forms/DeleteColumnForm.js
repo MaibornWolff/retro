@@ -3,7 +3,7 @@ import socketIO from "socket.io-client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
-import Button from "../common/Button";
+import { Button } from "../common";
 import { closeModal } from "../../utils/helpers";
 import { LOCAL_BACKEND_ENDPOINT, DELETE_COLUMN } from "../../utils/constants";
 
