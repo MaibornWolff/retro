@@ -2,7 +2,7 @@ import React from "react";
 import socketIO from "socket.io-client";
 
 import { Form, Input, Textarea, Button } from "../common";
-import { closeModal } from "../../utils/helpers";
+import { closeModal } from "../../utils/utils";
 import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD } from "../../utils/constants";
 
 export default class CreateItemForm extends React.Component {

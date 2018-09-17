@@ -2,7 +2,7 @@ import React from "react";
 import socketIO from "socket.io-client";
 
 import { Form, Input, Button } from "../common";
-import { closeModal } from "../../utils/helpers";
+import { closeModal } from "../../utils/utils";
 import { LOCAL_BACKEND_ENDPOINT, CREATE_COLUMN } from "../../utils/constants";
 
 export default class CreateColumnForm extends React.Component {

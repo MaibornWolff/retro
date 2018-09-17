@@ -44,13 +44,16 @@ export default class Board extends React.Component {
     });
 
     socket.on(CREATE_COLUMN, column => {
-      columns[column.id] = column;
-      columnOrder.push(column.id);
+      const cols = { ...this.state.columns };
+      const colOrder = Array.from(this.state.columnOrder);
+
+      cols[column.id] = column;
+      colOrder.push(column.id);
 
       this.setState({
-        columns,
-        columnOrder,
-        columnsCount: _.size(columns),
+        columns: cols,
+        columnOrder: colOrder,
+        columnsCount: _.size(cols),
         boardEmpty: false
       });
     });
@@ -94,14 +97,13 @@ export default class Board extends React.Component {
     socket.on(SORT_COLUMN, (colId, colItems) => {
       let sortedItemIds = [];
 
-      let sortedItems = _.orderBy(colItems, "points", "desc");
+      const sortedItems = _.orderBy(colItems, "points", "desc");
       sortedItems.forEach(item => sortedItemIds.push(item.id));
 
       columns[colId].itemIds = sortedItemIds;
       this.setState({ columns });
 
       sortedItemIds = [];
-      sortedItems = [];
     });
 
     socket.on(DELETE_CARD, cardId => {

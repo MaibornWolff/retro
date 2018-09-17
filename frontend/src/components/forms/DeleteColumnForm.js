@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "../common";
-import { closeModal } from "../../utils/helpers";
+import { closeModal } from "../../utils/utils";
 import { LOCAL_BACKEND_ENDPOINT, DELETE_COLUMN } from "../../utils/constants";
 
 export default class DeleteColumnForm extends React.Component {

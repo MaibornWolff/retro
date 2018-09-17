@@ -2,7 +2,7 @@ import React from "react";
 import socketIO from "socket.io-client";
 
 import { Input, Button, Form } from "../common";
-import { closeModal } from "../../utils/helpers";
+import { closeModal } from "../../utils/utils";
 import { LOCAL_BACKEND_ENDPOINT, CREATE_BOARD } from "../../utils/constants";
 
 export default class CreateBoardForm extends React.Component {
