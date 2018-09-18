@@ -59,7 +59,7 @@ export default class Column extends React.Component {
 
   render() {
     const { isCreateColumn, isDeleteColumn } = this.state;
-    const { column, items, index, itemsCount } = this.props;
+    const { column, items, index } = this.props;
 
     return (
       <Draggable draggableId={column.id} index={index}>
@@ -99,7 +99,7 @@ export default class Column extends React.Component {
                 center
                 classNames={{ modal: "custom-modal" }}
               >
-                <CreateItemForm columnId={column.id} itemsCount={itemsCount} />
+                <CreateItemForm columnId={column.id} />
               </Modal>
 
               <Modal

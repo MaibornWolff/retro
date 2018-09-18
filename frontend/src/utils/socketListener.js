@@ -21,7 +21,6 @@ export const onCreateCard = component => {
 
         items[card.id] = card;
         columns[columnId].itemIds.push(card.id);
-        draft.itemsCount = _.size(items);
       })
     );
   });
@@ -35,7 +34,6 @@ export const onDeleteCard = component => {
 
         _.unset(items, cardId);
         _.forIn(columns, col => _.pull(col.itemIds, cardId));
-        draft.itemsCount = _.size(items);
       })
     );
   });
@@ -72,7 +70,6 @@ export const onCreateColumn = component => {
 
         columns[column.id] = column;
         columnOrder.push(column.id);
-        draft.columnsCount = _.size(columns);
         draft.boardEmpty = false;
       })
     );
@@ -89,8 +86,6 @@ export const onDeleteColumn = component => {
         itemsToRemove.forEach(itemId => _.unset(items, itemId));
         _.pull(columnOrder, columnId);
         _.unset(columns, columnId);
-        draft.columnsCount = _.size(columns);
-        draft.itemsCount = _.size(items);
       })
     );
   });
@@ -115,8 +110,6 @@ export const onCreateBoard = component => {
   component.socket.on(CREATE_BOARD, newBoard => {
     component.setState({
       ...newBoard,
-      itemsCount: 0,
-      columnsCount: 0,
       boardEmpty: false
     });
   });

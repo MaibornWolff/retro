@@ -1,5 +1,6 @@
 import React from "react";
 import socketIO from "socket.io-client";
+import uniqid from "uniqid";
 
 import { Form, Input, Textarea, Button } from "../common";
 import { closeModal } from "../../utils/utils";
@@ -20,11 +21,10 @@ export default class CreateItemForm extends React.Component {
 
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
     const { author, content } = this.state;
-    const { itemsCount, columnId } = this.props;
-    const id = itemsCount + 1;
-
+    const { columnId } = this.props;
+    const id = uniqid("item-");
     const newCard = {
-      id: `item-${id}`,
+      id,
       author,
       content,
       points: 0

@@ -1,8 +1,6 @@
 import React from "react";
-import _ from "lodash";
 import io from "socket.io-client";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-
 import { FlexContainer, Greeting } from "../styles/styledComponents";
 import emptyBoard from "../utils/boards/emptyBoard";
 import Header from "./Header";
@@ -26,8 +24,6 @@ export default class Board extends React.Component {
     this.socket = io(LOCAL_BACKEND_ENDPOINT);
     this.state = {
       ...emptyBoard,
-      itemsCount: _.size(emptyBoard.items),
-      columnsCount: _.size(emptyBoard.columns),
       boardEmpty: true
     };
   }
@@ -129,7 +125,7 @@ export default class Board extends React.Component {
     return <Greeting>Welcome to Retro!</Greeting>;
   }
 
-  renderBoard(columns, items, itemsCount) {
+  renderBoard(columns, items) {
     return this.state.columnOrder.map((columnId, index) => {
       const column = columns[columnId];
       return (
@@ -138,29 +134,17 @@ export default class Board extends React.Component {
           column={column}
           itemMap={items}
           index={index}
-          itemsCount={itemsCount}
         />
       );
     });
   }
 
   render() {
-    const {
-      columns,
-      items,
-      title,
-      itemsCount,
-      columnsCount,
-      boardEmpty
-    } = this.state;
+    const { columns, items, title, boardEmpty } = this.state;
 
     return (
       <div>
-        <Header
-          title={title}
-          columnsCount={columnsCount}
-          boardEmpty={boardEmpty}
-        />
+        <Header title={title} boardEmpty={boardEmpty} />
         {boardEmpty ? this.renderGreeting() : null}
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable
@@ -173,7 +157,7 @@ export default class Board extends React.Component {
                 {...provided.droppableProps}
                 innerRef={provided.innerRef}
               >
-                {this.renderBoard(columns, items, itemsCount)}
+                {this.renderBoard(columns, items)}
                 {provided.placeholder}
               </FlexContainer>
             )}
