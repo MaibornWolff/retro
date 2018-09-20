@@ -4,7 +4,7 @@ const ObjectId = Schema.ObjectId;
 
 const BoardSchema = new Schema({
   title: String,
-  items: [{ type: ObjectId, ref: "Item" }],
+  cards: [{ type: ObjectId, ref: "Card" }],
   columns: [{ type: ObjectId, ref: "Column" }],
   columnOrder: [ObjectId]
 });

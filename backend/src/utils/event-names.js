@@ -4,7 +4,7 @@ module.exports = {
   CREATE_CARD: "create card",
   CREATE_COLUMN: "create column",
   DELETE_COLUMN: "delete column",
-  BOARD_UPDATE: "board update",
+  UPDATE_BOARD: "update board",
   UPVOTE_CARD: "upvote card",
   EDIT_CARD: "edit card",
   SORT_COLUMN: "sort column",

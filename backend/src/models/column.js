@@ -4,7 +4,7 @@ const ObjectId = Schema.ObjectId;
 
 const ColumnSchema = new Schema({
   title: String,
-  items: [{ type: ObjectId, ref: "Item" }]
+  cards: [{ type: ObjectId, ref: "Card" }]
 });
 
 const Column = mongoose.model("Column", ColumnSchema);
