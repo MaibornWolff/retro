@@ -1,5 +1,5 @@
 const { Board } = require("../models/board");
-const { CREATE_BOARD, UPDATE_BOARD } = require("../utils/event-names");
+const { CREATE_BOARD, UPDATE_BOARD } = require("./event-names");
 
 const createBoard = (io, client) => {
   client.on(CREATE_BOARD, async (boardObj) => {

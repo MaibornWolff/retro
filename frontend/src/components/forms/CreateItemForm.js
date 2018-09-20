@@ -3,8 +3,8 @@ import socketIO from "socket.io-client";
 import uniqid from "uniqid";
 
 import { Form, Input, Textarea, Button } from "../common";
-import { closeModal } from "../../utils/utils";
-import { LOCAL_BACKEND_ENDPOINT, CREATE_CARD } from "../../utils/constants";
+import { closeModal, LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { CREATE_CARD } from "../../events/event-names";
 
 export default class CreateItemForm extends React.Component {
   state = {

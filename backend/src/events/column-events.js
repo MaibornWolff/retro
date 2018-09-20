@@ -3,7 +3,7 @@ const {
   CREATE_COLUMN,
   DELETE_COLUMN,
   SORT_COLUMN
-} = require("../utils/event-names");
+} = require("./event-names");
 
 const createColumn = (io, client) => {
   client.on(CREATE_COLUMN, column => {

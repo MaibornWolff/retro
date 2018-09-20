@@ -1,23 +1,30 @@
 import React from "react";
-import socketIO from "socket.io-client";
+import io from "socket.io-client";
+import uniqid from "uniqid";
+import { navigate } from "@reach/router";
 
 import { Input, Button, Form } from "../common";
-import { closeModal } from "../../utils/utils";
-import { LOCAL_BACKEND_ENDPOINT, CREATE_BOARD } from "../../utils/constants";
+import { closeModal, LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { CREATE_BOARD } from "../../events/event-names";
 
 export default class CreateBoardForm extends React.Component {
   state = { title: "" };
 
   handleChange = event => this.setState({ title: event.target.value });
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
 
-    const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
-    socket.emit(CREATE_BOARD, this.state);
+    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    const boardId = uniqid();
+    const { title } = this.state;
+    const newBoard = { boardId, title };
+
+    socket.emit(CREATE_BOARD, newBoard);
 
     this.setState({ title: "" });
     closeModal();
+    await navigate(`boards/${boardId}`);
   };
 
   render() {

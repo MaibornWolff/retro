@@ -1,11 +1,7 @@
 import React from "react";
 
-import Board from "./Board";
+import { Greeting } from "../styles/styledComponents";
 
-const Home = () => (
-  <div id="home" className="container-fluid">
-    <Board />
-  </div>
-);
+const Home = () => <Greeting>Welcome to Retro!</Greeting>;
 
 export default Home;

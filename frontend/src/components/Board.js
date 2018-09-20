@@ -1,43 +1,32 @@
 import React from "react";
 import io from "socket.io-client";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { FlexContainer, Greeting } from "../styles/styledComponents";
-import emptyBoard from "../utils/boards/emptyBoard";
+
 import Header from "./Header";
 import Columns from "./Columns";
-import { LOCAL_BACKEND_ENDPOINT, BOARD_UPDATE } from "../utils/constants";
-import {
-  onCreateCard,
-  onDeleteCard,
-  onEditCard,
-  onUpvoteCard,
-  onCreateColumn,
-  onDeleteColumn,
-  onSortColumn,
-  onCreateBoard,
-  onUpdateBoard
-} from "../utils/socketListener";
+import { FlexContainer } from "../styles/styledComponents";
+import { LOCAL_BACKEND_ENDPOINT } from "../utils";
+import { onBoardEvents, onColumnEvents, onCardEvents } from "../events";
+import { UPDATE_BOARD } from "../events/event-names";
 
 export default class Board extends React.Component {
   constructor(props) {
     super(props);
     this.socket = io(LOCAL_BACKEND_ENDPOINT);
     this.state = {
-      ...emptyBoard,
+      title: "",
+      boardId: "",
+      items: [],
+      columns: [],
+      columnOrder: [],
       boardEmpty: true
     };
   }
 
   componentDidMount() {
-    onCreateCard(this);
-    onDeleteCard(this);
-    onEditCard(this);
-    onUpvoteCard(this);
-    onCreateColumn(this);
-    onDeleteColumn(this);
-    onSortColumn(this);
-    onCreateBoard(this);
-    onUpdateBoard(this);
+    onBoardEvents(this);
+    onColumnEvents(this);
+    onCardEvents(this);
   }
 
   onDragEnd = dragResult => {
@@ -66,7 +55,7 @@ export default class Board extends React.Component {
       };
 
       this.setState(newState);
-      this.socket.emit(BOARD_UPDATE, newState);
+      this.socket.emit(UPDATE_BOARD, newState);
       return;
     }
 
@@ -89,7 +78,7 @@ export default class Board extends React.Component {
       };
 
       this.setState(newState);
-      this.socket.emit(BOARD_UPDATE, newState);
+      this.socket.emit(UPDATE_BOARD, newState);
       return;
     }
 
@@ -118,12 +107,8 @@ export default class Board extends React.Component {
     };
 
     this.setState(newState);
-    this.socket.emit(BOARD_UPDATE, newState);
+    this.socket.emit(UPDATE_BOARD, newState);
   };
-
-  renderGreeting() {
-    return <Greeting>Welcome to Retro!</Greeting>;
-  }
 
   renderBoard(columns, items) {
     return this.state.columnOrder.map((columnId, index) => {
@@ -145,7 +130,6 @@ export default class Board extends React.Component {
     return (
       <div>
         <Header title={title} boardEmpty={boardEmpty} />
-        {boardEmpty ? this.renderGreeting() : null}
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable
             droppableId="allColumns"

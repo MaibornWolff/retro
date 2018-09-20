@@ -3,8 +3,8 @@ import socketIO from "socket.io-client";
 import uniqid from "uniqid";
 
 import { Form, Input, Button } from "../common";
-import { closeModal } from "../../utils/utils";
-import { LOCAL_BACKEND_ENDPOINT, CREATE_COLUMN } from "../../utils/constants";
+import { closeModal, LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { CREATE_COLUMN } from "../../events/event-names";
 
 export default class CreateColumnForm extends React.Component {
   state = { title: "" };

@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "../common";
-import { closeModal } from "../../utils/utils";
-import { LOCAL_BACKEND_ENDPOINT, DELETE_CARD } from "../../utils/constants";
+import { closeModal, LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { DELETE_CARD } from "../../events/event-names";
 
 export default class DeleteItemForm extends React.Component {
   handleClick = event => {

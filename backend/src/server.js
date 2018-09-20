@@ -7,7 +7,7 @@ const http = require("http");
 const socketIO = require("socket.io");
 
 const { boardEvents, columnEvents, cardEvents } = require("./events");
-const { CONNECTION } = require("./utils/event-names");
+const { CONNECTION } = require("./events/event-names");
 
 const app = express();
 const server = http.createServer(app);

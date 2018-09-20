@@ -4,7 +4,7 @@ const {
   EDIT_CARD,
   DELETE_CARD,
   UPVOTE_CARD
-} = require("../utils/event-names");
+} = require("./event-names");
 
 const createCard = (io, client) => {
   client.on(CREATE_CARD, (card, columnId) => {

@@ -22,7 +22,8 @@ import { Title, Button } from "./common";
 import CreateItemForm from "./forms/CreateItemForm";
 import DeleteColumnForm from "./forms/DeleteColumnForm";
 import Items from "./Items";
-import { LOCAL_BACKEND_ENDPOINT, SORT_COLUMN } from "../utils/constants";
+import { LOCAL_BACKEND_ENDPOINT } from "../utils";
+import { SORT_COLUMN } from "../events/event-names";
 
 import "../styles/Modal.css";
 

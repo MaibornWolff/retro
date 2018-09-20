@@ -12,7 +12,8 @@ import { Button } from "./Button";
 import EditItemForm from "../forms/EditItemForm";
 import DeleteItemForm from "../forms/DeleteItemForm";
 import { CardFooter, CardPoints } from "../../styles/styledComponents";
-import { LOCAL_BACKEND_ENDPOINT, UPVOTE_CARD } from "../../utils/constants";
+import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { UPVOTE_CARD } from "../../events/event-names";
 
 import "../../styles/Modal.css";
 

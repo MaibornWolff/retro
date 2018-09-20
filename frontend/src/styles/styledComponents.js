@@ -14,6 +14,7 @@ export const Greeting = styled.div`
   display: flex;
   justify-content: center;
   font-size: 1.5em;
+  margin-top: 1em;
 `;
 
 export const ColumnContainer = styled.div`
