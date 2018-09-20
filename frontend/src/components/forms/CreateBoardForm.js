@@ -14,14 +14,7 @@ export default class CreateBoardForm extends React.Component {
     event.preventDefault();
 
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
-    const { title } = this.state;
-    const newBoard = {
-      title,
-      items: {},
-      columns: {},
-      columnOrder: []
-    };
-    socket.emit(CREATE_BOARD, newBoard);
+    socket.emit(CREATE_BOARD, this.state);
 
     this.setState({ title: "" });
     closeModal();
