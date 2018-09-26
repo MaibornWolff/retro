@@ -11,7 +11,6 @@ export const onCreateColumn = component => {
 
         columns[column.id] = column;
         columnOrder.push(column.id);
-        draft.boardEmpty = false;
       })
     );
   });

@@ -1,4 +1,3 @@
-const { Card } = require("../models/card");
 const {
   CREATE_CARD,
   EDIT_CARD,

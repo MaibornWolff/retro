@@ -1,21 +1,14 @@
-const { Board } = require("../models/board");
 const { CREATE_BOARD, UPDATE_BOARD } = require("./event-names");
 
 const createBoard = (io, client) => {
-  client.on(CREATE_BOARD, async (boardObj) => {
-    try {
-      const board = new Board(boardObj);
-      await board.save();
-      io.sockets.emit(CREATE_BOARD, boardObj);
-    } catch (error) {
-      console.log(`[ERROR]: Event: ${CREATE_BOARD}\nMessage: ${error}`);
-    }
+  client.on(CREATE_BOARD, newBoard => {
+    io.sockets.emit(CREATE_BOARD, newBoard);
   });
 };
 
 const updateBoard = (io, client) => {
-  client.on(UPDATE_BOARD, board => {
-    io.sockets.emit(UPDATE_BOARD, board);
+  client.on(UPDATE_BOARD, updatedBoard => {
+    io.sockets.emit(UPDATE_BOARD, updatedBoard);
   });
 };
 

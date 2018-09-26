@@ -16,7 +16,7 @@ export default class CreateBoardForm extends React.Component {
     event.preventDefault();
 
     const socket = io(LOCAL_BACKEND_ENDPOINT);
-    const boardId = uniqid();
+    const boardId = uniqid("board-");
     const { title } = this.state;
     const newBoard = { boardId, title };
 

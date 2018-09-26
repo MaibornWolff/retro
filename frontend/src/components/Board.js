@@ -8,20 +8,12 @@ import { FlexContainer } from "../styles/styledComponents";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
 import { onBoardEvents, onColumnEvents, onCardEvents } from "../events";
 import { UPDATE_BOARD } from "../events/event-names";
+import { emptyBoard } from "../utils/emptyBoard";
 
 export default class Board extends React.Component {
-  constructor(props) {
-    super(props);
-    this.socket = io(LOCAL_BACKEND_ENDPOINT);
-    this.state = {
-      title: "",
-      boardId: "",
-      items: [],
-      columns: [],
-      columnOrder: [],
-      boardEmpty: true
-    };
-  }
+  state = { ...emptyBoard };
+
+  socket = io(LOCAL_BACKEND_ENDPOINT);
 
   componentDidMount() {
     onBoardEvents(this);
@@ -59,16 +51,16 @@ export default class Board extends React.Component {
       return;
     }
 
-    const start = columns[source.droppableId];
-    const finish = columns[destination.droppableId];
+    const startColumn = columns[source.droppableId];
+    const destinationColumn = columns[destination.droppableId];
 
     // column is the same
-    if (start === finish) {
-      const newItemIds = Array.from(start.itemIds);
+    if (startColumn === destinationColumn) {
+      const newItemIds = Array.from(startColumn.itemIds);
       newItemIds.splice(source.index, 1);
       newItemIds.splice(destination.index, 0, draggableId);
 
-      const newColumn = { ...start, itemIds: newItemIds };
+      const newColumn = { ...startColumn, itemIds: newItemIds };
       const newState = {
         ...this.state,
         columns: {
@@ -83,17 +75,17 @@ export default class Board extends React.Component {
     }
 
     // moving from one column to another one
-    const startItemIds = Array.from(start.itemIds);
+    const startItemIds = Array.from(startColumn.itemIds);
     startItemIds.splice(source.index, 1);
     const newStart = {
-      ...start,
+      ...startColumn,
       itemIds: startItemIds
     };
 
-    const finishItemIds = Array.from(finish.itemIds);
+    const finishItemIds = Array.from(destinationColumn.itemIds);
     finishItemIds.splice(destination.index, 0, draggableId);
-    const newFinish = {
-      ...finish,
+    const newDestination = {
+      ...destinationColumn,
       itemIds: finishItemIds
     };
 
@@ -102,7 +94,7 @@ export default class Board extends React.Component {
       columns: {
         ...columns,
         [newStart.id]: newStart,
-        [newFinish.id]: newFinish
+        [newDestination.id]: newDestination
       }
     };
 
@@ -125,11 +117,11 @@ export default class Board extends React.Component {
   }
 
   render() {
-    const { columns, items, title, boardEmpty } = this.state;
+    const { columns, items, title } = this.state;
 
     return (
       <div>
-        <Header title={title} boardEmpty={boardEmpty} />
+        <Header title={title} />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable
             droppableId="allColumns"

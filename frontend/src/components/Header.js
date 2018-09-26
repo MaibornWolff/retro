@@ -21,27 +21,17 @@ export default class Header extends React.Component {
 
   onCloseModal = () => this.setState({ open: false });
 
-  renderCreateColumnButton(boardEmpty) {
-    if (boardEmpty) {
-      return null;
-    }
-
-    return (
-      <Button className="is-info is-rounded" onClick={this.onOpenModal}>
-        <FontAwesomeIcon icon={faPlus} />
-        &nbsp; Column
-      </Button>
-    );
-  }
-
   render() {
     const { open } = this.state;
-    const { title, boardEmpty } = this.props;
+    const { title } = this.props;
 
     return (
       <HeaderContainer>
         <BoardTitle className="is-4">{title}</BoardTitle>
-        {this.renderCreateColumnButton(boardEmpty)}
+        <Button className="is-info is-rounded" onClick={this.onOpenModal}>
+          <FontAwesomeIcon icon={faPlus} />
+          &nbsp; Column
+        </Button>
         <Modal
           open={open}
           onClose={this.onCloseModal}

@@ -1,4 +1,3 @@
-const { Column } = require("../models/column");
 const {
   CREATE_COLUMN,
   DELETE_COLUMN,
