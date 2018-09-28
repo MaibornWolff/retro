@@ -1,5 +1,5 @@
 import React from "react";
-import socketIO from "socket.io-client";
+import io from "socket.io-client";
 
 import { Form, Input, Textarea, Button } from "../common";
 import { closeModal, LOCAL_BACKEND_ENDPOINT } from "../../utils";
@@ -15,11 +15,12 @@ export default class EditItemForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
-    const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
+    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    
     const { cardTitle, cardContent, cardId } = this.state;
+    const { boardId } = this.props;
 
-    socket.emit(EDIT_CARD, cardTitle, cardContent, cardId);
+    socket.emit(EDIT_CARD, cardTitle, cardContent, cardId, boardId);
     this.setState({ cardTitle: "", cardContent: "" });
     closeModal();
   };

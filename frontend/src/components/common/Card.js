@@ -35,7 +35,7 @@ export class Card extends React.Component {
 
   render() {
     const { isEdit, isDelete } = this.state;
-    const { cardId, cardTitle, cardContent, cardPoints } = this.props;
+    const { cardId, cardTitle, cardContent, cardPoints, boardId } = this.props;
 
     return (
       <div className="card">
@@ -65,6 +65,7 @@ export class Card extends React.Component {
               cardId={cardId}
               cardTitle={cardTitle}
               cardContent={cardContent}
+              boardId={boardId}
             />
           </Modal>
 

@@ -120,7 +120,7 @@ export default class Column extends React.Component {
                   {...providedDroppable.droppableProps}
                   isDraggingOver={snapshot.isDraggingOver}
                 >
-                  <Items items={items} />
+                  <Items items={items} boardId={boardId} />
                   {providedDroppable.placeholder}
                 </ItemsContainer>
               )}

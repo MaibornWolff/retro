@@ -20,7 +20,7 @@ const createCard = (io, client) => {
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(CREATE_CARD, error);
-        
+
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });
@@ -34,8 +34,21 @@ const deleteCard = (io, client) => {
 };
 
 const editCard = (io, client) => {
-  client.on(EDIT_CARD, (author, content, id) => {
-    io.sockets.emit(EDIT_CARD, author, content, id);
+  client.on(EDIT_CARD, async (author, content, cardId, boardId) => {
+    const path = getPath(boardId);
+    await fs.readFile(path, "utf8", async (error, file) => {
+      if (error) logError(EDIT_CARD, error);
+
+      const board = getBoard(file);
+      const card = board.items[cardId];
+      card.author = author;
+      card.content = content;
+
+      await fs.writeFile(path, stringify(board), "utf8", error => {
+        if (error) logError(EDIT_CARD, error);
+        io.sockets.emit(UPDATE_BOARD, board);
+      });
+    });
   });
 };
 

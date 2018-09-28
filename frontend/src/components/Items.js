@@ -11,9 +11,11 @@ export default class Items extends React.Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, boardId } = this.props;
 
     if (isEmpty(items)) return null;
-    return items.map((item, i) => <Item key={item.id} item={item} index={i} />);
+    return items.map((item, i) => (
+      <Item key={item.id} item={item} index={i} boardId={boardId} />
+    ));
   }
 }

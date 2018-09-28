@@ -5,7 +5,7 @@ import { ItemContainer } from "../styles/styledComponents";
 import { Card } from "./common";
 
 const Item = props => {
-  const { item, index } = props;
+  const { item, index, boardId } = props;
 
   return (
     <Draggable draggableId={item.id} index={index}>
@@ -21,6 +21,7 @@ const Item = props => {
             cardTitle={item.author}
             cardContent={item.content}
             cardPoints={item.points}
+            boardId={boardId}
           />
         </ItemContainer>
       )}
