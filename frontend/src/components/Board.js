@@ -30,6 +30,7 @@ export default class Board extends React.Component {
   onDragEnd = dragResult => {
     const { draggableId, source, destination, type } = dragResult;
     const { columns, columnOrder } = this.state;
+    const { boardId } = this.props;
 
     if (!destination) {
       return;
@@ -53,7 +54,7 @@ export default class Board extends React.Component {
       };
 
       this.setState(newState);
-      this.socket.emit(UPDATE_BOARD, newState);
+      this.socket.emit(UPDATE_BOARD, newState, boardId);
       return;
     }
 
@@ -76,7 +77,7 @@ export default class Board extends React.Component {
       };
 
       this.setState(newState);
-      this.socket.emit(UPDATE_BOARD, newState);
+      this.socket.emit(UPDATE_BOARD, newState, boardId);
       return;
     }
 
@@ -105,7 +106,7 @@ export default class Board extends React.Component {
     };
 
     this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState);
+    this.socket.emit(UPDATE_BOARD, newState, boardId);
   };
 
   renderBoard(columns, items) {

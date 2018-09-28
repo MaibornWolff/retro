@@ -1,32 +1,34 @@
 const fs = require("fs");
 
-const { getPath, getBoard, logError } = require("../utils/utils");
+const { getPath, getBoard, stringify, logError } = require("../utils/utils");
 const { CREATE_BOARD, UPDATE_BOARD, JOIN_BOARD } = require("./event-names");
 
 const createBoard = (io, client) => {
-  client.on(CREATE_BOARD, async (newBoard, boardId) => {
-    const json = JSON.stringify(newBoard);
-    await fs.writeFile(getPath(boardId), json, "utf8", error => {
+  client.on(CREATE_BOARD, async (board, boardId) => {
+    await fs.writeFile(getPath(boardId), stringify(board), "utf8", error => {
       if (error) logError(error);
+      
+      io.sockets.emit(CREATE_BOARD, newBoard);
     });
-
-    io.sockets.emit(CREATE_BOARD, newBoard);
   });
 };
 
 const updateBoard = (io, client) => {
-  client.on(UPDATE_BOARD, updatedBoard => {
-    io.sockets.emit(UPDATE_BOARD, updatedBoard);
+  client.on(UPDATE_BOARD, async (board, boardId) => {
+    await fs.writeFile(getPath(boardId), stringify(board), "utf8", error => {
+      if (error) logError(UPDATE_BOARD, error);
+      
+      io.sockets.emit(UPDATE_BOARD, board);
+    });
   });
 };
 
-const joinBoard = (io, client) => {
+const joinBoard = (_, client) => {
   client.on(JOIN_BOARD, async boardId => {
     await fs.readFile(getPath(boardId), "utf8", (error, file) => {
       if (error) logError(error);
       
-      const board = getBoard(file);
-      client.emit(JOIN_BOARD, board);
+      client.emit(JOIN_BOARD, getBoard(file));
     });
   });
 };
