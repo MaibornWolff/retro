@@ -109,7 +109,7 @@ export default class Board extends React.Component {
     this.socket.emit(UPDATE_BOARD, newState, boardId);
   };
 
-  renderBoard(columns, items) {
+  renderBoard(columns, items, boardId) {
     return this.state.columnOrder.map((columnId, index) => {
       const column = columns[columnId];
       return (
@@ -118,6 +118,7 @@ export default class Board extends React.Component {
           column={column}
           itemMap={items}
           index={index}
+          boardId={boardId}
         />
       );
     });
@@ -141,7 +142,7 @@ export default class Board extends React.Component {
                 {...provided.droppableProps}
                 innerRef={provided.innerRef}
               >
-                {this.renderBoard(columns, items)}
+                {this.renderBoard(columns, items, boardId)}
                 {provided.placeholder}
               </FlexContainer>
             )}

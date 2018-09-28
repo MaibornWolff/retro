@@ -21,7 +21,7 @@ export default class CreateItemForm extends React.Component {
 
     const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
     const { author, content } = this.state;
-    const { columnId } = this.props;
+    const { columnId, boardId } = this.props;
     const id = uniqid("item-");
     const newCard = {
       id,
@@ -30,7 +30,7 @@ export default class CreateItemForm extends React.Component {
       points: 0
     };
 
-    socket.emit(CREATE_CARD, newCard, columnId);
+    socket.emit(CREATE_CARD, newCard, columnId, boardId);
     this.setState({ author: "", content: "" });
     closeModal();
   };
