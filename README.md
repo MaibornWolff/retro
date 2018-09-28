@@ -2,6 +2,8 @@
 
 The goal of Retro is to have a good UX in retrospectives with distributed teams.
 
+<img src="./assets/retro.PNG">
+
 ## Backend
 
 - Node.js Server using [Express](http://expressjs.com) and [Socket.IO](https://socket.io/)
