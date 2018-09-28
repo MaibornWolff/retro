@@ -1,21 +1,8 @@
 import _ from "lodash";
 import produce from "immer";
-import { CREATE_COLUMN, DELETE_COLUMN, SORT_COLUMN } from "./event-names";
+import { DELETE_COLUMN, SORT_COLUMN } from "./event-names";
 
 /* eslint-disable no-param-reassign */
-export const onCreateColumn = component => {
-  component.socket.on(CREATE_COLUMN, column => {
-    component.setState(
-      produce(draft => {
-        const { columns, columnOrder } = draft;
-
-        columns[column.id] = column;
-        columnOrder.push(column.id);
-      })
-    );
-  });
-};
-
 export const onDeleteColumn = component => {
   component.socket.on(DELETE_COLUMN, columnId => {
     component.setState(

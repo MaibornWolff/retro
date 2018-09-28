@@ -17,8 +17,8 @@ export default class CreateBoardForm extends React.Component {
     event.preventDefault();
 
     const socket = io(LOCAL_BACKEND_ENDPOINT);
-    const boardId = uniqid("board-");
     const { title } = this.state;
+    const boardId = uniqid("board-");
     const newBoard = { ...emptyBoard, boardId, title };
 
     socket.emit(CREATE_BOARD, newBoard, boardId);
@@ -39,7 +39,10 @@ export default class CreateBoardForm extends React.Component {
           onChange={this.handleChange}
           placeholder="New Board Title"
         />
-        <Button type="submit" className="is-info is-rounded">
+        <Button
+          type="submit"
+          className="is-info is-rounded"
+        >
           Create New Board
         </Button>
       </Form>

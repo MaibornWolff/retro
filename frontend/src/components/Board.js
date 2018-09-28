@@ -7,13 +7,13 @@ import Columns from "./Columns";
 import { FlexContainer } from "../styles/styledComponents";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
 import { UPDATE_BOARD } from "../events/event-names";
+import { emptyBoard } from "../utils/emptyBoard";
 import {
   onBoardEvents,
   onColumnEvents,
   onCardEvents,
   onConnect
 } from "../events";
-import { emptyBoard } from "../utils/emptyBoard";
 
 export default class Board extends React.Component {
   state = { ...emptyBoard };
@@ -124,10 +124,11 @@ export default class Board extends React.Component {
 
   render() {
     const { columns, items, title } = this.state;
+    const { boardId } = this.props;
 
     return (
       <div>
-        <Header title={title} />
+        <Header title={title} boardId={boardId} />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable
             droppableId="allColumns"

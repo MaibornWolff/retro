@@ -1,5 +1,5 @@
 import React from "react";
-import socketIO from "socket.io-client";
+import io from "socket.io-client";
 import uniqid from "uniqid";
 
 import { Form, Input, Button } from "../common";
@@ -13,13 +13,14 @@ export default class CreateColumnForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const socket = io(LOCAL_BACKEND_ENDPOINT);
 
-    const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
-    const { title } = this.state;
     const id = uniqid("column-");
-    const newColumn = { id, title, itemIds: [] };
+    const { title } = this.state;
+    const { boardId } = this.props;
 
-    socket.emit(CREATE_COLUMN, newColumn);
+    const column = { id, title, itemIds: [] };
+    socket.emit(CREATE_COLUMN, column, boardId);
 
     this.setState({ title: "" });
     closeModal();

@@ -1,6 +1,6 @@
 import { JOIN_BOARD, CONNECT } from "./event-names";
 import { onCreateBoard, onUpdateBoard, onJoinBoard } from "./board-events";
-import { onCreateColumn, onDeleteColumn, onSortColumn } from "./column-events";
+import { onDeleteColumn, onSortColumn } from "./column-events";
 import {
   onCreateCard,
   onEditCard,
@@ -21,7 +21,6 @@ export const onBoardEvents = component => {
 };
 
 export const onColumnEvents = component => {
-  onCreateColumn(component);
   onDeleteColumn(component);
   onSortColumn(component);
 };

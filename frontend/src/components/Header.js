@@ -23,7 +23,7 @@ export default class Header extends React.Component {
 
   render() {
     const { open } = this.state;
-    const { title } = this.props;
+    const { title, boardId } = this.props;
 
     return (
       <HeaderContainer>
@@ -38,7 +38,7 @@ export default class Header extends React.Component {
           center
           classNames={{ modal: "custom-modal" }}
         >
-          <CreateColumnForm />
+          <CreateColumnForm boardId={boardId} />
         </Modal>
       </HeaderContainer>
     );
