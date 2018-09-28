@@ -6,8 +6,13 @@ import Header from "./Header";
 import Columns from "./Columns";
 import { FlexContainer } from "../styles/styledComponents";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { onBoardEvents, onColumnEvents, onCardEvents } from "../events";
-import { UPDATE_BOARD, CONNECT, JOIN_BOARD } from "../events/event-names";
+import { UPDATE_BOARD } from "../events/event-names";
+import {
+  onBoardEvents,
+  onColumnEvents,
+  onCardEvents,
+  onConnect
+} from "../events";
 import { emptyBoard } from "../utils/emptyBoard";
 
 export default class Board extends React.Component {
@@ -16,11 +21,7 @@ export default class Board extends React.Component {
   socket = io(LOCAL_BACKEND_ENDPOINT);
 
   componentDidMount() {
-    this.socket.on(CONNECT, () => {
-      console.log(">>> Joined Board <<<")
-      this.socket.emit(JOIN_BOARD, this.props.boardId);
-    });
-
+    onConnect(this);
     onBoardEvents(this);
     onColumnEvents(this);
     onCardEvents(this);

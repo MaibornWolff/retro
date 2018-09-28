@@ -1,5 +1,6 @@
 const fs = require("fs");
 
+const { getPath } = require("../utils/utils");
 const { CREATE_BOARD, UPDATE_BOARD, JOIN_BOARD } = require("./event-names");
 
 const createBoard = (io, client) => {
@@ -28,8 +29,6 @@ const joinBoard = (io, client) => {
     });
   });
 };
-
-const getPath = id => `${__dirname}/../store/${id}.json`;
 
 module.exports = {
   createBoard,
