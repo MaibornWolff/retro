@@ -1,4 +1,6 @@
 const fs = require("fs");
+const unset = require("lodash/unset");
+const pull = require("lodash/pull");
 const { getPath, getBoard, stringify, logError } = require("../utils/utils");
 const {
   CREATE_COLUMN,
@@ -19,7 +21,7 @@ const createColumn = (io, client) => {
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(CREATE_COLUMN, error);
-        
+
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });
@@ -27,8 +29,23 @@ const createColumn = (io, client) => {
 };
 
 const deleteColumn = (io, client) => {
-  client.on(DELETE_COLUMN, columnId => {
-    io.sockets.emit(DELETE_COLUMN, columnId);
+  client.on(DELETE_COLUMN, async (columnId, boardId) => {
+    const path = getPath(boardId);
+    await fs.readFile(path, "utf8", async (error, file) => {
+      if (error) logError(DELETE_COLUMN, error);
+
+      const board = getBoard(file);
+      const itemsToRemove = board.columns[columnId].itemIds;
+      itemsToRemove.forEach(itemId => unset(board.items, itemId));
+      pull(board.columnOrder, columnId);
+      unset(board.columns, columnId);
+
+      await fs.writeFile(path, stringify(board), "utf8", error => {
+        if (error) logError(DELETE_COLUMN, error);
+
+        io.sockets.emit(UPDATE_BOARD, board);
+      });
+    });
   });
 };
 

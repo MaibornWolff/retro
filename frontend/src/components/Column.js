@@ -109,7 +109,7 @@ export default class Column extends React.Component {
                 center
                 classNames={{ modal: "custom-modal" }}
               >
-                <DeleteColumnForm columnId={column.id} />
+                <DeleteColumnForm columnId={column.id} boardId={boardId} />
               </Modal>
             </ColumnHeader>
 
