@@ -1,6 +1,7 @@
 const fs = require("fs");
 const unset = require("lodash/unset");
 const pull = require("lodash/pull");
+const orderBy = require("lodash/orderBy");
 const { getPath, getBoard, stringify, logError } = require("../utils/utils");
 const {
   CREATE_COLUMN,
@@ -50,8 +51,23 @@ const deleteColumn = (io, client) => {
 };
 
 const sortColumn = (io, client) => {
-  client.on(SORT_COLUMN, (id, items) => {
-    io.sockets.emit(SORT_COLUMN, id, items);
+  client.on(SORT_COLUMN, async (columnId, columnItems, boardId) => {
+    const path = getPath(boardId);
+    await fs.readFile(path, "utf8", async (error, file) => {
+      if (error) logError(SORT_COLUMN, error);
+
+      const board = getBoard(file);
+      const sortedItemIds = [];
+      const sortedItems = orderBy(columnItems, "points", "desc");
+      sortedItems.forEach(item => sortedItemIds.push(item.id));
+      board.columns[columnId].itemIds = sortedItemIds;
+
+      await fs.writeFile(path, stringify(board), "utf8", error => {
+        if (error) logError(SORT_COLUMN, error);
+
+        io.sockets.emit(UPDATE_BOARD, board);
+      });
+    });
   });
 };
 

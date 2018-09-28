@@ -1,5 +1,5 @@
 import React from "react";
-import socketIO from "socket.io-client";
+import io from "socket.io-client";
 import Modal from "react-responsive-modal";
 import styled from "styled-components";
 import { Droppable, Draggable } from "react-beautiful-dnd";
@@ -53,9 +53,9 @@ export default class Column extends React.Component {
 
   onCloseDelete = () => this.setState({ isDeleteColumn: false });
 
-  onSort = (columnId, items) => {
-    const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
-    socket.emit(SORT_COLUMN, columnId, items);
+  onSort = (columnId, items, boardId) => {
+    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    socket.emit(SORT_COLUMN, columnId, items, boardId);
   };
 
   render() {
@@ -88,7 +88,7 @@ export default class Column extends React.Component {
                 </ColumnActionButton>
                 <ColumnActionButton
                   className="is-info is-rounded is-small"
-                  onClick={() => this.onSort(column.id, items)}
+                  onClick={() => this.onSort(column.id, items, boardId)}
                 >
                   <FontAwesomeIcon icon={faSortAmountDown} />
                 </ColumnActionButton>

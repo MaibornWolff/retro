@@ -8,7 +8,7 @@ import { FlexContainer } from "../styles/styledComponents";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
 import { UPDATE_BOARD } from "../events/event-names";
 import { emptyBoard } from "../utils/emptyBoard";
-import { onBoardEvents, onColumnEvents, onConnect } from "../events";
+import { onBoardEvents, onConnect } from "../events";
 
 export default class Board extends React.Component {
   state = { ...emptyBoard };
@@ -18,7 +18,6 @@ export default class Board extends React.Component {
   componentDidMount() {
     onConnect(this);
     onBoardEvents(this);
-    onColumnEvents(this);
   }
 
   onDragEnd = dragResult => {
