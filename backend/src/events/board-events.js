@@ -8,7 +8,7 @@ const createBoard = (io, client) => {
     await fs.writeFile(getPath(boardId), stringify(board), "utf8", error => {
       if (error) logError(error);
       
-      io.sockets.emit(CREATE_BOARD, newBoard);
+      io.sockets.emit(CREATE_BOARD, board);
     });
   });
 };
