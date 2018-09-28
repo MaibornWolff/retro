@@ -1,4 +1,5 @@
 const exampleBoard = {
+  boardId: "board-12345",
   title: "PROJECT RETRO",
   items: {
     "item-1": {

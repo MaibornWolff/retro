@@ -1,4 +1,4 @@
-const { createBoard, updateBoard } = require("./board-events");
+const { createBoard, updateBoard, joinBoard } = require("./board-events");
 const { createColumn, deleteColumn, sortColumn } = require("./column-events");
 const {
   createCard,
@@ -10,6 +10,7 @@ const {
 const boardEvents = (io, client) => {
   createBoard(io, client);
   updateBoard(io, client);
+  joinBoard(io, client);
 };
 
 const columnEvents = (io, client) => {

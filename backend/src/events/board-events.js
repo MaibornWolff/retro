@@ -1,7 +1,14 @@
-const { CREATE_BOARD, UPDATE_BOARD } = require("./event-names");
+const fs = require("fs");
+
+const { CREATE_BOARD, UPDATE_BOARD, JOIN_BOARD } = require("./event-names");
 
 const createBoard = (io, client) => {
-  client.on(CREATE_BOARD, newBoard => {
+  client.on(CREATE_BOARD, async (newBoard, boardId) => {
+    const json = JSON.stringify(newBoard);
+    await fs.writeFile(getPath(boardId), json, "utf8", error => {
+      if (error) throw error;
+    });
+
     io.sockets.emit(CREATE_BOARD, newBoard);
   });
 };
@@ -12,7 +19,20 @@ const updateBoard = (io, client) => {
   });
 };
 
+const joinBoard = (io, client) => {
+  client.on(JOIN_BOARD, async boardId => {
+    await fs.readFile(getPath(boardId), "utf8", (error, file) => {
+      if (error) throw error;
+      const board = JSON.parse(file);
+      client.emit(JOIN_BOARD, board);
+    });
+  });
+};
+
+const getPath = id => `${__dirname}/../store/${id}.json`;
+
 module.exports = {
   createBoard,
-  updateBoard
+  updateBoard,
+  joinBoard
 };

@@ -6,6 +6,7 @@ import { navigate } from "@reach/router";
 import { Input, Button, Form } from "../common";
 import { closeModal, LOCAL_BACKEND_ENDPOINT } from "../../utils";
 import { CREATE_BOARD } from "../../events/event-names";
+import { emptyBoard } from "../../utils/emptyBoard";
 
 export default class CreateBoardForm extends React.Component {
   state = { title: "" };
@@ -18,9 +19,9 @@ export default class CreateBoardForm extends React.Component {
     const socket = io(LOCAL_BACKEND_ENDPOINT);
     const boardId = uniqid("board-");
     const { title } = this.state;
-    const newBoard = { boardId, title };
+    const newBoard = { ...emptyBoard, boardId, title };
 
-    socket.emit(CREATE_BOARD, newBoard);
+    socket.emit(CREATE_BOARD, newBoard, boardId);
 
     this.setState({ title: "" });
     closeModal();
