@@ -83,7 +83,7 @@ export class Card extends React.Component {
             center
             classNames={{ modal: "custom-modal" }}
           >
-            <DeleteItemForm cardId={cardId} />
+            <DeleteItemForm cardId={cardId} boardId={boardId} />
           </Modal>
 
           <Button

@@ -1,5 +1,5 @@
 import React from "react";
-import socketIO from "socket.io-client";
+import io from "socket.io-client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -10,10 +10,11 @@ import { DELETE_CARD } from "../../events/event-names";
 export default class DeleteItemForm extends React.Component {
   handleClick = event => {
     event.preventDefault();
-    const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
-    const { cardId } = this.props;
 
-    socket.emit(DELETE_CARD, cardId);
+    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    const { cardId, boardId } = this.props;
+
+    socket.emit(DELETE_CARD, cardId, boardId);
     closeModal();
   };
 

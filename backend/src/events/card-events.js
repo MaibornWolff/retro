@@ -1,4 +1,7 @@
 const fs = require("fs");
+const unset = require("lodash/unset");
+const forIn = require("lodash/forIn");
+const pull = require("lodash/pull");
 const { getPath, getBoard, stringify, logError } = require("../utils/utils");
 const {
   CREATE_CARD,
@@ -28,8 +31,21 @@ const createCard = (io, client) => {
 };
 
 const deleteCard = (io, client) => {
-  client.on(DELETE_CARD, cardId => {
-    io.sockets.emit(DELETE_CARD, cardId);
+  client.on(DELETE_CARD, async (cardId, boardId) => {
+    const path = getPath(boardId);
+    await fs.readFile(path, "utf8", async (error, file) => {
+      if (error) logError(DELETE_CARD, error);
+
+      const board = getBoard(file);
+      unset(board.items, cardId);
+      forIn(board.columns, col => pull(col.itemIds, cardId));
+
+      await fs.writeFile(path, stringify(board), "utf8", error => {
+        if (error) logError(DELETE_CARD, error);
+
+        io.sockets.emit(UPDATE_BOARD, board);
+      });
+    });
   });
 };
 
