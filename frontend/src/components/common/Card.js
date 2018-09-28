@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-responsive-modal";
-import socketIO from "socket.io-client";
+import io from "socket.io-client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faThumbsUp,
@@ -29,8 +29,10 @@ export class Card extends React.Component {
   onCloseDelete = () => this.setState({ isDelete: false });
 
   handleUpvote = cardId => {
-    const socket = socketIO(LOCAL_BACKEND_ENDPOINT);
-    socket.emit(UPVOTE_CARD, cardId);
+    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    const { boardId } = this.props;
+
+    socket.emit(UPVOTE_CARD, cardId, boardId);
   };
 
   render() {

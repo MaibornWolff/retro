@@ -1,7 +1,7 @@
 import { JOIN_BOARD, CONNECT } from "./event-names";
 import { onCreateBoard, onUpdateBoard, onJoinBoard } from "./board-events";
 import { onDeleteColumn, onSortColumn } from "./column-events";
-import { onDeleteCard, onUpvoteCard } from "./card-events";
+import { onDeleteCard } from "./card-events";
 
 export const onConnect = component => {
   component.socket.on(CONNECT, () => {
@@ -22,5 +22,4 @@ export const onColumnEvents = component => {
 
 export const onCardEvents = component => {
   onDeleteCard(component);
-  onUpvoteCard(component);
 };

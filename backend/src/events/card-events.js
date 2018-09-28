@@ -46,6 +46,7 @@ const editCard = (io, client) => {
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(EDIT_CARD, error);
+
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });
@@ -53,8 +54,20 @@ const editCard = (io, client) => {
 };
 
 const upvoteCard = (io, client) => {
-  client.on(UPVOTE_CARD, cardId => {
-    io.sockets.emit(UPVOTE_CARD, cardId);
+  client.on(UPVOTE_CARD, async (cardId, boardId) => {
+    const path = getPath(boardId);
+    await fs.readFile(path, "utf8", async (error, file) => {
+      if (error) logError(UPVOTE_CARD, error);
+
+      const board = getBoard(file);
+      board.items[cardId].points += 1;
+
+      await fs.writeFile(path, stringify(board), "utf8", error => {
+        if (error) logError(UPVOTE_CARD, error);
+
+        io.sockets.emit(UPDATE_BOARD, board);
+      });
+    });
   });
 };
 

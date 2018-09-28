@@ -16,7 +16,7 @@ export default class EditItemForm extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     const socket = io(LOCAL_BACKEND_ENDPOINT);
-    
+
     const { cardTitle, cardContent, cardId } = this.state;
     const { boardId } = this.props;
 
