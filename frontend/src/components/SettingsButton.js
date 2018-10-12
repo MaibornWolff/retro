@@ -3,6 +3,7 @@ import Modal from "react-responsive-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
+import SettingsForm from "./forms/SettingsForm"
 import { Button } from "./common";
 import { NavbarButton } from "../styles/styledComponents";
 
@@ -34,7 +35,7 @@ export default class SettingsButton extends React.Component {
           center
           classNames={{ modal: "custom-modal" }}
         >
-          <p>Settings Here</p>
+          <SettingsForm />
         </Modal>
       </NavbarButton>
     );
