@@ -4,20 +4,30 @@ const AppContext = React.createContext();
 
 export class AppProvider extends React.Component {
   state = {
-    boardId: ""
+    isPrivate: false,
+    voteCount: 3,
+    timeboxInMin: 5
   };
 
-  setBoardId = boardId => this.setState({ boardId });
+  setPrivacy = isPrivate => this.setState({ isPrivate });
+
+  setVoteCount = voteCount => this.setState({ voteCount });
+
+  setTimebox = timeboxInMin => this.setState({ timeboxInMin });
 
   render() {
     const { children } = this.props;
-    const { boardId } = this.state;
+    const { isPrivate, voteCount, timeboxInMin } = this.state;
 
     return (
       <AppContext.Provider
         value={{
-          boardId,
-          setBoardId: this.setBoardId,
+          isPrivate,
+          voteCount,
+          timeboxInMin,
+          setPrivacy: this.setPrivacy,
+          setVoteCount: this.setVoteCount,
+          setTimebox: this.setTimebox
         }}
       >
         {children}
