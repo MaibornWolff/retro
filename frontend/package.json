@@ -20,13 +20,13 @@
     "react-beautiful-dnd": "^9.0.2",
     "react-dom": "^16.4.2",
     "react-responsive-modal": "^3.3.0",
-    "react-scripts": "1.1.5",
+    "react-scripts": "2.0.4",
     "socket.io-client": "^2.1.1",
     "styled-components": "^3.4.5",
     "uniqid": "^5.0.3"
   },
   "devDependencies": {
-    "babel-eslint": "^9.0.0",
+    "babel-eslint": "^10.0.1",
     "bulma": "^0.7.1",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
