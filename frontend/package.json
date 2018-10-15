@@ -6,8 +6,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "test-e2e": "jest",
     "lint": "eslint ./src --fix",
+    "format": "prettier --write \"src/**/*.{js, jsx, css, json}\"",
+    "format:check": "prettier --list-different \"src/**/*.{js, jsx, css, json}\"",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -27,7 +28,8 @@
   },
   "devDependencies": {
     "bulma": "^0.7.2",
-    "bulma-switch": "^2.0.0"
+    "bulma-switch": "^2.0.0",
+    "prettier": "^1.14.3"
   },
   "proxy": "http://localhost:8081",
   "browserslist": [
