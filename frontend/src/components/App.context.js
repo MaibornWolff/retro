@@ -4,32 +4,24 @@ const AppContext = React.createContext();
 
 export class AppProvider extends React.Component {
   state = {
-    isPrivate: false,
     voteCount: 3,
     timeboxInMin: 5
   };
 
-  togglePrivacy = () =>
-    this.setState(prevState => {
-      return { isPrivate: !prevState.isPrivate };
-    });
-
-  setVoteCount = voteCount => this.setState({ voteCount });
+  handleSlide = event => this.setState({ voteCount: event.target.value });
 
   setTimebox = timeboxInMin => this.setState({ timeboxInMin });
 
   render() {
     const { children } = this.props;
-    const { isPrivate, voteCount, timeboxInMin } = this.state;
+    const { voteCount, timeboxInMin } = this.state;
 
     return (
       <AppContext.Provider
         value={{
-          isPrivate,
           voteCount,
           timeboxInMin,
-          togglePrivacy: this.togglePrivacy,
-          setVoteCount: this.setVoteCount,
+          handleSlide: this.handleSlide,
           setTimebox: this.setTimebox
         }}
       >
