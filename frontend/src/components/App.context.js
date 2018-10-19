@@ -9,7 +9,10 @@ export class AppProvider extends React.Component {
     timeboxInMin: 5
   };
 
-  setPrivacy = isPrivate => this.setState({ isPrivate });
+  togglePrivacy = () =>
+    this.setState(prevState => {
+      return { isPrivate: !prevState.isPrivate };
+    });
 
   setVoteCount = voteCount => this.setState({ voteCount });
 
@@ -25,7 +28,7 @@ export class AppProvider extends React.Component {
           isPrivate,
           voteCount,
           timeboxInMin,
-          setPrivacy: this.setPrivacy,
+          togglePrivacy: this.togglePrivacy,
           setVoteCount: this.setVoteCount,
           setTimebox: this.setTimebox
         }}

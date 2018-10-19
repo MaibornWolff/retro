@@ -41,6 +41,7 @@ export default class CreateItemForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Input
+          type="text"
           label="Author"
           value={author}
           onChange={this.handleAuthorChange}

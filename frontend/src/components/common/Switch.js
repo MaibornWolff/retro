@@ -8,6 +8,7 @@ export const Switch = props => (
       name={props.name}
       className={`switch ${props.className}`}
       checked={props.checked}
+      onClick={props.onClick}
     />
     <label htmlFor={props.id}>{props.label}</label>
   </div>

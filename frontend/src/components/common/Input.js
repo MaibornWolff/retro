@@ -5,10 +5,11 @@ export const Input = props => (
     <label className="label">{props.label}</label>
     <div className="control">
       <input
-        className="input"
-        type="text"
+        className={`input ${props.className}`}
+        type={props.type}
         value={props.value}
         onChange={props.onChange}
+        onInput={props.onInput}
         placeholder={props.placeholder}
         autoFocus
       />

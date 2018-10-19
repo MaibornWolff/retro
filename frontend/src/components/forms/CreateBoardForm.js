@@ -34,15 +34,13 @@ export default class CreateBoardForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Input
+          type="text"
           label="Board Title"
           value={title}
           onChange={this.handleChange}
           placeholder="New Board Title"
         />
-        <Button
-          type="submit"
-          className="is-info is-rounded"
-        >
+        <Button type="submit" className="is-info is-rounded">
           Create New Board
         </Button>
       </Form>
