@@ -3,6 +3,7 @@ import React from "react";
 import { Title, Input } from "../common";
 import { AppConsumer } from "../App.context";
 
+// TODO: https://stackoverflow.com/a/38986143
 export default class SettingsForm extends React.Component {
   render() {
     return (

@@ -14,6 +14,10 @@ const BoardTitle = styled(Title)`
   ${BoardTitleStyles};
 `;
 
+const CreateColumnButton = styled(Button)`
+  box-shadow: 0 6px 6px -2px lightgrey !important;
+`;
+
 export default class Header extends React.Component {
   state = { open: false };
 
@@ -28,10 +32,13 @@ export default class Header extends React.Component {
     return (
       <HeaderContainer>
         <BoardTitle className="is-4">{title}</BoardTitle>
-        <Button className="is-info is-rounded" onClick={this.onOpenModal}>
+        <CreateColumnButton
+          className="is-info is-rounded"
+          onClick={this.onOpenModal}
+        >
           <FontAwesomeIcon icon={faPlus} />
           &nbsp; Column
-        </Button>
+        </CreateColumnButton>
         <Modal
           open={open}
           onClose={this.onCloseModal}

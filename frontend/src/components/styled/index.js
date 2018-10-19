@@ -23,7 +23,7 @@ export const ColumnContainer = styled.div`
   border: 1px solid lightgrey;
   border-radius: 2px;
   background-color: white;
-  box-shadow: 2px 2px 1px lightgrey;
+  box-shadow: 0 6px 6px -2px lightgrey;
   display: flex;
   flex-direction: column;
 `;
@@ -89,9 +89,7 @@ export const Unblur = styled.a`
   }
 `;
 
-export const Navbar = styled.nav`
-  box-shadow: 0 6px 6px -2px grey;
-`;
+export const Navbar = styled.nav``;
 
 export const NavbarBrand = styled.p`
   color: white;
@@ -117,5 +115,6 @@ export const ColumnTitleStyles = css`
 `;
 
 export const ColumnActionButtonStyles = css`
-  margin-left: 0.2em;
+  margin-left: 0.5em;
+  box-shadow: 0 4px 4px -2px grey !important;
 `;
