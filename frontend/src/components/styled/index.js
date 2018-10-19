@@ -68,6 +68,32 @@ export const NavbarButton = styled.div`
   margin: 0.5em;
 `;
 
+export const CardWrapper = styled.div`
+  position: relative;
+  border: 1px solid lightgrey;
+`;
+
+export const BlurToggle = styled.a`
+  position: absolute;
+  top: 5.5%;
+  right: 4%;
+  color: black;
+
+  &:hover {
+    color: #37474f;
+  }
+`;
+
+export const Navbar = styled.nav`
+  box-shadow: 0 6px 6px -2px grey;
+`;
+
+export const NavbarBrand = styled.p`
+  color: white;
+  font-family: "Lobster", cursive !important;
+  font-size: 2em;
+`;
+
 export const ItemsContainerStyles = css`
   padding: 1em;
   transition: background-color 0.2s ease;

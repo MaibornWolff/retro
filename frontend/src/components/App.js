@@ -1,23 +1,15 @@
 import React from "react";
-import { Link } from "@reach/router";
 
 import SettingsButton from "./SettingsButton";
 import CreateBoardButton from "./CreateBoardButton";
-
-import "../styles/Navbar.css";
+import { Navbar, NavbarBrand } from "./styled";
 
 const App = props => (
   <div className="container-fluid">
-    <nav
-      id="app-header"
-      className="navbar is-info"
-      aria-label="main navigation"
-    >
+    <Navbar className="navbar is-info" aria-label="main navigation">
       <div className="navbar-brand">
         <div className="navbar-item">
-          <Link id="navbrand" to="/">
-            Retro
-          </Link>
+          <NavbarBrand>Retro</NavbarBrand>
         </div>
       </div>
 
@@ -29,7 +21,7 @@ const App = props => (
           </div>
         </div>
       </div>
-    </nav>
+    </Navbar>
     {props.children}
   </div>
 );

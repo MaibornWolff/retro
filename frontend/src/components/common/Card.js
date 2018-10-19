@@ -10,32 +10,14 @@ import {
   faEye
 } from "@fortawesome/free-solid-svg-icons";
 
-import { Button } from "./Button";
 import EditItemForm from "../forms/EditItemForm";
 import DeleteItemForm from "../forms/DeleteItemForm";
-import { CardFooter, CardPoints } from "../styled";
+import { Button } from "./Button";
 import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
 import { UPVOTE_CARD } from "../../events/event-names";
+import { CardFooter, CardPoints, CardWrapper, BlurToggle } from "../styled";
 
 import "../../styles/Modal.css";
-
-import styled from "styled-components";
-
-const CardWrapper = styled.div`
-  position: relative;
-  border: 1px solid lightgrey;
-`;
-
-const BlurToggle = styled.a`
-  position: absolute;
-  top: 5.5%;
-  right: 4%;
-  color: black;
-
-  &:hover {
-    color: #37474f;
-  }
-`;
 
 export class Card extends React.Component {
   state = { isEdit: false, isDelete: false, isBlurred: true };
