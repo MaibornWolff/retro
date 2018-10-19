@@ -6995,6 +6995,10 @@ react-beautiful-dnd@^9.0.2:
     redux "^4.0.0"
     tiny-invariant "^1.0.0"
 
+react-css-blur@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-css-blur/-/react-css-blur-1.1.1.tgz#58f50be2530dc7c89890e26216ebec5da70c91e2"
+
 react-dev-utils@^6.0.4:
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-6.0.4.tgz#cd6d2712aa22d67751ef6757dc82787351da8826"

@@ -3,9 +3,9 @@ import Modal from "react-responsive-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
-import SettingsForm from "./forms/SettingsForm"
+import SettingsForm from "./forms/SettingsForm";
 import { Button } from "./common";
-import { NavbarButton } from "../styles/styledComponents";
+import { NavbarButton } from "./styled";
 
 import "../styles/Modal.css";
 

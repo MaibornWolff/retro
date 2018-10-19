@@ -4,7 +4,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import Header from "./Header";
 import Columns from "./Columns";
-import { FlexContainer } from "../styles/styledComponents";
+import { FlexContainer } from "./styled";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
 import { UPDATE_BOARD } from "../events/event-names";
 import { emptyBoard } from "../utils/emptyBoard";

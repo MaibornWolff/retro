@@ -17,7 +17,7 @@ import {
   ItemsContainerStyles,
   ColumnTitleStyles,
   ColumnActionButtonStyles
-} from "../styles/styledComponents";
+} from "./styled";
 import { Title, Button } from "./common";
 import CreateItemForm from "./forms/CreateItemForm";
 import DeleteColumnForm from "./forms/DeleteColumnForm";

@@ -1,7 +1,11 @@
 import React from "react";
 
-export const Button = ({ className, onClick, children, type }) => (
-  <button className={`button ${className}`} onClick={onClick} type={type}>
-    {children}
-  </button>
-);
+export const Button = props => {
+  const { className, children, ...rest } = props;
+
+  return (
+    <button className={`button ${className}`} {...rest}>
+      {children}
+    </button>
+  );
+};
