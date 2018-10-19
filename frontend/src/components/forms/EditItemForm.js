@@ -32,6 +32,7 @@ export default class EditItemForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Input
+          className="input"
           type="text"
           label="Author"
           value={title}

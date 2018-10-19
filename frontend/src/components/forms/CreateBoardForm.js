@@ -34,6 +34,7 @@ export default class CreateBoardForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Input
+          className="input"
           type="text"
           label="Board Title"
           value={title}

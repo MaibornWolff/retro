@@ -32,6 +32,7 @@ export default class CreateColumnForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Input
+          className="input"
           type="text"
           label="Column Title"
           value={title}
