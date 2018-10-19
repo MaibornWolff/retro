@@ -27,6 +27,7 @@ export default class CreateItemForm extends React.Component {
       id,
       author,
       content,
+      isBlurred: true,
       points: 0
     };
 

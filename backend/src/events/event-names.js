@@ -10,5 +10,6 @@ module.exports = {
   SORT_COLUMN: "sort column",
   DELETE_CARD: "delete card",
   CREATE_BOARD: "create board",
-  JOIN_BOARD: "join board"
+  JOIN_BOARD: "join board",
+  UNBLUR_CARD: "unblur card"
 };

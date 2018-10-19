@@ -12,9 +12,9 @@ export default class DeleteItemForm extends React.Component {
     event.preventDefault();
 
     const socket = io(LOCAL_BACKEND_ENDPOINT);
-    const { cardId, boardId } = this.props;
+    const { id, boardId } = this.props;
 
-    socket.emit(DELETE_CARD, cardId, boardId);
+    socket.emit(DELETE_CARD, id, boardId);
     closeModal();
   };
 

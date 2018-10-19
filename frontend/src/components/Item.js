@@ -17,10 +17,11 @@ const Item = props => {
           isDragging={snapshot.isDragging}
         >
           <Card
-            cardId={item.id}
-            cardTitle={item.author}
-            cardContent={item.content}
-            cardPoints={item.points}
+            id={item.id}
+            title={item.author}
+            content={item.content}
+            points={item.points}
+            isBlurred={item.isBlurred}
             boardId={boardId}
           />
         </ItemContainer>

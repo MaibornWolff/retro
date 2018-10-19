@@ -4,7 +4,8 @@ const {
   createCard,
   editCard,
   deleteCard,
-  upvoteCard
+  upvoteCard,
+  unblurCard
 } = require("./card-events");
 
 const boardEvents = (io, client) => {
@@ -24,6 +25,7 @@ const cardEvents = (io, client) => {
   editCard(io, client);
   deleteCard(io, client);
   upvoteCard(io, client);
+  unblurCard(io, client);
 };
 
 module.exports = {

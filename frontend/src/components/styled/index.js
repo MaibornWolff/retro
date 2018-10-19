@@ -68,19 +68,24 @@ export const NavbarButton = styled.div`
   margin: 0.5em;
 `;
 
+export const CardContainer = styled.div``;
+
 export const CardWrapper = styled.div`
   position: relative;
-  border: 1px solid lightgrey;
+  border: ${p => (p.isBlurred ? "1px" : "0px")} solid lightgrey;
+  ${CardContainer} {
+    filter: blur(${p => (p.isBlurred ? "5px" : 0)});
+  }
 `;
 
-export const BlurToggle = styled.a`
+export const Unblur = styled.a`
   position: absolute;
   top: 5.5%;
   right: 4%;
   color: black;
 
   &:hover {
-    color: #37474f;
+    color: #757575;
   }
 `;
 
@@ -99,7 +104,7 @@ export const ItemsContainerStyles = css`
   transition: background-color 0.2s ease;
   flex-grow: 1;
   min-height: 100px;
-  background-color: ${p => (p.isDraggingOver ? "lightgrey" : "inherit")};
+  background-color: ${p => (p.isDraggingOver ? "#f5f5f5" : "inherit")};
 `;
 
 export const BoardTitleStyles = css`
