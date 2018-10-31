@@ -30,7 +30,6 @@ export default class Board extends React.Component {
   onDragEnd = dragResult => {
     const { source, destination, type } = dragResult;
     const { columns, columnOrder } = this.state;
-    const { boardId } = this.props;
 
     if (!destination) {
       return;
@@ -41,19 +40,19 @@ export default class Board extends React.Component {
     }
 
     if (type === "column") {
-      this.handleColDrag(dragResult, columnOrder, boardId);
+      this.handleColumnDrag(dragResult, columnOrder);
       return;
     }
 
     if (this.isSameColumn(columns, source, destination)) {
-      this.handleInsideColDrag(dragResult, columns, boardId);
+      this.handleInsideColumnDrag(dragResult, columns);
       return;
     }
 
-    this.handleNormalDrag(dragResult, columns, boardId);
+    this.handleNormalDrag(dragResult, columns);
   };
 
-  handleColDrag(dragResult, columnOrder, boardId) {
+  handleColumnDrag(dragResult, columnOrder) {
     const { source, destination, draggableId } = dragResult;
     const newColumnOrder = Array.from(columnOrder);
 
@@ -66,18 +65,19 @@ export default class Board extends React.Component {
     };
 
     this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, boardId);
+    this.socket.emit(UPDATE_BOARD, newState, this.props.boardId);
   }
 
-  handleInsideColDrag(dragResult, columns, boardId) {
+  handleInsideColumnDrag(dragResult, columns) {
     const { source, destination, draggableId } = dragResult;
-    const startCol = columns[source.droppableId];
-    const newItemIds = Array.from(startCol.itemIds);
+
+    const startColumn = columns[source.droppableId];
+    const newItemIds = Array.from(startColumn.itemIds);
 
     newItemIds.splice(source.index, 1);
     newItemIds.splice(destination.index, 0, draggableId);
 
-    const newCol = { ...startCol, itemIds: newItemIds };
+    const newCol = { ...startColumn, itemIds: newItemIds };
     const newState = {
       ...this.state,
       columns: {
@@ -87,39 +87,42 @@ export default class Board extends React.Component {
     };
 
     this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, boardId);
+    this.socket.emit(UPDATE_BOARD, newState, this.props.boardId);
   }
 
-  handleNormalDrag(dragResult, columns, boardId) {
+  handleNormalDrag(dragResult, columns) {
     const { source, destination, draggableId } = dragResult;
-    const startCol = columns[source.droppableId];
-    const destCol = columns[destination.droppableId];
-    const startItemIds = Array.from(startCol.itemIds);
 
-    startItemIds.splice(source.index, 1);
-    const newStart = {
-      ...startCol,
-      itemIds: startItemIds
+    const startColumn = columns[source.droppableId];
+    const destinationColumn = columns[destination.droppableId];
+
+    const startItems = Array.from(startColumn.itemIds);
+    const destinationItems = Array.from(destinationColumn.itemIds);
+
+    startItems.splice(source.index, 1);
+    destinationItems.splice(destination.index, 0, draggableId);
+
+    const newStartColumn = {
+      ...startColumn,
+      itemIds: startItems
     };
 
-    const finishItemIds = Array.from(destCol.itemIds);
-    finishItemIds.splice(destination.index, 0, draggableId);
-    const newDestination = {
-      ...destCol,
-      itemIds: finishItemIds
+    const newDestinationColumn = {
+      ...destinationColumn,
+      itemIds: destinationItems
     };
 
     const newState = {
       ...this.state,
       columns: {
         ...columns,
-        [newStart.id]: newStart,
-        [newDestination.id]: newDestination
+        [newStartColumn.id]: newStartColumn,
+        [newDestinationColumn.id]: newDestinationColumn
       }
     };
 
     this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, boardId);
+    this.socket.emit(UPDATE_BOARD, newState, this.props.boardId);
   }
 
   isSamePosition(source, destination) {
