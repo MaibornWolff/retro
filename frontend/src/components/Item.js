@@ -13,7 +13,7 @@ const Item = props => {
         <ItemContainer
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          innerRef={provided.innerRef}
+          ref={provided.innerRef}
           isDragging={snapshot.isDragging}
         >
           <Card

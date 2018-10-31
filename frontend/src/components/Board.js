@@ -140,7 +140,7 @@ export default class Board extends React.Component {
             {provided => (
               <FlexContainer
                 {...provided.droppableProps}
-                innerRef={provided.innerRef}
+                ref={provided.innerRef}
               >
                 {this.renderBoard(columns, items, boardId)}
                 {provided.placeholder}

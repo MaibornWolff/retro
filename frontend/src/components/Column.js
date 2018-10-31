@@ -68,7 +68,7 @@ export default class Column extends React.Component {
           <ColumnContainer
             {...providedDraggable.draggableProps}
             {...providedDraggable.dragHandleProps}
-            innerRef={providedDraggable.innerRef}
+            ref={providedDraggable.innerRef}
           >
             <ColumnHeader>
               <ColumnTitle className="is-5">{column.title}</ColumnTitle>
@@ -116,7 +116,7 @@ export default class Column extends React.Component {
             <Droppable droppableId={column.id} type="item">
               {(providedDroppable, snapshot) => (
                 <ItemsContainer
-                  innerRef={providedDroppable.innerRef}
+                  ref={providedDroppable.innerRef}
                   {...providedDroppable.droppableProps}
                   isDraggingOver={snapshot.isDraggingOver}
                 >
