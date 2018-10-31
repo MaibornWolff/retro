@@ -5,7 +5,7 @@ import CreateBoardButton from "./CreateBoardButton";
 import { Navbar, NavbarBrand } from "./styled";
 
 const AppHeader = () => (
-  <Navbar className="navbar is-info" aria-label="main navigation">
+  <Navbar className="navbar is-primary" aria-label="main navigation">
     <div className="navbar-brand">
       <div className="navbar-item">
         <NavbarBrand>Retro</NavbarBrand>

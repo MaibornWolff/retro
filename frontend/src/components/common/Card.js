@@ -1,6 +1,6 @@
 import React from "react";
-import Modal from "react-responsive-modal";
 import io from "socket.io-client";
+import Modal from "react-responsive-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faThumbsUp,
@@ -56,16 +56,14 @@ export class Card extends React.Component {
         <CardContainer className="card">
           <header className="card-header">
             <p className="card-header-title">{title}</p>
-            <CardPoints className="has-background-grey-lighter">
-              {points}
-            </CardPoints>
+            <CardPoints className="has-background-light">{points}</CardPoints>
           </header>
           <div className="card-content">
             <div className="content">{content}</div>
           </div>
           <CardFooter className="card-footer">
             <Button
-              className="is-info is-rounded is-inverted"
+              className="is-primary is-rounded is-inverted"
               onClick={this.onOpenEdit}
               disabled={isBlurred}
             >
@@ -86,7 +84,7 @@ export class Card extends React.Component {
             </Modal>
 
             <Button
-              className="is-info is-rounded is-inverted"
+              className="is-primary is-rounded is-inverted"
               onClick={this.onOpenDelete}
               disabled={isBlurred}
             >
@@ -102,7 +100,7 @@ export class Card extends React.Component {
             </Modal>
 
             <Button
-              className="is-info is-rounded is-inverted"
+              className="is-primary is-rounded is-inverted"
               onClick={() => this.handleUpvote(id)}
               disabled={isBlurred}
             >

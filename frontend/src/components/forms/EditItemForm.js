@@ -1,9 +1,15 @@
 import React from "react";
 import io from "socket.io-client";
+import styled from "styled-components";
 
 import { Form, Input, Textarea, Button } from "../common";
 import { closeModal, LOCAL_BACKEND_ENDPOINT } from "../../utils";
 import { EDIT_CARD } from "../../events/event-names";
+import { ButtonStyles } from "../styled";
+
+const EditButton = styled(Button)`
+  ${ButtonStyles};
+`;
 
 export default class EditItemForm extends React.Component {
   state = {
@@ -45,9 +51,9 @@ export default class EditItemForm extends React.Component {
           onChange={this.handleContentChange}
           placeholder="Your Feedback"
         />
-        <Button type="submit" className="is-info is-rounded">
+        <EditButton type="submit" className="is-primary is-rounded">
           Edit
-        </Button>
+        </EditButton>
       </Form>
     );
   }

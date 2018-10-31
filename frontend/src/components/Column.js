@@ -16,7 +16,7 @@ import {
   FlexContainer,
   ItemsContainerStyles,
   ColumnTitleStyles,
-  ColumnActionButtonStyles
+  ButtonStyles
 } from "./styled";
 import { Title, Button } from "./common";
 import CreateItemForm from "./forms/CreateItemForm";
@@ -36,7 +36,8 @@ const ColumnTitle = styled(Title)`
 `;
 
 const ColumnActionButton = styled(Button)`
-  ${ColumnActionButtonStyles};
+  margin-left: 0.5em;
+  ${ButtonStyles};
 `;
 
 export default class Column extends React.Component {

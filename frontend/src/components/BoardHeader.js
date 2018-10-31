@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { HeaderContainer, BoardTitleStyles } from "./styled";
+import { HeaderContainer, BoardTitleStyles, ButtonStyles } from "./styled";
 import { Title, Button } from "./common";
 import CreateColumnForm from "./forms/CreateColumnForm";
 
@@ -15,7 +15,7 @@ const BoardTitle = styled(Title)`
 `;
 
 const CreateColumnButton = styled(Button)`
-  box-shadow: 0 6px 6px -2px lightgrey !important;
+  ${ButtonStyles};
 `;
 
 export default class BoardHeader extends React.Component {
@@ -33,7 +33,7 @@ export default class BoardHeader extends React.Component {
       <HeaderContainer>
         <BoardTitle className="is-4">{title}</BoardTitle>
         <CreateColumnButton
-          className="is-info is-rounded"
+          className="is-primary is-rounded"
           onClick={this.onOpenModal}
         >
           <FontAwesomeIcon icon={faPlus} />

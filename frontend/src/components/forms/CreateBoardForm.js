@@ -1,5 +1,6 @@
 import React from "react";
 import io from "socket.io-client";
+import styled from "styled-components";
 import uniqid from "uniqid";
 import { navigate } from "@reach/router";
 
@@ -7,6 +8,11 @@ import { Input, Button, Form } from "../common";
 import { closeModal, LOCAL_BACKEND_ENDPOINT } from "../../utils";
 import { CREATE_BOARD } from "../../events/event-names";
 import { emptyBoard } from "../../utils/emptyBoard";
+import { ButtonStyles } from "../styled";
+
+const CreateButton = styled(Button)`
+  ${ButtonStyles};
+`;
 
 export default class CreateBoardForm extends React.Component {
   state = { title: "" };
@@ -41,9 +47,9 @@ export default class CreateBoardForm extends React.Component {
           onChange={this.handleChange}
           placeholder="New Board Title"
         />
-        <Button type="submit" className="is-info is-rounded">
+        <CreateButton type="submit" className="is-primary is-rounded">
           Create New Board
-        </Button>
+        </CreateButton>
       </Form>
     );
   }

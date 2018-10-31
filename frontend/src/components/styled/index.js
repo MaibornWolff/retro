@@ -23,7 +23,7 @@ export const ColumnContainer = styled.div`
   border: 1px solid lightgrey;
   border-radius: 2px;
   background-color: white;
-  box-shadow: 4px 4px 1px lightgrey;
+  box-shadow: 0 6px 6px -2px lightgrey;
   display: flex;
   flex-direction: column;
 `;
@@ -53,7 +53,6 @@ export const CardFooter = styled.div`
 `;
 
 export const CardPoints = styled.div`
-  font-weight: bold;
   color: black;
   display: flex;
   align-items: center;
@@ -90,7 +89,7 @@ export const Unblur = styled.a`
 `;
 
 export const Navbar = styled.nav`
-  box-shadow: 0 4px 4px -2px grey;
+  box-shadow: 0 4px 4px -2px lightgrey;
 `;
 
 export const NavbarBrand = styled.p`
@@ -116,7 +115,6 @@ export const ColumnTitleStyles = css`
   margin-bottom: 0 !important;
 `;
 
-export const ColumnActionButtonStyles = css`
-  margin-left: 0.5em;
+export const ButtonStyles = css`
   box-shadow: 0 4px 4px -2px grey !important;
 `;

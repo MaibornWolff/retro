@@ -1,10 +1,16 @@
 import React from "react";
 import socketIO from "socket.io-client";
 import uniqid from "uniqid";
+import styled from "styled-components";
 
 import { Form, Input, Textarea, Button } from "../common";
 import { closeModal, LOCAL_BACKEND_ENDPOINT } from "../../utils";
 import { CREATE_CARD } from "../../events/event-names";
+import { ButtonStyles } from "../styled";
+
+const SubmitButton = styled(Button)`
+  ${ButtonStyles};
+`;
 
 export default class CreateItemForm extends React.Component {
   state = {
@@ -55,9 +61,9 @@ export default class CreateItemForm extends React.Component {
           onChange={this.handleContentChange}
           placeholder="Your Feedback"
         />
-        <Button type="submit" className="is-info is-rounded">
+        <SubmitButton type="submit" className="is-primary is-rounded">
           Submit
-        </Button>
+        </SubmitButton>
       </Form>
     );
   }

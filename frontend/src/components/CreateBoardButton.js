@@ -22,7 +22,7 @@ export default class CreateBoardButton extends React.Component {
     return (
       <NavbarButton>
         <Button
-          className="is-info is-rounded is-inverted is-outlined"
+          className="is-primary is-rounded is-inverted is-outlined"
           onClick={this.onOpenModal}
         >
           <FontAwesomeIcon icon={faPlus} />

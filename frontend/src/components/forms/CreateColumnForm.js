@@ -1,10 +1,16 @@
 import React from "react";
 import io from "socket.io-client";
 import uniqid from "uniqid";
+import styled from "styled-components";
 
 import { Form, Input, Button } from "../common";
 import { closeModal, LOCAL_BACKEND_ENDPOINT } from "../../utils";
 import { CREATE_COLUMN } from "../../events/event-names";
+import { ButtonStyles } from "../styled";
+
+const SubmitButton = styled(Button)`
+  ${ButtonStyles};
+`;
 
 export default class CreateColumnForm extends React.Component {
   state = { title: "" };
@@ -39,9 +45,9 @@ export default class CreateColumnForm extends React.Component {
           onChange={this.handleTitleChange}
           placeholder="New Column Title"
         />
-        <Button type="submit" className="is-info is-rounded">
+        <SubmitButton type="submit" className="is-primary is-rounded">
           Submit
-        </Button>
+        </SubmitButton>
       </Form>
     );
   }
