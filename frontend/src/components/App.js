@@ -1,29 +1,20 @@
 import React from "react";
+import { Router } from "@reach/router";
 
-import SettingsButton from "./SettingsButton";
-import CreateBoardButton from "./CreateBoardButton";
-import { Navbar, NavbarBrand } from "./styled";
+import Retro from "./Retro";
+import Home from "./Home";
+import Board from "./Board";
+import { AppProvider } from "./App.context";
 
-const App = props => (
-  <div className="container-fluid">
-    <Navbar className="navbar is-info" aria-label="main navigation">
-      <div className="navbar-brand">
-        <div className="navbar-item">
-          <NavbarBrand>Retro</NavbarBrand>
-        </div>
-      </div>
-
-      <div className="navbar-end">
-        <div className="navbar-item">
-          <div className="field is-grouped">
-            <CreateBoardButton />
-            <SettingsButton />
-          </div>
-        </div>
-      </div>
-    </Navbar>
-    {props.children}
-  </div>
+const App = () => (
+  <AppProvider>
+    <Router>
+      <Retro path="/">
+        <Home path="/" />
+        <Board path="/boards/:boardId" />
+      </Retro>
+    </Router>
+  </AppProvider>
 );
 
 export default App;

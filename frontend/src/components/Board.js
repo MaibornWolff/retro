@@ -2,7 +2,7 @@ import React from "react";
 import io from "socket.io-client";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-import Header from "./Header";
+import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
 import { FlexContainer } from "./styled";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
@@ -157,7 +157,7 @@ export default class Board extends React.Component {
 
     return (
       <div>
-        <Header title={title} boardId={boardId} />
+        <BoardHeader title={title} boardId={boardId} />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable
             droppableId="allColumns"

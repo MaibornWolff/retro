@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Retro from "./components/Retro";
+import App from "./components/App";
 import registerServiceWorker from "./registerServiceWorker";
 
 import "../node_modules/bulma/css/bulma.min.css";
 
-ReactDOM.render(<Retro />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
 registerServiceWorker();

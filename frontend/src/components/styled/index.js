@@ -23,7 +23,7 @@ export const ColumnContainer = styled.div`
   border: 1px solid lightgrey;
   border-radius: 2px;
   background-color: white;
-  box-shadow: 0 6px 6px -2px lightgrey;
+  box-shadow: 4px 4px 1px lightgrey;
   display: flex;
   flex-direction: column;
 `;
@@ -89,7 +89,9 @@ export const Unblur = styled.a`
   }
 `;
 
-export const Navbar = styled.nav``;
+export const Navbar = styled.nav`
+  box-shadow: 0 4px 4px -2px grey;
+`;
 
 export const NavbarBrand = styled.p`
   color: white;

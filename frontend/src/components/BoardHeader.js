@@ -18,7 +18,7 @@ const CreateColumnButton = styled(Button)`
   box-shadow: 0 6px 6px -2px lightgrey !important;
 `;
 
-export default class Header extends React.Component {
+export default class BoardHeader extends React.Component {
   state = { open: false };
 
   onOpenModal = () => this.setState({ open: true });
