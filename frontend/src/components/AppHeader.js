@@ -14,7 +14,7 @@ const AppHeader = props => {
     <div className={classes.root}>
       <AppBar color="primary" position="static">
         <Toolbar>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
+          <Typography variant="h5" color="inherit" className={classes.grow}>
             Retro
           </Typography>
 

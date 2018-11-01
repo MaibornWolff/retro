@@ -4,19 +4,6 @@ export const FlexContainer = styled.div`
   display: flex;
 `;
 
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  margin: 1em;
-`;
-
-export const Greeting = styled.div`
-  display: flex;
-  justify-content: center;
-  font-size: 1.5em;
-  margin-top: 1em;
-`;
-
 export const ColumnContainer = styled.div`
   width: 400px;
   margin: 1em;
@@ -63,10 +50,6 @@ export const CardPoints = styled.div`
   margin: 0.5em;
 `;
 
-export const NavbarButton = styled.div`
-  margin: 0.5em;
-`;
-
 export const CardContainer = styled.div``;
 
 export const CardWrapper = styled.div`
@@ -88,31 +71,16 @@ export const Unblur = styled.a`
   }
 `;
 
-export const Navbar = styled.nav`
-  box-shadow: 0 4px 4px -2px lightgrey;
-`;
-
-export const NavbarBrand = styled.p`
-  color: white;
-  font-family: "Lobster", cursive !important;
-  font-size: 2em;
-`;
-
 export const ItemsContainerStyles = css`
   padding: 1em;
   transition: background-color 0.2s ease;
   flex-grow: 1;
-  min-height: 100px;
+  min-height: 6em;
   background-color: ${p => (p.isDraggingOver ? "#f5f5f5" : "inherit")};
 `;
 
 export const BoardTitleStyles = css`
   margin: 0 !important;
-`;
-
-export const ColumnTitleStyles = css`
-  padding: 8px;
-  margin-bottom: 0 !important;
 `;
 
 export const ButtonStyles = css`
