@@ -1,41 +1,94 @@
 import React from "react";
-import Modal from "react-responsive-modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import io from "socket.io-client";
+import uniqid from "uniqid";
+import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { withStyles } from "@material-ui/core/styles";
+import { navigate } from "@reach/router";
 
-import { Button } from "./common/Button";
-import { NavbarButton } from "./styled";
-import CreateBoardForm from "./forms/CreateBoardForm";
+import { CREATE_BOARD } from "../events/event-names";
+import { LOCAL_BACKEND_ENDPOINT } from "../utils";
+import { emptyBoard } from "../utils/emptyBoard";
 
-export default class CreateBoardButton extends React.Component {
-  state = { open: false };
+const styles = theme => ({
+  rightIcon: {
+    marginLeft: theme.spacing.unit
+  }
+});
 
-  onOpenModal = () => this.setState({ open: true });
+class CreateBoardButton extends React.Component {
+  state = {
+    open: false,
+    title: ""
+  };
 
-  onCloseModal = () => this.setState({ open: false });
+  handleOpen = () => this.setState({ open: true });
+
+  handleClose = () => this.setState({ open: false, title: "" });
+
+  handleChange = e => this.setState({ title: e.target.value });
+
+  handleSubmit = async e => {
+    e.preventDefault();
+    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    const { title } = this.state;
+    const boardId = uniqid("board-");
+    const newBoard = { ...emptyBoard, boardId, title };
+
+    socket.emit(CREATE_BOARD, newBoard, boardId);
+    this.setState({ title: "", open: false });
+    await navigate(`boards/${boardId}`);
+  };
 
   render() {
-    const { open } = this.state;
+    const { open, title } = this.state;
+    const { classes } = this.props;
 
     return (
-      <NavbarButton>
-        <Button
-          className="is-primary is-rounded is-inverted is-outlined"
-          onClick={this.onOpenModal}
-        >
-          <FontAwesomeIcon icon={faPlus} />
-          &nbsp;New Board
+      <>
+        <Button color="inherit" onClick={this.handleOpen}>
+          New Board
+          <AddIcon className={classes.rightIcon} />
         </Button>
-
-        <Modal
+        <Dialog
           open={open}
-          onClose={this.onCloseModal}
-          center
-          classNames={{ modal: "custom-modal" }}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
         >
-          <CreateBoardForm />
-        </Modal>
-      </NavbarButton>
+          <DialogTitle id="form-dialog-title">Create New Board</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please provide a name for your new board.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="board-name"
+              label="Board Name"
+              type="text"
+              value={title}
+              onChange={this.handleChange}
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleSubmit} color="primary">
+              Create
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </>
     );
   }
 }
+
+export default withStyles(styles)(CreateBoardButton);
