@@ -1,5 +1,10 @@
 import styled, { css } from "styled-components";
 
+export const AppName = styled.div`
+  color: white;
+  font-family: "Lobster", cursive;
+`;
+
 export const FlexContainer = styled.div`
   display: flex;
 `;
@@ -7,8 +12,7 @@ export const FlexContainer = styled.div`
 export const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  width: 400px;
+  width: 100vh;
   margin: 1em;
   border: 1px solid lightgrey;
   border-radius: 2px;
@@ -17,25 +21,7 @@ export const ColumnContainer = styled.div`
 `;
 
 export const ItemContainer = styled.div`
-  margin-bottom: 1.5em;
-  box-shadow: 4px 4px 1px lightgrey;
-`;
-
-export const CardFooter = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5em;
-`;
-
-export const CardPoints = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  border-radius: 50%;
-  height: 2em;
-  width: 2em;
-  margin: 0.5em;
+  margin-bottom: 1em;
 `;
 
 export const CardContainer = styled.div``;
@@ -50,8 +36,8 @@ export const CardWrapper = styled.div`
 
 export const Unblur = styled.a`
   position: absolute;
-  top: 5.5%;
-  right: 4%;
+  top: 4%;
+  right: 2%;
   color: black;
 
   &:hover {

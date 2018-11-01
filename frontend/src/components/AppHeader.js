@@ -14,13 +14,13 @@ const AppHeader = props => {
     <div className={classes.root}>
       <AppBar color="primary" position="static">
         <Toolbar>
-          <Typography variant="h5" color="inherit" className={classes.grow}>
+          <Typography variant="h4" color="inherit" className={classes.brand}>
             Retro
           </Typography>
 
           <Button color="inherit">
+            <SettingsIcon className={classes.icon} />
             Settings
-            <SettingsIcon className={classes.rightIcon} />
           </Button>
         </Toolbar>
       </AppBar>
@@ -32,11 +32,12 @@ const styles = theme => ({
   root: {
     flexGrow: 1
   },
-  grow: {
-    flexGrow: 1
+  brand: {
+    flexGrow: 1,
+    fontFamily: "Lobster"
   },
-  rightIcon: {
-    marginLeft: theme.spacing.unit
+  icon: {
+    marginRight: theme.spacing.unit
   }
 });
 

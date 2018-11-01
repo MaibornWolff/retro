@@ -1,8 +1,8 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
+import RetroItem from "./RetroItem";
 import { ItemContainer } from "./styled";
-import { Card } from "./common";
 
 const Item = props => {
   const { item, index, boardId } = props;
@@ -16,9 +16,9 @@ const Item = props => {
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
         >
-          <Card
+          <RetroItem
             id={item.id}
-            title={item.author}
+            author={item.author}
             content={item.content}
             points={item.points}
             isBlurred={item.isBlurred}

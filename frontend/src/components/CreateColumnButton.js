@@ -46,9 +46,14 @@ class CreateColumnButton extends React.Component {
 
     return (
       <>
-        <Button variant="contained" color="primary" onClick={this.handleOpen}>
-          New Column
-          <AddIcon className={classes.rightIcon} />
+        <Button
+          variant="extendedFab"
+          aria-label="Add Column"
+          color="secondary"
+          onClick={this.handleOpen}
+        >
+          <AddIcon className={classes.icon} />
+          Column
         </Button>
         <Dialog
           open={open}
@@ -83,8 +88,8 @@ class CreateColumnButton extends React.Component {
 }
 
 const styles = theme => ({
-  rightIcon: {
-    marginLeft: theme.spacing.unit
+  icon: {
+    marginRight: theme.spacing.unit
   }
 });
 
