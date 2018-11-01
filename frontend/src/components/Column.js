@@ -70,7 +70,7 @@ export default class Column extends React.Component {
             ref={providedDraggable.innerRef}
           >
             <ColumnHeader>
-              <ColumnTitle className="is-5">{column.title}</ColumnTitle>
+              <ColumnTitle className="is-5">{column.columnTitle}</ColumnTitle>
 
               <FlexContainer>
                 <ColumnActionButton

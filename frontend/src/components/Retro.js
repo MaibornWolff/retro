@@ -3,7 +3,7 @@ import React from "react";
 import AppHeader from "./AppHeader";
 
 const Retro = props => (
-  <div className="container-fluid">
+  <div>
     <AppHeader />
     {props.children}
   </div>

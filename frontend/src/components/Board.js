@@ -1,5 +1,6 @@
 import React from "react";
 import io from "socket.io-client";
+import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import BoardHeader from "./BoardHeader";
@@ -15,7 +16,7 @@ import {
   onJoinBoard
 } from "../events/event-listener";
 
-export default class Board extends React.Component {
+class Board extends React.Component {
   state = { ...emptyBoard };
 
   socket = io(LOCAL_BACKEND_ENDPOINT);
@@ -153,29 +154,52 @@ export default class Board extends React.Component {
 
   render() {
     const { columns, items, title } = this.state;
-    const { boardId } = this.props;
+    const { classes, boardId } = this.props;
 
     return (
-      <div>
-        <BoardHeader title={title} boardId={boardId} />
-        <DragDropContext onDragEnd={this.onDragEnd}>
-          <Droppable
-            droppableId="allColumns"
-            direction="horizontal"
-            type="column"
+      <Grid container className={classes.root}>
+        <Grid item xs={12}>
+          <Grid
+            container
+            className={classes.header}
+            direction="row"
+            justify="space-between"
+            alignItems="center"
           >
-            {provided => (
-              <FlexContainer
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {this.renderBoard(columns, items, boardId)}
-                {provided.placeholder}
-              </FlexContainer>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </div>
+            <BoardHeader title={title} boardId={boardId} />
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            <Droppable
+              droppableId="allColumns"
+              direction="horizontal"
+              type="column"
+            >
+              {provided => (
+                <FlexContainer
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {this.renderBoard(columns, items, boardId)}
+                  {provided.placeholder}
+                </FlexContainer>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </Grid>
+      </Grid>
     );
   }
 }
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  header: {
+    padding: theme.spacing.unit * 2
+  }
+});
+
+export default withStyles(styles)(Board);
