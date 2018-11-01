@@ -7,8 +7,6 @@ import { Button } from "./common/Button";
 import { NavbarButton } from "./styled";
 import CreateBoardForm from "./forms/CreateBoardForm";
 
-import "../styles/Modal.css";
-
 export default class CreateBoardButton extends React.Component {
   state = { open: false };
 

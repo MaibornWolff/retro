@@ -8,8 +8,6 @@ import { HeaderContainer, BoardTitleStyles, ButtonStyles } from "./styled";
 import { Title, Button } from "./common";
 import CreateColumnForm from "./forms/CreateColumnForm";
 
-import "../styles/Modal.css";
-
 const BoardTitle = styled(Title)`
   ${BoardTitleStyles};
 `;

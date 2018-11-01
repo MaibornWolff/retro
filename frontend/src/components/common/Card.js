@@ -22,8 +22,6 @@ import {
   Unblur
 } from "../styled";
 
-import "../../styles/Modal.css";
-
 export class Card extends React.Component {
   state = { isEdit: false, isDelete: false };
 

@@ -25,8 +25,6 @@ import Items from "./Items";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
 import { SORT_COLUMN } from "../events/event-names";
 
-import "../styles/Modal.css";
-
 const ItemsContainer = styled.div`
   ${ItemsContainerStyles};
 `;

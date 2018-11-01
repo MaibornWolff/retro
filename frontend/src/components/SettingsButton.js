@@ -7,8 +7,6 @@ import SettingsForm from "./forms/SettingsForm";
 import { Button } from "./common";
 import { NavbarButton } from "./styled";
 
-import "../styles/Modal.css";
-
 export default class SettingsButton extends React.Component {
   state = { open: false };
 
