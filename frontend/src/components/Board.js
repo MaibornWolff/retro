@@ -157,7 +157,7 @@ class Board extends React.Component {
     const { classes, boardId } = this.props;
 
     return (
-      <Grid container className={classes.root}>
+      <Grid container className={classes.root} direction="column">
         <Grid item xs={12}>
           <Grid
             container

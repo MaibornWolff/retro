@@ -1,9 +1,10 @@
 import React from "react";
 import isEmpty from "lodash/isEmpty";
+import { Grid } from "@material-ui/core";
 
 import Column from "./Column";
 
-const Columns = (props) => {
+const Columns = props => {
   const { column, itemMap, index, boardId } = props;
 
   let items;
@@ -14,12 +15,7 @@ const Columns = (props) => {
   }
 
   return (
-    <Column
-      column={column}
-      items={items}
-      index={index}
-      boardId={boardId}
-    />
+    <Column column={column} items={items} index={index} boardId={boardId} />
   );
 };
 

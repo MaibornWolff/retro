@@ -17,8 +17,8 @@ import { UPVOTE_CARD, UNBLUR_CARD } from "../../events/event-names";
 import {
   CardFooter,
   CardPoints,
-  CardContainer,
   CardWrapper,
+  CardContainer,
   Unblur
 } from "../styled";
 

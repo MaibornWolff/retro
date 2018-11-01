@@ -5,27 +5,15 @@ export const FlexContainer = styled.div`
 `;
 
 export const ColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   width: 400px;
   margin: 1em;
   border: 1px solid lightgrey;
   border-radius: 2px;
   background-color: white;
   box-shadow: 0 6px 6px -2px lightgrey;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const ColumnHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  background-color: #f5f5f5;
-  padding: 1em;
-`;
-
-export const HeaderContainer = styled.div`
-  margin: 1.5em 1em 0em 1em;
-  display: flex;
-  justify-content: space-between;
 `;
 
 export const ItemContainer = styled.div`
@@ -34,16 +22,16 @@ export const ItemContainer = styled.div`
 `;
 
 export const CardFooter = styled.div`
-  padding: 0.5em;
   display: flex;
   justify-content: space-between;
+  padding: 0.5em;
 `;
 
 export const CardPoints = styled.div`
-  color: black;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  color: black;
   border-radius: 50%;
   height: 2em;
   width: 2em;
@@ -72,15 +60,12 @@ export const Unblur = styled.a`
 `;
 
 export const ItemsContainerStyles = css`
-  padding: 1em;
-  transition: background-color 0.2s ease;
+  display: flex;
   flex-grow: 1;
-  min-height: 6em;
+  min-height: 100px;
+  padding: 1em;
   background-color: ${p => (p.isDraggingOver ? "#f5f5f5" : "inherit")};
-`;
-
-export const BoardTitleStyles = css`
-  margin: 0 !important;
+  transition: background-color 0.2s ease;
 `;
 
 export const ButtonStyles = css`
