@@ -14,9 +14,7 @@ const DeleteButton = styled(Button)`
 `;
 
 export default class DeleteItemForm extends React.Component {
-  handleClick = event => {
-    event.preventDefault();
-
+  handleClick = () => {
     const socket = io(LOCAL_BACKEND_ENDPOINT);
     const { id, boardId } = this.props;
 

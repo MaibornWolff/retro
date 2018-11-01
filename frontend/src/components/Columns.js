@@ -1,6 +1,5 @@
 import React from "react";
 import isEmpty from "lodash/isEmpty";
-import { Grid } from "@material-ui/core";
 
 import Column from "./Column";
 

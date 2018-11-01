@@ -60,7 +60,6 @@ export const Unblur = styled.a`
 `;
 
 export const ItemsContainerStyles = css`
-  display: flex;
   flex-grow: 1;
   min-height: 100px;
   padding: 1em;

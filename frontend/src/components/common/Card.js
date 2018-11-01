@@ -2,16 +2,11 @@ import React from "react";
 import io from "socket.io-client";
 import Modal from "react-responsive-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faThumbsUp,
-  faEdit,
-  faTrashAlt,
-  faEye
-} from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp, faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
 
+import DeleteItemButton from "../DeleteItemButton";
+import { Button } from "../common";
 import EditItemForm from "../forms/EditItemForm";
-import DeleteItemForm from "../forms/DeleteItemForm";
-import { Button } from "./Button";
 import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
 import { UPVOTE_CARD, UNBLUR_CARD } from "../../events/event-names";
 import {
@@ -23,17 +18,13 @@ import {
 } from "../styled";
 
 export class Card extends React.Component {
-  state = { isEdit: false, isDelete: false };
+  state = { isEdit: false };
 
   socket = io(LOCAL_BACKEND_ENDPOINT);
 
   onOpenEdit = () => this.setState({ isEdit: true });
 
-  onOpenDelete = () => this.setState({ isDelete: true });
-
   onCloseEdit = () => this.setState({ isEdit: false });
-
-  onCloseDelete = () => this.setState({ isDelete: false });
 
   handleUpvote = id => {
     const { boardId } = this.props;
@@ -46,8 +37,11 @@ export class Card extends React.Component {
   };
 
   render() {
-    const { isEdit, isDelete } = this.state;
-    const { id, title, content, points, isBlurred, boardId } = this.props;
+    const { isEdit } = this.state;
+    const { id, title, content, points, boardId } = this.props;
+
+    // TODO: remove later
+    const isBlurred = false;
 
     return (
       <CardWrapper isBlurred={isBlurred}>
@@ -81,21 +75,7 @@ export class Card extends React.Component {
               />
             </Modal>
 
-            <Button
-              className="is-primary is-rounded is-inverted"
-              onClick={this.onOpenDelete}
-              disabled={isBlurred}
-            >
-              <FontAwesomeIcon icon={faTrashAlt} />
-            </Button>
-            <Modal
-              open={isDelete}
-              onClose={this.onCloseDelete}
-              center
-              classNames={{ modal: "custom-modal" }}
-            >
-              <DeleteItemForm id={id} boardId={boardId} />
-            </Modal>
+            <DeleteItemButton id={id} boardId={boardId} />
 
             <Button
               className="is-primary is-rounded is-inverted"
