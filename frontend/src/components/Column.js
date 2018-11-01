@@ -3,17 +3,12 @@ import io from "socket.io-client";
 import Modal from "react-responsive-modal";
 import styled from "styled-components";
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import { Typography, Grid, withStyles } from "@material-ui/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faTrashAlt,
-  faSortAmountDown
-} from "@fortawesome/free-solid-svg-icons";
+import { Typography, Grid, withStyles, IconButton } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+import SortIcon from "@material-ui/icons/Sort";
 
-import { ColumnContainer, ItemsContainerStyles, ButtonStyles } from "./styled";
-import { Button } from "./common";
-import CreateItemForm from "./forms/CreateItemForm";
+import CreateItemButton from "./CreateItemButton";
+import { ColumnContainer, ItemsContainerStyles } from "./styled";
 import DeleteColumnForm from "./forms/DeleteColumnForm";
 import Items from "./Items";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
@@ -23,20 +18,10 @@ const ItemsContainer = styled.div`
   ${ItemsContainerStyles};
 `;
 
-const ColumnActionButton = styled(Button)`
-  margin-left: 0.5em;
-  ${ButtonStyles};
-`;
-
 class Column extends React.Component {
   state = {
-    isCreateColumn: false,
     isDeleteColumn: false
   };
-
-  onOpenCreate = () => this.setState({ isCreateColumn: true });
-
-  onCloseCreate = () => this.setState({ isCreateColumn: false });
 
   onOpenDelete = () => this.setState({ isDeleteColumn: true });
 
@@ -48,7 +33,7 @@ class Column extends React.Component {
   };
 
   render() {
-    const { isCreateColumn, isDeleteColumn } = this.state;
+    const { isDeleteColumn } = this.state;
     const { classes, column, items, index, boardId } = this.props;
 
     return (
@@ -66,56 +51,32 @@ class Column extends React.Component {
               justify="space-between"
             >
               <Grid item>
-                <Typography variant="h6">{column.columnTitle}</Typography>
+                <Typography className={classes.header} variant="h6">
+                  {column.columnTitle}
+                </Typography>
               </Grid>
               <Grid item>
-                <Grid container direction="row" justify="space-between">
-                  <Grid item>
-                    <ColumnActionButton
-                      className="is-primary is-rounded is-small"
-                      onClick={this.onOpenCreate}
-                    >
-                      <FontAwesomeIcon icon={faPlus} />
-                    </ColumnActionButton>
+                <CreateItemButton columnId={column.id} boardId={boardId} />
 
-                    <Modal
-                      open={isCreateColumn}
-                      onClose={this.onCloseCreate}
-                      center
-                      classNames={{ modal: "custom-modal" }}
-                    >
-                      <CreateItemForm columnId={column.id} boardId={boardId} />
-                    </Modal>
-                  </Grid>
-                  <Grid item>
-                    <ColumnActionButton
-                      className="is-danger is-rounded is-small"
-                      onClick={this.onOpenDelete}
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                    </ColumnActionButton>
+                <IconButton color="secondary" onClick={this.onOpenDelete}>
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
 
-                    <Modal
-                      open={isDeleteColumn}
-                      onClose={this.onCloseDelete}
-                      center
-                      classNames={{ modal: "custom-modal" }}
-                    >
-                      <DeleteColumnForm
-                        columnId={column.id}
-                        boardId={boardId}
-                      />
-                    </Modal>
-                  </Grid>
-                  <Grid item>
-                    <ColumnActionButton
-                      className="is-info is-rounded is-small"
-                      onClick={() => this.onSort(column.id, items, boardId)}
-                    >
-                      <FontAwesomeIcon icon={faSortAmountDown} />
-                    </ColumnActionButton>
-                  </Grid>
-                </Grid>
+                <IconButton
+                  color="secondary"
+                  onClick={() => this.onSort(column.id, items, boardId)}
+                >
+                  <SortIcon fontSize="small" />
+                </IconButton>
+
+                <Modal
+                  open={isDeleteColumn}
+                  onClose={this.onCloseDelete}
+                  center
+                  classNames={{ modal: "custom-modal" }}
+                >
+                  <DeleteColumnForm columnId={column.id} boardId={boardId} />
+                </Modal>
               </Grid>
             </Grid>
 
