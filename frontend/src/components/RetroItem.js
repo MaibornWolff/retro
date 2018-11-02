@@ -75,7 +75,7 @@ const RetroItem = props => {
 const styles = {
   avatar: {
     color: "#fff",
-    backgroundColor: "#90afc5"
+    backgroundColor: "#73a6ad"
   },
   actions: {
     display: "flex",

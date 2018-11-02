@@ -49,7 +49,7 @@ class CreateColumnDialog extends React.Component {
         <Button
           variant="outlined"
           aria-label="Add Column"
-          color="secondary"
+          color="primary"
           onClick={this.handleOpen}
         >
           New Column
@@ -77,7 +77,7 @@ class CreateColumnDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleSubmit} color="secondary">
+            <Button onClick={this.handleSubmit} color="primary">
               Create
             </Button>
           </DialogActions>

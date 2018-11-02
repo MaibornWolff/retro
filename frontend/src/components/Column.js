@@ -69,7 +69,7 @@ const Column = props => {
 const styles = theme => ({
   header: {
     padding: theme.spacing.unit,
-    backgroundColor: "#336b87",
+    backgroundColor: "#44777e",
     color: "#fff"
   }
 });

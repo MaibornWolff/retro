@@ -45,7 +45,7 @@ class EditItemDialog extends React.Component {
 
     return (
       <>
-        <IconButton color="secondary" onClick={this.handleOpen}>
+        <IconButton color="primary" onClick={this.handleOpen}>
           <EditIcon fontSize="small" />
         </IconButton>
         <Dialog
@@ -80,7 +80,7 @@ class EditItemDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClick} color="secondary">
+            <Button onClick={this.handleClick} color="primary">
               Edit
             </Button>
           </DialogActions>

@@ -91,7 +91,7 @@ class CreateItemDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleSubmit} color="secondary">
+            <Button onClick={this.handleSubmit} color="primary">
               Create
             </Button>
           </DialogActions>

@@ -12,7 +12,8 @@ export const FlexContainer = styled.div`
 export const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 400px;
+  flex-grow: 1;
+  width: 20vw;
   margin: 1em;
   border: 1px solid grey;
   border-radius: 2px;

@@ -38,7 +38,7 @@ class DeleteItemDialog extends React.Component {
 
     return (
       <>
-        <IconButton color="secondary" onClick={this.handleOpen}>
+        <IconButton color="primary" onClick={this.handleOpen}>
           <DeleteIcon fontSize="small" />
         </IconButton>
         <Dialog

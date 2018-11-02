@@ -14,7 +14,7 @@ const handleUpvote = (id, boardId) => {
 const UpvoteItemButton = props => (
   <>
     <IconButton
-      color="secondary"
+      color="primary"
       onClick={() => handleUpvote(props.id, props.boardId)}
     >
       <ThumbUpIcon fontSize="small" />
