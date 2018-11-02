@@ -9,4 +9,4 @@
 
 The goal of Retro is to have a good UX in retrospectives with distributed teams.
 
-<img src="./assets/retro_screen.PNG">
+<img src="./assets/retro_mui.PNG">
