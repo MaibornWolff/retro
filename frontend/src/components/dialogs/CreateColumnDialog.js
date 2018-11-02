@@ -9,13 +9,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  withStyles
+  withMobileDialog
 } from "@material-ui/core";
 
-import { CREATE_COLUMN } from "../events/event-names";
-import { LOCAL_BACKEND_ENDPOINT } from "../utils";
+import { CREATE_COLUMN } from "../../events/event-names";
+import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
 
-class CreateColumnButton extends React.Component {
+class CreateColumnDialog extends React.Component {
   state = {
     open: false,
     columnTitle: ""
@@ -42,20 +42,20 @@ class CreateColumnButton extends React.Component {
 
   render() {
     const { open, columnTitle } = this.state;
-    const { classes } = this.props;
+    const { fullScreen } = this.props;
 
     return (
       <>
         <Button
-          variant="extendedFab"
+          variant="fab"
           aria-label="Add Column"
           color="secondary"
           onClick={this.handleOpen}
         >
-          <AddIcon className={classes.icon} />
-          Column
+          <AddIcon />
         </Button>
         <Dialog
+          fullScreen={fullScreen}
           open={open}
           onClose={this.handleClose}
           aria-labelledby="new-column-dialog"
@@ -87,10 +87,4 @@ class CreateColumnButton extends React.Component {
   }
 }
 
-const styles = theme => ({
-  icon: {
-    marginRight: theme.spacing.unit
-  }
-});
-
-export default withStyles(styles)(CreateColumnButton);
+export default withMobileDialog()(CreateColumnDialog);

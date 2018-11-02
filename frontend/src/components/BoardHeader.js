@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 
-import CreateColumnButton from "./CreateColumnButton";
+import CreateColumnDialog from "./dialogs/CreateColumnDialog";
 
 const BoardHeader = props => (
   <>
@@ -9,7 +9,7 @@ const BoardHeader = props => (
       <Typography variant="h6">{props.title}</Typography>
     </Grid>
     <Grid item>
-      <CreateColumnButton boardId={props.boardId} />
+      <CreateColumnDialog boardId={props.boardId} />
     </Grid>
   </>
 );

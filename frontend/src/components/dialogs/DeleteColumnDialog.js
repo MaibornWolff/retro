@@ -6,15 +6,16 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   DialogContentText,
-  Button
+  DialogTitle,
+  Button,
+  withMobileDialog
 } from "@material-ui/core";
 
-import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { DELETE_CARD } from "../events/event-names";
+import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { DELETE_COLUMN } from "../../events/event-names";
 
-class DeleteItemButton extends React.Component {
+class DeleteColumnDialog extends React.Component {
   state = {
     open: false
   };
@@ -23,16 +24,17 @@ class DeleteItemButton extends React.Component {
 
   handleClose = () => this.setState({ open: false });
 
-  handleClick = () => {
+  handleDeleteClick = () => {
     const socket = io(LOCAL_BACKEND_ENDPOINT);
-    const { id, boardId } = this.props;
+    const { columnId, boardId } = this.props;
 
-    socket.emit(DELETE_CARD, id, boardId);
-    this.setState({ isDelete: false });
+    socket.emit(DELETE_COLUMN, columnId, boardId);
+    this.setState({ open: false });
   };
 
   render() {
     const { open } = this.state;
+    const { fullScreen } = this.props;
 
     return (
       <>
@@ -40,25 +42,30 @@ class DeleteItemButton extends React.Component {
           <DeleteIcon fontSize="small" />
         </IconButton>
         <Dialog
+          fullScreen={fullScreen}
           open={open}
           onClose={this.handleClose}
-          aria-labelledby="alert-delete-card-dialog"
-          aria-describedby="alert-delete-card-dialog-description"
+          aria-labelledby="alert-delete-column-dialog"
+          aria-describedby="alert-delete-column-dialog-description"
         >
-          <DialogTitle id="alert-delete-card-dialog">
-            {"Delete this card?"}
+          <DialogTitle id="alert-delete-column-dialog">
+            {"Delete this column?"}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-delete-card-dialog-description">
-              You are about to delete this card. If you are sure, then click on
-              the delete button.
+            <DialogContentText id="alert-delete-column-dialog-description">
+              You are about to delete this column. If you are sure, then click
+              on the delete button.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClick} color="secondary" autoFocus>
+            <Button
+              onClick={this.handleDeleteClick}
+              color="secondary"
+              autoFocus
+            >
               Delete
             </Button>
           </DialogActions>
@@ -68,4 +75,4 @@ class DeleteItemButton extends React.Component {
   }
 }
 
-export default DeleteItemButton;
+export default withMobileDialog()(DeleteColumnDialog);

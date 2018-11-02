@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Typography, withStyles } from "@material-ui/core";
 
-import CreateBoardButton from "./CreateBoardButton";
+import CreateBoardDialog from "./dialogs/CreateBoardDialog";
 
 class Home extends React.Component {
   render() {
@@ -16,17 +16,20 @@ class Home extends React.Component {
         alignItems="center"
       >
         <Grid item xs={12}>
-          <Typography variant="h6" className={classes.grow}>
+          <Typography variant="h5" className={classes.welcome}>
             Welcome to Retro!
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle1" className={classes.grow}>
-            Start your retrospective by creating a new board
+          <Typography variant="subtitle1">
+            Start your retrospective by creating a new board{" "}
+            <span role="img" aria-label="party">
+              🎉
+            </span>
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <CreateBoardButton />
+          <CreateBoardDialog />
         </Grid>
       </Grid>
     );
@@ -37,9 +40,8 @@ const styles = theme => ({
   root: {
     flexGrow: 1
   },
-  grow: {
-    flexGrow: 1,
-    padding: theme.spacing.unit
+  welcome: {
+    margin: theme.spacing.unit * 2
   }
 });
 

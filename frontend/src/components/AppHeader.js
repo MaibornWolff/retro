@@ -4,7 +4,7 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  Button,
+  IconButton,
   withStyles
 } from "@material-ui/core";
 
@@ -18,10 +18,9 @@ const AppHeader = props => {
             Retro
           </Typography>
 
-          <Button color="inherit">
-            <SettingsIcon className={classes.icon} />
-            Settings
-          </Button>
+          <IconButton color="inherit">
+            <SettingsIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </div>
@@ -35,9 +34,6 @@ const styles = theme => ({
   brand: {
     flexGrow: 1,
     fontFamily: "Lobster"
-  },
-  icon: {
-    marginRight: theme.spacing.unit
   }
 });
 

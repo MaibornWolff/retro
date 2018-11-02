@@ -8,13 +8,14 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-  Button
+  Button,
+  withMobileDialog
 } from "@material-ui/core";
 
-import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { EDIT_CARD } from "../events/event-names";
+import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { EDIT_CARD } from "../../events/event-names";
 
-class EditItemButton extends React.Component {
+class EditItemDialog extends React.Component {
   state = {
     open: false,
     author: this.props.author,
@@ -40,6 +41,7 @@ class EditItemButton extends React.Component {
 
   render() {
     const { open, author, content } = this.state;
+    const { fullScreen } = this.props;
 
     return (
       <>
@@ -47,6 +49,7 @@ class EditItemButton extends React.Component {
           <EditIcon fontSize="small" />
         </IconButton>
         <Dialog
+          fullScreen={fullScreen}
           open={open}
           onClose={this.handleClose}
           aria-labelledby="edit-card-dialog"
@@ -87,4 +90,4 @@ class EditItemButton extends React.Component {
   }
 }
 
-export default EditItemButton;
+export default withMobileDialog()(EditItemDialog);

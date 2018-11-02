@@ -1,7 +1,7 @@
 import React from "react";
 import io from "socket.io-client";
 import uniqid from "uniqid";
-import AddIcon from "@material-ui/icons/Add";
+import { compose } from "recompose";
 import { navigate } from "@reach/router";
 import {
   Button,
@@ -11,14 +11,15 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  withMobileDialog,
   withStyles
 } from "@material-ui/core";
 
-import { CREATE_BOARD } from "../events/event-names";
-import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { emptyBoard } from "../utils/emptyBoard";
+import { CREATE_BOARD } from "../../events/event-names";
+import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { emptyBoard } from "../../utils/emptyBoard";
 
-class CreateBoardButton extends React.Component {
+class CreateBoardDialog extends React.Component {
   state = {
     open: false,
     title: ""
@@ -44,15 +45,20 @@ class CreateBoardButton extends React.Component {
 
   render() {
     const { open, title } = this.state;
-    const { classes } = this.props;
+    const { classes, fullScreen } = this.props;
 
     return (
       <>
-        <Button variant="contained" color="primary" onClick={this.handleOpen}>
+        <Button
+          variant="extendedFab"
+          color="secondary"
+          onClick={this.handleOpen}
+          className={classes.button}
+        >
           New Board
-          <AddIcon className={classes.rightIcon} />
         </Button>
         <Dialog
+          fullScreen={fullScreen}
           open={open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
@@ -77,7 +83,7 @@ class CreateBoardButton extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleSubmit} color="primary">
+            <Button onClick={this.handleSubmit} color="secondary">
               Create
             </Button>
           </DialogActions>
@@ -88,9 +94,12 @@ class CreateBoardButton extends React.Component {
 }
 
 const styles = theme => ({
-  rightIcon: {
-    marginLeft: theme.spacing.unit
+  button: {
+    margin: theme.spacing.unit * 2
   }
 });
 
-export default withStyles(styles)(CreateBoardButton);
+export default compose(
+  withMobileDialog(),
+  withStyles(styles)
+)(CreateBoardDialog);

@@ -4,8 +4,8 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Typography, Grid, withStyles } from "@material-ui/core";
 
 import Items from "./Items";
-import CreateItemButton from "./CreateItemButton";
-import DeleteColumnButton from "./DeleteColumnButton";
+import CreateItemDialog from "./dialogs/CreateItemDialog";
+import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
 import SortColumnButton from "./SortColumnButton";
 import { ColumnContainer, ItemsContainerStyles } from "./styled";
 
@@ -36,8 +36,8 @@ const Column = props => {
               </Typography>
             </Grid>
             <Grid item>
-              <CreateItemButton columnId={column.id} boardId={boardId} />
-              <DeleteColumnButton columnId={column.id} boardId={boardId} />
+              <CreateItemDialog columnId={column.id} boardId={boardId} />
+              <DeleteColumnDialog columnId={column.id} boardId={boardId} />
               <SortColumnButton
                 columnId={column.id}
                 boardId={boardId}

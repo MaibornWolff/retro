@@ -1,6 +1,7 @@
 import React from "react";
 import io from "socket.io-client";
 import uniqid from "uniqid";
+import AddIcon from "@material-ui/icons/Add";
 import {
   IconButton,
   Dialog,
@@ -8,14 +9,14 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-  Button
+  Button,
+  withMobileDialog
 } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
 
-import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { CREATE_CARD } from "../events/event-names";
+import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { CREATE_CARD } from "../../events/event-names";
 
-class CreateItemButton extends React.Component {
+class CreateItemDialog extends React.Component {
   state = {
     open: false,
     author: "",
@@ -51,6 +52,7 @@ class CreateItemButton extends React.Component {
 
   render() {
     const { open, author, content } = this.state;
+    const { fullScreen } = this.props;
 
     return (
       <>
@@ -58,6 +60,7 @@ class CreateItemButton extends React.Component {
           <AddIcon fontSize="small" />
         </IconButton>
         <Dialog
+          fullScreen={fullScreen}
           open={open}
           onClose={this.handleClose}
           aria-labelledby="new-card-dialog"
@@ -98,4 +101,4 @@ class CreateItemButton extends React.Component {
   }
 }
 
-export default CreateItemButton;
+export default withMobileDialog()(CreateItemDialog);

@@ -12,8 +12,8 @@ import {
   withStyles
 } from "@material-ui/core";
 
-import EditItemButton from "./EditItemButton";
-import DeleteItemButton from "./DeleteItemButton";
+import EditItemDialog from "./dialogs/EditItemDialog";
+import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import UpvoteItemButton from "./UpvoteItemButton";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
 import { UNBLUR_CARD } from "../events/event-names";
@@ -43,13 +43,13 @@ const RetroItem = props => {
             <Typography variant="subtitle1">{content}</Typography>
           </CardContent>
           <CardActions className={classes.actions}>
-            <EditItemButton
+            <EditItemDialog
               id={id}
               author={author}
               content={content}
               boardId={boardId}
             />
-            <DeleteItemButton id={id} boardId={boardId} />
+            <DeleteItemDialog id={id} boardId={boardId} />
             <UpvoteItemButton id={id} boardId={boardId} />
           </CardActions>
         </Card>
