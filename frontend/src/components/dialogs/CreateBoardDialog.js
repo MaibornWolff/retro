@@ -54,6 +54,7 @@ class CreateBoardDialog extends React.Component {
           color="secondary"
           onClick={this.handleOpen}
           className={classes.button}
+          data-testid="new-board-btn"
         >
           New Board
         </Button>

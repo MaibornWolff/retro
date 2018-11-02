@@ -47,12 +47,12 @@ class CreateColumnDialog extends React.Component {
     return (
       <>
         <Button
-          variant="fab"
+          variant="outlined"
           aria-label="Add Column"
           color="secondary"
           onClick={this.handleOpen}
         >
-          <AddIcon />
+          New Column
         </Button>
         <Dialog
           fullScreen={fullScreen}

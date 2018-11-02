@@ -37,6 +37,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
+    "jest-dom": "^2.1.0",
     "prettier": "^1.14.3",
     "react-testing-library": "^5.2.3"
   },

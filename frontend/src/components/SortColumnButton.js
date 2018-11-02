@@ -14,7 +14,7 @@ const onSort = (columnId, items, boardId) => {
 const SortColumnButton = props => (
   <>
     <IconButton
-      color="secondary"
+      color="inherit"
       onClick={() => onSort(props.columnId, props.items, props.boardId)}
     >
       <SortIcon fontSize="small" />

@@ -38,7 +38,7 @@ class DeleteColumnDialog extends React.Component {
 
     return (
       <>
-        <IconButton color="secondary" onClick={this.handleOpen}>
+        <IconButton color="inherit" onClick={this.handleOpen}>
           <DeleteIcon fontSize="small" />
         </IconButton>
         <Dialog

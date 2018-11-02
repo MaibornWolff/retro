@@ -56,7 +56,7 @@ class CreateItemDialog extends React.Component {
 
     return (
       <>
-        <IconButton color="secondary" onClick={this.handleOpen}>
+        <IconButton color="inherit" onClick={this.handleOpen}>
           <AddIcon fontSize="small" />
         </IconButton>
         <Dialog

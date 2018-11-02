@@ -12,9 +12,9 @@ export const FlexContainer = styled.div`
 export const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100vh;
+  width: 400px;
   margin: 1em;
-  border: 1px solid lightgrey;
+  border: 1px solid grey;
   border-radius: 2px;
   background-color: white;
   box-shadow: 0 6px 6px -2px lightgrey;

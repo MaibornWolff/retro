@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardContent,
   CardActions,
+  Divider,
   Typography,
   IconButton,
   withStyles
@@ -39,17 +40,19 @@ const RetroItem = props => {
             }
             title={<Typography variant="subtitle2">{author}</Typography>}
           />
+          <Divider />
           <CardContent>
             <Typography variant="subtitle1">{content}</Typography>
           </CardContent>
+          <Divider />
           <CardActions className={classes.actions}>
+            <DeleteItemDialog id={id} boardId={boardId} />
             <EditItemDialog
               id={id}
               author={author}
               content={content}
               boardId={boardId}
             />
-            <DeleteItemDialog id={id} boardId={boardId} />
             <UpvoteItemButton id={id} boardId={boardId} />
           </CardActions>
         </Card>
@@ -72,7 +75,7 @@ const RetroItem = props => {
 const styles = {
   avatar: {
     color: "#fff",
-    backgroundColor: "#ff4081"
+    backgroundColor: "#90afc5"
   },
   actions: {
     display: "flex",
