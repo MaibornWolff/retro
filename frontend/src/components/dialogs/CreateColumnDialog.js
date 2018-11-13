@@ -1,7 +1,6 @@
 import React from "react";
 import io from "socket.io-client";
 import uniqid from "uniqid";
-import AddIcon from "@material-ui/icons/Add";
 import {
   Button,
   TextField,
