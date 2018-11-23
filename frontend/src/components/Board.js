@@ -34,38 +34,8 @@ class Board extends React.Component {
     const { columns, columnOrder, items } = this.state;
 
     if (combine) {
-      // get the two items in the context of combination
-      const combinedItem = items[combine.draggableId];
-      const combinedWith = items[dragResult.draggableId];
-      const combinedWithColumn = columns[source.droppableId];
-
-      // extract their content
-      const combinedItemText = combinedItem.content;
-      const textToCombine = combinedWith.content;
-
-      // combine the content
-      const newContent = `${combinedItemText} === ${textToCombine}`;
-      combinedItem.content = newContent;
-
-      // remove combinedWith element
-      const newItemIds = pull(combinedWithColumn.itemIds, combinedWith.id);
-
-      // set new state
-      const newColumn = {
-        ...combinedWithColumn,
-        itemIds: newItemIds
-      };
-
-      const newState = {
-        ...this.state,
-        columns: {
-          ...columns,
-          [newColumn.id]: newColumn
-        }
-      };
-
-      this.setState(newState);
-      this.socket.emit(UPDATE_BOARD, newState, this.props.boardId);
+      this.handleCombine(items, columns, dragResult);
+      return;
     }
 
     if (!destination) {
@@ -88,6 +58,46 @@ class Board extends React.Component {
 
     this.handleNormalDrag(dragResult, columns);
   };
+
+  handleCombine(items, columns, dragResult) {
+    const { combine, draggableId, source } = dragResult;
+
+    // get all related objects of the context of combine
+    const itemToCombine = items[combine.draggableId];
+    const itemToCombineWith = items[draggableId];
+    const itemToCombineWithColumn = columns[source.droppableId];
+
+    // extract the item content
+    const originalContent = itemToCombine.content;
+    const contentToMerge = itemToCombineWith.content;
+
+    // combine the content
+    const newContent = `${originalContent} === ${contentToMerge}`;
+    itemToCombine.content = newContent;
+
+    // remove the merged item
+    const newItemIds = pull(
+      itemToCombineWithColumn.itemIds,
+      itemToCombineWith.id
+    );
+
+    // update state
+    const newColumn = {
+      ...itemToCombineWithColumn,
+      itemIds: newItemIds
+    };
+
+    const newState = {
+      ...this.state,
+      columns: {
+        ...columns,
+        [newColumn.id]: newColumn
+      }
+    };
+
+    this.setState(newState);
+    this.socket.emit(UPDATE_BOARD, newState, this.props.boardId);
+  }
 
   handleColumnDrag(dragResult, columnOrder) {
     const { source, destination, draggableId } = dragResult;
