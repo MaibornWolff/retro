@@ -25,6 +25,26 @@ const unblur = (isBlurred, id, boardId) => {
   socket.emit(UNBLUR_CARD, isBlurred, id, boardId);
 };
 
+const getContent = content => {
+  const separator = "===";
+
+  if (content.includes(separator)) {
+    const splitted = content.split(separator);
+
+    return splitted.map(txt => {
+      return (
+        <Typography key={txt} variant="subtitle1">
+          {txt}
+          <br />
+          {separator}
+          <br />
+        </Typography>
+      );
+    });
+  }
+  return <Typography variant="subtitle1">{content}</Typography>;
+};
+
 const RetroItem = props => {
   const { classes, id, author, content, points, boardId, isBlurred } = props;
 
@@ -41,9 +61,7 @@ const RetroItem = props => {
             title={<Typography variant="subtitle2">{author}</Typography>}
           />
           <Divider />
-          <CardContent>
-            <Typography variant="subtitle1">{content}</Typography>
-          </CardContent>
+          <CardContent>{getContent(content)}</CardContent>
           <Divider />
           <CardActions className={classes.actions}>
             <DeleteItemDialog id={id} boardId={boardId} />

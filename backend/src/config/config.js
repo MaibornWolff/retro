@@ -4,7 +4,7 @@ const PRODUCTION = "PRODUCTION";
 
 const env = process.env.NODE_ENV || DEVELOPMENT;
 
-console.log(`--> ENV = ${env}`);
+console.log(`[INFO] Your environment is: ${env}`);
 
 if (env === DEVELOPMENT) {
   process.env.PORT = 8081;

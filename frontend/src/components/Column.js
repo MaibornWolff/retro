@@ -48,7 +48,11 @@ const Column = props => {
 
           <Grid container direction="column" />
 
-          <Droppable droppableId={column.id} type="item">
+          <Droppable
+            droppableId={column.id}
+            type="item"
+            isCombineEnabled={true}
+          >
             {(providedDroppable, snapshot) => (
               <ItemsContainer
                 ref={providedDroppable.innerRef}

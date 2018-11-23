@@ -1,5 +1,6 @@
 import React from "react";
 import io from "socket.io-client";
+import pull from "lodash/pull";
 import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
@@ -29,8 +30,43 @@ class Board extends React.Component {
   }
 
   onDragEnd = dragResult => {
-    const { source, destination, type } = dragResult;
-    const { columns, columnOrder } = this.state;
+    const { source, destination, type, combine } = dragResult;
+    const { columns, columnOrder, items } = this.state;
+
+    if (combine) {
+      // get the two items in the context of combination
+      const combinedItem = items[combine.draggableId];
+      const combinedWith = items[dragResult.draggableId];
+      const combinedWithColumn = columns[source.droppableId];
+
+      // extract their content
+      const combinedItemText = combinedItem.content;
+      const textToCombine = combinedWith.content;
+
+      // combine the content
+      const newContent = `${combinedItemText} === ${textToCombine}`;
+      combinedItem.content = newContent;
+
+      // remove combinedWith element
+      const newItemIds = pull(combinedWithColumn.itemIds, combinedWith.id);
+
+      // set new state
+      const newColumn = {
+        ...combinedWithColumn,
+        itemIds: newItemIds
+      };
+
+      const newState = {
+        ...this.state,
+        columns: {
+          ...columns,
+          [newColumn.id]: newColumn
+        }
+      };
+
+      this.setState(newState);
+      this.socket.emit(UPDATE_BOARD, newState, this.props.boardId);
+    }
 
     if (!destination) {
       return;

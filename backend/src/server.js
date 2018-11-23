@@ -18,7 +18,7 @@ io.on(CONNECTION, client => {
 });
 
 server.listen(port, () => {
-  console.log(`--> PORT = ${port}`);
+  console.log(`[INFO] Listening on port: ${port}`);
 });
 
 module.exports = { server };
