@@ -33,7 +33,7 @@ const styles = theme => ({
   },
   brand: {
     flexGrow: 1,
-    fontFamily: "Lobster"
+    fontFamily: "Permanent Marker, cursive"
   }
 });
 
