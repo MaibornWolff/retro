@@ -10,3 +10,4 @@ export const CREATE_BOARD = "create board";
 export const CONNECT = "connect";
 export const JOIN_BOARD = "join board";
 export const UNBLUR_CARD = "unblur card";
+export const EXPORT_BOARD = "export board";

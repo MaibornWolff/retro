@@ -14,7 +14,8 @@ import {
   onConnect,
   onCreateBoard,
   onUpdateBoard,
-  onJoinBoard
+  onJoinBoard,
+  onExportBoard
 } from "../events/event-listener";
 
 class Board extends React.Component {
@@ -27,6 +28,7 @@ class Board extends React.Component {
     onCreateBoard(this);
     onUpdateBoard(this);
     onJoinBoard(this);
+    onExportBoard(this);
   }
 
   onDragEnd = dragResult => {
@@ -205,13 +207,7 @@ class Board extends React.Component {
     return (
       <Grid container className={classes.root} direction="column">
         <Grid item xs={12}>
-          <Grid
-            container
-            className={classes.header}
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-          >
+          <Grid container className={classes.header} direction="row">
             <BoardHeader title={title} boardId={boardId} />
           </Grid>
         </Grid>

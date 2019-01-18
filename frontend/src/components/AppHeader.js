@@ -1,12 +1,5 @@
 import React from "react";
-import SettingsIcon from "@material-ui/icons/Settings";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  withStyles
-} from "@material-ui/core";
+import { AppBar, Toolbar, Typography, withStyles } from "@material-ui/core";
 
 const AppHeader = props => {
   const { classes } = props;
@@ -17,17 +10,13 @@ const AppHeader = props => {
           <Typography variant="h4" color="inherit" className={classes.brand}>
             Retro
           </Typography>
-
-          <IconButton color="inherit">
-            <SettingsIcon />
-          </IconButton>
         </Toolbar>
       </AppBar>
     </div>
   );
 };
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     flexGrow: 1
   },

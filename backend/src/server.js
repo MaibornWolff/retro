@@ -12,6 +12,7 @@ const { CONNECTION } = require("./events/event-names");
 app.use(express.static(__dirname + "/public"));
 
 io.on(CONNECTION, client => {
+  console.log("[INFO] Socket connected.");
   boardEvents(io, client);
   columnEvents(io, client);
   cardEvents(io, client);

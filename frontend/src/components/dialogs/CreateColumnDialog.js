@@ -46,6 +46,7 @@ class CreateColumnDialog extends React.Component {
     return (
       <>
         <Button
+          size="small"
           variant="outlined"
           aria-label="Add Column"
           color="primary"

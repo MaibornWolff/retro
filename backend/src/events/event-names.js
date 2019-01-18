@@ -1,5 +1,5 @@
 module.exports = {
-  CONNECTION: "connection",
+  CONNECTION: "connect",
   DISCONNECT: "disconnect",
   CREATE_CARD: "create card",
   CREATE_COLUMN: "create column",
@@ -11,5 +11,6 @@ module.exports = {
   DELETE_CARD: "delete card",
   CREATE_BOARD: "create board",
   JOIN_BOARD: "join board",
-  UNBLUR_CARD: "unblur card"
+  UNBLUR_CARD: "unblur card",
+  EXPORT_BOARD: "export board"
 };

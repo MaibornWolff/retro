@@ -30,10 +30,9 @@ const getContent = content => {
 
   if (content.includes(separator)) {
     const splitted = content.split(separator);
-
     return splitted.map(txt => {
       return (
-        <Typography key={txt} variant="subtitle1">
+        <Typography key={txt} component="p">
           {txt}
           <br />
           {separator}
@@ -42,7 +41,7 @@ const getContent = content => {
       );
     });
   }
-  return <Typography variant="subtitle1">{content}</Typography>;
+  return <Typography component="p">{content}</Typography>;
 };
 
 const RetroItem = props => {
