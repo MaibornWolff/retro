@@ -5,6 +5,7 @@ import { compose } from "recompose";
 import { navigate } from "@reach/router";
 import {
   Button,
+  Fab,
   TextField,
   Dialog,
   DialogActions,
@@ -49,8 +50,8 @@ class CreateBoardDialog extends React.Component {
 
     return (
       <>
-        <Button
-          variant="extendedFab"
+        <Fab
+          variant="extended"
           style={{margin:'0px'}}
           color="secondary"
           onClick={this.handleOpen}
@@ -58,7 +59,7 @@ class CreateBoardDialog extends React.Component {
           data-testid="new-board-btn"
         >
           New Board
-        </Button>
+        </Fab>
         <Dialog
           fullScreen={fullScreen}
           open={open}
