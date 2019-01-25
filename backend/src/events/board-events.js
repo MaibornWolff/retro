@@ -63,25 +63,25 @@ const exportBoard = (_, client) => {
 };
 
 const unblurCards = (io, client) => {
-    client.on(UNBLUR_CARDS, async (boardId) => {
-        const path = getPath(boardId);
-        await fs.readFile(path, "utf8", async (error, file) => {
-            if (error) logError(UNBLUR_CARDS, error);
+  client.on(UNBLUR_CARDS, async boardId => {
+    const path = getPath(boardId);
+    await fs.readFile(path, "utf8", async (error, file) => {
+      if (error) logError(UNBLUR_CARDS, error);
 
-            const board = getBoard(file);
-            board.isBlurred = !board.isBlurred;
-            for (var cardId in board.items) {
-                board.items[cardId].isBlurred = board.isBlurred;
-            }
+      const board = getBoard(file);
+      board.isBlurred = !board.isBlurred;
+      for (let cardId in board.items) {
+        board.items[cardId].isBlurred = board.isBlurred;
+      }
 
-            await fs.writeFile(path, stringify(board), "utf8", error => {
-                if (error) logError(UNBLUR_CARDS, error);
+      await fs.writeFile(path, stringify(board), "utf8", error => {
+        if (error) logError(UNBLUR_CARDS, error);
 
-                io.sockets.emit(UPDATE_BOARD, board);
-            })
-        })
+        io.sockets.emit(UPDATE_BOARD, board);
+      });
     });
-}
+  });
+};
 
 module.exports = {
   createBoard,

@@ -5,7 +5,7 @@ import { Grid, Typography, Button, withStyles } from "@material-ui/core";
 import CreateColumnDialog from "./dialogs/CreateColumnDialog";
 import CreateBoardDialog from "./dialogs/CreateBoardDialog";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { EXPORT_BOARD } from "../events/event-names";
+import { EXPORT_BOARD, UNBLUR_CARDS } from "../events/event-names";
 
 const handleExport = boardId => {
   const socket = io(LOCAL_BACKEND_ENDPOINT);
@@ -13,15 +13,16 @@ const handleExport = boardId => {
   socket.emit(EXPORT_BOARD, url, boardId);
 };
 
+const handleUnblur = boardId => {
+  const socket = io(LOCAL_BACKEND_ENDPOINT);
+  socket.emit(UNBLUR_CARDS, boardId);
+};
+
 const BoardHeader = props => (
   <>
-    <Grid container
-          direction="row"
-          justify="space-between">
+    <Grid container direction="row" justify="space-between">
       <Grid item>
-        <Typography variant="h6">
-            {props.title}
-        </Typography>
+        <Typography variant="h6">{props.title}</Typography>
       </Grid>
       <Grid>
         <CreateBoardDialog />
@@ -35,11 +36,22 @@ const BoardHeader = props => (
         <Button
           size="small"
           variant="outlined"
-          aria-label="Add Column"
+          aria-label="Export Board"
           color="primary"
           onClick={() => handleExport(props.boardId)}
         >
           Export
+        </Button>
+      </Grid>
+      <Grid item className={props.classes.button}>
+        <Button
+          size="small"
+          variant="outlined"
+          aria-label="Unblur Cards"
+          color="primary"
+          onClick={() => handleUnblur(props.boardId)}
+        >
+          Unblur Cards
         </Button>
       </Grid>
     </Grid>
