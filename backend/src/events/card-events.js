@@ -89,13 +89,16 @@ const upvoteCard = (io, client) => {
 };
 
 const unblurCard = (io, client) => {
-  client.on(UNBLUR_CARD, async (isBlurred, cardId, boardId) => {
+  client.on(UNBLUR_CARD, async (isBlurred, boardId) => {
+    console.log('received unblur card event');
     const path = getPath(boardId);
     await fs.readFile(path, "utf8", async (error, file) => {
       if (error) logError(UNBLUR_CARD, error);
 
       const board = getBoard(file);
-      board.items[cardId].isBlurred = isBlurred;
+      for (var cardId in board.items) {
+          board.items[cardId].isBlurred = isBlurred;
+      }
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(UNBLUR_CARD, error);
