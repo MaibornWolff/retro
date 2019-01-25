@@ -88,7 +88,6 @@ const upvoteCard = (io, client) => {
   });
 };
 
-
 module.exports = {
   createCard,
   editCard,
