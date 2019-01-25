@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import { Grid, Typography, Button, withStyles } from "@material-ui/core";
 
 import CreateColumnDialog from "./dialogs/CreateColumnDialog";
+import CreateBoardDialog from "./dialogs/CreateBoardDialog";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
 import { EXPORT_BOARD } from "../events/event-names";
 
@@ -14,8 +15,17 @@ const handleExport = boardId => {
 
 const BoardHeader = props => (
   <>
-    <Grid item>
-      <Typography variant="h6">{props.title}</Typography>
+    <Grid container
+          direction="row"
+          justify="space-between">
+      <Grid item>
+        <Typography variant="h6">
+            {props.title}
+        </Typography>
+      </Grid>
+      <Grid>
+        <CreateBoardDialog />
+      </Grid>
     </Grid>
     <Grid container>
       <Grid item className={props.classes.button}>
