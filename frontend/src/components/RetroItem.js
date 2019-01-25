@@ -1,6 +1,4 @@
 import React from "react";
-import io from "socket.io-client";
-import EyeIcon from "@material-ui/icons/RemoveRedEye";
 import {
   Avatar,
   Card,
@@ -9,7 +7,6 @@ import {
   CardActions,
   Divider,
   Typography,
-  IconButton,
   withStyles
 } from "@material-ui/core";
 
@@ -17,15 +14,8 @@ import EditItemDialog from "./dialogs/EditItemDialog";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import UpvoteItemButton from "./UpvoteItemButton";
 import DownvoteItemButton from "./DownvoteItemButton";
-import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { UNBLUR_CARD } from "../events/event-names";
-import { CardWrapper, CardContainer, Unblur } from "./styled";
+import { CardWrapper, CardContainer } from "./styled";
 import cookie from "react-cookies";
-
-const unblur = (isBlurred, id, boardId) => {
-  const socket = io(LOCAL_BACKEND_ENDPOINT);
-  socket.emit(UNBLUR_CARD, isBlurred, id, boardId);
-};
 
 const getContent = content => {
   const separator = "===";
@@ -86,17 +76,6 @@ const RetroItem = props => {
           </CardActions>
         </Card>
       </CardContainer>
-
-      {isBlurred ? (
-        <Unblur>
-          <IconButton
-            color="secondary"
-            onClick={() => unblur(!isBlurred, id, boardId)}
-          >
-            <EyeIcon fontSize="small" />
-          </IconButton>
-        </Unblur>
-      ) : null}
     </CardWrapper>
   );
 };

@@ -2,15 +2,15 @@ const {
   createBoard,
   updateBoard,
   joinBoard,
-  exportBoard
+  exportBoard,
+  unblurCards
 } = require("./board-events");
 const { createColumn, deleteColumn, sortColumn } = require("./column-events");
 const {
   createCard,
   editCard,
   deleteCard,
-  upvoteCard,
-  unblurCard
+  upvoteCard
 } = require("./card-events");
 
 const boardEvents = (io, client) => {
@@ -18,6 +18,7 @@ const boardEvents = (io, client) => {
   updateBoard(io, client);
   joinBoard(io, client);
   exportBoard(io, client);
+  unblurCards(io, client);
 };
 
 const columnEvents = (io, client) => {
@@ -31,7 +32,6 @@ const cardEvents = (io, client) => {
   editCard(io, client);
   deleteCard(io, client);
   upvoteCard(io, client);
-  unblurCard(io, client);
 };
 
 module.exports = {

@@ -5,6 +5,7 @@ import { compose } from "recompose";
 import { navigate } from "@reach/router";
 import {
   Button,
+  Fab,
   TextField,
   Dialog,
   DialogActions,
@@ -36,11 +37,12 @@ class CreateBoardDialog extends React.Component {
     const socket = io(LOCAL_BACKEND_ENDPOINT);
     const { title } = this.state;
     const boardId = uniqid("board-");
-    const newBoard = { ...emptyBoard, boardId, title };
+    const isBlurred = true;
+    const newBoard = { ...emptyBoard, boardId, title, isBlurred};
 
     socket.emit(CREATE_BOARD, newBoard, boardId);
     this.setState({ title: "", open: false });
-    await navigate(`boards/${boardId}`);
+    await navigate(`../boards/${boardId}`);
   };
 
   render() {
@@ -49,15 +51,16 @@ class CreateBoardDialog extends React.Component {
 
     return (
       <>
-        <Button
-          variant="extendedFab"
+        <Fab
+          variant="extended"
+          style={{margin:'0px'}}
           color="secondary"
           onClick={this.handleOpen}
           className={classes.button}
           data-testid="new-board-btn"
         >
           New Board
-        </Button>
+        </Fab>
         <Dialog
           fullScreen={fullScreen}
           open={open}
