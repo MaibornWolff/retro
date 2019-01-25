@@ -38,7 +38,7 @@ class CreateBoardDialog extends React.Component {
     const { title } = this.state;
     const boardId = uniqid("board-");
     const isBlurred = true;
-    const newBoard = { ...emptyBoard, boardId, title, isBlurred};
+    const newBoard = { ...emptyBoard, boardId, title, isBlurred };
 
     socket.emit(CREATE_BOARD, newBoard, boardId);
     this.setState({ title: "", open: false });
@@ -53,7 +53,7 @@ class CreateBoardDialog extends React.Component {
       <>
         <Fab
           variant="extended"
-          style={{margin:'0px'}}
+          style={{ margin: "0px" }}
           color="secondary"
           onClick={this.handleOpen}
           className={classes.button}

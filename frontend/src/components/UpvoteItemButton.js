@@ -1,16 +1,16 @@
 import React from "react";
 import io from "socket.io-client";
-import cookie from 'react-cookies'
+import cookie from "react-cookies";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import { IconButton } from "@material-ui/core";
 
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
 import { UPVOTE_CARD } from "../events/event-names";
 
-const upvoteCookiePrefix = 'upvote';
+const upvoteCookiePrefix = "upvote";
 
 const addToCookie = (id, boardId) => {
-    cookie.save(boardId + upvoteCookiePrefix + id, true);
+  cookie.save(boardId + upvoteCookiePrefix + id, true);
 };
 
 const handleUpvote = (id, boardId) => {
@@ -20,14 +20,14 @@ const handleUpvote = (id, boardId) => {
 };
 
 const UpvoteItemButton = props => (
-    <>
-        <IconButton
-            color="primary"
-            onClick={() => handleUpvote(props.id, props.boardId)}
-        >
-            <ThumbUpIcon fontSize="small" />
-        </IconButton>
-    </>
+  <>
+    <IconButton
+      color="primary"
+      onClick={() => handleUpvote(props.id, props.boardId)}
+    >
+      <ThumbUpIcon fontSize="small" />
+    </IconButton>
+  </>
 );
 
 export default UpvoteItemButton;
