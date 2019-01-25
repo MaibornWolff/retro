@@ -71,13 +71,13 @@ const editCard = (io, client) => {
 };
 
 const upvoteCard = (io, client) => {
-  client.on(UPVOTE_CARD, async (cardId, boardId) => {
+  client.on(UPVOTE_CARD, async (cardId, boardId, value) => {
     const path = getPath(boardId);
     await fs.readFile(path, "utf8", async (error, file) => {
       if (error) logError(UPVOTE_CARD, error);
 
       const board = getBoard(file);
-      board.items[cardId].points += 1;
+      board.items[cardId].points += value;
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(UPVOTE_CARD, error);
