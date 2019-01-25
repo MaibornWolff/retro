@@ -46,9 +46,9 @@ const getContent = content => {
   return <Typography component="p">{content}</Typography>;
 };
 
+//check whether the upvote cookie is set. This is done within the Downvote- and UpvoteItemButton
 const isUpvoted = (id, boardId) => {
-    var cookieResult = cookie.load(boardId + 'upvote' + id);
-    return cookieResult ? true : false;
+    return !!cookie.load(boardId + 'upvote' + id);
 };
 
 const RetroItem = props => {

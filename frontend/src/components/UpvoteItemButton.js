@@ -10,7 +10,6 @@ import { UPVOTE_CARD } from "../events/event-names";
 const upvoteCookiePrefix = 'upvote';
 
 const addToCookie = (id, boardId) => {
-    console.log('add to cookie');
     cookie.save(boardId + upvoteCookiePrefix + id, true);
 };
 
