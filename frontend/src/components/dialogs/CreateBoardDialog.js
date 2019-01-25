@@ -37,7 +37,8 @@ class CreateBoardDialog extends React.Component {
     const socket = io(LOCAL_BACKEND_ENDPOINT);
     const { title } = this.state;
     const boardId = uniqid("board-");
-    const newBoard = { ...emptyBoard, boardId, title };
+    const isBlurred = true;
+    const newBoard = { ...emptyBoard, boardId, title, isBlurred};
 
     socket.emit(CREATE_BOARD, newBoard, boardId);
     this.setState({ title: "", open: false });
