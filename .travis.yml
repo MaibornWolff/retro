@@ -1,0 +1,14 @@
+language: node_js
+
+node_js:
+  - "10.15.0"
+
+cache: yarn
+
+install:
+  - cd ./backend && yarn && cd ..
+  - cd ./frontend && yarn && cd ..
+
+script:
+  - cd ./backend && yarn format:check && cd ..
+  - cd ./frontend && yarn format:check && cd ..
