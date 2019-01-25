@@ -42,7 +42,6 @@ class CreateItemDialog extends React.Component {
       id,
       author,
       content,
-      isBlurred: true,
       points: 0
     };
 
