@@ -9,7 +9,7 @@ const {
   DELETE_CARD,
   UPVOTE_CARD,
   UPDATE_BOARD,
-  UNBLUR_CARD
+  UNBLUR_CARDS
 } = require("./event-names");
 
 const createCard = (io, client) => {
@@ -89,11 +89,11 @@ const upvoteCard = (io, client) => {
 };
 
 const unblurCard = (io, client) => {
-  client.on(UNBLUR_CARD, async (isBlurred, boardId) => {
+  client.on(UNBLUR_CARDS, async (isBlurred, boardId) => {
     console.log('received unblur card event');
     const path = getPath(boardId);
     await fs.readFile(path, "utf8", async (error, file) => {
-      if (error) logError(UNBLUR_CARD, error);
+      if (error) logError(UNBLUR_CARDS, error);
 
       const board = getBoard(file);
       for (var cardId in board.items) {
@@ -101,7 +101,7 @@ const unblurCard = (io, client) => {
       }
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
-        if (error) logError(UNBLUR_CARD, error);
+        if (error) logError(UNBLUR_CARDS, error);
 
         io.sockets.emit(UPDATE_BOARD, board);
       })
