@@ -40,7 +40,7 @@ class CreateBoardDialog extends React.Component {
 
     socket.emit(CREATE_BOARD, newBoard, boardId);
     this.setState({ title: "", open: false });
-    await navigate(`boards/${boardId}`);
+    await navigate(`../boards/${boardId}`);
   };
 
   render() {
@@ -51,6 +51,7 @@ class CreateBoardDialog extends React.Component {
       <>
         <Button
           variant="extendedFab"
+          style={{margin:'0px'}}
           color="secondary"
           onClick={this.handleOpen}
           className={classes.button}
