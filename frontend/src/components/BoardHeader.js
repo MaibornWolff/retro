@@ -40,7 +40,7 @@ const BoardHeader = props => (
           color="primary"
           onClick={() => handleExport(props.boardId)}
         >
-          Export
+          Export Board
         </Button>
       </Grid>
       <Grid item className={props.classes.button}>
