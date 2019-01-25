@@ -31,4 +31,6 @@ The board data lives inside `backend/storage`. All boards have a unique ID and a
 
 ## Contributing
 
+Please use Yarn instead of NPM. You can install Yarn [here](https://yarnpkg.com/en/).
+
 Currently there are no tests implemented (I know). The CI currently just checks formatting handled by Prettier. Just make sure to run `yarn format` or use the Prettier extension inside of VS Code.
