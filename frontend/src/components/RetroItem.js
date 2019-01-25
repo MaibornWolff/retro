@@ -16,9 +16,11 @@ import {
 import EditItemDialog from "./dialogs/EditItemDialog";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import UpvoteItemButton from "./UpvoteItemButton";
+import DownvoteItemButton from "./DownvoteItemButton";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
 import { UNBLUR_CARD } from "../events/event-names";
 import { CardWrapper, CardContainer, Unblur } from "./styled";
+import cookie from "react-cookies";
 
 const unblur = (isBlurred, id, boardId) => {
   const socket = io(LOCAL_BACKEND_ENDPOINT);
@@ -42,6 +44,11 @@ const getContent = content => {
     });
   }
   return <Typography component="p">{content}</Typography>;
+};
+
+const isUpvoted = (id, boardId) => {
+    var cookieResult = cookie.load(boardId + 'upvote' + id);
+    return cookieResult ? true : false;
 };
 
 const RetroItem = props => {
@@ -70,7 +77,12 @@ const RetroItem = props => {
               content={content}
               boardId={boardId}
             />
-            <UpvoteItemButton id={id} boardId={boardId} />
+              { isUpvoted(id, boardId) ?
+                  <DownvoteItemButton id={id} boardId={boardId} />
+                  :
+                  <UpvoteItemButton id={id} boardId={boardId} />
+              }
+
           </CardActions>
         </Card>
       </CardContainer>
