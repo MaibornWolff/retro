@@ -1,7 +1,7 @@
 # Retro - Make Retrospectives Great Again
 
 
-[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/yduman/retro/blob/master/LICENSE.md)
+[![Build Status](https://travis-ci.org/yduman/retro.svg?branch=master)](https://travis-ci.org/yduman/retro) [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/yduman/retro/blob/master/LICENSE.md)
 
 
 ## ⚠️ UNDER DEVELOPMENT - MVP RELEASE SOON ⚠️
