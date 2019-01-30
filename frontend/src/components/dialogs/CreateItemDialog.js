@@ -44,7 +44,6 @@ class CreateItemDialog extends React.Component {
       content,
       points: 0
     };
-    console.log(content);
     socket.emit(CREATE_CARD, newCard, columnId, boardId);
     this.setState({ author: "", content: "", open: false });
   };

@@ -17,23 +17,12 @@ import DownvoteItemButton from "./DownvoteItemButton";
 import { CardWrapper, CardContainer } from "./styled";
 import cookie from "react-cookies";
 
+const contentBodyStyle = {
+    whiteSpace: 'pre-line'
+};
+
 const getContent = content => {
-  const separator = "===";
-  console.log(content);
-  if (content.includes(separator)) {
-    const splitted = content.split(separator);
-    return splitted.map(txt => {
-      return (
-        <Typography key={txt} component="p">
-          {txt}
-          <br />
-          {separator}
-          <br />
-        </Typography>
-      );
-    });
-  }
-  return <Typography component="p" style={{ 'white-space': 'pre-line'}}>{content}</Typography>;
+  return <Typography component="p" style={contentBodyStyle}>{content}</Typography>;
 };
 
 // check whether the upvote cookie is set. This is done within the Downvote- and UpvoteItemButton
