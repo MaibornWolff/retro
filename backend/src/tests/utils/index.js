@@ -9,7 +9,11 @@ const testBoard = {
 
 const getPath = id => `${__dirname}/../../../storage/${id}`;
 
+const getBoardURL = (boardId, port) =>
+  `http://localhost:${port}/boards/${boardId}`;
+
 module.exports = {
   testBoard,
-  getPath
+  getPath,
+  getBoardURL
 };

@@ -2,9 +2,9 @@ const fs = require("fs");
 const expect = require("chai").expect;
 const io = require("socket.io-client");
 
+const port = process.env.port;
 const server = require("../server");
 const { testBoard, getPath, getBoardURL } = require("./utils");
-const port = process.env.PORT;
 const ioOptions = {
   transports: ["websocket"],
   forceNew: true,
@@ -12,16 +12,16 @@ const ioOptions = {
 };
 const {
   CREATE_BOARD,
-  UPDATE_BOARD,
-  JOIN_BOARD,
-  EXPORT_BOARD,
-  UNBLUR_CARDS
+  CREATE_COLUMN,
+  DELETE_COLUMN,
+  SORT_COLUMN,
+  UPDATE_BOARD
 } = require("../events/event-names");
 
 let sender;
 let receiver;
 
-describe("Board Events", () => {
+describe("Column Events", () => {
   beforeEach(done => {
     sender = io(`http://localhost:${port}`, ioOptions);
     receiver = io(`http://localhost:${port}`, ioOptions);
@@ -42,38 +42,18 @@ describe("Board Events", () => {
     });
   });
 
-  it("should update board", done => {
-    sender.emit(UPDATE_BOARD, testBoard, testBoard.boardId);
-    receiver.on(UPDATE_BOARD, board => {
-      expect(board).to.deep.equal(testBoard);
-      done();
-    });
-  });
-
-  it("should join board", done => {
-    // here, we only emit back to the sender and not to all sockets
-    sender.emit(JOIN_BOARD, testBoard.boardId);
-    sender.on(JOIN_BOARD, boardJSON => {
-      expect(boardJSON).to.deep.equal(testBoard);
-      done();
-    });
-  });
-
-  it("should export board", done => {
+  it("should create column", done => {
     const boardId = testBoard.boardId;
-    sender.emit(EXPORT_BOARD, getBoardURL(boardId, port), boardId);
-    sender.on(EXPORT_BOARD, bufferString => {
-      const bufferObject = JSON.parse(bufferString);
-      expect(bufferObject.type).to.equal("Buffer");
-      expect(bufferObject.data).to.not.be.empty;
-      done();
-    });
-  });
+    const id = "column-1234";
+    const newColumn = {
+      id,
+      columnTitle: "Column 1",
+      itemIds: []
+    };
 
-  it("should unblur cards", done => {
-    sender.emit(UNBLUR_CARDS, testBoard.boardId);
+    sender.emit(CREATE_COLUMN, newColumn, boardId);
     receiver.on(UPDATE_BOARD, board => {
-      expect(board.isBlurred).to.be.false;
+      expect(board.columns[id]).to.deep.equal(newColumn);
       done();
     });
   });
