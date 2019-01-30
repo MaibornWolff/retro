@@ -54,11 +54,9 @@ const exportBoard = (_, client) => {
       });
       await browser.close();
       await client.emit(EXPORT_BOARD, JSON.stringify(pdf));
-      console.log("pdf finished");
     } catch (error) {
       console.log(error);
     }
-    // const pdfBuffer = await page.pdf({ format: "A4", landscape: true });
   });
 };
 
@@ -83,10 +81,17 @@ const unblurCards = (io, client) => {
   });
 };
 
+const foo = (io, client) => {
+  client.on("message", msg => {
+    io.sockets.emit("message", msg);
+  });
+};
+
 module.exports = {
   createBoard,
   updateBoard,
   joinBoard,
   exportBoard,
-  unblurCards
+  unblurCards,
+  foo
 };

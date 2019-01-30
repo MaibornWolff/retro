@@ -17,8 +17,6 @@ io.on(CONNECTION, client => {
   cardEvents(io, client);
 });
 
-server.listen(port, () => {
+exports.server = server.listen(port, () => {
   console.log(`[INFO] Listening on port: ${port}`);
 });
-
-module.exports = { server };

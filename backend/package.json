@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./src/server.js",
+    "test": "cross-env NODE_ENV=TEST mocha src/**/*.test.js --timeout 15000 --exit",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
     "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\""
   },
@@ -16,7 +17,11 @@
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
-    "prettier": "^1.16.0"
+    "prettier": "^1.16.0",
+    "socket.io-client": "^2.2.0"
   }
 }
