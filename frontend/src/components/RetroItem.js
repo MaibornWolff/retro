@@ -21,10 +21,6 @@ const contentBodyStyle = {
     whiteSpace: 'pre-line'
 };
 
-const getContent = content => {
-  return <Typography component="p" style={contentBodyStyle}>{content}</Typography>;
-};
-
 // check whether the upvote cookie is set. This is done within the Downvote- and UpvoteItemButton
 const isUpvoted = (id, boardId) => {
   return !!cookie.load(boardId + "upvote" + id);
@@ -46,7 +42,9 @@ const RetroItem = props => {
             title={<Typography variant="subtitle2">{author}</Typography>}
           />
           <Divider />
-          <CardContent>{getContent(content)}</CardContent>
+          <CardContent>
+              <Typography component="p" style={contentBodyStyle}>{content}</Typography>
+          </CardContent>
           <Divider />
           <CardActions className={classes.actions}>
             <DeleteItemDialog id={id} boardId={boardId} />
