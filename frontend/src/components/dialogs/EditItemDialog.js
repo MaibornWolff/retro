@@ -68,6 +68,7 @@ class EditItemDialog extends React.Component {
             />
             <TextField
               margin="dense"
+              multiline
               id="content-name"
               label="Content"
               type="text"

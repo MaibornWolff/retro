@@ -44,7 +44,7 @@ class CreateItemDialog extends React.Component {
       content,
       points: 0
     };
-
+    console.log(content);
     socket.emit(CREATE_CARD, newCard, columnId, boardId);
     this.setState({ author: "", content: "", open: false });
   };
@@ -78,6 +78,7 @@ class CreateItemDialog extends React.Component {
             />
             <TextField
               margin="dense"
+              multiline
               id="content-name"
               label="Content"
               type="text"

@@ -19,7 +19,7 @@ import cookie from "react-cookies";
 
 const getContent = content => {
   const separator = "===";
-
+  console.log(content);
   if (content.includes(separator)) {
     const splitted = content.split(separator);
     return splitted.map(txt => {
@@ -33,7 +33,7 @@ const getContent = content => {
       );
     });
   }
-  return <Typography component="p">{content}</Typography>;
+  return <Typography component="p" style={{ 'white-space': 'pre-line'}}>{content}</Typography>;
 };
 
 // check whether the upvote cookie is set. This is done within the Downvote- and UpvoteItemButton
