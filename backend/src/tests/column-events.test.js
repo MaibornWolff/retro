@@ -10,13 +10,7 @@ const ioOptions = {
   forceNew: true,
   reconnection: false
 };
-const {
-  CREATE_BOARD,
-  CREATE_COLUMN,
-  DELETE_COLUMN,
-  SORT_COLUMN,
-  UPDATE_BOARD
-} = require("../events/event-names");
+const { CREATE_COLUMN, UPDATE_BOARD } = require("../events/event-names");
 
 let sender;
 let receiver;
@@ -32,14 +26,6 @@ describe("Column Events", () => {
     sender.disconnect();
     receiver.disconnect();
     done();
-  });
-
-  it("should create board", done => {
-    sender.emit(CREATE_BOARD, testBoard, testBoard.boardId);
-    receiver.on(CREATE_BOARD, board => {
-      expect(board).to.deep.equal(testBoard);
-      done();
-    });
   });
 
   it("should create column", done => {
@@ -58,6 +44,7 @@ describe("Column Events", () => {
     });
   });
 
+  /*
   // delete test JSON and PDF file
   after(async () => {
     await fs.unlink(getPath(testBoard.boardId) + ".json", error => {
@@ -68,4 +55,5 @@ describe("Column Events", () => {
       if (error) throw error;
     });
   });
+  */
 });

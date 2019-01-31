@@ -78,6 +78,7 @@ describe("Board Events", () => {
     });
   });
 
+  /*
   // delete test JSON and PDF file
   after(async () => {
     await fs.unlink(getPath(testBoard.boardId) + ".json", error => {
@@ -88,4 +89,5 @@ describe("Board Events", () => {
       if (error) throw error;
     });
   });
+  */
 });

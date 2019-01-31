@@ -1,3 +1,6 @@
 node_modules/
 storage/*.json
 storage/*.pdf
+public/*.js
+public/*.css
+public/*.html
