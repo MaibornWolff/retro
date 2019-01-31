@@ -13,7 +13,7 @@ const {
 const createBoard = (io, client) => {
   client.on(CREATE_BOARD, async (board, boardId) => {
     await fs.writeFile(getPath(boardId), stringify(board), "utf8", error => {
-      if (error) logError(error);
+      if (error) logError(CREATE_BOARD, error);
 
       io.sockets.emit(CREATE_BOARD, board);
     });
@@ -29,16 +29,16 @@ const updateBoard = (io, client) => {
   });
 };
 
-const joinBoard = (_, client) => {
+const joinBoard = (io, client) => {
   client.on(JOIN_BOARD, async boardId => {
     await fs.readFile(getPath(boardId), "utf8", (error, file) => {
-      if (error) logError(error);
+      if (error) logError(JOIN_BOARD, error);
       client.emit(JOIN_BOARD, getBoard(file));
     });
   });
 };
 
-const exportBoard = (_, client) => {
+const exportBoard = (io, client) => {
   client.on(EXPORT_BOARD, async (url, boardId) => {
     try {
       const browser = await puppeteer.launch();
@@ -51,9 +51,13 @@ const exportBoard = (_, client) => {
         landscape: true
       });
       await browser.close();
-      await client.emit(EXPORT_BOARD, JSON.stringify(pdf));
+
+      const bufferString = JSON.stringify(pdf);
+      console.log("Done generating PDF-Buffer.");
+      console.log("Emitting EXPORT_BOARD event...");
+      client.emit(EXPORT_BOARD, bufferString);
     } catch (error) {
-      console.log(error);
+      logError(EXPORT_BOARD, error);
     }
   });
 };

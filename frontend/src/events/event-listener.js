@@ -33,8 +33,7 @@ export const onJoinBoard = component => {
 };
 
 export const onExportBoard = component => {
-  component.socket.on(EXPORT_BOARD, jsonBuffer => {
+  component.socket.on(EXPORT_BOARD, bufferString => {
     console.log("received export event");
-    console.log(jsonBuffer);
   });
 };

@@ -9,8 +9,7 @@ import { EXPORT_BOARD, UNBLUR_CARDS } from "../events/event-names";
 
 const handleExport = boardId => {
   const socket = io(LOCAL_BACKEND_ENDPOINT);
-  const url = window.location.href;
-  socket.emit(EXPORT_BOARD, url, boardId);
+  socket.emit(EXPORT_BOARD, window.location.href, boardId);
 };
 
 const handleUnblur = boardId => {
