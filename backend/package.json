@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./src/server.js",
-    "test": "cross-env NODE_ENV=TEST mocha src/**/*.test.js --timeout 15000 --exit",
+    "test": "cross-env NODE_ENV=TEST mocha src/**/*.test.js --timeout 20000 --exit",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
     "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\""
   },
