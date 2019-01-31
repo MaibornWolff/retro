@@ -17,10 +17,6 @@ import DownvoteItemButton from "./DownvoteItemButton";
 import { CardWrapper, CardContainer } from "./styled";
 import cookie from "react-cookies";
 
-const contentBodyStyle = {
-    whiteSpace: 'pre-line'
-};
-
 // check whether the upvote cookie is set. This is done within the Downvote- and UpvoteItemButton
 const isUpvoted = (id, boardId) => {
   return !!cookie.load(boardId + "upvote" + id);
@@ -43,7 +39,7 @@ const RetroItem = props => {
           />
           <Divider />
           <CardContent>
-              <Typography component="p" style={contentBodyStyle}>{content}</Typography>
+              <Typography component="p" className={classes.contentBody}>{content}</Typography>
           </CardContent>
           <Divider />
           <CardActions className={classes.actions}>
@@ -77,6 +73,9 @@ const styles = {
   },
   card: {
     border: "1px solid lightgrey"
+  },
+  contentBody: {
+    whiteSpace: 'pre-line'
   }
 };
 
