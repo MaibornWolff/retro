@@ -24,8 +24,6 @@ const updateBoard = (io, client) => {
   client.on(UPDATE_BOARD, async (board, boardId) => {
     await fs.writeFile(getPath(boardId), stringify(board), "utf8", error => {
       if (error) logError(UPDATE_BOARD, error);
-
-      console.log(">>> Received UPDATE_BOARD event ...");
       io.sockets.emit(UPDATE_BOARD, board);
     });
   });
@@ -35,7 +33,6 @@ const joinBoard = (_, client) => {
   client.on(JOIN_BOARD, async boardId => {
     await fs.readFile(getPath(boardId), "utf8", (error, file) => {
       if (error) logError(error);
-
       client.emit(JOIN_BOARD, getBoard(file));
     });
   });
@@ -75,16 +72,9 @@ const unblurCards = (io, client) => {
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(UNBLUR_CARDS, error);
-
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });
-  });
-};
-
-const foo = (io, client) => {
-  client.on("message", msg => {
-    io.sockets.emit("message", msg);
   });
 };
 
@@ -93,6 +83,5 @@ module.exports = {
   updateBoard,
   joinBoard,
   exportBoard,
-  unblurCards,
-  foo
+  unblurCards
 };

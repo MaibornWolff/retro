@@ -24,7 +24,6 @@ const createCard = (io, client) => {
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(CREATE_CARD, error);
-
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });
@@ -43,7 +42,6 @@ const deleteCard = (io, client) => {
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(DELETE_CARD, error);
-
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });
@@ -63,7 +61,6 @@ const editCard = (io, client) => {
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(EDIT_CARD, error);
-
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });
@@ -81,7 +78,6 @@ const upvoteCard = (io, client) => {
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(UPVOTE_CARD, error);
-
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });
