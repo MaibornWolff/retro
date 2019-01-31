@@ -23,6 +23,7 @@ const createColumn = (io, client) => {
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(CREATE_COLUMN, error);
 
+        console.log(">>> No error emitting UPDATE_BOARD event ...");
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });

@@ -25,6 +25,7 @@ const updateBoard = (io, client) => {
     await fs.writeFile(getPath(boardId), stringify(board), "utf8", error => {
       if (error) logError(UPDATE_BOARD, error);
 
+      console.log(">>> Received UPDATE_BOARD event ...");
       io.sockets.emit(UPDATE_BOARD, board);
     });
   });

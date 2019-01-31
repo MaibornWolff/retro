@@ -25,6 +25,7 @@ describe("Column Events", () => {
   afterEach(done => {
     sender.disconnect();
     receiver.disconnect();
+    console.log(">>> Disconnected Sender and Receiver");
     done();
   });
 
@@ -37,8 +38,14 @@ describe("Column Events", () => {
       itemIds: []
     };
 
+    console.log(">>> Emitting CREATE_COLUMN event ...");
+
     sender.emit(CREATE_COLUMN, newColumn, boardId);
     receiver.on(UPDATE_BOARD, board => {
+      console.log(
+        ">>> Board data from UPDATE_BOARD event is:\n",
+        JSON.stringify(board, null, 2)
+      );
       expect(board.columns[id]).to.deep.equal(newColumn);
       done();
     });
