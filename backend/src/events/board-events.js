@@ -1,12 +1,10 @@
 const fs = require("fs");
-const puppeteer = require("puppeteer");
 
 const { getPath, getBoard, stringify, logError } = require("../utils/utils");
 const {
   CREATE_BOARD,
   UPDATE_BOARD,
   JOIN_BOARD,
-  EXPORT_BOARD,
   UNBLUR_CARDS
 } = require("./event-names");
 
@@ -38,30 +36,6 @@ const joinBoard = (io, client) => {
   });
 };
 
-const exportBoard = (io, client) => {
-  client.on(EXPORT_BOARD, async (url, boardId) => {
-    try {
-      const browser = await puppeteer.launch();
-      const page = await browser.newPage();
-
-      await page.goto(url);
-      const pdf = await page.pdf({
-        path: `./storage/${boardId}.pdf`,
-        format: "A4",
-        landscape: true
-      });
-      await browser.close();
-
-      const bufferString = JSON.stringify(pdf);
-      console.log("Done generating PDF-Buffer.");
-      console.log("Emitting EXPORT_BOARD event...");
-      client.emit(EXPORT_BOARD, bufferString);
-    } catch (error) {
-      logError(EXPORT_BOARD, error);
-    }
-  });
-};
-
 const unblurCards = (io, client) => {
   client.on(UNBLUR_CARDS, async boardId => {
     const path = getPath(boardId);
@@ -86,6 +60,5 @@ module.exports = {
   createBoard,
   updateBoard,
   joinBoard,
-  exportBoard,
   unblurCards
 };

@@ -1,10 +1,4 @@
-import {
-  CONNECT,
-  CREATE_BOARD,
-  UPDATE_BOARD,
-  JOIN_BOARD,
-  EXPORT_BOARD
-} from "./event-names";
+import { CONNECT, CREATE_BOARD, UPDATE_BOARD, JOIN_BOARD } from "./event-names";
 
 export const onConnect = component => {
   component.socket.on(CONNECT, () => {
@@ -29,11 +23,5 @@ export const onUpdateBoard = component => {
 export const onJoinBoard = component => {
   component.socket.on(JOIN_BOARD, board => {
     component.setState({ ...board });
-  });
-};
-
-export const onExportBoard = component => {
-  component.socket.on(EXPORT_BOARD, bufferString => {
-    console.log("received export event");
   });
 };
