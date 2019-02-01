@@ -56,10 +56,6 @@ describe("Event Tests", () => {
     await fs.unlink(getPath(boardId) + ".json", error => {
       if (error) throw error;
     });
-
-    await fs.unlink(getPath(boardId) + ".pdf", error => {
-      if (error) throw error;
-    });
   });
 
   it("should create a board", done => {
