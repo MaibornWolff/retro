@@ -21,13 +21,11 @@ const {
   UPDATE_BOARD,
   CREATE_CARD,
   JOIN_BOARD,
-  EXPORT_BOARD,
   DELETE_CARD,
   DELETE_COLUMN,
   UPVOTE_CARD,
   UNBLUR_CARDS,
-  EDIT_CARD,
-  SORT_COLUMN
+  EDIT_CARD
 } = require("../events/event-names");
 
 let sender;
@@ -150,16 +148,6 @@ describe("Event Tests", () => {
     sender.emit(DELETE_COLUMN, columnId, boardId);
     receiver.on(UPDATE_BOARD, board => {
       expect(board.columns).to.be.empty;
-      done();
-    });
-  });
-
-  it("should export a board", done => {
-    sender.emit(EXPORT_BOARD, getBoardURL(boardId, port), boardId);
-    sender.on(EXPORT_BOARD, pdfBuffer => {
-      const bufferObj = JSON.parse(pdfBuffer);
-      expect(bufferObj.type).to.equal("Buffer");
-      expect(bufferObj.data).to.not.be.empty;
       done();
     });
   });
