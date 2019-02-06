@@ -39,7 +39,9 @@ const RetroItem = props => {
           />
           <Divider />
           <CardContent>
-              <Typography component="p" className={classes.contentBody}>{content}</Typography>
+            <Typography component="p" className={classes.contentBody}>
+              {content}
+            </Typography>
           </CardContent>
           <Divider />
           <CardActions className={classes.actions}>
@@ -75,7 +77,7 @@ const styles = {
     border: "1px solid lightgrey"
   },
   contentBody: {
-    whiteSpace: 'pre-line'
+    whiteSpace: "pre-line"
   }
 };
 
