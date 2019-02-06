@@ -1,20 +1,10 @@
 import React from "react";
-import io from "socket.io-client";
-import { Grid, Typography, Button, withStyles } from "@material-ui/core";
+import { Grid, Typography, withStyles } from "@material-ui/core";
 
-import CreateColumnDialog from "./dialogs/CreateColumnDialog";
 import CreateBoardDialog from "./dialogs/CreateBoardDialog";
-import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { UNBLUR_CARDS } from "../events/event-names";
-
-const endpoint = "/api/boards/export/";
-const port = "8081";
-const exportURL = `http://${window.location.host}:${port}${endpoint}`;
-
-const handleUnblur = boardId => {
-  const socket = io(LOCAL_BACKEND_ENDPOINT);
-  socket.emit(UNBLUR_CARDS, boardId);
-};
+import CreateColumnButton from "./CreateColumnButton";
+import ExportBoardButton from "./ExportBoardButton";
+import UnblurCardsButton from "./UnblurCardsButton";
 
 const BoardHeader = props => (
   <>
@@ -27,31 +17,20 @@ const BoardHeader = props => (
       </Grid>
     </Grid>
     <Grid container>
-      <Grid item className={props.classes.button}>
-        <CreateColumnDialog boardId={props.boardId} />
-      </Grid>
-      <Grid item className={props.classes.button}>
-        <Button
-          size="small"
-          variant="contained"
-          aria-label="Export Board"
-          color="primary"
-          href={exportURL + props.boardId}
-        >
-          Export Board
-        </Button>
-      </Grid>
-      <Grid item className={props.classes.button}>
-        <Button
-          size="small"
-          variant="contained"
-          aria-label="Unblur Cards"
-          color="primary"
-          onClick={() => handleUnblur(props.boardId)}
-        >
-          Unblur Cards
-        </Button>
-      </Grid>
+      <CreateColumnButton
+        className={props.classes.button}
+        boardId={props.boardId}
+      />
+
+      <ExportBoardButton
+        className={props.classes.button}
+        boardId={props.boardId}
+      />
+
+      <UnblurCardsButton
+        className={props.classes.button}
+        boardId={props.boardId}
+      />
     </Grid>
   </>
 );
