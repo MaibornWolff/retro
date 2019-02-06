@@ -3,7 +3,7 @@ const io = require("socket.io-client");
 const request = require("supertest");
 const { expect } = require("chai");
 
-const { server, app } = require("../server");
+const { server } = require("../server");
 const { testBoard, getPath, createColumn, createItem } = require("./utils");
 const ioOptions = {
   transports: ["websocket"],
@@ -48,17 +48,9 @@ describe("Backend Tests", () => {
   });
 
   after(async () => {
-    try {
-      await fs.unlink(getPath(boardId) + ".json", error => {
-        if (error) throw error;
-      });
-
-      await fs.unlink(getPath(boardId) + ".pdf", error => {
-        if (error) throw error;
-      });
-    } catch (error) {
-      console.log("[ERROR] Couldn't delete test JSON or PDF...\n", error);
-    }
+    await fs.unlink(getPath(boardId) + ".json", error => {
+      if (error) throw error;
+    });
   });
 
   it("should create a board", done => {
@@ -149,23 +141,5 @@ describe("Backend Tests", () => {
       expect(board.columns).to.be.empty;
       done();
     });
-  });
-
-  it("should export board", done => {
-    request(app)
-      .get(`/api/boards/export/${boardId}`)
-      .expect(200)
-      .end(done);
-  });
-
-  it("should throw 400 on bad request for board export", done => {
-    const errMsg = "Board-ID does not exist!";
-    request(app)
-      .get("/api/boards/export/board-1234")
-      .expect(400)
-      .expect(res => {
-        expect(res.body.msg).to.equal(errMsg);
-      })
-      .end(done);
   });
 });
