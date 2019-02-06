@@ -48,13 +48,17 @@ describe("Backend Tests", () => {
   });
 
   after(async () => {
-    await fs.unlink(getPath(boardId) + ".json", error => {
-      if (error) throw error;
-    });
+    try {
+      await fs.unlink(getPath(boardId) + ".json", error => {
+        if (error) throw error;
+      });
 
-    await fs.unlink(getPath(boardId) + ".pdf", error => {
-      if (error) throw error;
-    });
+      await fs.unlink(getPath(boardId) + ".pdf", error => {
+        if (error) throw error;
+      });
+    } catch (error) {
+      console.log("[ERROR] Couldn't delete test JSON or PDF...\n", error);
+    }
   });
 
   it("should create a board", done => {
