@@ -72,7 +72,7 @@ class Board extends React.Component {
     const contentToMerge = itemToCombineWith.content;
 
     // combine the content
-    const newContent = `${originalContent} === ${contentToMerge}`;
+    const newContent = `${originalContent}\n===\n${contentToMerge}`;
     itemToCombine.content = newContent;
 
     // remove the merged item

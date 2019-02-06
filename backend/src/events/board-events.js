@@ -12,7 +12,6 @@ const createBoard = (io, client) => {
   client.on(CREATE_BOARD, async (board, boardId) => {
     await fs.writeFile(getPath(boardId), stringify(board), "utf8", error => {
       if (error) logError(CREATE_BOARD, error);
-
       io.sockets.emit(CREATE_BOARD, board);
     });
   });
@@ -44,9 +43,9 @@ const unblurCards = (io, client) => {
 
       const board = getBoard(file);
       board.isBlurred = !board.isBlurred;
-      for (let cardId in board.items) {
+
+      for (let cardId in board.items)
         board.items[cardId].isBlurred = board.isBlurred;
-      }
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(UNBLUR_CARDS, error);
