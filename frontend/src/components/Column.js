@@ -6,7 +6,7 @@ import { Typography, Grid, withStyles } from "@material-ui/core";
 import Items from "./Items";
 import CreateItemDialog from "./dialogs/CreateItemDialog";
 import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
-import SortColumnButton from "./SortColumnButton";
+import SortColumnButton from "./buttons/SortColumnButton";
 import { ColumnContainer, ItemsContainerStyles } from "./styled";
 
 const ItemsContainer = styled.div`

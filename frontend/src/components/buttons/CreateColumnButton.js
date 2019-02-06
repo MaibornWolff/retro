@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 
-import CreateColumnDialog from "./dialogs/CreateColumnDialog";
+import CreateColumnDialog from "../dialogs/CreateColumnDialog";
 
 const CreateColumnButton = props => (
   <>

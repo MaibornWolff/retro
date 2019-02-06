@@ -2,8 +2,8 @@ import React from "react";
 import io from "socket.io-client";
 import { Grid, Button } from "@material-ui/core";
 
-import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { UNBLUR_CARDS } from "../events/event-names";
+import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { UNBLUR_CARDS } from "../../events/event-names";
 
 const handleUnblur = boardId => {
   const socket = io(LOCAL_BACKEND_ENDPOINT);

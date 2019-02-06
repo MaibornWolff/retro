@@ -4,8 +4,8 @@ import cookie from "react-cookies";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import { IconButton } from "@material-ui/core";
 
-import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { UPVOTE_CARD } from "../events/event-names";
+import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { UPVOTE_CARD } from "../../events/event-names";
 
 const upvoteCookiePrefix = "upvote";
 

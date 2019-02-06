@@ -12,8 +12,8 @@ import {
 
 import EditItemDialog from "./dialogs/EditItemDialog";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
-import UpvoteItemButton from "./UpvoteItemButton";
-import DownvoteItemButton from "./DownvoteItemButton";
+import UpvoteItemButton from "./buttons/UpvoteItemButton";
+import DownvoteItemButton from "./buttons/DownvoteItemButton";
 import { CardWrapper, CardContainer } from "./styled";
 import cookie from "react-cookies";
 
