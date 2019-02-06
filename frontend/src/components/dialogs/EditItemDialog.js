@@ -39,6 +39,15 @@ class EditItemDialog extends React.Component {
     this.setState({ open: false });
   };
 
+  componentDidUpdate(prevProps) {
+    if (this.props.content !== prevProps.content) {
+      this.setState({
+        ...this.state,
+        content: this.props.content
+      });
+    }
+  }
+
   render() {
     const { open, author, content } = this.state;
     const { fullScreen } = this.props;
@@ -57,23 +66,24 @@ class EditItemDialog extends React.Component {
           <DialogTitle id="edit-card-dialog">Edit Card</DialogTitle>
           <DialogContent>
             <TextField
-              autoFocus
               margin="dense"
               id="author-name"
               label="Author"
               type="text"
               value={author}
               onChange={this.handleAuthorChange}
+              autoFocus
               fullWidth
             />
             <TextField
               margin="dense"
-              multiline
               id="content-name"
               label="Content"
               type="text"
               value={content}
               onChange={this.handleContentChange}
+              rowsMax={Infinity}
+              multiline
               fullWidth
             />
           </DialogContent>

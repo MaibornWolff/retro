@@ -14,7 +14,6 @@ const createBoard = (io, client) => {
   client.on(CREATE_BOARD, async (board, boardId) => {
     await fs.writeFile(getPath(boardId), stringify(board), "utf8", error => {
       if (error) logError(error);
-
       io.sockets.emit(CREATE_BOARD, board);
     });
   });
@@ -24,7 +23,6 @@ const updateBoard = (io, client) => {
   client.on(UPDATE_BOARD, async (board, boardId) => {
     await fs.writeFile(getPath(boardId), stringify(board), "utf8", error => {
       if (error) logError(UPDATE_BOARD, error);
-
       io.sockets.emit(UPDATE_BOARD, board);
     });
   });
@@ -34,7 +32,6 @@ const joinBoard = (_, client) => {
   client.on(JOIN_BOARD, async boardId => {
     await fs.readFile(getPath(boardId), "utf8", (error, file) => {
       if (error) logError(error);
-
       client.emit(JOIN_BOARD, getBoard(file));
     });
   });
@@ -58,7 +55,6 @@ const exportBoard = (_, client) => {
     } catch (error) {
       console.log(error);
     }
-    // const pdfBuffer = await page.pdf({ format: "A4", landscape: true });
   });
 };
 
