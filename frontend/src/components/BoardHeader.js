@@ -5,13 +5,9 @@ import { Grid, Typography, Button, withStyles } from "@material-ui/core";
 import CreateColumnDialog from "./dialogs/CreateColumnDialog";
 import CreateBoardDialog from "./dialogs/CreateBoardDialog";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { EXPORT_BOARD, UNBLUR_CARDS } from "../events/event-names";
+import { UNBLUR_CARDS } from "../events/event-names";
 
-const handleExport = boardId => {
-  const socket = io(LOCAL_BACKEND_ENDPOINT);
-  const url = window.location.href;
-  socket.emit(EXPORT_BOARD, url, boardId);
-};
+const endpoint = "http://localhost:8081/api/boards/export/";
 
 const handleUnblur = boardId => {
   const socket = io(LOCAL_BACKEND_ENDPOINT);
@@ -35,10 +31,10 @@ const BoardHeader = props => (
       <Grid item className={props.classes.button}>
         <Button
           size="small"
-          variant="outlined"
+          variant="contained"
           aria-label="Export Board"
           color="primary"
-          onClick={() => handleExport(props.boardId)}
+          href={endpoint + props.boardId}
         >
           Export Board
         </Button>
@@ -46,7 +42,7 @@ const BoardHeader = props => (
       <Grid item className={props.classes.button}>
         <Button
           size="small"
-          variant="outlined"
+          variant="contained"
           aria-label="Unblur Cards"
           color="primary"
           onClick={() => handleUnblur(props.boardId)}

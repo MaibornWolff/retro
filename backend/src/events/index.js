@@ -2,7 +2,6 @@ const {
   createBoard,
   updateBoard,
   joinBoard,
-  exportBoard,
   unblurCards
 } = require("./board-events");
 const { createColumn, deleteColumn, sortColumn } = require("./column-events");
@@ -17,7 +16,6 @@ const boardEvents = (io, client) => {
   createBoard(io, client);
   updateBoard(io, client);
   joinBoard(io, client);
-  exportBoard(io, client);
   unblurCards(io, client);
 };
 

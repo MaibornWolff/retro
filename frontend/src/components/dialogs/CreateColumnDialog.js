@@ -47,7 +47,7 @@ class CreateColumnDialog extends React.Component {
       <>
         <Button
           size="small"
-          variant="outlined"
+          variant="contained"
           aria-label="Add Column"
           color="primary"
           onClick={this.handleOpen}

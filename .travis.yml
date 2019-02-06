@@ -12,3 +12,4 @@ install:
 script:
   - cd ./backend && yarn format:check && cd ..
   - cd ./frontend && yarn format:check && cd ..
+  - cd ./backend && yarn test && cd ..

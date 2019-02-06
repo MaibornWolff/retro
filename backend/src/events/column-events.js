@@ -22,7 +22,6 @@ const createColumn = (io, client) => {
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(CREATE_COLUMN, error);
-
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });
@@ -43,7 +42,6 @@ const deleteColumn = (io, client) => {
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(DELETE_COLUMN, error);
-
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });
@@ -64,7 +62,6 @@ const sortColumn = (io, client) => {
 
       await fs.writeFile(path, stringify(board), "utf8", error => {
         if (error) logError(SORT_COLUMN, error);
-
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });

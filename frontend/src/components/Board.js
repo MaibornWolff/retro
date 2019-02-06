@@ -14,8 +14,7 @@ import {
   onConnect,
   onCreateBoard,
   onUpdateBoard,
-  onJoinBoard,
-  onExportBoard
+  onJoinBoard
 } from "../events/event-listener";
 
 class Board extends React.Component {
@@ -28,7 +27,6 @@ class Board extends React.Component {
     onCreateBoard(this);
     onUpdateBoard(this);
     onJoinBoard(this);
-    onExportBoard(this);
   }
 
   onDragEnd = dragResult => {
