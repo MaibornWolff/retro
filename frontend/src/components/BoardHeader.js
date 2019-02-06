@@ -7,7 +7,9 @@ import CreateBoardDialog from "./dialogs/CreateBoardDialog";
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
 import { UNBLUR_CARDS } from "../events/event-names";
 
-const endpoint = "http://localhost:8081/api/boards/export/";
+const endpoint = "/api/boards/export/";
+const port = "8081";
+const exportURL = `http://${window.location.host}:${port}${endpoint}`;
 
 const handleUnblur = boardId => {
   const socket = io(LOCAL_BACKEND_ENDPOINT);
@@ -34,7 +36,7 @@ const BoardHeader = props => (
           variant="contained"
           aria-label="Export Board"
           color="primary"
-          href={endpoint + props.boardId}
+          href={exportURL + props.boardId}
         >
           Export Board
         </Button>

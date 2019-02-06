@@ -1,7 +1,7 @@
 import React from "react";
 import io from "socket.io-client";
 import cookie from "react-cookies";
-import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import { Fab } from "@material-ui/core";
 
 import { LOCAL_BACKEND_ENDPOINT } from "../utils";
@@ -26,7 +26,7 @@ const DownvoteItemButton = props => (
       size="small"
       onClick={() => handleDownvote(props.id, props.boardId)}
     >
-      <ThumbDownIcon fontSize="small" />
+      <ThumbUpIcon fontSize="small" />
     </Fab>
   </>
 );
