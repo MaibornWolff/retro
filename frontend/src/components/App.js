@@ -5,7 +5,6 @@ import { Router } from "@reach/router";
 import Retro from "./Retro";
 import Home from "./Home";
 import Board from "./Board";
-import { AppProvider } from "./App.context";
 
 const theme = createMuiTheme({
   typography: {
@@ -28,16 +27,14 @@ const theme = createMuiTheme({
 });
 
 const App = () => (
-  <AppProvider>
-    <MuiThemeProvider theme={theme}>
-      <Router>
-        <Retro path="/">
-          <Home path="/" />
-          <Board path="/boards/:boardId" />
-        </Retro>
-      </Router>
-    </MuiThemeProvider>
-  </AppProvider>
+  <MuiThemeProvider theme={theme}>
+    <Router>
+      <Retro path="/">
+        <Home path="/" />
+        <Board path="/boards/:boardId" />
+      </Retro>
+    </Router>
+  </MuiThemeProvider>
 );
 
 export default App;
