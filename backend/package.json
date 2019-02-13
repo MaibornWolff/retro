@@ -15,15 +15,15 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "lodash": "^4.17.11",
-    "puppeteer": "^1.11.0",
+    "puppeteer": "^1.12.2",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
     "mocha": "^5.2.0",
-    "nodemon": "^1.18.9",
-    "prettier": "^1.16.0",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4",
     "socket.io-client": "^2.2.0",
     "supertest": "^3.4.2"
   }
