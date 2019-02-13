@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Typography, withStyles } from "@material-ui/core";
 
 import CreateBoardDialog from "./dialogs/CreateBoardDialog";
+import Settings from "./Settings";
 import CreateColumnButton from "./buttons/CreateColumnButton";
 import ExportBoardButton from "./buttons/ExportBoardButton";
 import UnblurCardsButton from "./buttons/UnblurCardsButton";
@@ -14,6 +15,7 @@ const BoardHeader = props => (
       </Grid>
       <Grid>
         <CreateBoardDialog />
+        <Settings boardId={props.boardId} />
       </Grid>
     </Grid>
     <Grid container>
