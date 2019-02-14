@@ -2,9 +2,8 @@ import React from "react";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { Fab, Drawer, withStyles, List } from "@material-ui/core";
 
-import SettingsItem from "../SettingsItem";
-
-const allSettings = ["Export Board", "Unblur Cards"];
+import ExportBoard from "../settings/ExportBoard";
+import UnblurCards from "../settings/UnblurCards";
 
 class SettingsButton extends React.Component {
   state = { open: false };
@@ -13,17 +12,9 @@ class SettingsButton extends React.Component {
 
   handleClose = () => this.setState({ open: false });
 
-  renderSettingsItem(settings) {
-    return settings.map(name => {
-      return (
-        <SettingsItem name={name} key={name} boardId={this.props.boardId} />
-      );
-    });
-  }
-
   render() {
     const { open } = this.state;
-    const { classes } = this.props;
+    const { classes, boardId } = this.props;
 
     return (
       <>
@@ -39,7 +30,10 @@ class SettingsButton extends React.Component {
         </Fab>
         <Drawer open={open} onClose={this.handleClose} anchor="right">
           <div className={classes.list}>
-            <List>{this.renderSettingsItem(allSettings)}</List>
+            <List>
+              <UnblurCards boardId={boardId} />
+              <ExportBoard boardId={boardId} />
+            </List>
           </div>
         </Drawer>
       </>

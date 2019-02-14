@@ -1,9 +1,6 @@
 import React from "react";
-import io from "socket.io-client";
 import ExportBoardIcon from "@material-ui/icons/PictureAsPdf";
-import UnblurCardsIcon from "@material-ui/icons/BlurOff";
 import {
-  Button,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -12,61 +9,32 @@ import {
   DialogTitle,
   DialogContent,
   DialogContentText,
-  DialogActions
+  DialogActions,
+  Button
 } from "@material-ui/core";
-import { LOCAL_BACKEND_ENDPOINT } from "../utils";
-import { UNBLUR_CARDS } from "../events/event-names";
-
-const EXPORT_BOARD_SETTING = "Export Board";
-const UNBLUR_CARDS_SETTING = "Unblur Cards";
 
 const endpoint = "/api/boards/export/";
 const port = "8081";
 const exportURL = `http://${window.location.hostname}:${port}${endpoint}`;
 
-class SettingsItem extends React.Component {
+class ExportBoard extends React.Component {
   state = { open: false };
 
   openExportDialog = () => this.setState({ open: true });
 
   closeExportDialog = () => this.setState({ open: false });
 
-  handleUnblur(boardId) {
-    const socket = io(LOCAL_BACKEND_ENDPOINT);
-    socket.emit(UNBLUR_CARDS, boardId);
-  }
-
-  getIcon(name) {
-    switch (name) {
-      case EXPORT_BOARD_SETTING:
-        return <ExportBoardIcon />;
-      case UNBLUR_CARDS_SETTING:
-        return <UnblurCardsIcon />;
-      default:
-        return null;
-    }
-  }
-
-  getOnClick(name, boardId) {
-    switch (name) {
-      case EXPORT_BOARD_SETTING:
-        return this.openExportDialog();
-      case UNBLUR_CARDS_SETTING:
-        return this.handleUnblur(boardId);
-      default:
-        return {};
-    }
-  }
-
   render() {
     const { open } = this.state;
-    const { name, boardId, fullScreen } = this.props;
+    const { boardId, fullScreen } = this.props;
 
     return (
       <>
-        <ListItem button onClick={() => this.getOnClick(name, boardId)}>
-          <ListItemIcon>{this.getIcon(name)}</ListItemIcon>
-          <ListItemText primary={name} />
+        <ListItem button onClick={this.openExportDialog}>
+          <ListItemIcon>
+            <ExportBoardIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Export Board"} />
         </ListItem>
         <Dialog
           fullScreen={fullScreen}
@@ -95,4 +63,4 @@ class SettingsItem extends React.Component {
   }
 }
 
-export default withMobileDialog()(SettingsItem);
+export default withMobileDialog()(ExportBoard);
