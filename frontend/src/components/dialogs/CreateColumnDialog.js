@@ -1,6 +1,8 @@
 import React from "react";
 import io from "socket.io-client";
 import uniqid from "uniqid";
+import AddIcon from "@material-ui/icons/Add";
+import { compose } from "recompose";
 import {
   Button,
   TextField,
@@ -8,7 +10,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  withMobileDialog
+  withMobileDialog,
+  withStyles
 } from "@material-ui/core";
 
 import { CREATE_COLUMN } from "../../events/event-names";
@@ -47,11 +50,12 @@ class CreateColumnDialog extends React.Component {
       <>
         <Button
           size="small"
-          variant="contained"
+          variant="outlined"
           aria-label="Add Column"
           color="primary"
           onClick={this.handleOpen}
         >
+          <AddIcon />
           New Column
         </Button>
         <Dialog
@@ -87,4 +91,15 @@ class CreateColumnDialog extends React.Component {
   }
 }
 
-export default withMobileDialog()(CreateColumnDialog);
+const styles = theme => ({
+  icon: {
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
+  }
+});
+
+export default compose(
+  withMobileDialog(),
+  withStyles(styles)
+)(CreateColumnDialog);

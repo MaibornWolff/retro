@@ -61,7 +61,7 @@ class DeleteItemDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClick} color="secondary" autoFocus>
+            <Button onClick={this.handleClick} color="primary" autoFocus>
               Delete
             </Button>
           </DialogActions>

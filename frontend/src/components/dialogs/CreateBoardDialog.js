@@ -1,6 +1,7 @@
 import React from "react";
 import io from "socket.io-client";
 import uniqid from "uniqid";
+import AddIcon from "@material-ui/icons/Add";
 import { compose } from "recompose";
 import { navigate } from "@reach/router";
 import {
@@ -52,13 +53,15 @@ class CreateBoardDialog extends React.Component {
     return (
       <>
         <Fab
+          size="medium"
           variant="extended"
           style={{ margin: "0px" }}
-          color="secondary"
+          color="primary"
           onClick={this.handleOpen}
           className={classes.button}
           data-testid="new-board-btn"
         >
+          <AddIcon className={classes.icon} />
           New Board
         </Fab>
         <Dialog
@@ -99,7 +102,12 @@ class CreateBoardDialog extends React.Component {
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing.unit
+  },
+  icon: {
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   }
 });
 

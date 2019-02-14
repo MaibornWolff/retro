@@ -61,11 +61,7 @@ class DeleteColumnDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button
-              onClick={this.handleDeleteClick}
-              color="secondary"
-              autoFocus
-            >
+            <Button onClick={this.handleDeleteClick} color="primary" autoFocus>
               Delete
             </Button>
           </DialogActions>

@@ -1,18 +1,19 @@
 import React from "react";
+import SettingsIcon from "@material-ui/icons/Settings";
 import { Fab, Drawer, withStyles, List } from "@material-ui/core";
 
-import SettingsItem from "./SettingsItem";
+import SettingsItem from "../SettingsItem";
 
-const settingNames = ["Export Board", "Unblur Cards"];
+const allSettings = ["Export Board", "Unblur Cards"];
 
-class Settings extends React.Component {
+class SettingsButton extends React.Component {
   state = { open: false };
 
   handleOpen = () => this.setState({ open: true });
 
   handleClose = () => this.setState({ open: false });
 
-  renderSettingItems(settings) {
+  renderSettingsItem(settings) {
     return settings.map(name => {
       return (
         <SettingsItem name={name} key={name} boardId={this.props.boardId} />
@@ -28,15 +29,17 @@ class Settings extends React.Component {
       <>
         <Fab
           variant="extended"
-          color="secondary"
+          color="primary"
+          size="medium"
           onClick={this.handleOpen}
           className={classes.button}
         >
+          <SettingsIcon className={classes.icon} />
           Settings
         </Fab>
         <Drawer open={open} onClose={this.handleClose} anchor="right">
           <div className={classes.list}>
-            <List>{this.renderSettingItems(settingNames)}</List>
+            <List>{this.renderSettingsItem(allSettings)}</List>
           </div>
         </Drawer>
       </>
@@ -50,7 +53,12 @@ const styles = theme => ({
   },
   list: {
     width: 250
+  },
+  icon: {
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   }
 });
 
-export default withStyles(styles)(Settings);
+export default withStyles(styles)(SettingsButton);
