@@ -4,6 +4,7 @@ import { Fab, Drawer, withStyles, List } from "@material-ui/core";
 
 import ExportBoard from "../settings/ExportBoard";
 import UnblurCards from "../settings/UnblurCards";
+import VoteCount from "../settings/VoteCount";
 
 class SettingsButton extends React.Component {
   state = { open: false };
@@ -33,6 +34,7 @@ class SettingsButton extends React.Component {
             <List>
               <UnblurCards boardId={boardId} />
               <ExportBoard boardId={boardId} />
+              <VoteCount boardId={boardId} />
             </List>
           </div>
         </Drawer>
