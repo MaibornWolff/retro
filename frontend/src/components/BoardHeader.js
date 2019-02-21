@@ -2,8 +2,10 @@ import React from "react";
 import { Grid, Typography, withStyles } from "@material-ui/core";
 
 import CreateBoardDialog from "./dialogs/CreateBoardDialog";
-import SettingsButton from "./buttons/SettingsButton";
 import CreateColumnButton from "./buttons/CreateColumnButton";
+import UnblurCardsButton from "./buttons/UnblurCardsButton";
+import VoteCountButton from "./buttons/VoteCountButton";
+import ExportBoardButton from "./buttons/ExportBoardButton";
 
 const BoardHeader = props => (
   <>
@@ -13,11 +15,25 @@ const BoardHeader = props => (
       </Grid>
       <Grid item>
         <CreateBoardDialog />
-        <SettingsButton boardId={props.boardId} />
       </Grid>
     </Grid>
     <Grid container direction="row" alignItems="center">
       <CreateColumnButton
+        className={props.classes.button}
+        boardId={props.boardId}
+      />
+
+      <UnblurCardsButton
+        className={props.classes.button}
+        boardId={props.boardId}
+      />
+
+      <VoteCountButton
+        className={props.classes.button}
+        boardId={props.boardId}
+      />
+
+      <ExportBoardButton
         className={props.classes.button}
         boardId={props.boardId}
       />
