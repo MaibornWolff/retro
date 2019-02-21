@@ -13,14 +13,7 @@ import {
 import EditItemDialog from "./dialogs/EditItemDialog";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import UpvoteItemButton from "./buttons/UpvoteItemButton";
-import DownvoteItemButton from "./buttons/DownvoteItemButton";
 import { CardWrapper, CardContainer } from "./styled";
-import cookie from "react-cookies";
-
-// check whether the upvote cookie is set. This is done within the Downvote- and UpvoteItemButton
-const isUpvoted = (id, boardId) => {
-  return !!cookie.load(boardId + "upvote" + id);
-};
 
 const RetroItem = props => {
   const { classes, id, author, content, points, boardId, isBlurred } = props;
@@ -52,11 +45,7 @@ const RetroItem = props => {
               content={content}
               boardId={boardId}
             />
-            {isUpvoted(id, boardId) ? (
-              <DownvoteItemButton id={id} boardId={boardId} />
-            ) : (
-              <UpvoteItemButton id={id} boardId={boardId} />
-            )}
+            <UpvoteItemButton id={id} boardId={boardId} />
           </CardActions>
         </Card>
       </CardContainer>
