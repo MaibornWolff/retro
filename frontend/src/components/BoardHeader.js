@@ -4,7 +4,6 @@ import { Grid, Typography, withStyles } from "@material-ui/core";
 import CreateBoardDialog from "./dialogs/CreateBoardDialog";
 import CreateColumnButton from "./buttons/CreateColumnButton";
 import UnblurCardsButton from "./buttons/UnblurCardsButton";
-import VoteCountButton from "./buttons/VoteCountButton";
 import ExportBoardButton from "./buttons/ExportBoardButton";
 
 const BoardHeader = props => (
@@ -24,11 +23,6 @@ const BoardHeader = props => (
       />
 
       <UnblurCardsButton
-        className={props.classes.button}
-        boardId={props.boardId}
-      />
-
-      <VoteCountButton
         className={props.classes.button}
         boardId={props.boardId}
       />
