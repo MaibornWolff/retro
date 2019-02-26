@@ -20,6 +20,8 @@ app.use(cors());
 app.use(json());
 app.use(express.static(__dirname + "/public"));
 
+// FIXME: failed to launch chrome: apparently libs missing libX11-xcb.so.1
+// FIXME: unhandledRejection
 app.get("/api/boards/export/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
   await fs.readFile(getPath(boardId), "utf-8", async error => {
