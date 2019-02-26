@@ -33,6 +33,7 @@ app.get("/api/boards/export/:boardId", async (req, res) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
+    // TODO: use page.screenshot() instead with the option fullPage: true
     await page.goto(boardUrl);
     await page.pdf({
       path: `./storage/${boardId}.pdf`,
