@@ -12,7 +12,7 @@ const path = require("path");
 
 const { boardEvents, columnEvents, cardEvents } = require("./events");
 const { CONNECTION } = require("./events/event-names");
-const { getPdf, getPath } = require("./utils/utils");
+const { getImg, getPath } = require("./utils/utils");
 
 const port = process.env.PORT;
 
@@ -25,27 +25,30 @@ app.use(express.static(__dirname + "/public"));
 app.get("/api/boards/export/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
   await fs.readFile(getPath(boardId), "utf-8", async error => {
-    if (error)
+    if (error) {
       res.status(400).send({
         msg: "Board-ID does not exist!",
         error
       });
+    }
 
-    const boardUrl = `http://localhost:3000/boards/${boardId}`;
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      defaultViewport: {
+        width: 1920,
+        height: 1080
+      }
+    });
     const page = await browser.newPage();
+    const boardUrl = `http://localhost:3000/boards/${boardId}`;
 
-    // TODO: use page.screenshot() instead with the option fullPage: true
     await page.goto(boardUrl);
-    await page.pdf({
-      path: `./storage/${boardId}.pdf`,
-      format: "A4",
-      landscape: true
+    await page.screenshot({
+      path: `./storage/${boardId}.png`,
+      fullPage: true
     });
 
-    const pdfPath = path.resolve(getPdf(boardId));
-
-    res.download(pdfPath);
+    const imgPath = path.resolve(getImg(boardId));
+    res.download(imgPath);
   });
 });
 
