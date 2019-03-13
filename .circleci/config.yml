@@ -1,0 +1,51 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    working_directory: ~/retro
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - dependency-cache-backend-{{ checksum "package.json" }}
+            - dependency-cache-frontend-{{ checksum "package.json" }}
+
+      - run: 
+          name: Setup Backend Dependencies
+          command: cd backend && yarn install && cd ..
+      
+      - run:
+          name: Setup Frontend Dependencies
+          command: cd frontend && yarn install && cd ..
+
+      - save_cache:
+          paths:
+            - backend/node_modules
+          key: dependency-cache-backend-{{ checksum "package.json" }}
+
+      - save_cache:
+          paths:
+            - frontend/node_modules
+          key: dependency-cache-frontend-{{ checksum "package.json" }}
+
+      - run:
+          name: Check Code Formatting in Backend
+          command: cd backend && yarn format:check && cd ..
+
+      - run:
+          name: Check Code Formatting in Frontend
+          command: cd frontend && yarn format:check && cd ..
+
+      - run:
+          name: Run Backend Tests
+          command: cd backend && yarn test && cd ..
+      
+      - run:
+          name: Run Frontend Tests
+          command: cd frontend && yarn test && cd ..
