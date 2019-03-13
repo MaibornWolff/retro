@@ -1,7 +1,7 @@
 # Retro - Make Retrospectives Great Again
 
 
-[![Build Status](https://travis-ci.org/yduman/retro.svg?branch=master)](https://travis-ci.org/yduman/retro) [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/yduman/retro/blob/master/LICENSE.md)
+[[![Build Status](https://travis-ci.org/yduman/retro.svg?branch=master)](https://travis-ci.org/yduman/retro)](https://img.shields.io/circleci/project/github/yduman/retro/master.svg?style=for-the-badge) [[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/yduman/retro/blob/master/LICENSE.md)](https://img.shields.io/github/license/yduman/retro.svg?style=for-the-badge)
 
 Retro is a tool you can use for your retrospectives. The goal of Retro is to have a good UX within distributed teams.
 
