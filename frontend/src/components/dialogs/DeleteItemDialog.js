@@ -38,8 +38,12 @@ class DeleteItemDialog extends React.Component {
 
     return (
       <>
-        <IconButton color="primary" onClick={this.handleOpen}>
-          <DeleteIcon fontSize="small" />
+        <IconButton
+          color="primary"
+          onClick={this.handleOpen}
+          data-testid="delete-item-btn"
+        >
+          <DeleteIcon fontSize="small" data-testid="delete-item-btn-icon" />
         </IconButton>
         <Dialog
           fullScreen={fullScreen}

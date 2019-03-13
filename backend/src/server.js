@@ -15,6 +15,8 @@ const { CONNECTION } = require("./events/event-names");
 const { getImg, getPath } = require("./utils/utils");
 
 const port = process.env.PORT;
+const width = 1920;
+const height = 1080;
 
 app.use(cors());
 app.use(json());
@@ -30,14 +32,11 @@ app.get("/api/boards/export/:boardId", async (req, res) => {
       });
     }
 
+    const boardUrl = `http://localhost:3000/boards/${boardId}`;
     const browser = await puppeteer.launch({
-      defaultViewport: {
-        width: 1920,
-        height: 1080
-      }
+      defaultViewport: { width, height }
     });
     const page = await browser.newPage();
-    const boardUrl = `http://localhost:3000/boards/${boardId}`;
 
     await page.goto(boardUrl);
     await page.screenshot({
@@ -57,7 +56,7 @@ io.on(CONNECTION, client => {
 });
 
 server.listen(port, () => {
-  console.log(`[INFO] Listening on port: ${port}`);
+  console.log(`[INFO] Listening on ${port}`);
 });
 
 module.exports = { server };

@@ -54,6 +54,7 @@ class CreateColumnDialog extends React.Component {
           aria-label="Add Column"
           color="primary"
           onClick={this.handleOpen}
+          data-testid="new-col-btn"
         >
           <AddIcon />
           New Column

@@ -54,8 +54,12 @@ class CreateItemDialog extends React.Component {
 
     return (
       <>
-        <IconButton color="inherit" onClick={this.handleOpen}>
-          <AddIcon fontSize="small" />
+        <IconButton
+          color="inherit"
+          onClick={this.handleOpen}
+          data-testid="new-item-btn"
+        >
+          <AddIcon fontSize="small" data-testid="new-item-btn-icon" />
         </IconButton>
         <Dialog
           fullScreen={fullScreen}

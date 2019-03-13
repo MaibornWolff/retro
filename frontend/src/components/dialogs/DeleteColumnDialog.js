@@ -38,8 +38,12 @@ class DeleteColumnDialog extends React.Component {
 
     return (
       <>
-        <IconButton color="inherit" onClick={this.handleOpen}>
-          <DeleteIcon fontSize="small" />
+        <IconButton
+          color="inherit"
+          onClick={this.handleOpen}
+          data-testid="delete-col-btn"
+        >
+          <DeleteIcon fontSize="small" data-testid="delete-col-btn-icon" />
         </IconButton>
         <Dialog
           fullScreen={fullScreen}

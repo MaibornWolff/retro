@@ -54,8 +54,12 @@ class EditItemDialog extends React.Component {
 
     return (
       <>
-        <IconButton color="primary" onClick={this.handleOpen}>
-          <EditIcon fontSize="small" />
+        <IconButton
+          color="primary"
+          onClick={this.handleOpen}
+          data-testid="edit-item-btn"
+        >
+          <EditIcon fontSize="small" data-testid="edit-item-btn-icon" />
         </IconButton>
         <Dialog
           fullScreen={fullScreen}
