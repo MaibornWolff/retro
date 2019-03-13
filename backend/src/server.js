@@ -20,7 +20,7 @@ const height = 1080;
 
 app.use(cors());
 app.use(json());
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "./../public"));
 
 app.get("/api/boards/export/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
