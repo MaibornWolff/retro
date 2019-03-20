@@ -1,7 +1,7 @@
 # Retro - Make Retrospectives Great Again
 
 
-![CircleCI branch](https://img.shields.io/circleci/project/github/yduman/retro/master.svg?style=for-the-badge) ![GitHub](https://img.shields.io/github/license/yduman/retro.svg?style=for-the-badge)
+![CircleCI (all branches)](https://img.shields.io/circleci/project/github/yduman/retro.svg) ![GitHub](https://img.shields.io/github/license/yduman/retro.svg)
 
 Retro is a tool you can use for your retrospectives. The goal of Retro is to have a good UX within distributed teams.
 
