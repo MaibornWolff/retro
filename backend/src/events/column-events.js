@@ -2,7 +2,7 @@ const fs = require("fs");
 const unset = require("lodash/unset");
 const pull = require("lodash/pull");
 const orderBy = require("lodash/orderBy");
-const { getPath, getBoard, stringify, logError } = require("../utils/utils");
+const { getPath, getBoard, stringify, logError } = require("../utils");
 const {
   CREATE_COLUMN,
   DELETE_COLUMN,

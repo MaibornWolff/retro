@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const { getPath, getBoard, stringify, logError } = require("../utils/utils");
+const { getPath, getBoard, stringify, logError } = require("../utils");
 const {
   CREATE_BOARD,
   UPDATE_BOARD,
