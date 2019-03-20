@@ -12,7 +12,7 @@ const path = require("path");
 
 const { boardEvents, columnEvents, cardEvents } = require("./events");
 const { CONNECTION } = require("./events/event-names");
-const { getImg, getPath } = require("./utils/utils");
+const { getImg, getPath } = require("./utils");
 
 const port = process.env.PORT;
 const width = 1920;

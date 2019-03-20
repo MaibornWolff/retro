@@ -2,7 +2,8 @@ import { CONNECT, CREATE_BOARD, UPDATE_BOARD, JOIN_BOARD } from "./event-names";
 
 export const onConnect = component => {
   component.socket.on(CONNECT, () => {
-    component.socket.emit(JOIN_BOARD, component.props.boardId);
+    const boardId = component.props.match.params.boardId;
+    component.socket.emit(JOIN_BOARD, boardId);
   });
 };
 

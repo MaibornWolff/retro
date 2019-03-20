@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import uniqid from "uniqid";
 import AddIcon from "@material-ui/icons/Add";
 import { compose } from "recompose";
-import { navigate } from "@reach/router";
+import { Redirect } from "react-router-dom";
 import {
   Button,
   Fab,
@@ -24,12 +24,13 @@ import { emptyBoard } from "../../utils/emptyBoard";
 class CreateBoardDialog extends React.Component {
   state = {
     open: false,
-    title: ""
+    title: "",
+    boardId: ""
   };
 
   handleOpen = () => this.setState({ open: true });
 
-  handleClose = () => this.setState({ open: false, title: "" });
+  handleClose = () => this.setState({ open: false, title: "", boardId: "" });
 
   handleChange = e => this.setState({ title: e.target.value });
 
@@ -42,13 +43,16 @@ class CreateBoardDialog extends React.Component {
     const newBoard = { ...emptyBoard, boardId, title, isBlurred };
 
     socket.emit(CREATE_BOARD, newBoard, boardId);
-    this.setState({ title: "", open: false });
-    await navigate(`../boards/${boardId}`);
+    this.setState({ title: "", open: false, boardId });
   };
 
   render() {
-    const { open, title } = this.state;
+    const { open, title, boardId } = this.state;
     const { classes, fullScreen } = this.props;
+
+    if (boardId) {
+      return <Redirect to={`/boards/${boardId}`} />;
+    }
 
     return (
       <>

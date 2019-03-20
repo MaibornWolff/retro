@@ -96,7 +96,7 @@ class Board extends React.Component {
     };
 
     this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.boardId);
+    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
   }
 
   handleColumnDrag(dragResult, columnOrder) {
@@ -112,7 +112,7 @@ class Board extends React.Component {
     };
 
     this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.boardId);
+    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
   }
 
   handleInsideColumnDrag(dragResult, columns) {
@@ -134,7 +134,7 @@ class Board extends React.Component {
     };
 
     this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.boardId);
+    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
   }
 
   handleNormalDrag(dragResult, columns) {
@@ -169,7 +169,7 @@ class Board extends React.Component {
     };
 
     this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.boardId);
+    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
   }
 
   isSamePosition(source, destination) {
@@ -200,7 +200,8 @@ class Board extends React.Component {
 
   render() {
     const { columns, items, title } = this.state;
-    const { classes, boardId } = this.props;
+    const { classes } = this.props;
+    const { boardId } = this.props.match.params;
 
     return (
       <Grid container className={classes.root} direction="column">

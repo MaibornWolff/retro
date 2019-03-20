@@ -2,7 +2,7 @@ const fs = require("fs");
 const unset = require("lodash/unset");
 const forIn = require("lodash/forIn");
 const pull = require("lodash/pull");
-const { getPath, getBoard, stringify, logError } = require("../utils/utils");
+const { getPath, getBoard, stringify, logError } = require("../utils");
 const {
   CREATE_CARD,
   EDIT_CARD,
