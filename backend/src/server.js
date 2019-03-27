@@ -1,6 +1,7 @@
-require("./config/config");
+require("./config");
 
 const fs = require("fs");
+const path = require("path");
 const express = require("express");
 const { json } = require("body-parser");
 const cors = require("cors");
@@ -8,19 +9,24 @@ const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
 const puppeteer = require("puppeteer");
-const path = require("path");
 
 const { boardEvents, columnEvents, cardEvents } = require("./events");
 const { CONNECTION } = require("./events/event-names");
 const { getImg, getPath } = require("./utils");
 
+const publicFolderPath = path.resolve(__dirname, "../public");
 const port = process.env.PORT;
 const width = 1920;
 const height = 1080;
 
 app.use(cors());
 app.use(json());
-app.use(express.static(__dirname + "./../public"));
+app.use(express.static(publicFolderPath));
+
+// https://facebook.github.io/create-react-app/docs/deployment#serving-apps-with-client-side-routing
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(publicFolderPath, "index.html"));
+});
 
 app.get("/api/boards/export/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
