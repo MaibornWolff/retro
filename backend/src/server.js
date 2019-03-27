@@ -38,7 +38,9 @@ app.get("/api/boards/export/:boardId", async (req, res) => {
       });
     }
 
-    const boardUrl = `http://localhost:3000/boards/${boardId}`;
+    const exportHost = process.env.EXPORT_URL_HOST;
+    const exportPort = process.env.EXPORT_URL_PORT;
+    const boardUrl = `http://${exportHost}:${exportPort}/boards/${boardId}`;
     const browser = await puppeteer.launch({
       defaultViewport: { width, height }
     });
