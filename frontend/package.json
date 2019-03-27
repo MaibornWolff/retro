@@ -6,7 +6,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:prod": "env-cmd .env.production.local yarn build",
-    "deployFrontend": "cp -r build/**/* ../backend/public",
+    "deployFrontend": "cp -a build/. ../backend/public/",
     "deploy": "yarn build:prod && yarn deployFrontend",
     "test": "react-scripts test --env=jsdom",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
