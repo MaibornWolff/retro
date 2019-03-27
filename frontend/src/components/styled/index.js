@@ -1,10 +1,5 @@
 import styled, { css } from "styled-components";
 
-export const AppName = styled.div`
-  color: white;
-  font-family: "Lobster", cursive;
-`;
-
 export const FlexContainer = styled.div`
   display: flex;
 `;
@@ -19,6 +14,17 @@ export const ColumnContainer = styled.div`
   border-radius: 2px;
   background-color: white;
   box-shadow: 0 6px 6px -2px lightgrey;
+`;
+
+export const PageNotFoundContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const PageNotFoundText = styled.h2`
+  font-family: "Permanent Marker", cursive;
+  font-size: 280%;
 `;
 
 export const ItemContainer = styled.div`
