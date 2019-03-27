@@ -9,7 +9,8 @@ import {
   DialogTitle,
   DialogContentText,
   Button,
-  withMobileDialog
+  withMobileDialog,
+  Tooltip
 } from "@material-ui/core";
 
 import { BACKEND_ENDPOINT } from "../../utils";
@@ -38,13 +39,15 @@ class DeleteItemDialog extends React.Component {
 
     return (
       <>
-        <IconButton
-          color="primary"
-          onClick={this.handleOpen}
-          data-testid="delete-item-btn"
-        >
-          <DeleteIcon fontSize="small" data-testid="delete-item-btn-icon" />
-        </IconButton>
+        <Tooltip title="Delete Card" aria-label="Delete Card">
+          <IconButton
+            color="primary"
+            onClick={this.handleOpen}
+            data-testid="delete-item-btn"
+          >
+            <DeleteIcon fontSize="small" data-testid="delete-item-btn-icon" />
+          </IconButton>
+        </Tooltip>
         <Dialog
           fullScreen={fullScreen}
           open={open}

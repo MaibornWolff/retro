@@ -10,7 +10,8 @@ import {
   DialogTitle,
   TextField,
   Button,
-  withMobileDialog
+  withMobileDialog,
+  Tooltip
 } from "@material-ui/core";
 
 import { BACKEND_ENDPOINT } from "../../utils";
@@ -54,13 +55,15 @@ class CreateItemDialog extends React.Component {
 
     return (
       <>
-        <IconButton
-          color="inherit"
-          onClick={this.handleOpen}
-          data-testid="new-item-btn"
-        >
-          <AddIcon fontSize="small" data-testid="new-item-btn-icon" />
-        </IconButton>
+        <Tooltip title="New Card" aria-label="New Card">
+          <IconButton
+            color="inherit"
+            onClick={this.handleOpen}
+            data-testid="new-item-btn"
+          >
+            <AddIcon fontSize="small" data-testid="new-item-btn-icon" />
+          </IconButton>
+        </Tooltip>
         <Dialog
           fullScreen={fullScreen}
           open={open}

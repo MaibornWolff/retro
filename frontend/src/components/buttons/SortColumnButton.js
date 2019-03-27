@@ -1,6 +1,6 @@
 import React from "react";
 import io from "socket.io-client";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Tooltip } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
 
 import { BACKEND_ENDPOINT } from "../../utils";
@@ -13,12 +13,14 @@ const onSort = (columnId, items, boardId) => {
 
 const SortColumnButton = props => (
   <>
-    <IconButton
-      color="inherit"
-      onClick={() => onSort(props.columnId, props.items, props.boardId)}
-    >
-      <SortIcon fontSize="small" />
-    </IconButton>
+    <Tooltip title="Sort Descending" aria-label="Sort Descending">
+      <IconButton
+        color="inherit"
+        onClick={() => onSort(props.columnId, props.items, props.boardId)}
+      >
+        <SortIcon fontSize="small" />
+      </IconButton>
+    </Tooltip>
   </>
 );
 
