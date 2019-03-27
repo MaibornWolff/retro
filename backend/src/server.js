@@ -23,11 +23,6 @@ app.use(cors());
 app.use(json());
 app.use(express.static(publicFolderPath));
 
-// https://facebook.github.io/create-react-app/docs/deployment#serving-apps-with-client-side-routing
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(publicFolderPath, "index.html"));
-});
-
 app.get("/api/boards/export/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
   await fs.readFile(getPath(boardId), "utf-8", async error => {
@@ -55,6 +50,11 @@ app.get("/api/boards/export/:boardId", async (req, res) => {
     const imgPath = path.resolve(getImg(boardId));
     res.download(imgPath);
   });
+});
+
+// https://facebook.github.io/create-react-app/docs/deployment#serving-apps-with-client-side-routing
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(publicFolderPath, "index.html"));
 });
 
 io.on(CONNECTION, client => {
