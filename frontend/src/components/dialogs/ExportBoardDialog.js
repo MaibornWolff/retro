@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 
 const endpoint = "/api/boards/export/";
-const port = "8081";
+const port = process.env.REACT_APP_PROD_PORT || "8081";
 const exportURL = `http://${window.location.hostname}:${port}${endpoint}`;
 
 class ExportBoardDialog extends React.Component {

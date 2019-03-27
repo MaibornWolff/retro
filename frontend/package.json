@@ -5,6 +5,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:prod": "env-cmd .env.production.local yarn build",
+    "deployFrontend": "cp -r public/**/* ../backend/public",
+    "deploy": "yarn build:prod && yarn deployFrontend",
     "test": "react-scripts test --env=jsdom",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
@@ -27,6 +30,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
+    "env-cmd": "^8.0.2",
     "eslint": "^5.15.3",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-import": "^2.16.0",
