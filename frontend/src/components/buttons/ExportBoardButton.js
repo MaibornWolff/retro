@@ -5,7 +5,7 @@ import ExportBoardDialog from "../dialogs/ExportBoardDialog";
 const ExportBoardButton = props => (
   <>
     <Grid item className={props.className}>
-      <ExportBoardDialog />
+      <ExportBoardDialog boardId={props.boardId} />
     </Grid>
   </>
 );
