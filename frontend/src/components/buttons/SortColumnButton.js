@@ -3,11 +3,11 @@ import io from "socket.io-client";
 import { IconButton } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
 
-import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { BACKEND_ENDPOINT } from "../../utils";
 import { SORT_COLUMN } from "../../events/event-names";
 
 const onSort = (columnId, items, boardId) => {
-  const socket = io(LOCAL_BACKEND_ENDPOINT);
+  const socket = io(BACKEND_ENDPOINT);
   socket.emit(SORT_COLUMN, columnId, items, boardId);
 };
 

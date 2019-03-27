@@ -12,7 +12,7 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { BACKEND_ENDPOINT } from "../../utils";
 import { DELETE_CARD } from "../../events/event-names";
 
 class DeleteItemDialog extends React.Component {
@@ -25,7 +25,7 @@ class DeleteItemDialog extends React.Component {
   handleClose = () => this.setState({ open: false });
 
   handleClick = () => {
-    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    const socket = io(BACKEND_ENDPOINT);
     const { id, boardId } = this.props;
 
     socket.emit(DELETE_CARD, id, boardId);

@@ -12,7 +12,7 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { BACKEND_ENDPOINT } from "../../utils";
 import { EDIT_CARD } from "../../events/event-names";
 
 class EditItemDialog extends React.Component {
@@ -31,7 +31,7 @@ class EditItemDialog extends React.Component {
   handleContentChange = e => this.setState({ content: e.target.value });
 
   handleClick = () => {
-    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    const socket = io(BACKEND_ENDPOINT);
     const { author, content } = this.state;
     const { id, boardId } = this.props;
     socket.emit(EDIT_CARD, author, content, id, boardId);

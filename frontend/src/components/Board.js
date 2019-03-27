@@ -7,7 +7,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
 import { FlexContainer } from "./styled";
-import { LOCAL_BACKEND_ENDPOINT } from "../utils";
+import { BACKEND_ENDPOINT } from "../utils";
 import { UPDATE_BOARD } from "../events/event-names";
 import { emptyBoard } from "../utils/emptyBoard";
 import {
@@ -20,7 +20,7 @@ import {
 class Board extends React.Component {
   state = { ...emptyBoard };
 
-  socket = io(LOCAL_BACKEND_ENDPOINT);
+  socket = io(BACKEND_ENDPOINT);
 
   componentDidMount() {
     onConnect(this);

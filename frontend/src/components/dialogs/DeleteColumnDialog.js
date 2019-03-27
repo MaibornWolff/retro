@@ -12,7 +12,7 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { BACKEND_ENDPOINT } from "../../utils";
 import { DELETE_COLUMN } from "../../events/event-names";
 
 class DeleteColumnDialog extends React.Component {
@@ -25,7 +25,7 @@ class DeleteColumnDialog extends React.Component {
   handleClose = () => this.setState({ open: false });
 
   handleDeleteClick = () => {
-    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    const socket = io(BACKEND_ENDPOINT);
     const { columnId, boardId } = this.props;
 
     socket.emit(DELETE_COLUMN, columnId, boardId);

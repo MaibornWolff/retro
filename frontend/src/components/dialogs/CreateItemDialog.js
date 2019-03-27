@@ -13,7 +13,7 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { BACKEND_ENDPOINT } from "../../utils";
 import { CREATE_CARD } from "../../events/event-names";
 
 class CreateItemDialog extends React.Component {
@@ -34,7 +34,7 @@ class CreateItemDialog extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    const socket = io(BACKEND_ENDPOINT);
     const { author, content } = this.state;
     const { columnId, boardId } = this.props;
     const id = uniqid("item-");

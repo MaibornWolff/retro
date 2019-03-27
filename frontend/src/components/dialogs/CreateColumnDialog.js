@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 
 import { CREATE_COLUMN } from "../../events/event-names";
-import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { BACKEND_ENDPOINT } from "../../utils";
 
 class CreateColumnDialog extends React.Component {
   state = {
@@ -32,7 +32,7 @@ class CreateColumnDialog extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    const socket = io(BACKEND_ENDPOINT);
     const id = uniqid("column-");
     const { columnTitle } = this.state;
     const { boardId } = this.props;

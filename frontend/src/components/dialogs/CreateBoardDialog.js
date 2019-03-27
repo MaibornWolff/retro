@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core";
 
 import { CREATE_BOARD } from "../../events/event-names";
-import { LOCAL_BACKEND_ENDPOINT } from "../../utils";
+import { BACKEND_ENDPOINT } from "../../utils";
 import { emptyBoard } from "../../utils/emptyBoard";
 
 class CreateBoardDialog extends React.Component {
@@ -36,7 +36,7 @@ class CreateBoardDialog extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    const socket = io(LOCAL_BACKEND_ENDPOINT);
+    const socket = io(BACKEND_ENDPOINT);
     const { title } = this.state;
     const boardId = uniqid("board-");
     const isBlurred = true;
