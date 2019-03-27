@@ -15,7 +15,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "lodash": "^4.17.11",
-    "puppeteer": "^1.12.2",
+    "puppeteer": "^1.13.0",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
@@ -25,6 +25,6 @@
     "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
     "socket.io-client": "^2.2.0",
-    "supertest": "^3.4.2"
+    "supertest": "^4.0.2"
   }
 }
