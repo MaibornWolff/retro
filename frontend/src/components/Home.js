@@ -14,6 +14,7 @@ class Home extends React.Component {
         direction="column"
         justify="center"
         alignItems="center"
+        alignContent="center"
       >
         <Grid item xs={12}>
           <Typography variant="h4" className={classes.greetingText}>
@@ -21,7 +22,7 @@ class Home extends React.Component {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle1" className={classes.greetingText}>
+          <Typography variant="subtitle1" className={classes.subtitleText}>
             Start your retrospective by creating a new board{" "}
             <span role="img" aria-label="party">
               🎉
@@ -42,6 +43,9 @@ const styles = theme => ({
   },
   greetingText: {
     margin: theme.spacing.unit * 2
+  },
+  subtitleText: {
+    marginBottom: theme.spacing.unit * 2
   }
 });
 
