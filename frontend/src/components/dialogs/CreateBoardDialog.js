@@ -88,6 +88,7 @@ class CreateBoardDialog extends React.Component {
               value={title}
               onChange={this.handleChange}
               fullWidth
+              autoComplete="off"
             />
           </DialogContent>
           <DialogActions>

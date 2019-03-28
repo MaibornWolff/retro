@@ -81,6 +81,7 @@ class CreateItemDialog extends React.Component {
               value={author}
               onChange={this.handleAuthorChange}
               fullWidth
+              autoComplete="off"
             />
             <TextField
               margin="dense"
@@ -91,6 +92,7 @@ class CreateItemDialog extends React.Component {
               value={content}
               onChange={this.handleContentChange}
               fullWidth
+              autoComplete="off"
             />
           </DialogContent>
           <DialogActions>

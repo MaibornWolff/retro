@@ -81,6 +81,7 @@ class EditItemDialog extends React.Component {
               onChange={this.handleAuthorChange}
               autoFocus
               fullWidth
+              autoComplete="off"
             />
             <TextField
               margin="dense"
@@ -92,6 +93,7 @@ class EditItemDialog extends React.Component {
               rowsMax={Infinity}
               multiline
               fullWidth
+              autoComplete="off"
             />
           </DialogContent>
           <DialogActions>

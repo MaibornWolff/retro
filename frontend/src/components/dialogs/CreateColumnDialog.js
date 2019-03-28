@@ -76,6 +76,7 @@ class CreateColumnDialog extends React.Component {
               value={columnTitle}
               onChange={this.handleChange}
               fullWidth
+              autoComplete="off"
             />
           </DialogContent>
           <DialogActions>
