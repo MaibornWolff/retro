@@ -1,5 +1,17 @@
 import styled, { css } from "styled-components";
 
+export const Hero = styled.div`
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(${props => props.img});
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+`;
+
 export const FlexContainer = styled.div`
   display: flex;
 `;
