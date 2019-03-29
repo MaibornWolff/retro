@@ -6,6 +6,7 @@ import { Typography, Grid, withStyles } from "@material-ui/core";
 import Items from "./Items";
 import CreateItemDialog from "./dialogs/CreateItemDialog";
 import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
+import EditColumnNameDialog from "./dialogs/EditColumnNameDialog";
 import SortColumnButton from "./buttons/SortColumnButton";
 import { ColumnContainer, ItemsContainerStyles } from "./styled";
 
@@ -38,6 +39,11 @@ const Column = props => {
             <Grid item>
               <CreateItemDialog columnId={column.id} boardId={boardId} />
               <DeleteColumnDialog columnId={column.id} boardId={boardId} />
+              <EditColumnNameDialog
+                columnId={column.id}
+                boardId={boardId}
+                columnTitle={column.columnTitle}
+              />
               <SortColumnButton
                 columnId={column.id}
                 boardId={boardId}

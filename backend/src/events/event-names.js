@@ -11,5 +11,6 @@ module.exports = {
   DELETE_CARD: "delete card",
   CREATE_BOARD: "create board",
   JOIN_BOARD: "join board",
-  UNBLUR_CARDS: "unblur cards"
+  UNBLUR_CARDS: "unblur cards",
+  EDIT_COLUMN: "edit column"
 };

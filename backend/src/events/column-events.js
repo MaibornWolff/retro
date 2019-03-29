@@ -7,20 +7,23 @@ const {
   CREATE_COLUMN,
   DELETE_COLUMN,
   SORT_COLUMN,
-  UPDATE_BOARD
+  UPDATE_BOARD,
+  EDIT_COLUMN
 } = require("./event-names");
+
+const UTF8 = "utf8";
 
 const createColumn = (io, client) => {
   client.on(CREATE_COLUMN, async (column, boardId) => {
     const path = getPath(boardId);
-    await fs.readFile(path, "utf8", async (error, file) => {
+    await fs.readFile(path, UTF8, async (error, file) => {
       if (error) logError(CREATE_COLUMN, error);
 
       const board = getBoard(file);
       board.columns[column.id] = column;
       board.columnOrder.push(column.id);
 
-      await fs.writeFile(path, stringify(board), "utf8", error => {
+      await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(CREATE_COLUMN, error);
         io.sockets.emit(UPDATE_BOARD, board);
       });
@@ -31,7 +34,7 @@ const createColumn = (io, client) => {
 const deleteColumn = (io, client) => {
   client.on(DELETE_COLUMN, async (columnId, boardId) => {
     const path = getPath(boardId);
-    await fs.readFile(path, "utf8", async (error, file) => {
+    await fs.readFile(path, UTF8, async (error, file) => {
       if (error) logError(DELETE_COLUMN, error);
 
       const board = getBoard(file);
@@ -40,7 +43,7 @@ const deleteColumn = (io, client) => {
       pull(board.columnOrder, columnId);
       unset(board.columns, columnId);
 
-      await fs.writeFile(path, stringify(board), "utf8", error => {
+      await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(DELETE_COLUMN, error);
         io.sockets.emit(UPDATE_BOARD, board);
       });
@@ -51,7 +54,7 @@ const deleteColumn = (io, client) => {
 const sortColumn = (io, client) => {
   client.on(SORT_COLUMN, async (columnId, columnItems, boardId) => {
     const path = getPath(boardId);
-    await fs.readFile(path, "utf8", async (error, file) => {
+    await fs.readFile(path, UTF8, async (error, file) => {
       if (error) logError(SORT_COLUMN, error);
 
       const board = getBoard(file);
@@ -60,8 +63,26 @@ const sortColumn = (io, client) => {
       sortedItems.forEach(item => sortedItemIds.push(item.id));
       board.columns[columnId].itemIds = sortedItemIds;
 
-      await fs.writeFile(path, stringify(board), "utf8", error => {
+      await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(SORT_COLUMN, error);
+        io.sockets.emit(UPDATE_BOARD, board);
+      });
+    });
+  });
+};
+
+const editColumn = (io, client) => {
+  client.on(EDIT_COLUMN, async (columnId, boardId, newTitle) => {
+    const path = getPath(boardId);
+    await fs.readFile(path, UTF8, async (error, file) => {
+      if (error) logError(EDIT_COLUMN, error);
+
+      const board = getBoard(file);
+      const column = board.columns[columnId];
+      column.columnTitle = newTitle;
+
+      await fs.writeFile(path, stringify(board), UTF8, error => {
+        if (error) logError(EDIT_COLUMN, error);
         io.sockets.emit(UPDATE_BOARD, board);
       });
     });
@@ -71,5 +92,6 @@ const sortColumn = (io, client) => {
 module.exports = {
   createColumn,
   deleteColumn,
-  sortColumn
+  sortColumn,
+  editColumn
 };

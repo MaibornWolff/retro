@@ -4,7 +4,12 @@ const {
   joinBoard,
   unblurCards
 } = require("./board-events");
-const { createColumn, deleteColumn, sortColumn } = require("./column-events");
+const {
+  createColumn,
+  deleteColumn,
+  sortColumn,
+  editColumn
+} = require("./column-events");
 const {
   createCard,
   editCard,
@@ -23,6 +28,7 @@ const columnEvents = (io, client) => {
   createColumn(io, client);
   deleteColumn(io, client);
   sortColumn(io, client);
+  editColumn(io, client);
 };
 
 const cardEvents = (io, client) => {
