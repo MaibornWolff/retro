@@ -1,13 +1,12 @@
 import React from "react";
-import io from "socket.io-client";
 import { IconButton, Tooltip } from "@material-ui/core";
 import SortIcon from "@material-ui/icons/Sort";
 
-import { BACKEND_ENDPOINT } from "../../utils";
+import { socket_connect } from "../../utils";
 import { SORT_COLUMN } from "../../events/event-names";
 
 const onSort = (columnId, items, boardId) => {
-  const socket = io(BACKEND_ENDPOINT);
+  const socket = socket_connect(boardId);
   socket.emit(SORT_COLUMN, columnId, items, boardId);
 };
 

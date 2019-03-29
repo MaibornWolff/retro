@@ -58,9 +58,16 @@ app.get("/*", (req, res) => {
 });
 
 io.on(CONNECTION, client => {
-  boardEvents(io, client);
-  columnEvents(io, client);
-  cardEvents(io, client);
+  const roomId = client.handshake.query.boardId;
+  client.join(roomId);
+
+  client.on("disconnect", () => {
+    client.leave(roomId);
+  });
+
+  boardEvents(io, client, roomId);
+  columnEvents(io, client, roomId);
+  cardEvents(io, client, roomId);
 });
 
 server.listen(port, () => {

@@ -1,13 +1,12 @@
 import React from "react";
-import io from "socket.io-client";
 import pull from "lodash/pull";
 import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
+import { socket_connect } from "../utils";
 import { FlexContainer } from "./styled";
-import { BACKEND_ENDPOINT } from "../utils";
 import { UPDATE_BOARD } from "../events/event-names";
 import { emptyBoard } from "../utils/emptyBoard";
 import {
@@ -20,7 +19,7 @@ import {
 class Board extends React.Component {
   state = { ...emptyBoard };
 
-  socket = io(BACKEND_ENDPOINT);
+  socket = socket_connect(this.props.match.params.boardId);
 
   componentDidMount() {
     onConnect(this);

@@ -1,5 +1,4 @@
 import React from "react";
-import io from "socket.io-client";
 import uniqid from "uniqid";
 import AddIcon from "@material-ui/icons/Add";
 import {
@@ -14,7 +13,7 @@ import {
   Tooltip
 } from "@material-ui/core";
 
-import { BACKEND_ENDPOINT } from "../../utils";
+import { socket_connect } from "../../utils";
 import { CREATE_CARD } from "../../events/event-names";
 
 class CreateItemDialog extends React.Component {
@@ -35,9 +34,9 @@ class CreateItemDialog extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const socket = io(BACKEND_ENDPOINT);
     const { author, content } = this.state;
     const { columnId, boardId } = this.props;
+    const socket = socket_connect(boardId);
     const id = uniqid("item-");
     const newCard = {
       id,

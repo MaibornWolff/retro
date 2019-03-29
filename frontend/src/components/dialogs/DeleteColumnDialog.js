@@ -1,5 +1,4 @@
 import React from "react";
-import io from "socket.io-client";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {
   IconButton,
@@ -13,7 +12,7 @@ import {
   Tooltip
 } from "@material-ui/core";
 
-import { BACKEND_ENDPOINT } from "../../utils";
+import { socket_connect } from "../../utils";
 import { DELETE_COLUMN } from "../../events/event-names";
 
 class DeleteColumnDialog extends React.Component {
@@ -26,8 +25,8 @@ class DeleteColumnDialog extends React.Component {
   handleClose = () => this.setState({ open: false });
 
   handleDeleteClick = () => {
-    const socket = io(BACKEND_ENDPOINT);
     const { columnId, boardId } = this.props;
+    const socket = socket_connect(boardId);
 
     socket.emit(DELETE_COLUMN, columnId, boardId);
     this.setState({ open: false });

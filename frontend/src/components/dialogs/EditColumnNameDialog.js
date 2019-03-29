@@ -1,5 +1,4 @@
 import React from "react";
-import io from "socket.io-client";
 import EditIcon from "@material-ui/icons/Edit";
 import {
   withMobileDialog,
@@ -13,7 +12,7 @@ import {
   Button
 } from "@material-ui/core";
 
-import { BACKEND_ENDPOINT } from "../../utils";
+import { socket_connect } from "../../utils";
 import { EDIT_COLUMN } from "../../events/event-names";
 
 class EditColumnNameDialog extends React.Component {
@@ -24,9 +23,9 @@ class EditColumnNameDialog extends React.Component {
   handleClose = () => this.setState({ open: false });
 
   handleClick = () => {
-    const socket = io(BACKEND_ENDPOINT);
     const { title } = this.state;
     const { columnId, boardId } = this.props;
+    const socket = socket_connect(boardId);
 
     socket.emit(EDIT_COLUMN, columnId, boardId, title);
     this.setState({ open: false, title: "" });

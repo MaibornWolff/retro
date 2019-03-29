@@ -13,7 +13,7 @@ const {
 
 const UTF8 = "utf8";
 
-const createCard = (io, client) => {
+const createCard = (io, client, roomId) => {
   client.on(CREATE_CARD, async (card, columnId, boardId) => {
     const path = getPath(boardId);
     await fs.readFile(path, UTF8, async (error, file) => {
@@ -26,13 +26,13 @@ const createCard = (io, client) => {
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(CREATE_CARD, error);
-        io.sockets.emit(UPDATE_BOARD, board);
+        io.to(roomId).emit(UPDATE_BOARD, board);
       });
     });
   });
 };
 
-const deleteCard = (io, client) => {
+const deleteCard = (io, client, roomId) => {
   client.on(DELETE_CARD, async (cardId, boardId) => {
     const path = getPath(boardId);
     await fs.readFile(path, UTF8, async (error, file) => {
@@ -44,13 +44,13 @@ const deleteCard = (io, client) => {
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(DELETE_CARD, error);
-        io.sockets.emit(UPDATE_BOARD, board);
+        io.to(roomId).emit(UPDATE_BOARD, board);
       });
     });
   });
 };
 
-const editCard = (io, client) => {
+const editCard = (io, client, roomId) => {
   client.on(EDIT_CARD, async (author, content, cardId, boardId) => {
     const path = getPath(boardId);
     await fs.readFile(path, UTF8, async (error, file) => {
@@ -63,13 +63,13 @@ const editCard = (io, client) => {
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(EDIT_CARD, error);
-        io.sockets.emit(UPDATE_BOARD, board);
+        io.to(roomId).emit(UPDATE_BOARD, board);
       });
     });
   });
 };
 
-const upvoteCard = (io, client) => {
+const upvoteCard = (io, client, roomId) => {
   client.on(UPVOTE_CARD, async (cardId, boardId, value) => {
     const path = getPath(boardId);
     await fs.readFile(path, UTF8, async (error, file) => {
@@ -80,7 +80,7 @@ const upvoteCard = (io, client) => {
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(UPVOTE_CARD, error);
-        io.sockets.emit(UPDATE_BOARD, board);
+        io.to(roomId).emit(UPDATE_BOARD, board);
       });
     });
   });

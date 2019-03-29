@@ -1,13 +1,12 @@
 import React from "react";
-import io from "socket.io-client";
 import UnblurIcon from "@material-ui/icons/BlurOff";
 import { Grid, Button } from "@material-ui/core";
 
-import { BACKEND_ENDPOINT } from "../../utils";
+import { socket_connect } from "../../utils";
 import { UNBLUR_CARDS } from "../../events/event-names";
 
 const unblur = boardId => {
-  const socket = io(BACKEND_ENDPOINT);
+  const socket = socket_connect(boardId);
   socket.emit(UNBLUR_CARDS, boardId);
 };
 

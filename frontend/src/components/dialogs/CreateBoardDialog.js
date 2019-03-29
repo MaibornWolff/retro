@@ -1,5 +1,4 @@
 import React from "react";
-import io from "socket.io-client";
 import uniqid from "uniqid";
 import AddIcon from "@material-ui/icons/Add";
 import { compose } from "recompose";
@@ -17,8 +16,8 @@ import {
   withStyles
 } from "@material-ui/core";
 
+import { socket_connect } from "../../utils";
 import { CREATE_BOARD } from "../../events/event-names";
-import { BACKEND_ENDPOINT } from "../../utils";
 import { emptyBoard } from "../../utils/emptyBoard";
 
 class CreateBoardDialog extends React.Component {
@@ -36,9 +35,9 @@ class CreateBoardDialog extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    const socket = io(BACKEND_ENDPOINT);
     const { title } = this.state;
     const boardId = uniqid("board-");
+    const socket = socket_connect(boardId);
     const isBlurred = true;
     const newBoard = { ...emptyBoard, boardId, title, isBlurred };
 

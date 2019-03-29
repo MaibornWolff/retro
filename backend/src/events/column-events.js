@@ -13,7 +13,7 @@ const {
 
 const UTF8 = "utf8";
 
-const createColumn = (io, client) => {
+const createColumn = (io, client, roomId) => {
   client.on(CREATE_COLUMN, async (column, boardId) => {
     const path = getPath(boardId);
     await fs.readFile(path, UTF8, async (error, file) => {
@@ -25,13 +25,13 @@ const createColumn = (io, client) => {
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(CREATE_COLUMN, error);
-        io.sockets.emit(UPDATE_BOARD, board);
+        io.to(roomId).emit(UPDATE_BOARD, board);
       });
     });
   });
 };
 
-const deleteColumn = (io, client) => {
+const deleteColumn = (io, client, roomId) => {
   client.on(DELETE_COLUMN, async (columnId, boardId) => {
     const path = getPath(boardId);
     await fs.readFile(path, UTF8, async (error, file) => {
@@ -45,13 +45,13 @@ const deleteColumn = (io, client) => {
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(DELETE_COLUMN, error);
-        io.sockets.emit(UPDATE_BOARD, board);
+        io.to(roomId).emit(UPDATE_BOARD, board);
       });
     });
   });
 };
 
-const sortColumn = (io, client) => {
+const sortColumn = (io, client, roomId) => {
   client.on(SORT_COLUMN, async (columnId, columnItems, boardId) => {
     const path = getPath(boardId);
     await fs.readFile(path, UTF8, async (error, file) => {
@@ -65,13 +65,13 @@ const sortColumn = (io, client) => {
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(SORT_COLUMN, error);
-        io.sockets.emit(UPDATE_BOARD, board);
+        io.to(roomId).emit(UPDATE_BOARD, board);
       });
     });
   });
 };
 
-const editColumn = (io, client) => {
+const editColumn = (io, client, roomId) => {
   client.on(EDIT_COLUMN, async (columnId, boardId, newTitle) => {
     const path = getPath(boardId);
     await fs.readFile(path, UTF8, async (error, file) => {
@@ -83,7 +83,7 @@ const editColumn = (io, client) => {
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(EDIT_COLUMN, error);
-        io.sockets.emit(UPDATE_BOARD, board);
+        io.to(roomId).emit(UPDATE_BOARD, board);
       });
     });
   });

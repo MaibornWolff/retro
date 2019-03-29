@@ -1,5 +1,4 @@
 import React from "react";
-import io from "socket.io-client";
 import EditIcon from "@material-ui/icons/Edit";
 import {
   IconButton,
@@ -13,7 +12,7 @@ import {
   Tooltip
 } from "@material-ui/core";
 
-import { BACKEND_ENDPOINT } from "../../utils";
+import { socket_connect } from "../../utils";
 import { EDIT_CARD } from "../../events/event-names";
 
 class EditItemDialog extends React.Component {
@@ -32,9 +31,9 @@ class EditItemDialog extends React.Component {
   handleContentChange = e => this.setState({ content: e.target.value });
 
   handleClick = () => {
-    const socket = io(BACKEND_ENDPOINT);
     const { author, content } = this.state;
     const { id, boardId } = this.props;
+    const socket = socket_connect(boardId);
     socket.emit(EDIT_CARD, author, content, id, boardId);
 
     this.setState({ open: false });
