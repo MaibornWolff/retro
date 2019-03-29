@@ -45,7 +45,7 @@ const RetroItem = props => {
               content={content}
               boardId={boardId}
             />
-            <UpvoteItemButton id={id} boardId={boardId} />
+            <UpvoteItemButton id={id} boardId={boardId} points={points} />
           </CardActions>
         </Card>
       </CardContainer>
