@@ -1,5 +1,6 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, withStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const AppHeader = props => {
   const { classes } = props;
@@ -8,7 +9,9 @@ const AppHeader = props => {
       <AppBar color="primary" position="static">
         <Toolbar>
           <Typography variant="h4" color="inherit" className={classes.brand}>
-            Retro
+            <Link to="/" className={classes.link}>
+              Retro
+            </Link>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -23,6 +26,10 @@ const styles = () => ({
   brand: {
     flexGrow: 1,
     fontFamily: "Permanent Marker, cursive"
+  },
+  link: {
+    textDecoration: "none",
+    color: "white"
   }
 });
 

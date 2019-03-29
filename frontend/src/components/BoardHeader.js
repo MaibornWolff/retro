@@ -1,7 +1,6 @@
 import React from "react";
 import { Grid, Typography, withStyles } from "@material-ui/core";
 
-import CreateBoardDialog from "./dialogs/CreateBoardDialog";
 import CreateColumnButton from "./buttons/CreateColumnButton";
 import UnblurCardsButton from "./buttons/UnblurCardsButton";
 import ExportBoardButton from "./buttons/ExportBoardButton";
@@ -11,9 +10,6 @@ const BoardHeader = props => (
     <Grid container direction="row" justify="space-between" alignItems="center">
       <Grid item>
         <Typography variant="h5">{props.title}</Typography>
-      </Grid>
-      <Grid item>
-        <CreateBoardDialog />
       </Grid>
     </Grid>
     <Grid container direction="row" alignItems="center">
