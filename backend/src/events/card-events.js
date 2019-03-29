@@ -11,10 +11,12 @@ const {
   UPDATE_BOARD
 } = require("./event-names");
 
+const UTF8 = "utf8";
+
 const createCard = (io, client) => {
   client.on(CREATE_CARD, async (card, columnId, boardId) => {
     const path = getPath(boardId);
-    await fs.readFile(path, "utf8", async (error, file) => {
+    await fs.readFile(path, UTF8, async (error, file) => {
       if (error) logError(CREATE_CARD, error);
 
       const board = getBoard(file);
@@ -22,7 +24,7 @@ const createCard = (io, client) => {
       board.items[card.id] = card;
       board.columns[columnId].itemIds.push(card.id);
 
-      await fs.writeFile(path, stringify(board), "utf8", error => {
+      await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(CREATE_CARD, error);
         io.sockets.emit(UPDATE_BOARD, board);
       });
@@ -33,14 +35,14 @@ const createCard = (io, client) => {
 const deleteCard = (io, client) => {
   client.on(DELETE_CARD, async (cardId, boardId) => {
     const path = getPath(boardId);
-    await fs.readFile(path, "utf8", async (error, file) => {
+    await fs.readFile(path, UTF8, async (error, file) => {
       if (error) logError(DELETE_CARD, error);
 
       const board = getBoard(file);
       unset(board.items, cardId);
       forIn(board.columns, col => pull(col.itemIds, cardId));
 
-      await fs.writeFile(path, stringify(board), "utf8", error => {
+      await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(DELETE_CARD, error);
         io.sockets.emit(UPDATE_BOARD, board);
       });
@@ -51,7 +53,7 @@ const deleteCard = (io, client) => {
 const editCard = (io, client) => {
   client.on(EDIT_CARD, async (author, content, cardId, boardId) => {
     const path = getPath(boardId);
-    await fs.readFile(path, "utf8", async (error, file) => {
+    await fs.readFile(path, UTF8, async (error, file) => {
       if (error) logError(EDIT_CARD, error);
 
       const board = getBoard(file);
@@ -59,7 +61,7 @@ const editCard = (io, client) => {
       card.author = author;
       card.content = content;
 
-      await fs.writeFile(path, stringify(board), "utf8", error => {
+      await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(EDIT_CARD, error);
         io.sockets.emit(UPDATE_BOARD, board);
       });
@@ -70,13 +72,13 @@ const editCard = (io, client) => {
 const upvoteCard = (io, client) => {
   client.on(UPVOTE_CARD, async (cardId, boardId, value) => {
     const path = getPath(boardId);
-    await fs.readFile(path, "utf8", async (error, file) => {
+    await fs.readFile(path, UTF8, async (error, file) => {
       if (error) logError(UPVOTE_CARD, error);
 
       const board = getBoard(file);
       board.items[cardId].points += value;
 
-      await fs.writeFile(path, stringify(board), "utf8", error => {
+      await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(UPVOTE_CARD, error);
         io.sockets.emit(UPDATE_BOARD, board);
       });

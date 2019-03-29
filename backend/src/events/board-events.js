@@ -8,9 +8,11 @@ const {
   UNBLUR_CARDS
 } = require("./event-names");
 
+const UTF8 = "utf8";
+
 const createBoard = (io, client) => {
   client.on(CREATE_BOARD, async (board, boardId) => {
-    await fs.writeFile(getPath(boardId), stringify(board), "utf8", error => {
+    await fs.writeFile(getPath(boardId), stringify(board), UTF8, error => {
       if (error) logError(CREATE_BOARD, error);
       io.sockets.emit(CREATE_BOARD, board);
     });
@@ -19,7 +21,7 @@ const createBoard = (io, client) => {
 
 const updateBoard = (io, client) => {
   client.on(UPDATE_BOARD, async (board, boardId) => {
-    await fs.writeFile(getPath(boardId), stringify(board), "utf8", error => {
+    await fs.writeFile(getPath(boardId), stringify(board), UTF8, error => {
       if (error) logError(UPDATE_BOARD, error);
       io.sockets.emit(UPDATE_BOARD, board);
     });
@@ -28,7 +30,7 @@ const updateBoard = (io, client) => {
 
 const joinBoard = (io, client) => {
   client.on(JOIN_BOARD, async boardId => {
-    await fs.readFile(getPath(boardId), "utf8", (error, file) => {
+    await fs.readFile(getPath(boardId), UTF8, (error, file) => {
       if (error) logError(JOIN_BOARD, error);
       client.emit(JOIN_BOARD, getBoard(file));
     });
@@ -38,7 +40,7 @@ const joinBoard = (io, client) => {
 const unblurCards = (io, client) => {
   client.on(UNBLUR_CARDS, async boardId => {
     const path = getPath(boardId);
-    await fs.readFile(path, "utf8", async (error, file) => {
+    await fs.readFile(path, UTF8, async (error, file) => {
       if (error) logError(UNBLUR_CARDS, error);
 
       const board = getBoard(file);
@@ -47,7 +49,7 @@ const unblurCards = (io, client) => {
       for (let cardId in board.items)
         board.items[cardId].isBlurred = board.isBlurred;
 
-      await fs.writeFile(path, stringify(board), "utf8", error => {
+      await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(UNBLUR_CARDS, error);
         io.sockets.emit(UPDATE_BOARD, board);
       });
