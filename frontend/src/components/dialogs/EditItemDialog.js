@@ -101,7 +101,7 @@ class EditItemDialog extends React.Component {
               Cancel
             </Button>
             <Button onClick={this.handleClick} color="primary">
-              Edit
+              Save
             </Button>
           </DialogActions>
         </Dialog>
