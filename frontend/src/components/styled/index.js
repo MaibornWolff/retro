@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 
 export const Hero = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  overflow: hidden;
+  position: fixed;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url(${props => props.img});
   background-size: cover;
