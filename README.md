@@ -5,8 +5,6 @@
 
 Retro is a tool you can use for your retrospectives. The goal of Retro is to have a good UX within distributed teams.
 
-**⚠️ UNDER DEVELOPMENT - MVP RELEASE SOON ⚠️**
-
 ## Usage
 
 ### Install Dependencies
