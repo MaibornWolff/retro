@@ -22,7 +22,7 @@ const UnblurCardsButton = props => (
         onClick={() => unblur(props.boardId)}
       >
         <UnblurIcon style={{ marginRight: 5 }} />
-        Unblur Cards
+        Toggle Blur
       </Button>
     </Grid>
   </>
