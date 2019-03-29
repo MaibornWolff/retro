@@ -29,6 +29,11 @@ class Board extends React.Component {
     onJoinBoard(this);
   }
 
+  componentWillUnmount() {
+    this.socket.disconnect();
+    this.setState({ ...emptyBoard });
+  }
+
   onDragEnd = dragResult => {
     const { source, destination, type, combine } = dragResult;
     const { columns, columnOrder, items } = this.state;
