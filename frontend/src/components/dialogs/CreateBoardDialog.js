@@ -59,7 +59,6 @@ class CreateBoardDialog extends React.Component {
         <Fab
           size="medium"
           variant="extended"
-          style={{ margin: "0px" }}
           color="primary"
           onClick={this.handleOpen}
           className={classes.button}

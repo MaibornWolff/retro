@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Typography, withStyles } from "@material-ui/core";
 
 import CreateBoardDialog from "./dialogs/CreateBoardDialog";
+import LoadBoardDialog from "./dialogs/LoadBoardDialog";
 import { Hero } from "./styled";
 import heroImg from "../assets/retro-hero.jpg";
 
@@ -32,7 +33,19 @@ class Home extends React.Component {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <CreateBoardDialog />
+            <Grid
+              container
+              direction="row"
+              justify="space-around"
+              alignItems="center"
+            >
+              <Grid item>
+                <CreateBoardDialog />
+              </Grid>
+              <Grid item>
+                <LoadBoardDialog />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Hero>
@@ -52,6 +65,9 @@ const styles = theme => ({
   subtitleText: {
     marginBottom: theme.spacing.unit * 2,
     color: "white"
+  },
+  button: {
+    marginButton: theme.spacing.unit * 2
   }
 });
 
