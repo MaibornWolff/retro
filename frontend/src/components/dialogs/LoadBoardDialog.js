@@ -55,7 +55,7 @@ class LoadBoardDialog extends React.Component {
   }
 
   render() {
-    const { open, boardId, error } = this.state;
+    const { open, boardId } = this.state;
     const { classes, fullScreen, history } = this.props;
 
     return (
