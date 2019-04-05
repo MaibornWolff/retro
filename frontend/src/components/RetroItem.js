@@ -24,7 +24,7 @@ const RetroItem = props => {
         <Card className={classes.card} raised>
           <CardHeader
             avatar={
-              <Avatar className={classes.avatar} aria-label="Recipe">
+              <Avatar className={classes.avatar} aria-label="number of votes">
                 {points}
               </Avatar>
             }

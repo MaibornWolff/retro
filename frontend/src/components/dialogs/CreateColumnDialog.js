@@ -1,7 +1,6 @@
 import React from "react";
 import uniqid from "uniqid";
 import AddIcon from "@material-ui/icons/Add";
-import { compose } from "recompose";
 import {
   Button,
   TextField,
@@ -10,7 +9,7 @@ import {
   DialogContent,
   DialogTitle,
   withMobileDialog,
-  withStyles
+  FormControl
 } from "@material-ui/core";
 
 import { socket_connect } from "../../utils";
@@ -26,13 +25,16 @@ class CreateColumnDialog extends React.Component {
 
   handleClose = () => this.setState({ open: false });
 
-  handleChange = e => this.setState({ columnTitle: e.target.value });
+  handleChange = event => {
+    this.setState({ columnTitle: event.target.value });
+  };
 
   handleSubmit = e => {
     e.preventDefault();
 
     const id = uniqid("column-");
     const { columnTitle } = this.state;
+
     const { boardId } = this.props;
     const socket = socket_connect(boardId);
     const column = { id, columnTitle, itemIds: [] };
@@ -44,6 +46,7 @@ class CreateColumnDialog extends React.Component {
   render() {
     const { open, columnTitle } = this.state;
     const { fullScreen } = this.props;
+    const isSubmitEnabled = columnTitle.length > 0 && columnTitle.length <= 20;
 
     return (
       <>
@@ -58,49 +61,48 @@ class CreateColumnDialog extends React.Component {
           <AddIcon />
           New Column
         </Button>
-        <Dialog
-          fullScreen={fullScreen}
-          open={open}
-          onClose={this.handleClose}
-          aria-labelledby="new-column-dialog"
-        >
-          <DialogTitle id="new-column-dialog">Create New Column</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="column-name"
-              label="Column Name"
-              type="text"
-              value={columnTitle}
-              onChange={this.handleChange}
-              fullWidth
-              autoComplete="off"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleSubmit} color="primary">
-              Create
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <FormControl>
+          <Dialog
+            fullScreen={fullScreen}
+            fullWidth={true}
+            maxWidth="xs"
+            open={open}
+            onClose={this.handleClose}
+            aria-labelledby="new-column-dialog"
+          >
+            <DialogTitle id="new-column-dialog">Create New Column</DialogTitle>
+            <DialogContent>
+              <TextField
+                required
+                error={!isSubmitEnabled}
+                autoFocus
+                margin="dense"
+                id="column-name"
+                label="Column Name"
+                type="text"
+                value={columnTitle}
+                onChange={this.handleChange}
+                fullWidth
+                autoComplete="off"
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button
+                onClick={this.handleSubmit}
+                color="primary"
+                disabled={!isSubmitEnabled}
+              >
+                Create
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </FormControl>
       </>
     );
   }
 }
 
-const styles = theme => ({
-  icon: {
-    marginRight: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit
-  }
-});
-
-export default compose(
-  withMobileDialog(),
-  withStyles(styles)
-)(CreateColumnDialog);
+export default withMobileDialog()(CreateColumnDialog);
