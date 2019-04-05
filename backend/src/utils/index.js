@@ -8,7 +8,20 @@ const getBoard = file => JSON.parse(file);
 
 const stringify = data => JSON.stringify(data);
 
+const respondWithInvalidBoardId = (res, error) =>
+  res.status(400).send({
+    msg: "Board-ID does not exist!",
+    error
+  });
+
 const logError = (eventName, error) =>
   console.log(`[ERROR] socket event: ${eventName}\nerror message: ${error}`);
 
-module.exports = { getPath, getBoard, getImg, stringify, logError };
+module.exports = {
+  getPath,
+  getBoard,
+  getImg,
+  stringify,
+  logError,
+  respondWithInvalidBoardId
+};

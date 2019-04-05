@@ -2,6 +2,7 @@ import React from "react";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
+import { fetchGET } from "../../utils";
 import {
   Button,
   Fab,
@@ -12,26 +13,49 @@ import {
   DialogContentText,
   DialogTitle,
   withMobileDialog,
-  withStyles
+  withStyles,
+  Typography
 } from "@material-ui/core";
 
 class LoadBoardDialog extends React.Component {
-  state = { open: false, boardId: "" };
+  state = { open: false, boardId: "", error: false };
 
   handleOpen = () => this.setState({ open: true });
 
-  handleClose = () => this.setState({ open: false, boardId: "" });
+  handleClose = () => this.clearState();
 
   handleChange = e => this.setState({ boardId: e.target.value });
 
-  handleSubmit = history => {
+  handleSubmit = async history => {
     const { boardId } = this.state;
-    history.push(`/boards/${boardId}`);
-    this.setState({ open: false, boardId: "" });
+    const { ok } = await fetchGET(`/api/boards/validate/${boardId}`);
+
+    if (ok) {
+      history.push(`/boards/${boardId}`);
+      this.clearState();
+    } else {
+      this.setState({ error: true });
+    }
   };
 
+  clearState() {
+    this.setState({ open: false, boardId: "", error: false });
+  }
+
+  renderError() {
+    if (this.state.error) {
+      return (
+        <Typography color="error" variant="subtitle1">
+          Invalid Board-ID.
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
   render() {
-    const { open, boardId } = this.state;
+    const { open, boardId, error } = this.state;
     const { classes, fullScreen, history } = this.props;
 
     return (
@@ -67,6 +91,7 @@ class LoadBoardDialog extends React.Component {
               fullWidth
               autoComplete="off"
             />
+            {this.renderError()}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
