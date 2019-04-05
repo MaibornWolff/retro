@@ -10,7 +10,8 @@ import {
   TextField,
   Button,
   withMobileDialog,
-  Tooltip
+  Tooltip,
+  FormControl
 } from "@material-ui/core";
 
 import { socket_connect } from "../../utils";
@@ -51,6 +52,8 @@ class CreateItemDialog extends React.Component {
   render() {
     const { open, author, content } = this.state;
     const { fullScreen } = this.props;
+    const isValidAuthor = author.length > 0 && author.length <= 30;
+    const isValidContent = content.length > 0;
 
     return (
       <>
@@ -63,46 +66,56 @@ class CreateItemDialog extends React.Component {
             <AddIcon fontSize="small" data-testid="new-item-btn-icon" />
           </IconButton>
         </Tooltip>
-        <Dialog
-          fullScreen={fullScreen}
-          open={open}
-          onClose={this.handleClose}
-          aria-labelledby="new-card-dialog"
-        >
-          <DialogTitle id="new-card-dialog">New Card</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="author-name"
-              label="Author"
-              type="text"
-              value={author}
-              onChange={this.handleAuthorChange}
-              fullWidth
-              autoComplete="off"
-            />
-            <TextField
-              margin="dense"
-              multiline
-              id="content-name"
-              label="Content"
-              type="text"
-              value={content}
-              onChange={this.handleContentChange}
-              fullWidth
-              autoComplete="off"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleSubmit} color="primary">
-              Create
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <FormControl>
+          <Dialog
+            fullScreen={fullScreen}
+            open={open}
+            onClose={this.handleClose}
+            aria-labelledby="new-card-dialog"
+          >
+            <DialogTitle id="new-card-dialog">New Card</DialogTitle>
+            <DialogContent>
+              <TextField
+                required
+                error={!isValidAuthor}
+                autoFocus
+                margin="dense"
+                id="author-name"
+                label="Author"
+                type="text"
+                value={author}
+                onChange={this.handleAuthorChange}
+                fullWidth
+                autoComplete="off"
+              />
+              <TextField
+                required
+                error={!isValidContent}
+                margin="dense"
+                multiline
+                id="content-name"
+                label="Content"
+                type="text"
+                value={content}
+                onChange={this.handleContentChange}
+                fullWidth
+                autoComplete="off"
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button
+                onClick={this.handleSubmit}
+                color="primary"
+                disabled={!isValidAuthor || !isValidContent}
+              >
+                Create
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </FormControl>
       </>
     );
   }
