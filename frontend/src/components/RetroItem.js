@@ -70,7 +70,7 @@ const styles = {
     border: "1px solid lightgrey"
   },
   contentBody: {
-    whiteSpace: "normal"
+    whiteSpace: "pre-line"
   }
 };
 
