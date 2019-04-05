@@ -13,7 +13,7 @@ import {
 import EditItemDialog from "./dialogs/EditItemDialog";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import UpvoteItemButton from "./buttons/UpvoteItemButton";
-import { CardWrapper, CardContainer } from "./styled";
+import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
 
 const RetroItem = props => {
   const { classes, id, author, content, points, boardId, isBlurred } = props;
@@ -21,19 +21,23 @@ const RetroItem = props => {
   return (
     <CardWrapper isBlurred={isBlurred}>
       <CardContainer>
-        <Card className={classes.card}>
+        <Card className={classes.card} raised>
           <CardHeader
             avatar={
               <Avatar className={classes.avatar} aria-label="Recipe">
                 {points}
               </Avatar>
             }
-            title={<Typography variant="subtitle2">{author}</Typography>}
+            title={
+              <Typography variant="subtitle2">
+                <CardAuthor>{author}</CardAuthor>
+              </Typography>
+            }
           />
           <Divider />
           <CardContent>
-            <Typography component="p" className={classes.contentBody}>
-              {content}
+            <Typography variant="subtitle1" className={classes.contentBody}>
+              <CardText>{content}</CardText>
             </Typography>
           </CardContent>
           <Divider />
@@ -66,7 +70,7 @@ const styles = {
     border: "1px solid lightgrey"
   },
   contentBody: {
-    whiteSpace: "pre-line"
+    whiteSpace: "normal"
   }
 };
 

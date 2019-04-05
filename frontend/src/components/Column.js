@@ -52,8 +52,6 @@ const Column = props => {
             </Grid>
           </Grid>
 
-          <Grid container direction="column" />
-
           <Droppable
             droppableId={column.id}
             type="item"
