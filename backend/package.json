@@ -1,8 +1,22 @@
 {
-  "name": "backend",
-  "version": "0.1.0",
-  "main": "index.js",
+  "name": "@retro/backend",
+  "description": "The Node.js backend of Retro. Make retrospectives great again.",
+  "homepage": "https://github.com/yduman/retro",
+  "author": {
+    "name": "Yadullah Duman",
+    "url": "https://yduman.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/yduman/retro/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yduman/retro.git",
+    "directory": "backend/"
+  },
+  "main": "src/index.js",
   "license": "MIT",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "start": "nodemon ./src/server.js",
