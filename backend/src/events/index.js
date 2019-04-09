@@ -20,7 +20,7 @@ const {
 const boardEvents = (io, client, roomId) => {
   createBoard(io, client, roomId);
   updateBoard(io, client, roomId);
-  joinBoard(io, client, roomId);
+  joinBoard(io, client);
   unblurCards(io, client, roomId);
 };
 

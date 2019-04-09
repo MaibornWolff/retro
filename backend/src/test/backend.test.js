@@ -1,8 +1,8 @@
 const fs = require("fs");
 const io = require("socket.io-client");
-const request = require("supertest");
 const { expect } = require("chai");
 
+// eslint-disable-next-line
 const { server } = require("../server");
 const { testBoard, getPath, createColumn, createItem } = require("./utils");
 const ioOptions = {

@@ -28,7 +28,7 @@ const updateBoard = (io, client, roomId) => {
   });
 };
 
-const joinBoard = (io, client, roomId) => {
+const joinBoard = (io, client) => {
   client.on(JOIN_BOARD, async boardId => {
     await fs.readFile(getPath(boardId), UTF8, (error, file) => {
       if (error) logError(JOIN_BOARD, error);
