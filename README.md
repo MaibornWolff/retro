@@ -21,17 +21,21 @@ $ cd backend && yarn start && cd ..
 $ cd frontend && yarn start && cd ..
 ```
 
-After starting the servers visit `localhost:3000` to use the app.
+After starting the servers, visit `localhost:3000` to use the app.
 
 ### Board Data
 
-The board data lives currently inside `backend/storage`. All boards have a unique ID and are saved as `<board_id>.json`. The exports are saved as `<board_id>.png`.
+The board data lives currently inside `backend/storage`. All boards have an unique ID and are saved as `<board_id>.json`. The exports are saved as `<board_id>.png`.
 
 ## Intent
 
-At work, we were using third party retrospective tools, which meant we couldn't express ourselves freely, because of privacy reasons. Retro provides on open-source solution, where you can host the app on your own servers. You can express yourself freely! You own the data!
+At work, we were using third party retrospective tools, which meant we couldn't express ourselves freely because of privacy reasons. Retro provides an open-source solution, where you can host the app on your own servers. You can express yourself freely again because you own the data!
 
 ## Contributing
 
-- Please use Yarn instead of NPM. You can install Yarn [here](https://yarnpkg.com/en/).
-- The CI checks formatting and tests. Make sure to run `yarn format` and `yarn test` on both projects.
+- Please use [Yarn](https://yarnpkg.com/lang/en/) instead of NPM
+- Please use [Visual Studio Code](https://code.visualstudio.com/) in order to benefit from [language services](https://code.visualstudio.com/docs/languages/jsconfig)
+- The CI checks formatting, linting and tests. Make sure to run the following commands on both projects:
+  - `yarn format`
+  - `yarn lint`
+  - `yarn test`
