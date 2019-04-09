@@ -23,7 +23,8 @@
     "test": "cross-env NODE_ENV=TEST mocha src/test/backend.test.js --timeout 12000 --exit",
     "lint": "eslint \"src/**/*.js\" --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
-    "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\""
+    "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\"",
+    "precommit": "run-s -l -n format lint test"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -39,6 +40,7 @@
     "eslint": "^5.16.0",
     "mocha": "^6.0.2",
     "nodemon": "^1.18.10",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.16.4",
     "socket.io-client": "^2.2.0",
     "supertest": "^4.0.2"
