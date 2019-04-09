@@ -1,3 +1,4 @@
+// @ts-nocheck
 const TEST = "TEST";
 const DEVELOPMENT = "DEVELOPMENT";
 const PRODUCTION = "PRODUCTION";

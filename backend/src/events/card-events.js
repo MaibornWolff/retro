@@ -13,6 +13,12 @@ const {
 
 const UTF8 = "utf8";
 
+/**
+ * This event is responsible for creating a new card.
+ * @param {Object} io - the socket.io global
+ * @param {Object} client - the socket
+ * @param {string} roomId - the roomId which is the boardId
+ */
 const createCard = (io, client, roomId) => {
   client.on(CREATE_CARD, async (card, columnId, boardId) => {
     const path = getPath(boardId);
@@ -32,6 +38,12 @@ const createCard = (io, client, roomId) => {
   });
 };
 
+/**
+ * This event is responsible for deleting a card.
+ * @param {Object} io - the socket.io global
+ * @param {Object} client - the socket
+ * @param {string} roomId - the roomId which is the boardId
+ */
 const deleteCard = (io, client, roomId) => {
   client.on(DELETE_CARD, async (cardId, boardId) => {
     const path = getPath(boardId);
@@ -50,6 +62,12 @@ const deleteCard = (io, client, roomId) => {
   });
 };
 
+/**
+ * This event is responsible for editing a card.
+ * @param {Object} io - the socket.io global
+ * @param {Object} client - the socket
+ * @param {string} roomId - the roomId which is the boardId
+ */
 const editCard = (io, client, roomId) => {
   client.on(EDIT_CARD, async (author, content, cardId, boardId) => {
     const path = getPath(boardId);
@@ -69,6 +87,12 @@ const editCard = (io, client, roomId) => {
   });
 };
 
+/**
+ * This event is responsible for upvoting for a card.
+ * @param {Object} io - the socket.io global
+ * @param {Object} client - the socket
+ * @param {string} roomId - the roomId which is the boardId
+ */
 const upvoteCard = (io, client, roomId) => {
   client.on(UPVOTE_CARD, async (cardId, boardId, value) => {
     const path = getPath(boardId);

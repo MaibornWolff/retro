@@ -1,3 +1,4 @@
+// @ts-nocheck
 require("./config");
 
 const fs = require("fs");

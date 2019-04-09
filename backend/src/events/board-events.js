@@ -10,6 +10,12 @@ const {
 
 const UTF8 = "utf8";
 
+/**
+ * This event is responsible for creating a new board.
+ * @param {Object} io - the socket.io global
+ * @param {Object} client - the socket
+ * @param {string} roomId - the roomId which is the boardId
+ */
 const createBoard = (io, client, roomId) => {
   client.on(CREATE_BOARD, async (board, boardId) => {
     await fs.writeFile(getPath(boardId), stringify(board), UTF8, error => {
@@ -19,6 +25,12 @@ const createBoard = (io, client, roomId) => {
   });
 };
 
+/**
+ * This event is responsible for updating the board when manipulations happen.
+ * @param {Object} io - the socket.io global
+ * @param {Object} client - the socket
+ * @param {string} roomId - the roomId which is the boardId
+ */
 const updateBoard = (io, client, roomId) => {
   client.on(UPDATE_BOARD, async (board, boardId) => {
     await fs.writeFile(getPath(boardId), stringify(board), UTF8, error => {
@@ -28,6 +40,11 @@ const updateBoard = (io, client, roomId) => {
   });
 };
 
+/**
+ * This event is responsible for joining to an existing board.
+ * @param {Object} io - the socket.io global
+ * @param {Object} client - the socket
+ */
 const joinBoard = (io, client) => {
   client.on(JOIN_BOARD, async boardId => {
     await fs.readFile(getPath(boardId), UTF8, (error, file) => {
@@ -37,6 +54,12 @@ const joinBoard = (io, client) => {
   });
 };
 
+/**
+ * This event is responsible for toggling the blur of cards.
+ * @param {Object} io - the socket.io global
+ * @param {Object} client - the socket
+ * @param {string} roomId - the roomId which is the boardId
+ */
 const unblurCards = (io, client, roomId) => {
   client.on(UNBLUR_CARDS, async boardId => {
     const path = getPath(boardId);
