@@ -38,10 +38,14 @@ const respondWithInvalidBoardId = (res, error) =>
 /**
  * helper function to console.log failed events
  * @param {string} eventName - the name of the failed event
- * @param {string} error - the error message
+ * @param {Object} error - the error object
  */
-const logError = (eventName, error) =>
-  console.log(`[ERROR] socket event: ${eventName}\nerror message: ${error}`);
+const logError = (eventName, error) => {
+  const tag = "[ERROR]";
+  const eventLog = `Event: ${eventName}`;
+  const errorLog = `Error: ${error.message}`;
+  console.log(`${tag} ${eventLog}\n${tag} ${errorLog}`);
+};
 
 module.exports = {
   getPath,
