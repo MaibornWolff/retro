@@ -8,8 +8,10 @@ The backend is a simple Express server using REST and WebSockets.
 | ------------ | ----------------------------------------------- |
 | start        | starts the server                               |
 | test         | runs tests                                      |
+| lint         | runs ESLint                                     |
 | format       | formats the whole backend project with Prettier |
 | format:check | checks if formatting is valid                   |
+| precommit    | runs `format`, `lint` and `test`                |
 
 ## Information
 
