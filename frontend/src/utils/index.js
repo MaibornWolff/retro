@@ -15,9 +15,33 @@ export const emptyBoard = {
 };
 
 export const fetchGET = async url => {
-  const response = await fetch(url);
-  const json = await response.json();
-  const ok = await response.ok;
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
+    const ok = await response.ok;
 
-  return { json, ok };
+    return { json, ok };
+  } catch (error) {
+    return error;
+  }
+};
+
+export const isBoardIdValid = async boardId => {
+  try {
+    const response = await fetch(`/api/boards/validate/${boardId}`);
+
+    return await response.ok;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const isInputEmpty = inputLength => inputLength <= 0;
+
+export const validateInput = (inputLength, minLength, maxLength) => {
+  const isEmpty = isInputEmpty(inputLength);
+  const isTooLong = inputLength > maxLength;
+  const isValid = !isEmpty && !isTooLong;
+
+  return { isEmpty, isTooLong, isValid };
 };

@@ -10,11 +10,16 @@ import {
   Button,
   MenuItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  Typography
 } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
 import { EDIT_COLUMN } from "../../events/event-names";
+import { socket_connect, validateInput } from "../../utils";
+import {
+  COLUMN_NAME_EMPTY_MSG,
+  COLUMN_NAME_TOO_LONG_MSG
+} from "../../utils/errorMessages";
 
 class EditColumnNameDialog extends React.Component {
   state = { open: false, title: this.props.columnTitle };
@@ -34,10 +39,22 @@ class EditColumnNameDialog extends React.Component {
 
   handleChange = e => this.setState({ title: e.target.value });
 
+  renderError(isNameEmpty, isNameLong) {
+    if (isNameEmpty || isNameLong) {
+      return (
+        <Typography variant="caption" color="error">
+          {isNameEmpty ? COLUMN_NAME_EMPTY_MSG : COLUMN_NAME_TOO_LONG_MSG}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { open, title } = this.state;
     const { fullScreen } = this.props;
-    const isSubmitEnabled = title.length > 0 && title.length <= 20;
+    const input = validateInput(title.length, 0, 20);
 
     return (
       <>
@@ -57,12 +74,13 @@ class EditColumnNameDialog extends React.Component {
           <DialogContent>
             <TextField
               required
-              error={!isSubmitEnabled}
+              error={!input.isValid}
               margin="dense"
               label="Column Name"
               type="text"
               value={title}
               onChange={this.handleChange}
+              helperText={this.renderError(input.isEmpty, input.isTooLong)}
               autoFocus
               fullWidth
               autoComplete="off"
@@ -75,7 +93,7 @@ class EditColumnNameDialog extends React.Component {
             <Button
               onClick={this.handleClick}
               color="primary"
-              disabled={!isSubmitEnabled}
+              disabled={!input.isValid}
             >
               Save
             </Button>

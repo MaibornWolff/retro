@@ -1,5 +1,5 @@
 import React from "react";
-import uniqid from "uniqid";
+import nanoid from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
 import {
   Button,
@@ -8,11 +8,16 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Typography,
   withMobileDialog
 } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
 import { CREATE_COLUMN } from "../../events/event-names";
+import { socket_connect, validateInput } from "../../utils";
+import {
+  COLUMN_NAME_EMPTY_MSG,
+  COLUMN_NAME_TOO_LONG_MSG
+} from "../../utils/errorMessages";
 
 class CreateColumnDialog extends React.Component {
   state = {
@@ -31,7 +36,7 @@ class CreateColumnDialog extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const id = uniqid("column-");
+    const id = nanoid();
     const { columnTitle } = this.state;
 
     const { boardId } = this.props;
@@ -42,10 +47,22 @@ class CreateColumnDialog extends React.Component {
     this.setState({ columnTitle: "", open: false });
   };
 
+  renderError(isNameEmpty, isNameLong) {
+    if (isNameEmpty || isNameLong) {
+      return (
+        <Typography variant="caption" color="error">
+          {isNameEmpty ? COLUMN_NAME_EMPTY_MSG : COLUMN_NAME_TOO_LONG_MSG}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { open, columnTitle } = this.state;
     const { fullScreen } = this.props;
-    const isSubmitEnabled = columnTitle.length > 0 && columnTitle.length <= 20;
+    const input = validateInput(columnTitle.length, 0, 20);
 
     return (
       <>
@@ -72,7 +89,7 @@ class CreateColumnDialog extends React.Component {
           <DialogContent>
             <TextField
               required
-              error={!isSubmitEnabled}
+              error={!input.isValid}
               autoFocus
               margin="dense"
               id="column-name"
@@ -80,6 +97,7 @@ class CreateColumnDialog extends React.Component {
               type="text"
               value={columnTitle}
               onChange={this.handleChange}
+              helperText={this.renderError(input.isEmpty, input.isTooLong)}
               fullWidth
               autoComplete="off"
             />
@@ -91,7 +109,7 @@ class CreateColumnDialog extends React.Component {
             <Button
               onClick={this.handleSubmit}
               color="primary"
-              disabled={!isSubmitEnabled}
+              disabled={!input.isValid}
             >
               Create
             </Button>

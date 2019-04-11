@@ -1,5 +1,5 @@
 import React from "react";
-import uniqid from "uniqid";
+import nanoid from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
 import {
   IconButton,
@@ -10,11 +10,17 @@ import {
   TextField,
   Button,
   withMobileDialog,
-  Tooltip
+  Tooltip,
+  Typography
 } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
 import { CREATE_CARD } from "../../events/event-names";
+import { socket_connect, validateInput, isInputEmpty } from "../../utils";
+import {
+  CARD_AUTHOR_NAME_EMPTY_MSG,
+  CARD_AUTHOR_NAME_TOO_LONG_MSG,
+  CARD_CONTENT_EMPTY_MSG
+} from "../../utils/errorMessages";
 
 class CreateItemDialog extends React.Component {
   state = {
@@ -37,7 +43,7 @@ class CreateItemDialog extends React.Component {
     const { author, content } = this.state;
     const { columnId, boardId } = this.props;
     const socket = socket_connect(boardId);
-    const id = uniqid("item-");
+    const id = nanoid();
     const newCard = {
       id,
       author,
@@ -48,11 +54,37 @@ class CreateItemDialog extends React.Component {
     this.setState({ author: "", content: "", open: false });
   };
 
+  renderAuthorError(isAuthorEmpty, isAuthorLong) {
+    if (isAuthorEmpty || isAuthorLong) {
+      return (
+        <Typography variant="caption" color="error">
+          {isAuthorEmpty
+            ? CARD_AUTHOR_NAME_EMPTY_MSG
+            : CARD_AUTHOR_NAME_TOO_LONG_MSG}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
+  renderContentError(isContentEmpty) {
+    if (isContentEmpty) {
+      return (
+        <Typography variant="caption" color="error">
+          {isContentEmpty ? CARD_CONTENT_EMPTY_MSG : null}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { open, author, content } = this.state;
     const { fullScreen } = this.props;
-    const isValidAuthor = author.length > 0 && author.length <= 30;
-    const isValidContent = content.length > 0;
+    const authorInput = validateInput(author.length, 0, 30);
+    const isContentEmpty = isInputEmpty(content.length);
 
     return (
       <>
@@ -75,7 +107,7 @@ class CreateItemDialog extends React.Component {
           <DialogContent>
             <TextField
               required
-              error={!isValidAuthor}
+              error={!authorInput.isValid}
               autoFocus
               margin="dense"
               id="author-name"
@@ -83,12 +115,16 @@ class CreateItemDialog extends React.Component {
               type="text"
               value={author}
               onChange={this.handleAuthorChange}
+              helperText={this.renderAuthorError(
+                authorInput.isEmpty,
+                authorInput.isTooLong
+              )}
               fullWidth
               autoComplete="off"
             />
             <TextField
               required
-              error={!isValidContent}
+              error={isContentEmpty}
               margin="dense"
               multiline
               id="content-name"
@@ -96,6 +132,7 @@ class CreateItemDialog extends React.Component {
               type="text"
               value={content}
               onChange={this.handleContentChange}
+              helperText={this.renderContentError(isContentEmpty)}
               fullWidth
               autoComplete="off"
             />
@@ -107,7 +144,7 @@ class CreateItemDialog extends React.Component {
             <Button
               onClick={this.handleSubmit}
               color="primary"
-              disabled={!isValidAuthor || !isValidContent}
+              disabled={!authorInput.isValid || isContentEmpty}
             >
               Create
             </Button>

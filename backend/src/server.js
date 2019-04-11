@@ -26,7 +26,9 @@ app.use(express.static(publicFolderPath));
 app.get("/api/boards/validate/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
   await fs.readFile(getPath(boardId), "utf-8", error => {
-    if (error) respondWithInvalidBoardId(res, error);
+    if (error) {
+      respondWithInvalidBoardId(res, error);
+    }
     res.status(200).send();
   });
 });

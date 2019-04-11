@@ -1,5 +1,5 @@
 import React from "react";
-import uniqid from "uniqid";
+import nanoid from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
 import { compose } from "recompose";
 import { Redirect } from "react-router-dom";
@@ -19,7 +19,7 @@ import {
 
 import { socket_connect } from "../../utils";
 import { CREATE_BOARD } from "../../events/event-names";
-import { emptyBoard } from "../../utils";
+import { emptyBoard, validateInput } from "../../utils";
 import {
   BOARD_NAME_EMPTY_MSG,
   BOARD_NAME_TOO_LONG_MSG
@@ -41,7 +41,7 @@ class CreateBoardDialog extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     const { title } = this.state;
-    const boardId = uniqid("board-");
+    const boardId = nanoid();
     const socket = socket_connect(boardId);
     const isBlurred = true;
     const newBoard = { ...emptyBoard, boardId, title, isBlurred };
@@ -65,9 +65,7 @@ class CreateBoardDialog extends React.Component {
   render() {
     const { open, title, boardId } = this.state;
     const { classes, fullScreen } = this.props;
-    const isBoardTitleEmpty = title.length <= 0;
-    const isBoardTitleLong = title.length > 30;
-    const isValidBoardTitle = !isBoardTitleEmpty && !isBoardTitleLong;
+    const input = validateInput(title.length, 0, 30);
 
     if (boardId) {
       return <Redirect to={`/boards/${boardId}`} />;
@@ -99,7 +97,7 @@ class CreateBoardDialog extends React.Component {
             </DialogContentText>
             <TextField
               required
-              error={!isValidBoardTitle}
+              error={!input.isValid}
               autoFocus
               margin="dense"
               id="board-name"
@@ -110,7 +108,7 @@ class CreateBoardDialog extends React.Component {
               fullWidth
               autoComplete="off"
             />
-            {this.renderError(isBoardTitleEmpty, isBoardTitleLong)}
+            {this.renderError(input.isEmpty, input.isTooLong)}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
@@ -119,7 +117,7 @@ class CreateBoardDialog extends React.Component {
             <Button
               onClick={this.handleSubmit}
               color="primary"
-              disabled={!isValidBoardTitle}
+              disabled={!input.isValid}
             >
               Create
             </Button>

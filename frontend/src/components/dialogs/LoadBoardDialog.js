@@ -2,7 +2,6 @@ import React from "react";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
-import { fetchGET } from "../../utils";
 import {
   Button,
   Fab,
@@ -17,6 +16,9 @@ import {
   Typography
 } from "@material-ui/core";
 
+import { isBoardIdValid } from "../../utils";
+import { LOAD_BOARD_ID_INVALID_MSG } from "../../utils/errorMessages";
+
 class LoadBoardDialog extends React.Component {
   state = { open: false, boardId: "", error: false };
 
@@ -28,9 +30,9 @@ class LoadBoardDialog extends React.Component {
 
   handleSubmit = async history => {
     const { boardId } = this.state;
-    const { ok } = await fetchGET(`/api/boards/validate/${boardId}`);
+    const isValid = await isBoardIdValid(boardId);
 
-    if (ok) {
+    if (isValid) {
       history.push(`/boards/${boardId}`);
       this.clearState();
     } else {
@@ -45,8 +47,8 @@ class LoadBoardDialog extends React.Component {
   renderError() {
     if (this.state.error) {
       return (
-        <Typography color="error" variant="subtitle1">
-          Invalid Board-ID.
+        <Typography color="error" variant="caption">
+          {LOAD_BOARD_ID_INVALID_MSG}
         </Typography>
       );
     }
@@ -88,10 +90,10 @@ class LoadBoardDialog extends React.Component {
               type="text"
               value={boardId}
               onChange={this.handleChange}
+              helperText={this.renderError()}
               fullWidth
               autoComplete="off"
             />
-            {this.renderError()}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
