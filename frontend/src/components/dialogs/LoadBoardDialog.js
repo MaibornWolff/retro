@@ -44,8 +44,8 @@ class LoadBoardDialog extends React.Component {
     this.setState({ open: false, boardId: "", error: false });
   }
 
-  renderError() {
-    if (this.state.error) {
+  renderError(isValid) {
+    if (this.state.error || !isValid) {
       return (
         <Typography color="error" variant="caption">
           {LOAD_BOARD_ID_INVALID_MSG}
@@ -59,6 +59,9 @@ class LoadBoardDialog extends React.Component {
   render() {
     const { open, boardId } = this.state;
     const { classes, fullScreen, history } = this.props;
+
+    // all nanoid() calls generate an ID with the default size of 21 chars
+    const isValidId = boardId.length === 21;
 
     return (
       <>
@@ -85,12 +88,14 @@ class LoadBoardDialog extends React.Component {
             </DialogContentText>
             <TextField
               autoFocus
+              required
+              error={!isValidId}
               margin="dense"
               label="Board-ID"
               type="text"
               value={boardId}
               onChange={this.handleChange}
-              helperText={this.renderError()}
+              helperText={this.renderError(isValidId)}
               fullWidth
               autoComplete="off"
             />
@@ -99,7 +104,11 @@ class LoadBoardDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={() => this.handleSubmit(history)} color="primary">
+            <Button
+              onClick={() => this.handleSubmit(history)}
+              color="primary"
+              disabled={!isValidId}
+            >
               Load
             </Button>
           </DialogActions>
