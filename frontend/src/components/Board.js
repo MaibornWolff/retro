@@ -8,7 +8,7 @@ import Columns from "./Columns";
 import { socket_connect } from "../utils";
 import { FlexContainer } from "./styled";
 import { UPDATE_BOARD } from "../events/event-names";
-import { emptyBoard } from "../utils/emptyBoard";
+import { emptyBoard } from "../utils/";
 import {
   onConnect,
   onCreateBoard,

@@ -13,12 +13,6 @@ const {
 
 const UTF8 = "utf8";
 
-/**
- * This event is responsible for creating a new column.
- * @param {Object} io - the socket.io global
- * @param {Object} client - the socket
- * @param {string} roomId - the roomId which is the boardId
- */
 const createColumn = (io, client, roomId) => {
   client.on(CREATE_COLUMN, async (column, boardId) => {
     const path = getPath(boardId);
@@ -37,12 +31,6 @@ const createColumn = (io, client, roomId) => {
   });
 };
 
-/**
- * This event is responsible for deleting a column.
- * @param {Object} io - the socket.io global
- * @param {Object} client - the socket
- * @param {string} roomId - the roomId which is the boardId
- */
 const deleteColumn = (io, client, roomId) => {
   client.on(DELETE_COLUMN, async (columnId, boardId) => {
     const path = getPath(boardId);
@@ -63,12 +51,6 @@ const deleteColumn = (io, client, roomId) => {
   });
 };
 
-/**
- * This event is responsible for sorting a column.
- * @param {Object} io - the socket.io global
- * @param {Object} client - the socket
- * @param {string} roomId - the roomId which is the boardId
- */
 const sortColumn = (io, client, roomId) => {
   client.on(SORT_COLUMN, async (columnId, columnItems, boardId) => {
     const path = getPath(boardId);
@@ -89,12 +71,6 @@ const sortColumn = (io, client, roomId) => {
   });
 };
 
-/**
- * This event is responsible for editing the column name.
- * @param {Object} io - the socket.io global
- * @param {Object} client - the socket
- * @param {string} roomId - the roomId which is the boardId
- */
 const editColumn = (io, client, roomId) => {
   client.on(EDIT_COLUMN, async (columnId, boardId, newTitle) => {
     const path = getPath(boardId);

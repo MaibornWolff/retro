@@ -18,7 +18,7 @@ import {
 
 import { socket_connect } from "../../utils";
 import { CREATE_BOARD } from "../../events/event-names";
-import { emptyBoard } from "../../utils/emptyBoard";
+import { emptyBoard } from "../../utils";
 
 class CreateBoardDialog extends React.Component {
   state = {
