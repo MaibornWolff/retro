@@ -39,7 +39,7 @@ class DeleteColumnDialog extends React.Component {
 
     return (
       <>
-        <MenuItem button onClick={this.handleOpen}>
+        <MenuItem button onClick={this.handleOpen} data-testid="delete-col-btn">
           <ListItemIcon>
             <DeleteIcon fontSize="small" data-testid="delete-col-btn-icon" />
           </ListItemIcon>
