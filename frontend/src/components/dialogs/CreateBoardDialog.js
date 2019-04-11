@@ -12,6 +12,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Typography,
   withMobileDialog,
   withStyles
 } from "@material-ui/core";
@@ -45,9 +46,36 @@ class CreateBoardDialog extends React.Component {
     this.setState({ title: "", open: false, boardId });
   };
 
+  renderTitleEmptyError(isEmpty) {
+    if (isEmpty) {
+      return (
+        <Typography variant="caption" color="error">
+          Name of the board cannot be empty.
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
+  renderTitleLongError(isLong) {
+    if (isLong) {
+      return (
+        <Typography variant="caption" color="error">
+          Name of the board is too long.
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { open, title, boardId } = this.state;
     const { classes, fullScreen } = this.props;
+    const isBoardTitleEmpty = title.length <= 0;
+    const isBoardTitleLong = title.length > 30;
+    const isValidBoardTitle = !isBoardTitleEmpty && !isBoardTitleLong;
 
     if (boardId) {
       return <Redirect to={`/boards/${boardId}`} />;
@@ -78,6 +106,8 @@ class CreateBoardDialog extends React.Component {
               Please provide a name for your new board.
             </DialogContentText>
             <TextField
+              required
+              error={!isValidBoardTitle}
               autoFocus
               margin="dense"
               id="board-name"
@@ -88,12 +118,18 @@ class CreateBoardDialog extends React.Component {
               fullWidth
               autoComplete="off"
             />
+            {this.renderTitleEmptyError(isBoardTitleEmpty)}
+            {this.renderTitleLongError(isBoardTitleLong)}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleSubmit} color="primary">
+            <Button
+              onClick={this.handleSubmit}
+              color="primary"
+              disabled={!isValidBoardTitle}
+            >
               Create
             </Button>
           </DialogActions>
