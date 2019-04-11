@@ -8,8 +8,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  withMobileDialog,
-  FormControl
+  withMobileDialog
 } from "@material-ui/core";
 
 import { socket_connect } from "../../utils";
@@ -61,45 +60,43 @@ class CreateColumnDialog extends React.Component {
           <AddIcon />
           New Column
         </Button>
-        <FormControl>
-          <Dialog
-            fullScreen={fullScreen}
-            fullWidth={true}
-            maxWidth="xs"
-            open={open}
-            onClose={this.handleClose}
-            aria-labelledby="new-column-dialog"
-          >
-            <DialogTitle id="new-column-dialog">Create New Column</DialogTitle>
-            <DialogContent>
-              <TextField
-                required
-                error={!isSubmitEnabled}
-                autoFocus
-                margin="dense"
-                id="column-name"
-                label="Column Name"
-                type="text"
-                value={columnTitle}
-                onChange={this.handleChange}
-                fullWidth
-                autoComplete="off"
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleClose} color="primary">
-                Cancel
-              </Button>
-              <Button
-                onClick={this.handleSubmit}
-                color="primary"
-                disabled={!isSubmitEnabled}
-              >
-                Create
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </FormControl>
+        <Dialog
+          fullScreen={fullScreen}
+          fullWidth={true}
+          maxWidth="xs"
+          open={open}
+          onClose={this.handleClose}
+          aria-labelledby="new-column-dialog"
+        >
+          <DialogTitle id="new-column-dialog">Create New Column</DialogTitle>
+          <DialogContent>
+            <TextField
+              required
+              error={!isSubmitEnabled}
+              autoFocus
+              margin="dense"
+              id="column-name"
+              label="Column Name"
+              type="text"
+              value={columnTitle}
+              onChange={this.handleChange}
+              fullWidth
+              autoComplete="off"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button
+              onClick={this.handleSubmit}
+              color="primary"
+              disabled={!isSubmitEnabled}
+            >
+              Create
+            </Button>
+          </DialogActions>
+        </Dialog>
       </>
     );
   }

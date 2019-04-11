@@ -51,6 +51,8 @@ class EditItemDialog extends React.Component {
   render() {
     const { open, author, content } = this.state;
     const { fullScreen } = this.props;
+    const isValidAuthor = author.length > 0 && author.length <= 30;
+    const isValidContent = content.length > 0;
 
     return (
       <>
@@ -72,6 +74,8 @@ class EditItemDialog extends React.Component {
           <DialogTitle id="edit-card-dialog">Edit Card</DialogTitle>
           <DialogContent>
             <TextField
+              required
+              error={!isValidAuthor}
               margin="dense"
               id="author-name"
               label="Author"
@@ -83,6 +87,8 @@ class EditItemDialog extends React.Component {
               autoComplete="off"
             />
             <TextField
+              required
+              error={!isValidContent}
               margin="dense"
               id="content-name"
               label="Content"
@@ -99,7 +105,11 @@ class EditItemDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClick} color="primary">
+            <Button
+              onClick={this.handleClick}
+              color="primary"
+              disabled={!isValidAuthor || !isValidContent}
+            >
               Save
             </Button>
           </DialogActions>
