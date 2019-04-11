@@ -5,9 +5,7 @@ import { Typography, Grid, withStyles } from "@material-ui/core";
 
 import Items from "./Items";
 import CreateItemDialog from "./dialogs/CreateItemDialog";
-import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
-import EditColumnNameDialog from "./dialogs/EditColumnNameDialog";
-import SortColumnButton from "./buttons/SortColumnButton";
+import ColumnMenu from "./ColumnMenu";
 import { ColumnContainer, ItemsContainerStyles } from "./styled";
 
 const ItemsContainer = styled.div`
@@ -32,21 +30,16 @@ const Column = props => {
             justify="space-between"
           >
             <Grid item>
-              <Typography className={classes.header} variant="h6">
+              <Typography className={classes.header} variant="subtitle2">
                 {column.columnTitle}
               </Typography>
             </Grid>
             <Grid item>
               <CreateItemDialog columnId={column.id} boardId={boardId} />
-              <DeleteColumnDialog columnId={column.id} boardId={boardId} />
-              <EditColumnNameDialog
+              <ColumnMenu
                 columnId={column.id}
                 boardId={boardId}
                 columnTitle={column.columnTitle}
-              />
-              <SortColumnButton
-                columnId={column.id}
-                boardId={boardId}
                 items={items}
               />
             </Grid>

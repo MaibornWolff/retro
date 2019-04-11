@@ -1,7 +1,6 @@
 import React from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {
-  IconButton,
   Dialog,
   DialogActions,
   DialogContent,
@@ -9,7 +8,9 @@ import {
   DialogTitle,
   Button,
   withMobileDialog,
-  Tooltip
+  MenuItem,
+  ListItemIcon,
+  ListItemText
 } from "@material-ui/core";
 
 import { socket_connect } from "../../utils";
@@ -22,7 +23,7 @@ class DeleteColumnDialog extends React.Component {
 
   handleOpen = () => this.setState({ open: true });
 
-  handleClose = () => this.setState({ open: false });
+  handleDialogClose = () => this.setState({ open: false });
 
   handleDeleteClick = () => {
     const { columnId, boardId } = this.props;
@@ -38,19 +39,16 @@ class DeleteColumnDialog extends React.Component {
 
     return (
       <>
-        <Tooltip title="Delete Column" aria-label="Delete Column">
-          <IconButton
-            color="inherit"
-            onClick={this.handleOpen}
-            data-testid="delete-col-btn"
-          >
+        <MenuItem button onClick={this.handleOpen}>
+          <ListItemIcon>
             <DeleteIcon fontSize="small" data-testid="delete-col-btn-icon" />
-          </IconButton>
-        </Tooltip>
+          </ListItemIcon>
+          <ListItemText inset primary="Delete Column" />
+        </MenuItem>
         <Dialog
           fullScreen={fullScreen}
           open={open}
-          onClose={this.handleClose}
+          onClose={this.handleDialogClose}
           aria-labelledby="alert-delete-column-dialog"
           aria-describedby="alert-delete-column-dialog-description"
         >
@@ -64,7 +62,7 @@ class DeleteColumnDialog extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleDialogClose} color="primary">
               Cancel
             </Button>
             <Button onClick={this.handleDeleteClick} color="primary" autoFocus>

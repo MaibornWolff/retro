@@ -2,14 +2,15 @@ import React from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import {
   withMobileDialog,
-  Tooltip,
-  IconButton,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   TextField,
-  Button
+  Button,
+  MenuItem,
+  ListItemIcon,
+  ListItemText
 } from "@material-ui/core";
 
 import { socket_connect } from "../../utils";
@@ -36,14 +37,16 @@ class EditColumnNameDialog extends React.Component {
   render() {
     const { open, title } = this.state;
     const { fullScreen } = this.props;
+    const isSubmitEnabled = title.length > 0 && title.length <= 20;
 
     return (
       <>
-        <Tooltip title="Edit Column" aria-label="Edit Column">
-          <IconButton color="inherit" onClick={this.handleOpen}>
+        <MenuItem button onClick={this.handleOpen}>
+          <ListItemIcon>
             <EditIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
+          </ListItemIcon>
+          <ListItemText inset primary="Edit Name" />
+        </MenuItem>
         <Dialog
           fullScreen={fullScreen}
           open={open}
@@ -53,6 +56,8 @@ class EditColumnNameDialog extends React.Component {
           <DialogTitle id="edit-column-dialog">Edit Column</DialogTitle>
           <DialogContent>
             <TextField
+              required
+              error={!isSubmitEnabled}
               margin="dense"
               label="Column Name"
               type="text"
@@ -67,7 +72,11 @@ class EditColumnNameDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClick} color="primary">
+            <Button
+              onClick={this.handleClick}
+              color="primary"
+              disabled={!isSubmitEnabled}
+            >
               Save
             </Button>
           </DialogActions>

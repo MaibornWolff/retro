@@ -29,14 +29,18 @@ const RetroItem = props => {
               </Avatar>
             }
             title={
-              <Typography variant="subtitle2">
+              <Typography variant="body2" component={"span"}>
                 <CardAuthor>{author}</CardAuthor>
               </Typography>
             }
           />
           <Divider />
           <CardContent>
-            <Typography variant="subtitle1" className={classes.contentBody}>
+            <Typography
+              variant="body2"
+              className={classes.contentBody}
+              component={"span"}
+            >
               <CardText>{content}</CardText>
             </Typography>
           </CardContent>
