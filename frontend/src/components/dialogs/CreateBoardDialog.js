@@ -20,6 +20,10 @@ import {
 import { socket_connect } from "../../utils";
 import { CREATE_BOARD } from "../../events/event-names";
 import { emptyBoard } from "../../utils";
+import {
+  BOARD_NAME_EMPTY_MSG,
+  BOARD_NAME_TOO_LONG_MSG
+} from "../../utils/errorMessages";
 
 class CreateBoardDialog extends React.Component {
   state = {
@@ -46,23 +50,11 @@ class CreateBoardDialog extends React.Component {
     this.setState({ title: "", open: false, boardId });
   };
 
-  renderTitleEmptyError(isEmpty) {
-    if (isEmpty) {
+  renderError(isNameEmpty, isNameLong) {
+    if (isNameEmpty || isNameLong) {
       return (
         <Typography variant="caption" color="error">
-          Name of the board cannot be empty.
-        </Typography>
-      );
-    }
-
-    return null;
-  }
-
-  renderTitleLongError(isLong) {
-    if (isLong) {
-      return (
-        <Typography variant="caption" color="error">
-          Name of the board is too long.
+          {isNameEmpty ? BOARD_NAME_EMPTY_MSG : BOARD_NAME_TOO_LONG_MSG}
         </Typography>
       );
     }
@@ -118,8 +110,7 @@ class CreateBoardDialog extends React.Component {
               fullWidth
               autoComplete="off"
             />
-            {this.renderTitleEmptyError(isBoardTitleEmpty)}
-            {this.renderTitleLongError(isBoardTitleLong)}
+            {this.renderError(isBoardTitleEmpty, isBoardTitleLong)}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
