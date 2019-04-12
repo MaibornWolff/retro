@@ -1,10 +1,18 @@
 import React from "react";
 import isEmpty from "lodash/isEmpty";
+import isEqual from "lodash/isEqual";
 import { Grid } from "@material-ui/core";
 
 import Item from "./Item";
 
-export default class Items extends React.PureComponent {
+export default class Items extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    if (isEqual(nextProps.items, this.props.items)) {
+      return false;
+    }
+    return true;
+  }
+
   render() {
     const { items, boardId } = this.props;
 
