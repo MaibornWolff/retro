@@ -20,6 +20,7 @@
   - Columns are now wrapping, if you create a lot of them
 - Improved render performance when dragging cards and columns
 - "Load Board" validation should not result in a `SyntaxError` anymore
+- Hitting the syntactically correct URL for boards but with an invalid Board-ID will now be redirected to a 404 page
 
 ## [0.2.1] - 2019-03-29
 
