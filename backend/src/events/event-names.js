@@ -12,5 +12,6 @@ module.exports = {
   CREATE_BOARD: "create board",
   JOIN_BOARD: "join board",
   UNBLUR_CARDS: "unblur cards",
-  EDIT_COLUMN: "edit column"
+  EDIT_COLUMN: "edit column",
+  JOIN_ERROR: "join error"
 };

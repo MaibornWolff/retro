@@ -2,6 +2,7 @@ import React from "react";
 import pull from "lodash/pull";
 import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { Redirect } from "react-router-dom";
 
 import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
@@ -13,11 +14,12 @@ import {
   onConnect,
   onCreateBoard,
   onUpdateBoard,
-  onJoinBoard
+  onJoinBoard,
+  onJoinError
 } from "../events/event-listener";
 
 class Board extends React.Component {
-  state = { ...emptyBoard };
+  state = { ...emptyBoard, error: false };
 
   socket = socket_connect(this.props.match.params.boardId);
 
@@ -26,11 +28,12 @@ class Board extends React.Component {
     onCreateBoard(this);
     onUpdateBoard(this);
     onJoinBoard(this);
+    onJoinError(this);
   }
 
   componentWillUnmount() {
     this.socket.disconnect();
-    this.setState({ ...emptyBoard });
+    this.setState({ ...emptyBoard, error: false });
   }
 
   onDragEnd = dragResult => {
@@ -203,9 +206,13 @@ class Board extends React.Component {
   }
 
   render() {
-    const { columns, items, title } = this.state;
+    const { columns, items, title, error } = this.state;
     const { classes } = this.props;
     const { boardId } = this.props.match.params;
+
+    if (error) {
+      return <Redirect to={"/error"} />;
+    }
 
     return (
       <Grid container className={classes.root} direction="column">

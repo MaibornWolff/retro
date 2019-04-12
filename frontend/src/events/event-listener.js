@@ -1,4 +1,10 @@
-import { CONNECT, CREATE_BOARD, UPDATE_BOARD, JOIN_BOARD } from "./event-names";
+import {
+  CONNECT,
+  CREATE_BOARD,
+  UPDATE_BOARD,
+  JOIN_BOARD,
+  JOIN_ERROR
+} from "./event-names";
 
 export const onConnect = component => {
   component.socket.on(CONNECT, () => {
@@ -24,5 +30,11 @@ export const onUpdateBoard = component => {
 export const onJoinBoard = component => {
   component.socket.on(JOIN_BOARD, board => {
     component.setState({ ...board });
+  });
+};
+
+export const onJoinError = component => {
+  component.socket.on(JOIN_ERROR, () => {
+    component.setState({ error: true });
   });
 };

@@ -5,7 +5,8 @@ const {
   CREATE_BOARD,
   UPDATE_BOARD,
   JOIN_BOARD,
-  UNBLUR_CARDS
+  UNBLUR_CARDS,
+  JOIN_ERROR
 } = require("./event-names");
 
 const UTF8 = "utf8";
@@ -31,8 +32,11 @@ const updateBoard = (io, client, roomId) => {
 const joinBoard = (io, client) => {
   client.on(JOIN_BOARD, async boardId => {
     await fs.readFile(getPath(boardId), UTF8, (error, file) => {
-      if (error) logError(JOIN_BOARD, error);
-      client.emit(JOIN_BOARD, getBoard(file));
+      if (error) {
+        client.emit(JOIN_ERROR);
+      } else {
+        client.emit(JOIN_BOARD, getBoard(file));
+      }
     });
   });
 };

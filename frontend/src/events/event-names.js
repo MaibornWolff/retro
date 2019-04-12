@@ -11,3 +11,4 @@ export const CONNECT = "connect";
 export const JOIN_BOARD = "join board";
 export const UNBLUR_CARDS = "unblur cards";
 export const EDIT_COLUMN = "edit column";
+export const JOIN_ERROR = "join error";
