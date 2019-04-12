@@ -18,6 +18,7 @@
 - CSS issues
   - Really long words are now handled properly
   - Columns are now wrapping, if you create a lot of them
+- Improved render performance when dragging cards and columns
 - "Load Board" validation should not result in a `SyntaxError` anymore
 
 ## [0.2.1] - 2019-03-29
