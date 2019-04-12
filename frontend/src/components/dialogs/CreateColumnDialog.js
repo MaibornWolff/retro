@@ -62,7 +62,7 @@ class CreateColumnDialog extends React.Component {
   render() {
     const { open, columnTitle } = this.state;
     const { fullScreen } = this.props;
-    const input = validateInput(columnTitle.length, 0, 20);
+    const input = validateInput(columnTitle.length, 0, 40);
 
     return (
       <>

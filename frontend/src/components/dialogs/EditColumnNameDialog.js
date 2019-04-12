@@ -54,7 +54,7 @@ class EditColumnNameDialog extends React.Component {
   render() {
     const { open, title } = this.state;
     const { fullScreen } = this.props;
-    const input = validateInput(title.length, 0, 20);
+    const input = validateInput(title.length, 0, 40);
 
     return (
       <>
