@@ -1,6 +1,6 @@
 import React from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import { IconButton, Tooltip } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 
 import { socket_connect } from "../../utils";
 import { UPVOTE_CARD } from "../../events/event-names";
@@ -16,14 +16,12 @@ const handleUpvote = (id, boardId, points) => {
 
 const UpvoteItemButton = props => (
   <>
-    <Tooltip title="Upvote" aria-label="Upvote">
-      <IconButton
-        color="primary"
-        onClick={() => handleUpvote(props.id, props.boardId, props.points)}
-      >
-        <ThumbUpIcon fontSize="small" />
-      </IconButton>
-    </Tooltip>
+    <IconButton
+      color="primary"
+      onClick={() => handleUpvote(props.id, props.boardId, props.points)}
+    >
+      <ThumbUpIcon fontSize="small" />
+    </IconButton>
   </>
 );
 

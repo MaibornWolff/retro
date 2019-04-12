@@ -9,7 +9,6 @@ import {
   TextField,
   Button,
   withMobileDialog,
-  Tooltip,
   Typography
 } from "@material-ui/core";
 
@@ -88,15 +87,13 @@ class EditItemDialog extends React.Component {
 
     return (
       <>
-        <Tooltip title="Edit Card" aria-label="Edit Card">
-          <IconButton
-            color="primary"
-            onClick={this.handleOpen}
-            data-testid="edit-item-btn"
-          >
-            <EditIcon fontSize="small" data-testid="edit-item-btn-icon" />
-          </IconButton>
-        </Tooltip>
+        <IconButton
+          color="primary"
+          onClick={this.handleOpen}
+          data-testid="edit-item-btn"
+        >
+          <EditIcon fontSize="small" data-testid="edit-item-btn-icon" />
+        </IconButton>
         <Dialog
           fullScreen={fullScreen}
           open={open}

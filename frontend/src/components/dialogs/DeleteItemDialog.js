@@ -8,8 +8,7 @@ import {
   DialogTitle,
   DialogContentText,
   Button,
-  withMobileDialog,
-  Tooltip
+  withMobileDialog
 } from "@material-ui/core";
 
 import { socket_connect } from "../../utils";
@@ -38,15 +37,13 @@ class DeleteItemDialog extends React.Component {
 
     return (
       <>
-        <Tooltip title="Delete Card" aria-label="Delete Card">
-          <IconButton
-            color="primary"
-            onClick={this.handleOpen}
-            data-testid="delete-item-btn"
-          >
-            <DeleteIcon fontSize="small" data-testid="delete-item-btn-icon" />
-          </IconButton>
-        </Tooltip>
+        <IconButton
+          color="primary"
+          onClick={this.handleOpen}
+          data-testid="delete-item-btn"
+        >
+          <DeleteIcon fontSize="small" data-testid="delete-item-btn-icon" />
+        </IconButton>
         <Dialog
           fullScreen={fullScreen}
           open={open}

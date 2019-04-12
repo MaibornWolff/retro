@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButton, Menu, Tooltip } from "@material-ui/core";
+import { IconButton, Menu } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/MoreVert";
 
 import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
@@ -22,17 +22,15 @@ class ColumnMenu extends React.Component {
 
     return (
       <>
-        <Tooltip title="Column Actions" aria-label="Column Actions">
-          <IconButton
-            color="inherit"
-            aria-label="Column Menu"
-            aria-owns={open ? "column-menu" : undefined}
-            aria-haspopup="true"
-            onClick={this.handleClick}
-          >
-            <MenuIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
+        <IconButton
+          color="inherit"
+          aria-label="Column Menu"
+          aria-owns={open ? "column-menu" : undefined}
+          aria-haspopup="true"
+          onClick={this.handleClick}
+        >
+          <MenuIcon fontSize="small" />
+        </IconButton>
         <Menu
           id="column-menu"
           anchorEl={anchorEl}

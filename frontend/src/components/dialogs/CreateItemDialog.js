@@ -10,7 +10,6 @@ import {
   TextField,
   Button,
   withMobileDialog,
-  Tooltip,
   Typography
 } from "@material-ui/core";
 
@@ -88,15 +87,13 @@ class CreateItemDialog extends React.Component {
 
     return (
       <>
-        <Tooltip title="New Card" aria-label="New Card">
-          <IconButton
-            color="inherit"
-            onClick={this.handleOpen}
-            data-testid="new-item-btn"
-          >
-            <AddIcon fontSize="small" data-testid="new-item-btn-icon" />
-          </IconButton>
-        </Tooltip>
+        <IconButton
+          color="inherit"
+          onClick={this.handleOpen}
+          data-testid="new-item-btn"
+        >
+          <AddIcon fontSize="small" data-testid="new-item-btn-icon" />
+        </IconButton>
         <Dialog
           fullScreen={fullScreen}
           open={open}
