@@ -65,7 +65,7 @@ class CreateBoardDialog extends React.Component {
   render() {
     const { open, title, boardId } = this.state;
     const { classes, fullScreen } = this.props;
-    const input = validateInput(title.length, 0, 30);
+    const input = validateInput(title.length, 0, 40);
 
     if (boardId) {
       return <Redirect to={`/boards/${boardId}`} />;
