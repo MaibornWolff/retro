@@ -4,13 +4,7 @@ import { Grid } from "@material-ui/core";
 
 import Item from "./Item";
 
-export default class Items extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    const { items } = this.props;
-    if (nextProps.items === items) return false;
-    return true;
-  }
-
+export default class Items extends React.PureComponent {
   render() {
     const { items, boardId } = this.props;
 
