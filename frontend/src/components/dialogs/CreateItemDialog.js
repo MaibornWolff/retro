@@ -82,7 +82,7 @@ class CreateItemDialog extends React.Component {
   render() {
     const { open, author, content } = this.state;
     const { fullScreen } = this.props;
-    const authorInput = validateInput(author.length, 0, 30);
+    const authorInput = validateInput(author.length, 0, 40);
     const isContentEmpty = isInputEmpty(content.length);
 
     return (
