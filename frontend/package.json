@@ -38,7 +38,7 @@
     "react-beautiful-dnd": "^10.1.1",
     "react-dom": "^16.8.5",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8",
+    "react-scripts": "3.0.0",
     "recompose": "^0.30.0",
     "socket.io-client": "^2.2.0",
     "styled-components": "^4.2.0"
