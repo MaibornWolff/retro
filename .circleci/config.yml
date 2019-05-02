@@ -48,3 +48,10 @@ jobs:
       - run:
           name: Run tests on frontend
           command: cd frontend && yarn test && cd ..
+
+      - run:
+          name: Run frontend code coverage
+          command: cd frontend && yarn test:cov && cd..
+    
+      - store_artifacts:
+          path: frontend/coverage
