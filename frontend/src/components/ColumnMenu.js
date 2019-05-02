@@ -5,6 +5,7 @@ import MenuIcon from "@material-ui/icons/MoreVert";
 import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
 import EditColumnNameDialog from "./dialogs/EditColumnNameDialog";
 import SortColumnButton from "./buttons/SortColumnButton";
+import { isModerator } from "../utils";
 
 class ColumnMenu extends React.Component {
   state = {
@@ -28,6 +29,7 @@ class ColumnMenu extends React.Component {
           aria-owns={open ? "column-menu" : undefined}
           aria-haspopup="true"
           onClick={this.handleClick}
+          disabled={!isModerator(boardId)}
         >
           <MenuIcon fontSize="small" />
         </IconButton>

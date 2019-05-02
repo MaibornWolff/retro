@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 
 import { CREATE_COLUMN } from "../../events/event-names";
-import { socket_connect, validateInput } from "../../utils";
+import { socket_connect, validateInput, isModerator } from "../../utils";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
@@ -61,7 +61,7 @@ class CreateColumnDialog extends React.Component {
 
   render() {
     const { open, columnTitle } = this.state;
-    const { fullScreen } = this.props;
+    const { fullScreen, boardId } = this.props;
     const input = validateInput(columnTitle.length, 0, 40);
 
     return (
@@ -73,6 +73,7 @@ class CreateColumnDialog extends React.Component {
           color="primary"
           onClick={this.handleOpen}
           data-testid="new-col-btn"
+          disabled={!isModerator(boardId)}
         >
           <AddIcon />
           New Column

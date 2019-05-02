@@ -15,6 +15,10 @@ export const onConnect = component => {
 
 export const onCreateBoard = component => {
   component.socket.on(CREATE_BOARD, newBoard => {
+    localStorage.setItem(
+      newBoard.boardId,
+      JSON.stringify({ role: "moderator", name: "" })
+    );
     component.setState({
       ...newBoard
     });

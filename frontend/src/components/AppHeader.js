@@ -2,6 +2,8 @@ import React from "react";
 import { AppBar, Toolbar, Typography, withStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
+import NameInput from "./NameInput";
+
 const AppHeader = props => {
   const { classes } = props;
   return (
@@ -13,6 +15,7 @@ const AppHeader = props => {
               Retro
             </Link>
           </Typography>
+          <NameInput />
         </Toolbar>
       </AppBar>
     </div>

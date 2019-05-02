@@ -45,3 +45,29 @@ export const validateInput = (inputLength, minLength, maxLength) => {
 
   return { isEmpty, isTooLong, isValid };
 };
+
+export const isModerator = boardId => {
+  const item = localStorage.getItem(boardId);
+  if (item !== null) {
+    const json = JSON.parse(item);
+    return json.role === "moderator" ? true : false;
+  }
+
+  return false;
+};
+
+export const setName = (boardId, newName) => {
+  const item = localStorage.getItem(boardId);
+  if (item !== null) {
+    const json = JSON.parse(item);
+    json.name = newName;
+  }
+};
+
+export const getName = boardId => {
+  const item = localStorage.getItem(boardId);
+  if (item !== null) {
+    const json = JSON.parse(item);
+    return json.name;
+  }
+};
