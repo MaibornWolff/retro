@@ -48,7 +48,7 @@ class ExportBoardDialog extends React.Component {
           aria-labelledby="board-export-dialog"
           aria-describedby="board-export-dialog-description"
         >
-          <DialogTitle id="board-export-dialog">Export Board</DialogTitle>
+          <DialogTitle id="board-export-dialog">Export Your Board</DialogTitle>
           <DialogContent>
             <DialogContentText id="board-export-dialog-description">
               Hope you had a great retrospective! Do you want to export your

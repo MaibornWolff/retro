@@ -1,3 +1,4 @@
+import { createModeratorRole, createParticipantRole } from "../utils";
 import {
   CONNECT,
   CREATE_BOARD,
@@ -15,10 +16,7 @@ export const onConnect = component => {
 
 export const onCreateBoard = component => {
   component.socket.on(CREATE_BOARD, newBoard => {
-    localStorage.setItem(
-      newBoard.boardId,
-      JSON.stringify({ role: "moderator", name: "" })
-    );
+    createModeratorRole(newBoard.boardId);
     component.setState({
       ...newBoard
     });
@@ -33,6 +31,11 @@ export const onUpdateBoard = component => {
 
 export const onJoinBoard = component => {
   component.socket.on(JOIN_BOARD, board => {
+    const boardId = board.boardId;
+    if (localStorage.getItem(boardId) === null) {
+      createParticipantRole(boardId);
+    }
+
     component.setState({ ...board });
   });
 };

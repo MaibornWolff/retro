@@ -71,4 +71,19 @@ export const getUsername = boardId => {
     const json = JSON.parse(item);
     return json.name;
   }
+  return "";
+};
+
+export const createModeratorRole = boardId => {
+  localStorage.setItem(
+    boardId,
+    JSON.stringify({ role: "moderator", name: "" })
+  );
+};
+
+export const createParticipantRole = boardId => {
+  localStorage.setItem(
+    boardId,
+    JSON.stringify({ role: "participant", name: "" })
+  );
 };
