@@ -51,9 +51,8 @@ class ExportBoardDialog extends React.Component {
           <DialogTitle id="board-export-dialog">Export Board</DialogTitle>
           <DialogContent>
             <DialogContentText id="board-export-dialog-description">
-              Do you want to export this board? Exporting the board means, that
-              you <strong>finished</strong> your retrospective. The board will
-              be in a <strong>readonly</strong> state after this export!
+              Hope you had a great retrospective! Do you want to export your
+              board now?
             </DialogContentText>
           </DialogContent>
           <DialogActions>

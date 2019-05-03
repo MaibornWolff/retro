@@ -1,48 +1,79 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import Snackbar from "@material-ui/core/Snackbar";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import {
+  TextField,
+  Paper,
+  Divider,
+  IconButton,
+  Snackbar,
+  withStyles,
+  Typography,
+  SnackbarContent
+} from "@material-ui/core";
 
-import { setName } from "../utils";
+import { setUsername, getUsername, validateInput } from "../utils";
+import { CARD_AUTHOR_NAME_TOO_LONG_MSG } from "../utils/errorMessages";
 
 class NameInput extends React.Component {
-  state = { openSnackbar: false, name: "" };
+  state = { openSnackbar: false, name: getUsername(this.props.boardId) };
 
-  handleSnackbarOpen = () => {
+  handleClick = () => {
     this.setState({ openSnackbar: true });
+    setUsername(this.props.boardId, this.state.name);
   };
 
-  handleSnackbarClose = () => {
+  handleClose = () => {
     this.setState({ openSnackbar: false });
   };
 
-  handleNameChange = event => {
+  handleChange = event => {
     this.setState({ name: event.target.value });
   };
+
+  handleSubmit = event => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      this.handleClick();
+    }
+  };
+
+  renderNameError(isNameLong) {
+    if (isNameLong) {
+      return (
+        <Typography variant="caption" color="error">
+          {CARD_AUTHOR_NAME_TOO_LONG_MSG}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
 
   render() {
     const { openSnackbar, name } = this.state;
     const { classes } = this.props;
+    const nameInput = validateInput(name.length, 0, 40);
 
     return (
       <>
         <Paper className={classes.root} elevation={1}>
-          <InputBase
+          <TextField
             className={classes.input}
             placeholder="Your Name"
             value={name}
-            onChange={this.handleNameChange}
+            error={nameInput.isTooLong}
+            helperText={this.renderNameError(nameInput.isTooLong)}
+            onChange={this.handleChange}
+            onKeyPress={this.handleSubmit}
           />
           <Divider className={classes.divider} />
           <IconButton
             color="primary"
             className={classes.iconButton}
             aria-label="User Name"
-            onClick={this.handleSnackbarOpen}
+            onClick={this.handleClick}
+            disabled={nameInput.isEmpty}
           >
             <PersonAddIcon />
           </IconButton>
@@ -50,19 +81,26 @@ class NameInput extends React.Component {
         <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           open={openSnackbar}
-          onClose={this.handleSnackbarClose}
-          autoHideDuration={3000}
-          ContentProps={{
-            "aria-describedby": "message-id"
-          }}
-          message={<span id="message-id">Name saved!</span>}
-        />
+          onClose={this.handleClose}
+          autoHideDuration={5000}
+        >
+          <SnackbarContent
+            className={classes.successColor}
+            aria-describedby="name-snackbar"
+            message={
+              <span id="name-snackbar" className={classes.message}>
+                <CheckCircleIcon className={classes.successIcon} />
+                Name: &quot;{name}&quot; saved successfully!
+              </span>
+            }
+          />
+        </Snackbar>
       </>
     );
   }
 }
 
-const styles = {
+const styles = theme => ({
   root: {
     padding: "2px 4px",
     display: "flex",
@@ -80,7 +118,19 @@ const styles = {
     width: 1,
     height: 28,
     margin: 4
+  },
+  message: {
+    display: "flex",
+    alignItems: "center"
+  },
+  successColor: {
+    backgroundColor: "green"
+  },
+  successIcon: {
+    fontSize: 20,
+    opacity: 0.9,
+    marginRight: theme.spacing.unit
   }
-};
+});
 
 export default withStyles(styles)(NameInput);

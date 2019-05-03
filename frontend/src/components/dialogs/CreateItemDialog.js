@@ -14,7 +14,12 @@ import {
 } from "@material-ui/core";
 
 import { CREATE_CARD } from "../../events/event-names";
-import { socket_connect, validateInput, isInputEmpty } from "../../utils";
+import {
+  socket_connect,
+  validateInput,
+  isInputEmpty,
+  getUsername
+} from "../../utils";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
@@ -28,7 +33,9 @@ class CreateItemDialog extends React.Component {
     content: ""
   };
 
-  handleOpen = () => this.setState({ open: true });
+  handleOpen = () => {
+    this.setState({ open: true, author: getUsername(this.props.boardId) });
+  };
 
   handleClose = () => this.setState({ open: false });
 
@@ -105,7 +112,6 @@ class CreateItemDialog extends React.Component {
             <TextField
               required
               error={!authorInput.isValid}
-              autoFocus
               margin="dense"
               id="author-name"
               label="Author"
@@ -121,6 +127,7 @@ class CreateItemDialog extends React.Component {
             />
             <TextField
               required
+              autoFocus
               error={isContentEmpty}
               margin="dense"
               multiline

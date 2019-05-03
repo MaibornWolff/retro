@@ -56,15 +56,16 @@ export const isModerator = boardId => {
   return false;
 };
 
-export const setName = (boardId, newName) => {
+export const setUsername = (boardId, newName) => {
   const item = localStorage.getItem(boardId);
   if (item !== null) {
     const json = JSON.parse(item);
     json.name = newName;
+    localStorage.setItem(boardId, JSON.stringify(json));
   }
 };
 
-export const getName = boardId => {
+export const getUsername = boardId => {
   const item = localStorage.getItem(boardId);
   if (item !== null) {
     const json = JSON.parse(item);
