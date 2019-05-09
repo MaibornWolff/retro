@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent, waitForElement } from "react-testing-library";
 
 import ExportBoardDialog from "../../components/dialogs/ExportBoardDialog";
-import { setModeratorRole, removeModeratorRole } from "../../test-utils";
+import { setModeratorRole, removeModeratorRole } from "../../utils/testUtils";
 
 const BOARD_ID = "some-board-id";
 
