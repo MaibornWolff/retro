@@ -18,6 +18,7 @@ import {
   onJoinError
 } from "../events/event-listener";
 
+// TODO: rewrite using Hooks in order to consume context set from VoteCountDialog
 class Board extends React.Component {
   state = { ...emptyBoard, error: false };
 
