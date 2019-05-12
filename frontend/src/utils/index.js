@@ -3,15 +3,18 @@ import io from "socket.io-client";
 export const BACKEND_ENDPOINT =
   process.env.REACT_APP_PROD_URL || "http://localhost:8081";
 
-export const socket_connect = id =>
+export const connectSocket = id =>
   io(BACKEND_ENDPOINT, { query: "boardId=" + id });
 
-export const emptyBoard = {
+export const defaultBoard = {
   boardId: "",
   title: "",
   items: {},
   columns: {},
-  columnOrder: []
+  columnOrder: [],
+  error: false,
+  maxVoteCount: 3,
+  isBlurred: true
 };
 
 export const fetchGET = async url => {

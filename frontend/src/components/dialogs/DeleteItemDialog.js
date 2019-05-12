@@ -11,7 +11,7 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
+import { connectSocket } from "../../utils";
 import { DELETE_CARD } from "../../events/event-names";
 
 class DeleteItemDialog extends React.Component {
@@ -25,7 +25,7 @@ class DeleteItemDialog extends React.Component {
 
   handleClick = () => {
     const { id, boardId } = this.props;
-    const socket = socket_connect(boardId);
+    const socket = connectSocket(boardId);
 
     socket.emit(DELETE_CARD, id, boardId);
     this.setState({ isDelete: false });

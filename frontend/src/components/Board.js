@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import pull from "lodash/pull";
 import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
@@ -6,43 +6,73 @@ import { Redirect } from "react-router-dom";
 
 import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
-import { socket_connect } from "../utils";
 import { FlexContainer } from "./styled";
-import { UPDATE_BOARD } from "../events/event-names";
-import { emptyBoard } from "../utils/";
 import {
-  onConnect,
-  onCreateBoard,
-  onUpdateBoard,
-  onJoinBoard,
-  onJoinError
-} from "../events/event-listener";
+  CONNECT,
+  CREATE_BOARD,
+  UPDATE_BOARD,
+  JOIN_BOARD,
+  JOIN_ERROR
+} from "../events/event-names";
+import {
+  connectSocket,
+  createModeratorRole,
+  createParticipantRole,
+  defaultBoard
+} from "../utils";
 
-// TODO: rewrite using Hooks in order to consume context set from VoteCountDialog
-class Board extends React.Component {
-  state = { ...emptyBoard, error: false };
-
-  socket = socket_connect(this.props.match.params.boardId);
-
-  componentDidMount() {
-    onConnect(this);
-    onCreateBoard(this);
-    onUpdateBoard(this);
-    onJoinBoard(this);
-    onJoinError(this);
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  header: {
+    padding: theme.spacing.unit * 2
   }
+});
 
-  componentWillUnmount() {
-    this.socket.disconnect();
-    this.setState({ ...emptyBoard, error: false });
-  }
+function Board(props) {
+  const boardId = props.match.params.boardId;
+  const socket = connectSocket(boardId);
+  const [board, setBoard] = useState(defaultBoard);
+  const { classes } = props;
 
-  onDragEnd = dragResult => {
+  useEffect(() => {
+    socket.on(CONNECT, () => {
+      socket.emit(JOIN_BOARD, boardId);
+    });
+
+    socket.on(CREATE_BOARD, newBoard => {
+      createModeratorRole(newBoard.boardId);
+      setBoard(newBoard);
+    });
+
+    socket.on(UPDATE_BOARD, newBoard => {
+      setBoard(newBoard);
+    });
+
+    socket.on(JOIN_BOARD, board => {
+      const boardId = board.boardId;
+      if (localStorage.getItem(boardId) === null) {
+        createParticipantRole(boardId);
+      }
+      setBoard(board);
+    });
+
+    socket.on(JOIN_ERROR, () => {
+      setBoard({ ...board, error: true });
+    });
+
+    return () => {
+      socket.close();
+    };
+  }, [board, boardId, socket]);
+
+  function onDragEnd(dragResult) {
     const { source, destination, type, combine } = dragResult;
-    const { columns, columnOrder, items } = this.state;
+    const { columns, columnOrder, items } = board;
 
     if (combine) {
-      this.handleCombine(items, columns, dragResult);
+      handleCombine(items, columns, dragResult);
       return;
     }
 
@@ -50,24 +80,24 @@ class Board extends React.Component {
       return;
     }
 
-    if (this.isSamePosition(source, destination)) {
+    if (isSamePosition(source, destination)) {
       return;
     }
 
     if (type === "column") {
-      this.handleColumnDrag(dragResult, columnOrder);
+      handleColumnDrag(dragResult, columnOrder);
       return;
     }
 
-    if (this.isSameColumn(columns, source, destination)) {
-      this.handleInsideColumnDrag(dragResult, columns);
+    if (isSameColumn(columns, source, destination)) {
+      handleInsideColumnDrag(dragResult, columns);
       return;
     }
 
-    this.handleNormalDrag(dragResult, columns);
-  };
+    handleNormalDrag(dragResult, columns);
+  }
 
-  handleCombine(items, columns, dragResult) {
+  function handleCombine(items, columns, dragResult) {
     const { combine, draggableId, source } = dragResult;
 
     // get all related objects of the context of combine
@@ -95,35 +125,35 @@ class Board extends React.Component {
       itemIds: newItemIds
     };
 
-    const newState = {
-      ...this.state,
+    const newBoard = {
+      ...board,
       columns: {
         ...columns,
         [newColumn.id]: newColumn
       }
     };
 
-    this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
+    setBoard(newBoard);
+    socket.emit(UPDATE_BOARD, newBoard, boardId);
   }
 
-  handleColumnDrag(dragResult, columnOrder) {
+  function handleColumnDrag(dragResult, columnOrder) {
     const { source, destination, draggableId } = dragResult;
     const newColumnOrder = Array.from(columnOrder);
 
     newColumnOrder.splice(source.index, 1);
     newColumnOrder.splice(destination.index, 0, draggableId);
 
-    const newState = {
-      ...this.state,
+    const newBoard = {
+      ...board,
       columnOrder: newColumnOrder
     };
 
-    this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
+    setBoard(newBoard);
+    socket.emit(UPDATE_BOARD, newBoard, boardId);
   }
 
-  handleInsideColumnDrag(dragResult, columns) {
+  function handleInsideColumnDrag(dragResult, columns) {
     const { source, destination, draggableId } = dragResult;
 
     const startColumn = columns[source.droppableId];
@@ -133,19 +163,19 @@ class Board extends React.Component {
     newItemIds.splice(destination.index, 0, draggableId);
 
     const newCol = { ...startColumn, itemIds: newItemIds };
-    const newState = {
-      ...this.state,
+    const newBoard = {
+      ...board,
       columns: {
         ...columns,
         [newCol.id]: newCol
       }
     };
 
-    this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
+    setBoard(newBoard);
+    socket.emit(UPDATE_BOARD, newBoard, boardId);
   }
 
-  handleNormalDrag(dragResult, columns) {
+  function handleNormalDrag(dragResult, columns) {
     const { source, destination, draggableId } = dragResult;
 
     const startColumn = columns[source.droppableId];
@@ -167,8 +197,8 @@ class Board extends React.Component {
       itemIds: destinationItems
     };
 
-    const newState = {
-      ...this.state,
+    const newBoard = {
+      ...board,
       columns: {
         ...columns,
         [newStartColumn.id]: newStartColumn,
@@ -176,23 +206,23 @@ class Board extends React.Component {
       }
     };
 
-    this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
+    setBoard(newBoard);
+    socket.emit(UPDATE_BOARD, newBoard, boardId);
   }
 
-  isSamePosition(source, destination) {
+  function isSamePosition(source, destination) {
     return (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     );
   }
 
-  isSameColumn(columns, source, destination) {
+  function isSameColumn(columns, source, destination) {
     return columns[source.droppableId] === columns[destination.droppableId];
   }
 
-  renderBoard(columns, items, boardId) {
-    return this.state.columnOrder.map((columnId, index) => {
+  function renderBoard(columns, items, boardId) {
+    return board.columnOrder.map((columnId, index) => {
       const column = columns[columnId];
       return (
         <Columns
@@ -206,53 +236,38 @@ class Board extends React.Component {
     });
   }
 
-  render() {
-    const { columns, items, title, error } = this.state;
-    const { classes } = this.props;
-    const { boardId } = this.props.match.params;
+  if (board.error) {
+    return <Redirect to={"/error"} />;
+  }
 
-    if (error) {
-      return <Redirect to={"/error"} />;
-    }
-
-    return (
-      <Grid container className={classes.root} direction="column">
-        <Grid item xs={12}>
-          <Grid container className={classes.header} direction="row">
-            <BoardHeader title={title} boardId={boardId} />
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable
-              droppableId="allColumns"
-              direction="horizontal"
-              type="column"
-            >
-              {provided => (
-                <FlexContainer
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {this.renderBoard(columns, items, boardId)}
-                  {provided.placeholder}
-                </FlexContainer>
-              )}
-            </Droppable>
-          </DragDropContext>
+  return (
+    <Grid container className={classes.root} direction="column">
+      <Grid item xs={12}>
+        <Grid container className={classes.header} direction="row">
+          <BoardHeader title={board.title} boardId={boardId} />
         </Grid>
       </Grid>
-    );
-  }
+      <Grid item xs={12}>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable
+            droppableId="allColumns"
+            direction="horizontal"
+            type="column"
+          >
+            {provided => (
+              <FlexContainer
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {renderBoard(board.columns, board.items, boardId)}
+                {provided.placeholder}
+              </FlexContainer>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </Grid>
+    </Grid>
+  );
 }
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
-  header: {
-    padding: theme.spacing.unit * 2
-  }
-});
 
 export default withStyles(styles)(Board);

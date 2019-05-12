@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 
 import { EDIT_COLUMN } from "../../events/event-names";
-import { socket_connect, validateInput } from "../../utils";
+import { connectSocket, validateInput } from "../../utils";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
@@ -31,7 +31,7 @@ class EditColumnNameDialog extends React.Component {
   handleClick = () => {
     const { title } = this.state;
     const { columnId, boardId } = this.props;
-    const socket = socket_connect(boardId);
+    const socket = connectSocket(boardId);
 
     socket.emit(EDIT_COLUMN, columnId, boardId, title);
     this.setState({ open: false, title: "" });

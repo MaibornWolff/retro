@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 
 import { EDIT_CARD } from "../../events/event-names";
-import { socket_connect, validateInput, isInputEmpty } from "../../utils";
+import { connectSocket, validateInput, isInputEmpty } from "../../utils";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
@@ -38,7 +38,7 @@ class EditItemDialog extends React.Component {
   handleClick = () => {
     const { author, content } = this.state;
     const { id, boardId } = this.props;
-    const socket = socket_connect(boardId);
+    const socket = connectSocket(boardId);
     socket.emit(EDIT_CARD, author, content, id, boardId);
 
     this.setState({ open: false });

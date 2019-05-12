@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 
 import { CREATE_COLUMN } from "../../events/event-names";
-import { socket_connect, validateInput, isModerator } from "../../utils";
+import { connectSocket, validateInput, isModerator } from "../../utils";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
@@ -40,7 +40,7 @@ class CreateColumnDialog extends React.Component {
     const { columnTitle } = this.state;
 
     const { boardId } = this.props;
-    const socket = socket_connect(boardId);
+    const socket = connectSocket(boardId);
     const column = { id, columnTitle, itemIds: [] };
 
     socket.emit(CREATE_COLUMN, column, boardId);

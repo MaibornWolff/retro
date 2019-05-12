@@ -17,9 +17,9 @@ import {
   withStyles
 } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
+import { connectSocket } from "../../utils";
 import { CREATE_BOARD } from "../../events/event-names";
-import { emptyBoard, validateInput } from "../../utils";
+import { defaultBoard, validateInput } from "../../utils";
 import {
   BOARD_NAME_EMPTY_MSG,
   BOARD_NAME_TOO_LONG_MSG
@@ -42,9 +42,8 @@ class CreateBoardDialog extends React.Component {
     e.preventDefault();
     const { title } = this.state;
     const boardId = nanoid();
-    const socket = socket_connect(boardId);
-    const isBlurred = true;
-    const newBoard = { ...emptyBoard, boardId, title, isBlurred };
+    const socket = connectSocket(boardId);
+    const newBoard = { ...defaultBoard, boardId, title };
 
     socket.emit(CREATE_BOARD, newBoard, boardId);
     this.setState({ title: "", open: false, boardId });
