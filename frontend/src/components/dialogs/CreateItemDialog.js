@@ -15,7 +15,7 @@ import {
 
 import { CREATE_CARD } from "../../events/event-names";
 import {
-  socket_connect,
+  connectSocket,
   validateInput,
   isInputEmpty,
   getUsername
@@ -48,7 +48,7 @@ class CreateItemDialog extends React.Component {
 
     const { author, content } = this.state;
     const { columnId, boardId } = this.props;
-    const socket = socket_connect(boardId);
+    const socket = connectSocket(boardId);
     const id = nanoid();
     const newCard = {
       id,

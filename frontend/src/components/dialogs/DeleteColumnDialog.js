@@ -13,7 +13,7 @@ import {
   ListItemText
 } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
+import { connectSocket } from "../../utils";
 import { DELETE_COLUMN } from "../../events/event-names";
 
 class DeleteColumnDialog extends React.Component {
@@ -27,7 +27,7 @@ class DeleteColumnDialog extends React.Component {
 
   handleDeleteClick = () => {
     const { columnId, boardId } = this.props;
-    const socket = socket_connect(boardId);
+    const socket = connectSocket(boardId);
 
     socket.emit(DELETE_COLUMN, columnId, boardId);
     this.setState({ open: false });

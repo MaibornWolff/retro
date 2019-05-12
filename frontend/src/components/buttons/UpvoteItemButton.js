@@ -2,7 +2,7 @@ import React from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import { IconButton } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
+import { connectSocket } from "../../utils";
 import { UPVOTE_CARD } from "../../events/event-names";
 
 const handleUpvote = (id, boardId, points) => {
@@ -10,7 +10,7 @@ const handleUpvote = (id, boardId, points) => {
     alert("You reached the maximum vote count!");
   }
 
-  const socket = socket_connect(boardId);
+  const socket = connectSocket(boardId);
   socket.emit(UPVOTE_CARD, id, boardId, 1);
 };
 
