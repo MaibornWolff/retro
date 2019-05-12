@@ -30,7 +30,9 @@ class CreateItemDialog extends React.Component {
   };
 
   handleOpen = () => {
-    this.setState({ open: true, author: getUser(this.props.boardId)["name"] });
+    const user = getUser(this.props.boardId);
+    const author = user === null ? "" : user["name"];
+    this.setState({ open: true, author });
   };
 
   handleClose = () => this.setState({ open: false });

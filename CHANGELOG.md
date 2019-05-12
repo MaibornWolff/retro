@@ -6,7 +6,17 @@
 
 - Validation for all text fields
 - Error messages for all text fields that are invalid
-- ESLint for `backend` 
+- ESLint for `backend`
+- Roles
+  - Users are now divided into two roles: 1 **moderator** and N **participants**
+  - Moderator
+    - the moderator is the one, who's controlling the retrospective and has access to features that participants don't have
+  - Participants
+    - participants are the ones, who are joining the retrospective and just have the ability to create or move cards
+- Author name autofill
+  - You can now provide your name which will be saved and autofilled on each card creation
+- Vote system
+  - Maximum vote count
 
 ### Changed
 
