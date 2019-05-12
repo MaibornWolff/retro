@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
-import { CREATE_BOARD } from "../../events/event-names";
+import { CREATE_BOARD } from "../../utils/eventNames";
 import { defaultBoard, validateInput } from "../../utils";
 import {
   BOARD_NAME_EMPTY_MSG,

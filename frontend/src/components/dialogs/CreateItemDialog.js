@@ -13,7 +13,7 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { CREATE_CARD } from "../../events/event-names";
+import { CREATE_CARD } from "../../utils/eventNames";
 import {
   connectSocket,
   validateInput,

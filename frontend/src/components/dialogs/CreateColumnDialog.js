@@ -12,7 +12,7 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { CREATE_COLUMN } from "../../events/event-names";
+import { CREATE_COLUMN } from "../../utils/eventNames";
 import { connectSocket, validateInput, isModerator } from "../../utils";
 import {
   COLUMN_NAME_EMPTY_MSG,

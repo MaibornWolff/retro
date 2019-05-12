@@ -3,7 +3,7 @@ import SortIcon from "@material-ui/icons/Sort";
 import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
-import { SORT_COLUMN } from "../../events/event-names";
+import { SORT_COLUMN } from "../../utils/eventNames";
 
 const onSort = (columnId, items, boardId) => {
   const socket = connectSocket(boardId);

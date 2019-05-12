@@ -14,7 +14,7 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { EDIT_COLUMN } from "../../events/event-names";
+import { EDIT_COLUMN } from "../../utils/eventNames";
 import { connectSocket, validateInput } from "../../utils";
 import {
   COLUMN_NAME_EMPTY_MSG,

@@ -3,7 +3,7 @@ import UnblurIcon from "@material-ui/icons/BlurOff";
 import { Grid, Button } from "@material-ui/core";
 
 import { connectSocket, isModerator } from "../../utils";
-import { UNBLUR_CARDS } from "../../events/event-names";
+import { UNBLUR_CARDS } from "../../utils/eventNames";
 
 const unblur = boardId => {
   const socket = connectSocket(boardId);

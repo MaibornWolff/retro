@@ -12,7 +12,7 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { EDIT_CARD } from "../../events/event-names";
+import { EDIT_CARD } from "../../utils/eventNames";
 import { connectSocket, validateInput, isInputEmpty } from "../../utils";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,

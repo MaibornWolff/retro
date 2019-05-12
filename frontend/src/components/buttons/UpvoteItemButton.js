@@ -3,7 +3,7 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import { IconButton } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
-import { UPVOTE_CARD } from "../../events/event-names";
+import { UPVOTE_CARD } from "../../utils/eventNames";
 
 const handleUpvote = (id, boardId, points) => {
   if (points >= 30) {

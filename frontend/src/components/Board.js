@@ -13,7 +13,7 @@ import {
   UPDATE_BOARD,
   JOIN_BOARD,
   JOIN_ERROR
-} from "../events/event-names";
+} from "../utils/eventNames";
 import {
   connectSocket,
   createModeratorRole,

@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
-import { DELETE_CARD } from "../../events/event-names";
+import { DELETE_CARD } from "../../utils/eventNames";
 
 class DeleteItemDialog extends React.Component {
   state = {

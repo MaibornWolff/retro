@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
-import { DELETE_COLUMN } from "../../events/event-names";
+import { DELETE_COLUMN } from "../../utils/eventNames";
 
 class DeleteColumnDialog extends React.Component {
   state = {
