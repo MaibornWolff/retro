@@ -9,20 +9,38 @@ export const isModerator = boardId => {
 };
 
 export const setUsername = (boardId, newName) => {
-  const item = localStorage.getItem(boardId);
-  if (item !== null) {
-    const json = JSON.parse(item);
-    json.name = newName;
-    localStorage.setItem(boardId, JSON.stringify(json));
+  if (isModerator(boardId)) {
+    const item = localStorage.getItem(boardId);
+    if (item !== null) {
+      const json = JSON.parse(item);
+      json.name = newName;
+      localStorage.setItem(boardId, JSON.stringify(json));
+    }
+  } else {
+    const item = sessionStorage.getItem(boardId);
+    if (item !== null) {
+      const json = JSON.parse(item);
+      json.name = newName;
+      sessionStorage.setItem(boardId, JSON.stringify(json));
+    }
   }
 };
 
 export const getUsername = boardId => {
-  const item = localStorage.getItem(boardId);
-  if (item !== null) {
-    const json = JSON.parse(item);
-    return json.name;
+  if (isModerator(boardId)) {
+    const item = localStorage.getItem(boardId);
+    if (item !== null) {
+      const json = JSON.parse(item);
+      return json.name;
+    }
+  } else {
+    const item = sessionStorage.getItem(boardId);
+    if (item !== null) {
+      const json = JSON.parse(item);
+      return json.name;
+    }
   }
+
   return "";
 };
 
