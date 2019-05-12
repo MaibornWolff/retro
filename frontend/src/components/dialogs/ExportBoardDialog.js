@@ -10,7 +10,7 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { isModerator } from "../../utils";
+import { isModerator } from "../../utils/roleHandlers";
 
 const endpoint = "/api/boards/export/";
 const port = process.env.REACT_APP_PROD_PORT || "8081";

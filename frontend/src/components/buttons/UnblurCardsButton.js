@@ -2,8 +2,9 @@ import React from "react";
 import UnblurIcon from "@material-ui/icons/BlurOff";
 import { Grid, Button } from "@material-ui/core";
 
-import { connectSocket, isModerator } from "../../utils";
+import { connectSocket } from "../../utils";
 import { UNBLUR_CARDS } from "../../utils/eventNames";
+import { isModerator } from "../../utils/roleHandlers";
 
 const unblur = boardId => {
   const socket = connectSocket(boardId);

@@ -14,7 +14,7 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { isModerator } from "../../utils";
+import { isModerator } from "../../utils/roleHandlers";
 import { AppContext } from "../AppContext";
 
 function VoteCountDialog(props) {

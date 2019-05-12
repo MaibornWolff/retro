@@ -12,7 +12,8 @@ import {
   SnackbarContent
 } from "@material-ui/core";
 
-import { setUsername, getUsername, validateInput } from "../utils";
+import { validateInput } from "../utils";
+import { setUsername, getUsername } from "../utils/roleHandlers";
 import { CARD_AUTHOR_NAME_TOO_LONG_MSG } from "../utils/errorMessages";
 
 class NameInput extends React.Component {

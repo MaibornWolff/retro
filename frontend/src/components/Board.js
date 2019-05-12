@@ -14,12 +14,11 @@ import {
   JOIN_BOARD,
   JOIN_ERROR
 } from "../utils/eventNames";
+import { connectSocket, defaultBoard } from "../utils";
 import {
-  connectSocket,
   createModeratorRole,
-  createParticipantRole,
-  defaultBoard
-} from "../utils";
+  createParticipantRole
+} from "../utils/roleHandlers";
 
 const styles = theme => ({
   root: {

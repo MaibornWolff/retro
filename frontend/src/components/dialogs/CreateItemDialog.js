@@ -13,13 +13,9 @@ import {
   Typography
 } from "@material-ui/core";
 
+import { connectSocket, validateInput, isInputEmpty } from "../../utils";
 import { CREATE_CARD } from "../../utils/eventNames";
-import {
-  connectSocket,
-  validateInput,
-  isInputEmpty,
-  getUsername
-} from "../../utils";
+import { getUsername } from "../../utils/roleHandlers";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,

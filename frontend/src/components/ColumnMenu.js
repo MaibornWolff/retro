@@ -5,7 +5,7 @@ import MenuIcon from "@material-ui/icons/MoreVert";
 import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
 import EditColumnNameDialog from "./dialogs/EditColumnNameDialog";
 import SortColumnButton from "./buttons/SortColumnButton";
-import { isModerator } from "../utils";
+import { isModerator } from "../utils/roleHandlers";
 
 class ColumnMenu extends React.Component {
   state = {

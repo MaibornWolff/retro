@@ -13,7 +13,8 @@ import {
 } from "@material-ui/core";
 
 import { CREATE_COLUMN } from "../../utils/eventNames";
-import { connectSocket, validateInput, isModerator } from "../../utils";
+import { connectSocket, validateInput } from "../../utils";
+import { isModerator } from "../../utils/roleHandlers";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
