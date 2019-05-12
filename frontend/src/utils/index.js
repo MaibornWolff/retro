@@ -13,7 +13,6 @@ export const defaultBoard = {
   columns: {},
   columnOrder: [],
   error: false,
-  maxVoteCount: 3,
   isBlurred: true
 };
 

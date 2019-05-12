@@ -14,7 +14,7 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { isModerator } from "../../utils/roleHandlers";
+import { isModerator, setUser } from "../../utils/roleHandlers";
 import { AppContext } from "../AppContext";
 
 function VoteCountDialog(props) {
@@ -28,6 +28,11 @@ function VoteCountDialog(props) {
 
   function handleClose() {
     setOpen(false);
+  }
+
+  function handleSave() {
+    setUser("maxVoteCount", state.maxVoteCount, boardId);
+    handleClose();
   }
 
   function incrementVotes() {
@@ -86,7 +91,7 @@ function VoteCountDialog(props) {
           <Button color="primary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button color="primary" onClick={() => {}}>
+          <Button color="primary" onClick={handleSave}>
             Save
           </Button>
         </DialogActions>

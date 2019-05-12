@@ -13,15 +13,15 @@ import {
 } from "@material-ui/core";
 
 import { validateInput } from "../utils";
-import { setUsername, getUsername } from "../utils/roleHandlers";
+import { setUser, getUser } from "../utils/roleHandlers";
 import { CARD_AUTHOR_NAME_TOO_LONG_MSG } from "../utils/errorMessages";
 
 class NameInput extends React.Component {
-  state = { openSnackbar: false, name: getUsername(this.props.boardId) };
+  state = { openSnackbar: false, name: getUser(this.props.boardId)["name"] };
 
   handleClick = () => {
     this.setState({ openSnackbar: true });
-    setUsername(this.props.boardId, this.state.name);
+    setUser("name", this.state.name, this.props.boardId);
   };
 
   handleClose = () => {

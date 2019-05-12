@@ -15,7 +15,7 @@ import {
 
 import { connectSocket, validateInput, isInputEmpty } from "../../utils";
 import { CREATE_CARD } from "../../utils/eventNames";
-import { getUsername } from "../../utils/roleHandlers";
+import { getUser } from "../../utils/roleHandlers";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
@@ -30,7 +30,7 @@ class CreateItemDialog extends React.Component {
   };
 
   handleOpen = () => {
-    this.setState({ open: true, author: getUsername(this.props.boardId) });
+    this.setState({ open: true, author: getUser(this.props.boardId)["name"] });
   };
 
   handleClose = () => this.setState({ open: false });

@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
 import { FlexContainer } from "./styled";
+import { connectSocket, defaultBoard } from "../utils";
 import {
   CONNECT,
   CREATE_BOARD,
@@ -14,7 +15,6 @@ import {
   JOIN_BOARD,
   JOIN_ERROR
 } from "../utils/eventNames";
-import { connectSocket, defaultBoard } from "../utils";
 import {
   createModeratorRole,
   createParticipantRole
