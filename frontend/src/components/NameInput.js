@@ -17,7 +17,13 @@ import { setUser, getUser } from "../utils/roleHandlers";
 import { CARD_AUTHOR_NAME_TOO_LONG_MSG } from "../utils/errorMessages";
 
 class NameInput extends React.Component {
-  state = { openSnackbar: false, name: getUser(this.props.boardId)["name"] };
+  state = { openSnackbar: false, name: this.getName() };
+
+  getName() {
+    const user = getUser(this.props.boardId);
+    const name = user === null ? "" : user["name"];
+    return name;
+  }
 
   handleClick = () => {
     this.setState({ openSnackbar: true });
