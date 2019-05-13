@@ -2,7 +2,8 @@ const {
   createBoard,
   updateBoard,
   joinBoard,
-  unblurCards
+  unblurCards,
+  setMaxVotes
 } = require("./board-events");
 const {
   createColumn,
@@ -22,6 +23,7 @@ const boardEvents = (io, client, roomId) => {
   updateBoard(io, client, roomId);
   joinBoard(io, client);
   unblurCards(io, client, roomId);
+  setMaxVotes(io, client, roomId);
 };
 
 const columnEvents = (io, client, roomId) => {

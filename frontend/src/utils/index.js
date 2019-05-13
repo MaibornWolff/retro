@@ -13,7 +13,8 @@ export const defaultBoard = {
   columns: {},
   columnOrder: [],
   error: false,
-  isBlurred: true
+  isBlurred: true,
+  maxVoteCount: 3
 };
 
 export const fetchGET = async url => {

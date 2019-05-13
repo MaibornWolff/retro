@@ -243,7 +243,11 @@ function Board(props) {
     <Grid container className={classes.root} direction="column">
       <Grid item xs={12}>
         <Grid container className={classes.header} direction="row">
-          <BoardHeader title={board.title} boardId={boardId} />
+          <BoardHeader
+            title={board.title}
+            boardId={boardId}
+            maxVoteCount={board.maxVoteCount}
+          />
         </Grid>
       </Grid>
       <Grid item xs={12}>

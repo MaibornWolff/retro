@@ -6,7 +6,6 @@ import Retro from "./Retro";
 import Home from "./Home";
 import Board from "./Board";
 import NotFound from "./NotFound";
-import { AppContextProvider } from "./AppContext";
 
 const theme = createMuiTheme({
   typography: {
@@ -30,17 +29,15 @@ const theme = createMuiTheme({
 
 const App = () => (
   <MuiThemeProvider theme={theme}>
-    <AppContextProvider>
-      <Router>
-        <Retro>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/boards/:boardId" exact component={Board} />
-            <Route component={NotFound} />
-          </Switch>
-        </Retro>
-      </Router>
-    </AppContextProvider>
+    <Router>
+      <Retro>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/boards/:boardId" exact component={Board} />
+          <Route component={NotFound} />
+        </Switch>
+      </Retro>
+    </Router>
   </MuiThemeProvider>
 );
 

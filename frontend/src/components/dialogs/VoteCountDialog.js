@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ArrowUpIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownIcon from "@material-ui/icons/ArrowDownward";
@@ -11,16 +11,19 @@ import {
   IconButton,
   withMobileDialog,
   Grid,
-  Typography
+  Typography,
+  Snackbar
 } from "@material-ui/core";
 
+import { connectSocket } from "../../utils";
+import { SET_MAX_VOTES } from "../../utils/eventNames";
 import { isModerator, setUser } from "../../utils/roleHandlers";
-import { AppContext } from "../AppContext";
 
 function VoteCountDialog(props) {
-  const { fullScreen, boardId } = props;
+  const { fullScreen, boardId, maxVoteCount } = props;
   const [open, setOpen] = useState(false);
-  const { state, dispatch } = useContext(AppContext);
+  const [openSB, setOpenSB] = useState(false);
+  const [voteCount, setVoteCount] = useState(maxVoteCount);
 
   function handleOpen() {
     setOpen(true);
@@ -30,17 +33,28 @@ function VoteCountDialog(props) {
     setOpen(false);
   }
 
+  function handleSnackbarOpen() {
+    setOpenSB(true);
+  }
+
+  function handleSnackbarClose() {
+    setOpenSB(false);
+  }
+
   function handleSave() {
-    setUser("maxVoteCount", state.maxVoteCount, boardId);
+    const socket = connectSocket(boardId);
+    socket.emit(SET_MAX_VOTES, voteCount, boardId);
+    setUser("maxVoteCount", voteCount, boardId);
     handleClose();
+    handleSnackbarOpen();
   }
 
-  function incrementVotes() {
-    dispatch({ type: "increment" });
+  function incrVoteCount() {
+    setVoteCount(voteCount + 1);
   }
 
-  function decrementVotes() {
-    dispatch({ type: "decrement" });
+  function decrVoteCount() {
+    setVoteCount(voteCount - 1);
   }
 
   return (
@@ -68,19 +82,19 @@ function VoteCountDialog(props) {
           <Grid container direction="column" alignItems="center">
             <Grid item>
               <Typography variant="body1">
-                {"Maximum Vote Count is: " + state.maxVoteCount}
+                {"Maximum Vote Count is: " + voteCount}
               </Typography>
             </Grid>
             <Grid item>
               <IconButton
                 aria-label="Increase Vote Count"
-                onClick={incrementVotes}
+                onClick={incrVoteCount}
               >
                 <ArrowUpIcon fontSize="small" />
               </IconButton>
               <IconButton
                 aria-label="Decrease Vote Count"
-                onClick={decrementVotes}
+                onClick={decrVoteCount}
               >
                 <ArrowDownIcon fontSize="small" />
               </IconButton>
@@ -96,6 +110,18 @@ function VoteCountDialog(props) {
           </Button>
         </DialogActions>
       </Dialog>
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        open={openSB}
+        onClose={handleSnackbarClose}
+        autoHideDuration={3000}
+        ContentProps={{
+          "aria-describedby": "vote-count-snackbar"
+        }}
+        message={
+          <span id="vote-count-snackbar">You have {voteCount} votes left.</span>
+        }
+      />
     </>
   );
 }
