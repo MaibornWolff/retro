@@ -36,6 +36,8 @@ function Board(props) {
   const [board, setBoard] = useState(defaultBoard);
   const { classes } = props;
 
+  console.log(board);
+
   useEffect(() => {
     socket.on(CONNECT, () => {
       if (isEqual(board, defaultBoard)) socket.emit(JOIN_BOARD, boardId);

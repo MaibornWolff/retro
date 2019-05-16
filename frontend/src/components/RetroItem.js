@@ -62,7 +62,7 @@ class RetroItem extends React.PureComponent {
                 content={content}
                 boardId={boardId}
               />
-              <UpvoteItemButton id={id} boardId={boardId} points={points} />
+              <UpvoteItemButton id={id} boardId={boardId} />
             </CardActions>
           </Card>
         </CardContainer>
