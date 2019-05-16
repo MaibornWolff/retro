@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import pull from "lodash/pull";
+import isEqual from "lodash/isEqual";
 import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Redirect } from "react-router-dom";
@@ -37,7 +38,7 @@ function Board(props) {
 
   useEffect(() => {
     socket.on(CONNECT, () => {
-      socket.emit(JOIN_BOARD, boardId);
+      if (isEqual(board, defaultBoard)) socket.emit(JOIN_BOARD, boardId);
     });
 
     socket.on(CREATE_BOARD, newBoard => {
@@ -49,12 +50,15 @@ function Board(props) {
       setBoard(newBoard);
     });
 
-    socket.on(JOIN_BOARD, board => {
-      const boardId = board.boardId;
-      if (localStorage.getItem(boardId) === null) {
+    socket.on(JOIN_BOARD, boardData => {
+      const boardId = boardData.boardId;
+      const lsItem = localStorage.getItem(boardId);
+
+      if (lsItem === null) {
         createParticipantRole(boardId);
       }
-      setBoard(board);
+
+      setBoard(boardData);
     });
 
     socket.on(JOIN_ERROR, () => {
