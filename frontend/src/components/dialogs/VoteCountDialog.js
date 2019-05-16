@@ -11,35 +11,35 @@ import {
   IconButton,
   withMobileDialog,
   Grid,
-  Typography,
-  Snackbar
+  Typography
 } from "@material-ui/core";
 
+import VoteCountSnackbar from "../VoteCountSnackbar";
 import { connectSocket } from "../../utils";
 import { SET_MAX_VOTES } from "../../utils/eventNames";
 import { isModerator, setUser } from "../../utils/roleHandlers";
 
 class VoteCountDialog extends React.Component {
   state = {
-    open: false,
-    openSB: false,
+    isDialogOpen: false,
+    isSnackbarOpen: false,
     voteCount: this.props.maxVoteCount
   };
 
-  handleOpen = () => this.setState({ open: true });
+  openDialog = () => this.setState({ isDialogOpen: true });
 
-  handleClose = () => this.setState({ open: false });
+  closeDialog = () => this.setState({ isDialogOpen: false });
 
-  handleSnackbarOpen = () => this.setState({ openSB: true });
+  openSnackbar = () => this.setState({ isSnackbarOpen: true });
 
-  handleSnackbarClose = () => this.setState({ openSB: false });
+  closeSnackbar = () => this.setState({ isSnackbarOpen: false });
 
-  increment = () =>
+  incrementVotes = () =>
     this.setState(prevState => {
       return { voteCount: prevState.voteCount + 1 };
     });
 
-  decrement = () =>
+  decrementVotes = () =>
     this.setState(prevState => {
       return { voteCount: prevState.voteCount - 1 };
     });
@@ -52,8 +52,8 @@ class VoteCountDialog extends React.Component {
     socket.emit(SET_MAX_VOTES, voteCount, boardId);
     setUser("maxVoteCount", voteCount, boardId);
 
-    this.handleClose();
-    this.handleSnackbarOpen();
+    this.closeDialog();
+    this.openSnackbar();
   };
 
   componentDidUpdate(prevProps) {
@@ -63,7 +63,7 @@ class VoteCountDialog extends React.Component {
   }
 
   render() {
-    const { open, openSB, voteCount } = this.state;
+    const { isDialogOpen, isSnackbarOpen, voteCount } = this.state;
     const { fullScreen, boardId } = this.props;
 
     return (
@@ -73,7 +73,7 @@ class VoteCountDialog extends React.Component {
           variant="outlined"
           aria-label="Set Vote Count"
           color="primary"
-          onClick={this.handleOpen}
+          onClick={this.openDialog}
           disabled={!isModerator(boardId)}
         >
           <ThumbUpIcon style={{ marginRight: 5 }} />
@@ -81,8 +81,8 @@ class VoteCountDialog extends React.Component {
         </Button>
         <Dialog
           fullScreen={fullScreen}
-          open={open}
-          onClose={this.handleClose}
+          open={isDialogOpen}
+          onClose={this.closeDialog}
           aria-labelledby="vote-count-dialog"
           aria-describedby="vote-count-dialog-description"
         >
@@ -99,13 +99,13 @@ class VoteCountDialog extends React.Component {
               <Grid item>
                 <IconButton
                   aria-label="Increase Vote Count"
-                  onClick={this.increment}
+                  onClick={this.incrementVotes}
                 >
                   <ArrowUpIcon fontSize="small" />
                 </IconButton>
                 <IconButton
                   aria-label="Decrease Vote Count"
-                  onClick={this.decrement}
+                  onClick={this.decrementVotes}
                 >
                   <ArrowDownIcon fontSize="small" />
                 </IconButton>
@@ -113,7 +113,7 @@ class VoteCountDialog extends React.Component {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button color="primary" onClick={this.handleClose}>
+            <Button color="primary" onClick={this.closeDialog}>
               Cancel
             </Button>
             <Button color="primary" onClick={this.handleSave}>
@@ -121,19 +121,12 @@ class VoteCountDialog extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          open={openSB}
-          onClose={this.handleSnackbarClose}
+        <VoteCountSnackbar
+          id="vote-count-snackbar"
+          open={isSnackbarOpen}
+          handleClose={this.closeSnackbar}
           autoHideDuration={3000}
-          ContentProps={{
-            "aria-describedby": "vote-count-snackbar"
-          }}
-          message={
-            <span id="vote-count-snackbar">
-              You have {voteCount} votes left.
-            </span>
-          }
+          voteCount={voteCount}
         />
       </>
     );
