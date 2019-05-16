@@ -34,12 +34,12 @@ class VoteCountDialog extends React.Component {
 
   handleSnackbarClose = () => this.setState({ openSB: false });
 
-  incrVoteCount = () =>
+  increment = () =>
     this.setState(prevState => {
       return { voteCount: prevState.voteCount + 1 };
     });
 
-  decrVoteCount = () =>
+  decrement = () =>
     this.setState(prevState => {
       return { voteCount: prevState.voteCount - 1 };
     });
@@ -99,13 +99,13 @@ class VoteCountDialog extends React.Component {
               <Grid item>
                 <IconButton
                   aria-label="Increase Vote Count"
-                  onClick={this.incrVoteCount}
+                  onClick={this.increment}
                 >
                   <ArrowUpIcon fontSize="small" />
                 </IconButton>
                 <IconButton
                   aria-label="Decrease Vote Count"
-                  onClick={this.decrVoteCount}
+                  onClick={this.decrement}
                 >
                   <ArrowDownIcon fontSize="small" />
                 </IconButton>
