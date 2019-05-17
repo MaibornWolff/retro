@@ -32,6 +32,29 @@ export const setUser = (propertyName, newValue, boardId) => {
   }
 };
 
+export const setMaxVoteCount = (newVoteCount, boardId) => {
+  const moderatorItem = localStorage.getItem(boardId);
+  const participantItem = sessionStorage.getItem(boardId);
+
+  if (moderatorItem !== null) {
+    const json = JSON.parse(moderatorItem);
+
+    json["maxVoteCount"] = newVoteCount;
+    json["votesLeft"] = newVoteCount;
+
+    localStorage.setItem(boardId, JSON.stringify(json));
+  }
+
+  if (participantItem !== null) {
+    const json = JSON.parse(participantItem);
+
+    json["maxVoteCount"] = newVoteCount;
+    json["votesLeft"] = newVoteCount;
+
+    sessionStorage.setItem(boardId, JSON.stringify(json));
+  }
+};
+
 export const getVotesLeft = boardId => {
   const moderatorItem = localStorage.getItem(boardId);
   const participantItem = sessionStorage.getItem(boardId);

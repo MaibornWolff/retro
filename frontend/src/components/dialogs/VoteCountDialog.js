@@ -17,7 +17,7 @@ import {
 import VoteCountSnackbar from "../VoteCountSnackbar";
 import { connectSocket } from "../../utils";
 import { SET_MAX_VOTES } from "../../utils/eventNames";
-import { isModerator, setUser } from "../../utils/roleHandlers";
+import { isModerator } from "../../utils/roleHandlers";
 
 class VoteCountDialog extends React.Component {
   state = {
@@ -50,8 +50,6 @@ class VoteCountDialog extends React.Component {
     const socket = connectSocket(boardId);
 
     socket.emit(SET_MAX_VOTES, voteCount, boardId);
-    setUser("maxVoteCount", voteCount, boardId);
-    setUser("votesLeft", voteCount, boardId);
 
     this.closeDialog();
     this.openSnackbar();

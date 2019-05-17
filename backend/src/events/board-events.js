@@ -74,7 +74,7 @@ const setMaxVotes = (io, client, roomId) => {
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(SET_MAX_VOTES, error);
-        io.to(roomId).emit(UPDATE_BOARD, board);
+        io.to(roomId).emit(SET_MAX_VOTES, board, voteCount);
       });
     });
   });

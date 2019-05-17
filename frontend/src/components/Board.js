@@ -14,11 +14,13 @@ import {
   CREATE_BOARD,
   UPDATE_BOARD,
   JOIN_BOARD,
-  JOIN_ERROR
+  JOIN_ERROR,
+  SET_MAX_VOTES
 } from "../utils/eventNames";
 import {
   createModeratorRole,
-  createParticipantRole
+  createParticipantRole,
+  setMaxVoteCount
 } from "../utils/roleHandlers";
 
 const styles = theme => ({
@@ -36,8 +38,6 @@ function Board(props) {
   const [board, setBoard] = useState(defaultBoard);
   const { classes } = props;
 
-  console.log(board);
-
   useEffect(() => {
     socket.on(CONNECT, () => {
       if (isEqual(board, defaultBoard)) socket.emit(JOIN_BOARD, boardId);
@@ -49,6 +49,11 @@ function Board(props) {
     });
 
     socket.on(UPDATE_BOARD, newBoard => {
+      setBoard(newBoard);
+    });
+
+    socket.on(SET_MAX_VOTES, (newBoard, newVoteCount) => {
+      setMaxVoteCount(newVoteCount, newBoard.boardId);
       setBoard(newBoard);
     });
 
