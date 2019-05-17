@@ -21,7 +21,8 @@ import {
 import {
   createModeratorRole,
   createParticipantRole,
-  setMaxVoteCount
+  setMaxVoteCount,
+  getVotesLeft
 } from "../utils/roleHandlers";
 
 const styles = theme => ({
@@ -303,7 +304,7 @@ function Board(props) {
           </Droppable>
         </DragDropContext>
       </Grid>
-      {renderSnackbar(board.maxVoteCount)}
+      {renderSnackbar(getVotesLeft(boardId))}
     </Grid>
   );
 }
