@@ -6,7 +6,8 @@ export const isModerator = boardId => {
   const roleObject = localStorage.getItem(boardId);
 
   if (roleObject !== null) {
-    return roleObject.role === ROLE_MODERATOR;
+    const json = JSON.parse(roleObject);
+    return json.role === ROLE_MODERATOR;
   }
 
   return false;

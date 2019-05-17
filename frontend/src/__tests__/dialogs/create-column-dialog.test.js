@@ -2,16 +2,16 @@ import React from "react";
 import { render, fireEvent, waitForElement } from "react-testing-library";
 
 import CreateColumnDialog from "../../components/dialogs/CreateColumnDialog";
-import { setModeratorRole, removeModeratorRole } from "../../utils/testUtils";
+import { setModerator, clearLocalStorage } from "../../utils/testUtils";
 
 const BOARD_ID = "some-board-id";
 
 beforeEach(() => {
-  setModeratorRole(BOARD_ID);
+  setModerator(BOARD_ID);
 });
 
 afterEach(() => {
-  removeModeratorRole(BOARD_ID);
+  clearLocalStorage();
 });
 
 it("should display correct button text", () => {

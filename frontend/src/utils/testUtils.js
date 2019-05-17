@@ -1,9 +1,16 @@
-const moderatorRole = { role: "moderator", name: "Thanos" };
+import { ROLE_MODERATOR } from "../utils/roleHandlers";
 
-export const setModeratorRole = boardId => {
+const moderatorRole = {
+  role: ROLE_MODERATOR,
+  name: "Scrum Master",
+  maxVoteCount: 3,
+  votesLeft: 3
+};
+
+export const setModerator = boardId => {
   localStorage.setItem(boardId, JSON.stringify(moderatorRole));
 };
 
-export const removeModeratorRole = boardId => {
-  localStorage.removeItem(boardId);
+export const clearLocalStorage = () => {
+  localStorage.clear();
 };
