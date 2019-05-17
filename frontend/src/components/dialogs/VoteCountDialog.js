@@ -46,7 +46,6 @@ class VoteCountDialog extends React.Component {
     socket.emit(SET_MAX_VOTES, voteCount, boardId);
 
     this.closeDialog();
-    this.openSnackbar();
   };
 
   componentDidUpdate(prevProps) {
