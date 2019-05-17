@@ -14,7 +14,6 @@ import {
   Typography
 } from "@material-ui/core";
 
-import VoteCountSnackbar from "../VoteCountSnackbar";
 import { connectSocket } from "../../utils";
 import { SET_MAX_VOTES } from "../../utils/eventNames";
 import { isModerator } from "../../utils/roleHandlers";
@@ -22,17 +21,12 @@ import { isModerator } from "../../utils/roleHandlers";
 class VoteCountDialog extends React.Component {
   state = {
     isDialogOpen: false,
-    isSnackbarOpen: false,
     voteCount: this.props.maxVoteCount
   };
 
   openDialog = () => this.setState({ isDialogOpen: true });
 
   closeDialog = () => this.setState({ isDialogOpen: false });
-
-  openSnackbar = () => this.setState({ isSnackbarOpen: true });
-
-  closeSnackbar = () => this.setState({ isSnackbarOpen: false });
 
   incrementVotes = () =>
     this.setState(prevState => {
@@ -62,7 +56,7 @@ class VoteCountDialog extends React.Component {
   }
 
   render() {
-    const { isDialogOpen, isSnackbarOpen, voteCount } = this.state;
+    const { isDialogOpen, voteCount } = this.state;
     const { fullScreen, boardId } = this.props;
 
     return (
@@ -120,13 +114,6 @@ class VoteCountDialog extends React.Component {
             </Button>
           </DialogActions>
         </Dialog>
-        <VoteCountSnackbar
-          id="vote-count-snackbar"
-          open={isSnackbarOpen}
-          handleClose={this.closeSnackbar}
-          autoHideDuration={3000}
-          voteCount={voteCount}
-        />
       </>
     );
   }

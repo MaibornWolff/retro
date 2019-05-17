@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 
 import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
+import VoteCountSnackbar from "./VoteCountSnackbar";
 import { FlexContainer } from "./styled";
 import { connectSocket, defaultBoard } from "../utils";
 import {
@@ -36,6 +37,7 @@ function Board(props) {
   const boardId = props.match.params.boardId;
   const socket = connectSocket(boardId);
   const [board, setBoard] = useState(defaultBoard);
+  const [isSnackbarOpen, setSnackbar] = useState(false);
   const { classes } = props;
 
   useEffect(() => {
@@ -55,6 +57,7 @@ function Board(props) {
     socket.on(SET_MAX_VOTES, (newBoard, newVoteCount) => {
       setMaxVoteCount(newVoteCount, newBoard.boardId);
       setBoard(newBoard);
+      openSnackbar();
     });
 
     socket.on(JOIN_BOARD, boardData => {
@@ -76,6 +79,14 @@ function Board(props) {
       socket.close();
     };
   }, [board, boardId, socket]);
+
+  function openSnackbar() {
+    setSnackbar(true);
+  }
+
+  function closeSnackbar() {
+    setSnackbar(false);
+  }
 
   function onDragEnd(dragResult) {
     const { source, destination, type, combine } = dragResult;
@@ -246,6 +257,18 @@ function Board(props) {
     });
   }
 
+  function renderSnackbar(voteCount) {
+    return (
+      <VoteCountSnackbar
+        id="vote-count-snackbar"
+        open={isSnackbarOpen}
+        handleClose={closeSnackbar}
+        autoHideDuration={3000}
+        voteCount={voteCount}
+      />
+    );
+  }
+
   if (board.error) {
     return <Redirect to={"/error"} />;
   }
@@ -280,6 +303,7 @@ function Board(props) {
           </Droppable>
         </DragDropContext>
       </Grid>
+      {renderSnackbar(board.maxVoteCount)}
     </Grid>
   );
 }
