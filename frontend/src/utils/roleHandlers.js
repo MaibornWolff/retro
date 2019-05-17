@@ -1,93 +1,66 @@
-export const isModerator = boardId => localStorage.getItem(boardId) !== null;
+export const ROLE_MODERATOR = "moderator";
 
-export const getUser = boardId => {
-  const moderatorItem = localStorage.getItem(boardId);
-  const participantItem = sessionStorage.getItem(boardId);
+export const ROLE_PARTICIPANT = "participant";
 
-  if (moderatorItem !== null) {
-    return JSON.parse(moderatorItem);
+export const isModerator = boardId => {
+  const roleObject = localStorage.getItem(boardId);
+
+  if (roleObject !== null) {
+    return roleObject.role === ROLE_MODERATOR;
   }
 
-  if (participantItem !== null) {
-    return JSON.parse(participantItem);
+  return false;
+};
+
+export const getUser = boardId => {
+  const roleObject = localStorage.getItem(boardId);
+
+  if (roleObject !== null) {
+    return JSON.parse(roleObject);
   }
 
   return null;
 };
 
 export const setUser = (propertyName, newValue, boardId) => {
-  const moderatorItem = localStorage.getItem(boardId);
-  const participantItem = sessionStorage.getItem(boardId);
+  const roleObject = localStorage.getItem(boardId);
 
-  if (moderatorItem !== null) {
-    const json = JSON.parse(moderatorItem);
+  if (roleObject !== null) {
+    const json = JSON.parse(roleObject);
     json[propertyName] = newValue;
     localStorage.setItem(boardId, JSON.stringify(json));
-  }
-
-  if (participantItem !== null) {
-    const json = JSON.parse(participantItem);
-    json[propertyName] = newValue;
-    sessionStorage.setItem(boardId, JSON.stringify(json));
   }
 };
 
 export const setMaxVoteCount = (newVoteCount, boardId) => {
-  const moderatorItem = localStorage.getItem(boardId);
-  const participantItem = sessionStorage.getItem(boardId);
+  const roleObject = localStorage.getItem(boardId);
 
-  if (moderatorItem !== null) {
-    const json = JSON.parse(moderatorItem);
-
+  if (roleObject !== null) {
+    const json = JSON.parse(roleObject);
     json["maxVoteCount"] = newVoteCount;
     json["votesLeft"] = newVoteCount;
-
     localStorage.setItem(boardId, JSON.stringify(json));
-  }
-
-  if (participantItem !== null) {
-    const json = JSON.parse(participantItem);
-
-    json["maxVoteCount"] = newVoteCount;
-    json["votesLeft"] = newVoteCount;
-
-    sessionStorage.setItem(boardId, JSON.stringify(json));
   }
 };
 
 export const getVotesLeft = boardId => {
-  const moderatorItem = localStorage.getItem(boardId);
-  const participantItem = sessionStorage.getItem(boardId);
+  const roleObject = localStorage.getItem(boardId);
 
-  if (moderatorItem !== null) {
-    const json = JSON.parse(moderatorItem);
-    return json["votesLeft"];
-  }
-
-  if (participantItem !== null) {
-    const json = JSON.parse(participantItem);
+  if (roleObject !== null) {
+    const json = JSON.parse(roleObject);
     return json["votesLeft"];
   }
 
   return -1;
 };
 
-export const createModeratorRole = boardId => {
+export const createRole = (boardId, role) => {
   const data = JSON.stringify({
-    role: "moderator",
+    role,
     name: "",
     maxVoteCount: 3,
     votesLeft: 3
   });
-  localStorage.setItem(boardId, data);
-};
 
-export const createParticipantRole = boardId => {
-  const data = JSON.stringify({
-    role: "participant",
-    name: "",
-    maxVoteCount: 3,
-    votesLeft: 3
-  });
-  sessionStorage.setItem(boardId, data);
+  localStorage.setItem(boardId, data);
 };
