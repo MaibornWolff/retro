@@ -255,6 +255,7 @@ function Board(props) {
           itemMap={items}
           index={index}
           boardId={boardId}
+          openSnackbar={openSnackbar}
         />
       );
     });

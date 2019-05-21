@@ -15,6 +15,10 @@ class UpvoteItemButton extends React.Component {
 
   disableButton = () => this.setState({ isDisabled: true });
 
+  handleSnackbar = () => {
+    this.props.openSnackbar();
+  };
+
   handleUpvote = (id, boardId) => {
     const socket = connectSocket(boardId);
     const votesLeft = getVotesLeft(boardId);
@@ -26,6 +30,7 @@ class UpvoteItemButton extends React.Component {
 
       socket.emit(UPVOTE_CARD, id, boardId, 1);
       setUser("votesLeft", votesLeft - 1, boardId);
+      this.handleSnackbar();
     } else {
       this.disableButton();
     }

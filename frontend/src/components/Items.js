@@ -14,14 +14,19 @@ export default class Items extends React.Component {
   }
 
   render() {
-    const { items, boardId } = this.props;
+    const { items, boardId, openSnackbar } = this.props;
 
     if (isEmpty(items)) return null;
     return (
       <Grid container direction="column">
         {items.map((item, i) => (
           <Grid key={item.id} item>
-            <Item item={item} index={i} boardId={boardId} />
+            <Item
+              item={item}
+              index={i}
+              boardId={boardId}
+              openSnackbar={openSnackbar}
+            />
           </Grid>
         ))}
       </Grid>

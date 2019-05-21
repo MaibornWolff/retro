@@ -24,7 +24,8 @@ class RetroItem extends React.PureComponent {
       content,
       points,
       boardId,
-      isBlurred
+      isBlurred,
+      openSnackbar
     } = this.props;
 
     return (
@@ -62,7 +63,11 @@ class RetroItem extends React.PureComponent {
                 content={content}
                 boardId={boardId}
               />
-              <UpvoteItemButton id={id} boardId={boardId} />
+              <UpvoteItemButton
+                id={id}
+                boardId={boardId}
+                openSnackbar={openSnackbar}
+              />
             </CardActions>
           </Card>
         </CardContainer>

@@ -5,7 +5,7 @@ import RetroItem from "./RetroItem";
 import { ItemContainer } from "./styled";
 
 const Item = props => {
-  const { item, index, boardId } = props;
+  const { item, index, boardId, openSnackbar } = props;
 
   return (
     <Draggable draggableId={item.id} index={index}>
@@ -23,6 +23,7 @@ const Item = props => {
             points={item.points}
             isBlurred={item.isBlurred}
             boardId={boardId}
+            openSnackbar={openSnackbar}
           />
         </ItemContainer>
       )}
