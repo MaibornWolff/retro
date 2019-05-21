@@ -49,7 +49,8 @@ function Board(props) {
     });
 
     socket.on(CREATE_BOARD, newBoard => {
-      createRole(newBoard.boardId, ROLE_MODERATOR);
+      const { boardId, maxVoteCount } = newBoard;
+      createRole(ROLE_MODERATOR, boardId, maxVoteCount);
       setBoard(newBoard);
     });
 
@@ -64,10 +65,10 @@ function Board(props) {
     });
 
     socket.on(JOIN_BOARD, boardData => {
-      const boardId = boardData.boardId;
+      const { boardId, maxVoteCount } = boardData;
 
       if (getUser(boardId) === null) {
-        createRole(boardId, ROLE_PARTICIPANT);
+        createRole(ROLE_PARTICIPANT, boardId, maxVoteCount);
       }
 
       setBoard(boardData);

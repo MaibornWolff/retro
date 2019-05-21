@@ -55,12 +55,12 @@ export const getVotesLeft = boardId => {
   return -1;
 };
 
-export const createRole = (boardId, role) => {
+export const createRole = (role, boardId, maxVoteCount) => {
   const data = JSON.stringify({
     role,
     name: "",
-    maxVoteCount: 3,
-    votesLeft: 3
+    maxVoteCount,
+    votesLeft: maxVoteCount
   });
 
   localStorage.setItem(boardId, data);
