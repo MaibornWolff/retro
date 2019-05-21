@@ -19,10 +19,12 @@ import {
   SET_MAX_VOTES
 } from "../utils/eventNames";
 import {
-  createModeratorRole,
-  createParticipantRole,
+  createRole,
   setMaxVoteCount,
-  getVotesLeft
+  getVotesLeft,
+  ROLE_MODERATOR,
+  ROLE_PARTICIPANT,
+  getUser
 } from "../utils/roleHandlers";
 
 const styles = theme => ({
@@ -47,7 +49,8 @@ function Board(props) {
     });
 
     socket.on(CREATE_BOARD, newBoard => {
-      createModeratorRole(newBoard.boardId);
+      const { boardId, maxVoteCount } = newBoard;
+      createRole(ROLE_MODERATOR, boardId, maxVoteCount);
       setBoard(newBoard);
     });
 
@@ -62,11 +65,10 @@ function Board(props) {
     });
 
     socket.on(JOIN_BOARD, boardData => {
-      const boardId = boardData.boardId;
-      const lsItem = localStorage.getItem(boardId);
+      const { boardId, maxVoteCount } = boardData;
 
-      if (lsItem === null) {
-        createParticipantRole(boardId);
+      if (getUser(boardId) === null) {
+        createRole(ROLE_PARTICIPANT, boardId, maxVoteCount);
       }
 
       setBoard(boardData);

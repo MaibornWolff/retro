@@ -51,8 +51,9 @@ const unblurCards = (io, client, roomId) => {
       const board = getBoard(file);
       board.isBlurred = !board.isBlurred;
 
-      for (let cardId in board.items)
+      for (let cardId in board.items) {
         board.items[cardId].isBlurred = board.isBlurred;
+      }
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(UNBLUR_CARDS, error);
@@ -70,7 +71,11 @@ const setMaxVotes = (io, client, roomId) => {
       if (error) logError(SET_MAX_VOTES, error);
 
       const board = getBoard(file);
+      // set max votes and reset all points on cards
       board.maxVoteCount = voteCount;
+      for (let cardId in board.items) {
+        board.items[cardId].points = 0;
+      }
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(SET_MAX_VOTES, error);
