@@ -33,6 +33,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
+    "http-proxy-middleware": "^0.19.1",
     "lodash": "^4.17.11",
     "nanoid": "^2.0.1",
     "react": "^16.8.6",
@@ -57,7 +58,6 @@
     "prettier": "^1.17.0",
     "react-testing-library": "^7.0.0"
   },
-  "proxy": "http://localhost:8081",
   "browserslist": [
     ">0.2%",
     "not dead",
