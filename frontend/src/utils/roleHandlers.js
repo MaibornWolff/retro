@@ -33,16 +33,17 @@ export const setUser = (propertyName, newValue, boardId) => {
   }
 };
 
-export const setVotedItem = (newValue, boardId) => {
+export const setVotedItem = (cardId, boardId, isUpvote) => {
   const roleObject = localStorage.getItem(boardId);
 
   if (roleObject !== null) {
     const json = JSON.parse(roleObject);
     const votedItems = json["votedItems"];
 
-    votedItems.push(newValue);
-    json["votedItems"] = votedItems;
+    if (isUpvote) votedItems.push(cardId);
+    else removeFirstOccurence(votedItems, cardId);
 
+    json["votedItems"] = votedItems;
     localStorage.setItem(boardId, JSON.stringify(json));
   }
 };
@@ -95,4 +96,12 @@ export const createRole = (role, boardId, maxVoteCount) => {
   });
 
   localStorage.setItem(boardId, data);
+};
+
+const removeFirstOccurence = (array, element) => {
+  const index = array.indexOf(element);
+
+  if (index > -1) {
+    array.splice(index, 1);
+  }
 };

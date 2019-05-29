@@ -1,4 +1,5 @@
 import React from "react";
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import {
   Avatar,
   Card,
@@ -7,15 +8,30 @@ import {
   CardActions,
   Divider,
   Typography,
-  withStyles
+  withStyles,
+  IconButton
 } from "@material-ui/core";
 
 import EditItemDialog from "./dialogs/EditItemDialog";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import UpvoteItemButton from "./buttons/UpvoteItemButton";
 import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
+import { connectSocket } from "../utils";
+import { VOTE_CARD } from "../utils/eventNames";
+import { setVotedItem, setUser, getVotesLeft } from "../utils/roleHandlers";
 
 class RetroItem extends React.PureComponent {
+  handleDownVote = () => {
+    const { id, boardId, openSnackbar } = this.props;
+    const socket = connectSocket(boardId);
+    const votesLeft = getVotesLeft(boardId);
+
+    socket.emit(VOTE_CARD, id, boardId, false);
+    setVotedItem(id, boardId, false);
+    setUser("votesLeft", votesLeft + 1, boardId);
+    openSnackbar();
+  };
+
   render() {
     const {
       classes,
@@ -46,6 +62,13 @@ class RetroItem extends React.PureComponent {
                 <Typography variant="body2" component={"span"}>
                   <CardAuthor>{author}</CardAuthor>
                 </Typography>
+              }
+              action={
+                isVoted ? (
+                  <IconButton color="default" onClick={this.handleDownVote}>
+                    <ThumbDownIcon fontSize="small" />
+                  </IconButton>
+                ) : null
               }
             />
             <Divider />

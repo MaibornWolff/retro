@@ -11,12 +11,7 @@ const {
   sortColumn,
   editColumn
 } = require("./column-events");
-const {
-  createCard,
-  editCard,
-  deleteCard,
-  upvoteCard
-} = require("./card-events");
+const { createCard, editCard, deleteCard, voteCard } = require("./card-events");
 
 const boardEvents = (io, client, roomId) => {
   createBoard(io, client, roomId);
@@ -37,7 +32,7 @@ const cardEvents = (io, client, roomId) => {
   createCard(io, client, roomId);
   editCard(io, client, roomId);
   deleteCard(io, client, roomId);
-  upvoteCard(io, client, roomId);
+  voteCard(io, client, roomId);
 };
 
 module.exports = {
