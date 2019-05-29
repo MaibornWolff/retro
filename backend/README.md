@@ -1,18 +1,19 @@
 # Retro - Backend
 
-The Backend is a simple Express Server utilizing Websockets.
+The backend is a simple Express server using REST and WebSockets.
 
 ## Scripts
 
-| Name         | Description                                      |
-| ------------ | ------------------------------------------------ |
-| start        | starts the server                                |
-| format       | formats the whole backend project using Prettier |
-| format:check | checks if formatting is violated                 |
+| Name         | Description                                     |
+| ------------ | ----------------------------------------------- |
+| start        | starts the server                               |
+| test         | runs tests                                      |
+| lint         | runs ESLint                                     |
+| format       | formats the whole backend project with Prettier |
+| format:check | checks if formatting is valid                   |
+| precommit    | runs `format`, `lint` and `test`                |
 
-## Dependencies
+## Information
 
-- Express
-- Lodash
-- Puppeteer
-- SocketIO
+- The backend runs on port `8081` for development. Check `src/config/index.js` for more information.
+- The communication happens mostly with WebSockets, but there are some REST endpoints for stuff like exporting your board, or validation stuff. 

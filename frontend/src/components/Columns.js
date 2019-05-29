@@ -3,19 +3,33 @@ import isEmpty from "lodash/isEmpty";
 
 import Column from "./Column";
 
-const Columns = props => {
-  const { column, itemMap, index, boardId } = props;
+class Columns extends React.PureComponent {
+  getItems(column, itemMap) {
+    let items;
 
-  let items;
-  if (isEmpty(column)) {
-    items = [];
-  } else {
-    items = column.itemIds.map(id => itemMap[id]);
+    if (isEmpty(column)) {
+      items = [];
+    } else {
+      items = column.itemIds.map(id => itemMap[id]);
+    }
+
+    return items;
   }
 
-  return (
-    <Column column={column} items={items} index={index} boardId={boardId} />
-  );
-};
+  render() {
+    const { column, itemMap, index, boardId, openSnackbar } = this.props;
+    const items = this.getItems(column, itemMap);
+
+    return (
+      <Column
+        column={column}
+        items={items}
+        index={index}
+        boardId={boardId}
+        openSnackbar={openSnackbar}
+      />
+    );
+  }
+}
 
 export default Columns;

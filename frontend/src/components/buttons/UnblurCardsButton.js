@@ -2,11 +2,12 @@ import React from "react";
 import UnblurIcon from "@material-ui/icons/BlurOff";
 import { Grid, Button } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
-import { UNBLUR_CARDS } from "../../events/event-names";
+import { connectSocket } from "../../utils";
+import { UNBLUR_CARDS } from "../../utils/eventNames";
+import { isModerator } from "../../utils/roleHandlers";
 
 const unblur = boardId => {
-  const socket = socket_connect(boardId);
+  const socket = connectSocket(boardId);
   socket.emit(UNBLUR_CARDS, boardId);
 };
 
@@ -19,6 +20,7 @@ const UnblurCardsButton = props => (
         aria-label="Unblur Cards"
         color="primary"
         onClick={() => unblur(props.boardId)}
+        disabled={!isModerator(props.boardId)}
       >
         <UnblurIcon style={{ marginRight: 5 }} />
         Toggle Blur

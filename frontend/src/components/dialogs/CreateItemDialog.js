@@ -1,5 +1,5 @@
 import React from "react";
-import uniqid from "uniqid";
+import nanoid from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
 import {
   IconButton,
@@ -10,11 +10,17 @@ import {
   TextField,
   Button,
   withMobileDialog,
-  Tooltip
+  Typography
 } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
-import { CREATE_CARD } from "../../events/event-names";
+import { connectSocket, validateInput, isInputEmpty } from "../../utils";
+import { CREATE_CARD } from "../../utils/eventNames";
+import { getUser } from "../../utils/roleHandlers";
+import {
+  CARD_AUTHOR_NAME_EMPTY_MSG,
+  CARD_AUTHOR_NAME_TOO_LONG_MSG,
+  CARD_CONTENT_EMPTY_MSG
+} from "../../utils/errorMessages";
 
 class CreateItemDialog extends React.Component {
   state = {
@@ -23,7 +29,11 @@ class CreateItemDialog extends React.Component {
     content: ""
   };
 
-  handleOpen = () => this.setState({ open: true });
+  handleOpen = () => {
+    const user = getUser(this.props.boardId);
+    const author = user === null ? "" : user["name"];
+    this.setState({ open: true, author });
+  };
 
   handleClose = () => this.setState({ open: false });
 
@@ -36,8 +46,8 @@ class CreateItemDialog extends React.Component {
 
     const { author, content } = this.state;
     const { columnId, boardId } = this.props;
-    const socket = socket_connect(boardId);
-    const id = uniqid("item-");
+    const socket = connectSocket(boardId);
+    const id = nanoid();
     const newCard = {
       id,
       author,
@@ -48,21 +58,47 @@ class CreateItemDialog extends React.Component {
     this.setState({ author: "", content: "", open: false });
   };
 
+  renderAuthorError(isAuthorEmpty, isAuthorLong) {
+    if (isAuthorEmpty || isAuthorLong) {
+      return (
+        <Typography variant="caption" color="error">
+          {isAuthorEmpty
+            ? CARD_AUTHOR_NAME_EMPTY_MSG
+            : CARD_AUTHOR_NAME_TOO_LONG_MSG}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
+  renderContentError(isContentEmpty) {
+    if (isContentEmpty) {
+      return (
+        <Typography variant="caption" color="error">
+          {isContentEmpty ? CARD_CONTENT_EMPTY_MSG : null}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { open, author, content } = this.state;
     const { fullScreen } = this.props;
+    const authorInput = validateInput(author.length, 0, 40);
+    const isContentEmpty = isInputEmpty(content.length);
 
     return (
       <>
-        <Tooltip title="New Card" aria-label="New Card">
-          <IconButton
-            color="inherit"
-            onClick={this.handleOpen}
-            data-testid="new-item-btn"
-          >
-            <AddIcon fontSize="small" data-testid="new-item-btn-icon" />
-          </IconButton>
-        </Tooltip>
+        <IconButton
+          color="inherit"
+          onClick={this.handleOpen}
+          data-testid="new-item-btn"
+        >
+          <AddIcon fontSize="small" data-testid="new-item-btn-icon" />
+        </IconButton>
         <Dialog
           fullScreen={fullScreen}
           open={open}
@@ -72,17 +108,25 @@ class CreateItemDialog extends React.Component {
           <DialogTitle id="new-card-dialog">New Card</DialogTitle>
           <DialogContent>
             <TextField
-              autoFocus
+              required
+              error={!authorInput.isValid}
               margin="dense"
               id="author-name"
               label="Author"
               type="text"
               value={author}
               onChange={this.handleAuthorChange}
+              helperText={this.renderAuthorError(
+                authorInput.isEmpty,
+                authorInput.isTooLong
+              )}
               fullWidth
               autoComplete="off"
             />
             <TextField
+              required
+              autoFocus
+              error={isContentEmpty}
               margin="dense"
               multiline
               id="content-name"
@@ -90,6 +134,7 @@ class CreateItemDialog extends React.Component {
               type="text"
               value={content}
               onChange={this.handleContentChange}
+              helperText={this.renderContentError(isContentEmpty)}
               fullWidth
               autoComplete="off"
             />
@@ -98,7 +143,11 @@ class CreateItemDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleSubmit} color="primary">
+            <Button
+              onClick={this.handleSubmit}
+              color="primary"
+              disabled={!authorInput.isValid || isContentEmpty}
+            >
               Create
             </Button>
           </DialogActions>

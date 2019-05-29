@@ -1,8 +1,8 @@
 const fs = require("fs");
 const io = require("socket.io-client");
-const request = require("supertest");
 const { expect } = require("chai");
 
+// eslint-disable-next-line
 const { server } = require("../server");
 const { testBoard, getPath, createColumn, createItem } = require("./utils");
 const ioOptions = {
@@ -18,7 +18,7 @@ const {
   JOIN_BOARD,
   DELETE_CARD,
   DELETE_COLUMN,
-  UPVOTE_CARD,
+  VOTE_CARD,
   UNBLUR_CARDS,
   EDIT_CARD
 } = require("../events/event-names");
@@ -116,7 +116,7 @@ describe("Backend Tests", () => {
   });
 
   it("should upvote an item", done => {
-    sender.emit(UPVOTE_CARD, cardId, boardId, 1);
+    sender.emit(VOTE_CARD, cardId, boardId, true);
     receiver.on(UPDATE_BOARD, board => {
       const cardPoints = board.items[cardId].points;
       expect(cardPoints).to.not.equal(0);

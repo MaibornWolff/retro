@@ -1,5 +1,5 @@
 import React from "react";
-import uniqid from "uniqid";
+import nanoid from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
 import { compose } from "recompose";
 import { Redirect } from "react-router-dom";
@@ -12,13 +12,18 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Typography,
   withMobileDialog,
   withStyles
 } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
-import { CREATE_BOARD } from "../../events/event-names";
-import { emptyBoard } from "../../utils/emptyBoard";
+import { connectSocket } from "../../utils";
+import { CREATE_BOARD } from "../../utils/eventNames";
+import { defaultBoard, validateInput } from "../../utils";
+import {
+  BOARD_NAME_EMPTY_MSG,
+  BOARD_NAME_TOO_LONG_MSG
+} from "../../utils/errorMessages";
 
 class CreateBoardDialog extends React.Component {
   state = {
@@ -36,18 +41,30 @@ class CreateBoardDialog extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     const { title } = this.state;
-    const boardId = uniqid("board-");
-    const socket = socket_connect(boardId);
-    const isBlurred = true;
-    const newBoard = { ...emptyBoard, boardId, title, isBlurred };
+    const boardId = nanoid();
+    const socket = connectSocket(boardId);
+    const newBoard = { ...defaultBoard, boardId, title };
 
     socket.emit(CREATE_BOARD, newBoard, boardId);
     this.setState({ title: "", open: false, boardId });
   };
 
+  renderError(isNameEmpty, isNameLong) {
+    if (isNameEmpty || isNameLong) {
+      return (
+        <Typography variant="caption" color="error">
+          {isNameEmpty ? BOARD_NAME_EMPTY_MSG : BOARD_NAME_TOO_LONG_MSG}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { open, title, boardId } = this.state;
     const { classes, fullScreen } = this.props;
+    const input = validateInput(title.length, 0, 40);
 
     if (boardId) {
       return <Redirect to={`/boards/${boardId}`} />;
@@ -78,6 +95,8 @@ class CreateBoardDialog extends React.Component {
               Please provide a name for your new board.
             </DialogContentText>
             <TextField
+              required
+              error={!input.isValid}
               autoFocus
               margin="dense"
               id="board-name"
@@ -88,12 +107,17 @@ class CreateBoardDialog extends React.Component {
               fullWidth
               autoComplete="off"
             />
+            {this.renderError(input.isEmpty, input.isTooLong)}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleSubmit} color="primary">
+            <Button
+              onClick={this.handleSubmit}
+              color="primary"
+              disabled={!input.isValid}
+            >
               Create
             </Button>
           </DialogActions>

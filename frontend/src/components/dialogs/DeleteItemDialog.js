@@ -8,12 +8,11 @@ import {
   DialogTitle,
   DialogContentText,
   Button,
-  withMobileDialog,
-  Tooltip
+  withMobileDialog
 } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
-import { DELETE_CARD } from "../../events/event-names";
+import { connectSocket } from "../../utils";
+import { DELETE_CARD } from "../../utils/eventNames";
 
 class DeleteItemDialog extends React.Component {
   state = {
@@ -26,7 +25,7 @@ class DeleteItemDialog extends React.Component {
 
   handleClick = () => {
     const { id, boardId } = this.props;
-    const socket = socket_connect(boardId);
+    const socket = connectSocket(boardId);
 
     socket.emit(DELETE_CARD, id, boardId);
     this.setState({ isDelete: false });
@@ -38,15 +37,13 @@ class DeleteItemDialog extends React.Component {
 
     return (
       <>
-        <Tooltip title="Delete Card" aria-label="Delete Card">
-          <IconButton
-            color="primary"
-            onClick={this.handleOpen}
-            data-testid="delete-item-btn"
-          >
-            <DeleteIcon fontSize="small" data-testid="delete-item-btn-icon" />
-          </IconButton>
-        </Tooltip>
+        <IconButton
+          color="primary"
+          onClick={this.handleOpen}
+          data-testid="delete-item-btn"
+        >
+          <DeleteIcon fontSize="small" data-testid="delete-item-btn-icon" />
+        </IconButton>
         <Dialog
           fullScreen={fullScreen}
           open={open}

@@ -7,7 +7,7 @@ const {
   CREATE_CARD,
   EDIT_CARD,
   DELETE_CARD,
-  UPVOTE_CARD,
+  VOTE_CARD,
   UPDATE_BOARD
 } = require("./event-names");
 
@@ -69,17 +69,19 @@ const editCard = (io, client, roomId) => {
   });
 };
 
-const upvoteCard = (io, client, roomId) => {
-  client.on(UPVOTE_CARD, async (cardId, boardId, value) => {
+const voteCard = (io, client, roomId) => {
+  client.on(VOTE_CARD, async (cardId, boardId, isUpvote) => {
     const path = getPath(boardId);
     await fs.readFile(path, UTF8, async (error, file) => {
-      if (error) logError(UPVOTE_CARD, error);
+      if (error) logError(VOTE_CARD, error);
 
       const board = getBoard(file);
-      board.items[cardId].points += value;
+
+      if (isUpvote) board.items[cardId].points += 1;
+      else board.items[cardId].points -= 1;
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
-        if (error) logError(UPVOTE_CARD, error);
+        if (error) logError(VOTE_CARD, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
     });
@@ -90,5 +92,5 @@ module.exports = {
   createCard,
   editCard,
   deleteCard,
-  upvoteCard
+  voteCard
 };

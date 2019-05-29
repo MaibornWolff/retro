@@ -12,27 +12,56 @@ import {
   DialogContentText,
   DialogTitle,
   withMobileDialog,
-  withStyles
+  withStyles,
+  Typography
 } from "@material-ui/core";
 
+import { isBoardIdValid } from "../../utils";
+import { LOAD_BOARD_ID_INVALID_MSG } from "../../utils/errorMessages";
+
 class LoadBoardDialog extends React.Component {
-  state = { open: false, boardId: "" };
+  state = { open: false, boardId: "", error: false };
 
   handleOpen = () => this.setState({ open: true });
 
-  handleClose = () => this.setState({ open: false, boardId: "" });
+  handleClose = () => this.clearState();
 
   handleChange = e => this.setState({ boardId: e.target.value });
 
-  handleSubmit = history => {
+  handleSubmit = async history => {
     const { boardId } = this.state;
-    history.push(`/boards/${boardId}`);
-    this.setState({ open: false, boardId: "" });
+    const isValid = await isBoardIdValid(boardId);
+
+    if (isValid) {
+      history.push(`/boards/${boardId}`);
+      this.clearState();
+    } else {
+      this.setState({ error: true });
+    }
   };
+
+  clearState() {
+    this.setState({ open: false, boardId: "", error: false });
+  }
+
+  renderError(isValid) {
+    if (this.state.error || !isValid) {
+      return (
+        <Typography color="error" variant="caption">
+          {LOAD_BOARD_ID_INVALID_MSG}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
 
   render() {
     const { open, boardId } = this.state;
     const { classes, fullScreen, history } = this.props;
+
+    // all nanoid() calls generate an ID with the default size of 21 chars
+    const isValidId = boardId.length === 21;
 
     return (
       <>
@@ -59,11 +88,14 @@ class LoadBoardDialog extends React.Component {
             </DialogContentText>
             <TextField
               autoFocus
+              required
+              error={!isValidId}
               margin="dense"
               label="Board-ID"
               type="text"
               value={boardId}
               onChange={this.handleChange}
+              helperText={this.renderError(isValidId)}
               fullWidth
               autoComplete="off"
             />
@@ -72,7 +104,11 @@ class LoadBoardDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={() => this.handleSubmit(history)} color="primary">
+            <Button
+              onClick={() => this.handleSubmit(history)}
+              color="primary"
+              disabled={!isValidId}
+            >
               Load
             </Button>
           </DialogActions>
