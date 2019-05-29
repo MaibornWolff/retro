@@ -8,7 +8,7 @@ import ExportBoardButton from "./buttons/ExportBoardButton";
 import VoteCountButton from "./buttons/VoteCountButton";
 
 const BoardHeader = props => {
-  const { classes, boardId, title } = props;
+  const { classes, boardId, title, maxVoteCount } = props;
 
   return (
     <>
@@ -29,7 +29,11 @@ const BoardHeader = props => {
         <CreateColumnButton className={classes.button} boardId={boardId} />
         <UnblurCardsButton className={classes.button} boardId={boardId} />
         <ExportBoardButton className={classes.button} boardId={boardId} />
-        <VoteCountButton className={classes.button} boardId={boardId} />
+        <VoteCountButton
+          className={classes.button}
+          boardId={boardId}
+          maxVoteCount={maxVoteCount}
+        />
       </Grid>
     </>
   );

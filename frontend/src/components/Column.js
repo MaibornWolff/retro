@@ -15,7 +15,7 @@ const ItemsContainer = styled.div`
 
 class Column extends React.Component {
   render() {
-    const { classes, column, items, index, boardId } = this.props;
+    const { classes, column, items, index, boardId, openSnackbar } = this.props;
 
     return (
       <Draggable draggableId={column.id} index={index}>
@@ -59,7 +59,11 @@ class Column extends React.Component {
                   {...providedDroppable.droppableProps}
                   isDraggingOver={snapshot.isDraggingOver}
                 >
-                  <Items items={items} boardId={boardId} />
+                  <Items
+                    items={items}
+                    boardId={boardId}
+                    openSnackbar={openSnackbar}
+                  />
                   {providedDroppable.placeholder}
                 </ItemsContainer>
               )}

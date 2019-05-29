@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import pull from "lodash/pull";
+import isEqual from "lodash/isEqual";
 import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Redirect } from "react-router-dom";
 
 import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
+import VoteCountSnackbar from "./VoteCountSnackbar";
 import { FlexContainer } from "./styled";
 import { connectSocket, defaultBoard } from "../utils";
 import {
@@ -13,11 +15,17 @@ import {
   CREATE_BOARD,
   UPDATE_BOARD,
   JOIN_BOARD,
-  JOIN_ERROR
+  JOIN_ERROR,
+  SET_MAX_VOTES,
+  RESET_VOTES
 } from "../utils/eventNames";
 import {
-  createModeratorRole,
-  createParticipantRole
+  createRole,
+  setMaxVoteCountAndReset,
+  getVotesLeft,
+  ROLE_MODERATOR,
+  ROLE_PARTICIPANT,
+  getUser
 } from "../utils/roleHandlers";
 
 const styles = theme => ({
@@ -33,15 +41,17 @@ function Board(props) {
   const boardId = props.match.params.boardId;
   const socket = connectSocket(boardId);
   const [board, setBoard] = useState(defaultBoard);
+  const [isSnackbarOpen, setSnackbar] = useState(false);
   const { classes } = props;
 
   useEffect(() => {
     socket.on(CONNECT, () => {
-      socket.emit(JOIN_BOARD, boardId);
+      if (isEqual(board, defaultBoard)) socket.emit(JOIN_BOARD, boardId);
     });
 
     socket.on(CREATE_BOARD, newBoard => {
-      createModeratorRole(newBoard.boardId);
+      const { boardId, maxVoteCount } = newBoard;
+      createRole(ROLE_MODERATOR, boardId, maxVoteCount);
       setBoard(newBoard);
     });
 
@@ -49,12 +59,26 @@ function Board(props) {
       setBoard(newBoard);
     });
 
-    socket.on(JOIN_BOARD, board => {
-      const boardId = board.boardId;
-      if (localStorage.getItem(boardId) === null) {
-        createParticipantRole(boardId);
+    socket.on(SET_MAX_VOTES, (newBoard, newVoteCount) => {
+      setMaxVoteCountAndReset(newVoteCount, newBoard.boardId);
+      setBoard(newBoard);
+      openSnackbar();
+    });
+
+    socket.on(RESET_VOTES, newBoard => {
+      setMaxVoteCountAndReset(newBoard.maxVoteCount, newBoard.boardId);
+      setBoard(newBoard);
+      openSnackbar();
+    });
+
+    socket.on(JOIN_BOARD, boardData => {
+      const { boardId, maxVoteCount } = boardData;
+
+      if (getUser(boardId) === null) {
+        createRole(ROLE_PARTICIPANT, boardId, maxVoteCount);
       }
-      setBoard(board);
+
+      setBoard(boardData);
     });
 
     socket.on(JOIN_ERROR, () => {
@@ -65,6 +89,14 @@ function Board(props) {
       socket.close();
     };
   }, [board, boardId, socket]);
+
+  function openSnackbar() {
+    setSnackbar(true);
+  }
+
+  function closeSnackbar() {
+    setSnackbar(false);
+  }
 
   function onDragEnd(dragResult) {
     const { source, destination, type, combine } = dragResult;
@@ -230,9 +262,22 @@ function Board(props) {
           itemMap={items}
           index={index}
           boardId={boardId}
+          openSnackbar={openSnackbar}
         />
       );
     });
+  }
+
+  function renderSnackbar(voteCount) {
+    return (
+      <VoteCountSnackbar
+        id="vote-count-snackbar"
+        open={isSnackbarOpen}
+        handleClose={closeSnackbar}
+        autoHideDuration={3000}
+        voteCount={voteCount}
+      />
+    );
   }
 
   if (board.error) {
@@ -243,7 +288,11 @@ function Board(props) {
     <Grid container className={classes.root} direction="column">
       <Grid item xs={12}>
         <Grid container className={classes.header} direction="row">
-          <BoardHeader title={board.title} boardId={boardId} />
+          <BoardHeader
+            title={board.title}
+            boardId={boardId}
+            maxVoteCount={board.maxVoteCount}
+          />
         </Grid>
       </Grid>
       <Grid item xs={12}>
@@ -265,6 +314,7 @@ function Board(props) {
           </Droppable>
         </DragDropContext>
       </Grid>
+      {renderSnackbar(getVotesLeft(boardId))}
     </Grid>
   );
 }

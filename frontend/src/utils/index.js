@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 
 export const BACKEND_ENDPOINT =
-  process.env.REACT_APP_PROD_URL || "http://localhost:8081";
+  process.env.REACT_APP_PROD_URL || "http://localhost:3001";
 
 export const connectSocket = id =>
   io(BACKEND_ENDPOINT, { query: "boardId=" + id });
@@ -13,7 +13,8 @@ export const defaultBoard = {
   columns: {},
   columnOrder: [],
   error: false,
-  isBlurred: true
+  isBlurred: true,
+  maxVoteCount: 3
 };
 
 export const fetchGET = async url => {

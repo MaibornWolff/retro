@@ -6,7 +6,9 @@ const {
   UPDATE_BOARD,
   JOIN_BOARD,
   UNBLUR_CARDS,
-  JOIN_ERROR
+  JOIN_ERROR,
+  SET_MAX_VOTES,
+  RESET_VOTES
 } = require("./event-names");
 
 const UTF8 = "utf8";
@@ -50,8 +52,9 @@ const unblurCards = (io, client, roomId) => {
       const board = getBoard(file);
       board.isBlurred = !board.isBlurred;
 
-      for (let cardId in board.items)
+      for (let cardId in board.items) {
         board.items[cardId].isBlurred = board.isBlurred;
+      }
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(UNBLUR_CARDS, error);
@@ -61,9 +64,53 @@ const unblurCards = (io, client, roomId) => {
   });
 };
 
+const setMaxVotes = (io, client, roomId) => {
+  client.on(SET_MAX_VOTES, async (voteCount, boardId) => {
+    const path = getPath(boardId);
+
+    await fs.readFile(path, UTF8, async (error, file) => {
+      if (error) logError(SET_MAX_VOTES, error);
+
+      const board = getBoard(file);
+      // set max votes and reset all points on cards
+      board.maxVoteCount = voteCount;
+      for (let cardId in board.items) {
+        board.items[cardId].points = 0;
+      }
+
+      await fs.writeFile(path, stringify(board), UTF8, error => {
+        if (error) logError(SET_MAX_VOTES, error);
+        io.to(roomId).emit(SET_MAX_VOTES, board, voteCount);
+      });
+    });
+  });
+};
+
+const resetVotes = (io, client, roomId) => {
+  client.on(RESET_VOTES, async boardId => {
+    const path = getPath(boardId);
+
+    await fs.readFile(path, UTF8, async (error, file) => {
+      if (error) logError(RESET_VOTES, error);
+
+      const board = getBoard(file);
+      for (let cardId in board.items) {
+        board.items[cardId].points = 0;
+      }
+
+      await fs.writeFile(path, stringify(board), UTF8, error => {
+        if (error) logError(RESET_VOTES, error);
+        io.to(roomId).emit(RESET_VOTES, board);
+      });
+    });
+  });
+};
+
 module.exports = {
   createBoard,
   updateBoard,
   joinBoard,
-  unblurCards
+  unblurCards,
+  setMaxVotes,
+  resetVotes
 };

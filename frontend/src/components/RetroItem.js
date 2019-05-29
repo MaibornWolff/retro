@@ -1,4 +1,5 @@
 import React from "react";
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import {
   Avatar,
   Card,
@@ -7,15 +8,30 @@ import {
   CardActions,
   Divider,
   Typography,
-  withStyles
+  withStyles,
+  IconButton
 } from "@material-ui/core";
 
 import EditItemDialog from "./dialogs/EditItemDialog";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import UpvoteItemButton from "./buttons/UpvoteItemButton";
 import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
+import { connectSocket } from "../utils";
+import { VOTE_CARD } from "../utils/eventNames";
+import { setVotedItem, setUser, getVotesLeft } from "../utils/roleHandlers";
 
 class RetroItem extends React.PureComponent {
+  handleDownVote = () => {
+    const { id, boardId, openSnackbar } = this.props;
+    const socket = connectSocket(boardId);
+    const votesLeft = getVotesLeft(boardId);
+
+    socket.emit(VOTE_CARD, id, boardId, false);
+    setVotedItem(id, boardId, false);
+    setUser("votesLeft", votesLeft + 1, boardId);
+    openSnackbar();
+  };
+
   render() {
     const {
       classes,
@@ -24,7 +40,9 @@ class RetroItem extends React.PureComponent {
       content,
       points,
       boardId,
-      isBlurred
+      isBlurred,
+      isVoted,
+      openSnackbar
     } = this.props;
 
     return (
@@ -33,7 +51,10 @@ class RetroItem extends React.PureComponent {
           <Card className={classes.card} raised>
             <CardHeader
               avatar={
-                <Avatar className={classes.avatar} aria-label="number of votes">
+                <Avatar
+                  className={isVoted ? classes.avatarVoted : classes.avatar}
+                  aria-label="number of votes"
+                >
                   {points}
                 </Avatar>
               }
@@ -41,6 +62,13 @@ class RetroItem extends React.PureComponent {
                 <Typography variant="body2" component={"span"}>
                   <CardAuthor>{author}</CardAuthor>
                 </Typography>
+              }
+              action={
+                isVoted ? (
+                  <IconButton color="primary" onClick={this.handleDownVote}>
+                    <ThumbDownIcon fontSize="small" />
+                  </IconButton>
+                ) : null
               }
             />
             <Divider />
@@ -62,7 +90,11 @@ class RetroItem extends React.PureComponent {
                 content={content}
                 boardId={boardId}
               />
-              <UpvoteItemButton id={id} boardId={boardId} points={points} />
+              <UpvoteItemButton
+                id={id}
+                boardId={boardId}
+                openSnackbar={openSnackbar}
+              />
             </CardActions>
           </Card>
         </CardContainer>
@@ -75,6 +107,10 @@ const styles = {
   avatar: {
     color: "#fff",
     backgroundColor: "#73a6ad"
+  },
+  avatarVoted: {
+    color: "#fff",
+    backgroundColor: "#535a5b"
   },
   actions: {
     display: "flex",

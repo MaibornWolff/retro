@@ -17,11 +17,17 @@ class Columns extends React.PureComponent {
   }
 
   render() {
-    const { column, itemMap, index, boardId } = this.props;
+    const { column, itemMap, index, boardId, openSnackbar } = this.props;
     const items = this.getItems(column, itemMap);
 
     return (
-      <Column column={column} items={items} index={index} boardId={boardId} />
+      <Column
+        column={column}
+        items={items}
+        index={index}
+        boardId={boardId}
+        openSnackbar={openSnackbar}
+      />
     );
   }
 }
