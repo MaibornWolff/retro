@@ -5,7 +5,7 @@ import QrCodeDialog from "../dialogs/QrCodeDialog";
 const ShowQrCodeButton = props => (
   <>
     <Grid item className={props.className}>
-      <QrCodeDialog/>
+      <QrCodeDialog />
     </Grid>
   </>
 );

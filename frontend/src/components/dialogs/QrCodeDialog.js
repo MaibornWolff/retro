@@ -26,7 +26,7 @@ class QrCodeDialog extends React.Component {
   onRendered = () => {
     const href = window.location.href;
     QRCode.toCanvas(this.qrCanvas.current, href);
-  }
+  };
 
   render() {
     const { open } = this.state;
@@ -54,7 +54,7 @@ class QrCodeDialog extends React.Component {
           <DialogTitle id="qr-code-dialog">QR Code</DialogTitle>
           <DialogContent>
             <DialogContentText id="board-export-dialog-description">
-              <canvas ref={this.qrCanvas}></canvas>
+              <canvas ref={this.qrCanvas} />
             </DialogContentText>
           </DialogContent>
           <DialogActions>
