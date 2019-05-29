@@ -59,15 +59,15 @@ const styles = theme => ({
     minHeight: "100vh"
   },
   greetingText: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
     color: "white"
   },
   subtitleText: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
     color: "white"
   },
   button: {
-    marginButton: theme.spacing.unit * 2
+    marginButton: theme.spacing(2)
   }
 });
 
