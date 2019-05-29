@@ -45,6 +45,8 @@ function Board(props) {
   const { classes } = props;
 
   useEffect(() => {
+    document.title = `Retro | ${board.title}`;
+
     socket.on(CONNECT, () => {
       if (isEqual(board, defaultBoard)) socket.emit(JOIN_BOARD, boardId);
     });
