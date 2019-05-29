@@ -14,5 +14,6 @@ module.exports = {
   UNBLUR_CARDS: "unblur cards",
   EDIT_COLUMN: "edit column",
   JOIN_ERROR: "join error",
-  SET_MAX_VOTES: "set max votes"
+  SET_MAX_VOTES: "set max votes",
+  RESET_VOTES: "reset votes"
 };

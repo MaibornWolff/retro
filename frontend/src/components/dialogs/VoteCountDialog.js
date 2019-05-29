@@ -1,7 +1,7 @@
 import React from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import ArrowUpIcon from "@material-ui/icons/ArrowUpward";
-import ArrowDownIcon from "@material-ui/icons/ArrowDownward";
+import IncrementIcon from "@material-ui/icons/ExposurePlus1";
+import DecrementIcon from "@material-ui/icons/ExposureNeg1";
 import {
   Button,
   Dialog,
@@ -11,11 +11,12 @@ import {
   IconButton,
   withMobileDialog,
   Grid,
-  Typography
+  Typography,
+  DialogContentText
 } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
-import { SET_MAX_VOTES } from "../../utils/eventNames";
+import { SET_MAX_VOTES, RESET_VOTES } from "../../utils/eventNames";
 import { isModerator } from "../../utils/roleHandlers";
 
 class VoteCountDialog extends React.Component {
@@ -44,6 +45,15 @@ class VoteCountDialog extends React.Component {
     const socket = connectSocket(boardId);
 
     socket.emit(SET_MAX_VOTES, voteCount, boardId);
+
+    this.closeDialog();
+  };
+
+  resetVotes = () => {
+    const { boardId } = this.props;
+    const socket = connectSocket(boardId);
+
+    socket.emit(RESET_VOTES, boardId);
 
     this.closeDialog();
   };
@@ -78,33 +88,39 @@ class VoteCountDialog extends React.Component {
           aria-labelledby="vote-count-dialog"
           aria-describedby="vote-count-dialog-description"
         >
-          <DialogTitle id="vote-count-dialog">
-            Set Maximum Vote Count
-          </DialogTitle>
+          <DialogTitle id="vote-count-dialog">Vote Count Settings</DialogTitle>
           <DialogContent>
-            <Grid container direction="column" alignItems="center">
-              <Grid item>
-                <Typography variant="body1">
-                  {"Maximum Vote Count is: " + voteCount}
-                </Typography>
+            <DialogContentText id="vote-count-dialog-description">
+              Set your maximum vote count or reset all votes.
+              <br />
+              <br />
+              <Grid container direction="column" alignItems="center">
+                <Grid item>
+                  <Typography variant="body1">
+                    {"Maximum Vote Count: " + voteCount}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    aria-label="Increase Vote Count"
+                    onClick={this.incrementVotes}
+                  >
+                    <IncrementIcon />
+                  </IconButton>
+                  <IconButton
+                    aria-label="Decrease Vote Count"
+                    onClick={this.decrementVotes}
+                  >
+                    <DecrementIcon />
+                  </IconButton>
+                </Grid>
               </Grid>
-              <Grid item>
-                <IconButton
-                  aria-label="Increase Vote Count"
-                  onClick={this.incrementVotes}
-                >
-                  <ArrowUpIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  aria-label="Decrease Vote Count"
-                  onClick={this.decrementVotes}
-                >
-                  <ArrowDownIcon fontSize="small" />
-                </IconButton>
-              </Grid>
-            </Grid>
+            </DialogContentText>
           </DialogContent>
           <DialogActions>
+            <Button color="primary" onClick={this.resetVotes}>
+              Reset Votes
+            </Button>
             <Button color="primary" onClick={this.closeDialog}>
               Cancel
             </Button>

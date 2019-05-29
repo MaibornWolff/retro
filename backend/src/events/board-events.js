@@ -7,7 +7,8 @@ const {
   JOIN_BOARD,
   UNBLUR_CARDS,
   JOIN_ERROR,
-  SET_MAX_VOTES
+  SET_MAX_VOTES,
+  RESET_VOTES
 } = require("./event-names");
 
 const UTF8 = "utf8";
@@ -85,10 +86,31 @@ const setMaxVotes = (io, client, roomId) => {
   });
 };
 
+const resetVotes = (io, client, roomId) => {
+  client.on(RESET_VOTES, async boardId => {
+    const path = getPath(boardId);
+
+    await fs.readFile(path, UTF8, async (error, file) => {
+      if (error) logError(RESET_VOTES, error);
+
+      const board = getBoard(file);
+      for (let cardId in board.items) {
+        board.items[cardId].points = 0;
+      }
+
+      await fs.writeFile(path, stringify(board), UTF8, error => {
+        if (error) logError(RESET_VOTES, error);
+        io.to(roomId).emit(RESET_VOTES, board);
+      });
+    });
+  });
+};
+
 module.exports = {
   createBoard,
   updateBoard,
   joinBoard,
   unblurCards,
-  setMaxVotes
+  setMaxVotes,
+  resetVotes
 };

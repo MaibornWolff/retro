@@ -16,11 +16,12 @@ import {
   UPDATE_BOARD,
   JOIN_BOARD,
   JOIN_ERROR,
-  SET_MAX_VOTES
+  SET_MAX_VOTES,
+  RESET_VOTES
 } from "../utils/eventNames";
 import {
   createRole,
-  setMaxVoteCount,
+  setMaxVoteCountAndReset,
   getVotesLeft,
   ROLE_MODERATOR,
   ROLE_PARTICIPANT,
@@ -59,7 +60,13 @@ function Board(props) {
     });
 
     socket.on(SET_MAX_VOTES, (newBoard, newVoteCount) => {
-      setMaxVoteCount(newVoteCount, newBoard.boardId);
+      setMaxVoteCountAndReset(newVoteCount, newBoard.boardId);
+      setBoard(newBoard);
+      openSnackbar();
+    });
+
+    socket.on(RESET_VOTES, newBoard => {
+      setMaxVoteCountAndReset(newBoard.maxVoteCount, newBoard.boardId);
       setBoard(newBoard);
       openSnackbar();
     });

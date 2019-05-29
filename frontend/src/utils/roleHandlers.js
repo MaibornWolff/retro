@@ -63,7 +63,7 @@ export const hasVotedFor = (cardId, boardId) => {
   }
 };
 
-export const setMaxVoteCount = (newVoteCount, boardId) => {
+export const setMaxVoteCountAndReset = (newVoteCount, boardId) => {
   const roleObject = localStorage.getItem(boardId);
 
   if (roleObject !== null) {

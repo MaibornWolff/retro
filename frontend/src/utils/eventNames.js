@@ -13,3 +13,4 @@ export const UNBLUR_CARDS = "unblur cards";
 export const EDIT_COLUMN = "edit column";
 export const JOIN_ERROR = "join error";
 export const SET_MAX_VOTES = "set max votes";
+export const RESET_VOTES = "reset votes";
