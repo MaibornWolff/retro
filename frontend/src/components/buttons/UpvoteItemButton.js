@@ -3,13 +3,25 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import { IconButton } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
-import { VOTE_CARD } from "../../utils/eventNames";
+import { VOTE_CARD, SET_MAX_VOTES, RESET_VOTES } from "../../utils/eventNames";
 import { setUser, getVotesLeft, setVotedItem } from "../../utils/roleHandlers";
 
 class UpvoteItemButton extends React.Component {
   state = {
     isDisabled: false
   };
+
+  componentDidMount() {
+    const socket = connectSocket(this.props.boardId);
+
+    socket.on(SET_MAX_VOTES, () => {
+      this.enableButton();
+    });
+
+    socket.on(RESET_VOTES, () => {
+      this.enableButton();
+    });
+  }
 
   enableButton = () => this.setState({ isDisabled: false });
 
@@ -24,10 +36,6 @@ class UpvoteItemButton extends React.Component {
     const votesLeft = getVotesLeft(boardId);
 
     if (votesLeft > 0) {
-      if (!this.state.isDisabled) {
-        this.enableButton();
-      }
-
       socket.emit(VOTE_CARD, id, boardId, true);
       setVotedItem(id, boardId, true);
       setUser("votesLeft", votesLeft - 1, boardId);

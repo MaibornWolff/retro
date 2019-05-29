@@ -92,30 +92,29 @@ class VoteCountDialog extends React.Component {
           <DialogContent>
             <DialogContentText id="vote-count-dialog-description">
               Set your maximum vote count or reset all votes.
-              <br />
-              <br />
-              <Grid container direction="column" alignItems="center">
-                <Grid item>
-                  <Typography variant="body1">
-                    {"Maximum Vote Count: " + voteCount}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <IconButton
-                    aria-label="Increase Vote Count"
-                    onClick={this.incrementVotes}
-                  >
-                    <IncrementIcon />
-                  </IconButton>
-                  <IconButton
-                    aria-label="Decrease Vote Count"
-                    onClick={this.decrementVotes}
-                  >
-                    <DecrementIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
             </DialogContentText>
+            <br />
+            <Grid container direction="column" alignItems="center">
+              <Grid item>
+                <Typography variant="body1">
+                  {"Maximum Vote Count: " + voteCount}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <IconButton
+                  aria-label="Increase Vote Count"
+                  onClick={this.incrementVotes}
+                >
+                  <IncrementIcon />
+                </IconButton>
+                <IconButton
+                  aria-label="Decrease Vote Count"
+                  onClick={this.decrementVotes}
+                >
+                  <DecrementIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
           </DialogContent>
           <DialogActions>
             <Button color="primary" onClick={this.resetVotes}>
