@@ -1,4 +1,18 @@
 import styled, { css } from "styled-components";
+const sizes = {
+  desktop: 1200,
+  tablet: 768,
+  phone: 576
+};
+
+const media = Object.keys(sizes).reduce((acc, label) => {
+  acc[label] = (...args) => css`
+    @media (min-width: ${sizes[label] / 16}em) {
+      ${css(...args)}
+    }
+  `;
+  return acc;
+}, {});
 
 export const Hero = styled.div`
   width: 100%;
@@ -14,17 +28,19 @@ export const Hero = styled.div`
 
 export const FlexContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  ${media.desktop`flex-direction: row;`}
 `;
 
 export const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  width: 20vw;
-  margin: 1em;
+  margin: 1em 0.2em 1em 0.2em;
+  ${media.tablet`margin: 1em 1em 1em 1em;`}
   border: 1px solid grey;
   border-radius: 2px;
-  background-color: white;
+  background-color: #white;
   box-shadow: 0 6px 6px -2px lightgrey;
 `;
 
@@ -67,7 +83,8 @@ export const Unblur = styled.a`
 export const ItemsContainerStyles = css`
   flex-grow: 1;
   min-height: 100px;
-  padding: 1em;
+  padding: 0.2em;
+  ${media.tablet`padding: 1em;`}
   background-color: ${p => (p.isDraggingOver ? "#f5f5f5" : "inherit")};
   transition: background-color 0.2s ease;
 `;
