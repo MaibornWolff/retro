@@ -1,28 +1,22 @@
 # Retro - Frontend
 
-The Frontend of Retro is a React App using create-react-app.
+The frontend of Retro is a React app using [create-react-app](https://github.com/facebook/create-react-app).
 
 ## Scripts
 
-| Name         | Description                                       |
-| ------------ | ------------------------------------------------- |
-| start        | starts the dev server                             |
-| build        | starts a production build                         |
-| test         | runs test                                         |
-| lint         | runs linter using ESLint                          |
-| format       | formats the whole frontend project using Prettier |
-| format:check | checks if formatting is violated                  |
-| eject        | do not use this                                   |
+| Name            | Description                                      |
+| --------------- | ------------------------------------------------ |
+| start           | starts the dev server                            |
+| build           | starts a build                                   |
+| build:prod      | starts a prod build by reading an .env file      |
+| deploy:frontend | copies built files to public folder of `backend` |
+| deploy          | runs `build:prod` and `deploy:frontend`          |
+| test            | runs tests                                       |
+| lint            | runs ESLint                                      |
+| format          | runs Prettier                                    |
+| format:check    | runs Prettier check (for CI)                     |
+| eject           | eject from CRA                                   |
 
-## Dependencies
+## Information
 
-- Material UI
-- Reach Router
-- Lodash
-- React
-- React Beautiful DnD
-- React Cookie(s)
-- Recompose
-- SocketIO Client
-- Styled Components
-- Uniqid
+- The frontend makes use of [Material-UI](https://github.com/mui-org/material-ui) and [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)

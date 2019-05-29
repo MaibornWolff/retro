@@ -2,18 +2,24 @@ import React from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import {
   withMobileDialog,
-  Tooltip,
-  IconButton,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   TextField,
-  Button
+  Button,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  Typography
 } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
-import { EDIT_COLUMN } from "../../events/event-names";
+import { EDIT_COLUMN } from "../../utils/eventNames";
+import { connectSocket, validateInput } from "../../utils";
+import {
+  COLUMN_NAME_EMPTY_MSG,
+  COLUMN_NAME_TOO_LONG_MSG
+} from "../../utils/errorMessages";
 
 class EditColumnNameDialog extends React.Component {
   state = { open: false, title: this.props.columnTitle };
@@ -25,7 +31,7 @@ class EditColumnNameDialog extends React.Component {
   handleClick = () => {
     const { title } = this.state;
     const { columnId, boardId } = this.props;
-    const socket = socket_connect(boardId);
+    const socket = connectSocket(boardId);
 
     socket.emit(EDIT_COLUMN, columnId, boardId, title);
     this.setState({ open: false, title: "" });
@@ -33,17 +39,31 @@ class EditColumnNameDialog extends React.Component {
 
   handleChange = e => this.setState({ title: e.target.value });
 
+  renderError(isNameEmpty, isNameLong) {
+    if (isNameEmpty || isNameLong) {
+      return (
+        <Typography variant="caption" color="error">
+          {isNameEmpty ? COLUMN_NAME_EMPTY_MSG : COLUMN_NAME_TOO_LONG_MSG}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { open, title } = this.state;
     const { fullScreen } = this.props;
+    const input = validateInput(title.length, 0, 40);
 
     return (
       <>
-        <Tooltip title="Edit Column" aria-label="Edit Column">
-          <IconButton color="inherit" onClick={this.handleOpen}>
+        <MenuItem button onClick={this.handleOpen}>
+          <ListItemIcon>
             <EditIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
+          </ListItemIcon>
+          <ListItemText inset primary="Edit Name" />
+        </MenuItem>
         <Dialog
           fullScreen={fullScreen}
           open={open}
@@ -53,11 +73,14 @@ class EditColumnNameDialog extends React.Component {
           <DialogTitle id="edit-column-dialog">Edit Column</DialogTitle>
           <DialogContent>
             <TextField
+              required
+              error={!input.isValid}
               margin="dense"
               label="Column Name"
               type="text"
               value={title}
               onChange={this.handleChange}
+              helperText={this.renderError(input.isEmpty, input.isTooLong)}
               autoFocus
               fullWidth
               autoComplete="off"
@@ -67,7 +90,11 @@ class EditColumnNameDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClick} color="primary">
+            <Button
+              onClick={this.handleClick}
+              color="primary"
+              disabled={!input.isValid}
+            >
               Save
             </Button>
           </DialogActions>

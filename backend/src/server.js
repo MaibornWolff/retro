@@ -12,7 +12,7 @@ const puppeteer = require("puppeteer");
 
 const { boardEvents, columnEvents, cardEvents } = require("./events");
 const { CONNECTION } = require("./events/event-names");
-const { getImg, getPath } = require("./utils");
+const { getImg, getPath, respondWithInvalidBoardId } = require("./utils");
 
 const publicFolderPath = path.resolve(__dirname, "../public");
 const port = process.env.PORT;
@@ -23,14 +23,21 @@ app.use(cors());
 app.use(json());
 app.use(express.static(publicFolderPath));
 
+app.get("/api/boards/validate/:boardId", async (req, res) => {
+  const boardId = req.params.boardId;
+  await fs.readFile(getPath(boardId), "utf-8", error => {
+    if (error) {
+      respondWithInvalidBoardId(res, error);
+    }
+    res.status(200).send();
+  });
+});
+
 app.get("/api/boards/export/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
   await fs.readFile(getPath(boardId), "utf-8", async error => {
     if (error) {
-      res.status(400).send({
-        msg: "Board-ID does not exist!",
-        error
-      });
+      respondWithInvalidBoardId(res, error);
     }
 
     const exportHost = process.env.EXPORT_URL_HOST;

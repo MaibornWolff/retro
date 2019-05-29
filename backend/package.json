@@ -1,29 +1,47 @@
 {
-  "name": "backend",
-  "version": "0.1.0",
-  "main": "index.js",
+  "name": "@retro/backend",
+  "description": "The Node.js backend of Retro. Make retrospectives great again.",
+  "homepage": "https://github.com/yduman/retro",
+  "author": {
+    "name": "Yadullah Duman",
+    "url": "https://yduman.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/yduman/retro/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yduman/retro.git",
+    "directory": "backend/"
+  },
+  "main": "src/index.js",
   "license": "MIT",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "start": "nodemon ./src/server.js",
     "test": "cross-env NODE_ENV=TEST mocha src/test/backend.test.js --timeout 12000 --exit",
+    "lint": "eslint \"src/**/*.js\" --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
-    "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\""
+    "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\"",
+    "precommit": "run-s -l -n format lint test"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "lodash": "^4.17.11",
-    "puppeteer": "^1.13.0",
+    "puppeteer": "^1.17.0",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
-    "mocha": "^6.0.2",
-    "nodemon": "^1.18.10",
-    "prettier": "^1.16.4",
+    "eslint": "^5.16.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.17.1",
     "socket.io-client": "^2.2.0",
     "supertest": "^4.0.2"
   }

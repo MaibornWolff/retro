@@ -3,7 +3,9 @@ import { render, fireEvent, waitForElement } from "react-testing-library";
 import EditItemDialog from "../../components/dialogs/EditItemDialog";
 
 it("should display icon", () => {
-  const { getByTestId } = render(<EditItemDialog />);
+  const { getByTestId } = render(
+    <EditItemDialog author="Some Guy" content="Some Content" />
+  );
   const editItemBtn = getByTestId("edit-item-btn");
   const editIcon = getByTestId("edit-item-btn-icon");
 
@@ -11,7 +13,9 @@ it("should display icon", () => {
 });
 
 it("should display dialog on click", async () => {
-  const { getByTestId, getByText } = render(<EditItemDialog />);
+  const { getByTestId, getByText } = render(
+    <EditItemDialog author="Some Guy" content="Some Content" />
+  );
   const editItemBtn = getByTestId("edit-item-btn");
 
   fireEvent.click(editItemBtn);

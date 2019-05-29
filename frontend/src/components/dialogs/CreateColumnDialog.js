@@ -1,7 +1,6 @@
 import React from "react";
-import uniqid from "uniqid";
+import nanoid from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
-import { compose } from "recompose";
 import {
   Button,
   TextField,
@@ -9,12 +8,17 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  withMobileDialog,
-  withStyles
+  Typography,
+  withMobileDialog
 } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
-import { CREATE_COLUMN } from "../../events/event-names";
+import { CREATE_COLUMN } from "../../utils/eventNames";
+import { connectSocket, validateInput } from "../../utils";
+import { isModerator } from "../../utils/roleHandlers";
+import {
+  COLUMN_NAME_EMPTY_MSG,
+  COLUMN_NAME_TOO_LONG_MSG
+} from "../../utils/errorMessages";
 
 class CreateColumnDialog extends React.Component {
   state = {
@@ -26,24 +30,40 @@ class CreateColumnDialog extends React.Component {
 
   handleClose = () => this.setState({ open: false });
 
-  handleChange = e => this.setState({ columnTitle: e.target.value });
+  handleChange = event => {
+    this.setState({ columnTitle: event.target.value });
+  };
 
   handleSubmit = e => {
     e.preventDefault();
 
-    const id = uniqid("column-");
+    const id = nanoid();
     const { columnTitle } = this.state;
+
     const { boardId } = this.props;
-    const socket = socket_connect(boardId);
+    const socket = connectSocket(boardId);
     const column = { id, columnTitle, itemIds: [] };
 
     socket.emit(CREATE_COLUMN, column, boardId);
     this.setState({ columnTitle: "", open: false });
   };
 
+  renderError(isNameEmpty, isNameLong) {
+    if (isNameEmpty || isNameLong) {
+      return (
+        <Typography variant="caption" color="error">
+          {isNameEmpty ? COLUMN_NAME_EMPTY_MSG : COLUMN_NAME_TOO_LONG_MSG}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { open, columnTitle } = this.state;
-    const { fullScreen } = this.props;
+    const { fullScreen, boardId } = this.props;
+    const input = validateInput(columnTitle.length, 0, 40);
 
     return (
       <>
@@ -54,12 +74,15 @@ class CreateColumnDialog extends React.Component {
           color="primary"
           onClick={this.handleOpen}
           data-testid="new-col-btn"
+          disabled={!isModerator(boardId)}
         >
           <AddIcon />
           New Column
         </Button>
         <Dialog
           fullScreen={fullScreen}
+          fullWidth={true}
+          maxWidth="xs"
           open={open}
           onClose={this.handleClose}
           aria-labelledby="new-column-dialog"
@@ -67,6 +90,8 @@ class CreateColumnDialog extends React.Component {
           <DialogTitle id="new-column-dialog">Create New Column</DialogTitle>
           <DialogContent>
             <TextField
+              required
+              error={!input.isValid}
               autoFocus
               margin="dense"
               id="column-name"
@@ -74,6 +99,7 @@ class CreateColumnDialog extends React.Component {
               type="text"
               value={columnTitle}
               onChange={this.handleChange}
+              helperText={this.renderError(input.isEmpty, input.isTooLong)}
               fullWidth
               autoComplete="off"
             />
@@ -82,7 +108,11 @@ class CreateColumnDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleSubmit} color="primary">
+            <Button
+              onClick={this.handleSubmit}
+              color="primary"
+              disabled={!input.isValid}
+            >
               Create
             </Button>
           </DialogActions>
@@ -92,15 +122,4 @@ class CreateColumnDialog extends React.Component {
   }
 }
 
-const styles = theme => ({
-  icon: {
-    marginRight: theme.spacing.unit,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit
-  }
-});
-
-export default compose(
-  withMobileDialog(),
-  withStyles(styles)
-)(CreateColumnDialog);
+export default withMobileDialog()(CreateColumnDialog);

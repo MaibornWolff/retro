@@ -10,6 +10,8 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
+import { isModerator } from "../../utils/roleHandlers";
+
 const endpoint = "/api/boards/export/";
 const port = process.env.REACT_APP_PROD_PORT || "8081";
 const exportURL = `http://${window.location.hostname}:${port}${endpoint}`;
@@ -34,6 +36,7 @@ class ExportBoardDialog extends React.Component {
           color="primary"
           onClick={this.openDialog}
           data-testid="export-board-btn"
+          disabled={!isModerator(boardId)}
         >
           <ExportIcon style={{ marginRight: 5 }} />
           Export Board
@@ -45,10 +48,11 @@ class ExportBoardDialog extends React.Component {
           aria-labelledby="board-export-dialog"
           aria-describedby="board-export-dialog-description"
         >
-          <DialogTitle id="board-export-dialog">Export Board</DialogTitle>
+          <DialogTitle id="board-export-dialog">Export Your Board</DialogTitle>
           <DialogContent>
             <DialogContentText id="board-export-dialog-description">
-              Do you want to export this board?
+              Hope you had a great retrospective! Do you want to export your
+              board now?
             </DialogContentText>
           </DialogContent>
           <DialogActions>
