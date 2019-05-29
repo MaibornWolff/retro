@@ -4,6 +4,7 @@ import { Grid, Typography, withStyles } from "@material-ui/core";
 import CreateColumnButton from "./buttons/CreateColumnButton";
 import UnblurCardsButton from "./buttons/UnblurCardsButton";
 import ExportBoardButton from "./buttons/ExportBoardButton";
+import ShowQrCodeButton from "./buttons/ShowQrCodeButton";
 
 const BoardHeader = props => (
   <>
@@ -26,6 +27,10 @@ const BoardHeader = props => (
       <ExportBoardButton
         className={props.classes.button}
         boardId={props.boardId}
+      />
+
+      <ShowQrCodeButton
+        className={props.classes.button}
       />
     </Grid>
   </>
