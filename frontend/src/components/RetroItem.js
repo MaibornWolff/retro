@@ -65,7 +65,7 @@ class RetroItem extends React.PureComponent {
               }
               action={
                 isVoted ? (
-                  <IconButton color="default" onClick={this.handleDownVote}>
+                  <IconButton color="primary" onClick={this.handleDownVote}>
                     <ThumbDownIcon fontSize="small" />
                   </IconButton>
                 ) : null
@@ -110,7 +110,7 @@ const styles = {
   },
   avatarVoted: {
     color: "#fff",
-    backgroundColor: "#2a3132"
+    backgroundColor: "#535a5b"
   },
   actions: {
     display: "flex",
