@@ -33,7 +33,7 @@ const styles = theme => ({
     flexGrow: 1
   },
   header: {
-    padding: theme.spacing.unit * 2
+    padding: theme.spacing(2)
   }
 });
 

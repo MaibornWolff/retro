@@ -77,7 +77,7 @@ class Column extends React.Component {
 
 const styles = theme => ({
   header: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     backgroundColor: "#44777e",
     color: "#fff"
   }
