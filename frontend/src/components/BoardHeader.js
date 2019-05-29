@@ -41,8 +41,8 @@ const BoardHeader = props => {
 
 const styles = theme => ({
   button: {
-    marginRight: theme.spacing.unit,
-    marginTop: theme.spacing.unit
+    marginRight: theme.spacing(1),
+    marginTop: theme.spacing(1)
   }
 });
 
