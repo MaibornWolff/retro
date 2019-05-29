@@ -33,6 +33,35 @@ export const setUser = (propertyName, newValue, boardId) => {
   }
 };
 
+export const setVotedItem = (newValue, boardId) => {
+  const roleObject = localStorage.getItem(boardId);
+
+  if (roleObject !== null) {
+    const json = JSON.parse(roleObject);
+    const votedItems = json["votedItems"];
+
+    votedItems.push(newValue);
+    json["votedItems"] = votedItems;
+
+    localStorage.setItem(boardId, JSON.stringify(json));
+  }
+};
+
+export const hasVotedFor = (cardId, boardId) => {
+  const roleObject = localStorage.getItem(boardId);
+
+  if (roleObject !== null) {
+    const json = JSON.parse(roleObject);
+    const votedItems = json["votedItems"];
+
+    if (votedItems.includes(cardId)) {
+      return true;
+    }
+
+    return false;
+  }
+};
+
 export const setMaxVoteCount = (newVoteCount, boardId) => {
   const roleObject = localStorage.getItem(boardId);
 
@@ -40,6 +69,7 @@ export const setMaxVoteCount = (newVoteCount, boardId) => {
     const json = JSON.parse(roleObject);
     json["maxVoteCount"] = newVoteCount;
     json["votesLeft"] = newVoteCount;
+    json["votedItems"] = [];
     localStorage.setItem(boardId, JSON.stringify(json));
   }
 };
@@ -60,7 +90,8 @@ export const createRole = (role, boardId, maxVoteCount) => {
     role,
     name: "",
     maxVoteCount,
-    votesLeft: maxVoteCount
+    votesLeft: maxVoteCount,
+    votedItems: []
   });
 
   localStorage.setItem(boardId, data);

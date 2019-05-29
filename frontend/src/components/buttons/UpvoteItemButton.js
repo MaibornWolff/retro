@@ -4,7 +4,7 @@ import { IconButton } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
 import { UPVOTE_CARD } from "../../utils/eventNames";
-import { setUser, getVotesLeft } from "../../utils/roleHandlers";
+import { setUser, getVotesLeft, setVotedItem } from "../../utils/roleHandlers";
 
 class UpvoteItemButton extends React.Component {
   state = {
@@ -30,6 +30,7 @@ class UpvoteItemButton extends React.Component {
 
       socket.emit(UPVOTE_CARD, id, boardId, 1);
       setUser("votesLeft", votesLeft - 1, boardId);
+      setVotedItem(id, boardId);
       this.handleSnackbar();
     } else {
       this.disableButton();

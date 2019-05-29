@@ -25,6 +25,7 @@ class RetroItem extends React.PureComponent {
       points,
       boardId,
       isBlurred,
+      isVoted,
       openSnackbar
     } = this.props;
 
@@ -34,7 +35,10 @@ class RetroItem extends React.PureComponent {
           <Card className={classes.card} raised>
             <CardHeader
               avatar={
-                <Avatar className={classes.avatar} aria-label="number of votes">
+                <Avatar
+                  className={isVoted ? classes.avatarVoted : classes.avatar}
+                  aria-label="number of votes"
+                >
                   {points}
                 </Avatar>
               }
@@ -80,6 +84,10 @@ const styles = {
   avatar: {
     color: "#fff",
     backgroundColor: "#73a6ad"
+  },
+  avatarVoted: {
+    color: "#fff",
+    backgroundColor: "#2a3132"
   },
   actions: {
     display: "flex",
