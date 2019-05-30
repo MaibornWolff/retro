@@ -5,11 +5,11 @@ import NameInput from "./NameInput";
 import CreateColumnButton from "./buttons/CreateColumnButton";
 import UnblurCardsButton from "./buttons/UnblurCardsButton";
 import ExportBoardButton from "./buttons/ExportBoardButton";
+import ShowQrCodeButton from "./buttons/ShowQrCodeButton";
 import VoteCountButton from "./buttons/VoteCountButton";
 
 const BoardHeader = props => {
   const { classes, boardId, title, maxVoteCount } = props;
-
   return (
     <>
       <Grid
@@ -29,6 +29,7 @@ const BoardHeader = props => {
         <CreateColumnButton className={classes.button} boardId={boardId} />
         <UnblurCardsButton className={classes.button} boardId={boardId} />
         <ExportBoardButton className={classes.button} boardId={boardId} />
+        <ShowQrCodeButton className={props.classes.button} />
         <VoteCountButton
           className={classes.button}
           boardId={boardId}
