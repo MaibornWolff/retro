@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import pull from "lodash/pull";
 import isEqual from "lodash/isEqual";
 import { Grid, withStyles } from "@material-ui/core";
@@ -8,6 +8,7 @@ import { Redirect } from "react-router-dom";
 import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
 import VoteCountSnackbar from "./VoteCountSnackbar";
+import { BoardContext } from "./context/BoardContext";
 import { FlexContainer } from "./styled";
 import { connectSocket, defaultBoard } from "../utils";
 import {
@@ -38,7 +39,7 @@ const styles = theme => ({
 });
 
 function Board(props) {
-  const boardId = props.match.params.boardId;
+  const boardId = useContext(BoardContext);
   const socket = connectSocket(boardId);
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
@@ -263,7 +264,6 @@ function Board(props) {
           column={column}
           itemMap={items}
           index={index}
-          boardId={boardId}
           openSnackbar={openSnackbar}
         />
       );

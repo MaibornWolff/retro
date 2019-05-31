@@ -3,8 +3,10 @@ import isEmpty from "lodash/isEmpty";
 
 import Column from "./Column";
 
-class Columns extends React.PureComponent {
-  getItems(column, itemMap) {
+function Columns(props) {
+  const { column, itemMap, index, openSnackbar } = props;
+
+  function getItems() {
     let items;
 
     if (isEmpty(column)) {
@@ -16,20 +18,14 @@ class Columns extends React.PureComponent {
     return items;
   }
 
-  render() {
-    const { column, itemMap, index, boardId, openSnackbar } = this.props;
-    const items = this.getItems(column, itemMap);
-
-    return (
-      <Column
-        column={column}
-        items={items}
-        index={index}
-        boardId={boardId}
-        openSnackbar={openSnackbar}
-      />
-    );
-  }
+  return (
+    <Column
+      column={column}
+      items={getItems()}
+      index={index}
+      openSnackbar={openSnackbar}
+    />
+  );
 }
 
 export default Columns;
