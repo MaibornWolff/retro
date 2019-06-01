@@ -55,7 +55,7 @@ function CreateBoardDialog(props) {
     setTitle(event.target.value);
   }
 
-  function triggerRedirect() {
+  function triggerRedirect(boardId) {
     setOpen(false);
     setTitle("");
     setBoardId(boardId);
@@ -67,7 +67,7 @@ function CreateBoardDialog(props) {
     const newBoard = { ...defaultBoard, boardId, title };
 
     socket.emit(CREATE_BOARD, newBoard, boardId);
-    triggerRedirect();
+    triggerRedirect(boardId);
   }
 
   function renderError() {
