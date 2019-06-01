@@ -61,7 +61,7 @@ function Board(props) {
       setBoard(newBoard);
     });
 
-    socket.on(SET_MAX_VOTES, (newBoard, newVoteCount) => {
+    socket.on(SET_MAX_VOTES, newBoard => {
       setBoard(newBoard);
       openSnackbar();
     });
