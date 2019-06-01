@@ -43,23 +43,26 @@ function BoardHeader(props) {
         justify="space-evenly"
         alignItems="center"
       >
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={2}>
           <CreateColumnButton className={classes.button} />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={2}>
           <UnblurCardsButton className={classes.button} />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={2}>
           <ExportBoardButton className={classes.button} />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={2}>
           <VoteCountButton
             className={classes.button}
             maxVoteCount={maxVoteCount}
           />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={2}>
           <ShowQrCodeButton className={classes.button} />
+        </Grid>
+        <Grid item xs={12} sm={2}>
+          {/* workaround for grid offset */}
         </Grid>
       </Grid>
     </>
