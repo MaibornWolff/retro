@@ -13,9 +13,10 @@ import {
 } from "@material-ui/core";
 
 import { validateInput } from "../utils";
-import { setUser, getUser } from "../utils/roleHandlers";
 import { CARD_AUTHOR_NAME_TOO_LONG_MSG } from "../utils/errorMessages";
 import { BoardContext } from "./context/BoardContext";
+import { UserContext } from "./context/UserContext";
+import { setUsername } from "../actions";
 
 const styles = theme => ({
   root: {
@@ -51,19 +52,14 @@ const styles = theme => ({
 function NameInput(props) {
   const { classes } = props;
   const boardId = useContext(BoardContext);
+  const { userState, dispatch } = useContext(UserContext);
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState(getName());
+  const [name, setName] = useState(userState.name);
   const nameInput = validateInput(name.length, 0, 40);
 
-  function getName() {
-    const user = getUser(boardId);
-    const name = user === null ? "" : user["name"];
-    return name;
-  }
-
   function handleClick() {
+    setUsername(boardId, name, dispatch);
     setOpen(true);
-    setUser("name", name, boardId);
   }
 
   function closeSnackbar() {

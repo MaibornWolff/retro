@@ -15,13 +15,13 @@ import {
 
 import { connectSocket, validateInput, isInputEmpty } from "../../utils";
 import { CREATE_CARD } from "../../utils/eventNames";
-import { getUser } from "../../utils/roleHandlers";
 import { BoardContext } from "../context/BoardContext";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
   CARD_CONTENT_EMPTY_MSG
 } from "../../utils/errorMessages";
+import { UserContext } from "../context/UserContext";
 
 function CreateItemDialog(props) {
   const { columnId, fullScreen } = props;
@@ -29,14 +29,13 @@ function CreateItemDialog(props) {
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
   const boardId = useContext(BoardContext);
+  const { userState } = useContext(UserContext);
   const authorInput = validateInput(author.length, 0, 40);
   const isContentEmpty = isInputEmpty(content.length);
 
   function handleOpen() {
-    const user = getUser(boardId);
-    const author = user === null ? "" : user["name"];
     setOpen(true);
-    setAuthor(author);
+    setAuthor(userState.name);
   }
 
   function handleClose() {

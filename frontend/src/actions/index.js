@@ -3,7 +3,7 @@ import {
   setUser,
   setMaxVoteCountAndReset
 } from "../utils/roleHandlers";
-import { UPVOTE, DOWNVOTE, SET_MAX_VOTE, RESET } from "./actionTypes";
+import { UPVOTE, DOWNVOTE, SET_MAX_VOTE, RESET, SET_NAME } from "./actionTypes";
 
 export const upvoteCard = (boardId, cardId, votesLeft, dispatch) => {
   dispatch({ type: UPVOTE, payload: { cardId } });
@@ -25,4 +25,9 @@ export const setMaxVote = (boardId, maxVoteCount, dispatch) => {
 export const resetVotes = (boardId, maxVoteCount, dispatch) => {
   dispatch({ type: RESET });
   setMaxVoteCountAndReset(maxVoteCount, boardId);
+};
+
+export const setUsername = (boardId, name, dispatch) => {
+  dispatch({ type: SET_NAME, payload: { name } });
+  setUser("name", name, boardId);
 };

@@ -4,7 +4,8 @@ import {
   UPVOTE,
   DOWNVOTE,
   SET_MAX_VOTE,
-  RESET
+  RESET,
+  SET_NAME
 } from "../../actions/actionTypes";
 
 export const UserContext = React.createContext();
@@ -58,6 +59,11 @@ function reducer(state, action) {
         ...state,
         votesLeft: state.maxVoteCount,
         votedItems: []
+      };
+    case SET_NAME:
+      return {
+        ...state,
+        name: action.payload.name
       };
     default:
       return state;
