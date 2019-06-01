@@ -2,8 +2,13 @@ import React from "react";
 import { render, fireEvent, waitForElement } from "react-testing-library";
 
 import ExportBoardDialog from "../../components/dialogs/ExportBoardDialog";
-import { setModerator, clearLocalStorage } from "../../utils/testUtils";
+import {
+  setModerator,
+  clearLocalStorage,
+  moderatorRole
+} from "../../utils/testUtils";
 import { BoardContext } from "../../components/context/BoardContext";
+import { UserContext } from "../../components/context/UserContext";
 
 const BOARD_ID = "some-board-id";
 
@@ -18,7 +23,11 @@ afterEach(() => {
 it("should display button text", () => {
   const componentTree = (
     <BoardContext.Provider value={BOARD_ID}>
-      <ExportBoardDialog />
+      <UserContext.Provider
+        value={{ userState: moderatorRole, dispatch: null }}
+      >
+        <ExportBoardDialog />
+      </UserContext.Provider>
     </BoardContext.Provider>
   );
   const { getByTestId } = render(componentTree);
@@ -30,7 +39,11 @@ it("should display button text", () => {
 it("should display dialog on click", async () => {
   const componentTree = (
     <BoardContext.Provider value={BOARD_ID}>
-      <ExportBoardDialog />
+      <UserContext.Provider
+        value={{ userState: moderatorRole, dispatch: null }}
+      >
+        <ExportBoardDialog />
+      </UserContext.Provider>
     </BoardContext.Provider>
   );
   const { getByTestId, getByText } = render(componentTree);
