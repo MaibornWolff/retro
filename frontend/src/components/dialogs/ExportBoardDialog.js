@@ -10,8 +10,9 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { isModerator } from "../../utils/roleHandlers";
+import { ROLE_MODERATOR } from "../../utils/roleHandlers";
 import { BoardContext } from "../context/BoardContext";
+import { UserContext } from "../context/UserContext";
 
 const endpoint = "/api/boards/export/";
 const port = process.env.REACT_APP_PROD_PORT || "8081";
@@ -21,6 +22,7 @@ function ExportBoardDialog(props) {
   const { fullScreen } = props;
   const [open, setOpen] = useState(false);
   const boardId = useContext(BoardContext);
+  const { userState } = useContext(UserContext);
 
   function openDialog() {
     setOpen(true);
@@ -39,7 +41,7 @@ function ExportBoardDialog(props) {
         color="primary"
         onClick={openDialog}
         data-testid="export-board-btn"
-        disabled={!isModerator(boardId)}
+        disabled={userState.role !== ROLE_MODERATOR}
       >
         <ExportIcon style={{ marginRight: 5 }} />
         Export Board

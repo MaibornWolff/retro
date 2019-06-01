@@ -8,7 +8,7 @@ import Board from "./Board";
 import NotFound from "./NotFound";
 
 import { BoardContextProvider } from "./context/BoardContext";
-import { VoteContextProvider } from "./context/VoteContext";
+import { UserContextProvider } from "./context/UserContext";
 
 const theme = createMuiTheme({
   typography: {
@@ -41,9 +41,9 @@ const App = () => (
             path="/boards/:boardId"
             render={props => (
               <BoardContextProvider {...props}>
-                <VoteContextProvider {...props}>
+                <UserContextProvider {...props}>
                   <Board {...props} />
-                </VoteContextProvider>
+                </UserContextProvider>
               </BoardContextProvider>
             )}
           />

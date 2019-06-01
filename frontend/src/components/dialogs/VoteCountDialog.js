@@ -17,15 +17,15 @@ import {
 
 import { connectSocket } from "../../utils";
 import { SET_MAX_VOTES, RESET_VOTES } from "../../utils/eventNames";
-import { isModerator } from "../../utils/roleHandlers";
+import { ROLE_MODERATOR } from "../../utils/roleHandlers";
 import { BoardContext } from "../context/BoardContext";
-import { VoteContext } from "../context/VoteContext";
+import { UserContext } from "../context/UserContext";
 import { setMaxVote, resetVotes } from "../../actions";
 
 function VoteCountDialog(props) {
   const { fullScreen } = props;
   const boardId = useContext(BoardContext);
-  const { userState, dispatch } = useContext(VoteContext);
+  const { userState, dispatch } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [voteCount, setVoteCount] = useState(userState.maxVoteCount);
 
@@ -67,7 +67,7 @@ function VoteCountDialog(props) {
         aria-label="Set Vote Count"
         color="primary"
         onClick={openDialog}
-        disabled={!isModerator(boardId)}
+        disabled={userState.role !== ROLE_MODERATOR}
       >
         <ThumbUpIcon style={{ marginRight: 5 }} />
         Vote Count

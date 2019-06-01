@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Snackbar } from "@material-ui/core";
-import { VoteContext } from "./context/VoteContext";
+import { UserContext } from "./context/UserContext";
 
 function VoteCountSnackbar(props) {
   const { id, open, handleClose, autoHideDuration } = props;
-  const { userState } = useContext(VoteContext);
+  const { userState } = useContext(UserContext);
 
   function closeSnackbar() {
     handleClose();

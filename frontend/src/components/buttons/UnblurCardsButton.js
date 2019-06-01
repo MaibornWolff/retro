@@ -4,12 +4,14 @@ import { Grid, Button } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
 import { UNBLUR_CARDS } from "../../utils/eventNames";
-import { isModerator } from "../../utils/roleHandlers";
+import { ROLE_MODERATOR } from "../../utils/roleHandlers";
 import { BoardContext } from "../context/BoardContext";
+import { UserContext } from "../context/UserContext";
 
 function UnblurCardsButton(props) {
   const { className } = props;
   const boardId = useContext(BoardContext);
+  const { userState } = useContext(UserContext);
 
   function unblur() {
     const socket = connectSocket(boardId);
@@ -25,7 +27,7 @@ function UnblurCardsButton(props) {
           aria-label="Unblur Cards"
           color="primary"
           onClick={unblur}
-          disabled={!isModerator(boardId)}
+          disabled={userState.role !== ROLE_MODERATOR}
         >
           <UnblurIcon style={{ marginRight: 5 }} />
           Toggle Blur

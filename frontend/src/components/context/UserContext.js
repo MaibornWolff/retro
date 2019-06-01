@@ -7,7 +7,7 @@ import {
   RESET
 } from "../../actions/actionTypes";
 
-export const VoteContext = React.createContext();
+export const UserContext = React.createContext();
 
 function getInitialState(boardId) {
   const userObject = getUser(boardId);
@@ -64,7 +64,7 @@ function reducer(state, action) {
   }
 }
 
-export const VoteContextProvider = props => {
+export const UserContextProvider = props => {
   const boardId = props.match.params.boardId;
   const [state, dispatch] = useReducer(reducer, getInitialState(boardId));
 
@@ -74,6 +74,6 @@ export const VoteContextProvider = props => {
   };
 
   return (
-    <VoteContext.Provider value={value}>{props.children}</VoteContext.Provider>
+    <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
   );
 };

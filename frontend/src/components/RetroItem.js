@@ -19,7 +19,7 @@ import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
 import { connectSocket } from "../utils";
 import { VOTE_CARD } from "../utils/eventNames";
 import { BoardContext } from "./context/BoardContext";
-import { VoteContext } from "./context/VoteContext";
+import { UserContext } from "./context/UserContext";
 import { downvoteCard } from "../actions";
 
 const styles = {
@@ -55,7 +55,7 @@ function RetroItem(props) {
     classes
   } = props;
   const boardId = useContext(BoardContext);
-  const { userState, dispatch } = useContext(VoteContext);
+  const { userState, dispatch } = useContext(UserContext);
 
   function downVote() {
     const votesLeft = userState.votesLeft;

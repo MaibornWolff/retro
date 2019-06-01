@@ -5,13 +5,14 @@ import MenuIcon from "@material-ui/icons/MoreVert";
 import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
 import EditColumnNameDialog from "./dialogs/EditColumnNameDialog";
 import SortColumnButton from "./buttons/SortColumnButton";
-import { isModerator } from "../utils/roleHandlers";
-import { BoardContext } from "./context/BoardContext";
+import { ROLE_MODERATOR } from "../utils/roleHandlers";
+import { UserContext } from "./context/UserContext";
 
 function ColumnMenu(props) {
   const { columnId, columnTitle, items } = props;
   const [anchorEl, setAnchorEl] = useState(null);
-  const boardId = useContext(BoardContext);
+  const { userState } = useContext(UserContext);
+
   const open = Boolean(anchorEl);
 
   function handleClick(event) {
@@ -30,7 +31,7 @@ function ColumnMenu(props) {
         aria-owns={open ? "column-menu" : undefined}
         aria-haspopup="true"
         onClick={handleClick}
-        disabled={!isModerator(boardId)}
+        disabled={userState.role !== ROLE_MODERATOR}
       >
         <MenuIcon fontSize="small" />
       </IconButton>

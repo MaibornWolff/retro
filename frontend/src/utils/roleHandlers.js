@@ -2,17 +2,6 @@ export const ROLE_MODERATOR = "moderator";
 
 export const ROLE_PARTICIPANT = "participant";
 
-export const isModerator = boardId => {
-  const roleObject = localStorage.getItem(boardId);
-
-  if (roleObject !== null) {
-    const json = JSON.parse(roleObject);
-    return json.role === ROLE_MODERATOR;
-  }
-
-  return false;
-};
-
 export const getUser = boardId => {
   const roleObject = localStorage.getItem(boardId);
 

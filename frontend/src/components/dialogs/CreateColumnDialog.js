@@ -14,18 +14,20 @@ import {
 
 import { CREATE_COLUMN } from "../../utils/eventNames";
 import { connectSocket, validateInput } from "../../utils";
-import { isModerator } from "../../utils/roleHandlers";
+import { ROLE_MODERATOR } from "../../utils/roleHandlers";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
 } from "../../utils/errorMessages";
 import { BoardContext } from "../context/BoardContext";
+import { UserContext } from "../context/UserContext";
 
 function CreateColumnDialog(props) {
   const { fullScreen } = props;
   const [open, setOpen] = useState(false);
   const [columnTitle, setColumnTitle] = useState("");
   const boardId = useContext(BoardContext);
+  const { userState } = useContext(UserContext);
   const input = validateInput(columnTitle.length, 0, 40);
 
   function openDialog() {
@@ -78,7 +80,7 @@ function CreateColumnDialog(props) {
         color="primary"
         onClick={openDialog}
         data-testid="new-col-btn"
-        disabled={!isModerator(boardId)}
+        disabled={userState.role !== ROLE_MODERATOR}
       >
         <AddIcon />
         New Column

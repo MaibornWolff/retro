@@ -5,13 +5,13 @@ import { IconButton } from "@material-ui/core";
 import { connectSocket } from "../../utils";
 import { VOTE_CARD } from "../../utils/eventNames";
 import { BoardContext } from "../context/BoardContext";
-import { VoteContext } from "../context/VoteContext";
+import { UserContext } from "../context/UserContext";
 import { upvoteCard } from "../../actions";
 
 function UpvoteItemButton(props) {
   const { id, openSnackbar } = props;
   const boardId = useContext(BoardContext);
-  const { userState, dispatch } = useContext(VoteContext);
+  const { userState, dispatch } = useContext(UserContext);
 
   function upVote() {
     const votesLeft = userState.votesLeft;
