@@ -72,7 +72,7 @@ const setMaxVotes = (io, client, roomId) => {
       if (error) logError(SET_MAX_VOTES, error);
 
       const board = getBoard(file);
-      // set max votes and reset all points on cards
+
       board.maxVoteCount = voteCount;
       for (let cardId in board.items) {
         board.items[cardId].points = 0;
@@ -80,7 +80,7 @@ const setMaxVotes = (io, client, roomId) => {
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(SET_MAX_VOTES, error);
-        io.to(roomId).emit(SET_MAX_VOTES, board, voteCount);
+        io.to(roomId).emit(SET_MAX_VOTES, board);
       });
     });
   });
@@ -94,6 +94,7 @@ const resetVotes = (io, client, roomId) => {
       if (error) logError(RESET_VOTES, error);
 
       const board = getBoard(file);
+
       for (let cardId in board.items) {
         board.items[cardId].points = 0;
       }
