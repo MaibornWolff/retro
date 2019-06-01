@@ -1,21 +1,19 @@
 import React, { useReducer } from "react";
 import { getUser } from "../../utils/roleHandlers";
-import { UPVOTE, DOWNVOTE } from "../../actions/actionTypes";
+import {
+  UPVOTE,
+  DOWNVOTE,
+  SET_MAX_VOTE,
+  RESET
+} from "../../actions/actionTypes";
 
 export const VoteContext = React.createContext();
 
 function getInitialState(boardId) {
-  const roleObject = getUser(boardId);
+  const userObject = getUser(boardId);
 
-  if (roleObject !== null) {
-    const { maxVoteCount, name, role, votedItems, votesLeft } = roleObject;
-    return {
-      maxVoteCount,
-      name,
-      role,
-      votedItems,
-      votesLeft
-    };
+  if (userObject !== null) {
+    return userObject;
   }
 
   return {};
@@ -47,6 +45,19 @@ function reducer(state, action) {
           state.votedItems,
           action.payload.cardId
         )
+      };
+    case SET_MAX_VOTE:
+      return {
+        ...state,
+        maxVoteCount: action.payload.maxVoteCount,
+        votesLeft: action.payload.maxVoteCount,
+        votedItems: []
+      };
+    case RESET:
+      return {
+        ...state,
+        votesLeft: state.maxVoteCount,
+        votedItems: []
       };
     default:
       return state;

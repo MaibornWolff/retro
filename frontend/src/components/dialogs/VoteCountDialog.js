@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import IncrementIcon from "@material-ui/icons/ExposurePlus1";
 import DecrementIcon from "@material-ui/icons/ExposureNeg1";
@@ -19,12 +19,15 @@ import { connectSocket } from "../../utils";
 import { SET_MAX_VOTES, RESET_VOTES } from "../../utils/eventNames";
 import { isModerator } from "../../utils/roleHandlers";
 import { BoardContext } from "../context/BoardContext";
+import { VoteContext } from "../context/VoteContext";
+import { setMaxVote, resetVotes } from "../../actions";
 
 function VoteCountDialog(props) {
-  const { maxVoteCount, fullScreen } = props;
-  const [open, setOpen] = useState(false);
-  const [voteCount, setVoteCount] = useState(maxVoteCount);
+  const { fullScreen } = props;
   const boardId = useContext(BoardContext);
+  const { userState, dispatch } = useContext(VoteContext);
+  const [open, setOpen] = useState(false);
+  const [voteCount, setVoteCount] = useState(userState.maxVoteCount);
 
   function openDialog() {
     setOpen(true);
@@ -45,18 +48,16 @@ function VoteCountDialog(props) {
   function handleSave() {
     const socket = connectSocket(boardId);
     socket.emit(SET_MAX_VOTES, voteCount, boardId);
+    setMaxVote(boardId, voteCount, dispatch);
     closeDialog();
   }
 
-  function resetVotes() {
+  function handleReset() {
     const socket = connectSocket(boardId);
     socket.emit(RESET_VOTES, boardId);
+    resetVotes(boardId, voteCount, dispatch);
     closeDialog();
   }
-
-  useEffect(() => {
-    setVoteCount(maxVoteCount);
-  }, [maxVoteCount]);
 
   return (
     <>
@@ -101,7 +102,7 @@ function VoteCountDialog(props) {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={resetVotes}>
+          <Button color="primary" onClick={handleReset}>
             Reset Votes
           </Button>
           <Button color="primary" onClick={closeDialog}>

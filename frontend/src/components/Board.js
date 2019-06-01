@@ -22,7 +22,6 @@ import {
 } from "../utils/eventNames";
 import {
   createRole,
-  setMaxVoteCountAndReset,
   getVotesLeft,
   ROLE_MODERATOR,
   ROLE_PARTICIPANT,
@@ -63,13 +62,11 @@ function Board(props) {
     });
 
     socket.on(SET_MAX_VOTES, (newBoard, newVoteCount) => {
-      setMaxVoteCountAndReset(newVoteCount, newBoard.boardId);
       setBoard(newBoard);
       openSnackbar();
     });
 
     socket.on(RESET_VOTES, newBoard => {
-      setMaxVoteCountAndReset(newBoard.maxVoteCount, newBoard.boardId);
       setBoard(newBoard);
       openSnackbar();
     });
@@ -292,7 +289,7 @@ function Board(props) {
     <Grid container className={classes.root} direction="column">
       <Grid item xs={12}>
         <Grid container className={classes.header} direction="row">
-          <BoardHeader title={board.title} maxVoteCount={board.maxVoteCount} />
+          <BoardHeader title={board.title} />
         </Grid>
       </Grid>
       <Grid item xs={12}>

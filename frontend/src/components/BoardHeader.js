@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 function BoardHeader(props) {
-  const { title, maxVoteCount, classes } = props;
+  const { title, classes } = props;
 
   return (
     <>
@@ -53,10 +53,7 @@ function BoardHeader(props) {
           <ExportBoardButton className={classes.button} />
         </Grid>
         <Grid item xs={12} sm={2}>
-          <VoteCountButton
-            className={classes.button}
-            maxVoteCount={maxVoteCount}
-          />
+          <VoteCountButton className={classes.button} />
         </Grid>
         <Grid item xs={12} sm={2}>
           <ShowQrCodeButton className={classes.button} />
