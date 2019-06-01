@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Grid, Typography, withStyles } from "@material-ui/core";
 
 import NameInput from "./NameInput";
@@ -7,7 +7,6 @@ import UnblurCardsButton from "./buttons/UnblurCardsButton";
 import ExportBoardButton from "./buttons/ExportBoardButton";
 import ShowQrCodeButton from "./buttons/ShowQrCodeButton";
 import VoteCountButton from "./buttons/VoteCountButton";
-import { BoardContext } from "./context/BoardContext";
 
 const styles = theme => ({
   button: {
@@ -20,10 +19,8 @@ const styles = theme => ({
   }
 });
 
-// TODO: line 50
 function BoardHeader(props) {
   const { title, maxVoteCount, classes } = props;
-  const boardId = useContext(BoardContext);
 
   return (
     <>
@@ -47,23 +44,22 @@ function BoardHeader(props) {
         alignItems="center"
       >
         <Grid item xs={12} sm={3}>
-          <CreateColumnButton className={classes.button} boardId={boardId} />
+          <CreateColumnButton className={classes.button} />
         </Grid>
         <Grid item xs={12} sm={3}>
-          <UnblurCardsButton className={classes.button} boardId={boardId} />
+          <UnblurCardsButton className={classes.button} />
         </Grid>
         <Grid item xs={12} sm={3}>
-          <ExportBoardButton className={classes.button} boardId={boardId} />
+          <ExportBoardButton className={classes.button} />
         </Grid>
         <Grid item xs={12} sm={3}>
           <VoteCountButton
             className={classes.button}
-            boardId={boardId}
             maxVoteCount={maxVoteCount}
           />
         </Grid>
         <Grid item xs={12} sm={3}>
-          <ShowQrCodeButton className={props.classes.button} />
+          <ShowQrCodeButton className={classes.button} />
         </Grid>
       </Grid>
     </>

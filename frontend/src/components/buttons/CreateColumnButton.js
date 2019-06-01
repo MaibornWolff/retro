@@ -3,12 +3,16 @@ import { Grid } from "@material-ui/core";
 
 import CreateColumnDialog from "../dialogs/CreateColumnDialog";
 
-const CreateColumnButton = props => (
-  <>
-    <Grid item className={props.className}>
-      <CreateColumnDialog boardId={props.boardId} />
-    </Grid>
-  </>
-);
+function CreateColumnButton(props) {
+  const { className } = props;
+
+  return (
+    <>
+      <Grid item className={className}>
+        <CreateColumnDialog />
+      </Grid>
+    </>
+  );
+}
 
 export default CreateColumnButton;

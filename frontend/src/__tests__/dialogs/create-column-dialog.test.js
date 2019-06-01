@@ -3,6 +3,7 @@ import { render, fireEvent, waitForElement } from "react-testing-library";
 
 import CreateColumnDialog from "../../components/dialogs/CreateColumnDialog";
 import { setModerator, clearLocalStorage } from "../../utils/testUtils";
+import { BoardContext } from "../../components/context/BoardContext";
 
 const BOARD_ID = "some-board-id";
 
@@ -15,16 +16,24 @@ afterEach(() => {
 });
 
 it("should display correct button text", () => {
-  const { getByTestId } = render(<CreateColumnDialog boardId={BOARD_ID} />);
+  const componentTree = (
+    <BoardContext.Provider value={BOARD_ID}>
+      <CreateColumnDialog />
+    </BoardContext.Provider>
+  );
+  const { getByTestId } = render(componentTree);
   const newColBtn = getByTestId("new-col-btn");
 
   expect(newColBtn).toHaveTextContent(/new column/i);
 });
 
 it("should display dialog on button click", async () => {
-  const { getByTestId, getByText } = render(
-    <CreateColumnDialog boardId={BOARD_ID} />
+  const componentTree = (
+    <BoardContext.Provider value={BOARD_ID}>
+      <CreateColumnDialog />
+    </BoardContext.Provider>
   );
+  const { getByTestId, getByText } = render(componentTree);
   const newColBtn = getByTestId("new-col-btn");
 
   fireEvent.click(newColBtn);

@@ -52,11 +52,12 @@ function EditColumnNameDialog(props) {
     setTitle(event.target.value);
   }
 
-  function renderError(isNameEmpty, isNameLong) {
-    if (isNameEmpty || isNameLong) {
+  function renderError() {
+    const { isEmpty, isTooLong } = input;
+    if (isEmpty || isTooLong) {
       return (
         <Typography variant="caption" color="error">
-          {isNameEmpty ? COLUMN_NAME_EMPTY_MSG : COLUMN_NAME_TOO_LONG_MSG}
+          {isEmpty ? COLUMN_NAME_EMPTY_MSG : COLUMN_NAME_TOO_LONG_MSG}
         </Typography>
       );
     }
@@ -88,7 +89,7 @@ function EditColumnNameDialog(props) {
             type="text"
             value={title}
             onChange={handleChange}
-            helperText={renderError(input.isEmpty, input.isTooLong)}
+            helperText={renderError()}
             autoFocus
             fullWidth
             autoComplete="off"

@@ -56,13 +56,12 @@ function EditItemDialog(props) {
     setContent(content);
   }, [content]);
 
-  function renderAuthorError(isAuthorEmpty, isAuthorLong) {
-    if (isAuthorEmpty || isAuthorLong) {
+  function renderAuthorError() {
+    const { isEmpty, isTooLong } = authorInput;
+    if (isEmpty || isTooLong) {
       return (
         <Typography variant="caption" color="error">
-          {isAuthorEmpty
-            ? CARD_AUTHOR_NAME_EMPTY_MSG
-            : CARD_AUTHOR_NAME_TOO_LONG_MSG}
+          {isEmpty ? CARD_AUTHOR_NAME_EMPTY_MSG : CARD_AUTHOR_NAME_TOO_LONG_MSG}
         </Typography>
       );
     }
@@ -70,7 +69,7 @@ function EditItemDialog(props) {
     return null;
   }
 
-  function renderContentError(isContentEmpty) {
+  function renderContentError() {
     if (isContentEmpty) {
       return (
         <Typography variant="caption" color="error">
@@ -108,10 +107,7 @@ function EditItemDialog(props) {
             type="text"
             value={author}
             onChange={handleAuthorChange}
-            helperText={renderAuthorError(
-              authorInput.isEmpty,
-              authorInput.isTooLong
-            )}
+            helperText={renderAuthorError()}
             autoFocus
             fullWidth
             autoComplete="off"
@@ -125,7 +121,7 @@ function EditItemDialog(props) {
             type="text"
             value={content}
             onChange={handleContentChange}
-            helperText={renderContentError(isContentEmpty)}
+            helperText={renderContentError()}
             rowsMax={Infinity}
             multiline
             fullWidth

@@ -68,13 +68,13 @@ function CreateItemDialog(props) {
     resetState();
   }
 
-  function renderAuthorError(isAuthorEmpty, isAuthorLong) {
-    if (isAuthorEmpty || isAuthorLong) {
+  function renderAuthorError() {
+    const { isEmpty, isTooLong } = authorInput;
+
+    if (isEmpty || isTooLong) {
       return (
         <Typography variant="caption" color="error">
-          {isAuthorEmpty
-            ? CARD_AUTHOR_NAME_EMPTY_MSG
-            : CARD_AUTHOR_NAME_TOO_LONG_MSG}
+          {isEmpty ? CARD_AUTHOR_NAME_EMPTY_MSG : CARD_AUTHOR_NAME_TOO_LONG_MSG}
         </Typography>
       );
     }
@@ -82,7 +82,7 @@ function CreateItemDialog(props) {
     return null;
   }
 
-  function renderContentError(isContentEmpty) {
+  function renderContentError() {
     if (isContentEmpty) {
       return (
         <Typography variant="caption" color="error">
@@ -120,10 +120,7 @@ function CreateItemDialog(props) {
             type="text"
             value={author}
             onChange={handleAuthorChange}
-            helperText={renderAuthorError(
-              authorInput.isEmpty,
-              authorInput.isTooLong
-            )}
+            helperText={renderAuthorError()}
             fullWidth
             autoComplete="off"
           />
@@ -138,7 +135,7 @@ function CreateItemDialog(props) {
             type="text"
             value={content}
             onChange={handleContentChange}
-            helperText={renderContentError(isContentEmpty)}
+            helperText={renderContentError()}
             fullWidth
             autoComplete="off"
           />
