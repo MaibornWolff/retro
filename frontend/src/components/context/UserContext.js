@@ -7,6 +7,7 @@ import {
   RESET,
   SET_NAME
 } from "../../actions/actionTypes";
+import { removeFirstOccurenceFromArray } from "../../utils";
 
 export const UserContext = React.createContext();
 
@@ -18,16 +19,6 @@ function getInitialState(boardId) {
   }
 
   return {};
-}
-
-function removeFirstOccurence(array, element) {
-  const index = array.indexOf(element);
-
-  if (index > -1) {
-    array.splice(index, 1);
-  }
-
-  return array;
 }
 
 function reducer(state, action) {
@@ -42,9 +33,10 @@ function reducer(state, action) {
       return {
         ...state,
         votesLeft: state.votesLeft + 1,
-        votedItems: removeFirstOccurence(
+        votedItems: removeFirstOccurenceFromArray(
           state.votedItems,
-          action.payload.cardId
+          action.payload.cardId,
+          true
         )
       };
     case SET_MAX_VOTE:

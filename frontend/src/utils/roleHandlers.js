@@ -1,3 +1,5 @@
+import { removeFirstOccurenceFromArray } from ".";
+
 export const ROLE_MODERATOR = "moderator";
 
 export const ROLE_PARTICIPANT = "participant";
@@ -30,7 +32,7 @@ export const setVotedItem = (cardId, boardId, isUpvote) => {
     const votedItems = json["votedItems"];
 
     if (isUpvote) votedItems.push(cardId);
-    else removeFirstOccurence(votedItems, cardId);
+    else removeFirstOccurenceFromArray(votedItems, cardId, false);
 
     json["votedItems"] = votedItems;
     localStorage.setItem(boardId, JSON.stringify(json));
@@ -64,17 +66,6 @@ export const setMaxVoteCountAndReset = (newVoteCount, boardId) => {
   }
 };
 
-export const getVotesLeft = boardId => {
-  const roleObject = localStorage.getItem(boardId);
-
-  if (roleObject !== null) {
-    const json = JSON.parse(roleObject);
-    return json["votesLeft"];
-  }
-
-  return -1;
-};
-
 export const createRole = (role, boardId, maxVoteCount) => {
   const data = JSON.stringify({
     role,
@@ -85,12 +76,4 @@ export const createRole = (role, boardId, maxVoteCount) => {
   });
 
   localStorage.setItem(boardId, data);
-};
-
-export const removeFirstOccurence = (array, element) => {
-  const index = array.indexOf(element);
-
-  if (index > -1) {
-    array.splice(index, 1);
-  }
 };
