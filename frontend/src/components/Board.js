@@ -270,13 +270,15 @@ function Board(props) {
     });
   }
 
-  function renderSnackbar(voteCount) {
+  function renderSnackbar() {
+    const voteCount = getVotesLeft(boardId);
+
     return (
       <VoteCountSnackbar
         id="vote-count-snackbar"
         open={isSnackbarOpen}
         handleClose={closeSnackbar}
-        autoHideDuration={3000}
+        autoHideDuration={1000}
         voteCount={voteCount}
       />
     );
@@ -312,7 +314,7 @@ function Board(props) {
           </Droppable>
         </DragDropContext>
       </Grid>
-      {renderSnackbar(getVotesLeft(boardId))}
+      {renderSnackbar()}
     </Grid>
   );
 }

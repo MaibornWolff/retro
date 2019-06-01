@@ -1,12 +1,12 @@
 import React from "react";
 import { Snackbar } from "@material-ui/core";
 
-const VoteCountSnackbar = props => {
-  const { open, handleClose, autoHideDuration, id, voteCount } = props;
+function VoteCountSnackbar(props) {
+  const { id, open, handleClose, autoHideDuration, voteCount } = props;
 
-  const closeSnackbar = () => {
+  function closeSnackbar() {
     handleClose();
-  };
+  }
 
   return (
     <Snackbar
@@ -22,6 +22,6 @@ const VoteCountSnackbar = props => {
       }
     />
   );
-};
+}
 
 export default VoteCountSnackbar;
