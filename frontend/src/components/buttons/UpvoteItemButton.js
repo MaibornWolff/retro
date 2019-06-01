@@ -1,43 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import { IconButton } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
 import { VOTE_CARD } from "../../utils/eventNames";
 import { setUser, getVotesLeft, setVotedItem } from "../../utils/roleHandlers";
+import { BoardContext } from "../context/BoardContext";
 
-class UpvoteItemButton extends React.PureComponent {
-  handleSnackbar = () => {
-    this.props.openSnackbar();
-  };
+function UpvoteItemButton(props) {
+  const { id, openSnackbar } = props;
+  const boardId = useContext(BoardContext);
 
-  handleUpvote = (id, boardId) => {
+  function updateLocalStorage(votesLeft) {
+    setVotedItem(id, boardId, true);
+    setUser("votesLeft", votesLeft - 1, boardId);
+  }
+
+  function upVote() {
     const votesLeft = getVotesLeft(boardId);
 
     if (votesLeft > 0) {
       const socket = connectSocket(boardId);
       socket.emit(VOTE_CARD, id, boardId, true);
-      setVotedItem(id, boardId, true);
-
-      setUser("votesLeft", votesLeft - 1, boardId);
-      this.handleSnackbar();
+      updateLocalStorage(votesLeft);
+      openSnackbar();
     }
-  };
-
-  render() {
-    const { id, boardId } = this.props;
-
-    return (
-      <>
-        <IconButton
-          color="primary"
-          onClick={() => this.handleUpvote(id, boardId)}
-        >
-          <ThumbUpIcon fontSize="small" />
-        </IconButton>
-      </>
-    );
   }
+
+  return (
+    <>
+      <IconButton color="primary" onClick={upVote}>
+        <ThumbUpIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
 }
 
 export default UpvoteItemButton;

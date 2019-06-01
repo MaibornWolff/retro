@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid, Typography, withStyles } from "@material-ui/core";
 
 import NameInput from "./NameInput";
@@ -7,9 +7,24 @@ import UnblurCardsButton from "./buttons/UnblurCardsButton";
 import ExportBoardButton from "./buttons/ExportBoardButton";
 import ShowQrCodeButton from "./buttons/ShowQrCodeButton";
 import VoteCountButton from "./buttons/VoteCountButton";
+import { BoardContext } from "./context/BoardContext";
 
-const BoardHeader = props => {
-  const { classes, boardId, title, maxVoteCount } = props;
+const styles = theme => ({
+  button: {
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    "& button": {
+      width: "100%"
+    }
+  }
+});
+
+// TODO: line 50
+function BoardHeader(props) {
+  const { title, maxVoteCount, classes } = props;
+  const boardId = useContext(BoardContext);
+
   return (
     <>
       <Grid
@@ -22,7 +37,7 @@ const BoardHeader = props => {
           <Typography variant="h4">{title}</Typography>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <NameInput boardId={boardId} />
+          <NameInput />
         </Grid>
       </Grid>
       <Grid
@@ -53,17 +68,6 @@ const BoardHeader = props => {
       </Grid>
     </>
   );
-};
-
-const styles = theme => ({
-  button: {
-    marginTop: theme.spacing(1),
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    "& button": {
-      width: "100%"
-    }
-  }
-});
+}
 
 export default withStyles(styles)(BoardHeader);

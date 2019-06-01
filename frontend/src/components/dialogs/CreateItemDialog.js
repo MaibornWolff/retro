@@ -24,18 +24,11 @@ import {
 } from "../../utils/errorMessages";
 
 function CreateItemDialog(props) {
-  // props
   const { columnId, fullScreen } = props;
-
-  // state
   const [open, setOpen] = useState(false);
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
-
-  // context
   const boardId = useContext(BoardContext);
-
-  // validation
   const authorInput = validateInput(author.length, 0, 40);
   const isContentEmpty = isInputEmpty(content.length);
 

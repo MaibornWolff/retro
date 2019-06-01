@@ -1,27 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import SortIcon from "@material-ui/icons/Sort";
 import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
 import { SORT_COLUMN } from "../../utils/eventNames";
+import { BoardContext } from "../context/BoardContext";
 
-const onSort = (columnId, items, boardId) => {
-  const socket = connectSocket(boardId);
-  socket.emit(SORT_COLUMN, columnId, items, boardId);
-};
+function SortColumnButton(props) {
+  const { columnId, items } = props;
+  const boardId = useContext(BoardContext);
 
-const SortColumnButton = props => (
-  <>
-    <MenuItem
-      button
-      onClick={() => onSort(props.columnId, props.items, props.boardId)}
-    >
-      <ListItemIcon>
-        <SortIcon fontSize="small" />
-      </ListItemIcon>
-      <ListItemText inset primary="Sort Column" />
-    </MenuItem>
-  </>
-);
+  function sort() {
+    const socket = connectSocket(boardId);
+    socket.emit(SORT_COLUMN, columnId, items, boardId);
+  }
+
+  return (
+    <>
+      <MenuItem button onClick={sort}>
+        <ListItemIcon>
+          <SortIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText inset primary="Sort Column" />
+      </MenuItem>
+    </>
+  );
+}
 
 export default SortColumnButton;
