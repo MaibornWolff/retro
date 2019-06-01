@@ -255,7 +255,7 @@ function Board(props) {
     return columns[source.droppableId] === columns[destination.droppableId];
   }
 
-  function renderBoard(columns, items, boardId) {
+  function renderBoard(columns, items) {
     return board.columnOrder.map((columnId, index) => {
       const column = columns[columnId];
       return (
@@ -305,7 +305,7 @@ function Board(props) {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {renderBoard(board.columns, board.items, boardId)}
+                {renderBoard(board.columns, board.items)}
                 {provided.placeholder}
               </FlexContainer>
             )}
