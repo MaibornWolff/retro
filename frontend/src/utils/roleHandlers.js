@@ -5,64 +5,60 @@ export const ROLE_MODERATOR = "moderator";
 export const ROLE_PARTICIPANT = "participant";
 
 export const getUser = boardId => {
-  const roleObject = localStorage.getItem(boardId);
+  const userObject = localStorage.getItem(boardId);
 
-  if (roleObject !== null) {
-    return JSON.parse(roleObject);
+  if (userObject !== null) {
+    return JSON.parse(userObject);
   }
 
   return null;
 };
 
 export const setUser = (propertyName, newValue, boardId) => {
-  const roleObject = localStorage.getItem(boardId);
+  const userObject = getUser(boardId);
 
-  if (roleObject !== null) {
-    const json = JSON.parse(roleObject);
-    json[propertyName] = newValue;
-    localStorage.setItem(boardId, JSON.stringify(json));
+  if (userObject !== null) {
+    userObject[propertyName] = newValue;
+    saveToLocalStorage(boardId, JSON.stringify(userObject));
   }
 };
 
 export const setVotedItem = (cardId, boardId, isUpvote) => {
-  const roleObject = localStorage.getItem(boardId);
+  const userObject = getUser(boardId);
 
-  if (roleObject !== null) {
-    const json = JSON.parse(roleObject);
-    const votedItems = json["votedItems"];
+  if (userObject !== null) {
+    const votedItems = userObject["votedItems"];
 
     if (isUpvote) votedItems.push(cardId);
     else removeFirstOccurenceFromArray(votedItems, cardId, false);
 
-    json["votedItems"] = votedItems;
-    localStorage.setItem(boardId, JSON.stringify(json));
+    userObject["votedItems"] = votedItems;
+    saveToLocalStorage(boardId, JSON.stringify(userObject));
+  }
+};
+
+export const setMaxVoteCountAndReset = (newVoteCount, boardId) => {
+  const userObject = getUser(boardId);
+
+  if (userObject !== null) {
+    userObject["maxVoteCount"] = newVoteCount;
+    userObject["votesLeft"] = newVoteCount;
+    userObject["votedItems"] = [];
+    saveToLocalStorage(boardId, JSON.stringify(userObject));
   }
 };
 
 export const hasVotedFor = (cardId, boardId) => {
-  const roleObject = localStorage.getItem(boardId);
+  const userObject = getUser(boardId);
 
-  if (roleObject !== null) {
-    const json = JSON.parse(roleObject);
-    const votedItems = json["votedItems"];
+  if (userObject !== null) {
+    const votedItems = userObject["votedItems"];
 
     if (votedItems.includes(cardId)) {
       return true;
     }
 
     return false;
-  }
-};
-
-export const setMaxVoteCountAndReset = (newVoteCount, boardId) => {
-  const roleObject = localStorage.getItem(boardId);
-
-  if (roleObject !== null) {
-    const json = JSON.parse(roleObject);
-    json["maxVoteCount"] = newVoteCount;
-    json["votesLeft"] = newVoteCount;
-    json["votedItems"] = [];
-    localStorage.setItem(boardId, JSON.stringify(json));
   }
 };
 
@@ -75,5 +71,9 @@ export const createRole = (role, boardId, maxVoteCount) => {
     votedItems: []
   });
 
+  saveToLocalStorage(boardId, data);
+};
+
+const saveToLocalStorage = (boardId, data) => {
   localStorage.setItem(boardId, data);
 };
