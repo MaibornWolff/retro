@@ -18,8 +18,9 @@ import UpvoteItemButton from "./buttons/UpvoteItemButton";
 import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
 import { connectSocket } from "../utils";
 import { VOTE_CARD } from "../utils/eventNames";
-import { setVotedItem, setUser, getVotesLeft } from "../utils/roleHandlers";
 import { BoardContext } from "./context/BoardContext";
+import { VoteContext } from "./context/VoteContext";
+import { downvoteCard } from "../actions";
 
 const styles = {
   avatar: {
@@ -54,17 +55,13 @@ function RetroItem(props) {
     classes
   } = props;
   const boardId = useContext(BoardContext);
-
-  function updateLocalStorage() {
-    const votesLeft = getVotesLeft(boardId);
-    setVotedItem(id, boardId, false);
-    setUser("votesLeft", votesLeft + 1, boardId);
-  }
+  const { userState, dispatch } = useContext(VoteContext);
 
   function downVote() {
+    const votesLeft = userState.votesLeft;
     const socket = connectSocket(boardId);
     socket.emit(VOTE_CARD, id, boardId, false);
-    updateLocalStorage();
+    downvoteCard(boardId, id, votesLeft, dispatch);
     openSnackbar();
   }
 

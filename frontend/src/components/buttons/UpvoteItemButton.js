@@ -4,25 +4,22 @@ import { IconButton } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
 import { VOTE_CARD } from "../../utils/eventNames";
-import { setUser, getVotesLeft, setVotedItem } from "../../utils/roleHandlers";
 import { BoardContext } from "../context/BoardContext";
+import { VoteContext } from "../context/VoteContext";
+import { upvoteCard } from "../../actions";
 
 function UpvoteItemButton(props) {
   const { id, openSnackbar } = props;
   const boardId = useContext(BoardContext);
-
-  function updateLocalStorage(votesLeft) {
-    setVotedItem(id, boardId, true);
-    setUser("votesLeft", votesLeft - 1, boardId);
-  }
+  const { userState, dispatch } = useContext(VoteContext);
 
   function upVote() {
-    const votesLeft = getVotesLeft(boardId);
+    const votesLeft = userState.votesLeft;
 
     if (votesLeft > 0) {
       const socket = connectSocket(boardId);
       socket.emit(VOTE_CARD, id, boardId, true);
-      updateLocalStorage(votesLeft);
+      upvoteCard(boardId, id, votesLeft, dispatch);
       openSnackbar();
     }
   }

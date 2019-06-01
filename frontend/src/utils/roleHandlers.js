@@ -98,7 +98,7 @@ export const createRole = (role, boardId, maxVoteCount) => {
   localStorage.setItem(boardId, data);
 };
 
-const removeFirstOccurence = (array, element) => {
+export const removeFirstOccurence = (array, element) => {
   const index = array.indexOf(element);
 
   if (index > -1) {

@@ -39,18 +39,12 @@ function LoadBoardDialog(props) {
   // all nanoid() calls generate an ID with the default size of 21 chars
   const isValidId = boardId.length === 21;
 
-  function resetState() {
-    setOpen(false);
-    setBoardId("");
-    setError(false);
-  }
-
   function openDialog() {
     setOpen(true);
   }
 
   function closeDialog() {
-    resetState();
+    setOpen(false);
   }
 
   function handleChange(event) {
@@ -62,7 +56,6 @@ function LoadBoardDialog(props) {
 
     if (isValid) {
       history.push(`/boards/${boardId}`);
-      resetState();
     } else {
       setError(true);
     }

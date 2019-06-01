@@ -37,11 +37,11 @@ const App = () => (
         <Switch>
           <Route path="/" exact component={Home} />
           <Route
-            path="/boards/:boardId"
             exact
+            path="/boards/:boardId"
             render={props => (
               <BoardContextProvider {...props}>
-                <VoteContextProvider>
+                <VoteContextProvider {...props}>
                   <Board {...props} />
                 </VoteContextProvider>
               </BoardContextProvider>
