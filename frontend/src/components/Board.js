@@ -22,7 +22,6 @@ import {
 } from "../utils/eventNames";
 import {
   createRole,
-  getVotesLeft,
   ROLE_MODERATOR,
   ROLE_PARTICIPANT,
   getUser
@@ -268,15 +267,12 @@ function Board(props) {
   }
 
   function renderSnackbar() {
-    const voteCount = getVotesLeft(boardId);
-
     return (
       <VoteCountSnackbar
         id="vote-count-snackbar"
         open={isSnackbarOpen}
         handleClose={closeSnackbar}
         autoHideDuration={1000}
-        voteCount={voteCount}
       />
     );
   }

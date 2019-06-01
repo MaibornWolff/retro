@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Snackbar } from "@material-ui/core";
+import { VoteContext } from "./context/VoteContext";
 
 function VoteCountSnackbar(props) {
-  const { id, open, handleClose, autoHideDuration, voteCount } = props;
+  const { id, open, handleClose, autoHideDuration } = props;
+  const { userState } = useContext(VoteContext);
 
   function closeSnackbar() {
     handleClose();
@@ -18,7 +20,9 @@ function VoteCountSnackbar(props) {
         "aria-describedby": id
       }}
       message={
-        <span id="vote-count-snackbar">You have {voteCount} votes left.</span>
+        <span id="vote-count-snackbar">
+          You have {userState.votesLeft} votes left.
+        </span>
       }
     />
   );
