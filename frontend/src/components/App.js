@@ -8,6 +8,7 @@ import Board from "./Board";
 import NotFound from "./NotFound";
 
 import { BoardContextProvider } from "./context/BoardContext";
+import { VoteContextProvider } from "./context/VoteContext";
 
 const theme = createMuiTheme({
   typography: {
@@ -40,7 +41,9 @@ const App = () => (
             exact
             render={props => (
               <BoardContextProvider {...props}>
-                <Board {...props} />
+                <VoteContextProvider>
+                  <Board {...props} />
+                </VoteContextProvider>
               </BoardContextProvider>
             )}
           />
