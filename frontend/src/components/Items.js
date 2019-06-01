@@ -3,7 +3,7 @@ import isEmpty from "lodash/isEmpty";
 import { Grid } from "@material-ui/core";
 
 import Item from "./Item";
-import { hasVotedFor } from "../utils/roleHandlers";
+import { hasVotedFor } from "../utils/userUtils";
 import { BoardContext } from "./context/BoardContext";
 
 function Items(props) {

@@ -5,7 +5,7 @@ import MenuIcon from "@material-ui/icons/MoreVert";
 import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
 import EditColumnNameDialog from "./dialogs/EditColumnNameDialog";
 import SortColumnButton from "./buttons/SortColumnButton";
-import { ROLE_MODERATOR } from "../utils/roleHandlers";
+import { ROLE_MODERATOR } from "../utils/userUtils";
 import { UserContext } from "./context/UserContext";
 
 function ColumnMenu(props) {

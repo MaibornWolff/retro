@@ -25,7 +25,7 @@ import {
   ROLE_MODERATOR,
   ROLE_PARTICIPANT,
   getUser
-} from "../utils/roleHandlers";
+} from "../utils/userUtils";
 
 const styles = theme => ({
   root: {

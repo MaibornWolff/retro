@@ -2,7 +2,7 @@ import {
   setVotedItem,
   setUser,
   setMaxVoteCountAndReset
-} from "../utils/roleHandlers";
+} from "../utils/userUtils";
 import { UPVOTE, DOWNVOTE, SET_MAX_VOTE, RESET, SET_NAME } from "./actionTypes";
 
 export const upvoteCard = (boardId, cardId, votesLeft, dispatch) => {

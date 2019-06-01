@@ -14,7 +14,7 @@ import {
 
 import { CREATE_COLUMN } from "../../utils/eventNames";
 import { connectSocket, validateInput } from "../../utils";
-import { ROLE_MODERATOR } from "../../utils/roleHandlers";
+import { ROLE_MODERATOR } from "../../utils/userUtils";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG

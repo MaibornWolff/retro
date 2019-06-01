@@ -4,7 +4,7 @@ import { Grid, Button } from "@material-ui/core";
 
 import { connectSocket } from "../../utils";
 import { UNBLUR_CARDS } from "../../utils/eventNames";
-import { ROLE_MODERATOR } from "../../utils/roleHandlers";
+import { ROLE_MODERATOR } from "../../utils/userUtils";
 import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
 

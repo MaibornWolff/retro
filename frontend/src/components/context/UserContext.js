@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { getUser } from "../../utils/roleHandlers";
+import { getUser } from "../../utils/userUtils";
 import {
   UPVOTE,
   DOWNVOTE,
