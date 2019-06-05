@@ -28,7 +28,7 @@ export const Hero = styled.div`
 
 export const FlexContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-grow: 1;
   flex-direction: column;
   ${media.desktop`flex-direction: row;`}
 `;
@@ -36,12 +36,12 @@ export const FlexContainer = styled.div`
 export const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  width: 25rem;
   margin: 0.8em 0.2em 0.8em 0.2em;
   ${media.tablet`margin: 0.8em;`}
   border: 1px solid grey;
   border-radius: 2px;
-  background-color: #white;
+  background-color: white;
   box-shadow: 0 6px 6px -2px lightgrey;
 `;
 
@@ -107,7 +107,7 @@ export const ItemsContainerStyles = css`
   min-height: 100px;
   padding: 0.2em;
   ${media.tablet`padding: 1em;`}
-  background-color: ${p => (p.isDraggingOver ? "#f5f5f5" : "inherit")};
+  background-color: ${p => (p.isDraggingOver ? "#dcdcdc" : "inherit")};
   transition: background-color 0.2s ease;
 `;
 
