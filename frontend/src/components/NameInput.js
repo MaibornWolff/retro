@@ -54,8 +54,13 @@ function NameInput(props) {
   const boardId = useContext(BoardContext);
   const { userState, dispatch } = useContext(UserContext);
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState(userState.name);
+  const [name, setName] = useState(getName());
   const nameInput = validateInput(name.length, 0, 40);
+
+  function getName() {
+    if (userState.name) return userState.name;
+    return "";
+  }
 
   function handleClick() {
     setUsername(boardId, name, dispatch);

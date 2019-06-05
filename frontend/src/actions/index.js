@@ -1,9 +1,20 @@
 import {
   setVotedItem,
   setUser,
-  setMaxVoteCountAndReset
+  setMaxVoteCountAndReset,
+  createRole,
+  ROLE_MODERATOR,
+  ROLE_PARTICIPANT
 } from "../utils/userUtils";
-import { UPVOTE, DOWNVOTE, SET_MAX_VOTE, RESET, SET_NAME } from "./actionTypes";
+import {
+  UPVOTE,
+  DOWNVOTE,
+  SET_MAX_VOTE,
+  RESET,
+  SET_NAME,
+  CREATE_MODERATOR,
+  CREATE_PARTICIPANT
+} from "./actionTypes";
 
 export const upvoteCard = (boardId, cardId, votesLeft, dispatch) => {
   dispatch({ type: UPVOTE, payload: { cardId } });
@@ -30,4 +41,14 @@ export const resetVotes = (boardId, maxVoteCount, dispatch) => {
 export const setUsername = (boardId, name, dispatch) => {
   dispatch({ type: SET_NAME, payload: { name } });
   setUser("name", name, boardId);
+};
+
+export const createModerator = (boardId, role, maxVoteCount, dispatch) => {
+  dispatch({ type: CREATE_MODERATOR, payload: { role, maxVoteCount } });
+  createRole(ROLE_MODERATOR, boardId, maxVoteCount);
+};
+
+export const createParticipant = (boardId, role, maxVoteCount, dispatch) => {
+  dispatch({ type: CREATE_PARTICIPANT, payload: { role, maxVoteCount } });
+  createRole(ROLE_PARTICIPANT, boardId, maxVoteCount);
 };

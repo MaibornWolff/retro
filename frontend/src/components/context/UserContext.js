@@ -5,7 +5,9 @@ import {
   DOWNVOTE,
   SET_MAX_VOTE,
   RESET,
-  SET_NAME
+  SET_NAME,
+  CREATE_MODERATOR,
+  CREATE_PARTICIPANT
 } from "../../actions/actionTypes";
 import { removeFirstOccurenceFromArray } from "../../utils";
 
@@ -56,6 +58,22 @@ function reducer(state, action) {
       return {
         ...state,
         name: action.payload.name
+      };
+    case CREATE_MODERATOR:
+      return {
+        role: action.payload.role,
+        name: "",
+        maxVoteCount: action.payload.maxVoteCount,
+        votesLeft: action.payload.maxVoteCount,
+        votedItems: []
+      };
+    case CREATE_PARTICIPANT:
+      return {
+        role: action.payload.role,
+        name: "",
+        maxVoteCount: action.payload.maxVoteCount,
+        votesLeft: action.payload.maxVoteCount,
+        votedItems: []
       };
     default:
       return state;

@@ -8,9 +8,12 @@ import { Redirect } from "react-router-dom";
 import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
 import VoteCountSnackbar from "./VoteCountSnackbar";
-import { BoardContext } from "./context/BoardContext";
 import { FlexContainer } from "./styled";
+import { BoardContext } from "./context/BoardContext";
+import { UserContext } from "./context/UserContext";
 import { connectSocket, defaultBoard } from "../utils";
+import { ROLE_MODERATOR, ROLE_PARTICIPANT, getUser } from "../utils/userUtils";
+import { createModerator, createParticipant } from "../actions";
 import {
   CONNECT,
   CREATE_BOARD,
@@ -20,12 +23,6 @@ import {
   SET_MAX_VOTES,
   RESET_VOTES
 } from "../utils/eventNames";
-import {
-  createRole,
-  ROLE_MODERATOR,
-  ROLE_PARTICIPANT,
-  getUser
-} from "../utils/userUtils";
 
 const styles = theme => ({
   root: {
@@ -37,11 +34,12 @@ const styles = theme => ({
 });
 
 function Board(props) {
+  const { classes } = props;
   const boardId = useContext(BoardContext);
-  const socket = connectSocket(boardId);
+  const { dispatch } = useContext(UserContext);
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
-  const { classes } = props;
+  const socket = connectSocket(boardId);
 
   useEffect(() => {
     document.title = `Retro | ${board.title}`;
@@ -52,7 +50,7 @@ function Board(props) {
 
     socket.on(CREATE_BOARD, newBoard => {
       const { boardId, maxVoteCount } = newBoard;
-      createRole(ROLE_MODERATOR, boardId, maxVoteCount);
+      createModerator(boardId, ROLE_MODERATOR, maxVoteCount, dispatch);
       setBoard(newBoard);
     });
 
@@ -74,7 +72,7 @@ function Board(props) {
       const { boardId, maxVoteCount } = boardData;
 
       if (getUser(boardId) === null) {
-        createRole(ROLE_PARTICIPANT, boardId, maxVoteCount);
+        createParticipant(boardId, ROLE_PARTICIPANT, maxVoteCount, dispatch);
       }
 
       setBoard(boardData);
@@ -87,7 +85,7 @@ function Board(props) {
     return () => {
       socket.close();
     };
-  }, [board, boardId, socket]);
+  }, [board, boardId, socket, dispatch]);
 
   function openSnackbar() {
     setSnackbar(true);
