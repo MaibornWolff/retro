@@ -134,6 +134,7 @@ function CreateBoardDialog(props) {
             onClick={handleSubmit}
             color="primary"
             disabled={!input.isValid}
+            data-testid="create-board-btn"
           >
             Create
           </Button>
