@@ -1,6 +1,6 @@
 import React from "react";
 import CreateItemDialog from "../../components/dialogs/CreateItemDialog";
-import { render, fireEvent, waitForElement } from "react-testing-library";
+import { render, fireEvent, waitForElement } from "@testing-library/react";
 import {
   setModerator,
   clearLocalStorage,
