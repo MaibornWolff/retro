@@ -44,20 +44,20 @@
     "react-scripts": "3.0.1",
     "recompose": "^0.30.0",
     "socket.io-client": "^2.2.0",
-    "styled-components": "^4.3.0"
+    "styled-components": "^4.3.1"
   },
   "devDependencies": {
     "@testing-library/react": "^8.0.1",
     "babel-eslint": "^10.0.1",
-    "env-cmd": "^9.0.2",
+    "env-cmd": "^9.0.3",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
-    "jest-dom": "^3.4.0",
+    "jest-dom": "^3.5.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^1.17.1"
+    "prettier": "^1.18.2"
   },
   "browserslist": [
     ">0.2%",
