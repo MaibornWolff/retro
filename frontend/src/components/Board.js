@@ -33,7 +33,6 @@ const styles = theme => ({
   }
 });
 
-// TODO: move board state to BoardContext along with socket code
 function Board(props) {
   const { classes } = props;
   const boardId = useContext(BoardContext);
