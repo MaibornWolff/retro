@@ -8,62 +8,63 @@ import ExportBoardButton from "./buttons/ExportBoardButton";
 import ShowQrCodeButton from "./buttons/ShowQrCodeButton";
 import VoteCountButton from "./buttons/VoteCountButton";
 
-const BoardHeader = props => {
-  const { classes, boardId, title, maxVoteCount } = props;
+const styles = theme => ({
+  button: {
+    marginTop: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    "& button": {
+      width: "100%"
+    }
+  },
+  buttonGroup: {
+    marginTop: theme.spacing(1)
+  }
+});
+
+function BoardHeader(props) {
+  const { title, classes } = props;
+
   return (
     <>
       <Grid
         container
         direction="row"
-        justify="space-between"
+        justify="space-around"
         alignItems="center"
       >
         <Grid item xs={12} sm={6} md={9}>
-          <Typography variant="h4">{title}</Typography>
+          <Typography variant="h5">{title}</Typography>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <NameInput boardId={boardId} />
+          <NameInput />
         </Grid>
       </Grid>
       <Grid
         container
         direction="row"
-        justify="space-evenly"
+        justify="space-around"
         alignItems="center"
+        className={classes.buttonGroup}
       >
-        <Grid item xs={12} sm={3}>
-          <CreateColumnButton className={classes.button} boardId={boardId} />
+        <Grid item xs={12} sm={2}>
+          <CreateColumnButton className={classes.button} />
         </Grid>
-        <Grid item xs={12} sm={3}>
-          <UnblurCardsButton className={classes.button} boardId={boardId} />
+        <Grid item xs={12} sm={2}>
+          <UnblurCardsButton className={classes.button} />
         </Grid>
-        <Grid item xs={12} sm={3}>
-          <ExportBoardButton className={classes.button} boardId={boardId} />
+        <Grid item xs={12} sm={2}>
+          <ExportBoardButton className={classes.button} />
         </Grid>
-        <Grid item xs={12} sm={3}>
-          <VoteCountButton
-            className={classes.button}
-            boardId={boardId}
-            maxVoteCount={maxVoteCount}
-          />
+        <Grid item xs={12} sm={2}>
+          <VoteCountButton className={classes.button} />
         </Grid>
-        <Grid item xs={12} sm={3}>
-          <ShowQrCodeButton className={props.classes.button} />
+        <Grid item xs={12} sm={2}>
+          <ShowQrCodeButton className={classes.button} />
         </Grid>
+        <Grid item xs={12} sm={2} />
       </Grid>
     </>
   );
-};
-
-const styles = theme => ({
-  button: {
-    marginTop: theme.spacing(1),
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    "& button": {
-      width: "100%"
-    }
-  }
-});
+}
 
 export default withStyles(styles)(BoardHeader);

@@ -34,7 +34,6 @@ At work, we were using third party retrospective tools, which meant we couldn't 
 ## Contributing
 
 - Please use [Yarn](https://yarnpkg.com/lang/en/) instead of NPM
-- Please use [Visual Studio Code](https://code.visualstudio.com/) in order to benefit from [language services](https://code.visualstudio.com/docs/languages/jsconfig)
 - The CI checks formatting, linting and tests. Make sure to run the following commands on both projects:
   - `yarn format`
   - `yarn lint`

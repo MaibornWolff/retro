@@ -2,12 +2,16 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import QrCodeDialog from "../dialogs/QrCodeDialog";
 
-const ShowQrCodeButton = props => (
-  <>
-    <Grid item className={props.className}>
-      <QrCodeDialog />
-    </Grid>
-  </>
-);
+function ShowQrCodeButton(props) {
+  const { className } = props;
+
+  return (
+    <>
+      <Grid item className={className}>
+        <QrCodeDialog />
+      </Grid>
+    </>
+  );
+}
 
 export default ShowQrCodeButton;

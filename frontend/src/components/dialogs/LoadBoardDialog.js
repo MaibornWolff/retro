@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
@@ -19,105 +19,6 @@ import {
 import { isBoardIdValid } from "../../utils";
 import { LOAD_BOARD_ID_INVALID_MSG } from "../../utils/errorMessages";
 
-class LoadBoardDialog extends React.Component {
-  state = { open: false, boardId: "", error: false };
-
-  handleOpen = () => this.setState({ open: true });
-
-  handleClose = () => this.clearState();
-
-  handleChange = e => this.setState({ boardId: e.target.value });
-
-  handleSubmit = async history => {
-    const { boardId } = this.state;
-    const isValid = await isBoardIdValid(boardId);
-
-    if (isValid) {
-      history.push(`/boards/${boardId}`);
-      this.clearState();
-    } else {
-      this.setState({ error: true });
-    }
-  };
-
-  clearState() {
-    this.setState({ open: false, boardId: "", error: false });
-  }
-
-  renderError(isValid) {
-    if (this.state.error || !isValid) {
-      return (
-        <Typography color="error" variant="caption">
-          {LOAD_BOARD_ID_INVALID_MSG}
-        </Typography>
-      );
-    }
-
-    return null;
-  }
-
-  render() {
-    const { open, boardId } = this.state;
-    const { classes, fullScreen, history } = this.props;
-
-    // all nanoid() calls generate an ID with the default size of 21 chars
-    const isValidId = boardId.length === 21;
-
-    return (
-      <>
-        <Fab
-          size="medium"
-          variant="extended"
-          color="primary"
-          onClick={this.handleOpen}
-          className={classes.button}
-        >
-          <ArrowUpwardIcon className={classes.icon} />
-          Load Board
-        </Fab>
-        <Dialog
-          fullScreen={fullScreen}
-          open={open}
-          onClose={this.handleClose}
-          aria-labelledby="load-board-dialog-title"
-        >
-          <DialogTitle id="load-board-dialog-title">Load Board</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Please provide the Board-ID of your board.
-            </DialogContentText>
-            <TextField
-              autoFocus
-              required
-              error={!isValidId}
-              margin="dense"
-              label="Board-ID"
-              type="text"
-              value={boardId}
-              onChange={this.handleChange}
-              helperText={this.renderError(isValidId)}
-              fullWidth
-              autoComplete="off"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button
-              onClick={() => this.handleSubmit(history)}
-              color="primary"
-              disabled={!isValidId}
-            >
-              Load
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </>
-    );
-  }
-}
-
 const styles = theme => ({
   button: {
     margin: theme.spacing(1)
@@ -128,6 +29,99 @@ const styles = theme => ({
     marginBottom: theme.spacing(1)
   }
 });
+
+function LoadBoardDialog(props) {
+  const { classes, fullScreen, history } = props;
+  const [open, setOpen] = useState(false);
+  const [boardId, setBoardId] = useState("");
+  const [error, setError] = useState(false);
+
+  // all nanoid() calls generate an ID with the default size of 21 chars
+  const isValidId = boardId.length === 21;
+
+  function openDialog() {
+    setOpen(true);
+  }
+
+  function closeDialog() {
+    setOpen(false);
+  }
+
+  function handleChange(event) {
+    setBoardId(event.target.value);
+  }
+
+  async function handleSubmit() {
+    const isValid = await isBoardIdValid(boardId);
+
+    if (isValid) {
+      history.push(`/boards/${boardId}`);
+    } else {
+      setError(true);
+    }
+  }
+
+  function renderError() {
+    if (error || !isValidId) {
+      return (
+        <Typography color="error" variant="caption">
+          {LOAD_BOARD_ID_INVALID_MSG}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
+  return (
+    <>
+      <Fab
+        size="medium"
+        variant="extended"
+        color="primary"
+        onClick={openDialog}
+        className={classes.button}
+      >
+        <ArrowUpwardIcon className={classes.icon} />
+        Load Board
+      </Fab>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={closeDialog}
+        aria-labelledby="load-board-dialog-title"
+      >
+        <DialogTitle id="load-board-dialog-title">Load Board</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please provide the Board-ID of your board.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            required
+            error={!isValidId}
+            margin="dense"
+            label="Board-ID"
+            type="text"
+            value={boardId}
+            onChange={handleChange}
+            helperText={renderError()}
+            fullWidth
+            autoComplete="off"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} color="primary" disabled={!isValidId}>
+            Load
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+}
 
 export default compose(
   withRouter,

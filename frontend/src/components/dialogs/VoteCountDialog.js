@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import IncrementIcon from "@material-ui/icons/ExposurePlus1";
 import DecrementIcon from "@material-ui/icons/ExposureNeg1";
@@ -17,120 +17,104 @@ import {
 
 import { connectSocket } from "../../utils";
 import { SET_MAX_VOTES, RESET_VOTES } from "../../utils/eventNames";
-import { isModerator } from "../../utils/roleHandlers";
+import { ROLE_MODERATOR } from "../../utils/userUtils";
+import { BoardContext } from "../context/BoardContext";
+import { UserContext } from "../context/UserContext";
+import { setMaxVote, resetVotes } from "../../actions";
 
-class VoteCountDialog extends React.Component {
-  state = {
-    isDialogOpen: false,
-    voteCount: this.props.maxVoteCount
-  };
+function VoteCountDialog(props) {
+  const { fullScreen } = props;
+  const boardId = useContext(BoardContext);
+  const { userState, dispatch } = useContext(UserContext);
+  const [open, setOpen] = useState(false);
+  const [voteCount, setVoteCount] = useState(userState.maxVoteCount);
 
-  openDialog = () => this.setState({ isDialogOpen: true });
+  function openDialog() {
+    setOpen(true);
+  }
 
-  closeDialog = () => this.setState({ isDialogOpen: false });
+  function closeDialog() {
+    setOpen(false);
+  }
 
-  incrementVotes = () =>
-    this.setState(prevState => {
-      return { voteCount: prevState.voteCount + 1 };
-    });
+  function incr() {
+    setVoteCount(voteCount + 1);
+  }
 
-  decrementVotes = () =>
-    this.setState(prevState => {
-      return { voteCount: prevState.voteCount - 1 };
-    });
+  function decr() {
+    setVoteCount(voteCount - 1);
+  }
 
-  handleSave = () => {
-    const { boardId } = this.props;
-    const { voteCount } = this.state;
+  function handleSave() {
     const socket = connectSocket(boardId);
-
     socket.emit(SET_MAX_VOTES, voteCount, boardId);
+    setMaxVote(boardId, voteCount, dispatch);
+    closeDialog();
+  }
 
-    this.closeDialog();
-  };
-
-  resetVotes = () => {
-    const { boardId } = this.props;
+  function handleReset() {
     const socket = connectSocket(boardId);
-
     socket.emit(RESET_VOTES, boardId);
-
-    this.closeDialog();
-  };
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.maxVoteCount !== this.props.maxVoteCount) {
-      this.setState({ voteCount: this.props.maxVoteCount });
-    }
+    resetVotes(boardId, voteCount, dispatch);
+    closeDialog();
   }
 
-  render() {
-    const { isDialogOpen, voteCount } = this.state;
-    const { fullScreen, boardId } = this.props;
-
-    return (
-      <>
-        <Button
-          size="small"
-          variant="outlined"
-          aria-label="Set Vote Count"
-          color="primary"
-          onClick={this.openDialog}
-          disabled={!isModerator(boardId)}
-        >
-          <ThumbUpIcon style={{ marginRight: 5 }} />
-          Vote Count
-        </Button>
-        <Dialog
-          fullScreen={fullScreen}
-          open={isDialogOpen}
-          onClose={this.closeDialog}
-          aria-labelledby="vote-count-dialog"
-          aria-describedby="vote-count-dialog-description"
-        >
-          <DialogTitle id="vote-count-dialog">Vote Count Settings</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="vote-count-dialog-description">
-              Set your maximum vote count or reset all votes.
-            </DialogContentText>
-            <br />
-            <Grid container direction="column" alignItems="center">
-              <Grid item>
-                <Typography variant="body1">
-                  {"Maximum Vote Count: " + voteCount}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <IconButton
-                  aria-label="Increase Vote Count"
-                  onClick={this.incrementVotes}
-                >
-                  <IncrementIcon />
-                </IconButton>
-                <IconButton
-                  aria-label="Decrease Vote Count"
-                  onClick={this.decrementVotes}
-                >
-                  <DecrementIcon />
-                </IconButton>
-              </Grid>
+  return (
+    <>
+      <Button
+        size="small"
+        variant="outlined"
+        aria-label="Set Vote Count"
+        color="primary"
+        onClick={openDialog}
+        disabled={userState.role !== ROLE_MODERATOR}
+      >
+        <ThumbUpIcon style={{ marginRight: 5 }} />
+        Vote Count
+      </Button>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={closeDialog}
+        aria-labelledby="vote-count-dialog"
+        aria-describedby="vote-count-dialog-description"
+      >
+        <DialogTitle id="vote-count-dialog">Vote Count Settings</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="vote-count-dialog-description">
+            Set your maximum vote count or reset all votes.
+          </DialogContentText>
+          <br />
+          <Grid container direction="column" alignItems="center">
+            <Grid item>
+              <Typography variant="body1">
+                {"Maximum Vote Count: " + voteCount}
+              </Typography>
             </Grid>
-          </DialogContent>
-          <DialogActions>
-            <Button color="primary" onClick={this.resetVotes}>
-              Reset Votes
-            </Button>
-            <Button color="primary" onClick={this.closeDialog}>
-              Cancel
-            </Button>
-            <Button color="primary" onClick={this.handleSave}>
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </>
-    );
-  }
+            <Grid item>
+              <IconButton aria-label="Decrease Vote Count" onClick={decr}>
+                <DecrementIcon />
+              </IconButton>
+              <IconButton aria-label="Increase Vote Count" onClick={incr}>
+                <IncrementIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button color="primary" onClick={handleReset}>
+            Reset Votes
+          </Button>
+          <Button color="primary" onClick={closeDialog}>
+            Cancel
+          </Button>
+          <Button color="primary" onClick={handleSave}>
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
 }
 
 export default withMobileDialog()(VoteCountDialog);

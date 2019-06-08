@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import nanoid from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
 import {
@@ -14,45 +14,56 @@ import {
 
 import { CREATE_COLUMN } from "../../utils/eventNames";
 import { connectSocket, validateInput } from "../../utils";
-import { isModerator } from "../../utils/roleHandlers";
+import { ROLE_MODERATOR } from "../../utils/userUtils";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
 } from "../../utils/errorMessages";
+import { BoardContext } from "../context/BoardContext";
+import { UserContext } from "../context/UserContext";
 
-class CreateColumnDialog extends React.Component {
-  state = {
-    open: false,
-    columnTitle: ""
-  };
+function CreateColumnDialog(props) {
+  const { fullScreen } = props;
+  const [open, setOpen] = useState(false);
+  const [columnTitle, setColumnTitle] = useState("");
+  const boardId = useContext(BoardContext);
+  const { userState } = useContext(UserContext);
+  const input = validateInput(columnTitle.length, 0, 40);
 
-  handleOpen = () => this.setState({ open: true });
+  function openDialog() {
+    setOpen(true);
+  }
 
-  handleClose = () => this.setState({ open: false });
+  function closeDialog() {
+    setOpen(false);
+  }
 
-  handleChange = event => {
-    this.setState({ columnTitle: event.target.value });
-  };
+  function handleChange(event) {
+    setColumnTitle(event.target.value);
+  }
 
-  handleSubmit = e => {
-    e.preventDefault();
+  function resetState() {
+    setOpen(false);
+    setColumnTitle("");
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
 
     const id = nanoid();
-    const { columnTitle } = this.state;
-
-    const { boardId } = this.props;
     const socket = connectSocket(boardId);
     const column = { id, columnTitle, itemIds: [] };
 
     socket.emit(CREATE_COLUMN, column, boardId);
-    this.setState({ columnTitle: "", open: false });
-  };
+    resetState();
+  }
 
-  renderError(isNameEmpty, isNameLong) {
-    if (isNameEmpty || isNameLong) {
+  function renderError() {
+    const { isEmpty, isTooLong } = input;
+    if (isEmpty || isTooLong) {
       return (
         <Typography variant="caption" color="error">
-          {isNameEmpty ? COLUMN_NAME_EMPTY_MSG : COLUMN_NAME_TOO_LONG_MSG}
+          {isEmpty ? COLUMN_NAME_EMPTY_MSG : COLUMN_NAME_TOO_LONG_MSG}
         </Typography>
       );
     }
@@ -60,66 +71,61 @@ class CreateColumnDialog extends React.Component {
     return null;
   }
 
-  render() {
-    const { open, columnTitle } = this.state;
-    const { fullScreen, boardId } = this.props;
-    const input = validateInput(columnTitle.length, 0, 40);
-
-    return (
-      <>
-        <Button
-          size="small"
-          variant="outlined"
-          aria-label="Add Column"
-          color="primary"
-          onClick={this.handleOpen}
-          data-testid="new-col-btn"
-          disabled={!isModerator(boardId)}
-        >
-          <AddIcon />
-          New Column
-        </Button>
-        <Dialog
-          fullScreen={fullScreen}
-          fullWidth={true}
-          maxWidth="xs"
-          open={open}
-          onClose={this.handleClose}
-          aria-labelledby="new-column-dialog"
-        >
-          <DialogTitle id="new-column-dialog">Create New Column</DialogTitle>
-          <DialogContent>
-            <TextField
-              required
-              error={!input.isValid}
-              autoFocus
-              margin="dense"
-              id="column-name"
-              label="Column Name"
-              type="text"
-              value={columnTitle}
-              onChange={this.handleChange}
-              helperText={this.renderError(input.isEmpty, input.isTooLong)}
-              fullWidth
-              autoComplete="off"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button
-              onClick={this.handleSubmit}
-              color="primary"
-              disabled={!input.isValid}
-            >
-              Create
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </>
-    );
-  }
+  return (
+    <>
+      <Button
+        size="small"
+        variant="outlined"
+        aria-label="Add Column"
+        color="primary"
+        onClick={openDialog}
+        data-testid="new-col-btn"
+        disabled={userState.role !== ROLE_MODERATOR}
+      >
+        <AddIcon />
+        New Column
+      </Button>
+      <Dialog
+        fullScreen={fullScreen}
+        fullWidth={true}
+        maxWidth="xs"
+        open={open}
+        onClose={closeDialog}
+        aria-labelledby="new-column-dialog"
+      >
+        <DialogTitle id="new-column-dialog">Create New Column</DialogTitle>
+        <DialogContent>
+          <TextField
+            required
+            error={!input.isValid}
+            autoFocus
+            margin="dense"
+            id="column-name"
+            label="Column Name"
+            type="text"
+            value={columnTitle}
+            onChange={handleChange}
+            helperText={renderError()}
+            fullWidth
+            autoComplete="off"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDialog} color="primary">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSubmit}
+            color="primary"
+            disabled={!input.isValid}
+            data-testid="create-column-btn"
+          >
+            Create
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
 }
 
 export default withMobileDialog()(CreateColumnDialog);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import pull from "lodash/pull";
 import isEqual from "lodash/isEqual";
 import { Grid, withStyles } from "@material-ui/core";
@@ -9,7 +9,11 @@ import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
 import VoteCountSnackbar from "./VoteCountSnackbar";
 import { FlexContainer } from "./styled";
+import { BoardContext } from "./context/BoardContext";
+import { UserContext } from "./context/UserContext";
 import { connectSocket, defaultBoard } from "../utils";
+import { ROLE_MODERATOR, ROLE_PARTICIPANT, getUser } from "../utils/userUtils";
+import { createModerator, createParticipant } from "../actions";
 import {
   CONNECT,
   CREATE_BOARD,
@@ -19,14 +23,6 @@ import {
   SET_MAX_VOTES,
   RESET_VOTES
 } from "../utils/eventNames";
-import {
-  createRole,
-  setMaxVoteCountAndReset,
-  getVotesLeft,
-  ROLE_MODERATOR,
-  ROLE_PARTICIPANT,
-  getUser
-} from "../utils/roleHandlers";
 
 const styles = theme => ({
   root: {
@@ -38,11 +34,12 @@ const styles = theme => ({
 });
 
 function Board(props) {
-  const boardId = props.match.params.boardId;
-  const socket = connectSocket(boardId);
+  const { classes } = props;
+  const boardId = useContext(BoardContext);
+  const { dispatch } = useContext(UserContext);
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
-  const { classes } = props;
+  const socket = connectSocket(boardId);
 
   useEffect(() => {
     document.title = `Retro | ${board.title}`;
@@ -53,7 +50,7 @@ function Board(props) {
 
     socket.on(CREATE_BOARD, newBoard => {
       const { boardId, maxVoteCount } = newBoard;
-      createRole(ROLE_MODERATOR, boardId, maxVoteCount);
+      createModerator(boardId, ROLE_MODERATOR, maxVoteCount, dispatch);
       setBoard(newBoard);
     });
 
@@ -61,14 +58,12 @@ function Board(props) {
       setBoard(newBoard);
     });
 
-    socket.on(SET_MAX_VOTES, (newBoard, newVoteCount) => {
-      setMaxVoteCountAndReset(newVoteCount, newBoard.boardId);
+    socket.on(SET_MAX_VOTES, newBoard => {
       setBoard(newBoard);
       openSnackbar();
     });
 
     socket.on(RESET_VOTES, newBoard => {
-      setMaxVoteCountAndReset(newBoard.maxVoteCount, newBoard.boardId);
       setBoard(newBoard);
       openSnackbar();
     });
@@ -77,7 +72,7 @@ function Board(props) {
       const { boardId, maxVoteCount } = boardData;
 
       if (getUser(boardId) === null) {
-        createRole(ROLE_PARTICIPANT, boardId, maxVoteCount);
+        createParticipant(boardId, ROLE_PARTICIPANT, maxVoteCount, dispatch);
       }
 
       setBoard(boardData);
@@ -90,7 +85,7 @@ function Board(props) {
     return () => {
       socket.close();
     };
-  }, [board, boardId, socket]);
+  }, [board, boardId, dispatch, socket]);
 
   function openSnackbar() {
     setSnackbar(true);
@@ -254,7 +249,7 @@ function Board(props) {
     return columns[source.droppableId] === columns[destination.droppableId];
   }
 
-  function renderBoard(columns, items, boardId) {
+  function renderBoard(columns, items) {
     return board.columnOrder.map((columnId, index) => {
       const column = columns[columnId];
       return (
@@ -263,21 +258,19 @@ function Board(props) {
           column={column}
           itemMap={items}
           index={index}
-          boardId={boardId}
           openSnackbar={openSnackbar}
         />
       );
     });
   }
 
-  function renderSnackbar(voteCount) {
+  function renderSnackbar() {
     return (
       <VoteCountSnackbar
         id="vote-count-snackbar"
         open={isSnackbarOpen}
         handleClose={closeSnackbar}
-        autoHideDuration={3000}
-        voteCount={voteCount}
+        autoHideDuration={1000}
       />
     );
   }
@@ -290,11 +283,7 @@ function Board(props) {
     <Grid container className={classes.root} direction="column">
       <Grid item xs={12}>
         <Grid container className={classes.header} direction="row">
-          <BoardHeader
-            title={board.title}
-            boardId={boardId}
-            maxVoteCount={board.maxVoteCount}
-          />
+          <BoardHeader title={board.title} />
         </Grid>
       </Grid>
       <Grid item xs={12}>
@@ -309,14 +298,14 @@ function Board(props) {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {renderBoard(board.columns, board.items, boardId)}
+                {renderBoard(board.columns, board.items)}
                 {provided.placeholder}
               </FlexContainer>
             )}
           </Droppable>
         </DragDropContext>
       </Grid>
-      {renderSnackbar(getVotesLeft(boardId))}
+      {renderSnackbar()}
     </Grid>
   );
 }

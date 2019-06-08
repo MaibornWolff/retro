@@ -1,8 +1,14 @@
 import React from "react";
-import { render, fireEvent, waitForElement } from "react-testing-library";
+import { render, fireEvent, waitForElement } from "@testing-library/react";
 
 import ExportBoardDialog from "../../components/dialogs/ExportBoardDialog";
-import { setModerator, clearLocalStorage } from "../../utils/testUtils";
+import {
+  setModerator,
+  clearLocalStorage,
+  moderatorRole
+} from "../../utils/testUtils";
+import { BoardContext } from "../../components/context/BoardContext";
+import { UserContext } from "../../components/context/UserContext";
 
 const BOARD_ID = "some-board-id";
 
@@ -15,16 +21,32 @@ afterEach(() => {
 });
 
 it("should display button text", () => {
-  const { getByTestId } = render(<ExportBoardDialog boardId={BOARD_ID} />);
+  const componentTree = (
+    <BoardContext.Provider value={BOARD_ID}>
+      <UserContext.Provider
+        value={{ userState: moderatorRole, dispatch: null }}
+      >
+        <ExportBoardDialog />
+      </UserContext.Provider>
+    </BoardContext.Provider>
+  );
+  const { getByTestId } = render(componentTree);
   const exportBoardBtn = getByTestId("export-board-btn");
 
   expect(exportBoardBtn).toHaveTextContent(/export board/i);
 });
 
 it("should display dialog on click", async () => {
-  const { getByTestId, getByText } = render(
-    <ExportBoardDialog boardId={BOARD_ID} />
+  const componentTree = (
+    <BoardContext.Provider value={BOARD_ID}>
+      <UserContext.Provider
+        value={{ userState: moderatorRole, dispatch: null }}
+      >
+        <ExportBoardDialog />
+      </UserContext.Provider>
+    </BoardContext.Provider>
   );
+  const { getByTestId, getByText } = render(componentTree);
   const exportBoardBtn = getByTestId("export-board-btn");
 
   fireEvent.click(exportBoardBtn);

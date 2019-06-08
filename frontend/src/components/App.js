@@ -7,6 +7,9 @@ import Home from "./Home";
 import Board from "./Board";
 import NotFound from "./NotFound";
 
+import { BoardContextProvider } from "./context/BoardContext";
+import { UserContextProvider } from "./context/UserContext";
+
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true
@@ -33,7 +36,17 @@ const App = () => (
       <Retro>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/boards/:boardId" exact component={Board} />
+          <Route
+            exact
+            path="/boards/:boardId"
+            render={props => (
+              <BoardContextProvider {...props}>
+                <UserContextProvider {...props}>
+                  <Board {...props} />
+                </UserContextProvider>
+              </BoardContextProvider>
+            )}
+          />
           <Route component={NotFound} />
         </Switch>
       </Retro>
