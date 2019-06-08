@@ -86,7 +86,7 @@ function Board(props) {
     return () => {
       socket.close();
     };
-  }, [board, boardId, socket, dispatch]);
+  }, [board, boardId, dispatch, socket]);
 
   function openSnackbar() {
     setSnackbar(true);

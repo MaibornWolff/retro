@@ -16,6 +16,9 @@ const styles = theme => ({
     "& button": {
       width: "100%"
     }
+  },
+  buttonGroup: {
+    marginTop: theme.spacing(1)
   }
 });
 
@@ -40,9 +43,13 @@ function BoardHeader(props) {
       <Grid
         container
         direction="row"
-        justify="space-evenly"
+        justify="space-between"
         alignItems="center"
+        className={classes.buttonGroup}
       >
+        <Grid item xs={12} sm={1}>
+          {/* workaround for grid offset */}
+        </Grid>
         <Grid item xs={12} sm={2}>
           <CreateColumnButton className={classes.button} />
         </Grid>
@@ -58,7 +65,7 @@ function BoardHeader(props) {
         <Grid item xs={12} sm={2}>
           <ShowQrCodeButton className={classes.button} />
         </Grid>
-        <Grid item xs={12} sm={2}>
+        <Grid item xs={12} sm={1}>
           {/* workaround for grid offset */}
         </Grid>
       </Grid>

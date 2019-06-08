@@ -92,11 +92,11 @@ function VoteCountDialog(props) {
               </Typography>
             </Grid>
             <Grid item>
-              <IconButton aria-label="Increase Vote Count" onClick={incr}>
-                <IncrementIcon />
-              </IconButton>
               <IconButton aria-label="Decrease Vote Count" onClick={decr}>
                 <DecrementIcon />
+              </IconButton>
+              <IconButton aria-label="Increase Vote Count" onClick={incr}>
+                <IncrementIcon />
               </IconButton>
             </Grid>
           </Grid>
