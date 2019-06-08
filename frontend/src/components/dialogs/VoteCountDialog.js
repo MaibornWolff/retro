@@ -15,7 +15,7 @@ import {
   DialogContentText
 } from "@material-ui/core";
 
-import { connectSocket } from "../../utils";
+import { connectSocket, defaultBoard } from "../../utils";
 import { SET_MAX_VOTES, RESET_VOTES } from "../../utils/eventNames";
 import { ROLE_MODERATOR } from "../../utils/userUtils";
 import { BoardContext } from "../context/BoardContext";
@@ -27,7 +27,12 @@ function VoteCountDialog(props) {
   const boardId = useContext(BoardContext);
   const { userState, dispatch } = useContext(UserContext);
   const [open, setOpen] = useState(false);
-  const [voteCount, setVoteCount] = useState(userState.maxVoteCount);
+  const [voteCount, setVoteCount] = useState(getVoteCount());
+
+  function getVoteCount() {
+    if (userState.maxVoteCount) return userState.maxVoteCount;
+    return defaultBoard.maxVoteCount;
+  }
 
   function openDialog() {
     setOpen(true);
