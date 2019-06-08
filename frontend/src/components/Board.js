@@ -23,6 +23,7 @@ import {
   SET_MAX_VOTES,
   RESET_VOTES
 } from "../utils/eventNames";
+import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 
 const styles = theme => ({
   root: {
@@ -33,12 +34,17 @@ const styles = theme => ({
   }
 });
 
+// stores the current dragResult of a combine
+let combineResult;
+
 function Board(props) {
   const { classes } = props;
   const boardId = useContext(BoardContext);
   const { dispatch } = useContext(UserContext);
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
+  const [isMergeDialogOpen, setMergeDialog] = useState(false);
+  const [merge, setMerge] = useState(false);
   const socket = connectSocket(boardId);
 
   useEffect(() => {
@@ -95,12 +101,35 @@ function Board(props) {
     setSnackbar(false);
   }
 
+  function openMergeDialog() {
+    setMergeDialog(true);
+  }
+
+  function closeMergeDialog() {
+    setMergeDialog(false);
+  }
+
+  function startMerge() {
+    setMerge(true);
+  }
+
+  function stopMerge() {
+    setMerge(false);
+  }
+
+  if (merge) {
+    const { columns, items } = board;
+    handleCombine(items, columns, combineResult);
+  }
+
   function onDragEnd(dragResult) {
     const { source, destination, type, combine } = dragResult;
-    const { columns, columnOrder, items } = board;
+    const { columns, columnOrder } = board;
 
+    // store current dragResult and ask the user if he wants to merge
     if (combine) {
-      handleCombine(items, columns, dragResult);
+      combineResult = dragResult;
+      openMergeDialog();
       return;
     }
 
@@ -161,6 +190,7 @@ function Board(props) {
       }
     };
 
+    stopMerge();
     setBoard(newBoard);
     socket.emit(UPDATE_BOARD, newBoard, boardId);
   }
@@ -275,6 +305,17 @@ function Board(props) {
     );
   }
 
+  function renderMergeDialog() {
+    return (
+      <MergeCardsDialog
+        open={isMergeDialogOpen}
+        closeDialog={closeMergeDialog}
+        startMerge={startMerge}
+        stopMerge={stopMerge}
+      />
+    );
+  }
+
   if (board.error) {
     return <Redirect to={"/error"} />;
   }
@@ -306,6 +347,7 @@ function Board(props) {
         </DragDropContext>
       </Grid>
       {renderSnackbar()}
+      {renderMergeDialog()}
     </Grid>
   );
 }
