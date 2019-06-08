@@ -118,6 +118,7 @@ function CreateColumnDialog(props) {
             onClick={handleSubmit}
             color="primary"
             disabled={!input.isValid}
+            data-testid="create-column-btn"
           >
             Create
           </Button>

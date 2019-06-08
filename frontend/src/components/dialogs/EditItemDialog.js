@@ -52,6 +52,7 @@ function EditItemDialog(props) {
     closeDialog();
   }
 
+  // cdU
   useEffect(() => {
     setContent(content);
   }, [content]);
@@ -105,7 +106,7 @@ function EditItemDialog(props) {
             id="author-name"
             label="Author"
             type="text"
-            value={author}
+            value={itemAuthor}
             onChange={handleAuthorChange}
             helperText={renderAuthorError()}
             autoFocus
@@ -119,7 +120,7 @@ function EditItemDialog(props) {
             id="content-name"
             label="Content"
             type="text"
-            value={content}
+            value={itemContent}
             onChange={handleContentChange}
             helperText={renderContentError()}
             rowsMax={Infinity}

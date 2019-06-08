@@ -11,7 +11,6 @@ import VoteCountButton from "./buttons/VoteCountButton";
 const styles = theme => ({
   button: {
     marginTop: theme.spacing(1),
-    marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     "& button": {
       width: "100%"
@@ -30,11 +29,11 @@ function BoardHeader(props) {
       <Grid
         container
         direction="row"
-        justify="space-between"
+        justify="space-around"
         alignItems="center"
       >
         <Grid item xs={12} sm={6} md={9}>
-          <Typography variant="h4">{title}</Typography>
+          <Typography variant="h5">{title}</Typography>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <NameInput />
@@ -43,13 +42,10 @@ function BoardHeader(props) {
       <Grid
         container
         direction="row"
-        justify="space-between"
+        justify="space-around"
         alignItems="center"
         className={classes.buttonGroup}
       >
-        <Grid item xs={12} sm={1}>
-          {/* workaround for grid offset */}
-        </Grid>
         <Grid item xs={12} sm={2}>
           <CreateColumnButton className={classes.button} />
         </Grid>
@@ -65,9 +61,7 @@ function BoardHeader(props) {
         <Grid item xs={12} sm={2}>
           <ShowQrCodeButton className={classes.button} />
         </Grid>
-        <Grid item xs={12} sm={1}>
-          {/* workaround for grid offset */}
-        </Grid>
+        <Grid item xs={12} sm={2} />
       </Grid>
     </>
   );

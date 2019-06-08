@@ -6,23 +6,7 @@ import CreateBoardDialog from "../../components/dialogs/CreateBoardDialog";
 const NEW_BOARD_BTN_ID = "new-board-btn";
 const CREATE_BOARD_BTN_ID = "create-board-btn";
 
-it("should have correct button text", () => {
-  const { getByTestId } = render(<CreateBoardDialog />);
-  const newBoardBtn = getByTestId(NEW_BOARD_BTN_ID);
-
-  expect(newBoardBtn).toHaveTextContent(/new board/i);
-});
-
-it("should display dialog on open", async () => {
-  const { getByTestId, getByText } = render(<CreateBoardDialog />);
-  const newBoardBtn = getByTestId(NEW_BOARD_BTN_ID);
-
-  fireEvent.click(newBoardBtn);
-
-  await waitForElement(() => getByText(/create new board/i));
-});
-
-it("should have empty context on newly opened dialog", async () => {
+async function openCreateBoardDialog() {
   const { getByTestId, getByText, getByLabelText } = render(
     <CreateBoardDialog />
   );
@@ -30,15 +14,52 @@ it("should have empty context on newly opened dialog", async () => {
 
   fireEvent.click(newBoardBtn);
 
-  // dialog is open and error message is shown
   await waitForElement(() => getByText(/create new board/i));
   await waitForElement(() => getByText(/board name cannot be empty./i));
 
-  // input is empty at first
   const boardNameInput = getByLabelText(/board name/i);
-  expect(boardNameInput.value).toBe("");
-
-  // create button is disabled at first
   const createBoardButton = getByTestId(CREATE_BOARD_BTN_ID);
+  expect(boardNameInput.value).toBe("");
   expect(createBoardButton.disabled).toBeTruthy();
+
+  return {
+    getByText,
+    boardNameInput,
+    createBoardButton
+  };
+}
+
+it("should have correct button text", () => {
+  const { getByTestId } = render(<CreateBoardDialog />);
+  const newBoardBtn = getByTestId(NEW_BOARD_BTN_ID);
+
+  expect(newBoardBtn).toHaveTextContent(/new board/i);
+});
+
+it("should have empty input and disabled button when opening the dialog", async () => {
+  await openCreateBoardDialog();
+});
+
+it("should enable create-button when board name is valid", async () => {
+  const { boardNameInput, createBoardButton } = await openCreateBoardDialog();
+  const boardName = "Retrospective 101";
+
+  fireEvent.change(boardNameInput, { target: { value: boardName } });
+
+  expect(boardNameInput.value).toBe(boardName);
+  expect(createBoardButton.disabled).toBeFalsy();
+});
+
+it("should show error when having a too long board name", async () => {
+  const {
+    boardNameInput,
+    createBoardButton,
+    getByText
+  } = await openCreateBoardDialog();
+  const tooLongBoardName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAb";
+
+  fireEvent.change(boardNameInput, { target: { value: tooLongBoardName } });
+
+  expect(createBoardButton.disabled).toBeTruthy();
+  await waitForElement(() => getByText(/board name is too long./i));
 });

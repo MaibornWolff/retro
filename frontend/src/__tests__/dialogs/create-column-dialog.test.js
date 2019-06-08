@@ -20,7 +20,37 @@ afterEach(() => {
   clearLocalStorage();
 });
 
-it("should display correct button text", () => {
+async function openCreateColumnDialog() {
+  const componentTree = (
+    <BoardContext.Provider value={BOARD_ID}>
+      <UserContext.Provider
+        value={{ userState: moderatorRole, dispatch: null }}
+      >
+        <CreateColumnDialog />
+      </UserContext.Provider>
+    </BoardContext.Provider>
+  );
+  const { getByTestId, getByText, getByLabelText } = render(componentTree);
+  const newColBtn = getByTestId("new-col-btn");
+
+  fireEvent.click(newColBtn);
+
+  await waitForElement(() => getByText(/create new column/i));
+  await waitForElement(() => getByText(/Column name cannot be empty./i));
+
+  const columnNameInput = getByLabelText(/column name/i);
+  const createColumnButton = getByTestId("create-column-btn");
+  expect(columnNameInput.value).toBe("");
+  expect(createColumnButton.disabled).toBeTruthy();
+
+  return {
+    getByText,
+    columnNameInput,
+    createColumnButton
+  };
+}
+
+it("should have correct button text", () => {
   const componentTree = (
     <BoardContext.Provider value={BOARD_ID}>
       <UserContext.Provider
@@ -36,20 +66,33 @@ it("should display correct button text", () => {
   expect(newColBtn).toHaveTextContent(/new column/i);
 });
 
-it("should display dialog on button click", async () => {
-  const componentTree = (
-    <BoardContext.Provider value={BOARD_ID}>
-      <UserContext.Provider
-        value={{ userState: moderatorRole, dispatch: null }}
-      >
-        <CreateColumnDialog />
-      </UserContext.Provider>
-    </BoardContext.Provider>
-  );
-  const { getByTestId, getByText } = render(componentTree);
-  const newColBtn = getByTestId("new-col-btn");
+it("should have empty input and disabled button when opening the dialog", async () => {
+  await openCreateColumnDialog();
+});
 
-  fireEvent.click(newColBtn);
+it("should enable create-button when column name is valid", async () => {
+  const {
+    columnNameInput,
+    createColumnButton
+  } = await openCreateColumnDialog();
+  const columnName = "Column 1";
 
-  await waitForElement(() => getByText(/create new column/i));
+  fireEvent.change(columnNameInput, { target: { value: columnName } });
+
+  expect(columnNameInput.value).toBe(columnName);
+  expect(createColumnButton.disabled).toBeFalsy();
+});
+
+it("should show error when having a too long column name", async () => {
+  const {
+    columnNameInput,
+    createColumnButton,
+    getByText
+  } = await openCreateColumnDialog();
+  const tooLongColumnName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAb";
+
+  fireEvent.change(columnNameInput, { target: { value: tooLongColumnName } });
+
+  expect(createColumnButton.disabled).toBeTruthy();
+  await waitForElement(() => getByText(/column name is too long./i));
 });
