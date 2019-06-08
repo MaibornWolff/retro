@@ -12,7 +12,7 @@
   - Moderator
     - the moderator is the one, who's controlling the retrospective and has access to features that participants don't have
   - Participants
-    - participants are the ones, who are joining the retrospective and just have the ability to create or move cards
+    - participants are the ones, who are joining the retrospective and just have the ability to make CRUD operations on cards or open the QR-Code modal
 - **Author name autofill**
   - You can now provide your name which will be saved and autofilled on each card creation
 - **New voting system**
@@ -20,12 +20,13 @@
     - is only accessible by the moderator
     - the moderator can set a maximum vote count for each user
     - the moderator can also reset all votes in order to start a re-vote
-    - re-setting a maximum vote count is also considered as a re-vote
+    - re-setting the maximum vote count is also considered as a re-vote
+    - by default, every user has 3 votes
   - While voting several things happen
     - a Snackbar opens which displays how many votes are left for the user
-    - on the voted Card, a thumb-down icon appears, which let's you take back your vote 
-    - all Cards you voted for are highlighted with a dark background on the Avatar
-    - after reaching your maximum amount of votes, you can't vote anymore, unless you take back a vote from another Card
+    - on the voted card, a thumb-down icon appears, which let's you take back your vote 
+    - all cards you voted for are highlighted with a dark background on the Avatar
+    - after reaching your maximum amount of votes, you can't vote anymore, unless you take back a vote from another card
 - **Tab Name**
   - `document.title` is now set as `"Retro | <YOUR_BOARD_NAME>"`
 - **QR-Code**
@@ -50,12 +51,12 @@
 
 - CSS issues
   - Really long words are now handled properly
-  - Mobile UI should be a bit better now, but not optimal 
+  - Mobile UI should be a bit better now 
     - _thanks to @mrpatpat_
-- Improved render performance when dragging cards and columns
+- Improved render performance on several places
 - `LoadBoardDialog` validation should not result in a `SyntaxError` anymore
 - All invalid URLs will now be redirected to a 404 page
-- The `CONNECT` event client-side doesn't cause a re-render anymore
+- The client-side `CONNECT` socket-event shouldn't cause a re-render anymore
 
 ## [0.2.1] - 2019-03-29
 
