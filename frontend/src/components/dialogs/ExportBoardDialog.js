@@ -13,9 +13,10 @@ import {
 import { ROLE_MODERATOR } from "../../utils/userUtils";
 import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
+import { BACKEND_DEV_PORT } from "../../utils";
 
 const endpoint = "/api/boards/export/";
-const port = process.env.REACT_APP_PROD_PORT || "8081";
+const port = process.env.REACT_APP_PROD_PORT || BACKEND_DEV_PORT;
 const exportURL = `http://${window.location.hostname}:${port}${endpoint}`;
 
 function ExportBoardDialog(props) {

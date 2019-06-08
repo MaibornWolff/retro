@@ -1,7 +1,12 @@
 import io from "socket.io-client";
 
+export const BACKEND_DEV_HOST = "localhost";
+
+export const BACKEND_DEV_PORT = 3001;
+
 export const BACKEND_ENDPOINT =
-  process.env.REACT_APP_PROD_URL || "http://localhost:3001";
+  process.env.REACT_APP_PROD_URL ||
+  `http://${BACKEND_DEV_HOST}:${BACKEND_DEV_PORT}`;
 
 export const connectSocket = id =>
   io(BACKEND_ENDPOINT, { query: "boardId=" + id });
