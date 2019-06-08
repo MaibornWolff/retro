@@ -37,7 +37,9 @@
   - BoardContext
     - provides the `boardId` to all child components
   - UserContext
-    - provides user related data and performs changes, utilizing `useReducer` 
+    - provides user related data and performs changes, utilizing `useReducer`
+- **Preventing unwanted card merges**
+  - Sometimes when I was dragging cards around I merged them by accident. To prevent this, we're now prompting the user if it really wants to merge or not.
 
 ### Changed
 
