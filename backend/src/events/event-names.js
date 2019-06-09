@@ -15,5 +15,7 @@ module.exports = {
   EDIT_COLUMN: "edit column",
   JOIN_ERROR: "join error",
   SET_MAX_VOTES: "set max votes",
-  RESET_VOTES: "reset votes"
+  RESET_VOTES: "reset votes",
+  FOCUS_CARD: "focus card",
+  REMOVE_FOCUS_CARD: "remove focus card"
 };

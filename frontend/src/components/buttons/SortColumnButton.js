@@ -8,7 +8,7 @@ import { BoardContext } from "../context/BoardContext";
 
 function SortColumnButton(props) {
   const { columnId, items } = props;
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
 
   function sort() {
     const socket = connectSocket(boardId);

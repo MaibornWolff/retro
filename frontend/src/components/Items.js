@@ -8,7 +8,7 @@ import { BoardContext } from "./context/BoardContext";
 
 function Items(props) {
   const { items, openSnackbar } = props;
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
 
   function isVoted(cardId) {
     return hasVotedFor(cardId, boardId);

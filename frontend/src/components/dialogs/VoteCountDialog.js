@@ -24,7 +24,7 @@ import { setMaxVote, resetVotes } from "../../actions";
 
 function VoteCountDialog(props) {
   const { fullScreen } = props;
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
   const { userState, dispatch } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [voteCount, setVoteCount] = useState(getVoteCount());

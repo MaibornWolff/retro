@@ -10,7 +10,7 @@ import { UserContext } from "../context/UserContext";
 
 function UnblurCardsButton(props) {
   const { className } = props;
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
   const { userState } = useContext(UserContext);
 
   function unblur() {

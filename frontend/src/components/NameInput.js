@@ -51,7 +51,7 @@ const styles = theme => ({
 
 function NameInput(props) {
   const { classes } = props;
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
   const { userState, dispatch } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(getName());

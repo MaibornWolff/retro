@@ -22,7 +22,7 @@ const exportURL = `http://${window.location.hostname}:${port}${endpoint}`;
 function ExportBoardDialog(props) {
   const { fullScreen } = props;
   const [open, setOpen] = useState(false);
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
   const { userState } = useContext(UserContext);
 
   function openDialog() {

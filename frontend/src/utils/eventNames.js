@@ -14,3 +14,5 @@ export const EDIT_COLUMN = "edit column";
 export const JOIN_ERROR = "join error";
 export const SET_MAX_VOTES = "set max votes";
 export const RESET_VOTES = "reset votes";
+export const FOCUS_CARD = "focus card";
+export const REMOVE_FOCUS_CARD = "remove focus card";

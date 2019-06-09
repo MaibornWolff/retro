@@ -26,7 +26,7 @@ function EditColumnNameDialog(props) {
   const { columnId, columnTitle, fullScreen } = props;
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(columnTitle);
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
   const input = validateInput(title.length, 0, 40);
 
   function openDialog() {

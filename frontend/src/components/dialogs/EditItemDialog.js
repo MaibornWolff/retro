@@ -26,7 +26,7 @@ function EditItemDialog(props) {
   const [open, setOpen] = useState(false);
   const [itemAuthor, setAuthor] = useState(author);
   const [itemContent, setContent] = useState(content);
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
   const authorInput = validateInput(itemAuthor.length, 0, 40);
   const isContentEmpty = isInputEmpty(itemContent.length);
 

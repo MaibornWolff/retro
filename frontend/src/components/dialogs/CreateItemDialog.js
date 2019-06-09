@@ -28,7 +28,7 @@ function CreateItemDialog(props) {
   const [open, setOpen] = useState(false);
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
   const { userState } = useContext(UserContext);
   const authorInput = validateInput(author.length, 0, 40);
   const isContentEmpty = isInputEmpty(content.length);

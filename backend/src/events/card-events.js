@@ -8,6 +8,8 @@ const {
   EDIT_CARD,
   DELETE_CARD,
   VOTE_CARD,
+  FOCUS_CARD,
+  REMOVE_FOCUS_CARD,
   UPDATE_BOARD
 } = require("./event-names");
 
@@ -88,9 +90,23 @@ const voteCard = (io, client, roomId) => {
   });
 };
 
+const focusCard = (io, client, roomId) => {
+  client.on(FOCUS_CARD, cardId => {
+    io.to(roomId).emit(FOCUS_CARD, cardId);
+  });
+};
+
+const removeFocusCard = (io, client, roomId) => {
+  client.on(REMOVE_FOCUS_CARD, () => {
+    io.to(roomId).emit(REMOVE_FOCUS_CARD);
+  });
+};
+
 module.exports = {
   createCard,
   editCard,
   deleteCard,
-  voteCard
+  voteCard,
+  focusCard,
+  removeFocusCard
 };

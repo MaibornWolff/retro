@@ -17,10 +17,11 @@ import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import UpvoteItemButton from "./buttons/UpvoteItemButton";
 import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
 import { connectSocket } from "../utils";
-import { VOTE_CARD } from "../utils/eventNames";
+import { VOTE_CARD, FOCUS_CARD, REMOVE_FOCUS_CARD } from "../utils/eventNames";
 import { BoardContext } from "./context/BoardContext";
 import { UserContext } from "./context/UserContext";
 import { downvoteCard } from "../actions";
+import { ROLE_MODERATOR } from "../utils/userUtils";
 
 const styles = {
   avatar: {
@@ -38,6 +39,9 @@ const styles = {
   card: {
     border: "1px solid lightgrey"
   },
+  cardFocused: {
+    border: "4px solid red"
+  },
   contentBody: {
     whiteSpace: "pre-line"
   }
@@ -54,7 +58,7 @@ function RetroItem(props) {
     openSnackbar,
     classes
   } = props;
-  const boardId = useContext(BoardContext);
+  const { boardId, boardState } = useContext(BoardContext);
   const { userState, dispatch } = useContext(UserContext);
 
   function downVote() {
@@ -65,10 +69,30 @@ function RetroItem(props) {
     openSnackbar();
   }
 
+  function handleFocus(isFocus) {
+    const role = userState.role;
+
+    if (role === ROLE_MODERATOR) {
+      const socket = connectSocket(boardId);
+      if (isFocus) {
+        socket.emit(FOCUS_CARD, id);
+      } else if (boardState.focusedCard !== "") {
+        socket.emit(REMOVE_FOCUS_CARD);
+      }
+    }
+  }
+
   return (
     <CardWrapper isBlurred={isBlurred}>
       <CardContainer>
-        <Card className={classes.card} raised>
+        <Card
+          className={
+            boardState.focusedCard === id ? classes.cardFocused : classes.card
+          }
+          onAuxClick={() => handleFocus(false)}
+          onDoubleClick={() => handleFocus(true)}
+          raised
+        >
           <CardHeader
             avatar={
               <Avatar

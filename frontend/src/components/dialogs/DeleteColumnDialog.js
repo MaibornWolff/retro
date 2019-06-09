@@ -20,7 +20,7 @@ import { BoardContext } from "../context/BoardContext";
 function DeleteColumnDialog(props) {
   const { columnId, fullScreen } = props;
   const [open, setOpen] = useState(false);
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
 
   function openDialog() {
     setOpen(true);

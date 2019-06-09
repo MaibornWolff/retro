@@ -26,7 +26,7 @@ function CreateColumnDialog(props) {
   const { fullScreen } = props;
   const [open, setOpen] = useState(false);
   const [columnTitle, setColumnTitle] = useState("");
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
   const { userState } = useContext(UserContext);
   const input = validateInput(columnTitle.length, 0, 40);
 

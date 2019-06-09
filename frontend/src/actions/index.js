@@ -13,7 +13,9 @@ import {
   RESET,
   SET_NAME,
   CREATE_MODERATOR,
-  CREATE_PARTICIPANT
+  CREATE_PARTICIPANT,
+  SET_FOCUSED_CARD,
+  REMOVE_FOCUSED_CARD
 } from "./actionTypes";
 
 export const upvoteCard = (boardId, cardId, votesLeft, dispatch) => {
@@ -51,4 +53,12 @@ export const createModerator = (boardId, role, maxVoteCount, dispatch) => {
 export const createParticipant = (boardId, role, maxVoteCount, dispatch) => {
   dispatch({ type: CREATE_PARTICIPANT, payload: { role, maxVoteCount } });
   createRole(ROLE_PARTICIPANT, boardId, maxVoteCount);
+};
+
+export const setFocusedCard = (focusedCard, dispatch) => {
+  dispatch({ type: SET_FOCUSED_CARD, payload: { focusedCard } });
+};
+
+export const removeFocusedCard = dispatch => {
+  dispatch({ type: REMOVE_FOCUSED_CARD });
 };

@@ -10,7 +10,7 @@ import { upvoteCard } from "../../actions";
 
 function UpvoteItemButton(props) {
   const { id, openSnackbar } = props;
-  const boardId = useContext(BoardContext);
+  const { boardId } = useContext(BoardContext);
   const { userState, dispatch } = useContext(UserContext);
 
   function upVote() {

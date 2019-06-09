@@ -13,7 +13,12 @@ import { BoardContext } from "./context/BoardContext";
 import { UserContext } from "./context/UserContext";
 import { connectSocket, defaultBoard } from "../utils";
 import { ROLE_MODERATOR, ROLE_PARTICIPANT, getUser } from "../utils/userUtils";
-import { createModerator, createParticipant } from "../actions";
+import {
+  createModerator,
+  createParticipant,
+  setFocusedCard,
+  removeFocusedCard
+} from "../actions";
 import {
   CONNECT,
   CREATE_BOARD,
@@ -21,7 +26,9 @@ import {
   JOIN_BOARD,
   JOIN_ERROR,
   SET_MAX_VOTES,
-  RESET_VOTES
+  RESET_VOTES,
+  FOCUS_CARD,
+  REMOVE_FOCUS_CARD
 } from "../utils/eventNames";
 import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 
@@ -39,13 +46,13 @@ let combineResult;
 
 function Board(props) {
   const { classes } = props;
-  const boardId = useContext(BoardContext);
+  const { boardId, boardDispatch, socket } = useContext(BoardContext);
   const { dispatch } = useContext(UserContext);
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
   const [merge, setMerge] = useState(false);
-  const socket = connectSocket(boardId);
+  // const socket = connectSocket(boardId);
 
   useEffect(() => {
     document.title = `Retro | ${board.title}`;
@@ -74,6 +81,14 @@ function Board(props) {
       openSnackbar();
     });
 
+    socket.on(FOCUS_CARD, focusedCard => {
+      setFocusedCard(focusedCard, boardDispatch);
+    });
+
+    socket.on(REMOVE_FOCUS_CARD, () => {
+      removeFocusedCard(boardDispatch);
+    });
+
     socket.on(JOIN_BOARD, boardData => {
       const { boardId, maxVoteCount } = boardData;
 
@@ -91,7 +106,7 @@ function Board(props) {
     return () => {
       socket.close();
     };
-  }, [board, boardId, dispatch, socket]);
+  }, [board, boardId, boardDispatch, dispatch, socket]);
 
   function openSnackbar() {
     setSnackbar(true);
