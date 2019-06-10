@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import pull from "lodash/pull";
-import isEqual from "lodash/isEqual";
 import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Redirect } from "react-router-dom";
@@ -52,13 +51,15 @@ function Board(props) {
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
   const [merge, setMerge] = useState(false);
 
+  // set tab name
   useEffect(() => {
     document.title = `Retro | ${board.title}`;
+  }, [board.title]);
 
+  // socket listeners
+  useEffect(() => {
     socket.on(CONNECT, () => {
-      if (isEqual(board, defaultBoard)) {
-        socket.emit(JOIN_BOARD, boardId);
-      }
+      socket.emit(JOIN_BOARD, boardId);
     });
 
     socket.on(JOIN_BOARD, boardData => {
@@ -98,7 +99,8 @@ function Board(props) {
     socket.on(REMOVE_FOCUS_CARD, () => {
       removeFocusedCard(boardDispatch);
     });
-  }, [board.title]);
+    // eslint-disable-next-line
+  }, []);
 
   function openSnackbar() {
     setSnackbar(true);
