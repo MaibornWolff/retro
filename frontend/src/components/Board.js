@@ -46,13 +46,13 @@ let combineResult;
 
 function Board(props) {
   const { classes } = props;
-  const { boardId, boardDispatch, socket } = useContext(BoardContext);
+  const { boardId, boardDispatch } = useContext(BoardContext);
   const { dispatch } = useContext(UserContext);
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
   const [merge, setMerge] = useState(false);
-  // const socket = connectSocket(boardId);
+  const socket = connectSocket(boardId);
 
   useEffect(() => {
     document.title = `Retro | ${board.title}`;
