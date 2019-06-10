@@ -1,5 +1,6 @@
 import React from "react";
 import { render, fireEvent, waitForElement } from "@testing-library/react";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import CreateBoardDialog from "../../components/dialogs/CreateBoardDialog";
 
@@ -8,7 +9,9 @@ const CREATE_BOARD_BTN_ID = "create-board-btn";
 
 async function openCreateBoardDialog() {
   const { getByTestId, getByText, getByLabelText } = render(
-    <CreateBoardDialog />
+    <Router>
+      <CreateBoardDialog />
+    </Router>
   );
   const newBoardBtn = getByTestId(NEW_BOARD_BTN_ID);
 
@@ -30,7 +33,11 @@ async function openCreateBoardDialog() {
 }
 
 it("should have correct button text", () => {
-  const { getByTestId } = render(<CreateBoardDialog />);
+  const { getByTestId } = render(
+    <Router>
+      <CreateBoardDialog />
+    </Router>
+  );
   const newBoardBtn = getByTestId(NEW_BOARD_BTN_ID);
 
   expect(newBoardBtn).toHaveTextContent(/new board/i);

@@ -86,7 +86,7 @@ function RetroItem(props) {
           className={
             boardState.focusedCard === id ? classes.cardFocused : classes.card
           }
-          onAuxClick={() => handleFocus(false)}
+          onClick={() => handleFocus(false)}
           onDoubleClick={() => handleFocus(true)}
           raised
         >
@@ -134,4 +134,4 @@ function RetroItem(props) {
   );
 }
 
-export default withStyles(styles)(RetroItem);
+export default withStyles(styles)(React.memo(RetroItem));

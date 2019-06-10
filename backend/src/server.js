@@ -7,7 +7,7 @@ const express = require("express");
 const { json } = require("body-parser");
 const cors = require("cors");
 const app = express();
-const server = require("http").Server(app);
+const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 
 const apiRouter = require("./routes/apiRouter");
@@ -48,18 +48,18 @@ app.get("/*", (req, res) => {
 });
 
 io.on(CONNECT, client => {
-  // console.log("-------------------------");
-  // console.log(">> Connected: ", client.id);
+  console.log("-------------------------");
+  console.log(">> Connected: ", client.id);
 
   const roomId = client.handshake.query.boardId;
   client.join(roomId);
   client.on(DISCONNECT, () => {
-    // console.log(">> Disconnected: ", client.id);
+    console.log(">> Disconnected: ", client.id);
     client.leave(roomId);
   });
 
-  // console.log(">> Users: ", Object.keys(io.sockets.sockets));
-  // console.log(">> Rooms: ", Object.keys(io.sockets.adapter.rooms));
+  console.log(">> Users: ", Object.keys(io.sockets.sockets));
+  console.log(">> Rooms: ", Object.keys(io.sockets.adapter.rooms));
 
   boardEvents(io, client, roomId);
   columnEvents(io, client, roomId);

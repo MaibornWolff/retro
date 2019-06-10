@@ -87,12 +87,6 @@ function CreateBoardDialog(props) {
     return null;
   }
 
-  /*
-  if (boardId) {
-    return <Redirect to={`/boards/${boardId}`} />;
-  }
-  */
-
   return (
     <>
       <Fab

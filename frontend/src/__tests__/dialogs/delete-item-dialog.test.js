@@ -2,9 +2,27 @@ import React from "react";
 import { render, fireEvent, waitForElement } from "@testing-library/react";
 
 import DeleteItemDialog from "../../components/dialogs/DeleteItemDialog";
+import { moderatorRole } from "../../utils/testUtils";
+import { BoardContext } from "../../components/context/BoardContext";
+import { UserContext } from "../../components/context/UserContext";
+
+const boardContextValue = {
+  boardId: "some-board-id"
+};
+
+const userContextValue = {
+  userState: moderatorRole
+};
 
 it("should display icon", () => {
-  const { getByTestId } = render(<DeleteItemDialog />);
+  const componentTree = (
+    <BoardContext.Provider value={boardContextValue}>
+      <UserContext.Provider value={userContextValue}>
+        <DeleteItemDialog />
+      </UserContext.Provider>
+    </BoardContext.Provider>
+  );
+  const { getByTestId } = render(componentTree);
   const deleteItemBtn = getByTestId("delete-item-btn");
   const deleteIcon = getByTestId("delete-item-btn-icon");
 
@@ -12,7 +30,14 @@ it("should display icon", () => {
 });
 
 it("should display dialog on click", async () => {
-  const { getByTestId, getByText } = render(<DeleteItemDialog />);
+  const componentTree = (
+    <BoardContext.Provider value={boardContextValue}>
+      <UserContext.Provider value={userContextValue}>
+        <DeleteItemDialog />
+      </UserContext.Provider>
+    </BoardContext.Provider>
+  );
+  const { getByTestId, getByText } = render(componentTree);
   const deleteItemBtn = getByTestId("delete-item-btn");
 
   fireEvent.click(deleteItemBtn);

@@ -15,7 +15,6 @@ const UTF8 = "utf8";
 
 const createColumn = (io, client, roomId) => {
   client.on(CREATE_COLUMN, async (column, boardId) => {
-    console.log("RECEIVED COLUMN EVENT!!");
     const path = getPath(boardId);
     await fs.readFile(path, UTF8, async (error, file) => {
       if (error) logError(CREATE_COLUMN, error);
