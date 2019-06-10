@@ -86,7 +86,7 @@ function RetroItem(props) {
           className={
             boardState.focusedCard === id ? classes.cardFocused : classes.card
           }
-          onClick={() => handleFocus(false)}
+          onAuxClick={() => handleFocus(false)}
           onDoubleClick={() => handleFocus(true)}
           raised
         >

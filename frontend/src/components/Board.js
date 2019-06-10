@@ -98,7 +98,7 @@ function Board(props) {
     socket.on(REMOVE_FOCUS_CARD, () => {
       removeFocusedCard(boardDispatch);
     });
-  }, [board, boardId, boardDispatch, dispatch, socket, location.state]);
+  }, [board.title]);
 
   function openSnackbar() {
     setSnackbar(true);
