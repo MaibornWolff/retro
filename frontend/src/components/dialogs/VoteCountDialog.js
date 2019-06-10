@@ -15,7 +15,7 @@ import {
   DialogContentText
 } from "@material-ui/core";
 
-import { connectSocket, defaultBoard } from "../../utils";
+import { defaultBoard } from "../../utils";
 import { SET_MAX_VOTES, RESET_VOTES } from "../../utils/eventNames";
 import { ROLE_MODERATOR } from "../../utils/userUtils";
 import { BoardContext } from "../context/BoardContext";
@@ -24,7 +24,7 @@ import { setMaxVote, resetVotes } from "../../actions";
 
 function VoteCountDialog(props) {
   const { fullScreen } = props;
-  const { boardId } = useContext(BoardContext);
+  const { boardId, socket } = useContext(BoardContext);
   const { userState, dispatch } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [voteCount, setVoteCount] = useState(getVoteCount());
@@ -51,14 +51,12 @@ function VoteCountDialog(props) {
   }
 
   function handleSave() {
-    const socket = connectSocket(boardId);
     socket.emit(SET_MAX_VOTES, voteCount, boardId);
     setMaxVote(boardId, voteCount, dispatch);
     closeDialog();
   }
 
   function handleReset() {
-    const socket = connectSocket(boardId);
     socket.emit(RESET_VOTES, boardId);
     resetVotes(boardId, voteCount, dispatch);
     closeDialog();

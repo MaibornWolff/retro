@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 
 import { EDIT_COLUMN } from "../../utils/eventNames";
-import { connectSocket, validateInput } from "../../utils";
+import { validateInput } from "../../utils";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
@@ -26,7 +26,7 @@ function EditColumnNameDialog(props) {
   const { columnId, columnTitle, fullScreen } = props;
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(columnTitle);
-  const { boardId } = useContext(BoardContext);
+  const { boardId, socket } = useContext(BoardContext);
   const input = validateInput(title.length, 0, 40);
 
   function openDialog() {
@@ -43,7 +43,6 @@ function EditColumnNameDialog(props) {
   }
 
   function handleClick() {
-    const socket = connectSocket(boardId);
     socket.emit(EDIT_COLUMN, columnId, boardId, title);
     resetState();
   }

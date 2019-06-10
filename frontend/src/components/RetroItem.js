@@ -16,7 +16,6 @@ import EditItemDialog from "./dialogs/EditItemDialog";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import UpvoteItemButton from "./buttons/UpvoteItemButton";
 import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
-import { connectSocket } from "../utils";
 import { VOTE_CARD, FOCUS_CARD, REMOVE_FOCUS_CARD } from "../utils/eventNames";
 import { BoardContext } from "./context/BoardContext";
 import { UserContext } from "./context/UserContext";
@@ -58,12 +57,11 @@ function RetroItem(props) {
     openSnackbar,
     classes
   } = props;
-  const { boardId, boardState } = useContext(BoardContext);
+  const { boardId, boardState, socket } = useContext(BoardContext);
   const { userState, dispatch } = useContext(UserContext);
 
   function downVote() {
     const votesLeft = userState.votesLeft;
-    const socket = connectSocket(boardId);
     socket.emit(VOTE_CARD, id, boardId, false);
     downvoteCard(boardId, id, votesLeft, dispatch);
     openSnackbar();
@@ -73,7 +71,6 @@ function RetroItem(props) {
     const role = userState.role;
 
     if (role === ROLE_MODERATOR) {
-      const socket = connectSocket(boardId);
       if (isFocus) {
         socket.emit(FOCUS_CARD, id);
       } else if (boardState.focusedCard !== "") {

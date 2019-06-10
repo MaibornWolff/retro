@@ -1,5 +1,3 @@
-import io from "socket.io-client";
-
 export const BACKEND_DEV_HOST = "localhost";
 
 export const BACKEND_DEV_PORT = 3001;
@@ -7,9 +5,6 @@ export const BACKEND_DEV_PORT = 3001;
 export const BACKEND_ENDPOINT =
   process.env.REACT_APP_PROD_URL ||
   `http://${BACKEND_DEV_HOST}:${BACKEND_DEV_PORT}`;
-
-export const connectSocket = id =>
-  io(BACKEND_ENDPOINT, { query: "boardId=" + id });
 
 export const defaultBoard = {
   boardId: "",
@@ -20,6 +15,16 @@ export const defaultBoard = {
   error: false,
   isBlurred: true,
   maxVoteCount: 3
+};
+
+export const postData = (url = "", data = {}) => {
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
 };
 
 export const isBoardIdValid = async boardId => {

@@ -6,7 +6,6 @@ export const VOTE_CARD = "vote card";
 export const EDIT_CARD = "edit card";
 export const SORT_COLUMN = "sort column";
 export const DELETE_CARD = "delete card";
-export const CREATE_BOARD = "create board";
 export const CONNECT = "connect";
 export const JOIN_BOARD = "join board";
 export const UNBLUR_CARDS = "unblur cards";

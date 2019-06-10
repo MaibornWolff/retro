@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import nanoid from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
 import { compose } from "recompose";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import {
   Button,
   Fab,
@@ -17,9 +17,7 @@ import {
   withStyles
 } from "@material-ui/core";
 
-import { connectSocket } from "../../utils";
-import { CREATE_BOARD } from "../../utils/eventNames";
-import { defaultBoard, validateInput } from "../../utils";
+import { defaultBoard, validateInput, postData } from "../../utils";
 import {
   BOARD_NAME_EMPTY_MSG,
   BOARD_NAME_TOO_LONG_MSG
@@ -37,10 +35,9 @@ const styles = theme => ({
 });
 
 function CreateBoardDialog(props) {
-  const { classes, fullScreen } = props;
+  const { classes, fullScreen, history } = props;
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
-  const [boardId, setBoardId] = useState("");
   const input = validateInput(title.length, 0, 40);
 
   function openDialog() {
@@ -55,19 +52,26 @@ function CreateBoardDialog(props) {
     setTitle(event.target.value);
   }
 
-  function triggerRedirect(boardId) {
+  function resetState() {
     setOpen(false);
     setTitle("");
-    setBoardId(boardId);
   }
 
-  function handleSubmit() {
-    const boardId = nanoid();
-    const socket = connectSocket(boardId);
-    const newBoard = { ...defaultBoard, boardId, title };
+  function navigateToBoard(response, boardId) {
+    if (response.ok) {
+      history.push({
+        pathname: `/boards/${boardId}`,
+        state: { isModerator: true }
+      });
+    }
+  }
 
-    socket.emit(CREATE_BOARD, newBoard, boardId);
-    triggerRedirect(boardId);
+  async function handleSubmit() {
+    const boardId = nanoid();
+    const newBoard = { ...defaultBoard, boardId, title };
+    const response = await postData("/", newBoard);
+    resetState();
+    navigateToBoard(response, boardId);
   }
 
   function renderError() {
@@ -83,9 +87,11 @@ function CreateBoardDialog(props) {
     return null;
   }
 
+  /*
   if (boardId) {
     return <Redirect to={`/boards/${boardId}`} />;
   }
+  */
 
   return (
     <>
@@ -145,6 +151,7 @@ function CreateBoardDialog(props) {
 }
 
 export default compose(
+  withRouter,
   withMobileDialog(),
   withStyles(styles)
 )(CreateBoardDialog);

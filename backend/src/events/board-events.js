@@ -2,7 +2,6 @@ const fs = require("fs");
 
 const { getPath, getBoard, stringify, logError } = require("../utils");
 const {
-  CREATE_BOARD,
   UPDATE_BOARD,
   JOIN_BOARD,
   UNBLUR_CARDS,
@@ -13,11 +12,14 @@ const {
 
 const UTF8 = "utf8";
 
-const createBoard = (io, client, roomId) => {
-  client.on(CREATE_BOARD, async (board, boardId) => {
-    await fs.writeFile(getPath(boardId), stringify(board), UTF8, error => {
-      if (error) logError(CREATE_BOARD, error);
-      io.to(roomId).emit(CREATE_BOARD, board);
+const joinBoard = (io, client) => {
+  client.on(JOIN_BOARD, async boardId => {
+    await fs.readFile(getPath(boardId), UTF8, (error, file) => {
+      if (error) {
+        client.emit(JOIN_ERROR);
+      } else {
+        client.emit(JOIN_BOARD, getBoard(file));
+      }
     });
   });
 };
@@ -27,18 +29,6 @@ const updateBoard = (io, client, roomId) => {
     await fs.writeFile(getPath(boardId), stringify(board), UTF8, error => {
       if (error) logError(UPDATE_BOARD, error);
       io.to(roomId).emit(UPDATE_BOARD, board);
-    });
-  });
-};
-
-const joinBoard = (io, client) => {
-  client.on(JOIN_BOARD, async boardId => {
-    await fs.readFile(getPath(boardId), UTF8, (error, file) => {
-      if (error) {
-        client.emit(JOIN_ERROR);
-      } else {
-        client.emit(JOIN_BOARD, getBoard(file));
-      }
     });
   });
 };
@@ -108,7 +98,6 @@ const resetVotes = (io, client, roomId) => {
 };
 
 module.exports = {
-  createBoard,
   updateBoard,
   joinBoard,
   unblurCards,

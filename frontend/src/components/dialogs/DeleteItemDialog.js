@@ -11,14 +11,13 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { connectSocket } from "../../utils";
 import { DELETE_CARD } from "../../utils/eventNames";
 import { BoardContext } from "../context/BoardContext";
 
 function DeleteItemDialog(props) {
   const { id, fullScreen } = props;
   const [open, setOpen] = useState(false);
-  const { boardId } = useContext(BoardContext);
+  const { boardId, socket } = useContext(BoardContext);
 
   function openDialog() {
     setOpen(true);
@@ -29,7 +28,6 @@ function DeleteItemDialog(props) {
   }
 
   function handleClick() {
-    const socket = connectSocket(boardId);
     socket.emit(DELETE_CARD, id, boardId);
     closeDialog();
   }

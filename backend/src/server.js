@@ -1,76 +1,65 @@
 require("./config");
 
-const fs = require("fs");
+const util = require("util");
 const path = require("path");
+const fs = require("fs");
 const express = require("express");
 const { json } = require("body-parser");
 const cors = require("cors");
 const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
-const puppeteer = require("puppeteer");
 
+const apiRouter = require("./routes/apiRouter");
+const { CONNECT, DISCONNECT } = require("./events/event-names");
 const { boardEvents, columnEvents, cardEvents } = require("./events");
-const { CONNECTION } = require("./events/event-names");
-const { getImg, getPath, respondWithInvalidBoardId } = require("./utils");
+const { getPath, stringify } = require("./utils");
 
 const publicFolderPath = path.resolve(__dirname, "../public");
 const port = process.env.PORT;
-const width = 1920;
-const height = 1080;
 
 app.use(cors());
 app.use(json());
 app.use(express.static(publicFolderPath));
 
-app.get("/api/boards/validate/:boardId", async (req, res) => {
-  const boardId = req.params.boardId;
-  await fs.readFile(getPath(boardId), "utf-8", error => {
-    if (error) {
-      respondWithInvalidBoardId(res, error);
-    }
-    res.status(200).send();
-  });
+app.use("/api/boards", apiRouter);
+
+app.post("/", async (req, res) => {
+  const board = req.body;
+  try {
+    await fs.writeFile(
+      getPath(board.boardId),
+      stringify(board),
+      "utf8",
+      error => {
+        if (error)
+          res.status(400).send({ errorMsg: "Board creation went wrong." });
+        res.status(200).send();
+      }
+    );
+  } catch (error) {
+    res.status(400).send({ errorMsg: "Board creation went wrong." });
+  }
 });
 
-app.get("/api/boards/export/:boardId", async (req, res) => {
-  const boardId = req.params.boardId;
-  await fs.readFile(getPath(boardId), "utf-8", async error => {
-    if (error) {
-      respondWithInvalidBoardId(res, error);
-    }
-
-    const exportHost = process.env.EXPORT_URL_HOST;
-    const exportPort = process.env.EXPORT_URL_PORT;
-    const boardUrl = `http://${exportHost}:${exportPort}/boards/${boardId}`;
-    const browser = await puppeteer.launch({
-      defaultViewport: { width, height }
-    });
-    const page = await browser.newPage();
-
-    await page.goto(boardUrl);
-    await page.screenshot({
-      path: `./storage/${boardId}.png`,
-      fullPage: true
-    });
-
-    const imgPath = path.resolve(getImg(boardId));
-    res.download(imgPath);
-  });
-});
-
-// https://facebook.github.io/create-react-app/docs/deployment#serving-apps-with-client-side-routing
+// https://bit.ly/2wMAs0i
 app.get("/*", (req, res) => {
   res.sendFile(path.join(publicFolderPath, "index.html"));
 });
 
-io.on(CONNECTION, client => {
+io.on(CONNECT, client => {
+  console.log("-------------------------");
+  console.log(">> Connected: ", client.id);
+
   const roomId = client.handshake.query.boardId;
   client.join(roomId);
-
-  client.on("disconnect", () => {
+  client.on(DISCONNECT, () => {
+    console.log(">> Disconnected: ", client.id);
     client.leave(roomId);
   });
+
+  console.log(">> Users: ", Object.keys(io.sockets.sockets));
+  console.log(">> Rooms: ", Object.keys(io.sockets.adapter.rooms));
 
   boardEvents(io, client, roomId);
   columnEvents(io, client, roomId);

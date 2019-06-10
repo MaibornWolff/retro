@@ -13,7 +13,7 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { connectSocket, validateInput, isInputEmpty } from "../../utils";
+import { validateInput, isInputEmpty } from "../../utils";
 import { CREATE_CARD } from "../../utils/eventNames";
 import { BoardContext } from "../context/BoardContext";
 import {
@@ -28,7 +28,7 @@ function CreateItemDialog(props) {
   const [open, setOpen] = useState(false);
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
-  const { boardId } = useContext(BoardContext);
+  const { boardId, socket } = useContext(BoardContext);
   const { userState } = useContext(UserContext);
   const authorInput = validateInput(author.length, 0, 40);
   const isContentEmpty = isInputEmpty(content.length);
@@ -59,7 +59,6 @@ function CreateItemDialog(props) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    const socket = connectSocket(boardId);
     const id = nanoid();
     const newCard = { id, author, content, points: 0 };
 
