@@ -7,8 +7,8 @@ import {
   clearLocalStorage,
   moderatorRole
 } from "../../utils/testUtils";
-import { BoardContext } from "../../components/context/BoardContext";
-import { UserContext } from "../../components/context/UserContext";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
 
 const BOARD_ID = "some-board-id";
 

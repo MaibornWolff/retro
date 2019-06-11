@@ -1,9 +1,9 @@
 import React from "react";
 import { render, fireEvent, waitForElement } from "@testing-library/react";
 import DeleteColumnDialog from "../../components/dialogs/DeleteColumnDialog";
-import { BoardContext } from "../../components/context/BoardContext";
 import { moderatorRole } from "../../utils/testUtils";
-import { UserContext } from "../../components/context/UserContext";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
 
 const boardContextValue = {
   boardId: "some-board-id"

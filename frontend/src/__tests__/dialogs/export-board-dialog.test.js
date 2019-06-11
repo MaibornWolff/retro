@@ -2,13 +2,13 @@ import React from "react";
 import { render, fireEvent, waitForElement } from "@testing-library/react";
 
 import ExportBoardDialog from "../../components/dialogs/ExportBoardDialog";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
 import {
   setModerator,
   clearLocalStorage,
   moderatorRole
 } from "../../utils/testUtils";
-import { BoardContext } from "../../components/context/BoardContext";
-import { UserContext } from "../../components/context/UserContext";
 
 const BOARD_ID = "some-board-id";
 
