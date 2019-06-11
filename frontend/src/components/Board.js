@@ -16,7 +16,9 @@ import {
   createModerator,
   createParticipant,
   setFocusedCard,
-  removeFocusedCard
+  removeFocusedCard,
+  setMaxVote,
+  resetVotes
 } from "../actions";
 import {
   CONNECT,
@@ -83,11 +85,13 @@ function Board(props) {
     });
 
     socket.on(SET_MAX_VOTES, newBoard => {
+      setMaxVote(boardId, newBoard.maxVoteCount, dispatch);
       setBoard(newBoard);
       openSnackbar();
     });
 
     socket.on(RESET_VOTES, newBoard => {
+      resetVotes(boardId, newBoard.maxVoteCount, dispatch);
       setBoard(newBoard);
       openSnackbar();
     });
