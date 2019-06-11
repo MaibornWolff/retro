@@ -1,5 +1,5 @@
 module.exports = {
-  CONNECTION: "connect",
+  CONNECT: "connect",
   DISCONNECT: "disconnect",
   CREATE_CARD: "create card",
   CREATE_COLUMN: "create column",
@@ -9,7 +9,6 @@ module.exports = {
   EDIT_CARD: "edit card",
   SORT_COLUMN: "sort column",
   DELETE_CARD: "delete card",
-  CREATE_BOARD: "create board",
   JOIN_BOARD: "join board",
   UNBLUR_CARDS: "unblur cards",
   EDIT_COLUMN: "edit column",

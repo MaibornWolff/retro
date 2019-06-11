@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import pull from "lodash/pull";
-import isEqual from "lodash/isEqual";
 import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Redirect } from "react-router-dom";
@@ -11,7 +10,7 @@ import VoteCountSnackbar from "./VoteCountSnackbar";
 import { FlexContainer } from "./styled";
 import { BoardContext } from "./context/BoardContext";
 import { UserContext } from "./context/UserContext";
-import { connectSocket, defaultBoard } from "../utils";
+import { defaultBoard } from "../utils";
 import { ROLE_MODERATOR, ROLE_PARTICIPANT, getUser } from "../utils/userUtils";
 import {
   createModerator,
@@ -21,7 +20,6 @@ import {
 } from "../actions";
 import {
   CONNECT,
-  CREATE_BOARD,
   UPDATE_BOARD,
   JOIN_BOARD,
   JOIN_ERROR,
@@ -45,26 +43,39 @@ const styles = theme => ({
 let combineResult;
 
 function Board(props) {
-  const { classes } = props;
-  const { boardId, boardDispatch } = useContext(BoardContext);
+  const { classes, location } = props;
+  const { boardId, boardDispatch, socket } = useContext(BoardContext);
   const { dispatch } = useContext(UserContext);
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
   const [merge, setMerge] = useState(false);
-  const socket = connectSocket(boardId);
 
+  // set tab name
   useEffect(() => {
     document.title = `Retro | ${board.title}`;
+  }, [board.title]);
 
+  // socket listeners
+  useEffect(() => {
     socket.on(CONNECT, () => {
-      if (isEqual(board, defaultBoard)) socket.emit(JOIN_BOARD, boardId);
+      socket.emit(JOIN_BOARD, boardId);
     });
 
-    socket.on(CREATE_BOARD, newBoard => {
-      const { boardId, maxVoteCount } = newBoard;
-      createModerator(boardId, ROLE_MODERATOR, maxVoteCount, dispatch);
-      setBoard(newBoard);
+    socket.on(JOIN_BOARD, boardData => {
+      const { boardId, maxVoteCount } = boardData;
+
+      if (location.state && getUser(boardId) === null) {
+        createModerator(boardId, ROLE_MODERATOR, maxVoteCount, dispatch);
+      } else if (getUser(boardId) === null) {
+        createParticipant(boardId, ROLE_PARTICIPANT, maxVoteCount, dispatch);
+      }
+
+      setBoard(boardData);
+    });
+
+    socket.on(JOIN_ERROR, () => {
+      setBoard({ ...board, error: true });
     });
 
     socket.on(UPDATE_BOARD, newBoard => {
@@ -88,25 +99,8 @@ function Board(props) {
     socket.on(REMOVE_FOCUS_CARD, () => {
       removeFocusedCard(boardDispatch);
     });
-
-    socket.on(JOIN_BOARD, boardData => {
-      const { boardId, maxVoteCount } = boardData;
-
-      if (getUser(boardId) === null) {
-        createParticipant(boardId, ROLE_PARTICIPANT, maxVoteCount, dispatch);
-      }
-
-      setBoard(boardData);
-    });
-
-    socket.on(JOIN_ERROR, () => {
-      setBoard({ ...board, error: true });
-    });
-
-    return () => {
-      socket.close();
-    };
-  }, [board, boardId, boardDispatch, dispatch, socket]);
+    // eslint-disable-next-line
+  }, []);
 
   function openSnackbar() {
     setSnackbar(true);

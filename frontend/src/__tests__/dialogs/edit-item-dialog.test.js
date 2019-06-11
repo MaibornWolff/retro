@@ -1,11 +1,27 @@
 import React from "react";
 import { render, fireEvent, waitForElement } from "@testing-library/react";
 import EditItemDialog from "../../components/dialogs/EditItemDialog";
+import { moderatorRole } from "../../utils/testUtils";
+import { BoardContext } from "../../components/context/BoardContext";
+import { UserContext } from "../../components/context/UserContext";
+
+const boardContextValue = {
+  boardId: "some-board-id"
+};
+
+const userContextValue = {
+  userState: moderatorRole
+};
 
 it("should display icon", () => {
-  const { getByTestId } = render(
-    <EditItemDialog author="Some Guy" content="Some Content" />
+  const componentTree = (
+    <BoardContext.Provider value={boardContextValue}>
+      <UserContext.Provider value={userContextValue}>
+        <EditItemDialog author="Some Guy" content="Some Content" />
+      </UserContext.Provider>
+    </BoardContext.Provider>
   );
+  const { getByTestId } = render(componentTree);
   const editItemBtn = getByTestId("edit-item-btn");
   const editIcon = getByTestId("edit-item-btn-icon");
 
@@ -13,9 +29,14 @@ it("should display icon", () => {
 });
 
 it("should display dialog on click", async () => {
-  const { getByTestId, getByText } = render(
-    <EditItemDialog author="Some Guy" content="Some Content" />
+  const componentTree = (
+    <BoardContext.Provider value={boardContextValue}>
+      <UserContext.Provider value={userContextValue}>
+        <EditItemDialog author="Some Guy" content="Some Content" />
+      </UserContext.Provider>
+    </BoardContext.Provider>
   );
+  const { getByTestId, getByText } = render(componentTree);
   const editItemBtn = getByTestId("edit-item-btn");
 
   fireEvent.click(editItemBtn);

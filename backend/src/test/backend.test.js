@@ -1,8 +1,8 @@
 const fs = require("fs");
 const io = require("socket.io-client");
+const request = require("supertest");
 const { expect } = require("chai");
 
-// eslint-disable-next-line
 const { server } = require("../server");
 const { testBoard, getPath, createColumn, createItem } = require("./utils");
 const ioOptions = {
@@ -11,7 +11,6 @@ const ioOptions = {
   reconnection: false
 };
 const {
-  CREATE_BOARD,
   CREATE_COLUMN,
   UPDATE_BOARD,
   CREATE_CARD,
@@ -54,11 +53,18 @@ describe("Backend Tests", () => {
   });
 
   it("should create a board", done => {
-    sender.emit(CREATE_BOARD, testBoard, boardId);
-    receiver.on(CREATE_BOARD, board => {
-      expect(board).to.deep.equal(testBoard);
-      done();
-    });
+    request(server)
+      .post("/")
+      .send(testBoard)
+      .expect(200)
+      .end(async error => {
+        if (error) return done(error);
+
+        await fs.readFile(getPath(boardId), "utf-8", fsError => {
+          if (fsError) return done(error);
+          done();
+        });
+      });
   });
 
   it("should join a board", done => {

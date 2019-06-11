@@ -13,14 +13,13 @@ import {
   ListItemText
 } from "@material-ui/core";
 
-import { connectSocket } from "../../utils";
 import { DELETE_COLUMN } from "../../utils/eventNames";
 import { BoardContext } from "../context/BoardContext";
 
 function DeleteColumnDialog(props) {
   const { columnId, fullScreen } = props;
   const [open, setOpen] = useState(false);
-  const { boardId } = useContext(BoardContext);
+  const { boardId, socket } = useContext(BoardContext);
 
   function openDialog() {
     setOpen(true);
@@ -31,7 +30,6 @@ function DeleteColumnDialog(props) {
   }
 
   function handleClick() {
-    const socket = connectSocket(boardId);
     socket.emit(DELETE_COLUMN, columnId, boardId);
     closeDialog();
   }

@@ -36,10 +36,13 @@
   - we removed a lot of prop-drilling, boilerplate code and refactored all classes to functional components, utilizing React Hooks and the new Context API
   - BoardContext
     - provides the `boardId` to all child components
+    - provides the `socket` to all child components
   - UserContext
     - provides user related data and performs changes, utilizing `useReducer`
 - **Preventing unwanted card merges**
   - Sometimes when I was dragging cards around I merged them by accident. To prevent this, we're now prompting the user if it really wants to merge or not.
+- **Highlight the card that is currently talked about**
+  - The moderator can now highlight the card that the team is currently talking about. This is handy if you are for example in a video conference. The moderator can highlight a card by double-clicking it, which will make the border of the card red. The moderator can remove the highlighting by middle-clicking the card.
 
 ### Changed
 
@@ -47,7 +50,9 @@
 - Replaced `uniqid` with `nanoid`
 - Some API changes due to updated dependencies regarding
   - Material-UI
-  - react-testing-library
+  - react-testing-library 
+- Rewrite of socket API in `frontend`
+  - Formerly, each call to `connectSocket(id)` would create a new socket. This meant that every feature which needed to send data with a socket would create an additional socket (yeah I know). The rewrite to a Singleton ensured that there is now only one socket per user. Furthermore we removed all values from the deps array of `useEffect`, since we only want the listeners to be created once. In some tests we inspected that certain events took too long, because some listners would be created over and over again.
 
 ### Fixed
 

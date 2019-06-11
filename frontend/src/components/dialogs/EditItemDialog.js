@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 
 import { EDIT_CARD } from "../../utils/eventNames";
-import { connectSocket, validateInput, isInputEmpty } from "../../utils";
+import { validateInput, isInputEmpty } from "../../utils";
 import { BoardContext } from "../context/BoardContext";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
@@ -26,7 +26,7 @@ function EditItemDialog(props) {
   const [open, setOpen] = useState(false);
   const [itemAuthor, setAuthor] = useState(author);
   const [itemContent, setContent] = useState(content);
-  const { boardId } = useContext(BoardContext);
+  const { boardId, socket } = useContext(BoardContext);
   const authorInput = validateInput(itemAuthor.length, 0, 40);
   const isContentEmpty = isInputEmpty(itemContent.length);
 
@@ -47,7 +47,6 @@ function EditItemDialog(props) {
   }
 
   function handleClick() {
-    const socket = connectSocket(boardId);
     socket.emit(EDIT_CARD, itemAuthor, itemContent, id, boardId);
     closeDialog();
   }

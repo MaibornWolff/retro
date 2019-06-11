@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 
 import { CREATE_COLUMN } from "../../utils/eventNames";
-import { connectSocket, validateInput } from "../../utils";
+import { validateInput } from "../../utils";
 import { ROLE_MODERATOR } from "../../utils/userUtils";
 import {
   COLUMN_NAME_EMPTY_MSG,
@@ -26,7 +26,7 @@ function CreateColumnDialog(props) {
   const { fullScreen } = props;
   const [open, setOpen] = useState(false);
   const [columnTitle, setColumnTitle] = useState("");
-  const { boardId } = useContext(BoardContext);
+  const { boardId, socket } = useContext(BoardContext);
   const { userState } = useContext(UserContext);
   const input = validateInput(columnTitle.length, 0, 40);
 
@@ -51,7 +51,6 @@ function CreateColumnDialog(props) {
     event.preventDefault();
 
     const id = nanoid();
-    const socket = connectSocket(boardId);
     const column = { id, columnTitle, itemIds: [] };
 
     socket.emit(CREATE_COLUMN, column, boardId);

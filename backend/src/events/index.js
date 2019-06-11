@@ -1,5 +1,4 @@
 const {
-  createBoard,
   updateBoard,
   joinBoard,
   unblurCards,
@@ -22,9 +21,8 @@ const {
 } = require("./card-events");
 
 const boardEvents = (io, client, roomId) => {
-  createBoard(io, client, roomId);
-  updateBoard(io, client, roomId);
   joinBoard(io, client);
+  updateBoard(io, client, roomId);
   unblurCards(io, client, roomId);
   setMaxVotes(io, client, roomId);
   resetVotes(io, client, roomId);
