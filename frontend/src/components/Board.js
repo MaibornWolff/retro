@@ -56,6 +56,10 @@ function Board(props) {
   // set tab name
   useEffect(() => {
     document.title = `Retro | ${board.title}`;
+
+    return () => {
+      document.title = "Retro";
+    };
   }, [board.title]);
 
   // socket listeners
@@ -103,6 +107,12 @@ function Board(props) {
     socket.on(REMOVE_FOCUS_CARD, () => {
       removeFocusedCard(boardDispatch);
     });
+
+    return () => {
+      // Pass nothing to remove all listeners on all events.
+      socket.off();
+    };
+
     // eslint-disable-next-line
   }, []);
 
