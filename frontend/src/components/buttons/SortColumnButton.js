@@ -3,7 +3,7 @@ import SortIcon from "@material-ui/icons/Sort";
 import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
 import { SORT_COLUMN } from "../../utils/eventNames";
-import { BoardContext } from "../context/BoardContext";
+import { BoardContext } from "../../context/BoardContext";
 
 function SortColumnButton(props) {
   const { columnId, items } = props;

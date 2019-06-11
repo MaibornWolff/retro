@@ -14,8 +14,8 @@ import {
 
 import { validateInput } from "../utils";
 import { CARD_AUTHOR_NAME_TOO_LONG_MSG } from "../utils/errorMessages";
-import { BoardContext } from "./context/BoardContext";
-import { UserContext } from "./context/UserContext";
+import { BoardContext } from "../context/BoardContext";
+import { UserContext } from "../context/UserContext";
 import { setUsername } from "../actions";
 
 const styles = theme => ({

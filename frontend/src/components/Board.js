@@ -8,8 +8,8 @@ import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
 import VoteCountSnackbar from "./VoteCountSnackbar";
 import { FlexContainer } from "./styled";
-import { BoardContext } from "./context/BoardContext";
-import { UserContext } from "./context/UserContext";
+import { BoardContext } from "../context/BoardContext";
+import { UserContext } from "../context/UserContext";
 import { defaultBoard } from "../utils";
 import { ROLE_MODERATOR, ROLE_PARTICIPANT, getUser } from "../utils/userUtils";
 import {

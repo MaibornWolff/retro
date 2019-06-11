@@ -4,8 +4,8 @@ import { Grid, Button } from "@material-ui/core";
 
 import { UNBLUR_CARDS } from "../../utils/eventNames";
 import { ROLE_MODERATOR } from "../../utils/userUtils";
-import { BoardContext } from "../context/BoardContext";
-import { UserContext } from "../context/UserContext";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
 
 function UnblurCardsButton(props) {
   const { className } = props;

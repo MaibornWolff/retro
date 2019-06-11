@@ -6,7 +6,7 @@ import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
 import EditColumnNameDialog from "./dialogs/EditColumnNameDialog";
 import SortColumnButton from "./buttons/SortColumnButton";
 import { ROLE_MODERATOR } from "../utils/userUtils";
-import { UserContext } from "./context/UserContext";
+import { UserContext } from "../context/UserContext";
 
 function ColumnMenu(props) {
   const { columnId, columnTitle, items } = props;

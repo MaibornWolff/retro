@@ -11,8 +11,8 @@ import {
 } from "@material-ui/core";
 
 import { ROLE_MODERATOR } from "../../utils/userUtils";
-import { BoardContext } from "../context/BoardContext";
-import { UserContext } from "../context/UserContext";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
 import { BACKEND_DEV_PORT } from "../../utils";
 
 const endpoint = "/api/boards/export/";

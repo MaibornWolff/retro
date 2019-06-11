@@ -15,13 +15,13 @@ import {
 
 import { validateInput, isInputEmpty } from "../../utils";
 import { CREATE_CARD } from "../../utils/eventNames";
-import { BoardContext } from "../context/BoardContext";
+import { BoardContext } from "../../context/BoardContext";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
   CARD_CONTENT_EMPTY_MSG
 } from "../../utils/errorMessages";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 
 function CreateItemDialog(props) {
   const { columnId, fullScreen } = props;

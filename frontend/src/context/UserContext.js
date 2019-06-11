@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { getUser } from "../../utils/userUtils";
+import { getUser } from "../utils/userUtils";
 import {
   UPVOTE,
   DOWNVOTE,
@@ -8,8 +8,8 @@ import {
   SET_NAME,
   CREATE_MODERATOR,
   CREATE_PARTICIPANT
-} from "../../actions/actionTypes";
-import { removeFirstOccurenceFromArray } from "../../utils";
+} from "../actions/actionTypes";
+import { removeFirstOccurenceFromArray } from "../utils";
 
 export const UserContext = React.createContext();
 

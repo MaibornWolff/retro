@@ -18,8 +18,8 @@ import {
 import { defaultBoard } from "../../utils";
 import { SET_MAX_VOTES, RESET_VOTES } from "../../utils/eventNames";
 import { ROLE_MODERATOR } from "../../utils/userUtils";
-import { BoardContext } from "../context/BoardContext";
-import { UserContext } from "../context/UserContext";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
 import { setMaxVote, resetVotes } from "../../actions";
 
 function VoteCountDialog(props) {

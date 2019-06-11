@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 
 import { DELETE_COLUMN } from "../../utils/eventNames";
-import { BoardContext } from "../context/BoardContext";
+import { BoardContext } from "../../context/BoardContext";
 
 function DeleteColumnDialog(props) {
   const { columnId, fullScreen } = props;

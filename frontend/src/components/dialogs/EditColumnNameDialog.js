@@ -20,7 +20,7 @@ import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
 } from "../../utils/errorMessages";
-import { BoardContext } from "../context/BoardContext";
+import { BoardContext } from "../../context/BoardContext";
 
 function EditColumnNameDialog(props) {
   const { columnId, columnTitle, fullScreen } = props;

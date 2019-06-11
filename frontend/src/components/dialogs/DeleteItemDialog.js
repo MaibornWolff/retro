@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 
 import { DELETE_CARD } from "../../utils/eventNames";
-import { BoardContext } from "../context/BoardContext";
+import { BoardContext } from "../../context/BoardContext";
 
 function DeleteItemDialog(props) {
   const { id, fullScreen } = props;

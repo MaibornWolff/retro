@@ -17,8 +17,8 @@ import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import UpvoteItemButton from "./buttons/UpvoteItemButton";
 import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
 import { VOTE_CARD, FOCUS_CARD, REMOVE_FOCUS_CARD } from "../utils/eventNames";
-import { BoardContext } from "./context/BoardContext";
-import { UserContext } from "./context/UserContext";
+import { BoardContext } from "../context/BoardContext";
+import { UserContext } from "../context/UserContext";
 import { downvoteCard } from "../actions";
 import { ROLE_MODERATOR } from "../utils/userUtils";
 

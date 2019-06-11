@@ -14,7 +14,7 @@ import {
 
 import { EDIT_CARD } from "../../utils/eventNames";
 import { validateInput, isInputEmpty } from "../../utils";
-import { BoardContext } from "../context/BoardContext";
+import { BoardContext } from "../../context/BoardContext";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,

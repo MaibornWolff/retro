@@ -3,8 +3,8 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import { IconButton } from "@material-ui/core";
 
 import { VOTE_CARD } from "../../utils/eventNames";
-import { BoardContext } from "../context/BoardContext";
-import { UserContext } from "../context/UserContext";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
 import { upvoteCard } from "../../actions";
 
 function UpvoteItemButton(props) {

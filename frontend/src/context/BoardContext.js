@@ -1,11 +1,8 @@
 import React, { useReducer } from "react";
 import io from "socket.io-client";
 
-import { BACKEND_ENDPOINT } from "../../utils";
-import {
-  SET_FOCUSED_CARD,
-  REMOVE_FOCUSED_CARD
-} from "../../actions/actionTypes";
+import { BACKEND_ENDPOINT } from "../utils";
+import { SET_FOCUSED_CARD, REMOVE_FOCUSED_CARD } from "../actions/actionTypes";
 
 export const BoardContext = React.createContext();
 

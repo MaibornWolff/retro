@@ -19,8 +19,8 @@ import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
 } from "../../utils/errorMessages";
-import { BoardContext } from "../context/BoardContext";
-import { UserContext } from "../context/UserContext";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
 
 function CreateColumnDialog(props) {
   const { fullScreen } = props;

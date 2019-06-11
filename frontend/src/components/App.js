@@ -7,8 +7,8 @@ import Home from "./Home";
 import Board from "./Board";
 import NotFound from "./NotFound";
 
-import { BoardContextProvider } from "./context/BoardContext";
-import { UserContextProvider } from "./context/UserContext";
+import { BoardContextProvider } from "../context/BoardContext";
+import { UserContextProvider } from "../context/UserContext";
 
 const theme = createMuiTheme({
   typography: {
