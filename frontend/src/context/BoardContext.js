@@ -6,6 +6,8 @@ import { SET_FOCUSED_CARD, REMOVE_FOCUSED_CARD } from "../actions/actionTypes";
 
 export const BoardContext = React.createContext();
 
+// TODO: move board state here
+// TODO: move socket logic here
 const initialState = { focusedCard: "" };
 
 function reducer(state, action) {
