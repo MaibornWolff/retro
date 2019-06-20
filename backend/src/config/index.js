@@ -1,10 +1,12 @@
+const chalk = require("chalk");
+
 const TEST = "TEST";
 const DEVELOPMENT = "DEVELOPMENT";
 const PRODUCTION = "PRODUCTION";
 
 const env = process.env.NODE_ENV || DEVELOPMENT;
 
-console.log(`[INFO] ENV is ${env}`);
+console.log(chalk`{blue.bold [INFO] ENV is ${env}}`);
 
 if (env === DEVELOPMENT) {
   process.env.PORT = 3001;
