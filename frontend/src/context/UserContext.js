@@ -33,7 +33,7 @@ function getInitialState(boardId) {
 
 export const UserContextProvider = props => {
   const boardId = props.match.params.boardId;
-  const [state, dispatch] = useReducer(reducer, getInitialState(boardId));
+  const [userState, dispatch] = useReducer(reducer, getInitialState(boardId));
 
   const upvoteCard = (boardId, cardId, votesLeft) => {
     dispatch({ type: UPVOTE, payload: { cardId } });
@@ -73,7 +73,7 @@ export const UserContextProvider = props => {
   };
 
   const value = {
-    userState: state,
+    userState,
     upvoteCard,
     downvoteCard,
     setMaxVote,

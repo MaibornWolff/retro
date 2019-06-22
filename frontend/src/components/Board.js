@@ -12,7 +12,6 @@ import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
 import { defaultBoard } from "../utils";
 import { ROLE_MODERATOR, ROLE_PARTICIPANT, getUser } from "../utils/userUtils";
-import { setFocusedCard, removeFocusedCard } from "../actions";
 import {
   CONNECT,
   UPDATE_BOARD,
@@ -43,7 +42,9 @@ function Board(props) {
   const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
   const [merge, setMerge] = useState(false);
-  const { boardId, boardDispatch, socket } = useContext(BoardContext);
+  const { boardId, socket, setFocusedCard, removeFocusedCard } = useContext(
+    BoardContext
+  );
   const {
     createModerator,
     createParticipant,
@@ -99,11 +100,11 @@ function Board(props) {
     });
 
     socket.on(FOCUS_CARD, focusedCard => {
-      setFocusedCard(focusedCard, boardDispatch);
+      setFocusedCard(focusedCard);
     });
 
     socket.on(REMOVE_FOCUS_CARD, () => {
-      removeFocusedCard(boardDispatch);
+      removeFocusedCard();
     });
 
     return () => {
