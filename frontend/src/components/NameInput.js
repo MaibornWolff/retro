@@ -16,7 +16,6 @@ import { validateInput } from "../utils";
 import { CARD_AUTHOR_NAME_TOO_LONG_MSG } from "../utils/errorMessages";
 import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
-import { setUsername } from "../actions";
 
 const styles = theme => ({
   root: {
@@ -52,7 +51,7 @@ const styles = theme => ({
 function NameInput(props) {
   const { classes } = props;
   const { boardId } = useContext(BoardContext);
-  const { userState, dispatch } = useContext(UserContext);
+  const { userState, setUsername } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(getName());
   const nameInput = validateInput(name.length, 0, 40);
@@ -63,7 +62,7 @@ function NameInput(props) {
   }
 
   function handleClick() {
-    setUsername(boardId, name, dispatch);
+    setUsername(boardId, name);
     setOpen(true);
   }
 

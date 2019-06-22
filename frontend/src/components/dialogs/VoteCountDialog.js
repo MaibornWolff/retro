@@ -20,12 +20,11 @@ import { SET_MAX_VOTES, RESET_VOTES } from "../../utils/eventNames";
 import { ROLE_MODERATOR } from "../../utils/userUtils";
 import { BoardContext } from "../../context/BoardContext";
 import { UserContext } from "../../context/UserContext";
-import { setMaxVote, resetVotes } from "../../actions";
 
 function VoteCountDialog(props) {
   const { fullScreen } = props;
   const { boardId, socket } = useContext(BoardContext);
-  const { userState, dispatch } = useContext(UserContext);
+  const { userState, setMaxVote, resetVotes } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [voteCount, setVoteCount] = useState(getVoteCount());
 
@@ -52,13 +51,13 @@ function VoteCountDialog(props) {
 
   function handleSave() {
     socket.emit(SET_MAX_VOTES, voteCount, boardId);
-    setMaxVote(boardId, voteCount, dispatch);
+    setMaxVote(boardId, voteCount);
     closeDialog();
   }
 
   function handleReset() {
     socket.emit(RESET_VOTES, boardId);
-    resetVotes(boardId, voteCount, dispatch);
+    resetVotes(boardId, voteCount);
     closeDialog();
   }
 

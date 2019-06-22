@@ -40,11 +40,11 @@ const App = () => (
             exact
             path="/boards/:boardId"
             render={props => (
-              <BoardContextProvider {...props}>
-                <UserContextProvider {...props}>
+              <UserContextProvider {...props}>
+                <BoardContextProvider {...props}>
                   <Board {...props} />
-                </UserContextProvider>
-              </BoardContextProvider>
+                </BoardContextProvider>
+              </UserContextProvider>
             )}
           />
           <Route component={NotFound} />

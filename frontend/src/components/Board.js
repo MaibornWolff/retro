@@ -12,14 +12,7 @@ import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
 import { defaultBoard } from "../utils";
 import { ROLE_MODERATOR, ROLE_PARTICIPANT, getUser } from "../utils/userUtils";
-import {
-  createModerator,
-  createParticipant,
-  setFocusedCard,
-  removeFocusedCard,
-  setMaxVote,
-  resetVotes
-} from "../actions";
+import { setFocusedCard, removeFocusedCard } from "../actions";
 import {
   CONNECT,
   UPDATE_BOARD,
@@ -46,12 +39,17 @@ let combineResult;
 
 function Board(props) {
   const { classes, location } = props;
-  const { boardId, boardDispatch, socket } = useContext(BoardContext);
-  const { dispatch } = useContext(UserContext);
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
   const [merge, setMerge] = useState(false);
+  const { boardId, boardDispatch, socket } = useContext(BoardContext);
+  const {
+    createModerator,
+    createParticipant,
+    setMaxVote,
+    resetVotes
+  } = useContext(UserContext);
 
   // set tab name
   useEffect(() => {
@@ -72,9 +70,9 @@ function Board(props) {
       const { boardId, maxVoteCount } = boardData;
 
       if (location.state && getUser(boardId) === null) {
-        createModerator(boardId, ROLE_MODERATOR, maxVoteCount, dispatch);
+        createModerator(boardId, ROLE_MODERATOR, maxVoteCount);
       } else if (getUser(boardId) === null) {
-        createParticipant(boardId, ROLE_PARTICIPANT, maxVoteCount, dispatch);
+        createParticipant(boardId, ROLE_PARTICIPANT, maxVoteCount);
       }
 
       setBoard(boardData);
@@ -89,13 +87,13 @@ function Board(props) {
     });
 
     socket.on(SET_MAX_VOTES, newBoard => {
-      setMaxVote(boardId, newBoard.maxVoteCount, dispatch);
+      setMaxVote(boardId, newBoard.maxVoteCount);
       setBoard(newBoard);
       openSnackbar();
     });
 
     socket.on(RESET_VOTES, newBoard => {
-      resetVotes(boardId, newBoard.maxVoteCount, dispatch);
+      resetVotes(boardId, newBoard.maxVoteCount);
       setBoard(newBoard);
       openSnackbar();
     });
@@ -317,28 +315,6 @@ function Board(props) {
     });
   }
 
-  function renderSnackbar() {
-    return (
-      <VoteCountSnackbar
-        id="vote-count-snackbar"
-        open={isSnackbarOpen}
-        handleClose={closeSnackbar}
-        autoHideDuration={1000}
-      />
-    );
-  }
-
-  function renderMergeDialog() {
-    return (
-      <MergeCardsDialog
-        open={isMergeDialogOpen}
-        closeDialog={closeMergeDialog}
-        startMerge={startMerge}
-        stopMerge={stopMerge}
-      />
-    );
-  }
-
   if (board.error) {
     return <Redirect to={"/error"} />;
   }
@@ -369,8 +345,18 @@ function Board(props) {
           </Droppable>
         </DragDropContext>
       </Grid>
-      {renderSnackbar()}
-      {renderMergeDialog()}
+      <VoteCountSnackbar
+        id="vote-count-snackbar"
+        open={isSnackbarOpen}
+        handleClose={closeSnackbar}
+        autoHideDuration={1000}
+      />
+      <MergeCardsDialog
+        open={isMergeDialogOpen}
+        closeDialog={closeMergeDialog}
+        startMerge={startMerge}
+        stopMerge={stopMerge}
+      />
     </Grid>
   );
 }

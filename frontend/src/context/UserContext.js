@@ -1,5 +1,14 @@
 import React, { useReducer } from "react";
-import { getUser } from "../utils/userUtils";
+import { reducer } from "../reducers/userReducer";
+import {
+  getUser,
+  setVotedItem,
+  setUser,
+  setMaxVoteCountAndReset,
+  createRole,
+  ROLE_MODERATOR,
+  ROLE_PARTICIPANT
+} from "../utils/userUtils";
 import {
   UPVOTE,
   DOWNVOTE,
@@ -8,8 +17,7 @@ import {
   SET_NAME,
   CREATE_MODERATOR,
   CREATE_PARTICIPANT
-} from "../actions/actionTypes";
-import { removeFirstOccurenceFromArray } from "../utils";
+} from "../actionTypes/userTypes";
 
 export const UserContext = React.createContext();
 
@@ -23,70 +31,56 @@ function getInitialState(boardId) {
   return {};
 }
 
-function reducer(state, action) {
-  switch (action.type) {
-    case UPVOTE:
-      return {
-        ...state,
-        votesLeft: state.votesLeft - 1,
-        votedItems: [...state.votedItems, action.payload.cardId]
-      };
-    case DOWNVOTE:
-      return {
-        ...state,
-        votesLeft: state.votesLeft + 1,
-        votedItems: removeFirstOccurenceFromArray(
-          state.votedItems,
-          action.payload.cardId,
-          true
-        )
-      };
-    case SET_MAX_VOTE:
-      return {
-        ...state,
-        maxVoteCount: action.payload.maxVoteCount,
-        votesLeft: action.payload.maxVoteCount,
-        votedItems: []
-      };
-    case RESET:
-      return {
-        ...state,
-        votesLeft: state.maxVoteCount,
-        votedItems: []
-      };
-    case SET_NAME:
-      return {
-        ...state,
-        name: action.payload.name
-      };
-    case CREATE_MODERATOR:
-      return {
-        role: action.payload.role,
-        name: "",
-        maxVoteCount: action.payload.maxVoteCount,
-        votesLeft: action.payload.maxVoteCount,
-        votedItems: []
-      };
-    case CREATE_PARTICIPANT:
-      return {
-        role: action.payload.role,
-        name: "",
-        maxVoteCount: action.payload.maxVoteCount,
-        votesLeft: action.payload.maxVoteCount,
-        votedItems: []
-      };
-    default:
-      return state;
-  }
-}
-
 export const UserContextProvider = props => {
   const boardId = props.match.params.boardId;
   const [state, dispatch] = useReducer(reducer, getInitialState(boardId));
 
+  const upvoteCard = (boardId, cardId, votesLeft) => {
+    dispatch({ type: UPVOTE, payload: { cardId } });
+    setVotedItem(cardId, boardId, true);
+    setUser("votesLeft", votesLeft - 1, boardId);
+  };
+
+  const downvoteCard = (boardId, cardId, votesLeft) => {
+    dispatch({ type: DOWNVOTE, payload: { cardId } });
+    setVotedItem(cardId, boardId, false);
+    setUser("votesLeft", votesLeft + 1, boardId);
+  };
+
+  const setMaxVote = (boardId, maxVoteCount) => {
+    dispatch({ type: SET_MAX_VOTE, payload: { maxVoteCount } });
+    setMaxVoteCountAndReset(maxVoteCount, boardId);
+  };
+
+  const resetVotes = (boardId, maxVoteCount) => {
+    dispatch({ type: RESET });
+    setMaxVoteCountAndReset(maxVoteCount, boardId);
+  };
+
+  const setUsername = (boardId, name) => {
+    dispatch({ type: SET_NAME, payload: { name } });
+    setUser("name", name, boardId);
+  };
+
+  const createModerator = (boardId, role, maxVoteCount) => {
+    dispatch({ type: CREATE_MODERATOR, payload: { role, maxVoteCount } });
+    createRole(ROLE_MODERATOR, boardId, maxVoteCount);
+  };
+
+  const createParticipant = (boardId, role, maxVoteCount) => {
+    dispatch({ type: CREATE_PARTICIPANT, payload: { role, maxVoteCount } });
+    createRole(ROLE_PARTICIPANT, boardId, maxVoteCount);
+  };
+
   const value = {
     userState: state,
-    dispatch
+    upvoteCard,
+    downvoteCard,
+    setMaxVote,
+    resetVotes,
+    setUsername,
+    createModerator,
+    createParticipant
   };
 
   return (
