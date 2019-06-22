@@ -44,13 +44,13 @@
     "react-scripts": "3.0.1",
     "recompose": "^0.30.0",
     "socket.io-client": "^2.2.0",
-    "styled-components": "^4.3.1"
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
     "@testing-library/react": "^8.0.1",
     "babel-eslint": "^10.0.2",
     "env-cmd": "^9.0.3",
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.0",
     "eslint-config-prettier": "^5.0.0",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
