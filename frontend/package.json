@@ -29,6 +29,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
     "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\"",
     "cypress:open": "cypress open",
+    "test:e2e": "cypress run",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -55,10 +56,17 @@
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
+    "husky": "^2.5.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2"
   },
   "proxy": "http://localhost:3001",
+  "husky": {
+    "hooks": {
+      "pre-commit": "run-s -l -n format lint",
+      "pre-push": "run-s -l -n test:e2e"
+    }
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
