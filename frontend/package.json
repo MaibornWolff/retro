@@ -64,7 +64,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "run-s -l -n format lint",
-      "pre-push": "run-s -l -n test:e2e"
+      "pre-push": "run-s -n test:e2e"
     }
   },
   "browserslist": [
