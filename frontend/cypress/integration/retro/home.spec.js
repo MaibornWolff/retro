@@ -27,4 +27,31 @@ context("Homepage Tests", () => {
     homepage.newBoardDialog.canCreateBoard();
     homepage.newBoardDialog.close();
   });
+
+  it("should display 'Load Board' dialog", () => {
+    homepage.loadBoardDialog.open();
+    homepage.loadBoardDialog.shouldBeOpen();
+    homepage.loadBoardDialog.hasValidDefaultState();
+    homepage.loadBoardDialog.close();
+  });
+
+  it("should display error on invalid board ID", () => {
+    homepage.loadBoardDialog.open();
+    homepage.loadBoardDialog.shouldBeOpen();
+    homepage.loadBoardDialog.hasValidDefaultState();
+    homepage.loadBoardDialog.typeInvalidId();
+    homepage.loadBoardDialog.inputShouldBeInvalid();
+    homepage.loadBoardDialog.loadButtonShouldBeDisabled();
+    homepage.loadBoardDialog.close();
+  });
+
+  it("should not display error on valid board ID", () => {
+    homepage.loadBoardDialog.open();
+    homepage.loadBoardDialog.shouldBeOpen();
+    homepage.loadBoardDialog.hasValidDefaultState();
+    homepage.loadBoardDialog.typeValidId();
+    homepage.loadBoardDialog.inputShouldBeValid();
+    homepage.loadBoardDialog.loadButtonShouldBeEnabled();
+    homepage.loadBoardDialog.close();
+  });
 });
