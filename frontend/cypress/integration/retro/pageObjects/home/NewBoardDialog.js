@@ -47,6 +47,10 @@ class NewBoardDialog {
     this.hasValidDefaultState();
   }
 
+  type(value) {
+    this.getInput().type(value);
+  }
+
   inputShouldBeInvalid() {
     this.getInput()
       .invoke(...ATTR_ARIA_INVALID)
@@ -68,10 +72,6 @@ class NewBoardDialog {
     this.submitShouldBeDisabled();
   }
 
-  type(value) {
-    this.getInput().type(value);
-  }
-
   submitShouldBeEnabled() {
     this.inputShouldBeValid();
     this.getSubmitButton().should(...NOT_HAVE_ATTR_DISABLED);
@@ -80,6 +80,14 @@ class NewBoardDialog {
   submitShouldBeDisabled() {
     this.inputShouldBeInvalid();
     this.getSubmitButton().should(...HAVE_ATTR_DISABLED);
+  }
+
+  submitWithValidInput() {
+    this.openEmptyDialog();
+    this.submitShouldBeDisabled();
+    this.type("Cypress Test");
+    this.submitShouldBeEnabled();
+    this.getSubmitButton().click();
   }
 }
 

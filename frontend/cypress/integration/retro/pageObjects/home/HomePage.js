@@ -13,6 +13,11 @@ class HomePage {
     cy.visit("/");
   }
 
+  shouldVisitBoardOnValidInput() {
+    this.newBoardDialog.submitWithValidInput();
+    cy.url().should("include", "/boards/");
+  }
+
   isValid() {
     this.newBoardDialog.getButton();
     this.loadBoardDialog.getButton();

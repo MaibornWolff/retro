@@ -63,8 +63,8 @@
   "proxy": "http://localhost:3001",
   "husky": {
     "hooks": {
-      "pre-commit": "run-s -l -n format lint",
-      "pre-push": "run-s -n test:e2e"
+      "pre-commit": "run-s -l format lint",
+      "pre-push": "run-s test:e2e"
     }
   },
   "browserslist": [

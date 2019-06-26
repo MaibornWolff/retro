@@ -10,8 +10,16 @@ context("Homepage Tests", () => {
     hp.visit();
   });
 
+  after(() => {
+    console.log(window.localStorage);
+  });
+
   it("should visit Home", () => {
     hp.isValid();
+  });
+
+  it("should visit Board", () => {
+    hp.shouldVisitBoardOnValidInput();
   });
 
   context("New Board Dialog", () => {
