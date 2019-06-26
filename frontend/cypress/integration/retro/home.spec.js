@@ -3,55 +3,62 @@
 import HomePage from "./pageObjects/home/HomePage";
 
 context("Homepage Tests", () => {
-  let homepage;
+  let hp;
 
   beforeEach(() => {
-    homepage = new HomePage();
-    homepage.visit();
+    hp = new HomePage();
+    hp.visit();
   });
 
-  it("should visit homepage", () => {
-    homepage.isValid();
+  it("should visit Home", () => {
+    hp.isValid();
   });
 
-  it("should display 'New Board' dialog", () => {
-    homepage.newBoardDialog.open();
-    homepage.newBoardDialog.hasValidDefaultState();
-    homepage.newBoardDialog.close();
+  context("New Board Dialog", () => {
+    it("should display dialog", () => {
+      hp.newBoardDialog.openEmptyDialog();
+      hp.newBoardDialog.closeDialog();
+    });
+
+    it("should enable submit on valid name", () => {
+      hp.newBoardDialog.openEmptyDialog();
+      hp.newBoardDialog.type("some board name");
+      hp.newBoardDialog.submitShouldBeEnabled();
+      hp.newBoardDialog.closeDialog();
+    });
+
+    it("should disable submit on invalid name", () => {
+      hp.newBoardDialog.openEmptyDialog();
+      hp.newBoardDialog.type("a".repeat(41));
+      hp.newBoardDialog.submitShouldBeDisabled();
+      hp.newBoardDialog.closeDialog();
+    });
   });
 
-  it("should be able to create board on valid input", () => {
-    homepage.newBoardDialog.open();
-    homepage.newBoardDialog.hasValidDefaultState();
-    homepage.newBoardDialog.typeBoardName();
-    homepage.newBoardDialog.canCreateBoard();
-    homepage.newBoardDialog.close();
-  });
+  context("Load Board Dialog", () => {
+    it("should display dialog", () => {
+      hp.loadBoardDialog.openEmptyDialog();
+      hp.loadBoardDialog.closeDialog();
+    });
 
-  it("should display 'Load Board' dialog", () => {
-    homepage.loadBoardDialog.open();
-    homepage.loadBoardDialog.shouldBeOpen();
-    homepage.loadBoardDialog.hasValidDefaultState();
-    homepage.loadBoardDialog.close();
-  });
+    it("should display error on invalid ID", () => {
+      hp.loadBoardDialog.openEmptyDialog();
 
-  it("should display error on invalid board ID", () => {
-    homepage.loadBoardDialog.open();
-    homepage.loadBoardDialog.shouldBeOpen();
-    homepage.loadBoardDialog.hasValidDefaultState();
-    homepage.loadBoardDialog.typeInvalidId();
-    homepage.loadBoardDialog.inputShouldBeInvalid();
-    homepage.loadBoardDialog.loadButtonShouldBeDisabled();
-    homepage.loadBoardDialog.close();
-  });
+      hp.loadBoardDialog.type("asdf");
+      hp.loadBoardDialog.submitShouldBeDisabled();
 
-  it("should not display error on valid board ID", () => {
-    homepage.loadBoardDialog.open();
-    homepage.loadBoardDialog.shouldBeOpen();
-    homepage.loadBoardDialog.hasValidDefaultState();
-    homepage.loadBoardDialog.typeValidId();
-    homepage.loadBoardDialog.inputShouldBeValid();
-    homepage.loadBoardDialog.loadButtonShouldBeEnabled();
-    homepage.loadBoardDialog.close();
+      hp.loadBoardDialog.clearInput();
+      hp.loadBoardDialog.type("a".repeat(22));
+      hp.loadBoardDialog.submitShouldBeDisabled();
+
+      hp.loadBoardDialog.closeDialog();
+    });
+
+    it("should hide error on valid ID", () => {
+      hp.loadBoardDialog.openEmptyDialog();
+      hp.loadBoardDialog.type("a".repeat(21));
+      hp.loadBoardDialog.submitShouldBeEnabled();
+      hp.loadBoardDialog.closeDialog();
+    });
   });
 });

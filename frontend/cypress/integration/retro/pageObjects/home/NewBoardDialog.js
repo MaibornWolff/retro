@@ -1,44 +1,85 @@
 /// <reference types="Cypress" />
 
+import {
+  BE_TRUE,
+  BE_FALSE,
+  HAVE_ATTR_DISABLED,
+  NOT_HAVE_ATTR_DISABLED,
+  ATTR_ARIA_INVALID,
+  DIALOG_ACTIONS,
+  BUTTON_ELEM,
+  INPUT_ELEM,
+  CANCEL_BUTTON
+} from "../../utils/params";
+
+// relevant names
+const NEW_BOARD = "New Board";
+const SUBMIT_BUTTON = "Create";
+const DIALOG_TITLE = "Create New Board";
+
 class NewBoardDialog {
-  hasButton() {
-    cy.get("button").contains("New Board");
+  getButton() {
+    return cy.get(BUTTON_ELEM).contains(NEW_BOARD);
   }
 
-  open() {
-    cy.get("button")
-      .contains("New Board")
-      .click();
+  getCancelButton() {
+    return cy.get(DIALOG_ACTIONS).contains(CANCEL_BUTTON);
+  }
+
+  getSubmitButton() {
+    return cy.get(DIALOG_ACTIONS).contains(SUBMIT_BUTTON);
+  }
+
+  getInput() {
+    return cy.get(INPUT_ELEM);
+  }
+
+  openDialog() {
+    this.getButton().click();
+  }
+
+  closeDialog() {
+    this.getCancelButton().click();
+  }
+
+  openEmptyDialog() {
+    this.openDialog();
+    this.hasValidDefaultState();
+  }
+
+  inputShouldBeInvalid() {
+    this.getInput()
+      .invoke(...ATTR_ARIA_INVALID)
+      .should(...BE_TRUE);
+  }
+
+  inputShouldBeValid() {
+    this.getInput()
+      .invoke(...ATTR_ARIA_INVALID)
+      .should(...BE_FALSE);
+  }
+
+  hasValidDialogTitle() {
+    cy.contains(DIALOG_TITLE);
   }
 
   hasValidDefaultState() {
-    cy.contains("Create New Board");
-
-    cy.get("input")
-      .invoke("attr", "aria-invalid")
-      .should("be", "true");
-
-    cy.get("button")
-      .contains("Create")
-      .parent()
-      .should("have.attr", "disabled");
+    this.hasValidDialogTitle();
+    this.submitShouldBeDisabled();
   }
 
-  typeBoardName() {
-    cy.get("input").type("some board name");
+  type(value) {
+    this.getInput().type(value);
   }
 
-  canCreateBoard() {
-    cy.get("button")
-      .contains("Create")
-      .parent()
-      .should("not.have.attr", "disabled");
+  submitShouldBeEnabled() {
+    this.inputShouldBeValid();
+    this.getSubmitButton().should(...NOT_HAVE_ATTR_DISABLED);
   }
 
-  close() {
-    cy.get("button")
-      .contains("Cancel")
-      .click();
+  submitShouldBeDisabled() {
+    this.inputShouldBeInvalid();
+    this.getSubmitButton().should(...HAVE_ATTR_DISABLED);
   }
 }
 

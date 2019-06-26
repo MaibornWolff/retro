@@ -14,8 +14,8 @@ class HomePage {
   }
 
   isValid() {
-    this.newBoardDialog.hasButton();
-    this.loadBoardDialog.hasButton();
+    this.newBoardDialog.getButton();
+    this.loadBoardDialog.getButton();
   }
 }
 

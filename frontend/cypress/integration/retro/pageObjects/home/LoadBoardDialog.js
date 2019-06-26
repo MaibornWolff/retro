@@ -1,67 +1,87 @@
 /// <reference types="Cypress" />
 
-const TEXT_FIELD = "input";
-const CANCEL_BTN = "Cancel";
-const LOAD_BTN = "Load";
+import {
+  BE_TRUE,
+  BE_FALSE,
+  HAVE_ATTR_DISABLED,
+  NOT_HAVE_ATTR_DISABLED,
+  ATTR_ARIA_INVALID,
+  DIALOG_ACTIONS,
+  BUTTON_ELEM,
+  INPUT_ELEM,
+  CANCEL_BUTTON
+} from "../../utils/params";
+
+const SUBMIT_BUTTON = "Load";
 const DIALOG_TITLE = "Load Board";
-const DIALOG_ACTIONS = ".MuiDialogActions-root";
 
 class LoadBoardDialog {
-  hasButton() {
-    cy.get("button").contains("Load Board");
+  getButton() {
+    return cy.get(BUTTON_ELEM).contains(DIALOG_TITLE);
   }
 
-  open() {
-    cy.get("button")
-      .contains(DIALOG_TITLE)
-      .click();
+  getCancelButton() {
+    return cy.get(DIALOG_ACTIONS).contains(CANCEL_BUTTON);
   }
 
-  shouldBeOpen() {
-    cy.contains(DIALOG_TITLE);
+  getSubmitButton() {
+    return cy.get(DIALOG_ACTIONS).contains(SUBMIT_BUTTON);
   }
 
-  inputShouldBeInvalid() {
-    cy.get(TEXT_FIELD)
-      .invoke("attr", "aria-invalid")
-      .should("be", "true");
+  getInput() {
+    return cy.get(INPUT_ELEM);
   }
 
-  inputShouldBeValid() {
-    cy.get(TEXT_FIELD)
-      .invoke("attr", "aria-invalid")
-      .should("be", "false");
+  openDialog() {
+    this.getButton().click();
   }
 
-  loadButtonShouldBeDisabled() {
-    cy.get(DIALOG_ACTIONS)
-      .contains(LOAD_BTN)
-      .should("have.attr", "disabled");
+  closeDialog() {
+    this.getCancelButton().click();
   }
 
-  loadButtonShouldBeEnabled() {
-    cy.get(DIALOG_ACTIONS)
-      .contains(LOAD_BTN)
-      .should("not.have.attr", "disabled");
-  }
-
-  typeInvalidId() {
-    cy.get(TEXT_FIELD).type("asdf");
-  }
-
-  typeValidId() {
-    cy.get(TEXT_FIELD).type("V1StGXR8_Z5jdHi6B-myT");
+  openEmptyDialog() {
+    this.openDialog();
+    this.hasValidDefaultState();
   }
 
   hasValidDefaultState() {
-    this.inputShouldBeInvalid();
-    this.loadButtonShouldBeDisabled();
+    this.hasValidDialogTitle();
+    this.submitShouldBeDisabled();
   }
 
-  close() {
-    cy.get(DIALOG_ACTIONS)
-      .contains(CANCEL_BTN)
-      .click();
+  hasValidDialogTitle() {
+    cy.contains(DIALOG_TITLE);
+  }
+
+  type(value) {
+    this.getInput().type(value);
+  }
+
+  clearInput() {
+    this.getInput().clear();
+  }
+
+  inputShouldBeInvalid() {
+    this.getInput()
+      .invoke(...ATTR_ARIA_INVALID)
+      .should(...BE_TRUE);
+  }
+
+  inputShouldBeValid() {
+    this.getInput()
+      .invoke(...ATTR_ARIA_INVALID)
+      .should(...BE_FALSE);
+  }
+
+  submitShouldBeEnabled() {
+    this.inputShouldBeValid();
+    this.getSubmitButton().should(...NOT_HAVE_ATTR_DISABLED);
+  }
+
+  submitShouldBeDisabled() {
+    this.inputShouldBeInvalid();
+    this.getSubmitButton().should(...HAVE_ATTR_DISABLED);
   }
 }
 

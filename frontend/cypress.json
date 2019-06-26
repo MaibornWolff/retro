@@ -3,5 +3,6 @@
   "testFiles": "**/*.spec.js",
   "video": false,
   "pluginsFile": false,
-  "supportFile": false
+  "supportFile": false,
+  "fixturesFolder": false
 }
