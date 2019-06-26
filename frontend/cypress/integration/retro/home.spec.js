@@ -10,10 +10,6 @@ context("Homepage Tests", () => {
     hp.visit();
   });
 
-  after(() => {
-    console.log(window.localStorage);
-  });
-
   it("should visit Home", () => {
     hp.isValid();
   });
