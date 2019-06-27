@@ -26,7 +26,9 @@
     "test": "react-scripts test --env=jsdom",
     "test:cov": "react-scripts test --env=jsdom --coverage --watchAll=false",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "lint:cypress": "eslint \"cypress/**/*.{js}\" --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
+    "format:cypress": "prettier --write \"cypress/**/*.{js}\"",
     "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\"",
     "cypress:open": "cypress open",
     "test:e2e": "cypress run",
@@ -70,8 +72,8 @@
       "git add ."
     ],
     "cypress/**/*.{js}": [
-      "yarn lint",
-      "yarn format",
+      "yarn lint:cypress",
+      "yarn format:cypress",
       "git add ."
     ]
   },
