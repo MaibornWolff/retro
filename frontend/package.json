@@ -67,12 +67,12 @@
   },
   "proxy": "http://localhost:3001",
   "lint-staged": {
-    "src/**/*.{js,jsx,css,json}": [
+    "./src/**/*.{js,jsx,css,json}": [
       "yarn lint",
       "yarn format",
       "git add ."
     ],
-    "cypress/**/*.{js}": [
+    "./cypress/**/*.{js}": [
       "yarn lint:cypress",
       "yarn format:cypress",
       "git add ."
