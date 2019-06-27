@@ -3,6 +3,8 @@
 import HomePage from "./pageObjects/home/HomePage";
 import BoardPage from "./pageObjects/board/BoardPage";
 
+import { DIALOG_ACTIONS } from "./utils/params";
+
 context("Board Tests", () => {
   /**
    * @type {HomePage}
@@ -42,5 +44,20 @@ context("Board Tests", () => {
       .click();
 
     bp.shouldHaveColumnTitleWith("Mad");
+  });
+
+  // TODO: https://github.com/cypress-io/cypress/issues/1212#issuecomment-360395261
+  it("should create card", () => {
+    cy.get("[data-testid='new-item-btn']")
+      .click()
+      .get("#author-name")
+      .type("Scrum Master")
+      .get("#content-name")
+      .type("I am really mad!")
+      .get(DIALOG_ACTIONS)
+      .contains("Create")
+      .click();
+
+    cy.get(".card-wrapper").should("have.css", "filter", "blur(5px)");
   });
 });

@@ -10,7 +10,7 @@ class BoardPage {
   }
 
   shouldHaveColumnTitleWith(name) {
-    cy.get("h6").contains(name);
+    return cy.get("h6").contains(name);
   }
 }
 
