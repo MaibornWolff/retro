@@ -73,7 +73,7 @@
         "yarn format",
         "git add ."
       ],
-      "cypress/**/*.{js}": [
+      "cypress/**/*.js": [
         "yarn lint:cypress",
         "yarn format:cypress",
         "git add ."
