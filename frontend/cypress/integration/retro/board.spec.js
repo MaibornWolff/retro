@@ -4,7 +4,13 @@ import HomePage from "./pageObjects/home/HomePage";
 import BoardPage from "./pageObjects/board/BoardPage";
 
 context("Board Tests", () => {
+  /**
+   * @type {HomePage}
+   */
   let hp;
+  /**
+   * @type {BoardPage}
+   */
   let bp;
   let boardId;
 
@@ -28,16 +34,13 @@ context("Board Tests", () => {
   });
 
   it("should create column", () => {
-    cy.get("button")
-      .contains("New Column")
-      .click();
-
-    cy.get("#column-name").type("Mad");
-
-    cy.get("button")
+    bp.openNewColumnDialog()
+      .get("#column-name")
+      .type("Mad")
+      .get("button")
       .contains("Create")
       .click();
 
-    cy.get("h6").contains("Mad");
+    bp.shouldHaveColumnTitleWith("Mad");
   });
 });
