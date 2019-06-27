@@ -68,6 +68,11 @@
       "yarn lint",
       "yarn format",
       "git add ."
+    ],
+    "cypress/**/*.{js}": [
+      "yarn lint",
+      "yarn format",
+      "git add ."
     ]
   },
   "husky": {
