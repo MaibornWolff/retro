@@ -41,7 +41,7 @@ context("Board Tests", () => {
       .contains("Create")
       .click();
 
-    // test
+    // test 2
     bp.shouldHaveColumnTitleWith("Mad");
   });
 });
