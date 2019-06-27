@@ -7,5 +7,3 @@ export const DIALOG_ACTIONS = ".MuiDialogActions-root";
 export const BUTTON_ELEM = "button";
 export const INPUT_ELEM = "input";
 export const CANCEL_BUTTON = "Cancel";
-export const BOARD_ID = "1mdA5kAjCQ1oPupBqWijS";
-export const BOARD_NAME = "Cypress Test";

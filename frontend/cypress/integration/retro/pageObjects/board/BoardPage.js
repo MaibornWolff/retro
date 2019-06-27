@@ -1,9 +1,5 @@
 /// <reference types="Cypress" />
 
-class BoardPage {
-  visit(boardId) {
-    cy.visit(`/boards/${boardId}`);
-  }
-}
+class BoardPage {}
 
 export default BoardPage;

@@ -2,32 +2,29 @@
 
 import HomePage from "./pageObjects/home/HomePage";
 import BoardPage from "./pageObjects/board/BoardPage";
-import { BOARD_ID } from "../retro/utils/params";
 
 context("Board Tests", () => {
   let hp;
   let bp;
+  let boardId;
 
   before(() => {
-    cy.createBoard();
     hp = new HomePage();
+    hp.visit();
+    hp.shouldVisitBoardOnValidInput();
+
+    cy.location().then(loc => {
+      boardId = loc.pathname.split("/").pop();
+    });
   });
 
   beforeEach(() => {
     bp = new BoardPage();
-    bp.visit(BOARD_ID);
-    const userObject = JSON.parse(window.localStorage.getItem(BOARD_ID));
-    userObject.role = "moderator";
-    window.localStorage.setItem(BOARD_ID, JSON.stringify(userObject));
   });
 
   after(() => {
-    cy.deleteBoard();
+    cy.deleteBoard(boardId);
     hp.visit();
-  });
-
-  it("should visit Board", () => {
-    bp.visit(BOARD_ID);
   });
 
   it("should create column", () => {
