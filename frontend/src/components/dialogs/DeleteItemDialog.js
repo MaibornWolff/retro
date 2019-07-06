@@ -11,8 +11,9 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { DELETE_CARD } from "../../utils/eventNames";
 import { BoardContext } from "../../context/BoardContext";
+import { DELETE_CARD } from "../../constants/eventNames";
+import { DELETE_CARD_BUTTON } from "../../constants/testIds";
 
 function DeleteItemDialog(props) {
   const { id, fullScreen } = props;
@@ -37,9 +38,9 @@ function DeleteItemDialog(props) {
       <IconButton
         color="primary"
         onClick={openDialog}
-        data-testid="delete-item-btn"
+        data-testid={DELETE_CARD_BUTTON}
       >
-        <DeleteIcon fontSize="small" data-testid="delete-item-btn-icon" />
+        <DeleteIcon fontSize="small" />
       </IconButton>
       <Dialog
         fullScreen={fullScreen}

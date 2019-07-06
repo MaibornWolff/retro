@@ -48,9 +48,7 @@ export const ItemContainer = styled.div`
   margin-bottom: 1em;
 `;
 
-export const CardContainer = styled.div.attrs({
-  className: "card-wrapper"
-})``;
+export const CardContainer = styled.div``;
 
 export const CardWrapper = styled.div`
   position: relative;

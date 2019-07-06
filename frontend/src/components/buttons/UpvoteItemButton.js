@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import { IconButton } from "@material-ui/core";
 
-import { VOTE_CARD } from "../../utils/eventNames";
+import { VOTE_CARD } from "../../constants/eventNames";
 import { BoardContext } from "../../context/BoardContext";
 import { UserContext } from "../../context/UserContext";
 

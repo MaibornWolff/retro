@@ -1,16 +1,63 @@
 /// <reference types="Cypress" />
 
+import {
+  CREATE_COLUMN_BUTTON,
+  UNBLUR_CARDS_BUTTON,
+  EXPORT_BOARD_BUTTON,
+  VOTE_COUNT_BUTTON,
+  QR_CODE_BUTTON,
+  COLUMN_NAME,
+  CREATE_CARD_BUTTON,
+  CARD_CONTAINER
+} from "../../../../../src/constants/testIds";
+
 class BoardPage {
-  newColumnButton() {
-    return cy.get("button").contains("New Column");
+  getCreateColumnButton() {
+    return cy.getTestElement(CREATE_COLUMN_BUTTON);
+  }
+
+  getUnblurCardsButton() {
+    return cy.getTestElement(UNBLUR_CARDS_BUTTON);
+  }
+
+  getExportBoardButton() {
+    return cy.getTestElement(EXPORT_BOARD_BUTTON);
+  }
+
+  getVoteCountButton() {
+    return cy.getTestElement(VOTE_COUNT_BUTTON);
+  }
+
+  getQrCodeButton() {
+    return cy.getTestElement(QR_CODE_BUTTON);
+  }
+
+  getColumnName() {
+    return cy.getTestElement(COLUMN_NAME);
+  }
+
+  getCreateCardButton() {
+    return cy.getTestElement(CREATE_CARD_BUTTON);
+  }
+
+  getCardContainer() {
+    return cy.getTestElement(CARD_CONTAINER);
   }
 
   openNewColumnDialog() {
-    return this.newColumnButton().click();
+    return this.getCreateColumnButton().click();
   }
 
   shouldHaveColumnTitleWith(name) {
-    return cy.get("h6").contains(name);
+    return this.getColumnName().contains(name);
+  }
+
+  shouldHaveBlurryCards() {
+    return this.getCardContainer().should("have.css", "filter", "blur(5px)");
+  }
+
+  shouldHaveUnblurryCards() {
+    return this.getCardContainer().should("have.css", "filter", "blur(0px)");
   }
 }
 

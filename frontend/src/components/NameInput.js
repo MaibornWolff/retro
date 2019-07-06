@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 
 import { validateInput } from "../utils";
-import { CARD_AUTHOR_NAME_TOO_LONG_MSG } from "../utils/errorMessages";
+import { CARD_AUTHOR_NAME_TOO_LONG_MSG } from "../constants/errorMessages";
 import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
 

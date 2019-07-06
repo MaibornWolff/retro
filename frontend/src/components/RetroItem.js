@@ -16,10 +16,15 @@ import EditItemDialog from "./dialogs/EditItemDialog";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import UpvoteItemButton from "./buttons/UpvoteItemButton";
 import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
-import { VOTE_CARD, FOCUS_CARD, REMOVE_FOCUS_CARD } from "../utils/eventNames";
+import { ROLE_MODERATOR } from "../utils/userUtils";
 import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
-import { ROLE_MODERATOR } from "../utils/userUtils";
+import { CARD_CONTAINER } from "../constants/testIds";
+import {
+  VOTE_CARD,
+  FOCUS_CARD,
+  REMOVE_FOCUS_CARD
+} from "../constants/eventNames";
 
 const styles = {
   avatar: {
@@ -80,7 +85,7 @@ function RetroItem(props) {
 
   return (
     <CardWrapper isBlurred={isBlurred}>
-      <CardContainer>
+      <CardContainer data-testid={CARD_CONTAINER}>
         <Card
           className={
             boardState.focusedCard === id ? classes.cardFocused : classes.card

@@ -48,7 +48,7 @@ context("Board Tests", () => {
 
   // TODO: https://github.com/cypress-io/cypress/issues/1212#issuecomment-360395261
   it("should create card", () => {
-    cy.get("[data-testid='new-item-btn']")
+    bp.getCreateCardButton()
       .click()
       .get("#author-name")
       .type("Scrum Master")
@@ -58,6 +58,13 @@ context("Board Tests", () => {
       .contains("Create")
       .click();
 
-    cy.get(".card-wrapper").should("have.css", "filter", "blur(5px)");
+    bp.shouldHaveBlurryCards();
+
+    // cy.pause();
+  });
+
+  it("should unblur card", () => {
+    bp.getUnblurCardsButton().click();
+    bp.shouldHaveUnblurryCards();
   });
 });

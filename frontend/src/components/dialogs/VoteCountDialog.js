@@ -16,10 +16,11 @@ import {
 } from "@material-ui/core";
 
 import { defaultBoard } from "../../utils";
-import { SET_MAX_VOTES, RESET_VOTES } from "../../utils/eventNames";
 import { ROLE_MODERATOR } from "../../utils/userUtils";
 import { BoardContext } from "../../context/BoardContext";
 import { UserContext } from "../../context/UserContext";
+import { SET_MAX_VOTES, RESET_VOTES } from "../../constants/eventNames";
+import { VOTE_COUNT_BUTTON } from "../../constants/testIds";
 
 function VoteCountDialog(props) {
   const { fullScreen } = props;
@@ -70,6 +71,7 @@ function VoteCountDialog(props) {
         color="primary"
         onClick={openDialog}
         disabled={userState.role !== ROLE_MODERATOR}
+        data-testid={VOTE_COUNT_BUTTON}
       >
         <ThumbUpIcon style={{ marginRight: 5 }} />
         Vote Count

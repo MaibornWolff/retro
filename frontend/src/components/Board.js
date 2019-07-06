@@ -21,7 +21,7 @@ import {
   RESET_VOTES,
   FOCUS_CARD,
   REMOVE_FOCUS_CARD
-} from "../utils/eventNames";
+} from "../constants/eventNames";
 import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 
 const styles = theme => ({

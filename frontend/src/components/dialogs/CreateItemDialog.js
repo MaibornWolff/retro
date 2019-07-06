@@ -14,14 +14,15 @@ import {
 } from "@material-ui/core";
 
 import { validateInput, isInputEmpty } from "../../utils";
-import { CREATE_CARD } from "../../utils/eventNames";
 import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
+import { CREATE_CARD } from "../../constants/eventNames";
+import { CREATE_CARD_BUTTON } from "../../constants/testIds";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
   CARD_CONTENT_EMPTY_MSG
-} from "../../utils/errorMessages";
-import { UserContext } from "../../context/UserContext";
+} from "../../constants/errorMessages";
 
 function CreateItemDialog(props) {
   const { columnId, fullScreen } = props;
@@ -97,9 +98,9 @@ function CreateItemDialog(props) {
       <IconButton
         color="inherit"
         onClick={handleOpen}
-        data-testid="new-item-btn"
+        data-testid={CREATE_CARD_BUTTON}
       >
-        <AddIcon fontSize="small" data-testid="new-item-btn-icon" />
+        <AddIcon fontSize="small" />
       </IconButton>
       <Dialog
         fullScreen={fullScreen}

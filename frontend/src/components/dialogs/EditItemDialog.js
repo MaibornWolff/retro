@@ -12,14 +12,15 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { EDIT_CARD } from "../../utils/eventNames";
 import { validateInput, isInputEmpty } from "../../utils";
 import { BoardContext } from "../../context/BoardContext";
+import { EDIT_CARD } from "../../constants/eventNames";
+import { EDIT_CARD_BUTTON } from "../../constants/testIds";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
   CARD_CONTENT_EMPTY_MSG
-} from "../../utils/errorMessages";
+} from "../../constants/errorMessages";
 
 function EditItemDialog(props) {
   const { id, author, content, fullScreen } = props;
@@ -86,9 +87,9 @@ function EditItemDialog(props) {
       <IconButton
         color="primary"
         onClick={openDialog}
-        data-testid="edit-item-btn"
+        data-testid={EDIT_CARD_BUTTON}
       >
-        <EditIcon fontSize="small" data-testid="edit-item-btn-icon" />
+        <EditIcon fontSize="small" />
       </IconButton>
       <Dialog
         fullScreen={fullScreen}

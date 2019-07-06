@@ -14,12 +14,12 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { EDIT_COLUMN } from "../../utils/eventNames";
+import { EDIT_COLUMN } from "../../constants/eventNames";
 import { validateInput } from "../../utils";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
-} from "../../utils/errorMessages";
+} from "../../constants/errorMessages";
 import { BoardContext } from "../../context/BoardContext";
 
 function EditColumnNameDialog(props) {
