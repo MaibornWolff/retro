@@ -30,7 +30,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
     "format:cypress": "prettier --write \"cypress/**/*.{js}\"",
     "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\"",
-    "cypress:open": "cypress open",
+    "cy:open": "cypress open",
     "test:e2e": "cypress run",
     "eject": "react-scripts eject"
   },

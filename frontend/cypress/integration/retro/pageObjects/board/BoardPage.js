@@ -8,7 +8,9 @@ import {
   QR_CODE_BUTTON,
   COLUMN_NAME,
   CREATE_CARD_BUTTON,
-  CARD_CONTAINER
+  CARD_CONTAINER,
+  COLUMN_MENU_BUTTON,
+  EDIT_COLUMN_NAME_BUTTON
 } from "../../../../../src/constants/testIds";
 
 class BoardPage {
@@ -42,6 +44,14 @@ class BoardPage {
 
   getCardContainer() {
     return cy.getTestElement(CARD_CONTAINER);
+  }
+
+  getColumnMenuButton() {
+    return cy.getTestElement(COLUMN_MENU_BUTTON);
+  }
+
+  getEditColumnNameButton() {
+    return cy.getTestElement(EDIT_COLUMN_NAME_BUTTON);
   }
 
   openNewColumnDialog() {

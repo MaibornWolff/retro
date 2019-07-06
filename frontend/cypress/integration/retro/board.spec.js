@@ -59,12 +59,22 @@ context("Board Tests", () => {
       .click();
 
     bp.shouldHaveBlurryCards();
-
-    // cy.pause();
   });
 
   it("should unblur card", () => {
     bp.getUnblurCardsButton().click();
     bp.shouldHaveUnblurryCards();
+  });
+
+  it("should edit column name", () => {
+    bp.getColumnMenuButton().click();
+    bp.getEditColumnNameButton()
+      .click()
+      .get("#col-name-input-edit")
+      .type("-edited")
+      .get(DIALOG_ACTIONS)
+      .contains("Save")
+      .click();
+    bp.shouldHaveColumnTitleWith("Mad-edited");
   });
 });

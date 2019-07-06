@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import SortIcon from "@material-ui/icons/Sort";
 import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
-import { SORT_COLUMN } from "../../constants/eventNames";
 import { BoardContext } from "../../context/BoardContext";
+import { SORT_COLUMN } from "../../constants/eventNames";
+import { SORT_COLUMN_BUTTON } from "../../constants/testIds";
 
 function SortColumnButton(props) {
   const { columnId, items } = props;
@@ -15,7 +16,7 @@ function SortColumnButton(props) {
 
   return (
     <>
-      <MenuItem button onClick={sort}>
+      <MenuItem button onClick={sort} data-testid={SORT_COLUMN_BUTTON}>
         <ListItemIcon>
           <SortIcon fontSize="small" />
         </ListItemIcon>
