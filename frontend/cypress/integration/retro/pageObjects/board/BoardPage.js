@@ -10,7 +10,10 @@ import {
   CREATE_CARD_BUTTON,
   CARD_CONTAINER,
   COLUMN_MENU_BUTTON,
-  EDIT_COLUMN_NAME_BUTTON
+  EDIT_COLUMN_NAME_BUTTON,
+  DELETE_CARD_BUTTON,
+  EDIT_CARD_BUTTON,
+  UPVOTE_CARD_BUTTON
 } from "../../../../../src/constants/testIds";
 
 class BoardPage {
@@ -52,6 +55,18 @@ class BoardPage {
 
   getEditColumnNameButton() {
     return cy.getTestElement(EDIT_COLUMN_NAME_BUTTON);
+  }
+
+  getCardDeleteButton() {
+    return cy.getTestElement(DELETE_CARD_BUTTON);
+  }
+
+  getCardEditButton() {
+    return cy.getTestElement(EDIT_CARD_BUTTON);
+  }
+
+  getCardVoteButton() {
+    return cy.getTestElement(UPVOTE_CARD_BUTTON);
   }
 
   openNewColumnDialog() {

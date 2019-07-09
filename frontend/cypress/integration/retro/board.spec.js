@@ -76,5 +76,11 @@ context("Board Tests", () => {
       .contains("Save")
       .click();
     bp.shouldHaveColumnTitleWith("Mad-edited");
+
+    cy.pause();
+  });
+
+  it("should edit card", () => {
+    // TODO: implement
   });
 });
