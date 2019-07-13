@@ -13,8 +13,9 @@ import {
   ListItemText
 } from "@material-ui/core";
 
-import { DELETE_COLUMN } from "../../utils/eventNames";
-import { BoardContext } from "../context/BoardContext";
+import { DELETE_COLUMN } from "../../constants/eventNames";
+import { BoardContext } from "../../context/BoardContext";
+import { DELETE_COLUMN_BUTTON } from "../../constants/testIds";
 
 function DeleteColumnDialog(props) {
   const { columnId, fullScreen } = props;
@@ -36,9 +37,9 @@ function DeleteColumnDialog(props) {
 
   return (
     <>
-      <MenuItem button onClick={openDialog} data-testid="delete-col-btn">
+      <MenuItem button onClick={openDialog} data-testid={DELETE_COLUMN_BUTTON}>
         <ListItemIcon>
-          <DeleteIcon fontSize="small" data-testid="delete-col-btn-icon" />
+          <DeleteIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText inset primary="Delete Column" />
       </MenuItem>

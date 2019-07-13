@@ -26,40 +26,63 @@
     "test": "react-scripts test --env=jsdom",
     "test:cov": "react-scripts test --env=jsdom --coverage --watchAll=false",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "lint:cypress": "eslint \"cypress/**/*.js\" --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
+    "format:cypress": "prettier --write \"cypress/**/*.{js}\"",
     "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\"",
+    "cy:open": "cypress open",
+    "test:e2e": "cypress run",
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@material-ui/core": "^4.0.2",
-    "@material-ui/icons": "^4.0.1",
+    "@material-ui/core": "^4.2.0",
+    "@material-ui/icons": "^4.2.1",
     "http-proxy-middleware": "^0.19.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "nanoid": "^2.0.3",
-    "qrcode": "^1.3.3",
+    "qrcode": "^1.4.0",
     "react": "^16.8.6",
-    "react-beautiful-dnd": "^11.0.3",
+    "react-beautiful-dnd": "^11.0.4",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "recompose": "^0.30.0",
     "socket.io-client": "^2.2.0",
-    "styled-components": "^4.3.1"
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "@testing-library/react": "^8.0.1",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.0.2",
+    "cypress": "^3.4.0",
     "env-cmd": "^9.0.3",
-    "eslint": "^5.16.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.13.0",
-    "jest-dom": "^3.5.0",
+    "eslint": "^6.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-cypress": "^2.2.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.2",
+    "husky": "^3.0.0",
+    "lint-staged": "^9.2.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2"
   },
   "proxy": "http://localhost:3001",
+  "lint-staged": {
+    "src/**/*.{js,jsx,css,json}": [
+      "yarn lint",
+      "yarn format",
+      "git add ."
+    ],
+    "cypress/**/*.js": [
+      "yarn lint:cypress",
+      "yarn format:cypress",
+      "git add ."
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "browserslist": [
     ">0.2%",
     "not dead",

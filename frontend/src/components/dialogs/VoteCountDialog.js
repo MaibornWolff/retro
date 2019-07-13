@@ -16,16 +16,16 @@ import {
 } from "@material-ui/core";
 
 import { defaultBoard } from "../../utils";
-import { SET_MAX_VOTES, RESET_VOTES } from "../../utils/eventNames";
 import { ROLE_MODERATOR } from "../../utils/userUtils";
-import { BoardContext } from "../context/BoardContext";
-import { UserContext } from "../context/UserContext";
-import { setMaxVote, resetVotes } from "../../actions";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
+import { SET_MAX_VOTES, RESET_VOTES } from "../../constants/eventNames";
+import { VOTE_COUNT_BUTTON } from "../../constants/testIds";
 
 function VoteCountDialog(props) {
   const { fullScreen } = props;
   const { boardId, socket } = useContext(BoardContext);
-  const { userState, dispatch } = useContext(UserContext);
+  const { userState, setMaxVote, resetVotes } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [voteCount, setVoteCount] = useState(getVoteCount());
 
@@ -52,13 +52,13 @@ function VoteCountDialog(props) {
 
   function handleSave() {
     socket.emit(SET_MAX_VOTES, voteCount, boardId);
-    setMaxVote(boardId, voteCount, dispatch);
+    setMaxVote(boardId, voteCount);
     closeDialog();
   }
 
   function handleReset() {
     socket.emit(RESET_VOTES, boardId);
-    resetVotes(boardId, voteCount, dispatch);
+    resetVotes(boardId, voteCount);
     closeDialog();
   }
 
@@ -71,6 +71,7 @@ function VoteCountDialog(props) {
         color="primary"
         onClick={openDialog}
         disabled={userState.role !== ROLE_MODERATOR}
+        data-testid={VOTE_COUNT_BUTTON}
       >
         <ThumbUpIcon style={{ marginRight: 5 }} />
         Vote Count

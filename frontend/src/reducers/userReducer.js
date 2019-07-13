@@ -1,5 +1,4 @@
-import React, { useReducer } from "react";
-import { getUser } from "../../utils/userUtils";
+import { removeFirstOccurenceFromArray } from "../utils";
 import {
   UPVOTE,
   DOWNVOTE,
@@ -8,22 +7,9 @@ import {
   SET_NAME,
   CREATE_MODERATOR,
   CREATE_PARTICIPANT
-} from "../../actions/actionTypes";
-import { removeFirstOccurenceFromArray } from "../../utils";
+} from "../actionTypes/userTypes";
 
-export const UserContext = React.createContext();
-
-function getInitialState(boardId) {
-  const userObject = getUser(boardId);
-
-  if (userObject !== null) {
-    return userObject;
-  }
-
-  return {};
-}
-
-function reducer(state, action) {
+export const reducer = (state, action) => {
   switch (action.type) {
     case UPVOTE:
       return {
@@ -78,18 +64,4 @@ function reducer(state, action) {
     default:
       return state;
   }
-}
-
-export const UserContextProvider = props => {
-  const boardId = props.match.params.boardId;
-  const [state, dispatch] = useReducer(reducer, getInitialState(boardId));
-
-  const value = {
-    userState: state,
-    dispatch
-  };
-
-  return (
-    <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
-  );
 };

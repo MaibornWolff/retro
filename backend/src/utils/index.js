@@ -1,3 +1,5 @@
+const chalk = require("chalk");
+
 const path = require("path");
 
 const getPath = id => path.resolve(__dirname, `../../storage/${id}.json`);
@@ -18,7 +20,7 @@ const logError = (eventName, error) => {
   const tag = "[ERROR]";
   const eventLog = `Event: ${eventName}`;
   const errorLog = `Error: ${error.message}`;
-  console.log(`${tag} ${eventLog}\n${tag} ${errorLog}`);
+  console.log(chalk`{red.bold ${tag} ${eventLog}\n${tag} ${errorLog}}`);
 };
 
 module.exports = {

@@ -1,28 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import { Grid, withStyles } from "@material-ui/core";
 
 import Items from "./Items";
-import CreateItemDialog from "./dialogs/CreateItemDialog";
-import ColumnMenu from "./ColumnMenu";
-import ColumnName from "./ColumnName";
+import ColumnHeader from "./ColumnHeader";
 import { ColumnContainer, ItemsContainerStyles } from "./styled";
 
 const ItemsContainer = styled.div`
   ${ItemsContainerStyles};
 `;
 
-const styles = theme => ({
-  header: {
-    padding: theme.spacing(1),
-    backgroundColor: "#44777e",
-    color: "#fff"
-  }
-});
-
 function Column(props) {
-  const { classes, column, items, index, openSnackbar } = props;
+  const { column, items, index, openSnackbar } = props;
 
   return (
     <Draggable draggableId={column.id} index={index}>
@@ -32,24 +21,11 @@ function Column(props) {
           {...providedDraggable.dragHandleProps}
           ref={providedDraggable.innerRef}
         >
-          <Grid
-            className={classes.header}
-            container
-            direction="row"
-            justify="space-between"
-          >
-            <Grid item>
-              <ColumnName classes={classes} columnTitle={column.columnTitle} />
-            </Grid>
-            <Grid item>
-              <CreateItemDialog columnId={column.id} />
-              <ColumnMenu
-                columnId={column.id}
-                columnTitle={column.columnTitle}
-                items={items}
-              />
-            </Grid>
-          </Grid>
+          <ColumnHeader
+            columnTitle={column.columnTitle}
+            columnId={column.id}
+            items={items}
+          />
 
           <Droppable
             droppableId={column.id}
@@ -73,4 +49,4 @@ function Column(props) {
   );
 }
 
-export default withStyles(styles)(Column);
+export default Column;

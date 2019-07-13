@@ -17,7 +17,7 @@ import {
 } from "@material-ui/core";
 
 import { isBoardIdValid } from "../../utils";
-import { LOAD_BOARD_ID_INVALID_MSG } from "../../utils/errorMessages";
+import { LOAD_BOARD_ID_INVALID_MSG } from "../../constants/errorMessages";
 
 const styles = theme => ({
   button: {

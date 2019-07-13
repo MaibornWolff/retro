@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import QRCode from "qrcode";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import {
   Dialog,
@@ -9,7 +10,8 @@ import {
   Button,
   withMobileDialog
 } from "@material-ui/core";
-import QRCode from "qrcode";
+
+import { QR_CODE_BUTTON } from "../../constants/testIds";
 
 function QrCodeDialog(props) {
   const { fullScreen } = props;
@@ -36,7 +38,7 @@ function QrCodeDialog(props) {
         aria-label="QR Code"
         color="primary"
         onClick={openDialog}
-        data-testid="qr-code-btn"
+        data-testid={QR_CODE_BUTTON}
       >
         <PhotoCameraIcon style={{ marginRight: 5 }} />
         QR Code

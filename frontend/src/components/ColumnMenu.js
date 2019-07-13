@@ -6,7 +6,8 @@ import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
 import EditColumnNameDialog from "./dialogs/EditColumnNameDialog";
 import SortColumnButton from "./buttons/SortColumnButton";
 import { ROLE_MODERATOR } from "../utils/userUtils";
-import { UserContext } from "./context/UserContext";
+import { UserContext } from "../context/UserContext";
+import { COLUMN_MENU_BUTTON } from "../constants/testIds";
 
 function ColumnMenu(props) {
   const { columnId, columnTitle, items } = props;
@@ -32,6 +33,7 @@ function ColumnMenu(props) {
         aria-haspopup="true"
         onClick={handleClick}
         disabled={userState.role !== ROLE_MODERATOR}
+        data-testid={COLUMN_MENU_BUTTON}
       >
         <MenuIcon fontSize="small" />
       </IconButton>

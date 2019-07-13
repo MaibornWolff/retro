@@ -1,5 +1,6 @@
 require("./config");
 
+const chalk = require("chalk");
 const path = require("path");
 const fs = require("fs");
 const express = require("express");
@@ -66,7 +67,7 @@ io.on(CONNECT, client => {
 });
 
 server.listen(port, () => {
-  console.log(`[INFO] Listening on ${port}`);
+  console.log(chalk`{blue.bold [INFO] Listening on ${port}}`);
 });
 
 module.exports = { server };

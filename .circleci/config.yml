@@ -11,10 +11,10 @@ jobs:
           keys:
             - dependency-cache-{{ checksum "backend/package.json" }}-{{ checksum "frontend/package.json" }}
 
-      - run: 
+      - run:
           name: Setup Backend Dependencies
           command: cd backend && yarn install && cd ..
-      
+
       - run:
           name: Setup Frontend Dependencies
           command: cd frontend && yarn install && cd ..
@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Check formatting on frontend
           command: cd frontend && yarn format:check && cd ..
-      
+
       - run:
           name: Run ESLint on backend
           command: cd backend && yarn lint && cd ..
@@ -44,14 +44,3 @@ jobs:
       - run:
           name: Run tests on backend
           command: cd backend && yarn test && cd ..
-      
-      - run:
-          name: Run tests on frontend
-          command: cd frontend && yarn test && cd ..
-
-      - run:
-          name: Run frontend code coverage
-          command: cd frontend && yarn test:cov && cd ..
-    
-      - store_artifacts:
-          path: frontend/coverage

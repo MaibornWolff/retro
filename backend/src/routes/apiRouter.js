@@ -45,4 +45,12 @@ router.get("/export/:boardId", async (req, res) => {
   });
 });
 
+router.delete("/:boardId", async (req, res) => {
+  const boardId = req.params.boardId;
+  await fs.unlink(getPath(boardId), error => {
+    if (error) throw error;
+    res.status(200).send();
+  });
+});
+
 module.exports = router;

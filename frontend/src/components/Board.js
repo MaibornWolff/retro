@@ -8,18 +8,10 @@ import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
 import VoteCountSnackbar from "./VoteCountSnackbar";
 import { FlexContainer } from "./styled";
-import { BoardContext } from "./context/BoardContext";
-import { UserContext } from "./context/UserContext";
+import { BoardContext } from "../context/BoardContext";
+import { UserContext } from "../context/UserContext";
 import { defaultBoard } from "../utils";
 import { ROLE_MODERATOR, ROLE_PARTICIPANT, getUser } from "../utils/userUtils";
-import {
-  createModerator,
-  createParticipant,
-  setFocusedCard,
-  removeFocusedCard,
-  setMaxVote,
-  resetVotes
-} from "../actions";
 import {
   CONNECT,
   UPDATE_BOARD,
@@ -29,7 +21,7 @@ import {
   RESET_VOTES,
   FOCUS_CARD,
   REMOVE_FOCUS_CARD
-} from "../utils/eventNames";
+} from "../constants/eventNames";
 import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 
 const styles = theme => ({
@@ -46,16 +38,27 @@ let combineResult;
 
 function Board(props) {
   const { classes, location } = props;
-  const { boardId, boardDispatch, socket } = useContext(BoardContext);
-  const { dispatch } = useContext(UserContext);
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
   const [merge, setMerge] = useState(false);
+  const { boardId, socket, setFocusedCard, removeFocusedCard } = useContext(
+    BoardContext
+  );
+  const {
+    createModerator,
+    createParticipant,
+    setMaxVote,
+    resetVotes
+  } = useContext(UserContext);
 
   // set tab name
   useEffect(() => {
     document.title = `Retro | ${board.title}`;
+
+    return () => {
+      document.title = "Retro";
+    };
   }, [board.title]);
 
   // socket listeners
@@ -68,9 +71,9 @@ function Board(props) {
       const { boardId, maxVoteCount } = boardData;
 
       if (location.state && getUser(boardId) === null) {
-        createModerator(boardId, ROLE_MODERATOR, maxVoteCount, dispatch);
+        createModerator(boardId, ROLE_MODERATOR, maxVoteCount);
       } else if (getUser(boardId) === null) {
-        createParticipant(boardId, ROLE_PARTICIPANT, maxVoteCount, dispatch);
+        createParticipant(boardId, ROLE_PARTICIPANT, maxVoteCount);
       }
 
       setBoard(boardData);
@@ -85,24 +88,30 @@ function Board(props) {
     });
 
     socket.on(SET_MAX_VOTES, newBoard => {
-      setMaxVote(boardId, newBoard.maxVoteCount, dispatch);
+      setMaxVote(boardId, newBoard.maxVoteCount);
       setBoard(newBoard);
       openSnackbar();
     });
 
     socket.on(RESET_VOTES, newBoard => {
-      resetVotes(boardId, newBoard.maxVoteCount, dispatch);
+      resetVotes(boardId, newBoard.maxVoteCount);
       setBoard(newBoard);
       openSnackbar();
     });
 
     socket.on(FOCUS_CARD, focusedCard => {
-      setFocusedCard(focusedCard, boardDispatch);
+      setFocusedCard(focusedCard);
     });
 
     socket.on(REMOVE_FOCUS_CARD, () => {
-      removeFocusedCard(boardDispatch);
+      removeFocusedCard();
     });
+
+    return () => {
+      // Pass nothing to remove all listeners on all events.
+      socket.off();
+    };
+
     // eslint-disable-next-line
   }, []);
 
@@ -307,28 +316,6 @@ function Board(props) {
     });
   }
 
-  function renderSnackbar() {
-    return (
-      <VoteCountSnackbar
-        id="vote-count-snackbar"
-        open={isSnackbarOpen}
-        handleClose={closeSnackbar}
-        autoHideDuration={1000}
-      />
-    );
-  }
-
-  function renderMergeDialog() {
-    return (
-      <MergeCardsDialog
-        open={isMergeDialogOpen}
-        closeDialog={closeMergeDialog}
-        startMerge={startMerge}
-        stopMerge={stopMerge}
-      />
-    );
-  }
-
   if (board.error) {
     return <Redirect to={"/error"} />;
   }
@@ -359,8 +346,18 @@ function Board(props) {
           </Droppable>
         </DragDropContext>
       </Grid>
-      {renderSnackbar()}
-      {renderMergeDialog()}
+      <VoteCountSnackbar
+        id="vote-count-snackbar"
+        open={isSnackbarOpen}
+        handleClose={closeSnackbar}
+        autoHideDuration={1000}
+      />
+      <MergeCardsDialog
+        open={isMergeDialogOpen}
+        closeDialog={closeMergeDialog}
+        startMerge={startMerge}
+        stopMerge={stopMerge}
+      />
     </Grid>
   );
 }

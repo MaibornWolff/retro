@@ -12,15 +12,16 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { CREATE_COLUMN } from "../../utils/eventNames";
 import { validateInput } from "../../utils";
 import { ROLE_MODERATOR } from "../../utils/userUtils";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
+import { CREATE_COLUMN } from "../../constants/eventNames";
+import { CREATE_COLUMN_BUTTON } from "../../constants/testIds";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
-} from "../../utils/errorMessages";
-import { BoardContext } from "../context/BoardContext";
-import { UserContext } from "../context/UserContext";
+} from "../../constants/errorMessages";
 
 function CreateColumnDialog(props) {
   const { fullScreen } = props;
@@ -78,7 +79,7 @@ function CreateColumnDialog(props) {
         aria-label="Add Column"
         color="primary"
         onClick={openDialog}
-        data-testid="new-col-btn"
+        data-testid={CREATE_COLUMN_BUTTON}
         disabled={userState.role !== ROLE_MODERATOR}
       >
         <AddIcon />
@@ -117,7 +118,6 @@ function CreateColumnDialog(props) {
             onClick={handleSubmit}
             color="primary"
             disabled={!input.isValid}
-            data-testid="create-column-btn"
           >
             Create
           </Button>

@@ -34,7 +34,4 @@ At work, we were using third party retrospective tools, which meant we couldn't 
 ## Contributing
 
 - Please use [Yarn](https://yarnpkg.com/lang/en/) instead of NPM
-- The CI checks formatting, linting and tests. Make sure to run the following commands on both projects:
-  - `yarn format`
-  - `yarn lint`
-  - `yarn test`
+- You can always watch the current state of the project at [Trello](https://trello.com/b/AhEZ0aLs/retro)

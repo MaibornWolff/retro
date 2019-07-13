@@ -14,13 +14,14 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { EDIT_COLUMN } from "../../utils/eventNames";
 import { validateInput } from "../../utils";
+import { BoardContext } from "../../context/BoardContext";
+import { EDIT_COLUMN } from "../../constants/eventNames";
+import { EDIT_COLUMN_NAME_BUTTON } from "../../constants/testIds";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
-} from "../../utils/errorMessages";
-import { BoardContext } from "../context/BoardContext";
+} from "../../constants/errorMessages";
 
 function EditColumnNameDialog(props) {
   const { columnId, columnTitle, fullScreen } = props;
@@ -66,7 +67,11 @@ function EditColumnNameDialog(props) {
 
   return (
     <>
-      <MenuItem button onClick={openDialog}>
+      <MenuItem
+        button
+        onClick={openDialog}
+        data-testid={EDIT_COLUMN_NAME_BUTTON}
+      >
         <ListItemIcon>
           <EditIcon fontSize="small" />
         </ListItemIcon>
@@ -82,6 +87,7 @@ function EditColumnNameDialog(props) {
         <DialogContent>
           <TextField
             required
+            id="col-name-input-edit"
             error={!input.isValid}
             margin="dense"
             label="Column Name"

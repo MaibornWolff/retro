@@ -18,10 +18,11 @@ import {
 } from "@material-ui/core";
 
 import { defaultBoard, validateInput, postData } from "../../utils";
+import { CREATE_BOARD_BUTTON } from "../../constants/testIds";
 import {
   BOARD_NAME_EMPTY_MSG,
   BOARD_NAME_TOO_LONG_MSG
-} from "../../utils/errorMessages";
+} from "../../constants/errorMessages";
 
 const styles = theme => ({
   button: {
@@ -95,7 +96,7 @@ function CreateBoardDialog(props) {
         color="primary"
         onClick={openDialog}
         className={classes.button}
-        data-testid="new-board-btn"
+        data-testid={CREATE_BOARD_BUTTON}
       >
         <AddIcon className={classes.icon} />
         New Board
@@ -134,7 +135,6 @@ function CreateBoardDialog(props) {
             onClick={handleSubmit}
             color="primary"
             disabled={!input.isValid}
-            data-testid="create-board-btn"
           >
             Create
           </Button>
