@@ -80,8 +80,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn test:e2e"
+      "pre-commit": "lint-staged"
     }
   },
   "browserslist": [
