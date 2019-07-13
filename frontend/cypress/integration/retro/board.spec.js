@@ -66,6 +66,25 @@ context("Board Tests", () => {
     bp.shouldHaveUnblurryCards();
   });
 
+  it("should edit card", () => {
+    bp.getCardEditButton()
+      .click()
+      .get("#author-name")
+      .type("-edited")
+      .get("#content-name")
+      .type("-edited")
+      .get(DIALOG_ACTIONS)
+      .contains("Save")
+      .click();
+
+    bp.getCardContainer()
+      .get("p")
+      .contains("Scrum Master-edited");
+    bp.getCardContainer()
+      .get("p")
+      .contains("I am really mad!-edited");
+  });
+
   it("should edit column name", () => {
     bp.getColumnMenuButton().click();
     bp.getEditColumnNameButton()
