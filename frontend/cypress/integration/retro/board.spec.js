@@ -85,6 +85,14 @@ context("Board Tests", () => {
       .contains("I am really mad!-edited");
   });
 
+  it("should delete card", () => {
+    bp.getCardDeleteButton()
+      .click()
+      .get(DIALOG_ACTIONS)
+      .contains("Delete")
+      .click();
+  });
+
   it("should edit column name", () => {
     bp.getColumnMenuButton().click();
     bp.getEditColumnNameButton()
