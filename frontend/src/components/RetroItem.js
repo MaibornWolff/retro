@@ -90,43 +90,46 @@ function RetroItem(props) {
           className={
             boardState.focusedCard === id ? classes.cardFocused : classes.card
           }
-          onAuxClick={() => handleFocus(false)}
-          onDoubleClick={() => handleFocus(true)}
           raised
         >
-          <CardHeader
-            avatar={
-              <Avatar
-                className={isVoted ? classes.avatarVoted : classes.avatar}
-                aria-label="number of votes"
+          <div
+            onAuxClick={() => handleFocus(false)}
+            onDoubleClick={() => handleFocus(true)}
+          >
+            <CardHeader
+              avatar={
+                <Avatar
+                  className={isVoted ? classes.avatarVoted : classes.avatar}
+                  aria-label="number of votes"
+                >
+                  {points}
+                </Avatar>
+              }
+              title={
+                <Typography variant="body2" component={"span"}>
+                  <CardAuthor>{author}</CardAuthor>
+                </Typography>
+              }
+              action={
+                isVoted ? (
+                  <IconButton color="primary" onClick={downVote}>
+                    <ThumbDownIcon fontSize="small" />
+                  </IconButton>
+                ) : null
+              }
+            />
+            <Divider />
+            <CardContent>
+              <Typography
+                variant="body2"
+                className={classes.contentBody}
+                component={"span"}
               >
-                {points}
-              </Avatar>
-            }
-            title={
-              <Typography variant="body2" component={"span"}>
-                <CardAuthor>{author}</CardAuthor>
+                <CardText>{content}</CardText>
               </Typography>
-            }
-            action={
-              isVoted ? (
-                <IconButton color="primary" onClick={downVote}>
-                  <ThumbDownIcon fontSize="small" />
-                </IconButton>
-              ) : null
-            }
-          />
-          <Divider />
-          <CardContent>
-            <Typography
-              variant="body2"
-              className={classes.contentBody}
-              component={"span"}
-            >
-              <CardText>{content}</CardText>
-            </Typography>
-          </CardContent>
-          <Divider />
+            </CardContent>
+            <Divider />
+          </div>
           <CardActions className={classes.actions}>
             <DeleteItemDialog id={id} />
             <EditItemDialog id={id} author={author} content={content} />
