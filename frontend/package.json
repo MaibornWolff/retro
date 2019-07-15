@@ -56,7 +56,7 @@
     "env-cmd": "^9.0.3",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-cypress": "^2.2.1",
+    "eslint-plugin-cypress": "^2.6.0",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.2",
