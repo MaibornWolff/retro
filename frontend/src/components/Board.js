@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import pull from "lodash/pull";
+import isEqual from "lodash/isEqual";
 import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Redirect } from "react-router-dom";
@@ -61,8 +62,12 @@ function Board(props) {
     };
   }, [board.title]);
 
-  // socket listeners
   useEffect(() => {
+    // pull state, when navigating back and forth
+    if (isEqual(board, defaultBoard) && props.match.isExact) {
+      socket.emit(JOIN_BOARD, boardId);
+    }
+
     socket.on(CONNECT, () => {
       socket.emit(JOIN_BOARD, boardId);
     });
