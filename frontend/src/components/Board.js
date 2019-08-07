@@ -24,6 +24,7 @@ import {
   REMOVE_FOCUS_CARD
 } from "../constants/eventNames";
 import MergeCardsDialog from "./dialogs/MergeCardsDialog";
+import { ALL_COLUMNS } from "../constants/testIds";
 
 const styles = theme => ({
   root: {
@@ -343,6 +344,7 @@ function Board(props) {
               <FlexContainer
                 {...provided.droppableProps}
                 ref={provided.innerRef}
+                data-testid={ALL_COLUMNS}
               >
                 {renderBoard(board.columns, board.items)}
                 {provided.placeholder}

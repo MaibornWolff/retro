@@ -10,8 +10,6 @@ import {
 
 export const BoardContext = React.createContext();
 
-// TODO: move board state here
-// TODO: move socket logic here
 const initialState = { focusedCard: "" };
 
 let socket;

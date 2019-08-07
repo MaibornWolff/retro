@@ -55,7 +55,7 @@ function ColumnMenu(props) {
         aria-haspopup="true"
         onClick={openMenu}
         disabled={userState.role !== ROLE_MODERATOR}
-        data-testid={COLUMN_MENU_BUTTON}
+        data-testid={COLUMN_MENU_BUTTON + `__${columnTitle}`}
       >
         <MenuIcon fontSize="small" />
       </IconButton>

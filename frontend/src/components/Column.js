@@ -5,6 +5,7 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import Items from "./Items";
 import ColumnHeader from "./ColumnHeader";
 import { ColumnContainer, ItemsContainerStyles } from "./styled";
+import { COLUMN_CONTAINER, COLUMN_ITEMS_CONTAINER } from "../constants/testIds";
 
 const ItemsContainer = styled.div`
   ${ItemsContainerStyles};
@@ -20,6 +21,7 @@ function Column(props) {
           {...providedDraggable.draggableProps}
           {...providedDraggable.dragHandleProps}
           ref={providedDraggable.innerRef}
+          data-testid={COLUMN_CONTAINER + `__${column.columnTitle}`}
         >
           <ColumnHeader
             columnTitle={column.columnTitle}
@@ -37,6 +39,7 @@ function Column(props) {
                 ref={providedDroppable.innerRef}
                 {...providedDroppable.droppableProps}
                 isDraggingOver={snapshot.isDraggingOver}
+                data-testid={COLUMN_ITEMS_CONTAINER + `__${column.columnTitle}`}
               >
                 <Items items={items} openSnackbar={openSnackbar} />
                 {providedDroppable.placeholder}

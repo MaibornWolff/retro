@@ -3,8 +3,6 @@
 import HomePage from "./pageObjects/home/HomePage";
 import BoardPage from "./pageObjects/board/BoardPage";
 
-import { DIALOG_ACTIONS } from "./utils/params";
-
 context("Board Tests", () => {
   /**
    * @type {HomePage}
@@ -35,30 +33,20 @@ context("Board Tests", () => {
     hp.visit();
   });
 
+  // ------------------------ TESTS ------------------------ //
   it("should create column", () => {
-    bp.openNewColumnDialog()
-      .get("#column-name")
-      .type("Mad")
-      .get("button")
-      .contains("Create")
-      .click();
-
-    bp.shouldHaveColumnTitleWith("Mad");
+    bp.createColumn("Mad");
+    bp.createColumn("Sad");
+    bp.createColumn("Glad");
+    bp.shouldHaveColumnsLength(3);
   });
 
-  // TODO: https://github.com/cypress-io/cypress/issues/1212#issuecomment-360395261
   it("should create card", () => {
-    bp.getCreateCardButton()
-      .click()
-      .get("#author-name")
-      .type("Scrum Master")
-      .get("#content-name")
-      .type("I am really mad!")
-      .get(DIALOG_ACTIONS)
-      .contains("Create")
-      .click();
-
+    bp.createCard("Mad", "Scrum Master", "I am really mad!");
+    bp.createCard("Mad", "Batman", "I am Batman");
+    bp.createCard("Mad", "Superman", "I am Superman");
     bp.shouldHaveBlurryCards();
+    bp.shouldHaveCardsCount(3);
   });
 
   it("should unblur card", () => {
@@ -67,41 +55,23 @@ context("Board Tests", () => {
   });
 
   it("should edit card", () => {
-    bp.getCardEditButton()
-      .click()
-      .get("#author-name")
-      .type("-edited")
-      .get("#content-name")
-      .type("-edited")
-      .get(DIALOG_ACTIONS)
-      .contains("Save")
-      .click();
-
-    bp.getCardContainer()
-      .get("p")
-      .contains("Scrum Master-edited");
-    bp.getCardContainer()
-      .get("p")
-      .contains("I am really mad!-edited");
+    bp.editFirstCard();
+    bp.shouldHaveEditedAuthor();
+    bp.shouldHaveEditedContent();
   });
 
   it("should delete card", () => {
-    bp.getCardDeleteButton()
-      .click()
-      .get(DIALOG_ACTIONS)
-      .contains("Delete")
-      .click();
+    bp.deleteFirstCard();
+    bp.shouldHaveCardsCount(2);
   });
 
   it("should edit column name", () => {
-    bp.getColumnMenuButton().click();
-    bp.getEditColumnNameButton()
-      .click()
-      .get("#col-name-input-edit")
-      .type("-edited")
-      .get(DIALOG_ACTIONS)
-      .contains("Save")
-      .click();
+    bp.editColumnName("Mad", "-edited");
     bp.shouldHaveColumnTitleWith("Mad-edited");
+  });
+
+  it("should delete column", () => {
+    bp.deleteColumn("Glad");
+    bp.shouldHaveColumnsLength(2);
   });
 });

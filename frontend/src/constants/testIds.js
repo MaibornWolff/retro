@@ -3,6 +3,9 @@ export const EXPORT_BOARD_BUTTON = "export__board__btn";
 export const QR_CODE_BUTTON = "qrcode__btn";
 export const VOTE_COUNT_BUTTON = "vote__cound__btn";
 
+export const ALL_COLUMNS = "all__columns";
+export const COLUMN_CONTAINER = "column__container";
+export const COLUMN_ITEMS_CONTAINER = "column__items__container";
 export const COLUMN_NAME = "column__name";
 export const COLUMN_MENU_BUTTON = "column__menu__btn";
 export const CREATE_COLUMN_BUTTON = "create__column__btn";
