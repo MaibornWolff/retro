@@ -6,7 +6,7 @@ import { BoardContext } from "../../context/BoardContext";
 import { SORT_COLUMN } from "../../constants/eventNames";
 import { SORT_COLUMN_BUTTON } from "../../constants/testIds";
 
-function SortColumnButton(props) {
+const SortColumnButton = React.forwardRef((props, ref) => {
   const { columnId, items } = props;
   const { boardId, socket } = useContext(BoardContext);
 
@@ -16,7 +16,12 @@ function SortColumnButton(props) {
 
   return (
     <>
-      <MenuItem button onClick={sort} data-testid={SORT_COLUMN_BUTTON}>
+      <MenuItem
+        button
+        ref={ref}
+        onClick={sort}
+        data-testid={SORT_COLUMN_BUTTON}
+      >
         <ListItemIcon>
           <SortIcon fontSize="small" />
         </ListItemIcon>
@@ -24,6 +29,6 @@ function SortColumnButton(props) {
       </MenuItem>
     </>
   );
-}
+});
 
 export default SortColumnButton;
