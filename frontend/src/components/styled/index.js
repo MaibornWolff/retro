@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { media } from "./styledUtils";
 
 export const Hero = styled.div`
   width: 100%;
@@ -14,14 +15,18 @@ export const Hero = styled.div`
 
 export const FlexContainer = styled.div`
   display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  ${media.desktop`flex-direction: row;`}
 `;
 
 export const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  width: 20vw;
-  margin: 1em;
+  width: 25rem;
+  min-height: 100%;
+  margin: 0.8em 0.2em 0.8em 0.2em;
+  ${media.tablet`margin: 0.8em;`}
   border: 1px solid grey;
   border-radius: 2px;
   background-color: white;
@@ -53,6 +58,28 @@ export const CardWrapper = styled.div`
   }
 `;
 
+export const CardAuthor = styled.p`
+  max-width: 15vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const CardText = styled.p`
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+`;
+
 export const Unblur = styled.a`
   position: absolute;
   top: 4%;
@@ -64,11 +91,12 @@ export const Unblur = styled.a`
   }
 `;
 
+// https://stackoverflow.com/a/53090598
 export const ItemsContainerStyles = css`
-  flex-grow: 1;
-  min-height: 100px;
-  padding: 1em;
-  background-color: ${p => (p.isDraggingOver ? "#f5f5f5" : "inherit")};
+  flex: 1;
+  padding: 0.2em;
+  ${media.tablet`padding: 1em;`}
+  background-color: ${p => (p.isDraggingOver ? "#dcdcdc" : "inherit")};
   transition: background-color 0.2s ease;
 `;
 

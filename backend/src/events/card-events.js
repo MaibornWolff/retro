@@ -7,12 +7,15 @@ const {
   CREATE_CARD,
   EDIT_CARD,
   DELETE_CARD,
-  UPVOTE_CARD,
+  VOTE_CARD,
+  FOCUS_CARD,
+  REMOVE_FOCUS_CARD,
   UPDATE_BOARD
 } = require("./event-names");
 
 const UTF8 = "utf8";
 
+// TODO: client.broadcast.to(roomId).emit(UPDATE_BOARD, board) to deal with blurry
 const createCard = (io, client, roomId) => {
   client.on(CREATE_CARD, async (card, columnId, boardId) => {
     const path = getPath(boardId);
@@ -69,20 +72,34 @@ const editCard = (io, client, roomId) => {
   });
 };
 
-const upvoteCard = (io, client, roomId) => {
-  client.on(UPVOTE_CARD, async (cardId, boardId, value) => {
+const voteCard = (io, client, roomId) => {
+  client.on(VOTE_CARD, async (cardId, boardId, isUpvote) => {
     const path = getPath(boardId);
     await fs.readFile(path, UTF8, async (error, file) => {
-      if (error) logError(UPVOTE_CARD, error);
+      if (error) logError(VOTE_CARD, error);
 
       const board = getBoard(file);
-      board.items[cardId].points += value;
+
+      if (isUpvote) board.items[cardId].points += 1;
+      else board.items[cardId].points -= 1;
 
       await fs.writeFile(path, stringify(board), UTF8, error => {
-        if (error) logError(UPVOTE_CARD, error);
+        if (error) logError(VOTE_CARD, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
     });
+  });
+};
+
+const focusCard = (io, client, roomId) => {
+  client.on(FOCUS_CARD, cardId => {
+    io.to(roomId).emit(FOCUS_CARD, cardId);
+  });
+};
+
+const removeFocusCard = (io, client, roomId) => {
+  client.on(REMOVE_FOCUS_CARD, () => {
+    io.to(roomId).emit(REMOVE_FOCUS_CARD);
   });
 };
 
@@ -90,5 +107,7 @@ module.exports = {
   createCard,
   editCard,
   deleteCard,
-  upvoteCard
+  voteCard,
+  focusCard,
+  removeFocusCard
 };

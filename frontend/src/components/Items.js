@@ -1,28 +1,41 @@
-import React from "react";
+import React, { useContext } from "react";
 import isEmpty from "lodash/isEmpty";
 import { Grid } from "@material-ui/core";
 
 import Item from "./Item";
+import { hasVotedFor } from "../utils/userUtils";
+import { BoardContext } from "../context/BoardContext";
 
-export default class Items extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    const { items } = this.props;
-    if (nextProps.items === items) return false;
-    return true;
+function Items(props) {
+  const { items, openSnackbar } = props;
+  const { boardId } = useContext(BoardContext);
+
+  function isVoted(cardId) {
+    return hasVotedFor(cardId, boardId);
   }
 
-  render() {
-    const { items, boardId } = this.props;
-
-    if (isEmpty(items)) return null;
-    return (
-      <Grid container direction="column">
-        {items.map((item, i) => (
-          <Grid key={item.id} item>
-            <Item item={item} index={i} boardId={boardId} />
-          </Grid>
-        ))}
-      </Grid>
-    );
+  function renderItem() {
+    return items.map((item, i) => {
+      return (
+        <Grid key={item.id} item>
+          <Item
+            item={item}
+            index={i}
+            openSnackbar={openSnackbar}
+            isVoted={isVoted(item.id)}
+          />
+        </Grid>
+      );
+    });
   }
+
+  if (isEmpty(items)) return null;
+
+  return (
+    <Grid container direction="column">
+      {renderItem()}
+    </Grid>
+  );
 }
+
+export default React.memo(Items);

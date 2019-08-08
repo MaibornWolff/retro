@@ -1,10 +1,12 @@
 const testBoard = {
-  boardId: "board-test1234",
+  boardId: "V1StGXR8_Z5jdHi6B-myT",
   title: "Test Board",
   items: {},
   columns: {},
   columnOrder: [],
-  isBlurred: true
+  isBlurred: true,
+  error: false,
+  maxVoteCount: 3
 };
 
 const getPath = id => `${__dirname}/../../../storage/${id}`;

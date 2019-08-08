@@ -1,30 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import { IconButton, Tooltip } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
-import { UPVOTE_CARD } from "../../events/event-names";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
+import { VOTE_CARD } from "../../constants/eventNames";
+import { UPVOTE_CARD_BUTTON } from "../../constants/testIds";
 
-const handleUpvote = (id, boardId, points) => {
-  if (points >= 30) {
-    alert("You reached the maximum vote count!");
+function UpvoteItemButton(props) {
+  const { id, openSnackbar } = props;
+  const { boardId, socket } = useContext(BoardContext);
+  const { userState, upvoteCard } = useContext(UserContext);
+
+  function upVote() {
+    const votesLeft = userState.votesLeft;
+
+    if (votesLeft > 0) {
+      socket.emit(VOTE_CARD, id, boardId, true);
+      upvoteCard(boardId, id, votesLeft);
+      openSnackbar();
+    }
   }
 
-  const socket = socket_connect(boardId);
-  socket.emit(UPVOTE_CARD, id, boardId, 1);
-};
-
-const UpvoteItemButton = props => (
-  <>
-    <Tooltip title="Upvote" aria-label="Upvote">
+  return (
+    <>
       <IconButton
         color="primary"
-        onClick={() => handleUpvote(props.id, props.boardId, props.points)}
+        onClick={upVote}
+        data-testid={UPVOTE_CARD_BUTTON}
       >
         <ThumbUpIcon fontSize="small" />
       </IconButton>
-    </Tooltip>
-  </>
-);
+    </>
+  );
+}
 
 export default UpvoteItemButton;

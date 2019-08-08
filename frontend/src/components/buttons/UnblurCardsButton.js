@@ -1,30 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import UnblurIcon from "@material-ui/icons/BlurOff";
 import { Grid, Button } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
-import { UNBLUR_CARDS } from "../../events/event-names";
+import { UNBLUR_CARDS } from "../../constants/eventNames";
+import { UNBLUR_CARDS_BUTTON } from "../../constants/testIds";
+import { ROLE_MODERATOR } from "../../utils/userUtils";
+import { BoardContext } from "../../context/BoardContext";
+import { UserContext } from "../../context/UserContext";
 
-const unblur = boardId => {
-  const socket = socket_connect(boardId);
-  socket.emit(UNBLUR_CARDS, boardId);
-};
+function UnblurCardsButton(props) {
+  const { className } = props;
+  const { boardId, socket } = useContext(BoardContext);
+  const { userState } = useContext(UserContext);
 
-const UnblurCardsButton = props => (
-  <>
-    <Grid item className={props.className}>
-      <Button
-        size="small"
-        variant="outlined"
-        aria-label="Unblur Cards"
-        color="primary"
-        onClick={() => unblur(props.boardId)}
-      >
-        <UnblurIcon style={{ marginRight: 5 }} />
-        Toggle Blur
-      </Button>
-    </Grid>
-  </>
-);
+  function unblur() {
+    socket.emit(UNBLUR_CARDS, boardId);
+  }
+
+  return (
+    <>
+      <Grid item className={className}>
+        <Button
+          size="small"
+          variant="outlined"
+          aria-label="Unblur Cards"
+          color="primary"
+          onClick={unblur}
+          disabled={userState.role !== ROLE_MODERATOR}
+          data-testid={UNBLUR_CARDS_BUTTON}
+        >
+          <UnblurIcon style={{ marginRight: 5 }} />
+          Toggle Blur
+        </Button>
+      </Grid>
+    </>
+  );
+}
 
 export default UnblurCardsButton;

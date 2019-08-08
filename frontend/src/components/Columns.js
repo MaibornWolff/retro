@@ -3,19 +3,29 @@ import isEmpty from "lodash/isEmpty";
 
 import Column from "./Column";
 
-const Columns = props => {
-  const { column, itemMap, index, boardId } = props;
+function Columns(props) {
+  const { column, itemMap, index, openSnackbar } = props;
 
-  let items;
-  if (isEmpty(column)) {
-    items = [];
-  } else {
-    items = column.itemIds.map(id => itemMap[id]);
+  function getItems() {
+    let items;
+
+    if (isEmpty(column)) {
+      items = [];
+    } else {
+      items = column.itemIds.map(id => itemMap[id]);
+    }
+
+    return items;
   }
 
   return (
-    <Column column={column} items={items} index={index} boardId={boardId} />
+    <Column
+      column={column}
+      items={getItems()}
+      index={index}
+      openSnackbar={openSnackbar}
+    />
   );
-};
+}
 
 export default Columns;

@@ -1,44 +1,163 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import pull from "lodash/pull";
+import isEqual from "lodash/isEqual";
 import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { Redirect } from "react-router-dom";
 
 import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
-import { socket_connect } from "../utils";
+import VoteCountSnackbar from "./VoteCountSnackbar";
 import { FlexContainer } from "./styled";
-import { UPDATE_BOARD } from "../events/event-names";
-import { emptyBoard } from "../utils/emptyBoard";
+import { BoardContext } from "../context/BoardContext";
+import { UserContext } from "../context/UserContext";
+import { defaultBoard } from "../utils";
+import { ROLE_MODERATOR, ROLE_PARTICIPANT, getUser } from "../utils/userUtils";
 import {
-  onConnect,
-  onCreateBoard,
-  onUpdateBoard,
-  onJoinBoard
-} from "../events/event-listener";
+  CONNECT,
+  UPDATE_BOARD,
+  JOIN_BOARD,
+  JOIN_ERROR,
+  SET_MAX_VOTES,
+  RESET_VOTES,
+  FOCUS_CARD,
+  REMOVE_FOCUS_CARD
+} from "../constants/eventNames";
+import MergeCardsDialog from "./dialogs/MergeCardsDialog";
+import { ALL_COLUMNS } from "../constants/testIds";
 
-class Board extends React.Component {
-  state = { ...emptyBoard };
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  header: {
+    padding: theme.spacing(2)
+  }
+});
 
-  socket = socket_connect(this.props.match.params.boardId);
+// stores the current dragResult of a combine
+let combineResult;
 
-  componentDidMount() {
-    onConnect(this);
-    onCreateBoard(this);
-    onUpdateBoard(this);
-    onJoinBoard(this);
+function Board(props) {
+  const { classes, location } = props;
+  const [board, setBoard] = useState(defaultBoard);
+  const [isSnackbarOpen, setSnackbar] = useState(false);
+  const [isMergeDialogOpen, setMergeDialog] = useState(false);
+  const [merge, setMerge] = useState(false);
+  const { boardId, socket, setFocusedCard, removeFocusedCard } = useContext(
+    BoardContext
+  );
+  const {
+    createModerator,
+    createParticipant,
+    setMaxVote,
+    resetVotes
+  } = useContext(UserContext);
+
+  // set tab name
+  useEffect(() => {
+    document.title = `Retro | ${board.title}`;
+
+    return () => {
+      document.title = "Retro";
+    };
+  }, [board.title]);
+
+  useEffect(() => {
+    // pull state, when navigating back and forth
+    if (isEqual(board, defaultBoard) && props.match.isExact) {
+      socket.emit(JOIN_BOARD, boardId);
+    }
+
+    socket.on(CONNECT, () => {
+      socket.emit(JOIN_BOARD, boardId);
+    });
+
+    socket.on(JOIN_BOARD, boardData => {
+      const { boardId, maxVoteCount } = boardData;
+
+      if (location.state && getUser(boardId) === null) {
+        createModerator(boardId, ROLE_MODERATOR, maxVoteCount);
+      } else if (getUser(boardId) === null) {
+        createParticipant(boardId, ROLE_PARTICIPANT, maxVoteCount);
+      }
+
+      setBoard(boardData);
+    });
+
+    socket.on(JOIN_ERROR, () => {
+      setBoard({ ...board, error: true });
+    });
+
+    socket.on(UPDATE_BOARD, newBoard => {
+      setBoard(newBoard);
+    });
+
+    socket.on(SET_MAX_VOTES, newBoard => {
+      setMaxVote(boardId, newBoard.maxVoteCount);
+      setBoard(newBoard);
+      openSnackbar();
+    });
+
+    socket.on(RESET_VOTES, newBoard => {
+      resetVotes(boardId, newBoard.maxVoteCount);
+      setBoard(newBoard);
+      openSnackbar();
+    });
+
+    socket.on(FOCUS_CARD, focusedCard => {
+      setFocusedCard(focusedCard);
+    });
+
+    socket.on(REMOVE_FOCUS_CARD, () => {
+      removeFocusedCard();
+    });
+
+    return () => {
+      // Pass nothing to remove all listeners on all events.
+      socket.off();
+    };
+
+    // eslint-disable-next-line
+  }, []);
+
+  function openSnackbar() {
+    setSnackbar(true);
   }
 
-  componentWillUnmount() {
-    this.socket.disconnect();
-    this.setState({ ...emptyBoard });
+  function closeSnackbar() {
+    setSnackbar(false);
   }
 
-  onDragEnd = dragResult => {
+  function openMergeDialog() {
+    setMergeDialog(true);
+  }
+
+  function closeMergeDialog() {
+    setMergeDialog(false);
+  }
+
+  function startMerge() {
+    setMerge(true);
+  }
+
+  function stopMerge() {
+    setMerge(false);
+  }
+
+  if (merge) {
+    const { columns, items } = board;
+    handleCombine(items, columns, combineResult);
+  }
+
+  function onDragEnd(dragResult) {
     const { source, destination, type, combine } = dragResult;
-    const { columns, columnOrder, items } = this.state;
+    const { columns, columnOrder } = board;
 
+    // store current dragResult and ask the user if he wants to merge
     if (combine) {
-      this.handleCombine(items, columns, dragResult);
+      combineResult = dragResult;
+      openMergeDialog();
       return;
     }
 
@@ -46,24 +165,24 @@ class Board extends React.Component {
       return;
     }
 
-    if (this.isSamePosition(source, destination)) {
+    if (isSamePosition(source, destination)) {
       return;
     }
 
     if (type === "column") {
-      this.handleColumnDrag(dragResult, columnOrder);
+      handleColumnDrag(dragResult, columnOrder);
       return;
     }
 
-    if (this.isSameColumn(columns, source, destination)) {
-      this.handleInsideColumnDrag(dragResult, columns);
+    if (isSameColumn(columns, source, destination)) {
+      handleInsideColumnDrag(dragResult, columns);
       return;
     }
 
-    this.handleNormalDrag(dragResult, columns);
-  };
+    handleNormalDrag(dragResult, columns);
+  }
 
-  handleCombine(items, columns, dragResult) {
+  function handleCombine(items, columns, dragResult) {
     const { combine, draggableId, source } = dragResult;
 
     // get all related objects of the context of combine
@@ -91,35 +210,36 @@ class Board extends React.Component {
       itemIds: newItemIds
     };
 
-    const newState = {
-      ...this.state,
+    const newBoard = {
+      ...board,
       columns: {
         ...columns,
         [newColumn.id]: newColumn
       }
     };
 
-    this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
+    stopMerge();
+    setBoard(newBoard);
+    socket.emit(UPDATE_BOARD, newBoard, boardId);
   }
 
-  handleColumnDrag(dragResult, columnOrder) {
+  function handleColumnDrag(dragResult, columnOrder) {
     const { source, destination, draggableId } = dragResult;
     const newColumnOrder = Array.from(columnOrder);
 
     newColumnOrder.splice(source.index, 1);
     newColumnOrder.splice(destination.index, 0, draggableId);
 
-    const newState = {
-      ...this.state,
+    const newBoard = {
+      ...board,
       columnOrder: newColumnOrder
     };
 
-    this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
+    setBoard(newBoard);
+    socket.emit(UPDATE_BOARD, newBoard, boardId);
   }
 
-  handleInsideColumnDrag(dragResult, columns) {
+  function handleInsideColumnDrag(dragResult, columns) {
     const { source, destination, draggableId } = dragResult;
 
     const startColumn = columns[source.droppableId];
@@ -129,19 +249,19 @@ class Board extends React.Component {
     newItemIds.splice(destination.index, 0, draggableId);
 
     const newCol = { ...startColumn, itemIds: newItemIds };
-    const newState = {
-      ...this.state,
+    const newBoard = {
+      ...board,
       columns: {
         ...columns,
         [newCol.id]: newCol
       }
     };
 
-    this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
+    setBoard(newBoard);
+    socket.emit(UPDATE_BOARD, newBoard, boardId);
   }
 
-  handleNormalDrag(dragResult, columns) {
+  function handleNormalDrag(dragResult, columns) {
     const { source, destination, draggableId } = dragResult;
 
     const startColumn = columns[source.droppableId];
@@ -163,8 +283,8 @@ class Board extends React.Component {
       itemIds: destinationItems
     };
 
-    const newState = {
-      ...this.state,
+    const newBoard = {
+      ...board,
       columns: {
         ...columns,
         [newStartColumn.id]: newStartColumn,
@@ -172,23 +292,23 @@ class Board extends React.Component {
       }
     };
 
-    this.setState(newState);
-    this.socket.emit(UPDATE_BOARD, newState, this.props.match.params.boardId);
+    setBoard(newBoard);
+    socket.emit(UPDATE_BOARD, newBoard, boardId);
   }
 
-  isSamePosition(source, destination) {
+  function isSamePosition(source, destination) {
     return (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     );
   }
 
-  isSameColumn(columns, source, destination) {
+  function isSameColumn(columns, source, destination) {
     return columns[source.droppableId] === columns[destination.droppableId];
   }
 
-  renderBoard(columns, items, boardId) {
-    return this.state.columnOrder.map((columnId, index) => {
+  function renderBoard(columns, items) {
+    return board.columnOrder.map((columnId, index) => {
       const column = columns[columnId];
       return (
         <Columns
@@ -196,55 +316,57 @@ class Board extends React.Component {
           column={column}
           itemMap={items}
           index={index}
-          boardId={boardId}
+          openSnackbar={openSnackbar}
         />
       );
     });
   }
 
-  render() {
-    const { columns, items, title } = this.state;
-    const { classes } = this.props;
-    const { boardId } = this.props.match.params;
+  if (board.error) {
+    return <Redirect to={"/error"} />;
+  }
 
-    return (
-      <Grid container className={classes.root} direction="column">
-        <Grid item xs={12}>
-          <Grid container className={classes.header} direction="row">
-            <BoardHeader title={title} boardId={boardId} />
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable
-              droppableId="allColumns"
-              direction="horizontal"
-              type="column"
-            >
-              {provided => (
-                <FlexContainer
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {this.renderBoard(columns, items, boardId)}
-                  {provided.placeholder}
-                </FlexContainer>
-              )}
-            </Droppable>
-          </DragDropContext>
+  return (
+    <Grid container className={classes.root} direction="column">
+      <Grid item xs={12}>
+        <Grid container className={classes.header} direction="row">
+          <BoardHeader title={board.title} />
         </Grid>
       </Grid>
-    );
-  }
+      <Grid item xs={12}>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable
+            droppableId="allColumns"
+            direction="horizontal"
+            type="column"
+          >
+            {provided => (
+              <FlexContainer
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                data-testid={ALL_COLUMNS}
+              >
+                {renderBoard(board.columns, board.items)}
+                {provided.placeholder}
+              </FlexContainer>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </Grid>
+      <VoteCountSnackbar
+        id="vote-count-snackbar"
+        open={isSnackbarOpen}
+        handleClose={closeSnackbar}
+        autoHideDuration={1000}
+      />
+      <MergeCardsDialog
+        open={isMergeDialogOpen}
+        closeDialog={closeMergeDialog}
+        startMerge={startMerge}
+        stopMerge={stopMerge}
+      />
+    </Grid>
+  );
 }
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
-  header: {
-    padding: theme.spacing.unit * 2
-  }
-});
 
 export default withStyles(styles)(Board);

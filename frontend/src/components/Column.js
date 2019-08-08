@@ -1,21 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import { Typography, Grid, withStyles } from "@material-ui/core";
 
 import Items from "./Items";
-import CreateItemDialog from "./dialogs/CreateItemDialog";
-import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
-import EditColumnNameDialog from "./dialogs/EditColumnNameDialog";
-import SortColumnButton from "./buttons/SortColumnButton";
+import ColumnHeader from "./ColumnHeader";
 import { ColumnContainer, ItemsContainerStyles } from "./styled";
+import { COLUMN_CONTAINER, COLUMN_ITEMS_CONTAINER } from "../constants/testIds";
 
 const ItemsContainer = styled.div`
   ${ItemsContainerStyles};
 `;
 
-const Column = props => {
-  const { classes, column, items, index, boardId } = props;
+function Column(props) {
+  const { column, items, index, openSnackbar } = props;
 
   return (
     <Draggable draggableId={column.id} index={index}>
@@ -24,35 +21,13 @@ const Column = props => {
           {...providedDraggable.draggableProps}
           {...providedDraggable.dragHandleProps}
           ref={providedDraggable.innerRef}
+          data-testid={COLUMN_CONTAINER + `__${column.columnTitle}`}
         >
-          <Grid
-            className={classes.header}
-            container
-            direction="row"
-            justify="space-between"
-          >
-            <Grid item>
-              <Typography className={classes.header} variant="h6">
-                {column.columnTitle}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <CreateItemDialog columnId={column.id} boardId={boardId} />
-              <DeleteColumnDialog columnId={column.id} boardId={boardId} />
-              <EditColumnNameDialog
-                columnId={column.id}
-                boardId={boardId}
-                columnTitle={column.columnTitle}
-              />
-              <SortColumnButton
-                columnId={column.id}
-                boardId={boardId}
-                items={items}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid container direction="column" />
+          <ColumnHeader
+            columnTitle={column.columnTitle}
+            columnId={column.id}
+            items={items}
+          />
 
           <Droppable
             droppableId={column.id}
@@ -64,8 +39,9 @@ const Column = props => {
                 ref={providedDroppable.innerRef}
                 {...providedDroppable.droppableProps}
                 isDraggingOver={snapshot.isDraggingOver}
+                data-testid={COLUMN_ITEMS_CONTAINER + `__${column.columnTitle}`}
               >
-                <Items items={items} boardId={boardId} />
+                <Items items={items} openSnackbar={openSnackbar} />
                 {providedDroppable.placeholder}
               </ItemsContainer>
             )}
@@ -74,14 +50,6 @@ const Column = props => {
       )}
     </Draggable>
   );
-};
+}
 
-const styles = theme => ({
-  header: {
-    padding: theme.spacing.unit,
-    backgroundColor: "#44777e",
-    color: "#fff"
-  }
-});
-
-export default withStyles(styles)(Column);
+export default Column;

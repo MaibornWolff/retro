@@ -11,14 +11,13 @@ const ioOptions = {
   reconnection: false
 };
 const {
-  CREATE_BOARD,
   CREATE_COLUMN,
   UPDATE_BOARD,
   CREATE_CARD,
   JOIN_BOARD,
   DELETE_CARD,
   DELETE_COLUMN,
-  UPVOTE_CARD,
+  VOTE_CARD,
   UNBLUR_CARDS,
   EDIT_CARD
 } = require("../events/event-names");
@@ -54,11 +53,18 @@ describe("Backend Tests", () => {
   });
 
   it("should create a board", done => {
-    sender.emit(CREATE_BOARD, testBoard, boardId);
-    receiver.on(CREATE_BOARD, board => {
-      expect(board).to.deep.equal(testBoard);
-      done();
-    });
+    request(server)
+      .post("/")
+      .send(testBoard)
+      .expect(200)
+      .end(async error => {
+        if (error) return done(error);
+
+        await fs.readFile(getPath(boardId), "utf-8", fsError => {
+          if (fsError) return done(error);
+          done();
+        });
+      });
   });
 
   it("should join a board", done => {
@@ -116,7 +122,7 @@ describe("Backend Tests", () => {
   });
 
   it("should upvote an item", done => {
-    sender.emit(UPVOTE_CARD, cardId, boardId, 1);
+    sender.emit(VOTE_CARD, cardId, boardId, true);
     receiver.on(UPDATE_BOARD, board => {
       const cardPoints = board.items[cardId].points;
       expect(cardPoints).to.not.equal(0);

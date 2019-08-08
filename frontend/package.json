@@ -1,46 +1,88 @@
 {
-  "name": "retro",
-  "version": "0.1.0",
+  "name": "@retro/frontend",
+  "description": "The React frontend of Retro. Make retrospectives great again.",
+  "homepage": "https://github.com/yduman/retro",
+  "author": {
+    "name": "Yadullah Duman",
+    "url": "https://yduman.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/yduman/retro/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yduman/retro.git",
+    "directory": "frontend/"
+  },
+  "license": "MIT",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:prod": "env-cmd .env.production.local yarn build",
-    "deployFrontend": "cp -a build/. ../backend/public/",
-    "deploy": "yarn build:prod && yarn deployFrontend",
+    "build:prod": "env-cmd -f .env.production.local yarn build",
+    "deploy:frontend": "cp -a build/. ../backend/public/",
+    "deploy": "run-s -l -n build:prod deploy:frontend",
     "test": "react-scripts test --env=jsdom",
+    "test:cov": "react-scripts test --env=jsdom --coverage --watchAll=false",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "lint:cypress": "eslint \"cypress/**/*.js\" --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
+    "format:cypress": "prettier --write \"cypress/**/*.{js}\"",
     "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\"",
+    "cy:open": "cypress open",
+    "test:e2e": "cypress run",
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@material-ui/core": "^3.9.2",
-    "@material-ui/icons": "^3.0.2",
-    "lodash": "^4.17.11",
-    "react": "^16.8.5",
-    "react-beautiful-dnd": "^10.1.1",
-    "react-dom": "^16.8.5",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8",
+    "@material-ui/core": "^4.3.1",
+    "@material-ui/icons": "^4.2.1",
+    "http-proxy-middleware": "^0.19.1",
+    "lodash": "^4.17.15",
+    "nanoid": "^2.0.3",
+    "qrcode": "^1.4.1",
+    "react": "^16.8.6",
+    "react-beautiful-dnd": "^11.0.5",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
     "recompose": "^0.30.0",
     "socket.io-client": "^2.2.0",
-    "styled-components": "^4.2.0",
-    "uniqid": "^5.0.3"
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "env-cmd": "^8.0.2",
-    "eslint": "^5.15.3",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
-    "jest-dom": "^3.1.3",
-    "prettier": "^1.16.4",
-    "react-testing-library": "^6.0.3"
+    "babel-eslint": "^10.0.2",
+    "cypress": "^3.4.1",
+    "env-cmd": "^9.0.3",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-cypress": "^2.6.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "husky": "^3.0.2",
+    "lint-staged": "^9.2.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2"
   },
-  "proxy": "http://localhost:8081",
+  "proxy": "http://localhost:3001",
+  "lint-staged": {
+    "src/**/*.{js,jsx,css,json}": [
+      "yarn lint",
+      "yarn format",
+      "git add ."
+    ],
+    "cypress/**/*.js": [
+      "yarn lint:cypress",
+      "yarn format:cypress",
+      "git add ."
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "browserslist": [
     ">0.2%",
     "not dead",

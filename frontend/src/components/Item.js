@@ -4,11 +4,12 @@ import { Draggable } from "react-beautiful-dnd";
 import RetroItem from "./RetroItem";
 import { ItemContainer } from "./styled";
 
-const Item = props => {
-  const { item, index, boardId } = props;
+function Item(props) {
+  const { item, index, openSnackbar, isVoted } = props;
+  const { id, author, content, points, isBlurred } = item;
 
   return (
-    <Draggable draggableId={item.id} index={index}>
+    <Draggable draggableId={id} index={index}>
       {(provided, snapshot) => (
         <ItemContainer
           {...provided.draggableProps}
@@ -17,17 +18,18 @@ const Item = props => {
           isDragging={snapshot.isDragging}
         >
           <RetroItem
-            id={item.id}
-            author={item.author}
-            content={item.content}
-            points={item.points}
-            isBlurred={item.isBlurred}
-            boardId={boardId}
+            id={id}
+            author={author}
+            content={content}
+            points={points}
+            isBlurred={isBlurred}
+            isVoted={isVoted}
+            openSnackbar={openSnackbar}
           />
         </ItemContainer>
       )}
     </Draggable>
   );
-};
+}
 
 export default Item;

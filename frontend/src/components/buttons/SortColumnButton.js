@@ -1,26 +1,34 @@
-import React from "react";
-import { IconButton, Tooltip } from "@material-ui/core";
+import React, { useContext } from "react";
 import SortIcon from "@material-ui/icons/Sort";
+import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
-import { socket_connect } from "../../utils";
-import { SORT_COLUMN } from "../../events/event-names";
+import { BoardContext } from "../../context/BoardContext";
+import { SORT_COLUMN } from "../../constants/eventNames";
+import { SORT_COLUMN_BUTTON } from "../../constants/testIds";
 
-const onSort = (columnId, items, boardId) => {
-  const socket = socket_connect(boardId);
-  socket.emit(SORT_COLUMN, columnId, items, boardId);
-};
+const SortColumnButton = React.forwardRef((props, ref) => {
+  const { columnId, items } = props;
+  const { boardId, socket } = useContext(BoardContext);
 
-const SortColumnButton = props => (
-  <>
-    <Tooltip title="Sort Descending" aria-label="Sort Descending">
-      <IconButton
-        color="inherit"
-        onClick={() => onSort(props.columnId, props.items, props.boardId)}
+  function sort() {
+    socket.emit(SORT_COLUMN, columnId, items, boardId);
+  }
+
+  return (
+    <>
+      <MenuItem
+        button
+        ref={ref}
+        onClick={sort}
+        data-testid={SORT_COLUMN_BUTTON}
       >
-        <SortIcon fontSize="small" />
-      </IconButton>
-    </Tooltip>
-  </>
-);
+        <ListItemIcon>
+          <SortIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText inset primary="Sort Column" />
+      </MenuItem>
+    </>
+  );
+});
 
 export default SortColumnButton;
