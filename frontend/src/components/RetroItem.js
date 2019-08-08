@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import {
   Avatar,
@@ -61,6 +61,7 @@ function RetroItem(props) {
     openSnackbar,
     classes
   } = props;
+  const [hasMouseFocus, setMouseFocus] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);
   const { userState, downvoteCard } = useContext(UserContext);
 
@@ -71,65 +72,80 @@ function RetroItem(props) {
     openSnackbar();
   }
 
-  function handleFocus(isFocus) {
+  // keycode for "f" is 102
+  // keycode for "F" is 70
+  function handleFocus(e) {
     const role = userState.role;
 
     if (role === ROLE_MODERATOR) {
-      if (isFocus) {
+      if (hasMouseFocus && e.keyCode === 102) {
         socket.emit(FOCUS_CARD, id);
-      } else if (boardState.focusedCard !== "") {
+      } else if (
+        e.shiftKey &&
+        e.keyCode === 70 &&
+        boardState.focusedCard !== ""
+      ) {
         socket.emit(REMOVE_FOCUS_CARD);
       }
     }
   }
 
+  function handleHover(e, isFocused) {
+    setMouseFocus(isFocused);
+  }
+
+  useEffect(() => {
+    document.addEventListener("keypress", handleFocus);
+    return () => {
+      document.removeEventListener("keypress", handleFocus);
+    };
+  });
+
   return (
     <CardWrapper isBlurred={isBlurred}>
       <CardContainer data-testid={CARD_CONTAINER}>
         <Card
+          onMouseEnter={e => handleHover(e, true)}
+          onMouseLeave={e => handleHover(e, false)}
+          tabIndex="0"
           className={
             boardState.focusedCard === id ? classes.cardFocused : classes.card
           }
           raised
         >
-          <div
-            onAuxClick={() => handleFocus(false)}
-            onDoubleClick={() => handleFocus(true)}
-          >
-            <CardHeader
-              avatar={
-                <Avatar
-                  className={isVoted ? classes.avatarVoted : classes.avatar}
-                  aria-label="number of votes"
-                >
-                  {points}
-                </Avatar>
-              }
-              title={
-                <Typography variant="body2" component={"span"}>
-                  <CardAuthor>{author}</CardAuthor>
-                </Typography>
-              }
-              action={
-                isVoted ? (
-                  <IconButton color="primary" onClick={downVote}>
-                    <ThumbDownIcon fontSize="small" />
-                  </IconButton>
-                ) : null
-              }
-            />
-            <Divider />
-            <CardContent>
-              <Typography
-                variant="body2"
-                className={classes.contentBody}
-                component={"span"}
+          <CardHeader
+            avatar={
+              <Avatar
+                className={isVoted ? classes.avatarVoted : classes.avatar}
+                aria-label="number of votes"
               >
-                <CardText>{content}</CardText>
+                {points}
+              </Avatar>
+            }
+            title={
+              <Typography variant="body2" component={"span"}>
+                <CardAuthor>{author}</CardAuthor>
               </Typography>
-            </CardContent>
-            <Divider />
-          </div>
+            }
+            action={
+              isVoted ? (
+                <IconButton color="primary" onClick={downVote}>
+                  <ThumbDownIcon fontSize="small" />
+                </IconButton>
+              ) : null
+            }
+          />
+          <Divider />
+          <CardContent>
+            <Typography
+              variant="body2"
+              className={classes.contentBody}
+              component={"span"}
+            >
+              <CardText>{content}</CardText>
+            </Typography>
+          </CardContent>
+          <Divider />
           <CardActions className={classes.actions}>
             <DeleteItemDialog id={id} />
             <EditItemDialog id={id} author={author} content={content} />

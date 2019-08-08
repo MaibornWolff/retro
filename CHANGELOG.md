@@ -42,7 +42,7 @@
 - **Preventing unwanted card merges**
   - Sometimes when I was dragging cards around I merged them by accident. To prevent this, we're now prompting the user if it really wants to merge or not.
 - **Highlight the card that is currently talked about**
-  - The moderator can now highlight the card that the team is currently talking about. This is handy if you are for example in a video conference. The moderator can highlight a card by double-clicking it, which will make the border of the card red. The moderator can remove the highlighting by middle-clicking the card.
+  - The moderator can now highlight the card that the team is currently talking about. This is handy if you are for example in a video conference. The moderator can highlight a card by hovering over a card and pressing the `F` key, which will make the border of the card red. The moderator can remove the highlighting by hovering over a card and pressing `Shift + F`.
 - **E2E Tests**
   - I replaced `testing-library/react` with `cypress`. The reason was that I didn't wanted to test each of my components on its own. I rather wanted something like scenario testing and Cypress really suits well for this case.
 - **husky & lint-staged**
