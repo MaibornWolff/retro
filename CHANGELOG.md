@@ -66,6 +66,7 @@
 - `LoadBoardDialog` validation should not result in a `SyntaxError` anymore
 - All invalid URLs will now be redirected to a 404 page
 - The client-side `CONNECT` socket-event shouldn't cause a re-render anymore
+- Persistent state now on the Board-Page
 
 ## [0.2.1] - 2019-03-29
 
