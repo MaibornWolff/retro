@@ -47,6 +47,13 @@
   - I replaced `testing-library/react` with `cypress`. The reason was that I didn't wanted to test each of my components on its own. I rather wanted something like scenario testing and Cypress really suits well for this case.
 - **husky & lint-staged**
   - These both libraries are executing formatting, linting and testing of code before commit and push
+- **LocalStorage**
+  - We're using the LocalStorage to store important data. In the future, this will be removed, since we'll add a database.
+  - We store it the following way
+    - Key: Board ID
+    - Value: `{maxVoteCount: number, name: string, role: string, votedItems: Array<string>, votesLeft: number}`
+  - The original idea of Retro was to use the app for a single session, that is why we're currently not using a DB for instance. Now we get feature requests that will need a DB and we could realize some of the features for now by adding the LocalStorage layer.
+  - **Dealing with moderator**: If your moderator is somehow missing and you want to swap the role of someone, then please change the `role` field from `participant` to `moderator`.
 
 ### Changed
 
