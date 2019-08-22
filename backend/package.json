@@ -16,7 +16,7 @@
   },
   "main": "src/index.js",
   "license": "MIT",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "start": "nodemon ./src/server.js",
