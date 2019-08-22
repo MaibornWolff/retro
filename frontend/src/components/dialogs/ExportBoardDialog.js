@@ -46,7 +46,7 @@ function ExportBoardDialog(props) {
         disabled={userState.role !== ROLE_MODERATOR}
       >
         <ExportIcon style={{ marginRight: 5 }} />
-        Export Board
+        Export
       </Button>
       <Dialog
         fullScreen={fullScreen}
