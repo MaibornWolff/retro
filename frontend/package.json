@@ -1,7 +1,6 @@
 {
   "name": "@retro/frontend",
   "description": "The React frontend of Retro. Make retrospectives great again.",
-  "homepage": "https://github.com/yduman/retro",
   "author": {
     "name": "Yadullah Duman",
     "url": "https://yduman.github.io"
@@ -35,17 +34,17 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@material-ui/core": "^4.3.1",
+    "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
     "http-proxy-middleware": "^0.19.1",
     "lodash": "^4.17.15",
     "nanoid": "^2.0.3",
     "qrcode": "^1.4.1",
-    "react": "^16.8.6",
+    "react": "^16.9.0",
     "react-beautiful-dnd": "^11.0.5",
-    "react-dom": "^16.8.6",
+    "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "3.1.1",
     "recompose": "^0.30.0",
     "socket.io-client": "^2.2.0",
     "styled-components": "^4.3.2"
@@ -54,14 +53,14 @@
     "babel-eslint": "^10.0.2",
     "cypress": "^3.4.1",
     "env-cmd": "^9.0.3",
-    "eslint": "^6.1.0",
-    "eslint-config-prettier": "^6.0.0",
+    "eslint": "^6.2.1",
+    "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-cypress": "^2.6.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
-    "husky": "^3.0.2",
-    "lint-staged": "^9.2.1",
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2"
   },
@@ -83,10 +82,19 @@
       "pre-commit": "lint-staged"
     }
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
