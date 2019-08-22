@@ -36,7 +36,10 @@ The board data lives currently inside `backend/storage`. All boards have an uniq
 - Install PM2 on your server with `npm i -g pm2`
 - Clone the project (master branch) on your server
 - Install the dependencies by running `yarn` on both projects
-- Check if the proxy settings are correct in the Frontend project
+- Check if the proxy settings are correct
+  - Check `backend/src/config/config.js`
+  - Check proxy field on `frontend/package.json`
+  - Check backend path on `frontend/src/utils/index.js`
 - Provide an `.env.production.local` file and put it inside of `frontend`
     ```
     # Example
