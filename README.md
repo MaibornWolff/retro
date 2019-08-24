@@ -5,6 +5,8 @@
 
 Retro is a tool that you can use for your retrospectives. The goal of Retro is to aid teams in remote retrospectives.
 
+![demo](./assets/retro-demo.png)
+
 ## Intent
 
 At work, we were using third party retrospective tools, which meant we couldn't express ourselves freely because of privacy reasons. Retro provides an open-source solution, where you can host the app on your own servers, so you can discuss freely again, since you own the data!
