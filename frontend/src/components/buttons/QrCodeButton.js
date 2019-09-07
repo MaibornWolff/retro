@@ -13,7 +13,7 @@ import {
 
 import { QR_CODE_BUTTON } from "../../constants/testIds";
 
-function QrCodeDialog(props) {
+function QrCodeButton(props) {
   const { fullScreen } = props;
   const [open, setOpen] = useState(false);
   const qrCanvas = useRef();
@@ -31,7 +31,7 @@ function QrCodeDialog(props) {
   }
 
   return (
-    <>
+    <div>
       <Button
         size="small"
         variant="outlined"
@@ -39,6 +39,7 @@ function QrCodeDialog(props) {
         color="primary"
         onClick={openDialog}
         data-testid={QR_CODE_BUTTON}
+        fullWidth
       >
         <PhotoCameraIcon style={{ marginRight: 5 }} />
         QR Code
@@ -63,8 +64,8 @@ function QrCodeDialog(props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </div>
   );
 }
 
-export default withMobileDialog()(QrCodeDialog);
+export default withMobileDialog()(QrCodeButton);

@@ -5,17 +5,10 @@ import NameInput from "./NameInput";
 import CreateColumnButton from "./buttons/CreateColumnButton";
 import UnblurCardsButton from "./buttons/UnblurCardsButton";
 import ExportBoardButton from "./buttons/ExportBoardButton";
-import ShowQrCodeButton from "./buttons/ShowQrCodeButton";
+import QrCodeButton from "./buttons/QrCodeButton";
 import VoteCountButton from "./buttons/VoteCountButton";
 
 const styles = theme => ({
-  button: {
-    marginTop: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    "& button": {
-      width: "100%"
-    }
-  },
   buttonGroup: {
     marginTop: theme.spacing(1)
   }
@@ -42,24 +35,23 @@ function BoardHeader(props) {
       <Grid
         container
         direction="row"
-        justify="space-around"
-        alignItems="center"
+        spacing={1}
         className={classes.buttonGroup}
       >
         <Grid item xs={12} sm={2}>
-          <CreateColumnButton className={classes.button} />
+          <CreateColumnButton />
         </Grid>
         <Grid item xs={12} sm={2}>
-          <UnblurCardsButton className={classes.button} />
+          <UnblurCardsButton />
         </Grid>
         <Grid item xs={12} sm={2}>
-          <ExportBoardButton className={classes.button} />
+          <ExportBoardButton />
         </Grid>
         <Grid item xs={12} sm={2}>
-          <VoteCountButton className={classes.button} />
+          <VoteCountButton />
         </Grid>
         <Grid item xs={12} sm={2}>
-          <ShowQrCodeButton className={classes.button} />
+          <QrCodeButton />
         </Grid>
         <Grid item xs={12} sm={2} />
       </Grid>

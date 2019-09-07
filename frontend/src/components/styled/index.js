@@ -99,7 +99,3 @@ export const ItemsContainerStyles = css`
   background-color: ${p => (p.isDraggingOver ? "#dcdcdc" : "inherit")};
   transition: background-color 0.2s ease;
 `;
-
-export const ButtonStyles = css`
-  box-shadow: 0 4px 4px -2px grey !important;
-`;
