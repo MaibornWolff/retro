@@ -165,14 +165,8 @@ function Board(props) {
       return;
     }
 
-    if (!destination) {
-      return;
-    }
-
-    if (isSamePosition(source, destination)) {
-      return;
-    }
-
+    if (!destination) return;
+    if (isSamePosition(source, destination)) return;
     if (type === "column") {
       handleColumnDrag(board, dragResult, setBoard, socket);
       return;
@@ -186,8 +180,9 @@ function Board(props) {
     handleNormalDrag(board, dragResult, setBoard, socket);
   }
 
-  function renderBoard(columns, items) {
-    return board.columnOrder.map((columnId, index) => {
+  function renderBoard(board) {
+    const { columns, items, columnOrder } = board;
+    return columnOrder.map((columnId, index) => {
       const column = columns[columnId];
       return (
         <Columns
@@ -223,7 +218,7 @@ function Board(props) {
                 ref={provided.innerRef}
                 data-testid={ALL_COLUMNS}
               >
-                {renderBoard(board.columns, board.items)}
+                {renderBoard(board)}
                 {provided.placeholder}
               </FlexContainer>
             )}
