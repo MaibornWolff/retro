@@ -328,10 +328,8 @@ function Board(props) {
 
   return (
     <Grid container className={classes.root} direction="column">
-      <Grid item xs={12}>
-        <Grid container className={classes.header} direction="row">
-          <BoardHeader title={board.title} />
-        </Grid>
+      <Grid container className={classes.header} direction="row">
+        <BoardHeader title={board.title} />
       </Grid>
       <Grid item xs={12}>
         <DragDropContext onDragEnd={onDragEnd}>

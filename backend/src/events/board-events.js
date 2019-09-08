@@ -13,8 +13,8 @@ const {
 const UTF8 = "utf8";
 
 const joinBoard = (io, client) => {
-  client.on(JOIN_BOARD, async boardId => {
-    await fs.readFile(getPath(boardId), UTF8, (error, file) => {
+  client.on(JOIN_BOARD, boardId => {
+    fs.readFile(getPath(boardId), UTF8, (error, file) => {
       if (error) {
         client.emit(JOIN_ERROR);
       } else {
@@ -25,8 +25,8 @@ const joinBoard = (io, client) => {
 };
 
 const updateBoard = (io, client, roomId) => {
-  client.on(UPDATE_BOARD, async (board, boardId) => {
-    await fs.writeFile(getPath(boardId), stringify(board), UTF8, error => {
+  client.on(UPDATE_BOARD, (board, boardId) => {
+    fs.writeFile(getPath(boardId), stringify(board), UTF8, error => {
       if (error) logError(UPDATE_BOARD, error);
       io.to(roomId).emit(UPDATE_BOARD, board);
     });
@@ -34,9 +34,9 @@ const updateBoard = (io, client, roomId) => {
 };
 
 const unblurCards = (io, client, roomId) => {
-  client.on(UNBLUR_CARDS, async boardId => {
+  client.on(UNBLUR_CARDS, boardId => {
     const path = getPath(boardId);
-    await fs.readFile(path, UTF8, async (error, file) => {
+    fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(UNBLUR_CARDS, error);
 
       const board = getBoard(file);
@@ -46,7 +46,7 @@ const unblurCards = (io, client, roomId) => {
         board.items[cardId].isBlurred = board.isBlurred;
       }
 
-      await fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(UNBLUR_CARDS, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -55,20 +55,20 @@ const unblurCards = (io, client, roomId) => {
 };
 
 const setMaxVotes = (io, client, roomId) => {
-  client.on(SET_MAX_VOTES, async (voteCount, boardId) => {
+  client.on(SET_MAX_VOTES, (voteCount, boardId) => {
     const path = getPath(boardId);
 
-    await fs.readFile(path, UTF8, async (error, file) => {
+    fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(SET_MAX_VOTES, error);
 
       const board = getBoard(file);
-
       board.maxVoteCount = voteCount;
+
       for (let cardId in board.items) {
         board.items[cardId].points = 0;
       }
 
-      await fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(SET_MAX_VOTES, error);
         io.to(roomId).emit(SET_MAX_VOTES, board);
       });
@@ -77,19 +77,18 @@ const setMaxVotes = (io, client, roomId) => {
 };
 
 const resetVotes = (io, client, roomId) => {
-  client.on(RESET_VOTES, async boardId => {
+  client.on(RESET_VOTES, boardId => {
     const path = getPath(boardId);
 
-    await fs.readFile(path, UTF8, async (error, file) => {
+    fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(RESET_VOTES, error);
-
       const board = getBoard(file);
 
       for (let cardId in board.items) {
         board.items[cardId].points = 0;
       }
 
-      await fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(RESET_VOTES, error);
         io.to(roomId).emit(RESET_VOTES, board);
       });

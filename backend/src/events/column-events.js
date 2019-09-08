@@ -14,16 +14,16 @@ const {
 const UTF8 = "utf8";
 
 const createColumn = (io, client, roomId) => {
-  client.on(CREATE_COLUMN, async (column, boardId) => {
+  client.on(CREATE_COLUMN, (column, boardId) => {
     const path = getPath(boardId);
-    await fs.readFile(path, UTF8, async (error, file) => {
+    fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(CREATE_COLUMN, error);
-
       const board = getBoard(file);
+
       board.columns[column.id] = column;
       board.columnOrder.push(column.id);
 
-      await fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(CREATE_COLUMN, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -32,18 +32,19 @@ const createColumn = (io, client, roomId) => {
 };
 
 const deleteColumn = (io, client, roomId) => {
-  client.on(DELETE_COLUMN, async (columnId, boardId) => {
+  client.on(DELETE_COLUMN, (columnId, boardId) => {
     const path = getPath(boardId);
-    await fs.readFile(path, UTF8, async (error, file) => {
+    fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(DELETE_COLUMN, error);
-
       const board = getBoard(file);
+
       const itemsToRemove = board.columns[columnId].itemIds;
       itemsToRemove.forEach(itemId => unset(board.items, itemId));
+
       pull(board.columnOrder, columnId);
       unset(board.columns, columnId);
 
-      await fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(DELETE_COLUMN, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -52,18 +53,19 @@ const deleteColumn = (io, client, roomId) => {
 };
 
 const sortColumn = (io, client, roomId) => {
-  client.on(SORT_COLUMN, async (columnId, columnItems, boardId) => {
+  client.on(SORT_COLUMN, (columnId, columnItems, boardId) => {
     const path = getPath(boardId);
-    await fs.readFile(path, UTF8, async (error, file) => {
+    fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(SORT_COLUMN, error);
-
       const board = getBoard(file);
+
       const sortedItemIds = [];
       const sortedItems = orderBy(columnItems, "points", "desc");
+
       sortedItems.forEach(item => sortedItemIds.push(item.id));
       board.columns[columnId].itemIds = sortedItemIds;
 
-      await fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(SORT_COLUMN, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -72,16 +74,16 @@ const sortColumn = (io, client, roomId) => {
 };
 
 const editColumn = (io, client, roomId) => {
-  client.on(EDIT_COLUMN, async (columnId, boardId, newTitle) => {
+  client.on(EDIT_COLUMN, (columnId, boardId, newTitle) => {
     const path = getPath(boardId);
-    await fs.readFile(path, UTF8, async (error, file) => {
+    fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(EDIT_COLUMN, error);
-
       const board = getBoard(file);
+
       const column = board.columns[columnId];
       column.columnTitle = newTitle;
 
-      await fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(EDIT_COLUMN, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
