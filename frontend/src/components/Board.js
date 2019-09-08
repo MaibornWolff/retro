@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import pull from "lodash/pull";
 import isEqual from "lodash/isEqual";
 import { Grid, withStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
@@ -11,8 +10,14 @@ import VoteCountSnackbar from "./VoteCountSnackbar";
 import { FlexContainer } from "./styled";
 import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
-import { defaultBoard } from "../utils";
+import { defaultBoard, isSameColumn, isSamePosition } from "../utils";
 import { ROLE_MODERATOR, ROLE_PARTICIPANT, getUser } from "../utils/userUtils";
+import {
+  handleCombine,
+  handleColumnDrag,
+  handleInsideColumnDrag,
+  handleNormalDrag
+} from "../utils/dndHandler";
 import {
   CONNECT,
   UPDATE_BOARD,
@@ -146,13 +151,12 @@ function Board(props) {
   }
 
   if (merge) {
-    const { columns, items } = board;
-    handleCombine(items, columns, combineResult);
+    handleCombine(board, combineResult, stopMerge, setBoard, socket);
   }
 
   function onDragEnd(dragResult) {
     const { source, destination, type, combine } = dragResult;
-    const { columns, columnOrder } = board;
+    const { columns } = board;
 
     // store current dragResult and ask the user if he wants to merge
     if (combine) {
@@ -170,141 +174,16 @@ function Board(props) {
     }
 
     if (type === "column") {
-      handleColumnDrag(dragResult, columnOrder);
+      handleColumnDrag(board, dragResult, setBoard, socket);
       return;
     }
 
     if (isSameColumn(columns, source, destination)) {
-      handleInsideColumnDrag(dragResult, columns);
+      handleInsideColumnDrag(board, dragResult, setBoard, socket);
       return;
     }
 
-    handleNormalDrag(dragResult, columns);
-  }
-
-  function handleCombine(items, columns, dragResult) {
-    const { combine, draggableId, source } = dragResult;
-
-    // get all related objects of the context of combine
-    const itemToCombine = items[combine.draggableId];
-    const itemToCombineWith = items[draggableId];
-    const itemToCombineWithColumn = columns[source.droppableId];
-
-    // extract the item content
-    const originalContent = itemToCombine.content;
-    const contentToMerge = itemToCombineWith.content;
-
-    // combine the content
-    const newContent = `${originalContent}\n===\n${contentToMerge}`;
-    itemToCombine.content = newContent;
-
-    // remove the merged item
-    const newItemIds = pull(
-      itemToCombineWithColumn.itemIds,
-      itemToCombineWith.id
-    );
-
-    // update state
-    const newColumn = {
-      ...itemToCombineWithColumn,
-      itemIds: newItemIds
-    };
-
-    const newBoard = {
-      ...board,
-      columns: {
-        ...columns,
-        [newColumn.id]: newColumn
-      }
-    };
-
-    stopMerge();
-    setBoard(newBoard);
-    socket.emit(UPDATE_BOARD, newBoard, boardId);
-  }
-
-  function handleColumnDrag(dragResult, columnOrder) {
-    const { source, destination, draggableId } = dragResult;
-    const newColumnOrder = Array.from(columnOrder);
-
-    newColumnOrder.splice(source.index, 1);
-    newColumnOrder.splice(destination.index, 0, draggableId);
-
-    const newBoard = {
-      ...board,
-      columnOrder: newColumnOrder
-    };
-
-    setBoard(newBoard);
-    socket.emit(UPDATE_BOARD, newBoard, boardId);
-  }
-
-  function handleInsideColumnDrag(dragResult, columns) {
-    const { source, destination, draggableId } = dragResult;
-
-    const startColumn = columns[source.droppableId];
-    const newItemIds = Array.from(startColumn.itemIds);
-
-    newItemIds.splice(source.index, 1);
-    newItemIds.splice(destination.index, 0, draggableId);
-
-    const newCol = { ...startColumn, itemIds: newItemIds };
-    const newBoard = {
-      ...board,
-      columns: {
-        ...columns,
-        [newCol.id]: newCol
-      }
-    };
-
-    setBoard(newBoard);
-    socket.emit(UPDATE_BOARD, newBoard, boardId);
-  }
-
-  function handleNormalDrag(dragResult, columns) {
-    const { source, destination, draggableId } = dragResult;
-
-    const startColumn = columns[source.droppableId];
-    const destinationColumn = columns[destination.droppableId];
-
-    const startItems = Array.from(startColumn.itemIds);
-    const destinationItems = Array.from(destinationColumn.itemIds);
-
-    startItems.splice(source.index, 1);
-    destinationItems.splice(destination.index, 0, draggableId);
-
-    const newStartColumn = {
-      ...startColumn,
-      itemIds: startItems
-    };
-
-    const newDestinationColumn = {
-      ...destinationColumn,
-      itemIds: destinationItems
-    };
-
-    const newBoard = {
-      ...board,
-      columns: {
-        ...columns,
-        [newStartColumn.id]: newStartColumn,
-        [newDestinationColumn.id]: newDestinationColumn
-      }
-    };
-
-    setBoard(newBoard);
-    socket.emit(UPDATE_BOARD, newBoard, boardId);
-  }
-
-  function isSamePosition(source, destination) {
-    return (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    );
-  }
-
-  function isSameColumn(columns, source, destination) {
-    return columns[source.droppableId] === columns[destination.droppableId];
+    handleNormalDrag(board, dragResult, setBoard, socket);
   }
 
   function renderBoard(columns, items) {

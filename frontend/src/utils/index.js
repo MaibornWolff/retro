@@ -58,3 +58,14 @@ export const removeFirstOccurenceFromArray = (array, element, shallReturn) => {
     return array;
   }
 };
+
+export const isSamePosition = (source, destination) => {
+  return (
+    destination.droppableId === source.droppableId &&
+    destination.index === source.index
+  );
+};
+
+export const isSameColumn = (columns, source, destination) => {
+  return columns[source.droppableId] === columns[destination.droppableId];
+};
