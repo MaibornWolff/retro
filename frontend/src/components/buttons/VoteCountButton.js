@@ -50,6 +50,15 @@ function VoteCountButton(props) {
     setVoteCount(voteCount - 1);
   }
 
+  function isDecrementDisabled() {
+    return voteCount < 1;
+  }
+
+  function handleCancel() {
+    setVoteCount(getVoteCount());
+    closeDialog();
+  }
+
   function handleSave() {
     socket.emit(SET_MAX_VOTES, voteCount, boardId);
     setMaxVote(boardId, voteCount);
@@ -97,7 +106,11 @@ function VoteCountButton(props) {
               </Typography>
             </Grid>
             <Grid item>
-              <IconButton aria-label="Decrease Vote Count" onClick={decr}>
+              <IconButton
+                aria-label="Decrease Vote Count"
+                onClick={decr}
+                disabled={isDecrementDisabled()}
+              >
                 <DecrementIcon />
               </IconButton>
               <IconButton aria-label="Increase Vote Count" onClick={incr}>
@@ -110,7 +123,7 @@ function VoteCountButton(props) {
           <Button color="primary" onClick={handleReset}>
             Reset Votes
           </Button>
-          <Button color="primary" onClick={closeDialog}>
+          <Button color="primary" onClick={handleCancel}>
             Cancel
           </Button>
           <Button color="primary" onClick={handleSave}>
