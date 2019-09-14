@@ -54,5 +54,9 @@ The board data lives currently inside `backend/storage`. All boards have an uniq
 
 ## Contributing
 
-- Please use [Yarn](https://yarnpkg.com/lang/en/) instead of NPM
+- Please use [Yarn](https://yarnpkg.com/lang/en/) & [Prettier](https://prettier.io)
+- At least test your stuff manually or better, provide tests
+
+## Project State
+
 - You can always watch the current state of the project at [Trello](https://trello.com/b/AhEZ0aLs/retro)
