@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# the following script is used by a cronjob to clean up unused boards
+# the following script is used by a cronjob to clean up unused boards on the server
 
 # delete all board data older than 3 weeks
 find ~/retro/backend/storage/ -type f -name '*.json' -mtime +21 -exec rm {} \;
