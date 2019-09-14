@@ -55,7 +55,8 @@ The board data lives currently inside `backend/storage`. All boards have an uniq
 ## Contributing
 
 - Please use [Yarn](https://yarnpkg.com/lang/en/) & [Prettier](https://prettier.io)
-- At least test your stuff manually or better, provide tests
+- Test your stuff manually or better, provide tests
+- If you developed a whole user scenario, then please provide E2E tests
 
 ## Project State
 
