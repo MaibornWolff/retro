@@ -13,8 +13,8 @@ import {
 } from "@material-ui/core";
 
 import EditItemDialog from "./dialogs/EditItemDialog";
-import DeleteItemButton from "./buttons/DeleteItemButton";
-import UpvoteItemButton from "./buttons/UpvoteItemButton";
+import DeleteItemButton from "./buttons/card/DeleteItemButton";
+import UpvoteItemButton from "./buttons/card/UpvoteItemButton";
 import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
 import { ROLE_MODERATOR } from "../utils/userUtils";
 import { BoardContext } from "../context/BoardContext";

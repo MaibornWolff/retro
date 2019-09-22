@@ -12,16 +12,16 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { validateInput } from "../../utils";
-import { ROLE_MODERATOR } from "../../utils/userUtils";
-import { BoardContext } from "../../context/BoardContext";
-import { UserContext } from "../../context/UserContext";
-import { CREATE_COLUMN } from "../../constants/eventNames";
-import { CREATE_COLUMN_BUTTON } from "../../constants/testIds";
+import { validateInput } from "../../../utils";
+import { ROLE_MODERATOR } from "../../../utils/userUtils";
+import { BoardContext } from "../../../context/BoardContext";
+import { UserContext } from "../../../context/UserContext";
+import { CREATE_COLUMN } from "../../../constants/eventNames";
+import { CREATE_COLUMN_BUTTON } from "../../../constants/testIds";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
-} from "../../constants/errorMessages";
+} from "../../../constants/errorMessages";
 
 function CreateColumnButton(props) {
   const { fullScreen } = props;

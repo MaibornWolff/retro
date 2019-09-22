@@ -11,7 +11,7 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { QR_CODE_BUTTON } from "../../constants/testIds";
+import { QR_CODE_BUTTON } from "../../../constants/testIds";
 
 function QrCodeButton(props) {
   const { fullScreen } = props;

@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { IconButton } from "@material-ui/core";
 
-import { DELETE_CARD_BUTTON } from "../../constants/testIds";
-import { DialogsContext } from "../../context/DialogsContext";
+import { DELETE_CARD_BUTTON } from "../../../constants/testIds";
+import { DialogsContext } from "../../../context/DialogsContext";
 
 function DeleteItemButton(props) {
   const { id } = props;

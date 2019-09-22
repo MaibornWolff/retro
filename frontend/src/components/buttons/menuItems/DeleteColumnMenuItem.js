@@ -2,7 +2,7 @@ import React from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
-import { DELETE_COLUMN_BUTTON } from "../../constants/testIds";
+import { DELETE_COLUMN_BUTTON } from "../../../constants/testIds";
 
 const DeleteColumnMenuItem = React.forwardRef((props, ref) => {
   return (

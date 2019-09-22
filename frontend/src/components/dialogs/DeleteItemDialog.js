@@ -26,7 +26,7 @@ function DeleteItemDialog(props) {
   return (
     <Dialog
       fullScreen={fullScreen}
-      open={dialogsState.openDeleteDialog}
+      open={dialogsState.isDeleteItemDialogOpen}
       onClose={closeDeleteItemDialog}
       aria-labelledby="alert-delete-card-dialog"
       aria-describedby="alert-delete-card-dialog-description"

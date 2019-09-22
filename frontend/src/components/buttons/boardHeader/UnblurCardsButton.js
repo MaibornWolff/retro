@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import UnblurIcon from "@material-ui/icons/BlurOff";
 import { Button } from "@material-ui/core";
 
-import { UNBLUR_CARDS } from "../../constants/eventNames";
-import { UNBLUR_CARDS_BUTTON } from "../../constants/testIds";
-import { ROLE_MODERATOR } from "../../utils/userUtils";
-import { BoardContext } from "../../context/BoardContext";
-import { UserContext } from "../../context/UserContext";
+import { UNBLUR_CARDS } from "../../../constants/eventNames";
+import { UNBLUR_CARDS_BUTTON } from "../../../constants/testIds";
+import { ROLE_MODERATOR } from "../../../utils/userUtils";
+import { BoardContext } from "../../../context/BoardContext";
+import { UserContext } from "../../../context/UserContext";
 
 function UnblurCardsButton() {
   const { boardId, socket } = useContext(BoardContext);

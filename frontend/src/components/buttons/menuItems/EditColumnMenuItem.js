@@ -2,7 +2,7 @@ import React from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
-import { EDIT_COLUMN_NAME_BUTTON } from "../../constants/testIds";
+import { EDIT_COLUMN_NAME_BUTTON } from "../../../constants/testIds";
 
 const EditColumnMenuItem = React.forwardRef((props, ref) => {
   return (

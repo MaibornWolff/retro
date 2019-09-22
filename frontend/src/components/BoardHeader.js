@@ -2,11 +2,11 @@ import React from "react";
 import { Grid, Typography, withStyles } from "@material-ui/core";
 
 import NameInput from "./NameInput";
-import CreateColumnButton from "./buttons/CreateColumnButton";
-import UnblurCardsButton from "./buttons/UnblurCardsButton";
-import ExportBoardButton from "./buttons/ExportBoardButton";
-import QrCodeButton from "./buttons/QrCodeButton";
-import VoteCountButton from "./buttons/VoteCountButton";
+import CreateColumnButton from "./buttons/boardHeader/CreateColumnButton";
+import UnblurCardsButton from "./buttons/boardHeader/UnblurCardsButton";
+import ExportBoardButton from "./buttons/boardHeader/ExportBoardButton";
+import QrCodeButton from "./buttons/boardHeader/QrCodeButton";
+import VoteCountButton from "./buttons/boardHeader/VoteCountButton";
 
 const styles = theme => ({
   buttonGroup: {

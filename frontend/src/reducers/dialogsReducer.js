@@ -1,6 +1,8 @@
 import {
   OPEN_DELETE_ITEM_DIALOG,
-  CLOSE_DELETE_ITEM_DIALOG
+  CLOSE_DELETE_ITEM_DIALOG,
+  OPEN_DELETE_COLUMN_DIALOG,
+  CLOSE_DELETE_COLUMN_DIALOG
 } from "../actionTypes/dialogTypes";
 
 export const reducer = (state, action) => {
@@ -9,13 +11,25 @@ export const reducer = (state, action) => {
       return {
         ...state,
         itemId: action.payload.itemId,
-        openDeleteDialog: true
+        isDeleteItemDialogOpen: true
       };
     case CLOSE_DELETE_ITEM_DIALOG:
       return {
         ...state,
         itemId: null,
-        openDeleteDialog: false
+        isDeleteItemDialogOpen: false
+      };
+    case OPEN_DELETE_COLUMN_DIALOG:
+      return {
+        ...state,
+        columnId: action.payload.columnId,
+        isDeleteColumnDialogOpen: true
+      };
+    case CLOSE_DELETE_COLUMN_DIALOG:
+      return {
+        ...state,
+        columnId: null,
+        isDeleteColumnDialogOpen: false
       };
     default:
       return state;

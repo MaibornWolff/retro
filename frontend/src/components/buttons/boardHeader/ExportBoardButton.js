@@ -10,11 +10,11 @@ import {
   withMobileDialog
 } from "@material-ui/core";
 
-import { BACKEND_DEV_PORT } from "../../utils";
-import { ROLE_MODERATOR } from "../../utils/userUtils";
-import { BoardContext } from "../../context/BoardContext";
-import { UserContext } from "../../context/UserContext";
-import { EXPORT_BOARD_BUTTON } from "../../constants/testIds";
+import { BACKEND_DEV_PORT } from "../../../utils";
+import { ROLE_MODERATOR } from "../../../utils/userUtils";
+import { BoardContext } from "../../../context/BoardContext";
+import { UserContext } from "../../../context/UserContext";
+import { EXPORT_BOARD_BUTTON } from "../../../constants/testIds";
 
 const endpoint = "/api/boards/export/";
 const port = process.env.REACT_APP_PROD_PORT || BACKEND_DEV_PORT;

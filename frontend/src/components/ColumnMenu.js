@@ -1,22 +1,22 @@
 import React, { useState, useContext } from "react";
-import { IconButton, Menu } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/MoreVert";
+import { IconButton, Menu } from "@material-ui/core";
 
-import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
-import SortColumnButton from "./buttons/SortColumnButton";
-import { ROLE_MODERATOR } from "../utils/userUtils";
-import { UserContext } from "../context/UserContext";
-import { COLUMN_MENU_BUTTON } from "../constants/testIds";
+import SortColumnButton from "./buttons/menuItems/SortColumnButton";
 import EditColumnDialog from "./dialogs/EditColumnDialog";
-import EditColumnMenuItem from "./menuItems/EditColumnMenuItem";
-import DeleteColumnMenuItem from "./menuItems/DeleteColumnMenuItem";
+import EditColumnMenuItem from "./buttons/menuItems/EditColumnMenuItem";
+import DeleteColumnMenuItem from "./buttons/menuItems/DeleteColumnMenuItem";
+import { UserContext } from "../context/UserContext";
+import { DialogsContext } from "../context/DialogsContext";
+import { ROLE_MODERATOR } from "../utils/userUtils";
+import { COLUMN_MENU_BUTTON } from "../constants/testIds";
 
 function ColumnMenu(props) {
   const { columnId, columnTitle, items } = props;
-  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const { userState } = useContext(UserContext);
+  const { openDeleteColumnDialog } = useContext(DialogsContext);
 
   const open = Boolean(anchorEl);
 
@@ -26,15 +26,6 @@ function ColumnMenu(props) {
 
   function closeMenu() {
     setAnchorEl(null);
-  }
-
-  function openDeleteDialog() {
-    setDeleteDialogOpen(true);
-    closeMenu();
-  }
-
-  function closeDeleteDialog() {
-    setDeleteDialogOpen(false);
   }
 
   function openEditDialog() {
@@ -65,15 +56,15 @@ function ColumnMenu(props) {
         open={open}
         onClose={closeMenu}
       >
-        <DeleteColumnMenuItem openDialog={openDeleteDialog} />
+        <DeleteColumnMenuItem
+          openDialog={() => {
+            openDeleteColumnDialog(columnId);
+            closeMenu();
+          }}
+        />
         <EditColumnMenuItem openDialog={openEditDialog} />
         <SortColumnButton columnId={columnId} items={items} />
       </Menu>
-      <DeleteColumnDialog
-        isOpen={isDeleteDialogOpen}
-        closeDialog={closeDeleteDialog}
-        columnId={columnId}
-      />
       <EditColumnDialog
         isOpen={isEditDialogOpen}
         closeDialog={closeEditDialog}

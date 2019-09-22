@@ -32,6 +32,7 @@ import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 import { ALL_COLUMNS } from "../constants/testIds";
 import Dialogs from "./dialogs/Dialogs";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
+import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
 
 const styles = theme => ({
   root: {
@@ -241,6 +242,7 @@ function Board(props) {
       />
       <Dialogs>
         <DeleteItemDialog />
+        <DeleteColumnDialog />
       </Dialogs>
     </Grid>
   );

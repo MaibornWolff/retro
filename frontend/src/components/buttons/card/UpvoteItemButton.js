@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import { IconButton } from "@material-ui/core";
 
-import { BoardContext } from "../../context/BoardContext";
-import { UserContext } from "../../context/UserContext";
-import { VOTE_CARD } from "../../constants/eventNames";
-import { UPVOTE_CARD_BUTTON } from "../../constants/testIds";
+import { BoardContext } from "../../../context/BoardContext";
+import { UserContext } from "../../../context/UserContext";
+import { VOTE_CARD } from "../../../constants/eventNames";
+import { UPVOTE_CARD_BUTTON } from "../../../constants/testIds";
 
 function UpvoteItemButton(props) {
   const { id, openSnackbar } = props;

@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import SortIcon from "@material-ui/icons/Sort";
 import { MenuItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
-import { BoardContext } from "../../context/BoardContext";
-import { SORT_COLUMN } from "../../constants/eventNames";
-import { SORT_COLUMN_BUTTON } from "../../constants/testIds";
+import { BoardContext } from "../../../context/BoardContext";
+import { SORT_COLUMN } from "../../../constants/eventNames";
+import { SORT_COLUMN_BUTTON } from "../../../constants/testIds";
 
 const SortColumnButton = React.forwardRef((props, ref) => {
   const { columnId, items } = props;

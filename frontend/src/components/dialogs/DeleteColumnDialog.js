@@ -11,21 +11,23 @@ import {
 
 import { DELETE_COLUMN } from "../../constants/eventNames";
 import { BoardContext } from "../../context/BoardContext";
+import { DialogsContext } from "../../context/DialogsContext";
 
 function DeleteColumnDialog(props) {
-  const { isOpen, closeDialog, columnId, fullScreen } = props;
+  const { fullScreen } = props;
   const { boardId, socket } = useContext(BoardContext);
+  const { dialogsState, closeDeleteColumnDialog } = useContext(DialogsContext);
 
   function handleClick() {
-    socket.emit(DELETE_COLUMN, columnId, boardId);
-    closeDialog();
+    socket.emit(DELETE_COLUMN, dialogsState.columnId, boardId);
+    closeDeleteColumnDialog();
   }
 
   return (
     <Dialog
       fullScreen={fullScreen}
-      open={isOpen}
-      onClose={closeDialog}
+      open={dialogsState.isDeleteColumnDialogOpen}
+      onClose={closeDeleteColumnDialog}
       aria-labelledby="alert-delete-column-dialog"
       aria-describedby="alert-delete-column-dialog-description"
     >
@@ -39,7 +41,7 @@ function DeleteColumnDialog(props) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeDialog} color="primary">
+        <Button onClick={closeDeleteColumnDialog} color="primary">
           Cancel
         </Button>
         <Button onClick={handleClick} color="primary" autoFocus>
