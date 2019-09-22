@@ -30,6 +30,8 @@ import {
 } from "../constants/eventNames";
 import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 import { ALL_COLUMNS } from "../constants/testIds";
+import Dialogs from "./dialogs/Dialogs";
+import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 
 const styles = theme => ({
   root: {
@@ -237,6 +239,9 @@ function Board(props) {
         startMerge={startMerge}
         stopMerge={stopMerge}
       />
+      <Dialogs>
+        <DeleteItemDialog />
+      </Dialogs>
     </Grid>
   );
 }

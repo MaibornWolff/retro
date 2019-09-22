@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 
 import EditItemDialog from "./dialogs/EditItemDialog";
-import DeleteItemDialog from "./dialogs/DeleteItemDialog";
+import DeleteItemButton from "./buttons/DeleteItemButton";
 import UpvoteItemButton from "./buttons/UpvoteItemButton";
 import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
 import { ROLE_MODERATOR } from "../utils/userUtils";
@@ -147,7 +147,7 @@ function RetroItem(props) {
           </CardContent>
           <Divider />
           <CardActions className={classes.actions}>
-            <DeleteItemDialog id={id} />
+            <DeleteItemButton id={id} />
             <EditItemDialog id={id} author={author} content={content} />
             <UpvoteItemButton id={id} openSnackbar={openSnackbar} />
           </CardActions>

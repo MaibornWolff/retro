@@ -9,6 +9,7 @@ import NotFound from "./NotFound";
 
 import { BoardContextProvider } from "../context/BoardContext";
 import { UserContextProvider } from "../context/UserContext";
+import { DialogsContextProvider } from "../context/DialogsContext";
 
 const theme = createMuiTheme({
   typography: {
@@ -42,7 +43,9 @@ const App = () => (
             render={props => (
               <UserContextProvider {...props}>
                 <BoardContextProvider {...props}>
-                  <Board {...props} />
+                  <DialogsContextProvider {...props}>
+                    <Board {...props} />
+                  </DialogsContextProvider>
                 </BoardContextProvider>
               </UserContextProvider>
             )}
