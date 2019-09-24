@@ -3,7 +3,7 @@ import { Grid, withStyles } from "@material-ui/core";
 
 import ColumnName from "./ColumnName";
 import ColumnMenu from "./ColumnMenu";
-import CreateItemDialog from "./dialogs/CreateItemDialog";
+import CreateItemButton from "./buttons/card/CreateItemButton";
 
 const styles = theme => ({
   header: {
@@ -28,7 +28,7 @@ function ColumnHeader(props) {
           <ColumnName classes={classes} columnTitle={columnTitle} />
         </Grid>
         <Grid item>
-          <CreateItemDialog columnId={columnId} />
+          <CreateItemButton columnId={columnId} />
           <ColumnMenu
             columnId={columnId}
             columnTitle={columnTitle}

@@ -1,8 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import nanoid from "nanoid";
-import AddIcon from "@material-ui/icons/Add";
 import {
-  IconButton,
   Dialog,
   DialogActions,
   DialogContent,
@@ -13,11 +11,10 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { validateInput, isInputEmpty } from "../../utils";
 import { BoardContext } from "../../context/BoardContext";
-import { UserContext } from "../../context/UserContext";
+import { DialogsContext } from "../../context/DialogsContext";
+import { validateInput, isInputEmpty } from "../../utils";
 import { CREATE_CARD } from "../../constants/eventNames";
-import { CREATE_CARD_BUTTON } from "../../constants/testIds";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
@@ -25,23 +22,21 @@ import {
 } from "../../constants/errorMessages";
 
 function CreateItemDialog(props) {
-  const { columnId, fullScreen } = props;
-  const [open, setOpen] = useState(false);
+  const { fullScreen } = props;
+
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
+
   const { boardId, socket } = useContext(BoardContext);
-  const { userState } = useContext(UserContext);
+  const { dialogsState, closeCreateItemDialog } = useContext(DialogsContext);
+
+  useEffect(() => {
+    setAuthor(dialogsState.itemAuthor);
+    setContent(dialogsState.itemContent);
+  }, [dialogsState.itemAuthor, dialogsState.itemContent]);
+
   const authorInput = validateInput(author.length, 0, 40);
   const isContentEmpty = isInputEmpty(content.length);
-
-  function handleOpen() {
-    setOpen(true);
-    setAuthor(userState.name);
-  }
-
-  function handleClose() {
-    setOpen(false);
-  }
 
   function handleAuthorChange(event) {
     setAuthor(event.target.value);
@@ -49,22 +44,6 @@ function CreateItemDialog(props) {
 
   function handleContentChange(event) {
     setContent(event.target.value);
-  }
-
-  function resetState() {
-    setOpen(false);
-    setAuthor("");
-    setContent("");
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    const id = nanoid();
-    const newCard = { id, author, content, points: 0 };
-
-    socket.emit(CREATE_CARD, newCard, columnId, boardId);
-    resetState();
   }
 
   function renderAuthorError() {
@@ -93,66 +72,67 @@ function CreateItemDialog(props) {
     return null;
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const id = nanoid();
+    const newCard = { id, author, content, points: 0 };
+
+    socket.emit(CREATE_CARD, newCard, dialogsState.columnId, boardId);
+    closeCreateItemDialog();
+  }
+
   return (
-    <>
-      <IconButton
-        color="inherit"
-        onClick={handleOpen}
-        data-testid={CREATE_CARD_BUTTON}
-      >
-        <AddIcon fontSize="small" />
-      </IconButton>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="new-card-dialog"
-      >
-        <DialogTitle id="new-card-dialog">New Card</DialogTitle>
-        <DialogContent>
-          <TextField
-            required
-            error={!authorInput.isValid}
-            margin="dense"
-            id="author-name"
-            label="Author"
-            type="text"
-            value={author}
-            onChange={handleAuthorChange}
-            helperText={renderAuthorError()}
-            fullWidth
-            autoComplete="off"
-          />
-          <TextField
-            required
-            autoFocus
-            error={isContentEmpty}
-            margin="dense"
-            multiline
-            id="content-name"
-            label="Content"
-            type="text"
-            value={content}
-            onChange={handleContentChange}
-            helperText={renderContentError()}
-            fullWidth
-            autoComplete="off"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button
-            onClick={handleSubmit}
-            color="primary"
-            disabled={!authorInput.isValid || isContentEmpty}
-          >
-            Create
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+    <Dialog
+      fullScreen={fullScreen}
+      open={dialogsState.isCreateItemDialogOpen}
+      onClose={closeCreateItemDialog}
+      aria-labelledby="new-card-dialog"
+    >
+      <DialogTitle id="new-card-dialog">New Card</DialogTitle>
+      <DialogContent>
+        <TextField
+          required
+          error={!authorInput.isValid}
+          margin="dense"
+          id="author-name"
+          label="Author"
+          type="text"
+          value={author}
+          onChange={handleAuthorChange}
+          helperText={renderAuthorError()}
+          fullWidth
+          autoComplete="off"
+        />
+        <TextField
+          required
+          autoFocus
+          error={isContentEmpty}
+          margin="dense"
+          multiline
+          id="content-name"
+          label="Content"
+          type="text"
+          value={content}
+          onChange={handleContentChange}
+          helperText={renderContentError()}
+          fullWidth
+          autoComplete="off"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={closeCreateItemDialog} color="primary">
+          Cancel
+        </Button>
+        <Button
+          onClick={handleSubmit}
+          color="primary"
+          disabled={!authorInput.isValid || isContentEmpty}
+        >
+          Create
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 

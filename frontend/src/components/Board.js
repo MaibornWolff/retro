@@ -8,6 +8,7 @@ import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
 import VoteCountSnackbar from "./VoteCountSnackbar";
 import Dialogs from "./dialogs/Dialogs";
+import CreateItemDialog from "./dialogs/CreateItemDialog";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
 import EditItemDialog from "./dialogs/EditItemDialog";
@@ -247,6 +248,7 @@ function Board(props) {
         <DeleteColumnDialog />
         <EditItemDialog />
         <EditColumnDialog />
+        <CreateItemDialog />
       </Dialogs>
     </Grid>
   );
