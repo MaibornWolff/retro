@@ -7,7 +7,9 @@ import {
   OPEN_DELETE_COLUMN_DIALOG,
   CLOSE_DELETE_COLUMN_DIALOG,
   OPEN_EDIT_ITEM_DIALOG,
-  CLOSE_EDIT_ITEM_DIALOG
+  CLOSE_EDIT_ITEM_DIALOG,
+  OPEN_EDIT_COLUMN_DIALOG,
+  CLOSE_EDIT_COLUMN_DIALOG
 } from "../actionTypes/dialogTypes";
 
 const initialState = {
@@ -15,9 +17,11 @@ const initialState = {
   columnId: null,
   itemAuthor: "",
   itemContent: "",
+  columnTitle: "",
   isDeleteItemDialogOpen: false,
   isDeleteColumnDialogOpen: false,
-  isEditItemDialogOpen: false
+  isEditItemDialogOpen: false,
+  isEditColumnDialogOpen: false
 };
 
 export const DialogsContext = React.createContext();
@@ -52,14 +56,27 @@ export const DialogsContextProvider = props => {
     dispatch({ type: CLOSE_EDIT_ITEM_DIALOG });
   };
 
+  const openEditColumnDialog = (columnId, columnTitle) => {
+    dispatch({
+      type: OPEN_EDIT_COLUMN_DIALOG,
+      payload: { columnId, columnTitle }
+    });
+  };
+
+  const closeEditColumnDialog = () => {
+    dispatch({ type: CLOSE_EDIT_COLUMN_DIALOG });
+  };
+
   const value = {
     dialogsState,
     openDeleteItemDialog,
-    closeDeleteItemDialog,
     openDeleteColumnDialog,
-    closeDeleteColumnDialog,
     openEditItemDialog,
-    closeEditItemDialog
+    openEditColumnDialog,
+    closeDeleteItemDialog,
+    closeDeleteColumnDialog,
+    closeEditItemDialog,
+    closeEditColumnDialog
   };
 
   return (

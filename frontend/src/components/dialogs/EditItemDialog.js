@@ -31,7 +31,7 @@ function EditItemDialog(props) {
   useEffect(() => {
     setAuthor(dialogsState.itemAuthor);
     setContent(dialogsState.itemContent);
-  }, [dialogsState]);
+  }, [dialogsState.itemAuthor, dialogsState.itemContent]);
 
   const authorInput = validateInput(itemAuthor.length, 0, 40);
   const isContentEmpty = isInputEmpty(itemContent.length);

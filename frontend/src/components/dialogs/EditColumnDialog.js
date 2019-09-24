@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   withMobileDialog,
   Dialog,
@@ -10,28 +10,31 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { EDIT_COLUMN } from "../../constants/eventNames";
-import { validateInput } from "../../utils";
 import { BoardContext } from "../../context/BoardContext";
+import { DialogsContext } from "../../context/DialogsContext";
+import { validateInput } from "../../utils";
+import { EDIT_COLUMN } from "../../constants/eventNames";
 import {
   COLUMN_NAME_EMPTY_MSG,
   COLUMN_NAME_TOO_LONG_MSG
 } from "../../constants/errorMessages";
 
 function EditColumnDialog(props) {
-  const { isOpen, closeDialog, columnId, columnTitle, fullScreen } = props;
-  const [title, setTitle] = useState(columnTitle);
+  const { fullScreen } = props;
+
+  const [title, setTitle] = useState("");
   const { boardId, socket } = useContext(BoardContext);
+  const { dialogsState, closeEditColumnDialog } = useContext(DialogsContext);
+
+  useEffect(() => {
+    setTitle(dialogsState.columnTitle);
+  }, [dialogsState.columnTitle]);
+
   const input = validateInput(title.length, 0, 40);
 
-  function resetState() {
-    setTitle("");
-    closeDialog();
-  }
-
   function handleClick() {
-    socket.emit(EDIT_COLUMN, columnId, boardId, title);
-    resetState();
+    socket.emit(EDIT_COLUMN, dialogsState.columnId, boardId, title);
+    closeEditColumnDialog();
   }
 
   function handleChange(event) {
@@ -54,8 +57,8 @@ function EditColumnDialog(props) {
   return (
     <Dialog
       fullScreen={fullScreen}
-      open={isOpen}
-      onClose={closeDialog}
+      open={dialogsState.isEditColumnDialogOpen}
+      onClose={closeEditColumnDialog}
       aria-labelledby="edit-column-dialog"
     >
       <DialogTitle id="edit-column-dialog">Edit Column</DialogTitle>
@@ -76,7 +79,7 @@ function EditColumnDialog(props) {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeDialog} color="primary">
+        <Button onClick={closeEditColumnDialog} color="primary">
           Cancel
         </Button>
         <Button onClick={handleClick} color="primary" disabled={!input.isValid}>

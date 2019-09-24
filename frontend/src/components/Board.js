@@ -11,6 +11,7 @@ import Dialogs from "./dialogs/Dialogs";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
 import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
 import EditItemDialog from "./dialogs/EditItemDialog";
+import EditColumnDialog from "./dialogs/EditColumnDialog";
 import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 import { FlexContainer } from "./styled";
 import { BoardContext } from "../context/BoardContext";
@@ -245,6 +246,7 @@ function Board(props) {
         <DeleteItemDialog />
         <DeleteColumnDialog />
         <EditItemDialog />
+        <EditColumnDialog />
       </Dialogs>
     </Grid>
   );

@@ -4,7 +4,9 @@ import {
   OPEN_DELETE_COLUMN_DIALOG,
   CLOSE_DELETE_COLUMN_DIALOG,
   OPEN_EDIT_ITEM_DIALOG,
-  CLOSE_EDIT_ITEM_DIALOG
+  CLOSE_EDIT_ITEM_DIALOG,
+  OPEN_EDIT_COLUMN_DIALOG,
+  CLOSE_EDIT_COLUMN_DIALOG
 } from "../actionTypes/dialogTypes";
 
 export const reducer = (state, action) => {
@@ -48,6 +50,20 @@ export const reducer = (state, action) => {
         itemAuthor: "",
         itemContent: "",
         isEditItemDialogOpen: false
+      };
+    case OPEN_EDIT_COLUMN_DIALOG:
+      return {
+        ...state,
+        columnId: action.payload.columnId,
+        columnTitle: action.payload.columnTitle,
+        isEditColumnDialogOpen: true
+      };
+    case CLOSE_EDIT_COLUMN_DIALOG:
+      return {
+        ...state,
+        columnId: null,
+        columnTitle: "",
+        isEditColumnDialogOpen: false
       };
     default:
       return state;
