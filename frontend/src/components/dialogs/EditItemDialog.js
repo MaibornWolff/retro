@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import EditIcon from "@material-ui/icons/Edit";
 import {
-  IconButton,
   Dialog,
   DialogActions,
   DialogContent,
@@ -12,10 +10,10 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { validateInput, isInputEmpty } from "../../utils";
+import { DialogsContext } from "../../context/DialogsContext";
 import { BoardContext } from "../../context/BoardContext";
+import { validateInput, isInputEmpty } from "../../utils";
 import { EDIT_CARD } from "../../constants/eventNames";
-import { EDIT_CARD_BUTTON } from "../../constants/testIds";
 import {
   CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
@@ -23,21 +21,20 @@ import {
 } from "../../constants/errorMessages";
 
 function EditItemDialog(props) {
-  const { id, author, content, fullScreen } = props;
-  const [open, setOpen] = useState(false);
-  const [itemAuthor, setAuthor] = useState(author);
-  const [itemContent, setContent] = useState(content);
+  const { fullScreen } = props;
+
+  const [itemAuthor, setAuthor] = useState("");
+  const [itemContent, setContent] = useState("");
   const { boardId, socket } = useContext(BoardContext);
+  const { dialogsState, closeEditItemDialog } = useContext(DialogsContext);
+
+  useEffect(() => {
+    setAuthor(dialogsState.itemAuthor);
+    setContent(dialogsState.itemContent);
+  }, [dialogsState]);
+
   const authorInput = validateInput(itemAuthor.length, 0, 40);
   const isContentEmpty = isInputEmpty(itemContent.length);
-
-  function openDialog() {
-    setOpen(true);
-  }
-
-  function closeDialog() {
-    setOpen(false);
-  }
 
   function handleAuthorChange(event) {
     setAuthor(event.target.value);
@@ -46,16 +43,6 @@ function EditItemDialog(props) {
   function handleContentChange(event) {
     setContent(event.target.value);
   }
-
-  function handleClick() {
-    socket.emit(EDIT_CARD, itemAuthor, itemContent, id, boardId);
-    closeDialog();
-  }
-
-  // cdU
-  useEffect(() => {
-    setContent(content);
-  }, [content]);
 
   function renderAuthorError() {
     const { isEmpty, isTooLong } = authorInput;
@@ -82,67 +69,69 @@ function EditItemDialog(props) {
     return null;
   }
 
+  function handleClick() {
+    socket.emit(
+      EDIT_CARD,
+      itemAuthor,
+      itemContent,
+      dialogsState.itemId,
+      boardId
+    );
+    closeEditItemDialog();
+  }
+
   return (
-    <>
-      <IconButton
-        color="primary"
-        onClick={openDialog}
-        data-testid={EDIT_CARD_BUTTON}
-      >
-        <EditIcon fontSize="small" />
-      </IconButton>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={closeDialog}
-        aria-labelledby="edit-card-dialog"
-      >
-        <DialogTitle id="edit-card-dialog">Edit Card</DialogTitle>
-        <DialogContent>
-          <TextField
-            required
-            error={!authorInput.isValid}
-            margin="dense"
-            id="author-name"
-            label="Author"
-            type="text"
-            value={itemAuthor}
-            onChange={handleAuthorChange}
-            helperText={renderAuthorError()}
-            autoFocus
-            fullWidth
-            autoComplete="off"
-          />
-          <TextField
-            required
-            error={isContentEmpty}
-            margin="dense"
-            id="content-name"
-            label="Content"
-            type="text"
-            value={itemContent}
-            onChange={handleContentChange}
-            helperText={renderContentError()}
-            rowsMax={Infinity}
-            multiline
-            fullWidth
-            autoComplete="off"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeDialog} color="primary">
-            Cancel
-          </Button>
-          <Button
-            onClick={handleClick}
-            color="primary"
-            disabled={!authorInput.isValid || isContentEmpty}
-          >
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+    <Dialog
+      fullScreen={fullScreen}
+      open={dialogsState.isEditItemDialogOpen}
+      onClose={closeEditItemDialog}
+      aria-labelledby="edit-card-dialog"
+    >
+      <DialogTitle id="edit-card-dialog">Edit Card</DialogTitle>
+      <DialogContent>
+        <TextField
+          required
+          error={!authorInput.isValid}
+          margin="dense"
+          id="author-name"
+          label="Author"
+          type="text"
+          value={itemAuthor}
+          onChange={handleAuthorChange}
+          helperText={renderAuthorError()}
+          autoFocus
+          fullWidth
+          autoComplete="off"
+        />
+        <TextField
+          required
+          error={isContentEmpty}
+          margin="dense"
+          id="content-name"
+          label="Content"
+          type="text"
+          value={itemContent}
+          onChange={handleContentChange}
+          helperText={renderContentError()}
+          rowsMax={Infinity}
+          multiline
+          fullWidth
+          autoComplete="off"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={closeEditItemDialog} color="primary">
+          Cancel
+        </Button>
+        <Button
+          onClick={handleClick}
+          color="primary"
+          disabled={!authorInput.isValid || isContentEmpty}
+        >
+          Save
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 

@@ -12,7 +12,7 @@ import {
   IconButton
 } from "@material-ui/core";
 
-import EditItemDialog from "./dialogs/EditItemDialog";
+import EditItemButton from "./buttons/card/EditItemButton";
 import DeleteItemButton from "./buttons/card/DeleteItemButton";
 import UpvoteItemButton from "./buttons/card/UpvoteItemButton";
 import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
@@ -148,7 +148,7 @@ function RetroItem(props) {
           <Divider />
           <CardActions className={classes.actions}>
             <DeleteItemButton id={id} />
-            <EditItemDialog id={id} author={author} content={content} />
+            <EditItemButton id={id} author={author} content={content} />
             <UpvoteItemButton id={id} openSnackbar={openSnackbar} />
           </CardActions>
         </Card>

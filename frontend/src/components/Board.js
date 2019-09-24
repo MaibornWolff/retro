@@ -7,11 +7,17 @@ import { Redirect } from "react-router-dom";
 import BoardHeader from "./BoardHeader";
 import Columns from "./Columns";
 import VoteCountSnackbar from "./VoteCountSnackbar";
+import Dialogs from "./dialogs/Dialogs";
+import DeleteItemDialog from "./dialogs/DeleteItemDialog";
+import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
+import EditItemDialog from "./dialogs/EditItemDialog";
+import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 import { FlexContainer } from "./styled";
 import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
 import { defaultBoard, isSameColumn, isSamePosition } from "../utils";
 import { ROLE_MODERATOR, ROLE_PARTICIPANT, getUser } from "../utils/userUtils";
+import { ALL_COLUMNS } from "../constants/testIds";
 import {
   handleCombine,
   handleColumnDrag,
@@ -28,11 +34,6 @@ import {
   FOCUS_CARD,
   REMOVE_FOCUS_CARD
 } from "../constants/eventNames";
-import MergeCardsDialog from "./dialogs/MergeCardsDialog";
-import { ALL_COLUMNS } from "../constants/testIds";
-import Dialogs from "./dialogs/Dialogs";
-import DeleteItemDialog from "./dialogs/DeleteItemDialog";
-import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
 
 const styles = theme => ({
   root: {
@@ -243,6 +244,7 @@ function Board(props) {
       <Dialogs>
         <DeleteItemDialog />
         <DeleteColumnDialog />
+        <EditItemDialog />
       </Dialogs>
     </Grid>
   );
