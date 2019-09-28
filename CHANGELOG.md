@@ -1,5 +1,21 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+### Changed
+
+- Dependency updates
+
+### Fixed
+
+- Moved Dialog components outside of the drag and drop context
+- Layout issues with the buttons on the BoardHeader component
+- Vote count dialog
+  - Disallowed negative vote counts
+  - Cancel button should work properly now
+
 ## [0.3.0]
 
 ### Added
@@ -114,6 +130,7 @@
 - Combine two cards
 - Upvote cards
 
+[Unreleased]: https://github.com/yduman/retro/compare/0.3.0...master
 [0.3.0]: https://github.com/yduman/retro/releases/tag/0.3.0
 [0.2.1]: https://github.com/yduman/retro/releases/tag/0.2.1
 [0.2.0]: https://github.com/yduman/retro/releases/tag/0.2.0
