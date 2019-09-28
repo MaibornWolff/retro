@@ -30,10 +30,10 @@ function CreateItemDialog(props) {
   const { boardId, socket } = useContext(BoardContext);
   const { dialogsState, closeCreateItemDialog } = useContext(DialogsContext);
 
+  // get the username from localstorage, if set
   useEffect(() => {
     setAuthor(dialogsState.itemAuthor);
-    setContent(dialogsState.itemContent);
-  }, [dialogsState.itemAuthor, dialogsState.itemContent]);
+  }, [dialogsState.itemAuthor]);
 
   const authorInput = validateInput(author.length, 0, 40);
   const isContentEmpty = isInputEmpty(content.length);
@@ -72,6 +72,11 @@ function CreateItemDialog(props) {
     return null;
   }
 
+  function handleClose() {
+    setContent("");
+    closeCreateItemDialog();
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -79,14 +84,14 @@ function CreateItemDialog(props) {
     const newCard = { id, author, content, points: 0 };
 
     socket.emit(CREATE_CARD, newCard, dialogsState.columnId, boardId);
-    closeCreateItemDialog();
+    handleClose();
   }
 
   return (
     <Dialog
       fullScreen={fullScreen}
       open={dialogsState.isCreateItemDialogOpen}
-      onClose={closeCreateItemDialog}
+      onClose={handleClose}
       aria-labelledby="new-card-dialog"
     >
       <DialogTitle id="new-card-dialog">New Card</DialogTitle>
@@ -121,7 +126,7 @@ function CreateItemDialog(props) {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeCreateItemDialog} color="primary">
+        <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
         <Button

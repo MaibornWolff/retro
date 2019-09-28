@@ -72,6 +72,7 @@ export const reducer = (state, action) => {
         ...state,
         columnId: action.payload.columnId,
         itemAuthor: action.payload.itemAuthor,
+        itemContent: "",
         isCreateItemDialogOpen: true
       };
     case CLOSE_CREATE_ITEM_DIALOG:
@@ -79,6 +80,7 @@ export const reducer = (state, action) => {
         ...state,
         columnId: null,
         itemAuthor: "",
+        itemContent: "",
         isCreateItemDialogOpen: false
       };
     default:
