@@ -107,7 +107,6 @@ function RetroItem(props) {
         <Card
           onMouseEnter={e => handleHover(e, true)}
           onMouseLeave={e => handleHover(e, false)}
-          tabIndex="0"
           className={
             boardState.focusedCard === id ? classes.cardFocused : classes.card
           }
@@ -132,7 +131,11 @@ function RetroItem(props) {
                 <IconButton color="primary" onClick={downVote}>
                   <ThumbDownIcon fontSize="small" />
                 </IconButton>
-              ) : null
+              ) : (
+                <IconButton color="primary" disabled={true}>
+                  <ThumbDownIcon fontSize="small" />
+                </IconButton>
+              )
             }
           />
           <Divider />

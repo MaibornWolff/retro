@@ -14,10 +14,12 @@ function Items(props) {
     return hasVotedFor(cardId, boardId);
   }
 
+  // TODO: the style prop is a temporary solution
+  // https://github.com/mui-org/material-ui/issues/16912
   function renderItem() {
     return items.map((item, i) => {
       return (
-        <Grid key={item.id} item>
+        <Grid key={item.id} item style={{ width: "100%" }}>
           <Item
             item={item}
             index={i}
