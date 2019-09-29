@@ -12,12 +12,11 @@ import {
 
 import { DialogsContext } from "../../context/DialogsContext";
 import { BoardContext } from "../../context/BoardContext";
-import { validateInput, isInputEmpty } from "../../utils";
+import { validateInput } from "../../utils";
 import { EDIT_CARD } from "../../constants/eventNames";
 import {
-  CARD_AUTHOR_NAME_EMPTY_MSG,
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
-  CARD_CONTENT_EMPTY_MSG
+  CARD_CONTENT_TOO_LONG_MSG
 } from "../../constants/errorMessages";
 
 function EditItemDialog(props) {
@@ -34,7 +33,7 @@ function EditItemDialog(props) {
   }, [dialogsState.itemAuthor, dialogsState.itemContent]);
 
   const authorInput = validateInput(itemAuthor.length, 0, 40);
-  const isContentEmpty = isInputEmpty(itemContent.length);
+  const contentInput = validateInput(itemContent.length, 0, 280);
 
   function handleAuthorChange(event) {
     setAuthor(event.target.value);
@@ -45,11 +44,10 @@ function EditItemDialog(props) {
   }
 
   function renderAuthorError() {
-    const { isEmpty, isTooLong } = authorInput;
-    if (isEmpty || isTooLong) {
+    if (authorInput.isTooLong) {
       return (
         <Typography variant="caption" color="error">
-          {isEmpty ? CARD_AUTHOR_NAME_EMPTY_MSG : CARD_AUTHOR_NAME_TOO_LONG_MSG}
+          {CARD_AUTHOR_NAME_TOO_LONG_MSG}
         </Typography>
       );
     }
@@ -58,10 +56,10 @@ function EditItemDialog(props) {
   }
 
   function renderContentError() {
-    if (isContentEmpty) {
+    if (contentInput.isTooLong) {
       return (
         <Typography variant="caption" color="error">
-          {isContentEmpty ? CARD_CONTENT_EMPTY_MSG : null}
+          {CARD_CONTENT_TOO_LONG_MSG}
         </Typography>
       );
     }
@@ -82,6 +80,8 @@ function EditItemDialog(props) {
 
   return (
     <Dialog
+      fullWidth
+      maxWidth="xs"
       fullScreen={fullScreen}
       open={dialogsState.isEditItemDialogOpen}
       onClose={closeEditItemDialog}
@@ -91,31 +91,30 @@ function EditItemDialog(props) {
       <DialogContent>
         <TextField
           required
-          error={!authorInput.isValid}
-          margin="dense"
+          fullWidth
+          value={itemAuthor}
+          onChange={handleAuthorChange}
+          error={authorInput.isTooLong}
+          helperText={renderAuthorError()}
           id="author-name"
           label="Author"
           type="text"
-          value={itemAuthor}
-          onChange={handleAuthorChange}
-          helperText={renderAuthorError()}
-          autoFocus
-          fullWidth
+          margin="dense"
           autoComplete="off"
         />
         <TextField
           required
-          error={isContentEmpty}
-          margin="dense"
+          fullWidth
+          multiline
+          value={itemContent}
+          onChange={handleContentChange}
+          error={contentInput.isTooLong}
+          helperText={renderContentError()}
+          rowsMax={Infinity}
           id="content-name"
           label="Content"
           type="text"
-          value={itemContent}
-          onChange={handleContentChange}
-          helperText={renderContentError()}
-          rowsMax={Infinity}
-          multiline
-          fullWidth
+          margin="dense"
           autoComplete="off"
         />
       </DialogContent>
@@ -126,7 +125,7 @@ function EditItemDialog(props) {
         <Button
           onClick={handleClick}
           color="primary"
-          disabled={!authorInput.isValid || isContentEmpty}
+          disabled={!authorInput.isValid || !contentInput.isValid}
         >
           Save
         </Button>

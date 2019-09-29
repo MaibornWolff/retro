@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import IncrementIcon from "@material-ui/icons/ExposurePlus1";
-import DecrementIcon from "@material-ui/icons/ExposureNeg1";
+import IncrementIcon from "@material-ui/icons/Add";
+import DecrementIcon from "@material-ui/icons/Remove";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  IconButton,
   withMobileDialog,
   Grid,
   Typography,
@@ -22,12 +22,19 @@ import { UserContext } from "../../../context/UserContext";
 import { SET_MAX_VOTES, RESET_VOTES } from "../../../constants/eventNames";
 import { VOTE_COUNT_BUTTON } from "../../../constants/testIds";
 
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1)
+  }
+}));
+
 function VoteCountButton(props) {
   const { fullScreen } = props;
   const { boardId, socket } = useContext(BoardContext);
   const { userState, setMaxVote, resetVotes } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [voteCount, setVoteCount] = useState(getVoteCount());
+  const classes = useStyles();
 
   function getVoteCount() {
     if (userState.maxVoteCount) return userState.maxVoteCount;
@@ -68,6 +75,7 @@ function VoteCountButton(props) {
   function handleReset() {
     socket.emit(RESET_VOTES, boardId);
     resetVotes(boardId, voteCount);
+    setVoteCount(getVoteCount());
     closeDialog();
   }
 
@@ -87,6 +95,8 @@ function VoteCountButton(props) {
         Vote Count
       </Button>
       <Dialog
+        fullWidth
+        maxWidth="xs"
         fullScreen={fullScreen}
         open={open}
         onClose={closeDialog}
@@ -98,26 +108,39 @@ function VoteCountButton(props) {
           <DialogContentText id="vote-count-dialog-description">
             Set your maximum vote count or reset all votes.
           </DialogContentText>
-          <br />
+          <hr />
           <Grid container direction="column" alignItems="center">
             <Grid item>
               <Typography variant="body1">
-                {"Maximum Vote Count: " + voteCount}
+                Everybody has <strong>{voteCount}</strong> votes.
               </Typography>
             </Grid>
+            <br />
             <Grid item>
-              <IconButton
-                aria-label="Decrease Vote Count"
-                onClick={decr}
-                disabled={isDecrementDisabled()}
+              <Button
+                variant="contained"
+                size="small"
+                className={classes.button}
+                aria-label="Increase Vote Count"
+                onClick={incr}
               >
-                <DecrementIcon />
-              </IconButton>
-              <IconButton aria-label="Increase Vote Count" onClick={incr}>
-                <IncrementIcon />
-              </IconButton>
+                <IncrementIcon fontSize="small" />
+                Increase
+              </Button>
+              <Button
+                variant="contained"
+                size="small"
+                className={classes.button}
+                aria-label="Decrease Vote Count"
+                disabled={isDecrementDisabled()}
+                onClick={decr}
+              >
+                <DecrementIcon fontSize="small" />
+                Decrease
+              </Button>
             </Grid>
           </Grid>
+          <hr />
         </DialogContent>
         <DialogActions>
           <Button color="primary" onClick={handleReset}>

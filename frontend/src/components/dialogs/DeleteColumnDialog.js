@@ -25,6 +25,8 @@ function DeleteColumnDialog(props) {
 
   return (
     <Dialog
+      fullWidth
+      maxWidth="xs"
       fullScreen={fullScreen}
       open={dialogsState.isDeleteColumnDialogOpen}
       onClose={closeDeleteColumnDialog}
@@ -36,8 +38,7 @@ function DeleteColumnDialog(props) {
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-delete-column-dialog-description">
-          You are about to delete this column. If you are sure, then click on
-          the delete button.
+          You are about to delete this column!
         </DialogContentText>
       </DialogContent>
       <DialogActions>

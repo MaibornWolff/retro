@@ -50,6 +50,8 @@ function ExportBoardButton(props) {
         Export
       </Button>
       <Dialog
+        fullWidth
+        maxWidth="xs"
         fullScreen={fullScreen}
         open={open}
         onClose={closeDialog}
@@ -59,8 +61,9 @@ function ExportBoardButton(props) {
         <DialogTitle id="board-export-dialog">Export Your Board</DialogTitle>
         <DialogContent>
           <DialogContentText id="board-export-dialog-description">
-            Hope you had a great retrospective! Do you want to export your board
-            now?
+            Hope you had a great retrospective!
+            <br />
+            Do you want to export your board now?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

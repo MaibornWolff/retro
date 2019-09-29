@@ -19,10 +19,7 @@ import {
 
 import { defaultBoard, validateInput, postData } from "../../utils";
 import { CREATE_BOARD_BUTTON } from "../../constants/testIds";
-import {
-  BOARD_NAME_EMPTY_MSG,
-  BOARD_NAME_TOO_LONG_MSG
-} from "../../constants/errorMessages";
+import { BOARD_NAME_TOO_LONG_MSG } from "../../constants/errorMessages";
 
 const styles = theme => ({
   button: {
@@ -58,6 +55,18 @@ function CreateBoardDialog(props) {
     setTitle("");
   }
 
+  function renderError() {
+    if (input.isTooLong) {
+      return (
+        <Typography variant="caption" color="error">
+          {BOARD_NAME_TOO_LONG_MSG}
+        </Typography>
+      );
+    }
+
+    return null;
+  }
+
   function navigateToBoard(response, boardId) {
     if (response.ok) {
       history.push({
@@ -75,19 +84,6 @@ function CreateBoardDialog(props) {
     navigateToBoard(response, boardId);
   }
 
-  function renderError() {
-    const { isEmpty, isTooLong } = input;
-    if (isEmpty || isTooLong) {
-      return (
-        <Typography variant="caption" color="error">
-          {isEmpty ? BOARD_NAME_EMPTY_MSG : BOARD_NAME_TOO_LONG_MSG}
-        </Typography>
-      );
-    }
-
-    return null;
-  }
-
   return (
     <>
       <Fab
@@ -102,6 +98,8 @@ function CreateBoardDialog(props) {
         New Board
       </Fab>
       <Dialog
+        fullWidth
+        maxWidth="xs"
         fullScreen={fullScreen}
         open={open}
         onClose={closeDialog}
@@ -114,18 +112,18 @@ function CreateBoardDialog(props) {
           </DialogContentText>
           <TextField
             required
-            error={!input.isValid}
             autoFocus
-            margin="dense"
+            fullWidth
+            value={title}
+            onChange={handleTitleChange}
+            error={input.isTooLong}
+            helperText={renderError()}
             id="board-name"
             label="Board Name"
             type="text"
-            value={title}
-            onChange={handleTitleChange}
-            fullWidth
+            margin="dense"
             autoComplete="off"
           />
-          {renderError()}
         </DialogContent>
         <DialogActions>
           <Button onClick={closeDialog} color="primary">

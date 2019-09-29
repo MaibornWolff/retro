@@ -18,10 +18,7 @@ import { BoardContext } from "../../../context/BoardContext";
 import { UserContext } from "../../../context/UserContext";
 import { CREATE_COLUMN } from "../../../constants/eventNames";
 import { CREATE_COLUMN_BUTTON } from "../../../constants/testIds";
-import {
-  COLUMN_NAME_EMPTY_MSG,
-  COLUMN_NAME_TOO_LONG_MSG
-} from "../../../constants/errorMessages";
+import { COLUMN_NAME_TOO_LONG_MSG } from "../../../constants/errorMessages";
 
 function CreateColumnButton(props) {
   const { fullScreen } = props;
@@ -59,11 +56,10 @@ function CreateColumnButton(props) {
   }
 
   function renderError() {
-    const { isEmpty, isTooLong } = input;
-    if (isEmpty || isTooLong) {
+    if (input.isTooLong) {
       return (
         <Typography variant="caption" color="error">
-          {isEmpty ? COLUMN_NAME_EMPTY_MSG : COLUMN_NAME_TOO_LONG_MSG}
+          {COLUMN_NAME_TOO_LONG_MSG}
         </Typography>
       );
     }
@@ -87,8 +83,9 @@ function CreateColumnButton(props) {
         New Column
       </Button>
       <Dialog
+        fullWidth
+        maxWidth="xs"
         fullScreen={fullScreen}
-        fullWidth={true}
         open={open}
         onClose={closeDialog}
         aria-labelledby="new-column-dialog"
@@ -97,16 +94,16 @@ function CreateColumnButton(props) {
         <DialogContent>
           <TextField
             required
-            error={!input.isValid}
             autoFocus
-            margin="dense"
-            id="column-name"
-            label="Column Name"
-            type="text"
+            fullWidth
             value={columnTitle}
             onChange={handleChange}
+            error={input.isTooLong}
             helperText={renderError()}
-            fullWidth
+            id="column-name"
+            label="Column Name"
+            margin="dense"
+            type="text"
             autoComplete="off"
           />
         </DialogContent>

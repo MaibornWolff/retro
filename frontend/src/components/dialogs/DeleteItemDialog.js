@@ -25,6 +25,8 @@ function DeleteItemDialog(props) {
 
   return (
     <Dialog
+      fullWidth
+      maxWidth="xs"
       fullScreen={fullScreen}
       open={dialogsState.isDeleteItemDialogOpen}
       onClose={closeDeleteItemDialog}
@@ -36,8 +38,7 @@ function DeleteItemDialog(props) {
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-delete-card-dialog-description">
-          You are about to delete this card. If you are sure, then click on the
-          delete button.
+          You are about to delete this card!
         </DialogContentText>
       </DialogContent>
       <DialogActions>

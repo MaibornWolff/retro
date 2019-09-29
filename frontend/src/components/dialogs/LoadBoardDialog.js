@@ -37,7 +37,7 @@ function LoadBoardDialog(props) {
   const [error, setError] = useState(false);
 
   // all nanoid() calls generate an ID with the default size of 21 chars
-  const isValidId = boardId.length === 21;
+  const hasValidLength = boardId.length === 21;
 
   function openDialog() {
     setOpen(true);
@@ -62,7 +62,7 @@ function LoadBoardDialog(props) {
   }
 
   function renderError() {
-    if (error || !isValidId) {
+    if (error) {
       return (
         <Typography color="error" variant="caption">
           {LOAD_BOARD_ID_INVALID_MSG}
@@ -86,6 +86,8 @@ function LoadBoardDialog(props) {
         Load Board
       </Fab>
       <Dialog
+        fullWidth
+        maxWidth="xs"
         fullScreen={fullScreen}
         open={open}
         onClose={closeDialog}
@@ -94,19 +96,22 @@ function LoadBoardDialog(props) {
         <DialogTitle id="load-board-dialog-title">Load Board</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please provide the Board-ID of your board.
+            Please provide the ID of your board.
           </DialogContentText>
           <TextField
             autoFocus
             required
-            error={!isValidId}
-            margin="dense"
-            label="Board-ID"
-            type="text"
+            fullWidth
+            inputProps={{
+              maxLength: 21
+            }}
             value={boardId}
             onChange={handleChange}
+            error={error}
             helperText={renderError()}
-            fullWidth
+            label="Board-ID"
+            type="text"
+            margin="dense"
             autoComplete="off"
           />
         </DialogContent>
@@ -114,7 +119,11 @@ function LoadBoardDialog(props) {
           <Button onClick={closeDialog} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSubmit} color="primary" disabled={!isValidId}>
+          <Button
+            onClick={handleSubmit}
+            color="primary"
+            disabled={!hasValidLength}
+          >
             Load
           </Button>
         </DialogActions>

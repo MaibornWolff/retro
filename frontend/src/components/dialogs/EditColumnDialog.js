@@ -14,10 +14,7 @@ import { BoardContext } from "../../context/BoardContext";
 import { DialogsContext } from "../../context/DialogsContext";
 import { validateInput } from "../../utils";
 import { EDIT_COLUMN } from "../../constants/eventNames";
-import {
-  COLUMN_NAME_EMPTY_MSG,
-  COLUMN_NAME_TOO_LONG_MSG
-} from "../../constants/errorMessages";
+import { COLUMN_NAME_TOO_LONG_MSG } from "../../constants/errorMessages";
 
 function EditColumnDialog(props) {
   const { fullScreen } = props;
@@ -42,11 +39,10 @@ function EditColumnDialog(props) {
   }
 
   function renderError() {
-    const { isEmpty, isTooLong } = input;
-    if (isEmpty || isTooLong) {
+    if (input.isTooLong) {
       return (
         <Typography variant="caption" color="error">
-          {isEmpty ? COLUMN_NAME_EMPTY_MSG : COLUMN_NAME_TOO_LONG_MSG}
+          {COLUMN_NAME_TOO_LONG_MSG}
         </Typography>
       );
     }
@@ -56,6 +52,8 @@ function EditColumnDialog(props) {
 
   return (
     <Dialog
+      fullWidth
+      maxWidth="xs"
       fullScreen={fullScreen}
       open={dialogsState.isEditColumnDialogOpen}
       onClose={closeEditColumnDialog}
@@ -65,16 +63,16 @@ function EditColumnDialog(props) {
       <DialogContent>
         <TextField
           required
-          id="col-name-input-edit"
-          error={!input.isValid}
-          margin="dense"
-          label="Column Name"
-          type="text"
-          value={title}
-          onChange={handleChange}
-          helperText={renderError()}
           autoFocus
           fullWidth
+          value={title}
+          onChange={handleChange}
+          error={input.isTooLong}
+          helperText={renderError()}
+          id="col-name-input-edit"
+          label="Column Name"
+          type="text"
+          margin="dense"
           autoComplete="off"
         />
       </DialogContent>

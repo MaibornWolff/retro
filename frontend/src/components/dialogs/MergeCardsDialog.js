@@ -25,6 +25,8 @@ function MergeCardsDialog(props) {
   return (
     <>
       <Dialog
+        fullWidth
+        maxWidth="xs"
         fullScreen={fullScreen}
         open={open}
         onClose={closeDialog}
@@ -34,8 +36,7 @@ function MergeCardsDialog(props) {
         <DialogTitle id="alert-merge-card-dialog">{"Merge Cards?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-merge-card-dialog-description">
-            You are about to merge cards. If you are sure, click the Merge
-            button.
+            You are about to merge cards!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
