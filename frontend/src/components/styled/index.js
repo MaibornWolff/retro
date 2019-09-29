@@ -24,7 +24,6 @@ export const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 25rem;
-  min-height: 100%;
   margin: 0.8em 0.2em 0.8em 0.2em;
   ${media.tablet`margin: 0.8em;`}
   border: 1px solid grey;
