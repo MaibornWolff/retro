@@ -26,6 +26,8 @@ app.use("/api/boards", apiRouter);
 
 app.post("/", async (req, res) => {
   const board = req.body;
+  const { title } = board;
+  board.title = title.trim();
   try {
     await fs.writeFile(
       getPath(board.boardId),

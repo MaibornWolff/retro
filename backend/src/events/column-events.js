@@ -19,7 +19,9 @@ const createColumn = (io, client, roomId) => {
     fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(CREATE_COLUMN, error);
       const board = getBoard(file);
+      const { columnTitle } = column;
 
+      column.columnTitle = columnTitle.trim();
       board.columns[column.id] = column;
       board.columnOrder.push(column.id);
 
@@ -81,7 +83,7 @@ const editColumn = (io, client, roomId) => {
       const board = getBoard(file);
 
       const column = board.columns[columnId];
-      column.columnTitle = newTitle;
+      column.columnTitle = newTitle.trim();
 
       fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(EDIT_COLUMN, error);

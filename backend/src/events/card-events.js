@@ -22,8 +22,12 @@ const createCard = (io, client, roomId) => {
     fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(CREATE_CARD, error);
       const board = getBoard(file);
+      const { author, content } = card;
 
       card.isBlurred = board.isBlurred;
+      card.author = author.trim();
+      card.content = content.trim();
+
       board.items[card.id] = card;
       board.columns[columnId].itemIds.push(card.id);
 
@@ -61,8 +65,8 @@ const editCard = (io, client, roomId) => {
       const board = getBoard(file);
 
       const card = board.items[cardId];
-      card.author = author;
-      card.content = content;
+      card.author = author.trim();
+      card.content = content.trim();
 
       fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(EDIT_CARD, error);
