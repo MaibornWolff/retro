@@ -3,6 +3,9 @@
 import HomePage from "./pageObjects/home/HomePage";
 
 context("Homepage Tests", () => {
+  /**
+   * @type {HomePage}
+   */
   let hp;
 
   beforeEach(() => {
@@ -45,7 +48,7 @@ context("Homepage Tests", () => {
       hp.loadBoardDialog.closeDialog();
     });
 
-    it("should display error on invalid ID", () => {
+    it("should allow maxLength of 21 characters", () => {
       hp.loadBoardDialog.openEmptyDialog();
 
       hp.loadBoardDialog.type("asdf");
@@ -53,15 +56,11 @@ context("Homepage Tests", () => {
 
       hp.loadBoardDialog.clearInput();
       hp.loadBoardDialog.type("a".repeat(22));
-      hp.loadBoardDialog.submitShouldBeDisabled();
+      hp.loadBoardDialog
+        .getInput()
+        .invoke("val")
+        .should("have.length", "21");
 
-      hp.loadBoardDialog.closeDialog();
-    });
-
-    it("should hide error on valid ID", () => {
-      hp.loadBoardDialog.openEmptyDialog();
-      hp.loadBoardDialog.type("a".repeat(21));
-      hp.loadBoardDialog.submitShouldBeEnabled();
       hp.loadBoardDialog.closeDialog();
     });
   });

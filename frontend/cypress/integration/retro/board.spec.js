@@ -8,10 +8,12 @@ context("Board Tests", () => {
    * @type {HomePage}
    */
   let hp;
+
   /**
    * @type {BoardPage}
    */
   let bp;
+
   let boardId;
 
   before(() => {
