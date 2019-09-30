@@ -6,13 +6,25 @@
 
 ### Changed
 
-- Dependency updates
+### Fixed
+
+## [0.3.1]
+
+### Added
+
+### Changed
+
+- Some dependency updates
+- Dialogs don't display an error state by default (#44)
 
 ### Fixed
 
-- Moved Dialog components outside of the drag and drop context
-- Layout issues with the buttons on the BoardHeader component
-- Vote count dialog
+- Fixed draggable dialogs
+  - Dialog components are now outside of a drag and drop context
+- Fixed layout issues regarding the buttons on the board header
+- Fixed layout issues regarding board cards (#43)
+- Fixed an issue where columns where expanding its height while dragging (#45)
+- Fixed vote count dialog (#42)
   - Disallowed negative vote counts
   - Cancel button should work properly now
 
@@ -130,7 +142,8 @@
 - Combine two cards
 - Upvote cards
 
-[Unreleased]: https://github.com/yduman/retro/compare/0.3.0...master
+[Unreleased]: https://github.com/yduman/retro/compare/0.3.1...master
+[0.3.1]: https://github.com/yduman/retro/releases/tag/0.3.1
 [0.3.0]: https://github.com/yduman/retro/releases/tag/0.3.0
 [0.2.1]: https://github.com/yduman/retro/releases/tag/0.2.1
 [0.2.0]: https://github.com/yduman/retro/releases/tag/0.2.0
