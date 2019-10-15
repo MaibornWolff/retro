@@ -20,11 +20,7 @@ import { ROLE_MODERATOR } from "../utils/userUtils";
 import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
 import { CARD_CONTAINER } from "../constants/testIds";
-import {
-  VOTE_CARD,
-  FOCUS_CARD,
-  REMOVE_FOCUS_CARD
-} from "../constants/eventNames";
+import { VOTE_CARD, FOCUS_CARD, REMOVE_FOCUS_CARD } from "../constants/eventNames";
 
 const styles = {
   avatar: {
@@ -51,16 +47,7 @@ const styles = {
 };
 
 function RetroItem(props) {
-  const {
-    id,
-    author,
-    content,
-    points,
-    isBlurred,
-    isVoted,
-    openSnackbar,
-    classes
-  } = props;
+  const { id, author, content, points, isBlurred, isVoted, openSnackbar, classes } = props;
   const [hasMouseFocus, setMouseFocus] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);
   const { userState, downvoteCard } = useContext(UserContext);
@@ -80,11 +67,7 @@ function RetroItem(props) {
     if (role === ROLE_MODERATOR) {
       if (hasMouseFocus && e.keyCode === 102) {
         socket.emit(FOCUS_CARD, id);
-      } else if (
-        e.shiftKey &&
-        e.keyCode === 70 &&
-        boardState.focusedCard !== ""
-      ) {
+      } else if (e.shiftKey && e.keyCode === 70 && boardState.focusedCard !== "") {
         socket.emit(REMOVE_FOCUS_CARD);
       }
     }
@@ -107,9 +90,7 @@ function RetroItem(props) {
         <Card
           onMouseEnter={e => handleHover(e, true)}
           onMouseLeave={e => handleHover(e, false)}
-          className={
-            boardState.focusedCard === id ? classes.cardFocused : classes.card
-          }
+          className={boardState.focusedCard === id ? classes.cardFocused : classes.card}
           raised
         >
           <CardHeader
@@ -140,11 +121,7 @@ function RetroItem(props) {
           />
           <Divider />
           <CardContent>
-            <Typography
-              variant="body2"
-              className={classes.contentBody}
-              component={"span"}
-            >
+            <Typography variant="body2" className={classes.contentBody} component={"span"}>
               <CardText>{content}</CardText>
             </Typography>
           </CardContent>

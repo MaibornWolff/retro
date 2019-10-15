@@ -21,11 +21,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         votesLeft: state.votesLeft + 1,
-        votedItems: removeFirstOccurenceFromArray(
-          state.votedItems,
-          action.payload.cardId,
-          true
-        )
+        votedItems: removeFirstOccurenceFromArray(state.votedItems, action.payload.cardId, true)
       };
     case SET_MAX_VOTE:
       return {

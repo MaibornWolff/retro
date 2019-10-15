@@ -6,12 +6,7 @@ import { EDIT_COLUMN_NAME_BUTTON } from "../../../constants/testIds";
 
 const EditColumnMenuItem = React.forwardRef((props, ref) => {
   return (
-    <MenuItem
-      button
-      ref={ref}
-      onClick={props.openDialog}
-      data-testid={EDIT_COLUMN_NAME_BUTTON}
-    >
+    <MenuItem button ref={ref} onClick={props.openDialog} data-testid={EDIT_COLUMN_NAME_BUTTON}>
       <ListItemIcon>
         <EditIcon fontSize="small" />
       </ListItemIcon>

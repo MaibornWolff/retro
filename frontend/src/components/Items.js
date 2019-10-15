@@ -20,12 +20,7 @@ function Items(props) {
     return items.map((item, i) => {
       return (
         <Grid key={item.id} item style={{ width: "100%" }}>
-          <Item
-            item={item}
-            index={i}
-            openSnackbar={openSnackbar}
-            isVoted={isVoted(item.id)}
-          />
+          <Item item={item} index={i} openSnackbar={openSnackbar} isVoted={isVoted(item.id)} />
         </Grid>
       );
     });

@@ -24,11 +24,7 @@ function UpvoteItemButton(props) {
 
   return (
     <>
-      <IconButton
-        color="primary"
-        onClick={upVote}
-        data-testid={UPVOTE_CARD_BUTTON}
-      >
+      <IconButton color="primary" onClick={upVote} data-testid={UPVOTE_CARD_BUTTON}>
         <ThumbUpIcon fontSize="small" />
       </IconButton>
     </>

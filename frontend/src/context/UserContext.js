@@ -83,7 +83,5 @@ export const UserContextProvider = props => {
     createParticipant
   };
 
-  return (
-    <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
-  );
+  return <UserContext.Provider value={value}>{props.children}</UserContext.Provider>;
 };

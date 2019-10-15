@@ -19,11 +19,7 @@ function VoteCountSnackbar(props) {
       ContentProps={{
         "aria-describedby": id
       }}
-      message={
-        <span id="vote-count-snackbar">
-          You have {userState.votesLeft} votes left.
-        </span>
-      }
+      message={<span id="vote-count-snackbar">You have {userState.votesLeft} votes left.</span>}
     />
   );
 }

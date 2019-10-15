@@ -1,7 +1,4 @@
-import {
-  SET_FOCUSED_CARD,
-  REMOVE_FOCUSED_CARD
-} from "../actionTypes/boardTypes";
+import { SET_FOCUSED_CARD, REMOVE_FOCUSED_CARD } from "../actionTypes/boardTypes";
 
 export const reducer = (state, action) => {
   switch (action.type) {

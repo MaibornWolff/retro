@@ -6,12 +6,7 @@ import { DELETE_COLUMN_BUTTON } from "../../../constants/testIds";
 
 const DeleteColumnMenuItem = React.forwardRef((props, ref) => {
   return (
-    <MenuItem
-      button
-      ref={ref}
-      onClick={props.openDialog}
-      data-testid={DELETE_COLUMN_BUTTON}
-    >
+    <MenuItem button ref={ref} onClick={props.openDialog} data-testid={DELETE_COLUMN_BUTTON}>
       <ListItemIcon>
         <DeleteIcon fontSize="small" />
       </ListItemIcon>

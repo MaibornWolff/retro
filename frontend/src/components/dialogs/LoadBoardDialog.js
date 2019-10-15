@@ -95,9 +95,7 @@ function LoadBoardDialog(props) {
       >
         <DialogTitle id="load-board-dialog-title">Load Board</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Please provide the ID of your board.
-          </DialogContentText>
+          <DialogContentText>Please provide the ID of your board.</DialogContentText>
           <TextField
             autoFocus
             required
@@ -119,11 +117,7 @@ function LoadBoardDialog(props) {
           <Button onClick={closeDialog} color="primary">
             Cancel
           </Button>
-          <Button
-            onClick={handleSubmit}
-            color="primary"
-            disabled={!hasValidLength}
-          >
+          <Button onClick={handleSubmit} color="primary" disabled={!hasValidLength}>
             Load
           </Button>
         </DialogActions>

@@ -3,10 +3,7 @@ import io from "socket.io-client";
 
 import { reducer } from "../reducers/boardReducer";
 import { BACKEND_ENDPOINT } from "../utils";
-import {
-  SET_FOCUSED_CARD,
-  REMOVE_FOCUSED_CARD
-} from "../actionTypes/boardTypes";
+import { SET_FOCUSED_CARD, REMOVE_FOCUSED_CARD } from "../actionTypes/boardTypes";
 
 export const BoardContext = React.createContext();
 
@@ -38,9 +35,5 @@ export const BoardContextProvider = props => {
     removeFocusedCard
   };
 
-  return (
-    <BoardContext.Provider value={value}>
-      {props.children}
-    </BoardContext.Provider>
-  );
+  return <BoardContext.Provider value={value}>{props.children}</BoardContext.Provider>;
 };

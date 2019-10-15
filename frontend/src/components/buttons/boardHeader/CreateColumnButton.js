@@ -111,11 +111,7 @@ function CreateColumnButton(props) {
           <Button onClick={closeDialog} color="primary">
             Cancel
           </Button>
-          <Button
-            onClick={handleSubmit}
-            color="primary"
-            disabled={!input.isValid}
-          >
+          <Button onClick={handleSubmit} color="primary" disabled={!input.isValid}>
             Create
           </Button>
         </DialogActions>

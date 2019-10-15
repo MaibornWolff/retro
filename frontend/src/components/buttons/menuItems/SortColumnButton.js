@@ -16,12 +16,7 @@ const SortColumnButton = React.forwardRef((props, ref) => {
 
   return (
     <>
-      <MenuItem
-        button
-        ref={ref}
-        onClick={sort}
-        data-testid={SORT_COLUMN_BUTTON}
-      >
+      <MenuItem button ref={ref} onClick={sort} data-testid={SORT_COLUMN_BUTTON}>
         <ListItemIcon>
           <SortIcon fontSize="small" />
         </ListItemIcon>

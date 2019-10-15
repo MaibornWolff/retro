@@ -18,22 +18,13 @@ function ColumnHeader(props) {
 
   return (
     <>
-      <Grid
-        className={classes.header}
-        container
-        direction="row"
-        justify="space-between"
-      >
+      <Grid className={classes.header} container direction="row" justify="space-between">
         <Grid item>
           <ColumnName classes={classes} columnTitle={columnTitle} />
         </Grid>
         <Grid item>
           <CreateItemButton columnId={columnId} />
-          <ColumnMenu
-            columnId={columnId}
-            columnTitle={columnTitle}
-            items={items}
-          />
+          <ColumnMenu columnId={columnId} columnTitle={columnTitle} items={items} />
         </Grid>
       </Grid>
     </>

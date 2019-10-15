@@ -95,9 +95,5 @@ export const DialogsContextProvider = props => {
     closeCreateItemDialog
   };
 
-  return (
-    <DialogsContext.Provider value={value}>
-      {props.children}
-    </DialogsContext.Provider>
-  );
+  return <DialogsContext.Provider value={value}>{props.children}</DialogsContext.Provider>;
 };

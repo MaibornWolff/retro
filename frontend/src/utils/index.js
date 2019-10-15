@@ -3,12 +3,12 @@ export const BACKEND_DEV_HOST = "localhost";
 export const BACKEND_DEV_PORT = 3001;
 
 export const BACKEND_ENDPOINT =
-  process.env.REACT_APP_PROD_URL ||
-  `http://${BACKEND_DEV_HOST}:${BACKEND_DEV_PORT}`;
+  process.env.REACT_APP_PROD_URL || `http://${BACKEND_DEV_HOST}:${BACKEND_DEV_PORT}`;
 
 export const defaultBoard = {
   boardId: "",
   title: "",
+  format: "",
   items: {},
   columns: {},
   columnOrder: [],
@@ -60,10 +60,7 @@ export const removeFirstOccurenceFromArray = (array, element, shallReturn) => {
 };
 
 export const isSamePosition = (source, destination) => {
-  return (
-    destination.droppableId === source.droppableId &&
-    destination.index === source.index
-  );
+  return destination.droppableId === source.droppableId && destination.index === source.index;
 };
 
 export const isSameColumn = (columns, source, destination) => {

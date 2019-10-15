@@ -17,6 +17,7 @@ import {
   withStyles
 } from "@material-ui/core";
 
+import RetroFormatSelect from "./RetroFormatSelect";
 import { defaultBoard, validateInput, postData } from "../../utils";
 import { CREATE_BOARD_BUTTON } from "../../constants/testIds";
 import { BOARD_NAME_TOO_LONG_MSG } from "../../constants/errorMessages";
@@ -36,6 +37,7 @@ function CreateBoardDialog(props) {
   const { classes, fullScreen, history } = props;
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const [format, setFormat] = useState("");
   const input = validateInput(title.length, 0, 40);
 
   function openDialog() {
@@ -78,7 +80,7 @@ function CreateBoardDialog(props) {
 
   async function handleSubmit() {
     const boardId = nanoid();
-    const newBoard = { ...defaultBoard, boardId, title };
+    const newBoard = { ...defaultBoard, boardId, title, format };
     const response = await postData("/", newBoard);
     resetState();
     navigateToBoard(response, boardId);
@@ -107,9 +109,7 @@ function CreateBoardDialog(props) {
       >
         <DialogTitle id="form-dialog-title">Create New Board</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Please provide a name for your new board.
-          </DialogContentText>
+          <DialogContentText>Please provide a name for your new board.</DialogContentText>
           <TextField
             required
             autoFocus
@@ -124,16 +124,13 @@ function CreateBoardDialog(props) {
             margin="dense"
             autoComplete="off"
           />
+          <RetroFormatSelect onFormatChange={setFormat} />
         </DialogContent>
         <DialogActions>
           <Button onClick={closeDialog} color="primary">
             Cancel
           </Button>
-          <Button
-            onClick={handleSubmit}
-            color="primary"
-            disabled={!input.isValid}
-          >
+          <Button onClick={handleSubmit} color="primary" disabled={!input.isValid}>
             Create
           </Button>
         </DialogActions>

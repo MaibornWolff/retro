@@ -18,14 +18,7 @@ function Columns(props) {
     return items;
   }
 
-  return (
-    <Column
-      column={column}
-      items={getItems()}
-      index={index}
-      openSnackbar={openSnackbar}
-    />
-  );
+  return <Column column={column} items={getItems()} index={index} openSnackbar={openSnackbar} />;
 }
 
 export default Columns;

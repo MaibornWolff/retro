@@ -68,13 +68,7 @@ function EditItemDialog(props) {
   }
 
   function handleClick() {
-    socket.emit(
-      EDIT_CARD,
-      itemAuthor,
-      itemContent,
-      dialogsState.itemId,
-      boardId
-    );
+    socket.emit(EDIT_CARD, itemAuthor, itemContent, dialogsState.itemId, boardId);
     closeEditItemDialog();
   }
 

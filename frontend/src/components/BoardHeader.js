@@ -19,12 +19,7 @@ function BoardHeader(props) {
 
   return (
     <>
-      <Grid
-        container
-        direction="row"
-        justify="space-around"
-        alignItems="center"
-      >
+      <Grid container direction="row" justify="space-around" alignItems="center">
         <Grid item xs={12} sm={6} md={9}>
           <Typography variant="h5">{title}</Typography>
         </Grid>
@@ -32,12 +27,7 @@ function BoardHeader(props) {
           <NameInput />
         </Grid>
       </Grid>
-      <Grid
-        container
-        direction="row"
-        spacing={1}
-        className={classes.buttonGroup}
-      >
+      <Grid container direction="row" spacing={1} className={classes.buttonGroup}>
         <Grid item xs={12} sm={2}>
           <CreateColumnButton />
         </Grid>

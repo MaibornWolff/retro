@@ -55,15 +55,8 @@ function Board(props) {
   const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
   const [merge, setMerge] = useState(false);
-  const { boardId, socket, setFocusedCard, removeFocusedCard } = useContext(
-    BoardContext
-  );
-  const {
-    createModerator,
-    createParticipant,
-    setMaxVote,
-    resetVotes
-  } = useContext(UserContext);
+  const { boardId, socket, setFocusedCard, removeFocusedCard } = useContext(BoardContext);
+  const { createModerator, createParticipant, setMaxVote, resetVotes } = useContext(UserContext);
 
   // set tab name
   useEffect(() => {
@@ -213,11 +206,7 @@ function Board(props) {
       </Grid>
       <Grid item xs={12}>
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable
-            droppableId="allColumns"
-            direction="horizontal"
-            type="column"
-          >
+          <Droppable droppableId="allColumns" direction="horizontal" type="column">
             {provided => (
               <FlexContainer
                 {...provided.droppableProps}

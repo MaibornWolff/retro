@@ -33,9 +33,7 @@ function DeleteColumnDialog(props) {
       aria-labelledby="alert-delete-column-dialog"
       aria-describedby="alert-delete-column-dialog-description"
     >
-      <DialogTitle id="alert-delete-column-dialog">
-        {"Delete this column?"}
-      </DialogTitle>
+      <DialogTitle id="alert-delete-column-dialog">{"Delete this column?"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-delete-column-dialog-description">
           You are about to delete this column!

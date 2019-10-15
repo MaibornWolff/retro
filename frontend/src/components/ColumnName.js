@@ -7,11 +7,7 @@ function ColumnName(props) {
   const { classes, columnTitle } = props;
 
   return (
-    <Typography
-      className={classes.header}
-      variant="subtitle2"
-      data-testid={COLUMN_NAME}
-    >
+    <Typography className={classes.header} variant="subtitle2" data-testid={COLUMN_NAME}>
       {columnTitle}
     </Typography>
   );

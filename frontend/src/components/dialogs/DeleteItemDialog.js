@@ -33,9 +33,7 @@ function DeleteItemDialog(props) {
       aria-labelledby="alert-delete-card-dialog"
       aria-describedby="alert-delete-card-dialog-description"
     >
-      <DialogTitle id="alert-delete-card-dialog">
-        {"Delete this card?"}
-      </DialogTitle>
+      <DialogTitle id="alert-delete-card-dialog">{"Delete this card?"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-delete-card-dialog-description">
           You are about to delete this card!

@@ -14,9 +14,7 @@ function ColumnMenu(props) {
   const { columnId, columnTitle, items } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const { userState } = useContext(UserContext);
-  const { openDeleteColumnDialog, openEditColumnDialog } = useContext(
-    DialogsContext
-  );
+  const { openDeleteColumnDialog, openEditColumnDialog } = useContext(DialogsContext);
 
   const open = Boolean(anchorEl);
 
@@ -41,12 +39,7 @@ function ColumnMenu(props) {
       >
         <MenuIcon fontSize="small" />
       </IconButton>
-      <Menu
-        id="column-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={closeMenu}
-      >
+      <Menu id="column-menu" anchorEl={anchorEl} open={open} onClose={closeMenu}>
         <DeleteColumnMenuItem
           openDialog={() => {
             openDeleteColumnDialog(columnId);

@@ -78,13 +78,7 @@ export const handleColumnDrag = (board, dragResult, setBoard, socket) => {
   socket.emit(UPDATE_BOARD, newBoard, boardId);
 };
 
-export const handleCombine = (
-  board,
-  dragResult,
-  stopMerge,
-  setBoard,
-  socket
-) => {
+export const handleCombine = (board, dragResult, stopMerge, setBoard, socket) => {
   const { items, columns, boardId } = board;
   const { combine, draggableId, source } = dragResult;
 
@@ -102,10 +96,7 @@ export const handleCombine = (
   itemToCombine.content = newContent;
 
   // remove the merged item
-  const newItemIds = pull(
-    itemToCombineWithColumn.itemIds,
-    itemToCombineWith.id
-  );
+  const newItemIds = pull(itemToCombineWithColumn.itemIds, itemToCombineWith.id);
 
   // update state
   const newColumn = {

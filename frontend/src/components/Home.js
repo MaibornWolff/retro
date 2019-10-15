@@ -50,12 +50,7 @@ function Home(props) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Grid
-            container
-            direction="row"
-            justify="space-around"
-            alignItems="center"
-          >
+          <Grid container direction="row" justify="space-around" alignItems="center">
             <Grid item>
               <CreateBoardDialog />
             </Grid>

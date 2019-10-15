@@ -23,17 +23,9 @@ function Column(props) {
           ref={providedDraggable.innerRef}
           data-testid={COLUMN_CONTAINER + `__${column.columnTitle}`}
         >
-          <ColumnHeader
-            columnTitle={column.columnTitle}
-            columnId={column.id}
-            items={items}
-          />
+          <ColumnHeader columnTitle={column.columnTitle} columnId={column.id} items={items} />
 
-          <Droppable
-            droppableId={column.id}
-            type="item"
-            isCombineEnabled={true}
-          >
+          <Droppable droppableId={column.id} type="item" isCombineEnabled={true}>
             {(providedDroppable, snapshot) => (
               <ItemsContainer
                 ref={providedDroppable.innerRef}

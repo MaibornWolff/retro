@@ -13,7 +13,7 @@ const io = require("socket.io")(server);
 const apiRouter = require("./routes/apiRouter");
 const { CONNECT, DISCONNECT } = require("./events/event-names");
 const { boardEvents, columnEvents, cardEvents } = require("./events");
-const { getPath, stringify } = require("./utils");
+const { getPath, stringify, processBoard } = require("./utils");
 
 const publicFolderPath = path.resolve(__dirname, "../public");
 const port = process.env.PORT;
@@ -26,12 +26,11 @@ app.use("/api/boards", apiRouter);
 
 app.post("/", async (req, res) => {
   const board = req.body;
-  const { title } = board;
-  board.title = title.trim();
+  const processedBoard = processBoard(board);
   try {
     await fs.writeFile(
-      getPath(board.boardId),
-      stringify(board),
+      getPath(processedBoard.boardId),
+      stringify(processedBoard),
       "utf8",
       error => {
         if (error)
