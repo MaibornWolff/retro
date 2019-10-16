@@ -1,17 +1,9 @@
 const nanoid = require("nanoid");
 const chalk = require("chalk");
 const path = require("path");
-const assignIn = require("lodash/assignIn");
-const {
-  RETRO_FORMAT_1,
-  RETRO_FORMAT_2,
-  RETRO_FORMAT_3,
-  RETRO_FORMAT_4,
-  RETRO_FORMAT_5,
-  RETRO_FORMAT_6,
-  RETRO_FORMAT_7,
-  RETRO_FORMAT_8
-} = require("./retro-formats");
+const forIn = require("lodash/forIn");
+
+const retroFormats = require("./retro-format-data");
 
 const getPath = id => path.resolve(__dirname, `../../storage/${id}.json`);
 
@@ -35,7 +27,6 @@ const logError = (eventName, error) => {
 };
 
 const processBoard = board => {
-  // TODO: trim title and create format, if specified
   board.title = board.title.trim();
 
   const format = board.format;
@@ -51,20 +42,20 @@ const processBoard = board => {
   return board;
 };
 
-const createFormat = format => {
-  if (format === RETRO_FORMAT_1) {
-    const columnTitles = ["Went Well", "To Improve", "Action Items"];
-    return createColumns(columnTitles);
-  } else if (format === RETRO_FORMAT_2) {
-    return [];
-  } else {
-    return [];
-  }
-};
+function createFormat(format) {
+  let result = [];
+
+  forIn(retroFormats, (value, key) => {
+    if (format === key) {
+      result = createColumns(value.columnTitles);
+    }
+  });
+
+  return result;
+}
 
 const createColumns = columnTitles => {
   const result = [];
-
   columnTitles.forEach(columnTitle => {
     result.push({ id: nanoid(), columnTitle, itemIds: [] });
   });
