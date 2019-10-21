@@ -8,9 +8,20 @@
 
 ### Fixed
 
-## [0.3.1]
+### Removed
+
+## [0.3.2] - 2019-10-21
 
 ### Added
+
+- Retro Formats
+  - On board creation, the user can now select well known retrospective formats
+
+### Changed
+
+- Maximum card content length is now 10000
+
+## [0.3.1] - 2019-09-30
 
 ### Changed
 
@@ -28,7 +39,7 @@
   - Disallowed negative vote counts
   - Cancel button should work properly now
 
-## [0.3.0]
+## [0.3.0] - 2019-08-22
 
 ### Added
 
@@ -142,7 +153,8 @@
 - Combine two cards
 - Upvote cards
 
-[Unreleased]: https://github.com/yduman/retro/compare/0.3.1...master
+[Unreleased]: https://github.com/yduman/retro/compare/0.3.2...master
+[0.3.2]: https://github.com/yduman/retro/releases/tag/0.3.2
 [0.3.1]: https://github.com/yduman/retro/releases/tag/0.3.1
 [0.3.0]: https://github.com/yduman/retro/releases/tag/0.3.0
 [0.2.1]: https://github.com/yduman/retro/releases/tag/0.2.1
