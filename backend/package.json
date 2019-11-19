@@ -28,11 +28,11 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
-    "nanoid": "^2.1.6",
+    "nanoid": "^2.1.7",
     "puppeteer": "^2.0.0",
     "socket.io": "^2.3.0"
   },
@@ -40,11 +40,11 @@
     "chai": "^4.2.0",
     "cross-env": "^6.0.3",
     "eslint": "^6.6.0",
-    "husky": "^3.0.9",
+    "husky": "^3.1.0",
     "mocha": "^6.2.2",
     "nodemon": "^1.19.4",
     "npm-run-all": "^4.1.5",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "socket.io-client": "^2.3.0",
     "supertest": "^4.0.2"
   },
