@@ -139,8 +139,4 @@ function CreateBoardDialog(props) {
   );
 }
 
-export default compose(
-  withRouter,
-  withMobileDialog(),
-  withStyles(styles)
-)(CreateBoardDialog);
+export default compose(withRouter, withMobileDialog(), withStyles(styles))(CreateBoardDialog);

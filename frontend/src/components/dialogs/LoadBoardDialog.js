@@ -126,8 +126,4 @@ function LoadBoardDialog(props) {
   );
 }
 
-export default compose(
-  withRouter,
-  withMobileDialog(),
-  withStyles(styles)
-)(LoadBoardDialog);
+export default compose(withRouter, withMobileDialog(), withStyles(styles))(LoadBoardDialog);
