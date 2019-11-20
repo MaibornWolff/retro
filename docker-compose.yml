@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  retro-backend:
+    build: ./backend/
+    image: retro-backend
+    container_name: retro-backend
+    volumes:
+        - ./backend:/app
+    ports:
+      - "3001:3001"
+    networks:
+      - dev
+    restart: on-failure
+    environment:
+      - NODE_ENV=DEVELOPMENT
+
+  retro-frontend:
+    build: ./frontend/
+    image: retro-frontend
+    container_name: retro-frontend
+    volumes:
+        - ./frontend:/app
+    ports:
+      - "3000:3000"
+    networks:
+      - dev
+    restart: on-failure
+    environment:
+      - NODE_ENV=DEVELOPMENT
+
+networks:
+  dev:
+    driver: bridge
