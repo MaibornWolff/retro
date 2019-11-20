@@ -44,9 +44,11 @@ app.post("/", async (req, res) => {
 });
 
 // https://bit.ly/2wMAs0i
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(publicFolderPath, "index.html"));
-});
+if (process.env.NODE_ENV === "PRODUCTION") {
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(publicFolderPath, "index.html"));
+  });
+}
 
 io.on(CONNECT, client => {
   const roomId = client.handshake.query.boardId;
