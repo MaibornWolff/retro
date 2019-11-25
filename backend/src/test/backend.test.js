@@ -54,7 +54,7 @@ describe("Backend Tests", () => {
 
   it("should create a board", done => {
     request(server)
-      .post("/")
+      .post("/api/boards/")
       .send(testBoard)
       .expect(200)
       .end(async error => {
