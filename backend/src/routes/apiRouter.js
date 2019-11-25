@@ -4,10 +4,35 @@ const express = require("express");
 const puppeteer = require("puppeteer");
 
 const router = express.Router();
-const { getPath, getImg, respondWithInvalidBoardId } = require("../utils");
+const {
+  getPath,
+  getImg,
+  stringify,
+  processBoard,
+  respondWithInvalidBoardId
+} = require("../utils");
 
 const width = 1920;
 const height = 1080;
+
+router.post("/", async (req, res) => {
+  const board = req.body;
+  const processedBoard = processBoard(board);
+  try {
+    await fs.writeFile(
+      getPath(processedBoard.boardId),
+      stringify(processedBoard),
+      "utf8",
+      error => {
+        if (error)
+          res.status(400).send({ errorMsg: "Board creation went wrong." });
+        res.status(200).send();
+      }
+    );
+  } catch (error) {
+    res.status(400).send({ errorMsg: "Board creation went wrong." });
+  }
+});
 
 router.get("/validate/:boardId", async (req, res) => {
   const boardId = req.params.boardId;

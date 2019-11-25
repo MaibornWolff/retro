@@ -1,8 +1,9 @@
 const proxy = require("http-proxy-middleware");
 module.exports = function(app) {
   if (process.env.DEV_ENV === "DOCKER") {
-    app.use("/*", proxy({ target: "http://host.docker.internal:3001", changeOrigin: true }));
+    const dockerHostIp = process.env.DOCKER_HOST;
+    app.use("/api/*", proxy({ target: `http://${dockerHostIp}:3001`, changeOrigin: true }));
   } else {
-    app.use("/*", proxy({ target: "http://localhost:3001", changeOrigin: true }));
+    app.use("/api/*", proxy({ target: "http://localhost:3001", changeOrigin: true }));
   }
 };

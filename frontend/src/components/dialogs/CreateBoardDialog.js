@@ -81,7 +81,7 @@ function CreateBoardDialog(props) {
   async function handleSubmit() {
     const boardId = nanoid();
     const newBoard = { ...defaultBoard, boardId, title, format };
-    const response = await postData("/", newBoard);
+    const response = await postData("/api/boards/", newBoard);
     resetState();
     navigateToBoard(response, boardId);
   }

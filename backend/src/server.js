@@ -2,7 +2,6 @@ require("./config");
 
 const chalk = require("chalk");
 const path = require("path");
-const fs = require("fs");
 const express = require("express");
 const { json } = require("body-parser");
 const cors = require("cors");
@@ -13,7 +12,6 @@ const io = require("socket.io")(server);
 const apiRouter = require("./routes/apiRouter");
 const { CONNECT, DISCONNECT } = require("./events/event-names");
 const { boardEvents, columnEvents, cardEvents } = require("./events");
-const { getPath, stringify, processBoard } = require("./utils");
 
 const publicFolderPath = path.resolve(__dirname, "../public");
 const port = process.env.PORT;
@@ -23,25 +21,6 @@ app.use(json());
 app.use(express.static(publicFolderPath));
 
 app.use("/api/boards", apiRouter);
-
-app.post("/", async (req, res) => {
-  const board = req.body;
-  const processedBoard = processBoard(board);
-  try {
-    await fs.writeFile(
-      getPath(processedBoard.boardId),
-      stringify(processedBoard),
-      "utf8",
-      error => {
-        if (error)
-          res.status(400).send({ errorMsg: "Board creation went wrong." });
-        res.status(200).send();
-      }
-    );
-  } catch (error) {
-    res.status(400).send({ errorMsg: "Board creation went wrong." });
-  }
-});
 
 // https://bit.ly/2wMAs0i
 if (process.env.NODE_ENV === "PRODUCTION") {
