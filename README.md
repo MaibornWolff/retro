@@ -57,6 +57,9 @@ The board data lives currently inside `backend/storage`. All boards have an uniq
 - Please use [Yarn](https://yarnpkg.com/lang/en/) & [Prettier](https://prettier.io)
 - Test your stuff manually or better, provide tests
 - If you developed a whole user scenario, then please provide E2E tests
+- You can also develop with the provided Docker containers!
+  - on Linux, make sure to set an environment variable, since `host.docker.internal` is not working: 
+    - `export DOCKER_HOST_IP=$(docker network inspect bridge --format='{{(index .IPAM.Config 0).Gateway}}')`
 
 ## Project State
 

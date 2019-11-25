@@ -29,6 +29,7 @@ services:
     environment:
       - NODE_ENV=DEVELOPMENT
       - DEV_ENV=DOCKER
+      - DOCKER_HOST_IP=$DOCKER_HOST_IP
 
 networks:
   dev:
