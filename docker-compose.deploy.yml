@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  retro:
+    build: ./
+    image: retro
+    container_name: retro
+    ports:
+      - "3001:3001"
+    restart: always
+    environment:
+      - NODE_ENV=DEVELOPMENT
+      - DEV_ENV=DOCKER
+      - DOCKER_HOST_IP=$DOCKER_HOST_IP
