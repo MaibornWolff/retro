@@ -2,6 +2,7 @@ require("./config");
 
 const chalk = require("chalk");
 const path = require("path");
+const fs = require("fs");
 const express = require("express");
 const { json } = require("body-parser");
 const cors = require("cors");
@@ -12,9 +13,11 @@ const io = require("socket.io")(server);
 const apiRouter = require("./routes/apiRouter");
 const { CONNECT, DISCONNECT } = require("./events/event-names");
 const { boardEvents, columnEvents, cardEvents } = require("./events");
+const { getPath } = require("./utils");
 
 const publicFolderPath = path.resolve(__dirname, "../public");
 const port = process.env.PORT;
+const MS_DELETE_TIMEOUT = 5000;
 
 app.use(cors());
 app.use(json());
@@ -29,22 +32,69 @@ if (process.env.NODE_ENV === "PRODUCTION") {
   });
 }
 
-io.on(CONNECT, client => {
-  const roomId = client.handshake.query.boardId;
+// on a publicly available server, we want session-based board persistence
+if (process.env.RETRO_PUBLIC) {
+  var timeout;
+  io.on(CONNECT, client => {
+    const boardId = client.handshake.query.boardId;
 
-  client.join(roomId);
+    client.join(boardId);
+    const clients = io.sockets.adapter.rooms[boardId].sockets;
 
-  client.on(DISCONNECT, () => {
-    client.leave(roomId);
+    // handles the case when there is only 1 client left and she reloads the page
+    // on a reload, we have 0 clients for a short amount of time
+    // so we wait 5 seconds after this disconnect to be sure, that it's not a reload
+    const actualClientCount = getNumberOfClients(clients);
+    if (actualClientCount >= 0) {
+      if (timeout && timeout.hasRef()) {
+        clearTimeout(timeout);
+      }
+    }
+
+    client.on(DISCONNECT, () => {
+      client.leave(boardId);
+      const immediateClientCount = getNumberOfClients(clients);
+      if (immediateClientCount === 0) {
+        timeout = setTimeout(
+          () => deleteBoardWhenNoClientsPresent(boardId),
+          MS_DELETE_TIMEOUT
+        );
+      }
+    });
+
+    boardEvents(io, client, boardId);
+    columnEvents(io, client, boardId);
+    cardEvents(io, client, boardId);
   });
+} else {
+  io.on(CONNECT, client => {
+    const roomId = client.handshake.query.boardId;
 
-  boardEvents(io, client, roomId);
-  columnEvents(io, client, roomId);
-  cardEvents(io, client, roomId);
-});
+    client.join(roomId);
+
+    client.on(DISCONNECT, () => {
+      client.leave(roomId);
+    });
+
+    boardEvents(io, client, roomId);
+    columnEvents(io, client, roomId);
+    cardEvents(io, client, roomId);
+  });
+}
 
 server.listen(port, () => {
   console.log(chalk`{blue.bold [INFO] Listening on ${port}}`);
 });
+
+function deleteBoardWhenNoClientsPresent(boardId) {
+  fs.unlink(getPath(boardId), error => {
+    if (error) throw error;
+    console.log(chalk`{red.bold Removed Board ${boardId}}`);
+  });
+}
+
+function getNumberOfClients(clients) {
+  return typeof clients !== "undefined" ? Object.keys(clients).length : 0;
+}
 
 module.exports = { server };
