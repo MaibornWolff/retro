@@ -13,7 +13,7 @@ const io = require("socket.io")(server);
 const apiRouter = require("./routes/apiRouter");
 const { CONNECT, DISCONNECT } = require("./events/event-names");
 const { boardEvents, columnEvents, cardEvents } = require("./events");
-const { getPath } = require("./utils");
+const { getPath, getImg } = require("./utils");
 
 const publicFolderPath = path.resolve(__dirname, "../public");
 const port = process.env.PORT;
@@ -89,7 +89,20 @@ server.listen(port, () => {
 function deleteBoardWhenNoClientsPresent(boardId) {
   fs.unlink(getPath(boardId), error => {
     if (error) throw error;
-    console.log(chalk`{red.bold Removed Board ${boardId}}`);
+    console.log(
+      chalk`{green.bold [SUCCESS] Removed Board with ID: ${boardId}}`
+    );
+  });
+
+  fs.unlink(getImg(boardId), error => {
+    if (error) {
+      console.log(
+        chalk`{red.bold [INFO] Could not find screenshot for Board-ID: ${boardId}}`
+      );
+    }
+    console.log(
+      chalk`{green.bold [SUCCESS] Removed screenshot with ID: ${boardId}}`
+    );
   });
 }
 
