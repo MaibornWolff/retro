@@ -55,7 +55,8 @@ router.get("/export/:boardId", async (req, res) => {
     const exportPort = process.env.EXPORT_URL_PORT;
     const boardUrl = `http://${exportHost}:${exportPort}/boards/${boardId}`;
     const browser = await puppeteer.launch({
-      defaultViewport: { width, height }
+      defaultViewport: { width, height },
+      args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
     const page = await browser.newPage();
 

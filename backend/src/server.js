@@ -46,7 +46,7 @@ if (process.env.RETRO_PUBLIC) {
     // so we wait 5 seconds after this disconnect to be sure, that it's not a reload
     const actualClientCount = getNumberOfClients(clients);
     if (actualClientCount >= 0) {
-      if (timeout && timeout.hasRef()) {
+      if (Boolean(timeout) && timeout.hasRef()) {
         clearTimeout(timeout);
       }
     }
@@ -88,21 +88,11 @@ server.listen(port, () => {
 
 function deleteBoardWhenNoClientsPresent(boardId) {
   fs.unlink(getPath(boardId), error => {
-    if (error) throw error;
-    console.log(
-      chalk`{green.bold [SUCCESS] Removed Board with ID: ${boardId}}`
-    );
+    if (error) console.log("Couldn't find board for ", boardId);
   });
 
   fs.unlink(getImg(boardId), error => {
-    if (error) {
-      console.log(
-        chalk`{red.bold [INFO] Could not find screenshot for Board-ID: ${boardId}}`
-      );
-    }
-    console.log(
-      chalk`{green.bold [SUCCESS] Removed screenshot with ID: ${boardId}}`
-    );
+    if (error) console.log("Couldn't find image for ", boardId);
   });
 }
 
