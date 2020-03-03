@@ -67,13 +67,11 @@
   "lint-staged": {
     "src/**/*.{js,jsx}": [
       "yarn lint",
-      "yarn format",
-      "git add ."
+      "yarn format"
     ],
     "cypress/**/*.js": [
       "yarn lint:cypress",
-      "yarn format:cypress",
-      "git add ."
+      "yarn format:cypress"
     ]
   },
   "husky": {
