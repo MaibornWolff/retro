@@ -1,26 +1,26 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import {
   Avatar,
   Card,
-  CardHeader,
-  CardContent,
   CardActions,
+  CardContent,
+  CardHeader,
   Divider,
+  IconButton,
   Typography,
-  withStyles,
-  IconButton
+  withStyles
 } from "@material-ui/core";
 
-import EditItemButton from "./buttons/card/EditItemButton";
 import DeleteItemButton from "./buttons/card/DeleteItemButton";
+import EditItemButton from "./buttons/card/EditItemButton";
 import UpvoteItemButton from "./buttons/card/UpvoteItemButton";
-import { CardWrapper, CardContainer, CardText, CardAuthor } from "./styled";
-import { ROLE_MODERATOR } from "../utils/userUtils";
-import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
+import { BoardContext } from "../context/BoardContext";
+import { CardAuthor, CardContainer, CardText, CardWrapper } from "./styled";
+import { FOCUS_CARD, REMOVE_FOCUS_CARD, VOTE_CARD } from "../constants/eventNames";
 import { CARD_CONTAINER } from "../constants/testIds";
-import { VOTE_CARD, FOCUS_CARD, REMOVE_FOCUS_CARD } from "../constants/eventNames";
+import { ROLE_MODERATOR } from "../utils/userUtils";
 
 const styles = {
   avatar: {
@@ -43,6 +43,9 @@ const styles = {
   },
   contentBody: {
     whiteSpace: "pre-line"
+  },
+  downVoteButton: {
+    marginTop: "10px"
   }
 };
 
@@ -109,11 +112,11 @@ function RetroItem(props) {
             }
             action={
               isVoted ? (
-                <IconButton color="primary" onClick={downVote}>
+                <IconButton className={classes.downVoteButton} color="primary" onClick={downVote}>
                   <ThumbDownIcon fontSize="small" />
                 </IconButton>
               ) : (
-                <IconButton color="primary" disabled={true}>
+                <IconButton className={classes.downVoteButton} color="primary" disabled={true}>
                   <ThumbDownIcon fontSize="small" />
                 </IconButton>
               )
