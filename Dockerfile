@@ -1,11 +1,11 @@
-FROM node:10-alpine as frontend
+FROM node:12-alpine as frontend
 WORKDIR /app/frontend
 COPY ./frontend/package.json ./frontend/yarn.lock ./
 RUN yarn install --silent
 COPY ./frontend .
 RUN yarn build
 
-FROM node:10-alpine
+FROM node:12-alpine
 WORKDIR /app
 COPY ./backend/package.json ./backend/yarn.lock ./
 RUN yarn install --silent
