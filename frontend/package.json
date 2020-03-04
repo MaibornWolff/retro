@@ -50,6 +50,7 @@
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^5.3.0",
     "babel-eslint": "^10.1.0",
     "cypress": "^4.1.0",
     "env-cmd": "^10.1.0",
