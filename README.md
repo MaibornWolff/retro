@@ -54,7 +54,7 @@ The board data lives currently inside `backend/storage`. All boards have an uniq
 
 ## Contributing
 
-- Please use [Yarn](https://yarnpkg.com/lang/en/) & [Prettier](https://prettier.io)
+- This project uses [Yarn](https://yarnpkg.com/lang/en/), [Prettier](https://prettier.io) and the latest LTS version of Node.js
 - Test your stuff manually or better, provide tests
 - If you developed a whole user scenario, then please provide E2E tests
 - You can also develop with the provided Docker containers!
