@@ -19,8 +19,8 @@ import { defaultBoard } from "../../../utils";
 import { ROLE_MODERATOR } from "../../../utils/userUtils";
 import { BoardContext } from "../../../context/BoardContext";
 import { UserContext } from "../../../context/UserContext";
-import { SET_MAX_VOTES, RESET_VOTES } from "../../../constants/eventNames";
 import { VOTE_COUNT_BUTTON } from "../../../constants/testIds";
+import { SET_MAX_VOTES, RESET_VOTES } from "../../../constants/eventNames";
 
 const useStyles = makeStyles(theme => ({
   button: {

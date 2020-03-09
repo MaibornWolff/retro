@@ -7,6 +7,7 @@ import UnblurCardsButton from "./buttons/boardHeader/UnblurCardsButton";
 import ExportBoardButton from "./buttons/boardHeader/ExportBoardButton";
 import QrCodeButton from "./buttons/boardHeader/QrCodeButton";
 import VoteCountButton from "./buttons/boardHeader/VoteCountButton";
+import ContinueDiscussionButton from "./buttons/boardHeader/ContinueDiscussionButton";
 
 const styles = theme => ({
   buttonGroup: {
@@ -35,15 +36,17 @@ function BoardHeader(props) {
           <UnblurCardsButton />
         </Grid>
         <Grid item xs={12} sm={2}>
-          <ExportBoardButton />
+          <VoteCountButton />
         </Grid>
         <Grid item xs={12} sm={2}>
-          <VoteCountButton />
+          <ContinueDiscussionButton />
+        </Grid>
+        <Grid item xs={12} sm={2}>
+          <ExportBoardButton />
         </Grid>
         <Grid item xs={12} sm={2}>
           <QrCodeButton />
         </Grid>
-        <Grid item xs={12} sm={2} />
       </Grid>
     </>
   );

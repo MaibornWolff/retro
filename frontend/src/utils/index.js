@@ -14,7 +14,8 @@ export const defaultBoard = {
   columnOrder: [],
   error: false,
   isBlurred: true,
-  maxVoteCount: 3
+  maxVoteCount: 3,
+  showContinueDiscussion: false
 };
 
 export const postData = (url = "", data = {}) => {

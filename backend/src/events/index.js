@@ -3,7 +3,8 @@ const {
   joinBoard,
   unblurCards,
   setMaxVotes,
-  resetVotes
+  resetVotes,
+  toggleContinueDiscussion
 } = require("./board-events");
 const {
   createColumn,
@@ -26,6 +27,7 @@ const boardEvents = (io, client, roomId) => {
   unblurCards(io, client, roomId);
   setMaxVotes(io, client, roomId);
   resetVotes(io, client, roomId);
+  toggleContinueDiscussion(io, client, roomId);
 };
 
 const columnEvents = (io, client, roomId) => {

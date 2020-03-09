@@ -15,3 +15,4 @@ export const SET_MAX_VOTES = "set max votes";
 export const RESET_VOTES = "reset votes";
 export const FOCUS_CARD = "focus card";
 export const REMOVE_FOCUS_CARD = "remove focus card";
+export const SHOW_CONTINUE_DISCUSSION = "show continue discussion";

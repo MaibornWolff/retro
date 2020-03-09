@@ -7,7 +7,8 @@ const {
   UNBLUR_CARDS,
   JOIN_ERROR,
   SET_MAX_VOTES,
-  RESET_VOTES
+  RESET_VOTES,
+  SHOW_CONTINUE_DISCUSSION
 } = require("./event-names");
 
 const UTF8 = "utf8";
@@ -96,10 +97,29 @@ const resetVotes = (io, client, roomId) => {
   });
 };
 
+const toggleContinueDiscussion = (io, client, roomId) => {
+  client.on(SHOW_CONTINUE_DISCUSSION, boardId => {
+    const path = getPath(boardId);
+
+    fs.readFile(path, UTF8, (error, file) => {
+      if (error) logError(SHOW_CONTINUE_DISCUSSION, error);
+
+      const board = getBoard(file);
+      board.showContinueDiscussion = !board.showContinueDiscussion;
+
+      fs.writeFile(path, stringify(board), UTF8, error => {
+        if (error) logError(SHOW_CONTINUE_DISCUSSION, error);
+        io.to(roomId).emit(SHOW_CONTINUE_DISCUSSION, board);
+      });
+    });
+  });
+};
+
 module.exports = {
   updateBoard,
   joinBoard,
   unblurCards,
   setMaxVotes,
-  resetVotes
+  resetVotes,
+  toggleContinueDiscussion
 };

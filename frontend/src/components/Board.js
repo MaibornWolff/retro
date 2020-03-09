@@ -34,7 +34,8 @@ import {
   SET_MAX_VOTES,
   RESET_VOTES,
   FOCUS_CARD,
-  REMOVE_FOCUS_CARD
+  REMOVE_FOCUS_CARD,
+  SHOW_CONTINUE_DISCUSSION
 } from "../constants/eventNames";
 
 const styles = theme => ({
@@ -55,7 +56,13 @@ function Board(props) {
   const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
   const [merge, setMerge] = useState(false);
-  const { boardId, socket, setFocusedCard, removeFocusedCard } = useContext(BoardContext);
+  const {
+    boardId,
+    socket,
+    setFocusedCard,
+    removeFocusedCard,
+    toggleContinueDiscussion
+  } = useContext(BoardContext);
   const { createModerator, createParticipant, setMaxVote, resetVotes } = useContext(UserContext);
 
   // set tab name
@@ -115,6 +122,10 @@ function Board(props) {
 
     socket.on(REMOVE_FOCUS_CARD, () => {
       removeFocusedCard();
+    });
+
+    socket.on(SHOW_CONTINUE_DISCUSSION, () => {
+      toggleContinueDiscussion();
     });
 
     return () => {

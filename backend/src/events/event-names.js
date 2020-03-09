@@ -16,5 +16,6 @@ module.exports = {
   SET_MAX_VOTES: "set max votes",
   RESET_VOTES: "reset votes",
   FOCUS_CARD: "focus card",
-  REMOVE_FOCUS_CARD: "remove focus card"
+  REMOVE_FOCUS_CARD: "remove focus card",
+  SHOW_CONTINUE_DISCUSSION: "show continue discussion"
 };

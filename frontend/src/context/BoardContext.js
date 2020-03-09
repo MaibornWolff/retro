@@ -3,11 +3,15 @@ import io from "socket.io-client";
 
 import { reducer } from "../reducers/boardReducer";
 import { BACKEND_ENDPOINT } from "../utils";
-import { SET_FOCUSED_CARD, REMOVE_FOCUSED_CARD } from "../actionTypes/boardTypes";
+import {
+  SET_FOCUSED_CARD,
+  REMOVE_FOCUSED_CARD,
+  SET_CONTINUE_DISCUSSION
+} from "../actionTypes/boardTypes";
 
 export const BoardContext = React.createContext();
 
-const initialState = { focusedCard: "" };
+const initialState = { focusedCard: "", showContinueDiscussion: false };
 
 let socket;
 
@@ -27,12 +31,17 @@ export const BoardContextProvider = props => {
     dispatch({ type: REMOVE_FOCUSED_CARD });
   };
 
+  const toggleContinueDiscussion = () => {
+    dispatch({ type: SET_CONTINUE_DISCUSSION });
+  };
+
   const value = {
     boardId,
     boardState,
     socket,
     setFocusedCard,
-    removeFocusedCard
+    removeFocusedCard,
+    toggleContinueDiscussion
   };
 
   return <BoardContext.Provider value={value}>{props.children}</BoardContext.Provider>;
