@@ -36,7 +36,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",
-    "http-proxy-middleware": "^1.0.1",
+    "http-proxy-middleware": "^1.0.2",
     "lodash": "^4.17.15",
     "nanoid": "^2.1.11",
     "qrcode": "^1.4.4",
@@ -50,7 +50,7 @@
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
-    "@testing-library/cypress": "^5.3.0",
+    "@testing-library/cypress": "^6.0.0",
     "babel-eslint": "^10.1.0",
     "cypress": "^4.1.0",
     "env-cmd": "^10.1.0",
