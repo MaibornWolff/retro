@@ -17,5 +17,8 @@ module.exports = {
   RESET_VOTES: "reset votes",
   FOCUS_CARD: "focus card",
   REMOVE_FOCUS_CARD: "remove focus card",
-  SHOW_CONTINUE_DISCUSSION: "show continue discussion"
+  SHOW_CONTINUE_DISCUSSION: "show continue discussion",
+  CONTINUE_DISCUSSION_YES: "continue discussion yes",
+  CONTINUE_DISCUSSION_NO: "continue discussion no",
+  CONTINUE_DISCUSSION_ABSTAIN: "continue discussion abstain"
 };

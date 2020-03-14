@@ -35,7 +35,10 @@ import {
   RESET_VOTES,
   FOCUS_CARD,
   REMOVE_FOCUS_CARD,
-  SHOW_CONTINUE_DISCUSSION
+  SHOW_CONTINUE_DISCUSSION,
+  CONTINUE_DISCUSSION_YES,
+  CONTINUE_DISCUSSION_ABSTAIN,
+  CONTINUE_DISCUSSION_NO
 } from "../constants/eventNames";
 
 const styles = theme => ({
@@ -61,7 +64,10 @@ function Board(props) {
     socket,
     setFocusedCard,
     removeFocusedCard,
-    toggleContinueDiscussion
+    toggleContinueDiscussion,
+    voteYes,
+    voteNo,
+    voteAbstain
   } = useContext(BoardContext);
   const { createModerator, createParticipant, setMaxVote, resetVotes } = useContext(UserContext);
 
@@ -126,6 +132,18 @@ function Board(props) {
 
     socket.on(SHOW_CONTINUE_DISCUSSION, () => {
       toggleContinueDiscussion();
+    });
+
+    socket.on(CONTINUE_DISCUSSION_YES, () => {
+      voteYes();
+    });
+
+    socket.on(CONTINUE_DISCUSSION_NO, () => {
+      voteNo();
+    });
+
+    socket.on(CONTINUE_DISCUSSION_ABSTAIN, () => {
+      voteAbstain();
     });
 
     return () => {

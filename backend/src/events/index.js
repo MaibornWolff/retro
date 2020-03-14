@@ -4,7 +4,10 @@ const {
   unblurCards,
   setMaxVotes,
   resetVotes,
-  toggleContinueDiscussion
+  toggleContinueDiscussion,
+  voteYes,
+  voteNo,
+  voteAbstain
 } = require("./board-events");
 const {
   createColumn,
@@ -28,6 +31,9 @@ const boardEvents = (io, client, roomId) => {
   setMaxVotes(io, client, roomId);
   resetVotes(io, client, roomId);
   toggleContinueDiscussion(io, client, roomId);
+  voteYes(io, client, roomId);
+  voteNo(io, client, roomId);
+  voteAbstain(io, client, roomId);
 };
 
 const columnEvents = (io, client, roomId) => {

@@ -15,7 +15,12 @@ export const defaultBoard = {
   error: false,
   isBlurred: true,
   maxVoteCount: 3,
-  showContinueDiscussion: false
+  showContinueDiscussion: false,
+  continueDiscussionVotes: {
+    yes: 0,
+    no: 0,
+    abstain: 0
+  }
 };
 
 export const postData = (url = "", data = {}) => {

@@ -16,3 +16,6 @@ export const RESET_VOTES = "reset votes";
 export const FOCUS_CARD = "focus card";
 export const REMOVE_FOCUS_CARD = "remove focus card";
 export const SHOW_CONTINUE_DISCUSSION = "show continue discussion";
+export const CONTINUE_DISCUSSION_YES = "continue discussion yes";
+export const CONTINUE_DISCUSSION_NO = "continue discussion no";
+export const CONTINUE_DISCUSSION_ABSTAIN = "continue discussion abstain";

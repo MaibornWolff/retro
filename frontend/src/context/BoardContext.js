@@ -6,12 +6,23 @@ import { BACKEND_ENDPOINT } from "../utils";
 import {
   SET_FOCUSED_CARD,
   REMOVE_FOCUSED_CARD,
-  SET_CONTINUE_DISCUSSION
+  SET_CONTINUE_DISCUSSION,
+  CONTINUE_DISCUSSION_VOTE_YES,
+  CONTINUE_DISCUSSION_VOTE_NO,
+  CONTINUE_DISCUSSION_VOTE_ABSTAIN
 } from "../actionTypes/boardTypes";
 
 export const BoardContext = React.createContext();
 
-const initialState = { focusedCard: "", showContinueDiscussion: false };
+const initialState = {
+  focusedCard: "",
+  showContinueDiscussion: false,
+  continueDiscussionVotes: {
+    yes: 0,
+    no: 0,
+    abstain: 0
+  }
+};
 
 let socket;
 
@@ -35,13 +46,28 @@ export const BoardContextProvider = props => {
     dispatch({ type: SET_CONTINUE_DISCUSSION });
   };
 
+  const voteYes = () => {
+    dispatch({ type: CONTINUE_DISCUSSION_VOTE_YES });
+  };
+
+  const voteNo = () => {
+    dispatch({ type: CONTINUE_DISCUSSION_VOTE_NO });
+  };
+
+  const voteAbstain = () => {
+    dispatch({ type: CONTINUE_DISCUSSION_VOTE_ABSTAIN });
+  };
+
   const value = {
     boardId,
     boardState,
     socket,
     setFocusedCard,
     removeFocusedCard,
-    toggleContinueDiscussion
+    toggleContinueDiscussion,
+    voteYes,
+    voteNo,
+    voteAbstain
   };
 
   return <BoardContext.Provider value={value}>{props.children}</BoardContext.Provider>;

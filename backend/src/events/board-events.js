@@ -8,7 +8,10 @@ const {
   JOIN_ERROR,
   SET_MAX_VOTES,
   RESET_VOTES,
-  SHOW_CONTINUE_DISCUSSION
+  SHOW_CONTINUE_DISCUSSION,
+  CONTINUE_DISCUSSION_YES,
+  CONTINUE_DISCUSSION_NO,
+  CONTINUE_DISCUSSION_ABSTAIN
 } = require("./event-names");
 
 const UTF8 = "utf8";
@@ -106,10 +109,67 @@ const toggleContinueDiscussion = (io, client, roomId) => {
 
       const board = getBoard(file);
       board.showContinueDiscussion = !board.showContinueDiscussion;
+      board.continueDiscussionVotes.yes = 0;
+      board.continueDiscussionVotes.no = 0;
+      board.continueDiscussionVotes.abstain = 0;
 
       fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(SHOW_CONTINUE_DISCUSSION, error);
-        io.to(roomId).emit(SHOW_CONTINUE_DISCUSSION, board);
+        io.to(roomId).emit(SHOW_CONTINUE_DISCUSSION);
+      });
+    });
+  });
+};
+
+const voteYes = (io, client, roomId) => {
+  client.on(CONTINUE_DISCUSSION_YES, boardId => {
+    const path = getPath(boardId);
+
+    fs.readFile(path, UTF8, (error, file) => {
+      if (error) logError(CONTINUE_DISCUSSION_YES, error);
+
+      const board = getBoard(file);
+      board.continueDiscussionVotes.yes += 1;
+
+      fs.writeFile(path, stringify(board), UTF8, error => {
+        if (error) logError(CONTINUE_DISCUSSION_YES, error);
+        io.to(roomId).emit(CONTINUE_DISCUSSION_YES);
+      });
+    });
+  });
+};
+
+const voteNo = (io, client, roomId) => {
+  client.on(CONTINUE_DISCUSSION_NO, boardId => {
+    const path = getPath(boardId);
+
+    fs.readFile(path, UTF8, (error, file) => {
+      if (error) logError(CONTINUE_DISCUSSION_NO, error);
+
+      const board = getBoard(file);
+      board.continueDiscussionVotes.no += 1;
+
+      fs.writeFile(path, stringify(board), UTF8, error => {
+        if (error) logError(CONTINUE_DISCUSSION_NO, error);
+        io.to(roomId).emit(CONTINUE_DISCUSSION_NO);
+      });
+    });
+  });
+};
+
+const voteAbstain = (io, client, roomId) => {
+  client.on(CONTINUE_DISCUSSION_ABSTAIN, boardId => {
+    const path = getPath(boardId);
+
+    fs.readFile(path, UTF8, (error, file) => {
+      if (error) logError(CONTINUE_DISCUSSION_ABSTAIN, error);
+
+      const board = getBoard(file);
+      board.continueDiscussionVotes.abstain += 1;
+
+      fs.writeFile(path, stringify(board), UTF8, error => {
+        if (error) logError(CONTINUE_DISCUSSION_ABSTAIN, error);
+        io.to(roomId).emit(CONTINUE_DISCUSSION_ABSTAIN);
       });
     });
   });
@@ -121,5 +181,8 @@ module.exports = {
   unblurCards,
   setMaxVotes,
   resetVotes,
-  toggleContinueDiscussion
+  toggleContinueDiscussion,
+  voteYes,
+  voteNo,
+  voteAbstain
 };
