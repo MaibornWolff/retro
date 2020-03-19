@@ -130,8 +130,8 @@ function Board(props) {
       removeFocusedCard();
     });
 
-    socket.on(SHOW_CONTINUE_DISCUSSION, () => {
-      toggleContinueDiscussion();
+    socket.on(SHOW_CONTINUE_DISCUSSION, isToggled => {
+      toggleContinueDiscussion(isToggled);
     });
 
     socket.on(CONTINUE_DISCUSSION_YES, () => {

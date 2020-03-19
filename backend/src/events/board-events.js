@@ -115,7 +115,10 @@ const toggleContinueDiscussion = (io, client, roomId) => {
 
       fs.writeFile(path, stringify(board), UTF8, error => {
         if (error) logError(SHOW_CONTINUE_DISCUSSION, error);
-        io.to(roomId).emit(SHOW_CONTINUE_DISCUSSION);
+        io.to(roomId).emit(
+          SHOW_CONTINUE_DISCUSSION,
+          board.showContinueDiscussion
+        );
       });
     });
   });

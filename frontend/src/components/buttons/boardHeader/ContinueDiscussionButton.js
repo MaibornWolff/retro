@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import ThumbsUpDownIcon from "@material-ui/icons/ThumbsUpDown";
@@ -37,8 +37,11 @@ function ContinueDiscussionButton(props) {
   const { boardId, socket, boardState } = useContext(BoardContext);
   const classes = useStyles();
 
-  // TODO: setDisable(false) for all users
-  function toggleDialog() {
+  useEffect(() => {
+    setDisabled(!boardState.showContinueDiscussion);
+  }, [boardState.showContinueDiscussion]);
+
+  function toggleDiscussion() {
     if (userState.role === ROLE_MODERATOR) {
       socket.emit(SHOW_CONTINUE_DISCUSSION, boardId);
     }
@@ -70,7 +73,7 @@ function ContinueDiscussionButton(props) {
         variant="outlined"
         aria-label="Continue Discussion"
         color="primary"
-        onClick={toggleDialog}
+        onClick={toggleDiscussion}
         disabled={userState.role !== ROLE_MODERATOR}
         fullWidth
       >
@@ -140,7 +143,7 @@ function ContinueDiscussionButton(props) {
         <DialogActions>
           <Button
             color="primary"
-            onClick={toggleDialog}
+            onClick={toggleDiscussion}
             disabled={userState.role !== ROLE_MODERATOR}
           >
             Close

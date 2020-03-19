@@ -42,8 +42,8 @@ export const BoardContextProvider = props => {
     dispatch({ type: REMOVE_FOCUSED_CARD });
   };
 
-  const toggleContinueDiscussion = () => {
-    dispatch({ type: SET_CONTINUE_DISCUSSION });
+  const toggleContinueDiscussion = isToggled => {
+    dispatch({ type: SET_CONTINUE_DISCUSSION, payload: { isToggled } });
   };
 
   const voteYes = () => {

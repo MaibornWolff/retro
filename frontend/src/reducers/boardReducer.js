@@ -22,7 +22,7 @@ export const reducer = (state, action) => {
     case SET_CONTINUE_DISCUSSION:
       return {
         ...state,
-        showContinueDiscussion: !state.showContinueDiscussion,
+        showContinueDiscussion: action.payload.isToggled,
         continueDiscussionVotes: {
           ...state.continueDiscussionVotes,
           yes: 0,
