@@ -7,7 +7,7 @@ import {
   setMaxVoteCountAndReset,
   createRole,
   ROLE_MODERATOR,
-  ROLE_PARTICIPANT
+  ROLE_PARTICIPANT,
 } from "../utils/userUtils";
 import {
   UPVOTE,
@@ -16,7 +16,7 @@ import {
   RESET,
   SET_NAME,
   CREATE_MODERATOR,
-  CREATE_PARTICIPANT
+  CREATE_PARTICIPANT,
 } from "../actionTypes/userTypes";
 
 export const UserContext = React.createContext();
@@ -31,7 +31,7 @@ function getInitialState(boardId) {
   return {};
 }
 
-export const UserContextProvider = props => {
+export const UserContextProvider = (props) => {
   const boardId = props.match.params.boardId;
   const [userState, dispatch] = useReducer(reducer, getInitialState(boardId));
 
@@ -80,7 +80,7 @@ export const UserContextProvider = props => {
     resetVotes,
     setUsername,
     createModerator,
-    createParticipant
+    createParticipant,
   };
 
   return <UserContext.Provider value={value}>{props.children}</UserContext.Provider>;

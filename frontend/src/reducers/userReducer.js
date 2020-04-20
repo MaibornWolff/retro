@@ -6,7 +6,7 @@ import {
   RESET,
   SET_NAME,
   CREATE_MODERATOR,
-  CREATE_PARTICIPANT
+  CREATE_PARTICIPANT,
 } from "../actionTypes/userTypes";
 
 export const reducer = (state, action) => {
@@ -15,31 +15,31 @@ export const reducer = (state, action) => {
       return {
         ...state,
         votesLeft: state.votesLeft - 1,
-        votedItems: [...state.votedItems, action.payload.cardId]
+        votedItems: [...state.votedItems, action.payload.cardId],
       };
     case DOWNVOTE:
       return {
         ...state,
         votesLeft: state.votesLeft + 1,
-        votedItems: removeFirstOccurenceFromArray(state.votedItems, action.payload.cardId, true)
+        votedItems: removeFirstOccurenceFromArray(state.votedItems, action.payload.cardId, true),
       };
     case SET_MAX_VOTE:
       return {
         ...state,
         maxVoteCount: action.payload.maxVoteCount,
         votesLeft: action.payload.maxVoteCount,
-        votedItems: []
+        votedItems: [],
       };
     case RESET:
       return {
         ...state,
         votesLeft: state.maxVoteCount,
-        votedItems: []
+        votedItems: [],
       };
     case SET_NAME:
       return {
         ...state,
-        name: action.payload.name
+        name: action.payload.name,
       };
     case CREATE_MODERATOR:
       return {
@@ -47,7 +47,7 @@ export const reducer = (state, action) => {
         name: "",
         maxVoteCount: action.payload.maxVoteCount,
         votesLeft: action.payload.maxVoteCount,
-        votedItems: []
+        votedItems: [],
       };
     case CREATE_PARTICIPANT:
       return {
@@ -55,7 +55,7 @@ export const reducer = (state, action) => {
         name: "",
         maxVoteCount: action.payload.maxVoteCount,
         votesLeft: action.payload.maxVoteCount,
-        votedItems: []
+        votedItems: [],
       };
     default:
       return state;

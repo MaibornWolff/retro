@@ -12,7 +12,7 @@ function Columns(props) {
     if (isEmpty(column)) {
       items = [];
     } else {
-      items = column.itemIds.map(id => itemMap[id]);
+      items = column.itemIds.map((id) => itemMap[id]);
     }
 
     return items;

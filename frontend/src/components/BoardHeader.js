@@ -9,10 +9,10 @@ import QrCodeButton from "./buttons/boardHeader/QrCodeButton";
 import VoteCountButton from "./buttons/boardHeader/VoteCountButton";
 import ContinueDiscussionButton from "./buttons/boardHeader/ContinueDiscussionButton";
 
-const styles = theme => ({
+const styles = (theme) => ({
   buttonGroup: {
-    marginTop: theme.spacing(1)
-  }
+    marginTop: theme.spacing(1),
+  },
 });
 
 function BoardHeader(props) {

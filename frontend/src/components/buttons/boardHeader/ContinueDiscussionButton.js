@@ -11,7 +11,7 @@ import {
   DialogContent,
   DialogContentText,
   makeStyles,
-  DialogActions
+  DialogActions,
 } from "@material-ui/core";
 
 import { BoardContext } from "../../../context/BoardContext";
@@ -21,13 +21,13 @@ import {
   SHOW_CONTINUE_DISCUSSION,
   CONTINUE_DISCUSSION_YES,
   CONTINUE_DISCUSSION_NO,
-  CONTINUE_DISCUSSION_ABSTAIN
+  CONTINUE_DISCUSSION_ABSTAIN,
 } from "../../../constants/eventNames";
 
 const useStyles = makeStyles(() => ({
   button: {
-    width: "12em"
-  }
+    width: "12em",
+  },
 }));
 
 function ContinueDiscussionButton(props) {

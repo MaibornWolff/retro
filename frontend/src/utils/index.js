@@ -19,21 +19,21 @@ export const defaultBoard = {
   continueDiscussionVotes: {
     yes: 0,
     no: 0,
-    abstain: 0
-  }
+    abstain: 0,
+  },
 };
 
 export const postData = (url = "", data = {}) => {
   return fetch(url, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   });
 };
 
-export const isBoardIdValid = async boardId => {
+export const isBoardIdValid = async (boardId) => {
   try {
     const response = await fetch(`/api/boards/validate/${boardId}`);
 
@@ -43,7 +43,7 @@ export const isBoardIdValid = async boardId => {
   }
 };
 
-export const isInputEmpty = inputLength => inputLength <= 0;
+export const isInputEmpty = (inputLength) => inputLength <= 0;
 
 export const validateInput = (inputLength, minLength, maxLength) => {
   const isEmpty = isInputEmpty(inputLength);

@@ -6,7 +6,7 @@ export const Hero = styled.div`
   height: 100vh;
   position: fixed;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url(${props => props.img});
+    url(${(props) => props.img});
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -51,9 +51,9 @@ export const CardContainer = styled.div``;
 
 export const CardWrapper = styled.div`
   position: relative;
-  border: ${p => (p.isBlurred ? "1px" : "0px")} solid lightgrey;
+  border: ${(p) => (p.isBlurred ? "1px" : "0px")} solid lightgrey;
   ${CardContainer} {
-    filter: blur(${p => (p.isBlurred ? "5px" : 0)});
+    filter: blur(${(p) => (p.isBlurred ? "5px" : 0)});
   }
 `;
 
@@ -95,6 +95,6 @@ export const ItemsContainerStyles = css`
   flex: 1;
   padding: 0.2em;
   ${media.tablet`padding: 1em;`}
-  background-color: ${p => (p.isDraggingOver ? "#dcdcdc" : "inherit")};
+  background-color: ${(p) => (p.isDraggingOver ? "#dcdcdc" : "inherit")};
   transition: background-color 0.2s ease;
 `;

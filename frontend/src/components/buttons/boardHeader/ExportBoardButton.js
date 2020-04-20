@@ -7,7 +7,7 @@ import {
   DialogContentText,
   DialogActions,
   Button,
-  withMobileDialog
+  withMobileDialog,
 } from "@material-ui/core";
 
 import { BACKEND_DEV_PORT } from "../../../utils";

@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogContentText,
   Button,
-  withMobileDialog
+  withMobileDialog,
 } from "@material-ui/core";
 
 function MergeCardsDialog(props) {

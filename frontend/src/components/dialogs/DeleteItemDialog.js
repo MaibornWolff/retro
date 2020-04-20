@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogContentText,
   Button,
-  withMobileDialog
+  withMobileDialog,
 } from "@material-ui/core";
 
 import { DELETE_CARD } from "../../constants/eventNames";

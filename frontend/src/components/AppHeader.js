@@ -2,7 +2,7 @@ import React from "react";
 import { AppBar, Toolbar, Typography, withStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-const AppHeader = props => {
+const AppHeader = (props) => {
   const { classes } = props;
   return (
     <div className={classes.root}>
@@ -21,16 +21,16 @@ const AppHeader = props => {
 
 const styles = () => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   brand: {
     flexGrow: 1,
-    fontFamily: "Permanent Marker, cursive"
+    fontFamily: "Permanent Marker, cursive",
   },
   link: {
     textDecoration: "none",
-    color: "white"
-  }
+    color: "white",
+  },
 });
 
 export default withStyles(styles)(AppHeader);

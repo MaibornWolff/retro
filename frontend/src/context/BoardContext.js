@@ -9,7 +9,7 @@ import {
   SET_CONTINUE_DISCUSSION,
   CONTINUE_DISCUSSION_VOTE_YES,
   CONTINUE_DISCUSSION_VOTE_NO,
-  CONTINUE_DISCUSSION_VOTE_ABSTAIN
+  CONTINUE_DISCUSSION_VOTE_ABSTAIN,
 } from "../actionTypes/boardTypes";
 
 export const BoardContext = React.createContext();
@@ -20,13 +20,13 @@ const initialState = {
   continueDiscussionVotes: {
     yes: 0,
     no: 0,
-    abstain: 0
-  }
+    abstain: 0,
+  },
 };
 
 let socket;
 
-export const BoardContextProvider = props => {
+export const BoardContextProvider = (props) => {
   const boardId = props.match.params.boardId;
   const [boardState, dispatch] = useReducer(reducer, initialState);
 
@@ -34,7 +34,7 @@ export const BoardContextProvider = props => {
     socket = io(BACKEND_ENDPOINT, { query: "boardId=" + boardId });
   }
 
-  const setFocusedCard = focusedCard => {
+  const setFocusedCard = (focusedCard) => {
     dispatch({ type: SET_FOCUSED_CARD, payload: { focusedCard } });
   };
 
@@ -42,7 +42,7 @@ export const BoardContextProvider = props => {
     dispatch({ type: REMOVE_FOCUSED_CARD });
   };
 
-  const toggleContinueDiscussion = isToggled => {
+  const toggleContinueDiscussion = (isToggled) => {
     dispatch({ type: SET_CONTINUE_DISCUSSION, payload: { isToggled } });
   };
 
@@ -67,7 +67,7 @@ export const BoardContextProvider = props => {
     toggleContinueDiscussion,
     voteYes,
     voteNo,
-    voteAbstain
+    voteAbstain,
   };
 
   return <BoardContext.Provider value={value}>{props.children}</BoardContext.Provider>;

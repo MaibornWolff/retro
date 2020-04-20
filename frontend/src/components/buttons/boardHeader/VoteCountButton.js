@@ -12,7 +12,7 @@ import {
   withMobileDialog,
   Grid,
   Typography,
-  DialogContentText
+  DialogContentText,
 } from "@material-ui/core";
 
 import { defaultBoard } from "../../../utils";
@@ -22,10 +22,10 @@ import { UserContext } from "../../../context/UserContext";
 import { VOTE_COUNT_BUTTON } from "../../../constants/testIds";
 import { SET_MAX_VOTES, RESET_VOTES } from "../../../constants/eventNames";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
-    margin: theme.spacing(1)
-  }
+    margin: theme.spacing(1),
+  },
 }));
 
 function VoteCountButton(props) {

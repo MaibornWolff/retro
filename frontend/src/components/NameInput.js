@@ -9,7 +9,7 @@ import {
   Snackbar,
   withStyles,
   Typography,
-  SnackbarContent
+  SnackbarContent,
 } from "@material-ui/core";
 
 import { validateInput } from "../utils";
@@ -17,35 +17,35 @@ import { CARD_AUTHOR_NAME_TOO_LONG_MSG } from "../constants/errorMessages";
 import { BoardContext } from "../context/BoardContext";
 import { UserContext } from "../context/UserContext";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     padding: "2px 4px",
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   },
   input: {
-    flex: 1
+    flex: 1,
   },
   iconButton: {
-    padding: 10
+    padding: 10,
   },
   divider: {
     width: 1,
     height: 28,
-    margin: 4
+    margin: 4,
   },
   message: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   },
   successColor: {
-    backgroundColor: "green"
+    backgroundColor: "green",
   },
   successIcon: {
     fontSize: 20,
     opacity: 0.9,
-    marginRight: theme.spacing(1)
-  }
+    marginRight: theme.spacing(1),
+  },
 });
 
 function NameInput(props) {

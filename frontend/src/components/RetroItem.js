@@ -9,7 +9,7 @@ import {
   Divider,
   IconButton,
   Typography,
-  withStyles
+  withStyles,
 } from "@material-ui/core";
 
 import DeleteItemButton from "./buttons/card/DeleteItemButton";
@@ -25,28 +25,28 @@ import { ROLE_MODERATOR } from "../utils/userUtils";
 const styles = {
   avatar: {
     color: "#fff",
-    backgroundColor: "#73a6ad"
+    backgroundColor: "#73a6ad",
   },
   avatarVoted: {
     color: "#fff",
-    backgroundColor: "#535a5b"
+    backgroundColor: "#535a5b",
   },
   actions: {
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   card: {
-    border: "1px solid lightgrey"
+    border: "1px solid lightgrey",
   },
   cardFocused: {
-    border: "4px solid red"
+    border: "4px solid red",
   },
   contentBody: {
-    whiteSpace: "pre-line"
+    whiteSpace: "pre-line",
   },
   downVoteButton: {
-    marginTop: "10px"
-  }
+    marginTop: "10px",
+  },
 };
 
 function RetroItem(props) {
@@ -91,8 +91,8 @@ function RetroItem(props) {
     <CardWrapper isBlurred={isBlurred}>
       <CardContainer data-testid={CARD_CONTAINER}>
         <Card
-          onMouseEnter={e => handleHover(e, true)}
-          onMouseLeave={e => handleHover(e, false)}
+          onMouseEnter={(e) => handleHover(e, true)}
+          onMouseLeave={(e) => handleHover(e, false)}
           className={boardState.focusedCard === id ? classes.cardFocused : classes.card}
           raised
         >

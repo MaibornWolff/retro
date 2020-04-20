@@ -2,7 +2,7 @@ import React from "react";
 
 import AppHeader from "./AppHeader";
 
-const Retro = props => (
+const Retro = (props) => (
   <div>
     <AppHeader />
     {props.children}

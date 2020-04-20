@@ -4,7 +4,7 @@ export const ROLE_MODERATOR = "moderator";
 
 export const ROLE_PARTICIPANT = "participant";
 
-export const getUser = boardId => {
+export const getUser = (boardId) => {
   const userObject = localStorage.getItem(boardId);
 
   if (userObject !== null) {
@@ -68,7 +68,7 @@ export const createRole = (role, boardId, maxVoteCount) => {
     name: "",
     maxVoteCount,
     votesLeft: maxVoteCount,
-    votedItems: []
+    votedItems: [],
   });
 
   saveToLocalStorage(boardId, data);

@@ -4,7 +4,7 @@ import {
   SET_CONTINUE_DISCUSSION,
   CONTINUE_DISCUSSION_VOTE_YES,
   CONTINUE_DISCUSSION_VOTE_NO,
-  CONTINUE_DISCUSSION_VOTE_ABSTAIN
+  CONTINUE_DISCUSSION_VOTE_ABSTAIN,
 } from "../actionTypes/boardTypes";
 
 export const reducer = (state, action) => {
@@ -12,12 +12,12 @@ export const reducer = (state, action) => {
     case SET_FOCUSED_CARD:
       return {
         ...state,
-        focusedCard: action.payload.focusedCard
+        focusedCard: action.payload.focusedCard,
       };
     case REMOVE_FOCUSED_CARD:
       return {
         ...state,
-        focusedCard: ""
+        focusedCard: "",
       };
     case SET_CONTINUE_DISCUSSION:
       return {
@@ -27,32 +27,32 @@ export const reducer = (state, action) => {
           ...state.continueDiscussionVotes,
           yes: 0,
           no: 0,
-          abstain: 0
-        }
+          abstain: 0,
+        },
       };
     case CONTINUE_DISCUSSION_VOTE_YES:
       return {
         ...state,
         continueDiscussionVotes: {
           ...state.continueDiscussionVotes,
-          yes: (state.continueDiscussionVotes.yes += 1)
-        }
+          yes: (state.continueDiscussionVotes.yes += 1),
+        },
       };
     case CONTINUE_DISCUSSION_VOTE_NO:
       return {
         ...state,
         continueDiscussionVotes: {
           ...state.continueDiscussionVotes,
-          no: (state.continueDiscussionVotes.no += 1)
-        }
+          no: (state.continueDiscussionVotes.no += 1),
+        },
       };
     case CONTINUE_DISCUSSION_VOTE_ABSTAIN:
       return {
         ...state,
         continueDiscussionVotes: {
           ...state.continueDiscussionVotes,
-          abstain: (state.continueDiscussionVotes.abstain += 1)
-        }
+          abstain: (state.continueDiscussionVotes.abstain += 1),
+        },
       };
     default:
       return state;

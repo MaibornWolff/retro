@@ -24,7 +24,7 @@ import {
   handleCombine,
   handleColumnDrag,
   handleInsideColumnDrag,
-  handleNormalDrag
+  handleNormalDrag,
 } from "../utils/dndHandler";
 import {
   CONNECT,
@@ -38,16 +38,16 @@ import {
   SHOW_CONTINUE_DISCUSSION,
   CONTINUE_DISCUSSION_YES,
   CONTINUE_DISCUSSION_ABSTAIN,
-  CONTINUE_DISCUSSION_NO
+  CONTINUE_DISCUSSION_NO,
 } from "../constants/eventNames";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   header: {
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
 });
 
 // stores the current dragResult of a combine
@@ -67,7 +67,7 @@ function Board(props) {
     toggleContinueDiscussion,
     voteYes,
     voteNo,
-    voteAbstain
+    voteAbstain,
   } = useContext(BoardContext);
   const { createModerator, createParticipant, setMaxVote, resetVotes } = useContext(UserContext);
 
@@ -90,7 +90,7 @@ function Board(props) {
       socket.emit(JOIN_BOARD, boardId);
     });
 
-    socket.on(JOIN_BOARD, boardData => {
+    socket.on(JOIN_BOARD, (boardData) => {
       const { boardId, maxVoteCount } = boardData;
 
       if (location.state && getUser(boardId) === null) {
@@ -106,23 +106,23 @@ function Board(props) {
       setBoard({ ...board, error: true });
     });
 
-    socket.on(UPDATE_BOARD, newBoard => {
+    socket.on(UPDATE_BOARD, (newBoard) => {
       setBoard(newBoard);
     });
 
-    socket.on(SET_MAX_VOTES, newBoard => {
+    socket.on(SET_MAX_VOTES, (newBoard) => {
       setMaxVote(boardId, newBoard.maxVoteCount);
       setBoard(newBoard);
       openSnackbar();
     });
 
-    socket.on(RESET_VOTES, newBoard => {
+    socket.on(RESET_VOTES, (newBoard) => {
       resetVotes(boardId, newBoard.maxVoteCount);
       setBoard(newBoard);
       openSnackbar();
     });
 
-    socket.on(FOCUS_CARD, focusedCard => {
+    socket.on(FOCUS_CARD, (focusedCard) => {
       setFocusedCard(focusedCard);
     });
 
@@ -130,7 +130,7 @@ function Board(props) {
       removeFocusedCard();
     });
 
-    socket.on(SHOW_CONTINUE_DISCUSSION, isToggled => {
+    socket.on(SHOW_CONTINUE_DISCUSSION, (isToggled) => {
       toggleContinueDiscussion(isToggled);
     });
 
@@ -236,7 +236,7 @@ function Board(props) {
       <Grid item xs={12}>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="allColumns" direction="horizontal" type="column">
-            {provided => (
+            {(provided) => (
               <FlexContainer
                 {...provided.droppableProps}
                 ref={provided.innerRef}

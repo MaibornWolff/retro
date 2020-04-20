@@ -6,22 +6,22 @@ import LoadBoardDialog from "./dialogs/LoadBoardDialog";
 import { Hero } from "./styled";
 import heroImg from "../assets/retro-hero.jpg";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     flexGrow: 1,
-    minHeight: "100vh"
+    minHeight: "100vh",
   },
   greetingText: {
     margin: theme.spacing(2),
-    color: "white"
+    color: "white",
   },
   subtitleText: {
     marginBottom: theme.spacing(2),
-    color: "white"
+    color: "white",
   },
   button: {
-    marginButton: theme.spacing(2)
-  }
+    marginButton: theme.spacing(2),
+  },
 });
 
 function Home(props) {

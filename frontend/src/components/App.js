@@ -13,22 +13,22 @@ import { DialogsContextProvider } from "../context/DialogsContext";
 
 const theme = createMuiTheme({
   typography: {
-    useNextVariants: true
+    useNextVariants: true,
   },
   palette: {
     primary: {
       main: "#2a3132",
       light: "#535a5b",
       dark: "#00090a",
-      contrastText: "#fff"
+      contrastText: "#fff",
     },
     secondary: {
       main: "#44777e",
       light: "#73a6ad",
       dark: "#134b52",
-      contrastText: "#fff"
-    }
-  }
+      contrastText: "#fff",
+    },
+  },
 });
 
 const App = () => (
@@ -40,7 +40,7 @@ const App = () => (
           <Route
             exact
             path="/boards/:boardId"
-            render={props => (
+            render={(props) => (
               <UserContextProvider {...props}>
                 <BoardContextProvider {...props}>
                   <DialogsContextProvider {...props}>

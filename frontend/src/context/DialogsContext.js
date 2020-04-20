@@ -11,7 +11,7 @@ import {
   OPEN_EDIT_COLUMN_DIALOG,
   CLOSE_EDIT_COLUMN_DIALOG,
   OPEN_CREATE_ITEM_DIALOG,
-  CLOSE_CREATE_ITEM_DIALOG
+  CLOSE_CREATE_ITEM_DIALOG,
 } from "../actionTypes/dialogTypes";
 
 const initialState = {
@@ -24,15 +24,15 @@ const initialState = {
   isDeleteColumnDialogOpen: false,
   isEditItemDialogOpen: false,
   isEditColumnDialogOpen: false,
-  isCreateItemDialogOpen: false
+  isCreateItemDialogOpen: false,
 };
 
 export const DialogsContext = React.createContext();
 
-export const DialogsContextProvider = props => {
+export const DialogsContextProvider = (props) => {
   const [dialogsState, dispatch] = useReducer(reducer, initialState);
 
-  const openDeleteItemDialog = itemId => {
+  const openDeleteItemDialog = (itemId) => {
     dispatch({ type: OPEN_DELETE_ITEM_DIALOG, payload: { itemId } });
   };
 
@@ -40,7 +40,7 @@ export const DialogsContextProvider = props => {
     dispatch({ type: CLOSE_DELETE_ITEM_DIALOG });
   };
 
-  const openDeleteColumnDialog = columnId => {
+  const openDeleteColumnDialog = (columnId) => {
     dispatch({ type: OPEN_DELETE_COLUMN_DIALOG, payload: { columnId } });
   };
 
@@ -51,7 +51,7 @@ export const DialogsContextProvider = props => {
   const openEditItemDialog = (itemId, itemAuthor, itemContent) => {
     dispatch({
       type: OPEN_EDIT_ITEM_DIALOG,
-      payload: { itemId, itemAuthor, itemContent }
+      payload: { itemId, itemAuthor, itemContent },
     });
   };
 
@@ -62,7 +62,7 @@ export const DialogsContextProvider = props => {
   const openEditColumnDialog = (columnId, columnTitle) => {
     dispatch({
       type: OPEN_EDIT_COLUMN_DIALOG,
-      payload: { columnId, columnTitle }
+      payload: { columnId, columnTitle },
     });
   };
 
@@ -73,7 +73,7 @@ export const DialogsContextProvider = props => {
   const openCreateItemDialog = (columnId, itemAuthor) => {
     dispatch({
       type: OPEN_CREATE_ITEM_DIALOG,
-      payload: { columnId, itemAuthor }
+      payload: { columnId, itemAuthor },
     });
   };
 
@@ -92,7 +92,7 @@ export const DialogsContextProvider = props => {
     closeDeleteColumnDialog,
     closeEditItemDialog,
     closeEditColumnDialog,
-    closeCreateItemDialog
+    closeCreateItemDialog,
   };
 
   return <DialogsContext.Provider value={value}>{props.children}</DialogsContext.Provider>;

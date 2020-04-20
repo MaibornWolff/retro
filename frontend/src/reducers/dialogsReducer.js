@@ -8,7 +8,7 @@ import {
   OPEN_EDIT_COLUMN_DIALOG,
   CLOSE_EDIT_COLUMN_DIALOG,
   OPEN_CREATE_ITEM_DIALOG,
-  CLOSE_CREATE_ITEM_DIALOG
+  CLOSE_CREATE_ITEM_DIALOG,
 } from "../actionTypes/dialogTypes";
 
 export const reducer = (state, action) => {
@@ -17,25 +17,25 @@ export const reducer = (state, action) => {
       return {
         ...state,
         itemId: action.payload.itemId,
-        isDeleteItemDialogOpen: true
+        isDeleteItemDialogOpen: true,
       };
     case CLOSE_DELETE_ITEM_DIALOG:
       return {
         ...state,
         itemId: null,
-        isDeleteItemDialogOpen: false
+        isDeleteItemDialogOpen: false,
       };
     case OPEN_DELETE_COLUMN_DIALOG:
       return {
         ...state,
         columnId: action.payload.columnId,
-        isDeleteColumnDialogOpen: true
+        isDeleteColumnDialogOpen: true,
       };
     case CLOSE_DELETE_COLUMN_DIALOG:
       return {
         ...state,
         columnId: null,
-        isDeleteColumnDialogOpen: false
+        isDeleteColumnDialogOpen: false,
       };
     case OPEN_EDIT_ITEM_DIALOG:
       return {
@@ -43,7 +43,7 @@ export const reducer = (state, action) => {
         itemId: action.payload.itemId,
         itemAuthor: action.payload.itemAuthor,
         itemContent: action.payload.itemContent,
-        isEditItemDialogOpen: true
+        isEditItemDialogOpen: true,
       };
     case CLOSE_EDIT_ITEM_DIALOG:
       return {
@@ -51,21 +51,21 @@ export const reducer = (state, action) => {
         itemId: null,
         itemAuthor: "",
         itemContent: "",
-        isEditItemDialogOpen: false
+        isEditItemDialogOpen: false,
       };
     case OPEN_EDIT_COLUMN_DIALOG:
       return {
         ...state,
         columnId: action.payload.columnId,
         columnTitle: action.payload.columnTitle,
-        isEditColumnDialogOpen: true
+        isEditColumnDialogOpen: true,
       };
     case CLOSE_EDIT_COLUMN_DIALOG:
       return {
         ...state,
         columnId: null,
         columnTitle: "",
-        isEditColumnDialogOpen: false
+        isEditColumnDialogOpen: false,
       };
     case OPEN_CREATE_ITEM_DIALOG:
       return {
@@ -73,7 +73,7 @@ export const reducer = (state, action) => {
         columnId: action.payload.columnId,
         itemAuthor: action.payload.itemAuthor,
         itemContent: "",
-        isCreateItemDialogOpen: true
+        isCreateItemDialogOpen: true,
       };
     case CLOSE_CREATE_ITEM_DIALOG:
       return {
@@ -81,7 +81,7 @@ export const reducer = (state, action) => {
         columnId: null,
         itemAuthor: "",
         itemContent: "",
-        isCreateItemDialogOpen: false
+        isCreateItemDialogOpen: false,
       };
     default:
       return state;

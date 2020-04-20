@@ -16,7 +16,7 @@ function Column(props) {
 
   return (
     <Draggable draggableId={column.id} index={index}>
-      {providedDraggable => (
+      {(providedDraggable) => (
         <ColumnContainer
           {...providedDraggable.draggableProps}
           {...providedDraggable.dragHandleProps}

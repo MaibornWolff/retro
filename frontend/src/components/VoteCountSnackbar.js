@@ -17,7 +17,7 @@ function VoteCountSnackbar(props) {
       onClose={closeSnackbar}
       autoHideDuration={autoHideDuration}
       ContentProps={{
-        "aria-describedby": id
+        "aria-describedby": id,
       }}
       message={<span id="vote-count-snackbar">You have {userState.votesLeft} votes left.</span>}
     />

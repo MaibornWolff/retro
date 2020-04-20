@@ -17,12 +17,12 @@ export const handleNormalDrag = (board, dragResult, setBoard, socket) => {
 
   const newStartColumn = {
     ...startColumn,
-    itemIds: startItems
+    itemIds: startItems,
   };
 
   const newDestinationColumn = {
     ...destinationColumn,
-    itemIds: destinationItems
+    itemIds: destinationItems,
   };
 
   const newBoard = {
@@ -30,8 +30,8 @@ export const handleNormalDrag = (board, dragResult, setBoard, socket) => {
     columns: {
       ...columns,
       [newStartColumn.id]: newStartColumn,
-      [newDestinationColumn.id]: newDestinationColumn
-    }
+      [newDestinationColumn.id]: newDestinationColumn,
+    },
   };
 
   setBoard(newBoard);
@@ -53,8 +53,8 @@ export const handleInsideColumnDrag = (board, dragResult, setBoard, socket) => {
     ...board,
     columns: {
       ...columns,
-      [newCol.id]: newCol
-    }
+      [newCol.id]: newCol,
+    },
   };
 
   setBoard(newBoard);
@@ -71,7 +71,7 @@ export const handleColumnDrag = (board, dragResult, setBoard, socket) => {
 
   const newBoard = {
     ...board,
-    columnOrder: newColumnOrder
+    columnOrder: newColumnOrder,
   };
 
   setBoard(newBoard);
@@ -101,15 +101,15 @@ export const handleCombine = (board, dragResult, stopMerge, setBoard, socket) =>
   // update state
   const newColumn = {
     ...itemToCombineWithColumn,
-    itemIds: newItemIds
+    itemIds: newItemIds,
   };
 
   const newBoard = {
     ...board,
     columns: {
       ...columns,
-      [newColumn.id]: newColumn
-    }
+      [newColumn.id]: newColumn,
+    },
   };
 
   stopMerge();

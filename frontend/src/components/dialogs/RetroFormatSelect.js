@@ -8,7 +8,7 @@ import {
   RETRO_FORMAT_5,
   RETRO_FORMAT_6,
   RETRO_FORMAT_7,
-  RETRO_FORMAT_8
+  RETRO_FORMAT_8,
 } from "../../constants/retroFormats";
 
 export default function RetroFormatSelect(props) {
@@ -29,7 +29,7 @@ export default function RetroFormatSelect(props) {
         onChange={handleChange}
         inputProps={{
           name: "format",
-          id: "retro-format-native-helper"
+          id: "retro-format-native-helper",
         }}
       >
         <option value="" />

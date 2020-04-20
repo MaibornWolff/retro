@@ -8,7 +8,7 @@ import {
   DialogContentText,
   DialogActions,
   Button,
-  withMobileDialog
+  withMobileDialog,
 } from "@material-ui/core";
 
 import { QR_CODE_BUTTON } from "../../../constants/testIds";

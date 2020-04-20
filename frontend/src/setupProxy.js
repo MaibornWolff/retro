@@ -1,5 +1,5 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
-module.exports = function(app) {
+module.exports = function (app) {
   if (process.env.DEV_ENV === "DOCKER") {
     const dockerHostIp = process.env.DOCKER_HOST_IP || "host.docker.internal";
     app.use(

@@ -13,21 +13,21 @@ import {
   DialogTitle,
   withMobileDialog,
   withStyles,
-  Typography
+  Typography,
 } from "@material-ui/core";
 
 import { isBoardIdValid } from "../../utils";
 import { LOAD_BOARD_ID_INVALID_MSG } from "../../constants/errorMessages";
 
-const styles = theme => ({
+const styles = (theme) => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   icon: {
     marginRight: theme.spacing(1),
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1)
-  }
+    marginBottom: theme.spacing(1),
+  },
 });
 
 function LoadBoardDialog(props) {
@@ -101,7 +101,7 @@ function LoadBoardDialog(props) {
             required
             fullWidth
             inputProps={{
-              maxLength: 21
+              maxLength: 21,
             }}
             value={boardId}
             onChange={handleChange}

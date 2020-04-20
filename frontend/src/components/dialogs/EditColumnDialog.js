@@ -7,7 +7,7 @@ import {
   DialogActions,
   TextField,
   Button,
-  Typography
+  Typography,
 } from "@material-ui/core";
 
 import { BoardContext } from "../../context/BoardContext";

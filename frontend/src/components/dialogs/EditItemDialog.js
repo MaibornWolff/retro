@@ -7,7 +7,7 @@ import {
   TextField,
   Button,
   withMobileDialog,
-  Typography
+  Typography,
 } from "@material-ui/core";
 
 import { DialogsContext } from "../../context/DialogsContext";
@@ -16,7 +16,7 @@ import { validateInput } from "../../utils";
 import { EDIT_CARD } from "../../constants/eventNames";
 import {
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
-  CARD_CONTENT_TOO_LONG_MSG
+  CARD_CONTENT_TOO_LONG_MSG,
 } from "../../constants/errorMessages";
 
 function EditItemDialog(props) {

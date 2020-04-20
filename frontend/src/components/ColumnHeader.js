@@ -5,12 +5,12 @@ import ColumnName from "./ColumnName";
 import ColumnMenu from "./ColumnMenu";
 import CreateItemButton from "./buttons/card/CreateItemButton";
 
-const styles = theme => ({
+const styles = (theme) => ({
   header: {
     padding: theme.spacing(1),
     backgroundColor: "#44777e",
-    color: "#fff"
-  }
+    color: "#fff",
+  },
 });
 
 function ColumnHeader(props) {
