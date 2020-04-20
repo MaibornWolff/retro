@@ -9,7 +9,7 @@ const {
   getImg,
   stringify,
   processBoard,
-  respondWithInvalidBoardId
+  respondWithInvalidBoardId,
 } = require("../utils");
 
 const width = 1920;
@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
       getPath(processedBoard.boardId),
       stringify(processedBoard),
       "utf8",
-      error => {
+      (error) => {
         if (error)
           res.status(400).send({ errorMsg: "Board creation went wrong." });
         res.status(200).send();
@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
 
 router.get("/validate/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
-  await fs.readFile(getPath(boardId), "utf-8", error => {
+  await fs.readFile(getPath(boardId), "utf-8", (error) => {
     if (error) {
       respondWithInvalidBoardId(res, error);
     }
@@ -46,7 +46,7 @@ router.get("/validate/:boardId", async (req, res) => {
 
 router.get("/export/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
-  await fs.readFile(getPath(boardId), "utf-8", async error => {
+  await fs.readFile(getPath(boardId), "utf-8", async (error) => {
     if (error) {
       respondWithInvalidBoardId(res, error);
     }
@@ -56,14 +56,14 @@ router.get("/export/:boardId", async (req, res) => {
     const boardUrl = `http://${exportHost}:${exportPort}/boards/${boardId}`;
     const browser = await puppeteer.launch({
       defaultViewport: { width, height },
-      args: ["--no-sandbox", "--disable-setuid-sandbox"]
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
     const page = await browser.newPage();
 
     await page.goto(boardUrl);
     await page.screenshot({
       path: `./storage/${boardId}.png`,
-      fullPage: true
+      fullPage: true,
     });
 
     const imgPath = path.resolve(getImg(boardId));
@@ -73,7 +73,7 @@ router.get("/export/:boardId", async (req, res) => {
 
 router.delete("/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
-  await fs.unlink(getPath(boardId), error => {
+  await fs.unlink(getPath(boardId), (error) => {
     if (error) throw error;
     res.status(200).send();
   });

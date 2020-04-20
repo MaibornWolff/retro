@@ -10,7 +10,7 @@ const {
   VOTE_CARD,
   FOCUS_CARD,
   REMOVE_FOCUS_CARD,
-  UPDATE_BOARD
+  UPDATE_BOARD,
 } = require("./event-names");
 
 const UTF8 = "utf8";
@@ -31,7 +31,7 @@ const createCard = (io, client, roomId) => {
       board.items[card.id] = card;
       board.columns[columnId].itemIds.push(card.id);
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(CREATE_CARD, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -47,9 +47,9 @@ const deleteCard = (io, client, roomId) => {
       const board = getBoard(file);
 
       unset(board.items, cardId);
-      forIn(board.columns, col => pull(col.itemIds, cardId));
+      forIn(board.columns, (col) => pull(col.itemIds, cardId));
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(DELETE_CARD, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -68,7 +68,7 @@ const editCard = (io, client, roomId) => {
       card.author = author.trim();
       card.content = content.trim();
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(EDIT_CARD, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -86,7 +86,7 @@ const voteCard = (io, client, roomId) => {
       if (isUpvote) board.items[cardId].points += 1;
       else board.items[cardId].points -= 1;
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(VOTE_CARD, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -95,7 +95,7 @@ const voteCard = (io, client, roomId) => {
 };
 
 const focusCard = (io, client, roomId) => {
-  client.on(FOCUS_CARD, cardId => {
+  client.on(FOCUS_CARD, (cardId) => {
     io.to(roomId).emit(FOCUS_CARD, cardId);
   });
 };
@@ -112,5 +112,5 @@ module.exports = {
   deleteCard,
   voteCard,
   focusCard,
-  removeFocusCard
+  removeFocusCard,
 };

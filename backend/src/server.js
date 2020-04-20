@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
 // on a publicly available server, we want session-based board persistence
 if (process.env.RETRO_PUBLIC) {
   var timeout;
-  io.on(CONNECT, client => {
+  io.on(CONNECT, (client) => {
     const boardId = client.handshake.query.boardId;
 
     client.join(boardId);
@@ -67,7 +67,7 @@ if (process.env.RETRO_PUBLIC) {
     cardEvents(io, client, boardId);
   });
 } else {
-  io.on(CONNECT, client => {
+  io.on(CONNECT, (client) => {
     const roomId = client.handshake.query.boardId;
 
     client.join(roomId);
@@ -87,11 +87,11 @@ server.listen(port, () => {
 });
 
 function deleteBoardWhenNoClientsPresent(boardId) {
-  fs.unlink(getPath(boardId), error => {
+  fs.unlink(getPath(boardId), (error) => {
     if (error) console.log("Couldn't find board for ", boardId);
   });
 
-  fs.unlink(getImg(boardId), error => {
+  fs.unlink(getImg(boardId), (error) => {
     if (error) console.log("Couldn't find image for ", boardId);
   });
 }

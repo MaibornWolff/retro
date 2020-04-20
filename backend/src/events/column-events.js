@@ -8,7 +8,7 @@ const {
   DELETE_COLUMN,
   SORT_COLUMN,
   UPDATE_BOARD,
-  EDIT_COLUMN
+  EDIT_COLUMN,
 } = require("./event-names");
 
 const UTF8 = "utf8";
@@ -25,7 +25,7 @@ const createColumn = (io, client, roomId) => {
       board.columns[column.id] = column;
       board.columnOrder.push(column.id);
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(CREATE_COLUMN, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -41,12 +41,12 @@ const deleteColumn = (io, client, roomId) => {
       const board = getBoard(file);
 
       const itemsToRemove = board.columns[columnId].itemIds;
-      itemsToRemove.forEach(itemId => unset(board.items, itemId));
+      itemsToRemove.forEach((itemId) => unset(board.items, itemId));
 
       pull(board.columnOrder, columnId);
       unset(board.columns, columnId);
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(DELETE_COLUMN, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -64,10 +64,10 @@ const sortColumn = (io, client, roomId) => {
       const sortedItemIds = [];
       const sortedItems = orderBy(columnItems, "points", "desc");
 
-      sortedItems.forEach(item => sortedItemIds.push(item.id));
+      sortedItems.forEach((item) => sortedItemIds.push(item.id));
       board.columns[columnId].itemIds = sortedItemIds;
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(SORT_COLUMN, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -85,7 +85,7 @@ const editColumn = (io, client, roomId) => {
       const column = board.columns[columnId];
       column.columnTitle = newTitle.trim();
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(EDIT_COLUMN, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -97,5 +97,5 @@ module.exports = {
   createColumn,
   deleteColumn,
   sortColumn,
-  editColumn
+  editColumn,
 };

@@ -6,10 +6,10 @@ const testBoard = {
   columnOrder: [],
   isBlurred: true,
   error: false,
-  maxVoteCount: 3
+  maxVoteCount: 3,
 };
 
-const getPath = id => `${__dirname}/../../../storage/${id}`;
+const getPath = (id) => `${__dirname}/../../../storage/${id}`;
 
 const getBoardURL = (boardId, port) =>
   `http://localhost:${port}/boards/${boardId}`;
@@ -24,7 +24,7 @@ const createItem = (id, author, content) => {
     author,
     content,
     points: 0,
-    isBlurred: true
+    isBlurred: true,
   };
 };
 
@@ -33,5 +33,5 @@ module.exports = {
   getPath,
   getBoardURL,
   createColumn,
-  createItem
+  createItem,
 };

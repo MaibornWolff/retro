@@ -7,13 +7,13 @@ const {
   toggleContinueDiscussion,
   voteYes,
   voteNo,
-  voteAbstain
+  voteAbstain,
 } = require("./board-events");
 const {
   createColumn,
   deleteColumn,
   sortColumn,
-  editColumn
+  editColumn,
 } = require("./column-events");
 const {
   createCard,
@@ -21,7 +21,7 @@ const {
   deleteCard,
   voteCard,
   focusCard,
-  removeFocusCard
+  removeFocusCard,
 } = require("./card-events");
 
 const boardEvents = (io, client, roomId) => {
@@ -55,5 +55,5 @@ const cardEvents = (io, client, roomId) => {
 module.exports = {
   boardEvents,
   columnEvents,
-  cardEvents
+  cardEvents,
 };

@@ -20,5 +20,5 @@ module.exports = {
   SHOW_CONTINUE_DISCUSSION: "show continue discussion",
   CONTINUE_DISCUSSION_YES: "continue discussion yes",
   CONTINUE_DISCUSSION_NO: "continue discussion no",
-  CONTINUE_DISCUSSION_ABSTAIN: "continue discussion abstain"
+  CONTINUE_DISCUSSION_ABSTAIN: "continue discussion abstain",
 };

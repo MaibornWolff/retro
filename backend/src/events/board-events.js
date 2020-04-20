@@ -11,13 +11,13 @@ const {
   SHOW_CONTINUE_DISCUSSION,
   CONTINUE_DISCUSSION_YES,
   CONTINUE_DISCUSSION_NO,
-  CONTINUE_DISCUSSION_ABSTAIN
+  CONTINUE_DISCUSSION_ABSTAIN,
 } = require("./event-names");
 
 const UTF8 = "utf8";
 
 const joinBoard = (io, client) => {
-  client.on(JOIN_BOARD, boardId => {
+  client.on(JOIN_BOARD, (boardId) => {
     fs.readFile(getPath(boardId), UTF8, (error, file) => {
       if (error) {
         client.emit(JOIN_ERROR);
@@ -30,7 +30,7 @@ const joinBoard = (io, client) => {
 
 const updateBoard = (io, client, roomId) => {
   client.on(UPDATE_BOARD, (board, boardId) => {
-    fs.writeFile(getPath(boardId), stringify(board), UTF8, error => {
+    fs.writeFile(getPath(boardId), stringify(board), UTF8, (error) => {
       if (error) logError(UPDATE_BOARD, error);
       io.to(roomId).emit(UPDATE_BOARD, board);
     });
@@ -38,7 +38,7 @@ const updateBoard = (io, client, roomId) => {
 };
 
 const unblurCards = (io, client, roomId) => {
-  client.on(UNBLUR_CARDS, boardId => {
+  client.on(UNBLUR_CARDS, (boardId) => {
     const path = getPath(boardId);
     fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(UNBLUR_CARDS, error);
@@ -50,7 +50,7 @@ const unblurCards = (io, client, roomId) => {
         board.items[cardId].isBlurred = board.isBlurred;
       }
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(UNBLUR_CARDS, error);
         io.to(roomId).emit(UPDATE_BOARD, board);
       });
@@ -72,7 +72,7 @@ const setMaxVotes = (io, client, roomId) => {
         board.items[cardId].points = 0;
       }
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(SET_MAX_VOTES, error);
         io.to(roomId).emit(SET_MAX_VOTES, board);
       });
@@ -81,7 +81,7 @@ const setMaxVotes = (io, client, roomId) => {
 };
 
 const resetVotes = (io, client, roomId) => {
-  client.on(RESET_VOTES, boardId => {
+  client.on(RESET_VOTES, (boardId) => {
     const path = getPath(boardId);
 
     fs.readFile(path, UTF8, (error, file) => {
@@ -92,7 +92,7 @@ const resetVotes = (io, client, roomId) => {
         board.items[cardId].points = 0;
       }
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(RESET_VOTES, error);
         io.to(roomId).emit(RESET_VOTES, board);
       });
@@ -101,7 +101,7 @@ const resetVotes = (io, client, roomId) => {
 };
 
 const toggleContinueDiscussion = (io, client, roomId) => {
-  client.on(SHOW_CONTINUE_DISCUSSION, boardId => {
+  client.on(SHOW_CONTINUE_DISCUSSION, (boardId) => {
     const path = getPath(boardId);
 
     fs.readFile(path, UTF8, (error, file) => {
@@ -113,7 +113,7 @@ const toggleContinueDiscussion = (io, client, roomId) => {
       board.continueDiscussionVotes.no = 0;
       board.continueDiscussionVotes.abstain = 0;
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(SHOW_CONTINUE_DISCUSSION, error);
         io.to(roomId).emit(
           SHOW_CONTINUE_DISCUSSION,
@@ -125,7 +125,7 @@ const toggleContinueDiscussion = (io, client, roomId) => {
 };
 
 const voteYes = (io, client, roomId) => {
-  client.on(CONTINUE_DISCUSSION_YES, boardId => {
+  client.on(CONTINUE_DISCUSSION_YES, (boardId) => {
     const path = getPath(boardId);
 
     fs.readFile(path, UTF8, (error, file) => {
@@ -134,7 +134,7 @@ const voteYes = (io, client, roomId) => {
       const board = getBoard(file);
       board.continueDiscussionVotes.yes += 1;
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(CONTINUE_DISCUSSION_YES, error);
         io.to(roomId).emit(CONTINUE_DISCUSSION_YES);
       });
@@ -143,7 +143,7 @@ const voteYes = (io, client, roomId) => {
 };
 
 const voteNo = (io, client, roomId) => {
-  client.on(CONTINUE_DISCUSSION_NO, boardId => {
+  client.on(CONTINUE_DISCUSSION_NO, (boardId) => {
     const path = getPath(boardId);
 
     fs.readFile(path, UTF8, (error, file) => {
@@ -152,7 +152,7 @@ const voteNo = (io, client, roomId) => {
       const board = getBoard(file);
       board.continueDiscussionVotes.no += 1;
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(CONTINUE_DISCUSSION_NO, error);
         io.to(roomId).emit(CONTINUE_DISCUSSION_NO);
       });
@@ -161,7 +161,7 @@ const voteNo = (io, client, roomId) => {
 };
 
 const voteAbstain = (io, client, roomId) => {
-  client.on(CONTINUE_DISCUSSION_ABSTAIN, boardId => {
+  client.on(CONTINUE_DISCUSSION_ABSTAIN, (boardId) => {
     const path = getPath(boardId);
 
     fs.readFile(path, UTF8, (error, file) => {
@@ -170,7 +170,7 @@ const voteAbstain = (io, client, roomId) => {
       const board = getBoard(file);
       board.continueDiscussionVotes.abstain += 1;
 
-      fs.writeFile(path, stringify(board), UTF8, error => {
+      fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(CONTINUE_DISCUSSION_ABSTAIN, error);
         io.to(roomId).emit(CONTINUE_DISCUSSION_ABSTAIN);
       });
@@ -187,5 +187,5 @@ module.exports = {
   toggleContinueDiscussion,
   voteYes,
   voteNo,
-  voteAbstain
+  voteAbstain,
 };
