@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import nanoid from "nanoid";
+import { nanoid } from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
@@ -14,7 +14,7 @@ import {
   DialogTitle,
   Typography,
   withMobileDialog,
-  withStyles
+  withStyles,
 } from "@material-ui/core";
 
 import RetroFormatSelect from "./RetroFormatSelect";
@@ -22,15 +22,15 @@ import { defaultBoard, validateInput, postData } from "../../utils";
 import { CREATE_BOARD_BUTTON } from "../../constants/testIds";
 import { BOARD_NAME_TOO_LONG_MSG } from "../../constants/errorMessages";
 
-const styles = theme => ({
+const styles = (theme) => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   icon: {
     marginRight: theme.spacing(1),
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1)
-  }
+    marginBottom: theme.spacing(1),
+  },
 });
 
 function CreateBoardDialog(props) {
@@ -73,7 +73,7 @@ function CreateBoardDialog(props) {
     if (response.ok) {
       history.push({
         pathname: `/boards/${boardId}`,
-        state: { isModerator: true }
+        state: { isModerator: true },
       });
     }
   }

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import nanoid from "nanoid";
+import { nanoid } from "nanoid";
 import {
   Dialog,
   DialogActions,
@@ -8,7 +8,7 @@ import {
   TextField,
   Button,
   withMobileDialog,
-  Typography
+  Typography,
 } from "@material-ui/core";
 
 import { BoardContext } from "../../context/BoardContext";
@@ -17,7 +17,7 @@ import { validateInput } from "../../utils";
 import { CREATE_CARD } from "../../constants/eventNames";
 import {
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
-  CARD_CONTENT_TOO_LONG_MSG
+  CARD_CONTENT_TOO_LONG_MSG,
 } from "../../constants/errorMessages";
 
 function CreateItemDialog(props) {

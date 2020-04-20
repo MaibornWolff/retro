@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import nanoid from "nanoid";
+import { nanoid } from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
 import {
   Button,
@@ -9,7 +9,7 @@ import {
   DialogContent,
   DialogTitle,
   Typography,
-  withMobileDialog
+  withMobileDialog,
 } from "@material-ui/core";
 
 import { validateInput } from "../../../utils";

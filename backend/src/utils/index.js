@@ -1,22 +1,22 @@
-const nanoid = require("nanoid");
+const { nanoid } = require("nanoid");
 const chalk = require("chalk");
 const path = require("path");
 const forIn = require("lodash/forIn");
 
 const retroFormats = require("./retro-format-data");
 
-const getPath = id => path.resolve(__dirname, `../../storage/${id}.json`);
+const getPath = (id) => path.resolve(__dirname, `../../storage/${id}.json`);
 
-const getImg = id => path.resolve(__dirname, `../../storage/${id}.png`);
+const getImg = (id) => path.resolve(__dirname, `../../storage/${id}.png`);
 
-const getBoard = file => JSON.parse(file);
+const getBoard = (file) => JSON.parse(file);
 
-const stringify = data => JSON.stringify(data);
+const stringify = (data) => JSON.stringify(data);
 
 const respondWithInvalidBoardId = (res, error) =>
   res.status(400).send({
     msg: "Board-ID does not exist!",
-    error
+    error,
   });
 
 const logError = (eventName, error) => {
@@ -26,14 +26,14 @@ const logError = (eventName, error) => {
   console.log(chalk`{red.bold ${tag} ${eventLog}\n${tag} ${errorLog}}`);
 };
 
-const processBoard = board => {
+const processBoard = (board) => {
   board.title = board.title.trim();
 
   const format = board.format;
   const columns = createFormat(format);
 
   if (columns.length > 0) {
-    columns.forEach(col => {
+    columns.forEach((col) => {
       board.columns[col.id] = col;
       board.columnOrder.push(col.id);
     });
@@ -54,9 +54,9 @@ function createFormat(format) {
   return result;
 }
 
-const createColumns = columnTitles => {
+const createColumns = (columnTitles) => {
   const result = [];
-  columnTitles.forEach(columnTitle => {
+  columnTitles.forEach((columnTitle) => {
     result.push({ id: nanoid(), columnTitle, itemIds: [] });
   });
 
@@ -70,5 +70,5 @@ module.exports = {
   stringify,
   logError,
   respondWithInvalidBoardId,
-  processBoard
+  processBoard,
 };
