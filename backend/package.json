@@ -19,7 +19,8 @@
   "version": "0.3.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./src/server.js",
+    "start:dev": "nodemon ./src/server.js",
+    "start:prod": "node ./src/server.js",
     "test": "cross-env NODE_ENV=TEST mocha src/test/backend.test.js --timeout 12000 --exit",
     "lint": "eslint \"src/**/*.js\" --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",

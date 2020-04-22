@@ -43,6 +43,15 @@ export const isBoardIdValid = async (boardId) => {
   }
 };
 
+export const exportBoard = async (boardId) => {
+  try {
+    const response = await fetch(`/api/boards/export/${boardId}`);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const isInputEmpty = (inputLength) => inputLength <= 0;
 
 export const validateInput = (inputLength, minLength, maxLength) => {

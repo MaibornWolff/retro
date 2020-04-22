@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const puppeteer = require("puppeteer");
+const chalk = require("chalk");
 
 const router = express.Router();
 const {
@@ -19,7 +20,7 @@ router.post("/", async (req, res) => {
   const board = req.body;
   const processedBoard = processBoard(board);
   try {
-    await fs.writeFile(
+    fs.writeFile(
       getPath(processedBoard.boardId),
       stringify(processedBoard),
       "utf8",
@@ -36,7 +37,7 @@ router.post("/", async (req, res) => {
 
 router.get("/validate/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
-  await fs.readFile(getPath(boardId), "utf-8", (error) => {
+  fs.readFile(getPath(boardId), "utf-8", (error) => {
     if (error) {
       respondWithInvalidBoardId(res, error);
     }
@@ -46,34 +47,42 @@ router.get("/validate/:boardId", async (req, res) => {
 
 router.get("/export/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
-  await fs.readFile(getPath(boardId), "utf-8", async (error) => {
+  fs.readFile(getPath(boardId), "utf-8", async (error) => {
     if (error) {
       respondWithInvalidBoardId(res, error);
     }
 
-    const exportHost = process.env.EXPORT_URL_HOST;
     const exportPort = process.env.EXPORT_URL_PORT;
-    const boardUrl = `http://${exportHost}:${exportPort}/boards/${boardId}`;
     const browser = await puppeteer.launch({
       defaultViewport: { width, height },
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
-    const page = await browser.newPage();
 
-    await page.goto(boardUrl);
+    const page = await browser.newPage();
+    await page.goto(`http://localhost:${exportPort}/boards/${boardId}`, {
+      waitUntil: "networkidle0",
+    });
+
     await page.screenshot({
       path: `./storage/${boardId}.png`,
       fullPage: true,
     });
 
     const imgPath = path.resolve(getImg(boardId));
-    res.download(imgPath);
+    res.download(imgPath, (error) => {
+      if (error) {
+        res.status(400).send(error);
+        console.log(
+          chalk`{red.bold [ERROR:EXPORT_BOARD] ${JSON.stringify(error)}}`
+        );
+      }
+    });
   });
 });
 
 router.delete("/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
-  await fs.unlink(getPath(boardId), (error) => {
+  fs.unlink(getPath(boardId), (error) => {
     if (error) throw error;
     res.status(200).send();
   });

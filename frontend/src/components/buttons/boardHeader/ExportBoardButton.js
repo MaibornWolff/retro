@@ -7,22 +7,20 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  CircularProgress,
   withMobileDialog,
 } from "@material-ui/core";
 
-import { BACKEND_DEV_PORT } from "../../../utils";
+import { exportBoard } from "../../../utils";
 import { ROLE_MODERATOR } from "../../../utils/userUtils";
 import { BoardContext } from "../../../context/BoardContext";
 import { UserContext } from "../../../context/UserContext";
 import { EXPORT_BOARD_BUTTON } from "../../../constants/testIds";
 
-const endpoint = "/api/boards/export/";
-const port = process.env.REACT_APP_PROD_PORT || BACKEND_DEV_PORT;
-const exportURL = `http://${window.location.hostname}:${port}${endpoint}`;
-
 function ExportBoardButton(props) {
   const { fullScreen } = props;
   const [open, setOpen] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const { boardId } = useContext(BoardContext);
   const { userState } = useContext(UserContext);
 
@@ -32,6 +30,30 @@ function ExportBoardButton(props) {
 
   function closeDialog() {
     setOpen(false);
+  }
+
+  function startLoading() {
+    setLoading(true);
+  }
+
+  function stopLoading() {
+    setLoading(false);
+  }
+
+  async function handleExport() {
+    startLoading();
+    const response = await exportBoard(boardId);
+    stopLoading();
+
+    if (response.ok) {
+      window.open(response.url);
+      closeDialog();
+    } else {
+      console.log(response);
+      alert(
+        "Whoops... Seems like the export failed :(\nContact your admin and provide the console log by opening the developer tools of your browser."
+      );
+    }
   }
 
   return (
@@ -60,17 +82,21 @@ function ExportBoardButton(props) {
       >
         <DialogTitle id="board-export-dialog">Export Your Board</DialogTitle>
         <DialogContent>
-          <DialogContentText id="board-export-dialog-description">
-            Hope you had a great retrospective!
-            <br />
-            Do you want to export your board now?
-          </DialogContentText>
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <DialogContentText id="board-export-dialog-description">
+              Hope you had a great retrospective!
+              <br />
+              Do you want to export your board now?
+            </DialogContentText>
+          )}
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={closeDialog}>
+          <Button color="primary" onClick={closeDialog} disabled={isLoading}>
             Cancel
           </Button>
-          <Button color="primary" href={exportURL + boardId}>
+          <Button color="primary" onClick={handleExport} disabled={isLoading}>
             Export
           </Button>
         </DialogActions>
