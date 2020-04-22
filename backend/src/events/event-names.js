@@ -21,4 +21,5 @@ module.exports = {
   CONTINUE_DISCUSSION_YES: "continue discussion yes",
   CONTINUE_DISCUSSION_NO: "continue discussion no",
   CONTINUE_DISCUSSION_ABSTAIN: "continue discussion abstain",
+  BOARD_ERROR: "board error",
 };

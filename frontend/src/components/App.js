@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Retro from "./Retro";
 import Home from "./Home";
 import Board from "./Board";
-import NotFound from "./NotFound";
+import Error from "./Error";
 
 import { BoardContextProvider } from "../context/BoardContext";
 import { UserContextProvider } from "../context/UserContext";
@@ -50,7 +50,7 @@ const App = () => (
               </UserContextProvider>
             )}
           />
-          <Route component={NotFound} />
+          <Route component={Error} />
         </Switch>
       </Retro>
     </Router>

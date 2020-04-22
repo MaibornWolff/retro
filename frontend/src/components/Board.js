@@ -39,6 +39,7 @@ import {
   CONTINUE_DISCUSSION_YES,
   CONTINUE_DISCUSSION_ABSTAIN,
   CONTINUE_DISCUSSION_NO,
+  BOARD_ERROR,
 } from "../constants/eventNames";
 
 const styles = (theme) => ({
@@ -88,6 +89,10 @@ function Board(props) {
 
     socket.on(CONNECT, () => {
       socket.emit(JOIN_BOARD, boardId);
+    });
+
+    socket.on(BOARD_ERROR, () => {
+      setBoard({ ...board, error: true });
     });
 
     socket.on(JOIN_BOARD, (boardData) => {

@@ -9,7 +9,16 @@ const getPath = (id) => path.resolve(__dirname, `../../storage/${id}.json`);
 
 const getImg = (id) => path.resolve(__dirname, `../../storage/${id}.png`);
 
-const getBoard = (file) => JSON.parse(file);
+const getBoard = (jsonContent) => {
+  try {
+    return JSON.parse(jsonContent);
+  } catch (error) {
+    console.log(
+      chalk`{red.bold [ERROR] Could not parse JSON file:\n${jsonContent}}`
+    );
+    return null;
+  }
+};
 
 const stringify = (data) => JSON.stringify(data);
 

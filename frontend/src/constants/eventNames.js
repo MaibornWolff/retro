@@ -19,3 +19,4 @@ export const SHOW_CONTINUE_DISCUSSION = "show continue discussion";
 export const CONTINUE_DISCUSSION_YES = "continue discussion yes";
 export const CONTINUE_DISCUSSION_NO = "continue discussion no";
 export const CONTINUE_DISCUSSION_ABSTAIN = "continue discussion abstain";
+export const BOARD_ERROR = "board error";

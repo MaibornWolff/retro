@@ -11,6 +11,7 @@ const {
   FOCUS_CARD,
   REMOVE_FOCUS_CARD,
   UPDATE_BOARD,
+  BOARD_ERROR,
 } = require("./event-names");
 
 const UTF8 = "utf8";
@@ -22,14 +23,18 @@ const createCard = (io, client, roomId) => {
     fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(CREATE_CARD, error);
       const board = getBoard(file);
-      const { author, content } = card;
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        const { author, content } = card;
 
-      card.isBlurred = board.isBlurred;
-      card.author = author.trim();
-      card.content = content.trim();
+        card.isBlurred = board.isBlurred;
+        card.author = author.trim();
+        card.content = content.trim();
 
-      board.items[card.id] = card;
-      board.columns[columnId].itemIds.push(card.id);
+        board.items[card.id] = card;
+        board.columns[columnId].itemIds.push(card.id);
+      }
 
       fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(CREATE_CARD, error);
@@ -45,9 +50,12 @@ const deleteCard = (io, client, roomId) => {
     fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(DELETE_CARD, error);
       const board = getBoard(file);
-
-      unset(board.items, cardId);
-      forIn(board.columns, (col) => pull(col.itemIds, cardId));
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        unset(board.items, cardId);
+        forIn(board.columns, (col) => pull(col.itemIds, cardId));
+      }
 
       fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(DELETE_CARD, error);
@@ -63,10 +71,13 @@ const editCard = (io, client, roomId) => {
     fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(EDIT_CARD, error);
       const board = getBoard(file);
-
-      const card = board.items[cardId];
-      card.author = author.trim();
-      card.content = content.trim();
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        const card = board.items[cardId];
+        card.author = author.trim();
+        card.content = content.trim();
+      }
 
       fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(EDIT_CARD, error);
@@ -82,9 +93,12 @@ const voteCard = (io, client, roomId) => {
     fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(VOTE_CARD, error);
       const board = getBoard(file);
-
-      if (isUpvote) board.items[cardId].points += 1;
-      else board.items[cardId].points -= 1;
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        if (isUpvote) board.items[cardId].points += 1;
+        else board.items[cardId].points -= 1;
+      }
 
       fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(VOTE_CARD, error);

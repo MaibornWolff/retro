@@ -12,6 +12,7 @@ const {
   CONTINUE_DISCUSSION_YES,
   CONTINUE_DISCUSSION_NO,
   CONTINUE_DISCUSSION_ABSTAIN,
+  BOARD_ERROR,
 } = require("./event-names");
 
 const UTF8 = "utf8";
@@ -22,7 +23,12 @@ const joinBoard = (io, client) => {
       if (error) {
         client.emit(JOIN_ERROR);
       } else {
-        client.emit(JOIN_BOARD, getBoard(file));
+        const board = getBoard(file);
+        if (board === null) {
+          client.emit(BOARD_ERROR);
+        } else {
+          client.emit(JOIN_BOARD, board);
+        }
       }
     });
   });
@@ -44,10 +50,13 @@ const unblurCards = (io, client, roomId) => {
       if (error) logError(UNBLUR_CARDS, error);
 
       const board = getBoard(file);
-      board.isBlurred = !board.isBlurred;
-
-      for (let cardId in board.items) {
-        board.items[cardId].isBlurred = board.isBlurred;
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        board.isBlurred = !board.isBlurred;
+        for (let cardId in board.items) {
+          board.items[cardId].isBlurred = board.isBlurred;
+        }
       }
 
       fs.writeFile(path, stringify(board), UTF8, (error) => {
@@ -66,10 +75,13 @@ const setMaxVotes = (io, client, roomId) => {
       if (error) logError(SET_MAX_VOTES, error);
 
       const board = getBoard(file);
-      board.maxVoteCount = voteCount;
-
-      for (let cardId in board.items) {
-        board.items[cardId].points = 0;
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        board.maxVoteCount = voteCount;
+        for (let cardId in board.items) {
+          board.items[cardId].points = 0;
+        }
       }
 
       fs.writeFile(path, stringify(board), UTF8, (error) => {
@@ -87,9 +99,12 @@ const resetVotes = (io, client, roomId) => {
     fs.readFile(path, UTF8, (error, file) => {
       if (error) logError(RESET_VOTES, error);
       const board = getBoard(file);
-
-      for (let cardId in board.items) {
-        board.items[cardId].points = 0;
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        for (let cardId in board.items) {
+          board.items[cardId].points = 0;
+        }
       }
 
       fs.writeFile(path, stringify(board), UTF8, (error) => {
@@ -108,10 +123,14 @@ const toggleContinueDiscussion = (io, client, roomId) => {
       if (error) logError(SHOW_CONTINUE_DISCUSSION, error);
 
       const board = getBoard(file);
-      board.showContinueDiscussion = !board.showContinueDiscussion;
-      board.continueDiscussionVotes.yes = 0;
-      board.continueDiscussionVotes.no = 0;
-      board.continueDiscussionVotes.abstain = 0;
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        board.showContinueDiscussion = !board.showContinueDiscussion;
+        board.continueDiscussionVotes.yes = 0;
+        board.continueDiscussionVotes.no = 0;
+        board.continueDiscussionVotes.abstain = 0;
+      }
 
       fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(SHOW_CONTINUE_DISCUSSION, error);
@@ -132,7 +151,11 @@ const voteYes = (io, client, roomId) => {
       if (error) logError(CONTINUE_DISCUSSION_YES, error);
 
       const board = getBoard(file);
-      board.continueDiscussionVotes.yes += 1;
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        board.continueDiscussionVotes.yes += 1;
+      }
 
       fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(CONTINUE_DISCUSSION_YES, error);
@@ -150,7 +173,11 @@ const voteNo = (io, client, roomId) => {
       if (error) logError(CONTINUE_DISCUSSION_NO, error);
 
       const board = getBoard(file);
-      board.continueDiscussionVotes.no += 1;
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        board.continueDiscussionVotes.no += 1;
+      }
 
       fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(CONTINUE_DISCUSSION_NO, error);
@@ -168,7 +195,11 @@ const voteAbstain = (io, client, roomId) => {
       if (error) logError(CONTINUE_DISCUSSION_ABSTAIN, error);
 
       const board = getBoard(file);
-      board.continueDiscussionVotes.abstain += 1;
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        board.continueDiscussionVotes.abstain += 1;
+      }
 
       fs.writeFile(path, stringify(board), UTF8, (error) => {
         if (error) logError(CONTINUE_DISCUSSION_ABSTAIN, error);
