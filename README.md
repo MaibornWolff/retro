@@ -7,6 +7,19 @@ Retro is a tool that you can use for your retrospectives. The goal of Retro is t
 
 ![demo](./assets/retro-demo.png)
 
+- [Retro - Make Retrospectives Great Again](#retro---make-retrospectives-great-again)
+  - [Intent](#intent)
+  - [Usage Locally](#usage-locally)
+    - [Install Dependencies](#install-dependencies)
+    - [Run Servers](#run-servers)
+    - [Board Data](#board-data)
+  - [Branching](#branching)
+  - [Deployment Examples](#deployment-examples)
+    - [PM2](#pm2)
+    - [Docker](#docker)
+  - [Contributing](#contributing)
+  - [Project State](#project-state)
+
 ## Intent
 
 At work, we were using third party retrospective tools, which meant we couldn't express ourselves freely because of privacy reasons. Retro provides an open-source solution, where you can host the app on your own servers, so you can discuss freely again, since you own the data!
