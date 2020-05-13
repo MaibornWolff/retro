@@ -1,6 +1,5 @@
 # Retro - Make Retrospectives Great Again
 
-
 ![CircleCI (all branches)](https://img.shields.io/circleci/project/github/yduman/retro.svg?style=flat-square) ![GitHub release](https://img.shields.io/github/release/yduman/retro.svg?style=flat-square) ![GitHub](https://img.shields.io/github/license/yduman/retro.svg?style=flat-square) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 Retro is a tool that you can use for your retrospectives. The goal of Retro is to aid teams in remote retrospectives.
@@ -10,9 +9,6 @@ Retro is a tool that you can use for your retrospectives. The goal of Retro is t
 - [Retro - Make Retrospectives Great Again](#retro---make-retrospectives-great-again)
   - [Intent](#intent)
   - [Usage Locally](#usage-locally)
-    - [Install Dependencies](#install-dependencies)
-    - [Run Servers](#run-servers)
-    - [Board Data](#board-data)
   - [Branching](#branching)
   - [Deployment Examples](#deployment-examples)
     - [PM2](#pm2)
@@ -26,25 +22,19 @@ At work, we were using third party retrospective tools, which meant we couldn't 
 
 ## Usage Locally
 
-### Install Dependencies
+Install dependencies
 
-```bash
+```console
 $ cd backend && yarn && cd ..
 $ cd frontend && yarn && cd ..
 ```
 
-### Run Servers
+Run servers
 
-```bash
-$ cd backend && yarn start && cd ..
+```console
+$ cd backend && yarn start:dev && cd ..
 $ cd frontend && yarn start && cd ..
 ```
-
-After starting the servers, visit `localhost:3000` to use the app.
-
-### Board Data
-
-The board data lives currently inside `backend/storage`. All boards have an unique ID and are saved as `<board_id>.json`. The exports are saved as `<board_id>.png`.
 
 ## Branching
 
