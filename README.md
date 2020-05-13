@@ -33,28 +33,40 @@ After starting the servers, visit `localhost:3000` to use the app.
 
 The board data lives currently inside `backend/storage`. All boards have an unique ID and are saved as `<board_id>.json`. The exports are saved as `<board_id>.png`.
 
-## A deployment example with PM2
+## Branching
 
-- Install PM2 on your server with `npm i -g pm2`
-- Clone the project (master branch) on your server
-- Install the dependencies by running `yarn` on both projects
+- The `master` branch is always the latest development stage
+- Stable releases are tagged with their respective version number
+
+## Deployment Examples
+
+### PM2
+
+- Install [PM2](https://pm2.keymetrics.io/) on your server
+- Clone this project on your server
+- Install the dependencies by running `yarn` on `backend` and `frontend`
 - Check if the proxy settings are correct
   - Check `backend/src/config/config.js`
-  - Check proxy field on `frontend/package.json`
-  - Check backend path on `frontend/src/utils/index.js`
-- Provide an `.env.production.local` file and put it inside of `frontend`
+  - Check `frontend/src/setupProxy.js`
+  - Check `frontend/src/utils/index.js`
+- Provide an `.env.production.local` file inside of `frontend`
     ```
     # Example
     REACT_APP_PROD_URL=http://mydomain.com
     REACT_APP_PROD_PORT=80
     ```
-- Build the Frontend by running `yarn deploy`
-  - This command builds the frontend and copies the built files to `backend/public`
+- Build the frontend by running `yarn deploy`
 - Go to the `backend` folder and run `pm2 start processes.json`
+
+### Docker
+
+- There is a `Dockerfile` on the project root which builds everything and runs the server
+- You might want to define your own restart policy then
+- The server runs without process managers. You can read [here](https://www.docker.com/blog/keep-nodejs-rockin-in-docker/) why.
 
 ## Contributing
 
-- This project uses [Yarn](https://yarnpkg.com/lang/en/), [Prettier](https://prettier.io) and the latest LTS version of Node.js
+- This project uses [Yarn](https://yarnpkg.com/lang/en/), [Prettier](https://prettier.io) and the latest LTS version of [Node.js](https://nodejs.org/en/)
 - Test your stuff manually or better, provide tests
 - If you developed a whole user scenario, then please provide E2E tests
 - You can also develop with the provided Docker containers!

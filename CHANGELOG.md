@@ -4,9 +4,21 @@
 
 ### Added
 
+- Roman Voting
+  - The moderator can start a roman voting in order to see if the participants want to further discuss an item or not
+- Docker development support
+- Container-based deployment support
+- Session-based board persistence
+  - Can be set by the `RETRO_PUBLIC` environment variable
+  - Boards will be deleted after every user left the board
+
 ### Changed
 
+- Storage clean up will now be handled via Node.js instead of writing your own cronjob manually
+
 ### Fixed
+
+- The call to `getBoard()` on the backend now handles parsing errors and redirects the user to the error page
 
 ### Removed
 
