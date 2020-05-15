@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const puppeteer = require("puppeteer");
 const chalk = require("chalk");
+const { nanoid } = require("nanoid");
 
 const router = express.Router();
 const {
@@ -36,6 +37,22 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.post("/template-import", async (req, res) => {
+  const board = req.body;
+  const boardId = nanoid();
+  board.boardId = boardId;
+  try {
+    fs.writeFile(getPath(boardId), stringify(board), "utf8", (error) => {
+      if (error)
+        res.status(400).send({ errorMsg: "Board creation went wrong." });
+      console.log(boardId);
+      res.status(200).send({ boardId: boardId });
+    });
+  } catch (error) {
+    res.status(400).send({ errorMsg: "Board creation went wrong." });
+  }
+});
+
 router.get("/validate/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
   fs.readFile(getPath(boardId), "utf-8", (error) => {
@@ -54,10 +71,10 @@ router.get("/template-export/:boardId", async (req, res) => {
     }
     const board = getBoardWithoutId(boardData);
 
-    res.setHeader('Content-disposition', 'attachment; filename=template.json');
-    res.setHeader('Content-type', 'application/json');
-    res.write(board, function (err) {
-        res.end();
+    res.setHeader("Content-disposition", "attachment; filename=template.json");
+    res.setHeader("Content-type", "application/json");
+    res.write(board, () => {
+      res.end();
     });
   });
 });
@@ -112,5 +129,3 @@ router.delete("/:boardId", async (req, res) => {
 });
 
 module.exports = router;
-
-

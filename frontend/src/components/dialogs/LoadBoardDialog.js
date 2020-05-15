@@ -2,22 +2,9 @@ import React, { useState } from "react";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
-import {
-  Button,
-  Fab,
-  TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  withMobileDialog,
-  withStyles,
-  Typography,
-} from "@material-ui/core";
-
-import { isBoardIdValid } from "../../utils";
-import { LOAD_BOARD_ID_INVALID_MSG } from "../../constants/errorMessages";
+import { Fab, withMobileDialog, withStyles } from "@material-ui/core";
+import { DropzoneDialog } from "material-ui-dropzone";
+import { upload } from "../../utils";
 
 const styles = (theme) => ({
   button: {
@@ -33,11 +20,6 @@ const styles = (theme) => ({
 function LoadBoardDialog(props) {
   const { classes, fullScreen, history } = props;
   const [open, setOpen] = useState(false);
-  const [boardId, setBoardId] = useState("");
-  const [error, setError] = useState(false);
-
-  // all nanoid() calls generate an ID with the default size of 21 chars
-  const hasValidLength = boardId.length === 21;
 
   function openDialog() {
     setOpen(true);
@@ -47,30 +29,15 @@ function LoadBoardDialog(props) {
     setOpen(false);
   }
 
-  function handleChange(event) {
-    setBoardId(event.target.value);
-  }
-
-  async function handleSubmit() {
-    const isValid = await isBoardIdValid(boardId);
-
-    if (isValid) {
-      history.push(`/boards/${boardId}`);
+  async function handleSubmit(files) {
+    const response = await upload(files[0]);
+    if (response.ok) {
+      const json = await response.json();
+      const boardId = json.boardId;
+      history.push({ pathname: `/boards/${boardId}`, state: { isImport: true } });
     } else {
-      setError(true);
+      alert("Something went wrong.... :(");
     }
-  }
-
-  function renderError() {
-    if (error) {
-      return (
-        <Typography color="error" variant="caption">
-          {LOAD_BOARD_ID_INVALID_MSG}
-        </Typography>
-      );
-    }
-
-    return null;
   }
 
   return (
@@ -83,45 +50,18 @@ function LoadBoardDialog(props) {
         className={classes.button}
       >
         <ArrowUpwardIcon className={classes.icon} />
-        Load Board
+        Load Template
       </Fab>
-      <Dialog
-        fullWidth
-        maxWidth="xs"
-        fullScreen={fullScreen}
+      <DropzoneDialog
         open={open}
+        onSave={(files) => handleSubmit(files)}
+        acceptedFiles={["application/json"]}
+        showPreviews={true}
+        maxFileSize={5000000}
         onClose={closeDialog}
-        aria-labelledby="load-board-dialog-title"
-      >
-        <DialogTitle id="load-board-dialog-title">Load Board</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Please provide the ID of your board.</DialogContentText>
-          <TextField
-            autoFocus
-            required
-            fullWidth
-            inputProps={{
-              maxLength: 21,
-            }}
-            value={boardId}
-            onChange={handleChange}
-            error={error}
-            helperText={renderError()}
-            label="Board-ID"
-            type="text"
-            margin="dense"
-            autoComplete="off"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSubmit} color="primary" disabled={!hasValidLength}>
-            Load
-          </Button>
-        </DialogActions>
-      </Dialog>
+        filesLimit={1}
+        useChipsForPreview
+      />
     </>
   );
 }

@@ -33,6 +33,20 @@ export const postData = (url = "", data = {}) => {
   });
 };
 
+export const upload = (file) => {
+  try {
+    return fetch("/api/boards/template-import", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: file,
+    });
+  } catch (error) {
+    return error;
+  }
+};
+
 export const isBoardIdValid = async (boardId) => {
   try {
     const response = await fetch(`/api/boards/validate/${boardId}`);
@@ -45,7 +59,6 @@ export const isBoardIdValid = async (boardId) => {
 
 export const exportBoard = async (boardId, resource) => {
   try {
-    console.log(`-------->/api/boards/${resource}/${boardId}`);
     const response = await fetch(`/api/boards/${resource}/${boardId}`);
     return response;
   } catch (error) {
