@@ -54,6 +54,7 @@ function LoadBoardDialog(props) {
       </Fab>
       <DropzoneDialog
         open={open}
+        fullScreen={fullScreen}
         onSave={(files) => handleSubmit(files)}
         acceptedFiles={["application/json"]}
         showPreviews={true}

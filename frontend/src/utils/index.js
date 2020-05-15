@@ -50,8 +50,7 @@ export const upload = (file) => {
 export const isBoardIdValid = async (boardId) => {
   try {
     const response = await fetch(`/api/boards/validate/${boardId}`);
-
-    return await response.ok;
+    return response.ok;
   } catch (error) {
     return error;
   }

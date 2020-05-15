@@ -45,7 +45,6 @@ router.post("/template-import", async (req, res) => {
     fs.writeFile(getPath(boardId), stringify(board), "utf8", (error) => {
       if (error)
         res.status(400).send({ errorMsg: "Board creation went wrong." });
-      console.log(boardId);
       res.status(200).send({ boardId: boardId });
     });
   } catch (error) {
