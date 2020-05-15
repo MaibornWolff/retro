@@ -5,6 +5,7 @@ import NameInput from "./NameInput";
 import CreateColumnButton from "./buttons/boardHeader/CreateColumnButton";
 import UnblurCardsButton from "./buttons/boardHeader/UnblurCardsButton";
 import ExportBoardButton from "./buttons/boardHeader/ExportBoardButton";
+import ExportTemplateButton from "./buttons/boardHeader/ExportTemplateButton";
 import QrCodeButton from "./buttons/boardHeader/QrCodeButton";
 import VoteCountButton from "./buttons/boardHeader/VoteCountButton";
 import ContinueDiscussionButton from "./buttons/boardHeader/ContinueDiscussionButton";
@@ -29,22 +30,25 @@ function BoardHeader(props) {
         </Grid>
       </Grid>
       <Grid container direction="row" spacing={1} className={classes.buttonGroup}>
-        <Grid item xs={12} sm={2}>
+        <Grid item xs={12} sm={1}>
           <CreateColumnButton />
         </Grid>
-        <Grid item xs={12} sm={2}>
+        <Grid item xs={12} sm={1}>
           <UnblurCardsButton />
         </Grid>
-        <Grid item xs={12} sm={2}>
+        <Grid item xs={12} sm={1}>
           <VoteCountButton />
         </Grid>
-        <Grid item xs={12} sm={2}>
+        <Grid item xs={12} sm={1}>
           <ContinueDiscussionButton />
         </Grid>
-        <Grid item xs={12} sm={2}>
+        <Grid item xs={12} sm={1}>
           <ExportBoardButton />
         </Grid>
-        <Grid item xs={12} sm={2}>
+        <Grid item xs={12} sm={1}>
+          <ExportTemplateButton />
+        </Grid>
+        <Grid item xs={12} sm={1}>
           <QrCodeButton />
         </Grid>
       </Grid>

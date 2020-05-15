@@ -43,9 +43,10 @@ export const isBoardIdValid = async (boardId) => {
   }
 };
 
-export const exportBoard = async (boardId) => {
+export const exportBoard = async (boardId, resource) => {
   try {
-    const response = await fetch(`/api/boards/export/${boardId}`);
+    console.log(`-------->/api/boards/${resource}/${boardId}`);
+    const response = await fetch(`/api/boards/${resource}/${boardId}`);
     return response;
   } catch (error) {
     return error;

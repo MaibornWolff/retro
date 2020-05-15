@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import ExportIcon from "@material-ui/icons/PictureAsPdf";
+import ExportIcon from "@material-ui/icons/ImportExport";
 import {
   Dialog,
   DialogTitle,
@@ -15,9 +15,8 @@ import { exportBoard } from "../../../utils";
 import { ROLE_MODERATOR } from "../../../utils/userUtils";
 import { BoardContext } from "../../../context/BoardContext";
 import { UserContext } from "../../../context/UserContext";
-import { EXPORT_BOARD_BUTTON } from "../../../constants/testIds";
 
-function ExportBoardButton(props) {
+function ExportTemplateButton(props) {
   const { fullScreen } = props;
   const [open, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -42,7 +41,7 @@ function ExportBoardButton(props) {
 
   async function handleExport() {
     startLoading();
-    const response = await exportBoard(boardId, "board-export");
+    const response = await exportBoard(boardId, "template-export");
     stopLoading();
 
     if (response.ok) {
@@ -64,12 +63,11 @@ function ExportBoardButton(props) {
         aria-label="Export Board"
         color="primary"
         onClick={openDialog}
-        data-testid={EXPORT_BOARD_BUTTON}
         disabled={userState.role !== ROLE_MODERATOR}
         fullWidth
       >
         <ExportIcon style={{ marginRight: 5 }} />
-        Export
+        Template
       </Button>
       <Dialog
         fullWidth
@@ -77,18 +75,16 @@ function ExportBoardButton(props) {
         fullScreen={fullScreen}
         open={open}
         onClose={closeDialog}
-        aria-labelledby="board-export-dialog"
-        aria-describedby="board-export-dialog-description"
+        aria-labelledby="board-export-template-dialog"
+        aria-describedby="board-export-template-dialog-description"
       >
-        <DialogTitle id="board-export-dialog">Export Your Board</DialogTitle>
+        <DialogTitle id="board-export-template-dialog">Export Template</DialogTitle>
         <DialogContent>
           {isLoading ? (
             <CircularProgress />
           ) : (
-            <DialogContentText id="board-export-dialog-description">
-              Hope you had a great retrospective!
-              <br />
-              Do you want to export your board now?
+            <DialogContentText id="board-export-template-dialog-description">
+              Do you want to export a template of your board?
             </DialogContentText>
           )}
         </DialogContent>
@@ -105,4 +101,4 @@ function ExportBoardButton(props) {
   );
 }
 
-export default withMobileDialog()(ExportBoardButton);
+export default withMobileDialog()(ExportTemplateButton);

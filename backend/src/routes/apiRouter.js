@@ -6,6 +6,7 @@ const chalk = require("chalk");
 
 const router = express.Router();
 const {
+  getBoard,
   getPath,
   getImg,
   stringify,
@@ -45,7 +46,29 @@ router.get("/validate/:boardId", async (req, res) => {
   });
 });
 
-router.get("/export/:boardId", async (req, res) => {
+router.get("/template-export/:boardId", async (req, res) => {
+  const boardId = req.params.boardId;
+  fs.readFile(getPath(boardId), "utf-8", async (error, boardData) => {
+    if (error) {
+      respondWithInvalidBoardId(res, error);
+    }
+    const board = getBoardWithoutId(boardData);
+
+    res.setHeader('Content-disposition', 'attachment; filename=template.json');
+    res.setHeader('Content-type', 'application/json');
+    res.write(board, function (err) {
+        res.end();
+    });
+  });
+});
+
+function getBoardWithoutId(boardData) {
+  const board = getBoard(boardData);
+  board.boardId = "";
+  return stringify(board);
+}
+
+router.get("/board-export/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
   fs.readFile(getPath(boardId), "utf-8", async (error) => {
     if (error) {
@@ -89,3 +112,5 @@ router.delete("/:boardId", async (req, res) => {
 });
 
 module.exports = router;
+
+
