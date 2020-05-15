@@ -39,8 +39,7 @@ router.post("/", async (req, res) => {
 
 router.post("/template-import", async (req, res) => {
   const board = req.body;
-  const boardId = nanoid();
-  board.boardId = boardId;
+  const boardId = board.boardId;
   try {
     fs.writeFile(getPath(boardId), stringify(board), "utf8", (error) => {
       if (error)

@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 export const BACKEND_DEV_HOST = "localhost";
 
 export const BACKEND_DEV_PORT = 3001;
@@ -33,15 +35,31 @@ export const postData = (url = "", data = {}) => {
   });
 };
 
-export const upload = (file) => {
+function populateBoard(read, title) {
+  const tmpBoard = JSON.parse(read.result);
+  tmpBoard.boardId = nanoid();
+  tmpBoard.title = title;
+  return JSON.stringify(tmpBoard);
+}
+
+export const upload = async (file, title) => {
   try {
-    return fetch("/api/boards/template-import", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: file,
+    let response = await new Promise((resolve) => {
+      const read = new FileReader();
+      read.readAsBinaryString(file);
+      read.onloadend = async () => {
+        const board = populateBoard(read, title);
+        let result = await fetch("/api/boards/template-import", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: board,
+        });
+        return resolve(result);
+      };
     });
+    return response;
   } catch (error) {
     return error;
   }
