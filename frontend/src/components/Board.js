@@ -97,7 +97,6 @@ function Board(props) {
 
     socket.on(JOIN_BOARD, (boardData) => {
       const { boardId, maxVoteCount } = boardData;
-
       if (location.state && getUser(boardId) === null) {
         createModerator(boardId, ROLE_MODERATOR, maxVoteCount);
       } else if (getUser(boardId) === null) {

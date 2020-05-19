@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 export const BACKEND_DEV_HOST = "localhost";
 
 export const BACKEND_DEV_PORT = 3001;
@@ -33,19 +35,48 @@ export const postData = (url = "", data = {}) => {
   });
 };
 
-export const isBoardIdValid = async (boardId) => {
-  try {
-    const response = await fetch(`/api/boards/validate/${boardId}`);
+function populateBoard(read, title) {
+  const tmpBoard = JSON.parse(read.result);
+  tmpBoard.boardId = nanoid();
+  tmpBoard.title = title;
+  return JSON.stringify(tmpBoard);
+}
 
-    return await response.ok;
+export const upload = async (file, title) => {
+  try {
+    let response = await new Promise((resolve) => {
+      const read = new FileReader();
+      read.readAsBinaryString(file);
+      read.onloadend = async () => {
+        const board = populateBoard(read, title);
+        let result = await fetch("/api/boards/template-import", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: board,
+        });
+        return resolve(result);
+      };
+    });
+    return response;
   } catch (error) {
     return error;
   }
 };
 
-export const exportBoard = async (boardId) => {
+export const isBoardIdValid = async (boardId) => {
   try {
-    const response = await fetch(`/api/boards/export/${boardId}`);
+    const response = await fetch(`/api/boards/validate/${boardId}`);
+    return response.ok;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const exportBoard = async (boardId, resource) => {
+  try {
+    const response = await fetch(`/api/boards/${resource}/${boardId}`);
     return response;
   } catch (error) {
     return error;
