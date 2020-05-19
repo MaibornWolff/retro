@@ -3,7 +3,6 @@ const path = require("path");
 const express = require("express");
 const puppeteer = require("puppeteer");
 const chalk = require("chalk");
-const { nanoid } = require("nanoid");
 
 const router = express.Router();
 const {
