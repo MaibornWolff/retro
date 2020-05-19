@@ -17,6 +17,12 @@ const {
 const width = 1920;
 const height = 1080;
 
+function getBoardWithoutId(boardData) {
+  const board = getBoard(boardData);
+  board.boardId = "";
+  return stringify(board);
+}
+
 router.post("/", async (req, res) => {
   const board = req.body;
   const processedBoard = processBoard(board);
@@ -50,16 +56,6 @@ router.post("/template-import", async (req, res) => {
   }
 });
 
-router.get("/validate/:boardId", async (req, res) => {
-  const boardId = req.params.boardId;
-  fs.readFile(getPath(boardId), "utf-8", (error) => {
-    if (error) {
-      respondWithInvalidBoardId(res, error);
-    }
-    res.status(200).send();
-  });
-});
-
 router.get("/template-export/:boardId", async (req, res) => {
   const boardId = req.params.boardId;
   fs.readFile(getPath(boardId), "utf-8", async (error, boardData) => {
@@ -76,11 +72,15 @@ router.get("/template-export/:boardId", async (req, res) => {
   });
 });
 
-function getBoardWithoutId(boardData) {
-  const board = getBoard(boardData);
-  board.boardId = "";
-  return stringify(board);
-}
+router.get("/validate/:boardId", async (req, res) => {
+  const boardId = req.params.boardId;
+  fs.readFile(getPath(boardId), "utf-8", (error) => {
+    if (error) {
+      respondWithInvalidBoardId(res, error);
+    }
+    res.status(200).send();
+  });
+});
 
 router.get("/board-export/:boardId", async (req, res) => {
   const boardId = req.params.boardId;

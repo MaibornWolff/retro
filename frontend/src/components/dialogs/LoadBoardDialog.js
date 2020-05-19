@@ -24,6 +24,9 @@ const styles = (theme) => ({
   button: {
     margin: theme.spacing(1),
   },
+  bordNameField: {
+    marginBottom: theme.spacing(2),
+  },
   icon: {
     marginRight: theme.spacing(1),
     marginTop: theme.spacing(1),
@@ -106,6 +109,7 @@ function LoadBoardDialog(props) {
             required
             autoFocus
             fullWidth
+            className={classes.bordNameField}
             value={title}
             onChange={handleTitleChange}
             error={input.isTooLong}
@@ -113,7 +117,7 @@ function LoadBoardDialog(props) {
             id="board-name"
             label="Board Name"
             type="text"
-            margin="dense"
+            margin="normal"
             autoComplete="off"
           />
           <DropzoneArea
