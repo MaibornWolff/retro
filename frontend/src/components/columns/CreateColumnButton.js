@@ -87,7 +87,7 @@ function CreateColumnButton(props) {
         disabled={userState.role !== ROLE_MODERATOR}
       >
         <AddIcon className={classes.extendedIcon} />
-        <Typography variant="button">New Column</Typography>
+        <Typography variant="button">Column</Typography>
       </Fab>
       <Dialog
         fullWidth

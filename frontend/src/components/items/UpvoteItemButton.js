@@ -23,7 +23,7 @@ export default function UpvoteItemButton(props) {
   }
 
   return (
-    <IconButton className={style} onClick={upVote} data-testid={UPVOTE_CARD_BUTTON}>
+    <IconButton className={style} size="small" onClick={upVote} data-testid={UPVOTE_CARD_BUTTON}>
       <ThumbUpIcon fontSize="small" />
     </IconButton>
   );

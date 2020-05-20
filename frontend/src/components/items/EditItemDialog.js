@@ -33,7 +33,7 @@ function EditItemDialog(props) {
   }, [dialogsState.itemAuthor, dialogsState.itemContent]);
 
   const authorInput = validateInput(itemAuthor.length, 0, 40);
-  const contentInput = validateInput(itemContent.length, 0, 280);
+  const contentInput = validateInput(itemContent.length, 0, 100000);
 
   function handleAuthorChange(event) {
     setAuthor(event.target.value);

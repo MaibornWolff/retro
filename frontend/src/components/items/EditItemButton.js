@@ -12,6 +12,7 @@ export default function EditItemButton(props) {
   return (
     <IconButton
       className={style}
+      size="small"
       onClick={() => openEditItemDialog(id, author, content)}
       data-testid={EDIT_CARD_BUTTON}
     >

@@ -7,16 +7,24 @@ import {
   DialogContentText,
   Button,
   withMobileDialog,
+  makeStyles,
 } from "@material-ui/core";
 
 import { DELETE_CARD } from "../../constants/eventNames";
 import { DialogsContext } from "../../context/DialogsContext";
 import { BoardContext } from "../../context/BoardContext";
 
+const useStyles = makeStyles((theme) => ({
+  deleteButton: {
+    color: theme.palette.error.main,
+  },
+}));
+
 function DeleteItemDialog(props) {
   const { fullScreen } = props;
   const { boardId, socket } = useContext(BoardContext);
   const { dialogsState, closeDeleteItemDialog } = useContext(DialogsContext);
+  const classes = useStyles();
 
   function handleClick() {
     socket.emit(DELETE_CARD, dialogsState.itemId, boardId);
@@ -43,7 +51,7 @@ function DeleteItemDialog(props) {
         <Button onClick={closeDeleteItemDialog} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleClick} color="primary" autoFocus>
+        <Button onClick={handleClick} className={classes.deleteButton} autoFocus>
           Delete
         </Button>
       </DialogActions>

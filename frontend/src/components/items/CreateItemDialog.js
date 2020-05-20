@@ -35,7 +35,7 @@ function CreateItemDialog(props) {
   }, [dialogsState.itemAuthor]);
 
   const authorInput = validateInput(author.length, 0, 40);
-  const contentInput = validateInput(content.length, 0, 10000);
+  const contentInput = validateInput(content.length, 0, 100000);
 
   function handleAuthorChange(event) {
     setAuthor(event.target.value);

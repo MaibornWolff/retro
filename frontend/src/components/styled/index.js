@@ -20,17 +20,6 @@ export const FlexContainer = styled.div`
   ${media.desktop`flex-direction: row;`}
 `;
 
-export const ColumnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 25rem;
-  margin: 0.8em 0.2em 0.8em 0.2em;
-  ${media.tablet`margin: 0.8em;`}
-  border-left: 1px solid #f0f0f0;
-  background-color: #fff;
-  box-shadow: 16px 20px 20px 0px grey;
-`;
-
 export const PageNotFoundContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,7 +39,7 @@ export const CardContainer = styled.div``;
 
 export const CardWrapper = styled.div`
   position: relative;
-  border: ${(p) => (p.isBlurred ? "1px" : "0px")} solid lightgrey;
+  /* border: ${(p) => (p.isBlurred ? "0px" : "0px")} solid lightgrey; */
   ${CardContainer} {
     filter: blur(${(p) => (p.isBlurred ? "5px" : 0)});
   }
@@ -87,6 +76,14 @@ export const Unblur = styled.a`
   &:hover {
     color: #757575;
   }
+`;
+
+export const ColumnContainerStyles = css`
+  display: flex;
+  flex-direction: column;
+  width: 25rem;
+  margin: 0.8em 0.2em 0.8em 0.2em;
+  ${media.tablet`margin: 0.8em;`}
 `;
 
 // https://stackoverflow.com/a/53090598

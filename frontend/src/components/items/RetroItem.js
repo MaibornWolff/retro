@@ -17,7 +17,7 @@ import EditItemButton from "./EditItemButton";
 import UpvoteItemButton from "./UpvoteItemButton";
 import { UserContext } from "../../context/UserContext";
 import { BoardContext } from "../../context/BoardContext";
-import { CardAuthor, CardContainer, CardText, CardWrapper } from "../styled";
+import { CardAuthor, CardContainer, CardWrapper } from "../styled";
 import { FOCUS_CARD, REMOVE_FOCUS_CARD, VOTE_CARD } from "../../constants/eventNames";
 import { CARD_CONTAINER } from "../../constants/testIds";
 import { ROLE_MODERATOR } from "../../utils/userUtils";
@@ -28,18 +28,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.light,
   },
   avatarVoted: {
-    color: theme.palette.primary.contrastText,
-    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.secondary.contrastText,
+    backgroundColor: theme.palette.secondary.light,
   },
   actions: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
+  },
+  actionButton: {
+    color: theme.palette.primary.light,
   },
   card: {
     border: "1px solid lightgrey",
   },
-  actionButtonStyle: {
-    color: theme.palette.primary.dark,
+  cardHeader: {
+    padding: "8px",
   },
   cardFocused: {
     border: "4px solid red",
@@ -49,7 +52,10 @@ const useStyles = makeStyles((theme) => ({
   },
   downVoteButton: {
     marginTop: theme.spacing(1),
-    color: theme.palette.primary.dark,
+    color: theme.palette.primary.main,
+  },
+  likeButton: {
+    marginLeft: "auto",
   },
 }));
 
@@ -99,9 +105,9 @@ function RetroItem(props) {
           onMouseEnter={(e) => handleHover(e, true)}
           onMouseLeave={(e) => handleHover(e, false)}
           className={boardState.focusedCard === id ? classes.cardFocused : classes.card}
-          raised
         >
           <CardHeader
+            className={classes.cardHeader}
             avatar={
               <Avatar
                 className={isVoted ? classes.avatarVoted : classes.avatar}
@@ -115,38 +121,32 @@ function RetroItem(props) {
                 <CardAuthor>{author}</CardAuthor>
               </Typography>
             }
-            action={
-              isVoted ? (
-                <IconButton className={classes.downVoteButton} color="primary" onClick={downVote}>
-                  <ThumbDownIcon fontSize="small" />
-                </IconButton>
-              ) : (
-                <IconButton className={classes.downVoteButton} color="primary" disabled={true}>
-                  <ThumbDownIcon fontSize="small" />
-                </IconButton>
-              )
-            }
           />
           <Divider />
           <CardContent>
-            <Typography variant="body2" className={classes.contentBody} component={"span"}>
-              <CardText>{content}</CardText>
+            <Typography variant="body2" color="textSecondary" component={"p"}>
+              {content}
             </Typography>
           </CardContent>
-          <Divider />
-          <CardActions className={classes.actions}>
-            <DeleteItemButton id={id} style={classes.actionButtonStyle} />
+          <CardActions disableSpacing className={classes.actions}>
+            <UpvoteItemButton id={id} openSnackbar={openSnackbar} style={classes.actionButton} />
+            {isVoted ? (
+              <IconButton
+                className={classes.downVoteButton}
+                size="small"
+                color="primary"
+                onClick={downVote}
+              >
+                <ThumbDownIcon fontSize="small" />
+              </IconButton>
+            ) : null}
             <EditItemButton
               id={id}
               author={author}
               content={content}
               style={classes.actionButtonStyle}
             />
-            <UpvoteItemButton
-              id={id}
-              openSnackbar={openSnackbar}
-              style={classes.actionButtonStyle}
-            />
+            <DeleteItemButton id={id} style={classes.actionButtonStyle} />
           </CardActions>
         </Card>
       </CardContainer>
