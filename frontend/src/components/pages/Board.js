@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import isEqual from "lodash/isEqual";
 import { Grid, makeStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { Redirect } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
+
 import AppHeader from "../header-bar/AppHeader";
 import BoardHeader from "../board/BoardHeader";
 import Columns from "../columns/Columns";
@@ -51,7 +52,8 @@ const useStyles = makeStyles(() => ({
 // stores the current dragResult of a combine
 let combineResult;
 
-export default function Board({ location, match }) {
+export default function Board({ match }) {
+  console.log(match);
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
@@ -68,6 +70,7 @@ export default function Board({ location, match }) {
   } = useContext(BoardContext);
   const { createModerator, createParticipant, setMaxVote, resetVotes } = useContext(UserContext);
   const classes = useStyles();
+  const location = useLocation();
 
   // set tab name
   useEffect(() => {

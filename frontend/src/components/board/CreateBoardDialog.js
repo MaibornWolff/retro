@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { nanoid } from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
-import { compose } from "recompose";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Button,
   Fab,
@@ -32,12 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CreateBoardDialog(props) {
-  const { fullScreen, history } = props;
+function CreateBoardDialog({ fullScreen }) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [format, setFormat] = useState("");
   const classes = useStyles();
+  let history = useHistory();
+
   const input = validateInput(title.length, 0, 40);
 
   function openDialog() {
@@ -139,4 +139,4 @@ function CreateBoardDialog(props) {
   );
 }
 
-export default compose(withRouter, withMobileDialog())(CreateBoardDialog);
+export default withMobileDialog()(CreateBoardDialog);

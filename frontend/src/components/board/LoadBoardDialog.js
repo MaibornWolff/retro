@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { compose } from "recompose";
-import { withRouter } from "react-router-dom";
-import LoadIcon from "@material-ui/icons/Publish";
+import { useHistory } from "react-router-dom";
 import { DropzoneArea } from "material-ui-dropzone";
+import LoadIcon from "@material-ui/icons/Publish";
 import {
   Fab,
   Button,
@@ -33,12 +32,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function LoadBoardDialog(props) {
-  const { fullScreen, history } = props;
+function LoadBoardDialog({ fullScreen }) {
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState([]);
   const [title, setTitle] = useState("");
   const classes = useStyles();
+  let history = useHistory();
+
   const input = validateInput(title.length, 0, 40);
 
   function openDialog() {
@@ -143,4 +143,4 @@ function LoadBoardDialog(props) {
   );
 }
 
-export default compose(withRouter, withMobileDialog())(LoadBoardDialog);
+export default withMobileDialog()(LoadBoardDialog);
