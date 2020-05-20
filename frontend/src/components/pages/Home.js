@@ -4,7 +4,7 @@ import { Grid, Typography, makeStyles } from "@material-ui/core";
 import CreateBoardDialog from "../board/CreateBoardDialog";
 import LoadBoardDialog from "../board/LoadBoardDialog";
 import { Hero } from "../styled";
-import heroImg from "../../assets/retro-hero.jpg";
+import hero from "../../assets/hero.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +28,7 @@ export default function Home() {
   const classes = useStyles();
 
   return (
-    <Hero img={heroImg}>
+    <Hero img={hero}>
       <Grid
         className={classes.root}
         container
