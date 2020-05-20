@@ -14,13 +14,13 @@ import {
   TextField,
   Typography,
   withMobileDialog,
-  withStyles,
+  makeStyles,
 } from "@material-ui/core";
 
 import { upload, validateInput } from "../../utils";
 import { BOARD_NAME_TOO_LONG_MSG } from "../../constants/errorMessages";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
     minWidth: "11rem",
@@ -31,13 +31,14 @@ const styles = (theme) => ({
   icon: {
     marginRight: theme.spacing(1),
   },
-});
+}));
 
 function LoadBoardDialog(props) {
-  const { classes, fullScreen, history } = props;
+  const { fullScreen, history } = props;
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState([]);
   const [title, setTitle] = useState("");
+  const classes = useStyles();
   const input = validateInput(title.length, 0, 40);
 
   function openDialog() {
@@ -142,4 +143,4 @@ function LoadBoardDialog(props) {
   );
 }
 
-export default compose(withRouter, withMobileDialog(), withStyles(styles))(LoadBoardDialog);
+export default compose(withRouter, withMobileDialog())(LoadBoardDialog);
