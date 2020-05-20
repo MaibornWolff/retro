@@ -1,12 +1,12 @@
 import React from "react";
-import { Grid, Typography, withStyles } from "@material-ui/core";
+import { Grid, Typography, makeStyles } from "@material-ui/core";
 
 import CreateBoardDialog from "../board/CreateBoardDialog";
 import LoadBoardDialog from "../board/LoadBoardDialog";
 import { Hero } from "../styled";
 import heroImg from "../../assets/retro-hero.jpg";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     minHeight: "100vh",
@@ -22,10 +22,10 @@ const styles = (theme) => ({
   button: {
     marginButton: theme.spacing(2),
   },
-});
+}));
 
-function Home(props) {
-  const { classes } = props;
+export default function Home() {
+  const classes = useStyles();
 
   return (
     <Hero img={heroImg}>
@@ -55,5 +55,3 @@ function Home(props) {
     </Hero>
   );
 }
-
-export default withStyles(styles)(Home);
