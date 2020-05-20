@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import isEqual from "lodash/isEqual";
-import { Grid, withStyles } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Redirect } from "react-router-dom";
-
 import AppHeader from "../header-bar/AppHeader";
 import BoardHeader from "../board/BoardHeader";
 import Columns from "../columns/Columns";
@@ -43,20 +42,16 @@ import {
   BOARD_ERROR,
 } from "../../constants/eventNames";
 
-const styles = (theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
-  header: {
-    padding: theme.spacing(2),
-  },
-});
+}));
 
 // stores the current dragResult of a combine
 let combineResult;
 
-function Board(props) {
-  const { classes, location } = props;
+export default function Board({ location, match }) {
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
@@ -72,6 +67,7 @@ function Board(props) {
     voteAbstain,
   } = useContext(BoardContext);
   const { createModerator, createParticipant, setMaxVote, resetVotes } = useContext(UserContext);
+  const classes = useStyles();
 
   // set tab name
   useEffect(() => {
@@ -84,7 +80,7 @@ function Board(props) {
 
   useEffect(() => {
     // pull state, when navigating back and forth
-    if (isEqual(board, defaultBoard) && props.match.isExact) {
+    if (isEqual(board, defaultBoard) && match.isExact) {
       socket.emit(JOIN_BOARD, boardId);
     }
 
@@ -237,9 +233,7 @@ function Board(props) {
     <>
       <AppHeader />
       <Grid container className={classes.root} direction="column">
-        <Grid container className={classes.header} direction="row">
-          <BoardHeader title={board.title} />
-        </Grid>
+        <BoardHeader title={board.title} />
         <Grid item xs={12}>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="allColumns" direction="horizontal" type="column">
@@ -279,5 +273,3 @@ function Board(props) {
     </>
   );
 }
-
-export default withStyles(styles)(Board);

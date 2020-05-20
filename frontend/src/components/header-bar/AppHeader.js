@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Menu, MenuItem, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { AppBar, Toolbar, Typography, Menu, MenuItem, Button, makeStyles } from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
 
+import CreateColumnButton from "../columns/CreateColumnButton";
 import UnblurCardsButton from "./board-settings/UnblurCardsButton";
 import ExportBoardButton from "./board-settings/ExportBoardButton";
 import ExportTemplateButton from "./board-settings/ExportTemplateButton";
@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.contrastText,
   },
   settingsButton: {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText,
     marginRight: theme.spacing(1),
     textTransform: "none",
   },
@@ -54,17 +56,17 @@ export default function AppHeader() {
               Retro
             </Link>
           </Typography>
+          <CreateColumnButton />
           <Button
-            variant="text"
+            variant="contained"
             className={classes.settingsButton}
             aria-label="board settings"
             aria-controls="settings-appbar"
             aria-haspopup="true"
             onClick={handleSettings}
-            color="inherit"
             startIcon={<SettingsIcon />}
           >
-            <Typography color="inherit">Settings</Typography>
+            <Typography>Settings</Typography>
           </Button>
           <Menu
             keepMounted

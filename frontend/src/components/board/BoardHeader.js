@@ -1,21 +1,18 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, makeStyles } from "@material-ui/core";
 
-import CreateColumnButton from "../columns/CreateColumnButton";
+const useStyles = makeStyles((theme) => ({
+  boardTitle: {
+    margin: theme.spacing(2),
+  },
+}));
 
-export default function BoardHeader(props) {
-  const { title } = props;
+export default function BoardHeader({ title }) {
+  const classes = useStyles();
 
   return (
-    <>
-      <Grid container direction="row" justify="space-between" alignItems="center">
-        <Grid item>
-          <Typography variant="h5">{title}</Typography>
-        </Grid>
-        <Grid item>
-          <CreateColumnButton />
-        </Grid>
-      </Grid>
-    </>
+    <Grid item xs={12} className={classes.boardTitle}>
+      <Typography variant="h5">{title}</Typography>
+    </Grid>
   );
 }

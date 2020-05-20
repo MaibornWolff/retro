@@ -11,7 +11,6 @@ import {
   DialogTitle,
   Typography,
   withMobileDialog,
-  Fab,
 } from "@material-ui/core";
 
 import { validateInput } from "../../utils";
@@ -23,8 +22,9 @@ import { CREATE_COLUMN_BUTTON } from "../../constants/testIds";
 import { COLUMN_NAME_TOO_LONG_MSG } from "../../constants/errorMessages";
 
 const useStyles = makeStyles((theme) => ({
-  extendedIcon: {
+  button: {
     marginRight: theme.spacing(1),
+    textTransform: "none",
   },
 }));
 
@@ -78,17 +78,18 @@ function CreateColumnButton(props) {
 
   return (
     <div>
-      <Fab
-        variant="extended"
-        color="primary"
+      <Button
+        variant="contained"
+        color="secondary"
         aria-label="Add Column"
         onClick={openDialog}
         data-testid={CREATE_COLUMN_BUTTON}
         disabled={userState.role !== ROLE_MODERATOR}
+        className={classes.button}
+        startIcon={<AddIcon />}
       >
-        <AddIcon className={classes.extendedIcon} />
-        <Typography variant="button">Column</Typography>
-      </Fab>
+        <Typography color="inherit">Column</Typography>
+      </Button>
       <Dialog
         fullWidth
         maxWidth="xs"
