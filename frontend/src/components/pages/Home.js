@@ -37,16 +37,8 @@ function Home(props) {
         alignItems="center"
       >
         <Grid item xs={12}>
-          <Typography variant="h4" className={classes.greetingText}>
-            Welcome to Retro!
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="subtitle1" className={classes.subtitleText}>
-            Start your retrospective by creating a new board{" "}
-            <span role="img" aria-label="party">
-              🎉
-            </span>
+          <Typography variant="h1" className={classes.greetingText}>
+            Welcome to Retro.
           </Typography>
         </Grid>
         <Grid item xs={12}>

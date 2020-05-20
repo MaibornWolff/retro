@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import LoadIcon from "@material-ui/icons/Publish";
 import { DropzoneArea } from "material-ui-dropzone";
 import {
   Fab,
@@ -23,14 +23,13 @@ import { BOARD_NAME_TOO_LONG_MSG } from "../../constants/errorMessages";
 const styles = (theme) => ({
   button: {
     margin: theme.spacing(1),
+    minWidth: "11rem",
   },
   bordNameField: {
     marginBottom: theme.spacing(2),
   },
   icon: {
     marginRight: theme.spacing(1),
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
   },
 });
 
@@ -85,14 +84,14 @@ function LoadBoardDialog(props) {
   return (
     <>
       <Fab
-        size="medium"
+        size="large"
         variant="extended"
         color="primary"
         onClick={openDialog}
         className={classes.button}
       >
-        <ArrowUpwardIcon className={classes.icon} />
-        Load Template
+        <LoadIcon className={classes.icon} />
+        Load Board
       </Fab>
       <Dialog
         fullWidth

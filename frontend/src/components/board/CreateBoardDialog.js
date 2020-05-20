@@ -14,7 +14,7 @@ import {
   DialogTitle,
   Typography,
   withMobileDialog,
-  withStyles,
+  makeStyles,
 } from "@material-ui/core";
 
 import RetroFormatSelect from "./RetroFormatSelect";
@@ -22,22 +22,22 @@ import { defaultBoard, validateInput, postData } from "../../utils";
 import { CREATE_BOARD_BUTTON } from "../../constants/testIds";
 import { BOARD_NAME_TOO_LONG_MSG } from "../../constants/errorMessages";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
+    minWidth: "11rem",
   },
   icon: {
     marginRight: theme.spacing(1),
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
   },
-});
+}));
 
 function CreateBoardDialog(props) {
-  const { classes, fullScreen, history } = props;
+  const { fullScreen, history } = props;
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [format, setFormat] = useState("");
+  const classes = useStyles();
   const input = validateInput(title.length, 0, 40);
 
   function openDialog() {
@@ -89,7 +89,7 @@ function CreateBoardDialog(props) {
   return (
     <>
       <Fab
-        size="medium"
+        size="large"
         variant="extended"
         color="primary"
         onClick={openDialog}
@@ -97,7 +97,7 @@ function CreateBoardDialog(props) {
         data-testid={CREATE_BOARD_BUTTON}
       >
         <AddIcon className={classes.icon} />
-        New Board
+        Create Board
       </Fab>
       <Dialog
         fullWidth
@@ -139,4 +139,4 @@ function CreateBoardDialog(props) {
   );
 }
 
-export default compose(withRouter, withMobileDialog(), withStyles(styles))(CreateBoardDialog);
+export default compose(withRouter, withMobileDialog())(CreateBoardDialog);
