@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import {
-  withMobileDialog,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -8,6 +7,8 @@ import {
   TextField,
   Button,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import { BoardContext } from "../../context/BoardContext";
@@ -16,12 +17,11 @@ import { validateInput } from "../../utils";
 import { EDIT_COLUMN } from "../../constants/eventNames";
 import { COLUMN_NAME_TOO_LONG_MSG } from "../../constants/errorMessages";
 
-function EditColumnDialog(props) {
-  const { fullScreen } = props;
-
+export default function EditColumnDialog() {
   const [title, setTitle] = useState("");
   const { boardId, socket } = useContext(BoardContext);
   const { dialogsState, closeEditColumnDialog } = useContext(DialogsContext);
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   useEffect(() => {
     setTitle(dialogsState.columnTitle);
@@ -87,5 +87,3 @@ function EditColumnDialog(props) {
     </Dialog>
   );
 }
-
-export default withMobileDialog()(EditColumnDialog);

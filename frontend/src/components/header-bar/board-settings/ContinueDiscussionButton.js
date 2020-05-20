@@ -12,7 +12,8 @@ import {
   DialogActions,
   Typography,
   makeStyles,
-  withMobileDialog,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import { BoardContext } from "../../../context/BoardContext";
@@ -31,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ContinueDiscussionButton(props) {
-  const { fullScreen } = props;
+export default function ContinueDiscussionButton() {
   const [isDisabled, setDisabled] = useState(false);
   const { userState } = useContext(UserContext);
   const { boardId, socket, boardState } = useContext(BoardContext);
   const classes = useStyles();
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   useEffect(() => {
     setDisabled(!boardState.showContinueDiscussion);
@@ -150,5 +151,3 @@ function ContinueDiscussionButton(props) {
     </div>
   );
 }
-
-export default withMobileDialog()(ContinueDiscussionButton);

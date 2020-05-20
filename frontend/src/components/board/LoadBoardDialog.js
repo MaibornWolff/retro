@@ -12,7 +12,8 @@ import {
   DialogActions,
   TextField,
   Typography,
-  withMobileDialog,
+  useMediaQuery,
+  useTheme,
   makeStyles,
 } from "@material-ui/core";
 
@@ -32,11 +33,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function LoadBoardDialog({ fullScreen }) {
+export default function LoadBoardDialog() {
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState([]);
   const [title, setTitle] = useState("");
   const classes = useStyles();
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
   let history = useHistory();
 
   const input = validateInput(title.length, 0, 40);
@@ -142,5 +144,3 @@ function LoadBoardDialog({ fullScreen }) {
     </>
   );
 }
-
-export default withMobileDialog()(LoadBoardDialog);

@@ -6,8 +6,9 @@ import {
   DialogTitle,
   DialogContentText,
   Button,
-  withMobileDialog,
   makeStyles,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import { DELETE_CARD } from "../../constants/eventNames";
@@ -20,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function DeleteItemDialog(props) {
-  const { fullScreen } = props;
+export default function DeleteItemDialog() {
   const { boardId, socket } = useContext(BoardContext);
   const { dialogsState, closeDeleteItemDialog } = useContext(DialogsContext);
   const classes = useStyles();
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   function handleClick() {
     socket.emit(DELETE_CARD, dialogsState.itemId, boardId);
@@ -58,5 +59,3 @@ function DeleteItemDialog(props) {
     </Dialog>
   );
 }
-
-export default withMobileDialog()(DeleteItemDialog);

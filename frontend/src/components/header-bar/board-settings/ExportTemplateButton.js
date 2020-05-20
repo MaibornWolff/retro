@@ -9,8 +9,9 @@ import {
   DialogActions,
   Button,
   CircularProgress,
-  withMobileDialog,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import { exportBoard } from "../../../utils";
@@ -24,13 +25,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ExportTemplateButton(props) {
-  const { fullScreen } = props;
+export default function ExportTemplateButton() {
   const [open, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const { boardId } = useContext(BoardContext);
   const { userState } = useContext(UserContext);
   const classes = useStyles();
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   function openDialog() {
     setOpen(true);
@@ -109,5 +110,3 @@ function ExportTemplateButton(props) {
     </div>
   );
 }
-
-export default withMobileDialog()(ExportTemplateButton);

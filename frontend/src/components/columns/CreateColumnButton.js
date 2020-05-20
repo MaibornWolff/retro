@@ -10,7 +10,8 @@ import {
   DialogContent,
   DialogTitle,
   Typography,
-  withMobileDialog,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import { validateInput } from "../../utils";
@@ -28,13 +29,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CreateColumnButton(props) {
-  const { fullScreen } = props;
+export default function CreateColumnButton() {
   const [open, setOpen] = useState(false);
   const [columnTitle, setColumnTitle] = useState("");
   const { boardId, socket } = useContext(BoardContext);
   const { userState } = useContext(UserContext);
   const classes = useStyles();
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
   const input = validateInput(columnTitle.length, 0, 40);
 
   function openDialog() {
@@ -127,5 +128,3 @@ function CreateColumnButton(props) {
     </div>
   );
 }
-
-export default withMobileDialog()(CreateColumnButton);

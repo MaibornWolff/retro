@@ -9,10 +9,11 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  withMobileDialog,
   Grid,
   Typography,
   DialogContentText,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import { defaultBoard } from "../../../utils";
@@ -31,13 +32,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function VoteCountButton(props) {
-  const { fullScreen } = props;
+export default function VoteCountButton() {
   const { boardId, socket } = useContext(BoardContext);
   const { userState, setMaxVote, resetVotes } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [voteCount, setVoteCount] = useState(getVoteCount());
   const classes = useStyles();
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   function getVoteCount() {
     if (userState.maxVoteCount) return userState.maxVoteCount;
@@ -160,5 +161,3 @@ function VoteCountButton(props) {
     </div>
   );
 }
-
-export default withMobileDialog()(VoteCountButton);

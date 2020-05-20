@@ -6,11 +6,13 @@ import {
   DialogTitle,
   DialogContentText,
   Button,
-  withMobileDialog,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
-function MergeCardsDialog(props) {
-  const { fullScreen, open, closeDialog, startMerge, stopMerge } = props;
+export default function MergeCardsDialog(props) {
+  const { open, closeDialog, startMerge, stopMerge } = props;
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   function mergeCards() {
     startMerge();
@@ -51,5 +53,3 @@ function MergeCardsDialog(props) {
     </>
   );
 }
-
-export default withMobileDialog()(MergeCardsDialog);

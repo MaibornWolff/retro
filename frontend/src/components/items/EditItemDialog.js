@@ -6,8 +6,9 @@ import {
   DialogTitle,
   TextField,
   Button,
-  withMobileDialog,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import { DialogsContext } from "../../context/DialogsContext";
@@ -19,13 +20,12 @@ import {
   CARD_CONTENT_TOO_LONG_MSG,
 } from "../../constants/errorMessages";
 
-function EditItemDialog(props) {
-  const { fullScreen } = props;
-
+export default function EditItemDialog() {
   const [itemAuthor, setAuthor] = useState("");
   const [itemContent, setContent] = useState("");
   const { boardId, socket } = useContext(BoardContext);
   const { dialogsState, closeEditItemDialog } = useContext(DialogsContext);
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   useEffect(() => {
     setAuthor(dialogsState.itemAuthor);
@@ -127,5 +127,3 @@ function EditItemDialog(props) {
     </Dialog>
   );
 }
-
-export default withMobileDialog()(EditItemDialog);

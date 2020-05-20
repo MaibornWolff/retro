@@ -9,8 +9,9 @@ import {
   DialogContentText,
   DialogActions,
   Button,
-  withMobileDialog,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import { QR_CODE_BUTTON } from "../../../constants/testIds";
@@ -21,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function QrCodeButton(props) {
-  const { fullScreen } = props;
+export default function QrCodeButton() {
   const [open, setOpen] = useState(false);
   const qrCanvas = useRef();
   const classes = useStyles();
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   function openDialog() {
     setOpen(true);
@@ -76,5 +77,3 @@ function QrCodeButton(props) {
     </div>
   );
 }
-
-export default withMobileDialog()(QrCodeButton);

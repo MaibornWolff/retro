@@ -7,8 +7,9 @@ import {
   DialogTitle,
   TextField,
   Button,
-  withMobileDialog,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import { BoardContext } from "../../context/BoardContext";
@@ -20,14 +21,12 @@ import {
   CARD_CONTENT_TOO_LONG_MSG,
 } from "../../constants/errorMessages";
 
-function CreateItemDialog(props) {
-  const { fullScreen } = props;
-
+export default function CreateItemDialog() {
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
-
   const { boardId, socket } = useContext(BoardContext);
   const { dialogsState, closeCreateItemDialog } = useContext(DialogsContext);
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   // get the username from localstorage, if set
   useEffect(() => {
@@ -139,5 +138,3 @@ function CreateItemDialog(props) {
     </Dialog>
   );
 }
-
-export default withMobileDialog()(CreateItemDialog);

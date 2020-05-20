@@ -6,17 +6,18 @@ import {
   DialogContentText,
   DialogTitle,
   Button,
-  withMobileDialog,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import { DELETE_COLUMN } from "../../constants/eventNames";
 import { BoardContext } from "../../context/BoardContext";
 import { DialogsContext } from "../../context/DialogsContext";
 
-function DeleteColumnDialog(props) {
-  const { fullScreen } = props;
+export default function DeleteColumnDialog() {
   const { boardId, socket } = useContext(BoardContext);
   const { dialogsState, closeDeleteColumnDialog } = useContext(DialogsContext);
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   function handleClick() {
     socket.emit(DELETE_COLUMN, dialogsState.columnId, boardId);
@@ -50,5 +51,3 @@ function DeleteColumnDialog(props) {
     </Dialog>
   );
 }
-
-export default withMobileDialog()(DeleteColumnDialog);

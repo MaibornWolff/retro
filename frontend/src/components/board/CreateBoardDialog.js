@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { nanoid } from "nanoid";
 import AddIcon from "@material-ui/icons/Add";
-import { useHistory } from "react-router-dom";
 import {
   Button,
   Fab,
@@ -12,8 +12,9 @@ import {
   DialogContentText,
   DialogTitle,
   Typography,
-  withMobileDialog,
   makeStyles,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 
 import RetroFormatSelect from "./RetroFormatSelect";
@@ -31,11 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CreateBoardDialog({ fullScreen }) {
+export default function CreateBoardDialog() {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [format, setFormat] = useState("");
   const classes = useStyles();
+  const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
   let history = useHistory();
 
   const input = validateInput(title.length, 0, 40);
@@ -138,5 +140,3 @@ function CreateBoardDialog({ fullScreen }) {
     </>
   );
 }
-
-export default withMobileDialog()(CreateBoardDialog);
