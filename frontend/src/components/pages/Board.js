@@ -53,7 +53,6 @@ const useStyles = makeStyles(() => ({
 let combineResult;
 
 export default function Board({ match }) {
-  console.log(match);
   const [board, setBoard] = useState(defaultBoard);
   const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
