@@ -7,9 +7,9 @@ import {
   Divider,
   IconButton,
   Snackbar,
-  withStyles,
   Typography,
   SnackbarContent,
+  makeStyles,
 } from "@material-ui/core";
 
 import { validateInput } from "../../utils";
@@ -17,7 +17,7 @@ import { CARD_AUTHOR_NAME_TOO_LONG_MSG } from "../../constants/errorMessages";
 import { BoardContext } from "../../context/BoardContext";
 import { UserContext } from "../../context/UserContext";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: "2px 4px",
     display: "flex",
@@ -46,14 +46,14 @@ const styles = (theme) => ({
     opacity: 0.9,
     marginRight: theme.spacing(1),
   },
-});
+}));
 
-function NameInput(props) {
-  const { classes } = props;
+export default function NameInput() {
   const { boardId } = useContext(BoardContext);
   const { userState, setUsername } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(getName());
+  const classes = useStyles();
   const nameInput = validateInput(name.length, 0, 40);
 
   function getName() {
@@ -136,5 +136,3 @@ function NameInput(props) {
     </>
   );
 }
-
-export default withStyles(styles)(NameInput);
