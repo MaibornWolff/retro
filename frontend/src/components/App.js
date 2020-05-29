@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
-import Home from "./pages/Home";
-import Board from "./pages/Board";
-import Error from "./pages/Error";
+import HomePage from "./pages/HomePage";
+import BoardPage from "./pages/BoardPage";
+import ErrorPage from "./pages/ErrorPage";
 
 import { BoardContextProvider } from "../context/BoardContext";
 import { UserContextProvider } from "../context/UserContext";
@@ -31,7 +31,7 @@ const App = () => (
   <MuiThemeProvider theme={theme}>
     <Router>
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact component={HomePage} />
         <Route
           exact
           path="/boards/:boardId"
@@ -39,13 +39,13 @@ const App = () => (
             <UserContextProvider {...props}>
               <BoardContextProvider {...props}>
                 <DialogsContextProvider {...props}>
-                  <Board {...props} />
+                  <BoardPage {...props} />
                 </DialogsContextProvider>
               </BoardContextProvider>
             </UserContextProvider>
           )}
         />
-        <Route component={Error} />
+        <Route component={ErrorPage} />
       </Switch>
     </Router>
   </MuiThemeProvider>
