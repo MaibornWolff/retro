@@ -5,7 +5,6 @@ import {
   Toolbar,
   Typography,
   Menu,
-  MenuItem,
   Button,
   makeStyles,
 } from "@material-ui/core";
@@ -16,7 +15,6 @@ import UnblurCardsButton from "./UnblurCardsButton";
 import ExportBoardButton from "./ExportBoardButton";
 import ExportTemplateButton from "./ExportTemplateButton";
 import VoteCountButton from "./VoteCountButton";
-import ContinueDiscussionButton from "./ContinueDiscussionButton";
 import QrCodeButton from "./QrCodeButton";
 
 const useStyles = makeStyles((theme) => ({
@@ -91,24 +89,12 @@ export default function AppHeader() {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem>
-              <UnblurCardsButton />
-            </MenuItem>
-            <MenuItem>
-              <ExportBoardButton />
-            </MenuItem>
-            <MenuItem>
-              <ExportTemplateButton />
-            </MenuItem>
-            <MenuItem>
-              <VoteCountButton />
-            </MenuItem>
-            <MenuItem>
-              <ContinueDiscussionButton />
-            </MenuItem>
-            <MenuItem>
-              <QrCodeButton />
-            </MenuItem>
+            <UnblurCardsButton />
+            <VoteCountButton />
+            <ExportBoardButton />
+            <ExportTemplateButton />
+            {/* <ContinueDiscussionButton /> */}
+            <QrCodeButton />
           </Menu>
         </Toolbar>
       </AppBar>

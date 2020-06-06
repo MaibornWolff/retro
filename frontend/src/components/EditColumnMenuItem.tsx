@@ -13,7 +13,7 @@ const EditColumnMenuItem = React.forwardRef(
         <ListItemIcon>
           <EditIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText inset primary="Edit Name" />
+        <ListItemText primary="Edit Name" />
       </MenuItem>
     );
   }

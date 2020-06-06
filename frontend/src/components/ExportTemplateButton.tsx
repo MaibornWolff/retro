@@ -9,9 +9,11 @@ import {
   DialogActions,
   Button,
   CircularProgress,
-  Typography,
   useMediaQuery,
   useTheme,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from "@material-ui/core";
 
 import { UserContext } from "../context/UserContext";
@@ -20,8 +22,8 @@ import { exportBoard } from "../utils";
 import { ROLE_MODERATOR } from "../utils/user.utils";
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    marginRight: theme.spacing(1),
+  export: {
+    color: theme.palette.error.main,
   },
 }));
 
@@ -66,19 +68,18 @@ export default function ExportTemplateButton() {
   }
 
   return (
-    <div>
-      <Button
-        fullWidth
-        variant="text"
+    <React.Fragment>
+      <MenuItem
         aria-label="Export Board"
         color="primary"
         onClick={openDialog}
         disabled={userState.role !== ROLE_MODERATOR}
-        className={classes.button}
-        startIcon={<ExportIcon />}
       >
-        <Typography variant="body1">Export Board Data</Typography>
-      </Button>
+        <ListItemIcon>
+          <ExportIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="Template Export" />
+      </MenuItem>
       <Dialog
         fullWidth
         maxWidth="xs"
@@ -89,14 +90,14 @@ export default function ExportTemplateButton() {
         aria-describedby="board-export-template-dialog-description"
       >
         <DialogTitle id="board-export-template-dialog">
-          Export Template
+          Template Export
         </DialogTitle>
         <DialogContent>
           {isLoading ? (
             <CircularProgress />
           ) : (
             <DialogContentText id="board-export-template-dialog-description">
-              Do you want to export a template of your board?
+              You are about to export the board data!
             </DialogContentText>
           )}
         </DialogContent>
@@ -104,11 +105,15 @@ export default function ExportTemplateButton() {
           <Button color="primary" onClick={closeDialog} disabled={isLoading}>
             Cancel
           </Button>
-          <Button color="primary" onClick={handleExport} disabled={isLoading}>
+          <Button
+            className={classes.export}
+            onClick={handleExport}
+            disabled={isLoading}
+          >
             Export
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </React.Fragment>
   );
 }

@@ -14,6 +14,9 @@ import {
   makeStyles,
   useMediaQuery,
   useTheme,
+  MenuItem,
+  ListItemText,
+  ListItemIcon,
 } from "@material-ui/core";
 
 import { BoardContext } from "../context/BoardContext";
@@ -70,18 +73,18 @@ export default function ContinueDiscussionButton() {
 
   return (
     <div>
-      <Button
-        variant="text"
+      <MenuItem
         aria-label="Continue Discussion"
         color="primary"
         className={classes.button}
         onClick={toggleDiscussion}
         disabled={userState.role !== ROLE_MODERATOR}
-        fullWidth
-        startIcon={<ThumbsUpDownIcon />}
       >
-        <Typography variant="body1">Start Roman Voting</Typography>
-      </Button>
+        <ListItemIcon>
+          <ThumbsUpDownIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="Start Roman Voting" />
+      </MenuItem>
       <Dialog
         fullWidth
         fullScreen={fullScreen}

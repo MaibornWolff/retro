@@ -87,7 +87,7 @@ export default function CreateColumnButton() {
         className={classes.button}
         startIcon={<AddIcon />}
       >
-        <Typography color="inherit">Column</Typography>
+        <Typography color="inherit">Add Column</Typography>
       </Button>
       <Dialog
         fullWidth

@@ -14,6 +14,9 @@ import {
   DialogContentText,
   useMediaQuery,
   useTheme,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from "@material-ui/core";
 
 import { UserContext } from "../context/UserContext";
@@ -25,9 +28,6 @@ import { SET_MAX_VOTES, RESET_VOTES } from "../constants/event.constants";
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
-  },
-  menuButton: {
-    marginRight: theme.spacing(1),
   },
 }));
 
@@ -83,19 +83,18 @@ export default function VoteCountButton() {
   }
 
   return (
-    <div>
-      <Button
-        fullWidth
-        variant="text"
+    <React.Fragment>
+      <MenuItem
         aria-label="Set Vote Count"
         color="primary"
         onClick={openDialog}
         disabled={userState.role !== ROLE_MODERATOR}
-        startIcon={<ThumbUpIcon />}
-        className={classes.menuButton}
       >
-        <Typography variant="body1">Manage Vote Count</Typography>
-      </Button>
+        <ListItemIcon>
+          <ThumbUpIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="Manage Votes" />
+      </MenuItem>
       <Dialog
         fullWidth
         maxWidth="xs"
@@ -156,6 +155,6 @@ export default function VoteCountButton() {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </React.Fragment>
   );
 }

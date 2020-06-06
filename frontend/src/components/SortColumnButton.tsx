@@ -26,7 +26,7 @@ const SortColumnButton = React.forwardRef(
           <ListItemIcon>
             <SortIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText inset primary="Sort Column" />
+          <ListItemText primary="Sort Column" />
         </MenuItem>
       </>
     );

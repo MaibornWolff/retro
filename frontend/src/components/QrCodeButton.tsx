@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import QRCode from "qrcode";
 import QrCodeIcon from "@material-ui/icons/CropFree";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Dialog,
   DialogTitle,
@@ -9,21 +8,16 @@ import {
   DialogContentText,
   DialogActions,
   Button,
-  Typography,
   useMediaQuery,
   useTheme,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  button: {
-    marginRight: theme.spacing(1),
-  },
-}));
 
 export default function QrCodeButton() {
   const [open, setOpen] = useState(false);
   const qrCanvas = useRef<HTMLCanvasElement>(null);
-  const classes = useStyles();
   const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   function openDialog() {
@@ -39,18 +33,13 @@ export default function QrCodeButton() {
   }
 
   return (
-    <div>
-      <Button
-        fullWidth
-        variant="text"
-        aria-label="QR Code"
-        color="primary"
-        onClick={openDialog}
-        className={classes.button}
-        startIcon={<QrCodeIcon />}
-      >
-        <Typography variant="body1">Get QR Code</Typography>
-      </Button>
+    <React.Fragment>
+      <MenuItem aria-label="QR Code" color="primary" onClick={openDialog}>
+        <ListItemIcon>
+          <QrCodeIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="QR Code" />
+      </MenuItem>
       <Dialog
         fullScreen={fullScreen}
         open={open}
@@ -71,6 +60,6 @@ export default function QrCodeButton() {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </React.Fragment>
   );
 }

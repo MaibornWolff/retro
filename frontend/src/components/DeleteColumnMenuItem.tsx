@@ -13,7 +13,7 @@ const DeleteColumnMenuItem = React.forwardRef(
         <ListItemIcon>
           <DeleteIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText inset primary="Delete Column" />
+        <ListItemText primary="Delete Column" />
       </MenuItem>
     );
   }

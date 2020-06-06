@@ -9,9 +9,11 @@ import {
   DialogActions,
   Button,
   CircularProgress,
-  Typography,
   useMediaQuery,
   useTheme,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from "@material-ui/core";
 
 import { BoardContext } from "../context/BoardContext";
@@ -20,8 +22,8 @@ import { exportBoard } from "../utils";
 import { ROLE_MODERATOR } from "../utils/user.utils";
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    marginRight: theme.spacing(1),
+  export: {
+    color: theme.palette.error.main,
   },
 }));
 
@@ -66,19 +68,18 @@ export default function ExportBoardButton() {
   }
 
   return (
-    <div>
-      <Button
-        fullWidth
-        variant="text"
+    <React.Fragment>
+      <MenuItem
         aria-label="Export Board"
         color="primary"
         onClick={openDialog}
-        className={classes.button}
         disabled={userState.role !== ROLE_MODERATOR}
-        startIcon={<ExportIcon />}
       >
-        <Typography variant="body1">Export Board Image</Typography>
-      </Button>
+        <ListItemIcon>
+          <ExportIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="Image Export" />
+      </MenuItem>
       <Dialog
         fullWidth
         maxWidth="xs"
@@ -88,15 +89,13 @@ export default function ExportBoardButton() {
         aria-labelledby="board-export-dialog"
         aria-describedby="board-export-dialog-description"
       >
-        <DialogTitle id="board-export-dialog">Export Your Board</DialogTitle>
+        <DialogTitle id="board-export-dialog">Image Export</DialogTitle>
         <DialogContent>
           {isLoading ? (
             <CircularProgress />
           ) : (
             <DialogContentText id="board-export-dialog-description">
-              Hope you had a great retrospective!
-              <br />
-              Do you want to export your board now?
+              You are about to export your board as a PNG file!
             </DialogContentText>
           )}
         </DialogContent>
@@ -104,11 +103,15 @@ export default function ExportBoardButton() {
           <Button color="primary" onClick={closeDialog} disabled={isLoading}>
             Cancel
           </Button>
-          <Button color="primary" onClick={handleExport} disabled={isLoading}>
+          <Button
+            className={classes.export}
+            onClick={handleExport}
+            disabled={isLoading}
+          >
             Export
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </React.Fragment>
   );
 }

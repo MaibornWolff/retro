@@ -32,8 +32,8 @@ type DialogContextProviderProps = {
   children?: React.ReactNode;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 export const DialogsContext = React.createContext<DialogContextValues>(
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   undefined!
 );
 

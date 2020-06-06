@@ -14,7 +14,8 @@
     "jsx-a11y/label-has-for": 0,
     "jsx-a11y/no-autofocus": 0,
     "react/display-name": 0,
-    "@typescript-eslint/explicit-module-boundary-types": 0
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/no-explicit-any": 0
   },
   "plugins": ["react", "import", "jsx-a11y"],
   "parser": "@typescript-eslint/parser",
