@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
-import HomePage from "./HomePage";
-import BoardPage from "./BoardPage";
+import HomePage from "./home/HomePage";
+import BoardPage from "./board/BoardPage";
 import ErrorPage from "./ErrorPage";
 import BoardContextProvider from "../context/BoardContext";
 import UserContextProvider from "../context/UserContext";
