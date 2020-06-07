@@ -7494,10 +7494,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-material-ui-dropzone@^3.0.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/material-ui-dropzone/-/material-ui-dropzone-3.1.0.tgz#5d4bb8856ef0470caacaac6433a42ea79f5100d5"
-  integrity sha512-5ZBhBGSXaaPmH0ooAyvSgDcyj2dNwwIuZWQUq1Hn9raZYXeirvXngV+SINAHY0vN/Uj+oVHF8buc7kI4gliYqg==
+material-ui-dropzone@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/material-ui-dropzone/-/material-ui-dropzone-3.2.1.tgz#37f35f94eea62ffeae8a8adb28f7a4d04d70bb31"
+  integrity sha512-QD37QMQ+ZwVDcIR9GA6ojvtF9gylar11pFQlViHC4il7eP5KhY/Govmj9wSOjh9ROyKxUvlsTwy3ELuZ2vXx0w==
   dependencies:
     "@babel/runtime" "^7.4.4"
     clsx "^1.0.2"

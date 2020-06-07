@@ -17,9 +17,21 @@ const {
 const width = 1920;
 const height = 1080;
 
-function getBoardWithoutId(boardData) {
+function removeAllItemRefs(board) {
+  board.items = {};
+  for (let columnId in board.columns) {
+    board.columns[columnId].itemIds = [];
+  }
+}
+
+function getBoardWithExportType(boardData, exportType) {
   const board = getBoard(boardData);
+
   board.boardId = "";
+  if (exportType === "default") {
+    removeAllItemRefs(board);
+  }
+
   return stringify(board);
 }
 
@@ -56,13 +68,14 @@ router.post("/template-import", async (req, res) => {
   }
 });
 
-router.get("/template-export/:boardId", async (req, res) => {
+router.get("/template-export/:boardId/:exportType", async (req, res) => {
   const boardId = req.params.boardId;
+  const exportType = req.params.exportType;
   fs.readFile(getPath(boardId), "utf-8", async (error, boardData) => {
     if (error) {
       respondWithInvalidBoardId(res, error);
     }
-    const board = getBoardWithoutId(boardData);
+    const board = getBoardWithExportType(boardData, exportType);
 
     res.setHeader("Content-disposition", "attachment; filename=template.json");
     res.setHeader("Content-type", "application/json");

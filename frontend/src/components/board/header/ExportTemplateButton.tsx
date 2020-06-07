@@ -14,6 +14,12 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
+  FormControl,
+  RadioGroup,
+  FormLabel,
+  Radio,
+  FormControlLabel,
+  Divider,
 } from "@material-ui/core";
 
 import { UserContext } from "../../../context/UserContext";
@@ -25,11 +31,15 @@ const useStyles = makeStyles((theme) => ({
   export: {
     color: theme.palette.error.main,
   },
+  divider: {
+    marginBottom: theme.spacing(1),
+  },
 }));
 
 export default function ExportTemplateButton() {
   const [open, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [exportType, setExportType] = useState("default");
   const { boardId } = useContext(BoardContext);
   const { userState } = useContext(UserContext);
   const classes = useStyles();
@@ -51,9 +61,13 @@ export default function ExportTemplateButton() {
     setLoading(false);
   }
 
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setExportType(event.target.value);
+  }
+
   async function handleExport() {
     startLoading();
-    const response = await exportBoard(boardId, "template-export");
+    const response = await exportBoard(boardId, "template-export", exportType);
     stopLoading();
 
     if (response.ok) {
@@ -96,9 +110,33 @@ export default function ExportTemplateButton() {
           {isLoading ? (
             <CircularProgress />
           ) : (
-            <DialogContentText id="board-export-template-dialog-description">
-              You are about to export the board data!
-            </DialogContentText>
+            <React.Fragment>
+              <DialogContentText id="board-export-template-dialog-description">
+                You are about to export the board data as JSON!
+              </DialogContentText>
+              <Divider className={classes.divider} />
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Export Type</FormLabel>
+                <RadioGroup
+                  row
+                  aria-label="exportType"
+                  name="exportType"
+                  value={exportType}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    value="default"
+                    control={<Radio />}
+                    label="Without Items"
+                  />
+                  <FormControlLabel
+                    value="withItems"
+                    control={<Radio />}
+                    label="With Items"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </React.Fragment>
           )}
         </DialogContent>
         <DialogActions>
