@@ -5,3 +5,4 @@ storage/*.png
 public/*.js
 public/*.css
 public/*.html
+.env

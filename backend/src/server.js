@@ -1,7 +1,10 @@
 require("./config");
+require("dotenv").config();
+
 const chalk = require("chalk");
 const path = require("path");
 const express = require("express");
+const rateLimit = require("express-rate-limit");
 const { json } = require("body-parser");
 const cors = require("cors");
 const CronJob = require("cron").CronJob;
@@ -23,9 +26,32 @@ const job = new CronJob("0 0 * * *", () => {
   clean(storageDir);
 });
 
-app.use(cors());
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+
+if (process.env.NODE_ENV === "DEVELOPMENT") {
+  app.use(cors());
+}
+
+if (process.env.NODE_ENV === "PRODUCTION") {
+  app.use(
+    cors({
+      origin: [
+        "http://localhost:3001",
+        "http://localhost:3000",
+        process.env.MW_RETRO_DEV,
+        process.env.MW_RETRO_PROD,
+        process.env.RETRO_PUBLIC_PROD,
+      ],
+    })
+  );
+}
+
 app.use(json());
 app.use(express.static(publicDir));
+app.use("/api/boards", apiLimiter);
 app.use("/api/boards", apiRouter);
 
 // https://bit.ly/2wMAs0i
