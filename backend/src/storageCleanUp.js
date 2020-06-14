@@ -1,10 +1,11 @@
 const chalk = require("chalk");
 const findRemoveSync = require("find-remove");
 
-// delete all files older than one week or one day
-const WEEKLY_THRESHOLD = 604800;
-const DAILY_THRESHOLD = 86400;
-const THRESHOLD = process.env.RETRO_PUBLIC ? DAILY_THRESHOLD : WEEKLY_THRESHOLD;
+const REGULAR_THRESHOLD = 604800; // one week
+const PUBLIC_THRESHOLD = 21600; // six hours
+const THRESHOLD = process.env.RETRO_PUBLIC
+  ? PUBLIC_THRESHOLD
+  : REGULAR_THRESHOLD;
 
 const clean = (storagePath) => {
   const jsonResult = findRemoveSync(storagePath, {
