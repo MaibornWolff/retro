@@ -1,6 +1,20 @@
 {
-  "name": "ts-frontend",
-  "version": "0.1.0",
+  "name": "@retro/frontend",
+  "description": "The React frontend of Retro. Make retrospectives great again.",
+  "author": {
+    "name": "Yadullah Duman",
+    "url": "https://yduman.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/yduman/retro/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yduman/retro.git",
+    "directory": "frontend/"
+  },
+  "license": "MIT",
+  "version": "0.3.3",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.10.1",

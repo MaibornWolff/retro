@@ -6,8 +6,11 @@
 
 - Import/Export of board data
   - If you want to reuse a board for another retrospective, you can now export the data of the board as JSON and import it later for another session
+  - Special thanks to @ClaasBusemann and @PaulaBre for their contribution!
 - Docker development support
 - Container-based deployment support
+- Rate-limiting API
+- Configurable CORS settings in PROD mode
 
 ### Changed
 
@@ -15,6 +18,7 @@
   - Using TypeScript now!
   - Major UI redesign!
   - Hooks all the way - no more HOCs!
+  - Increased maximum card content length 
 - Backend
   - Storage clean up will now be handled via Node.js instead of writing your own cronjob manually
 
