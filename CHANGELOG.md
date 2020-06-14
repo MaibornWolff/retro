@@ -4,6 +4,16 @@
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Removed
+
+## [0.3.3] - 2020-06-14
+
+### Added
+
 - Import/Export of board data
   - If you want to reuse a board for another retrospective, you can now export the data of the board as JSON and import it later for another session
   - Special thanks to @ClaasBusemann and @PaulaBre for their contribution!
@@ -171,7 +181,8 @@
 - Combine two cards
 - Upvote cards
 
-[Unreleased]: https://github.com/yduman/retro/compare/0.3.2...master
+[Unreleased]: https://github.com/yduman/retro/compare/0.3.3...master
+[0.3.3]: https://github.com/yduman/retro/releases/tag/0.3.3
 [0.3.2]: https://github.com/yduman/retro/releases/tag/0.3.2
 [0.3.1]: https://github.com/yduman/retro/releases/tag/0.3.1
 [0.3.0]: https://github.com/yduman/retro/releases/tag/0.3.0
