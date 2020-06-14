@@ -102,6 +102,7 @@ router.get("/board-export/:boardId", async (req, res) => {
       respondWithInvalidBoardId(res, error);
     }
 
+    // TODO: add exportHost for public
     const exportPort = process.env.EXPORT_URL_PORT;
     const browser = await puppeteer.launch({
       defaultViewport: { width, height },
