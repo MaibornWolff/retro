@@ -21,6 +21,7 @@ import {
   CardAuthor,
   CardContainer,
   CardWrapper,
+  CardText,
 } from "../../styled-components";
 import {
   FOCUS_CARD,
@@ -155,8 +156,13 @@ function RetroItem(props: RetroItemProps) {
           />
           <Divider />
           <CardContent>
-            <Typography variant="body2" color="textSecondary" component={"p"}>
-              {content}
+            <Typography
+              className={classes.contentBody}
+              variant="body2"
+              color="textSecondary"
+              component={"p"}
+            >
+              <CardText>{content}</CardText>
             </Typography>
           </CardContent>
           <CardActions disableSpacing className={classes.actions}>
