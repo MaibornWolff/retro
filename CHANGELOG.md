@@ -10,6 +10,12 @@
 
 ### Removed
 
+## [0.3.4] - 2020-06-24
+
+### Fixed
+
+- Display of multiline text for card content
+
 ## [0.3.3] - 2020-06-14
 
 ### Added
@@ -181,7 +187,8 @@
 - Combine two cards
 - Upvote cards
 
-[Unreleased]: https://github.com/yduman/retro/compare/0.3.3...master
+[Unreleased]: https://github.com/yduman/retro/compare/0.3.4...master
+[0.3.4]: https://github.com/yduman/retro/releases/tag/0.3.4
 [0.3.3]: https://github.com/yduman/retro/releases/tag/0.3.3
 [0.3.2]: https://github.com/yduman/retro/releases/tag/0.3.2
 [0.3.1]: https://github.com/yduman/retro/releases/tag/0.3.1
