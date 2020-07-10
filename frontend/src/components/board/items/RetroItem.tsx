@@ -28,7 +28,7 @@ import {
   REMOVE_FOCUS_CARD,
   VOTE_CARD,
 } from "../../../constants/event.constants";
-import { ROLE_MODERATOR, getUser } from "../../../utils/user.utils";
+import { ROLE_MODERATOR } from "../../../utils/user.utils";
 
 type RetroItemProps = {
   id: string;
@@ -123,14 +123,8 @@ function RetroItem(props: RetroItemProps) {
   }
 
   const getIsBlurred = useCallback(() => {
-    const { name } = getUser(boardId);
-    const isMyCard = author === name;
-
-    console.log({ author, name });
-    const value = isMyCard ? false : isBlurred;
-    console.log({ isMyCard, isBlurred, value });
-    setBlurStatus(value);
-  }, [author, boardId, isBlurred]);
+    setBlurStatus(author === userState.name ? false : isBlurred);
+  }, [author, isBlurred, userState.name]);
 
   useEffect(() => {
     document.addEventListener("keypress", handleFocus);
