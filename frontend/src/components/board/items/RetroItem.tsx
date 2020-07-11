@@ -170,7 +170,7 @@ function RetroItem(props: RetroItemProps) {
               className={classes.contentBody}
               variant="body2"
               color="textSecondary"
-              component={"p"}
+              component={"span"}
             >
               <CardText>{content}</CardText>
             </Typography>
