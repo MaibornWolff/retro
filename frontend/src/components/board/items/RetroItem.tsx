@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -84,6 +84,7 @@ function RetroItem(props: RetroItemProps) {
     isVoted,
     openSnackbar,
   } = props;
+  const [blurStatus, setBlurStatus] = useState(isBlurred);
   const [hasMouseFocus, setMouseFocus] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);
   const { userState, downvoteCard } = useContext(UserContext);
@@ -121,15 +122,24 @@ function RetroItem(props: RetroItemProps) {
     setMouseFocus(isFocused);
   }
 
+  const getIsBlurred = useCallback(() => {
+    setBlurStatus(author === userState.name ? false : isBlurred);
+  }, [author, isBlurred, userState.name]);
+
   useEffect(() => {
     document.addEventListener("keypress", handleFocus);
+
     return () => {
       document.removeEventListener("keypress", handleFocus);
     };
   });
 
+  useEffect(() => {
+    getIsBlurred();
+  }, [getIsBlurred]);
+
   return (
-    <CardWrapper isBlurred={isBlurred}>
+    <CardWrapper isBlurred={blurStatus}>
       <CardContainer>
         <Card
           onMouseEnter={(event) => handleHover(event, true)}

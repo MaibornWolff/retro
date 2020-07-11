@@ -15,6 +15,7 @@ import {
 import { validateInput } from "../../../utils";
 import { BoardContext } from "../../../context/BoardContext";
 import { DialogsContext } from "../../../context/DialogContext";
+import { UserContext } from "../../../context/UserContext";
 import { CREATE_CARD } from "../../../constants/event.constants";
 import {
   CARD_AUTHOR_NAME_TOO_LONG_MSG,
@@ -26,6 +27,7 @@ export default function CreateItemDialog() {
   const [content, setContent] = useState("");
   const { boardId, socket } = useContext(BoardContext);
   const { dialogsState, closeCreateItemDialog } = useContext(DialogsContext);
+  const { setUsername } = useContext(UserContext);
   const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   // get the username from localStorage, if set
@@ -78,6 +80,8 @@ export default function CreateItemDialog() {
 
     const id = nanoid();
     const newCard = { id, author, content, points: 0 };
+
+    setUsername(boardId, author);
 
     socket.emit(CREATE_CARD, newCard, dialogsState.columnId, boardId);
     handleClose();
