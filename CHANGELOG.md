@@ -4,6 +4,8 @@
 
 ### Added
 
+- Instead of blurring/unblurring all cards, we are now blurring/unblurring cards that are now owned by an user. Special thanks to @tobim-dev, @ravensinth et al. for realizing this feature ❤️
+
 ### Changed
 
 ### Fixed
