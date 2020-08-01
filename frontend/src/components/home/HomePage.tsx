@@ -1,4 +1,6 @@
 import React from "react";
+// eslint-disable-next-line import/no-unresolved
+import * as Typewriter from "typewriter-effect";
 import { Grid, Typography, makeStyles } from "@material-ui/core";
 
 import CreateBoardDialog from "./CreateBoardDialog";
@@ -37,8 +39,18 @@ export default function HomePage() {
         alignItems="center"
       >
         <Grid item xs={12}>
-          <Typography variant="h1" className={classes.greetingText}>
-            Welcome to Retro.
+          <Typography variant="h2" className={classes.greetingText}>
+            <Typewriter
+              options={{
+                strings: [
+                  "Welcome to Retro.",
+                  "Willkommen zu Retro.",
+                  "Bienvenue à Retro.",
+                ],
+                autoStart: true,
+                loop: true,
+              }}
+            />
           </Typography>
         </Grid>
         <Grid item xs={12}>
