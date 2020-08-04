@@ -4,13 +4,22 @@
 
 ### Added
 
-- Instead of blurring/unblurring all cards, we are now blurring/unblurring cards that are now owned by an user. Special thanks to @tobim-dev, @ravensinth et al. for realizing this feature ❤️
-
 ### Changed
 
 ### Fixed
 
 ### Removed
+
+## [0.3.5] - 2020-08-04
+
+### Added
+
+- Instead of blurring/unblurring all cards, we are now blurring/unblurring cards that are now owned by an user. Special thanks to @tobim-dev, @ravensinth et al. for realizing this feature ❤️
+- The greeting text on the homepage now has a typewriter effect
+
+### Removed
+
+- Empty Gatsby Gitbook Template, since we will handle this project on a different repository
 
 ## [0.3.4] - 2020-06-24
 
@@ -189,7 +198,8 @@
 - Combine two cards
 - Upvote cards
 
-[Unreleased]: https://github.com/yduman/retro/compare/0.3.4...master
+[Unreleased]: https://github.com/yduman/retro/compare/0.3.5...master
+[0.3.5]: https://github.com/yduman/retro/releases/tag/0.3.5
 [0.3.4]: https://github.com/yduman/retro/releases/tag/0.3.4
 [0.3.3]: https://github.com/yduman/retro/releases/tag/0.3.3
 [0.3.2]: https://github.com/yduman/retro/releases/tag/0.3.2
