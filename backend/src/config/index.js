@@ -17,7 +17,7 @@ if (env === DEVELOPMENT) {
   process.env.EXPORT_URL_PORT = 3000;
   process.env.EXPORT_URL_HOST = "localhost";
 } else if (env === PRODUCTION) {
-  process.env.PORT = 80;
-  process.env.EXPORT_URL_PORT = 80;
-  process.env.EXPORT_URL_HOST = "retro-dev-01.mwea.de";
+  process.env.PORT = 3001;
+  process.env.EXPORT_URL_PORT = 3001;
+  process.env.EXPORT_URL_HOST = "localhost";
 }

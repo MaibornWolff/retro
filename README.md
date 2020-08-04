@@ -41,6 +41,7 @@ $ cd frontend && yarn start && cd ..
 
 - The `master` branch is always the latest development stage
 - Stable releases are tagged with their respective version number
+- There might be feature branches that contain new experimental stuff
 
 ## Deployment Examples
 
@@ -50,7 +51,7 @@ $ cd frontend && yarn start && cd ..
 - Clone this project on your server
 - Install the dependencies by running `yarn` on `backend` and `frontend`
 - Check if the proxy settings are correct
-  - Check `backend/src/config/config.js`
+  - Check `backend/src/config/index.js`
   - Check `frontend/src/setupProxy.js`
   - Check `frontend/src/utils/index.js`
 - Provide an `.env.production.local` file inside of `frontend`
@@ -71,8 +72,6 @@ $ cd frontend && yarn start && cd ..
 ## Contributing
 
 - This project uses [Yarn](https://yarnpkg.com/lang/en/), [Prettier](https://prettier.io) and the latest LTS version of [Node.js](https://nodejs.org/en/)
-- Test your stuff manually or better, provide tests
-- If you developed a whole user scenario, then please provide E2E tests
 - You can also develop with the provided Docker containers!
   - on Linux, make sure to set an environment variable, since `host.docker.internal` is not working: 
     - `export DOCKER_HOST_IP=$(docker network inspect bridge --format='{{(index .IPAM.Config 0).Gateway}}')`
