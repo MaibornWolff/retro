@@ -16,7 +16,6 @@ const {
 
 const UTF8 = "utf8";
 
-// TODO: client.broadcast.to(roomId).emit(UPDATE_BOARD, board) to deal with blurry
 const createCard = (io, client, roomId) => {
   client.on(CREATE_CARD, (card, columnId, boardId) => {
     const path = getPath(boardId);
