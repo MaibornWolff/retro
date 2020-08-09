@@ -14,7 +14,7 @@ const io = require("socket.io")(server);
 const apiRouter = require("./routes/apiRouter");
 const { CONNECT, DISCONNECT } = require("./events/event-names");
 const { boardEvents, columnEvents, cardEvents } = require("./events");
-const { clean } = require("./storageCleanUp");
+const { cleanStorage } = require("./storageCleanUp");
 
 const publicDir = path.resolve(__dirname, "../public");
 const storageDir = path.resolve(__dirname, "../storage");
@@ -23,7 +23,7 @@ const port = process.env.PORT;
 // run this cronjob every day at midnight
 const job = new CronJob("0 0 * * *", () => {
   console.log(chalk`{blue.bold [INFO] Running cronjob for storage clean up}`);
-  clean(storageDir);
+  cleanStorage(storageDir);
 });
 
 const apiLimiter = rateLimit({
