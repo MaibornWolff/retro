@@ -1,4 +1,4 @@
-module.exports = {
+export const retroFormats = {
   WentWell_ToImprove_ActionItems: {
     columnTitles: ["Went Well", "To Improve", "Action Items"],
   },

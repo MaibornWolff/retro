@@ -1,26 +1,26 @@
-require("./config");
-require("dotenv").config();
+import "./config";
+import chalk from "chalk";
+import path from "path";
+import http from "http";
+import express from "express";
+import socketio from "socket.io";
+import rateLimit from "express-rate-limit";
+import { json } from "body-parser";
+import cors from "cors";
+import { CronJob } from "cron";
 
-const chalk = require("chalk");
-const path = require("path");
-const express = require("express");
-const rateLimit = require("express-rate-limit");
-const { json } = require("body-parser");
-const cors = require("cors");
-const CronJob = require("cron").CronJob;
+import apiRouter from "./routes/api-router";
+import { cleanStorage } from "./storage-clean-up";
+import { CONNECT, DISCONNECT } from "./events/event-names";
+import { boardEvents, columnEvents, cardEvents } from "./events";
+
 const app = express();
-const server = require("http").createServer(app);
-const io = require("socket.io")(server);
-const apiRouter = require("./routes/apiRouter");
-const { CONNECT, DISCONNECT } = require("./events/event-names");
-const { boardEvents, columnEvents, cardEvents } = require("./events");
-const { cleanStorage } = require("./storageCleanUp");
-
+const server = http.createServer(app);
+const io = socketio(server);
 const publicDir = path.resolve(__dirname, "../public");
 const storageDir = path.resolve(__dirname, "../storage");
 const port = process.env.PORT;
 
-// run this cronjob every day at midnight
 const job = new CronJob("0 0 * * *", () => {
   console.log(chalk`{blue.bold [INFO] Running cronjob for storage clean up}`);
   cleanStorage(storageDir);
@@ -41,9 +41,9 @@ if (process.env.NODE_ENV === "PRODUCTION") {
       origin: [
         "http://localhost:3001",
         "http://localhost:3000",
-        process.env.MW_RETRO_DEV,
-        process.env.MW_RETRO_PROD,
-        process.env.RETRO_PUBLIC_PROD,
+        process.env.MW_RETRO_DEV as string,
+        process.env.MW_RETRO_PROD as string,
+        process.env.RETRO_PUBLIC_PROD as string,
       ],
     })
   );
@@ -79,5 +79,3 @@ server.listen(port, () => {
   job.start();
   console.log(chalk`{blue.bold [INFO] Started cronjob}`);
 });
-
-module.exports = { server };

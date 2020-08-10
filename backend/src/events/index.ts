@@ -1,4 +1,5 @@
-const {
+import { Server, Socket } from "socket.io";
+import {
   updateBoard,
   joinBoard,
   unblurCards,
@@ -8,23 +9,23 @@ const {
   voteYes,
   voteNo,
   voteAbstain,
-} = require("./board-events");
-const {
+} from "./board-events";
+import {
   createColumn,
   deleteColumn,
   sortColumn,
   editColumn,
-} = require("./column-events");
-const {
+} from "./column-events";
+import {
   createCard,
   editCard,
   deleteCard,
   voteCard,
   focusCard,
   removeFocusCard,
-} = require("./card-events");
+} from "./card-events";
 
-const boardEvents = (io, client, roomId) => {
+export function boardEvents(io: Server, client: Socket, roomId: string): void {
   joinBoard(io, client);
   updateBoard(io, client, roomId);
   unblurCards(io, client, roomId);
@@ -34,26 +35,20 @@ const boardEvents = (io, client, roomId) => {
   voteYes(io, client, roomId);
   voteNo(io, client, roomId);
   voteAbstain(io, client, roomId);
-};
+}
 
-const columnEvents = (io, client, roomId) => {
+export function columnEvents(io: Server, client: Socket, roomId: string): void {
   createColumn(io, client, roomId);
   deleteColumn(io, client, roomId);
   sortColumn(io, client, roomId);
   editColumn(io, client, roomId);
-};
+}
 
-const cardEvents = (io, client, roomId) => {
+export function cardEvents(io: Server, client: Socket, roomId: string): void {
   createCard(io, client, roomId);
   editCard(io, client, roomId);
   deleteCard(io, client, roomId);
   voteCard(io, client, roomId);
   focusCard(io, client, roomId);
   removeFocusCard(io, client, roomId);
-};
-
-module.exports = {
-  boardEvents,
-  columnEvents,
-  cardEvents,
-};
+}
