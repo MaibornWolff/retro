@@ -12,7 +12,7 @@ import { CronJob } from "cron";
 import apiRouter from "./routes/api-router";
 import { cleanStorage } from "./storage-clean-up";
 import { CONNECT, DISCONNECT } from "./events/event-names";
-import { boardEvents, columnEvents } from "./events";
+import { boardEvents, columnEvents, cardEvents } from "./events";
 
 const app = express();
 const server = http.createServer(app);
@@ -71,7 +71,7 @@ io.on(CONNECT, (client) => {
 
   boardEvents(io, client, roomId);
   columnEvents(io, client, roomId);
-  // TODO: cardEvents(io, client, roomId);
+  cardEvents(io, client, roomId);
 });
 
 server.listen(port, () => {

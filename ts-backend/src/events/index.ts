@@ -1,5 +1,4 @@
 import { Server, Socket } from "socket.io";
-
 import {
   updateBoard,
   joinBoard,
@@ -17,6 +16,14 @@ import {
   sortColumn,
   editColumn,
 } from "./column-events";
+import {
+  createCard,
+  editCard,
+  deleteCard,
+  voteCard,
+  focusCard,
+  removeFocusCard,
+} from "./card-events";
 
 export function boardEvents(io: Server, client: Socket, roomId: string): void {
   joinBoard(io, client);
@@ -35,4 +42,13 @@ export function columnEvents(io: Server, client: Socket, roomId: string): void {
   deleteColumn(io, client, roomId);
   sortColumn(io, client, roomId);
   editColumn(io, client, roomId);
+}
+
+export function cardEvents(io: Server, client: Socket, roomId: string): void {
+  createCard(io, client, roomId);
+  editCard(io, client, roomId);
+  deleteCard(io, client, roomId);
+  voteCard(io, client, roomId);
+  focusCard(io, client, roomId);
+  removeFocusCard(io, client, roomId);
 }
