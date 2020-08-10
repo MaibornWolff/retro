@@ -10,6 +10,7 @@ import cors from "cors";
 import { CronJob } from "cron";
 
 import { CONNECT, DISCONNECT } from "./events/event-names";
+import { cleanStorage } from "./storage-clean-up";
 
 const app = express();
 const server = http.createServer(app);
@@ -21,7 +22,7 @@ const port = process.env.PORT;
 
 const job = new CronJob("0 0 * * *", () => {
   console.log(chalk`{blue.bold [INFO] Running cronjob for storage clean up}`);
-  // TODO: cleanStorage(storageDir);
+  cleanStorage(storageDir);
 });
 
 const apiLimiter = rateLimit({
