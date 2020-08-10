@@ -12,12 +12,11 @@ import { CronJob } from "cron";
 import apiRouter from "./routes/api-router";
 import { cleanStorage } from "./storage-clean-up";
 import { CONNECT, DISCONNECT } from "./events/event-names";
-import { boardEvents } from "./events";
+import { boardEvents, columnEvents } from "./events";
 
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-
 const publicDir = path.resolve(__dirname, "../public");
 const storageDir = path.resolve(__dirname, "../storage");
 const port = process.env.PORT;
@@ -71,7 +70,7 @@ io.on(CONNECT, (client) => {
   });
 
   boardEvents(io, client, roomId);
-  // TODO: columnEvents(io, client, roomId);
+  columnEvents(io, client, roomId);
   // TODO: cardEvents(io, client, roomId);
 });
 
