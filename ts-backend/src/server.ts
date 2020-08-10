@@ -9,8 +9,10 @@ import { json } from "body-parser";
 import cors from "cors";
 import { CronJob } from "cron";
 
-import { CONNECT, DISCONNECT } from "./events/event-names";
+import apiRouter from "./routes/api-router";
 import { cleanStorage } from "./storage-clean-up";
+import { CONNECT, DISCONNECT } from "./events/event-names";
+import { boardEvents } from "./events";
 
 const app = express();
 const server = http.createServer(app);
@@ -51,7 +53,7 @@ if (process.env.NODE_ENV === "PRODUCTION") {
 app.use(json());
 app.use(express.static(publicDir));
 app.use("/api/boards", apiLimiter);
-// TODO: app.use("/api/boards", apiRouter);
+app.use("/api/boards", apiRouter);
 
 // https://bit.ly/2wMAs0i
 if (process.env.NODE_ENV === "PRODUCTION") {
@@ -68,7 +70,7 @@ io.on(CONNECT, (client) => {
     client.leave(roomId);
   });
 
-  // TODO: boardEvents(io, client, roomId);
+  boardEvents(io, client, roomId);
   // TODO: columnEvents(io, client, roomId);
   // TODO: cardEvents(io, client, roomId);
 });
