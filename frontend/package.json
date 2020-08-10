@@ -72,7 +72,6 @@
     "test:cov": "react-scripts test --env=jsdom --coverage --watchAll=false",
     "lint": "eslint \"src/**/*.{ts,tsx}\" --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,html,css,json}\"",
-    "format:check": "prettier --list-different \"src/**/*.{js,jsx,ts,tsx,html,css,json}\"",
     "eject": "react-scripts eject"
   },
   "lint-staged": {

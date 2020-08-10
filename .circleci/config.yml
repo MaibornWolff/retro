@@ -29,21 +29,9 @@ jobs:
           key: dependency-cache-{{ checksum "backend/package.json" }}-{{ checksum "frontend/package.json" }}
 
       - run:
-          name: Check formatting on backend
-          command: cd backend && yarn format:check && cd ..
-
-      - run:
-          name: Check formatting on frontend
-          command: cd frontend && yarn format:check && cd ..
-
-      - run:
           name: Run ESLint on backend
           command: cd backend && yarn lint && cd ..
 
       - run:
           name: Run ESLint on frontend
           command: cd frontend && yarn lint && cd ..
-
-      - run:
-          name: Run tests on backend
-          command: cd backend && yarn test && cd ..
