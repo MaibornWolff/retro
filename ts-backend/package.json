@@ -20,10 +20,10 @@
   "private": true,
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc",
+    "build": "tsc -p .",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start:dev": "cross-env NODE_ENV=DEVELOPMENT nodemon --exec ts-node src/server.ts",
-    "start:prod": "node dist/main",
+    "start:prod": "NODE_ENV=PRODUCTION node dist/src/server.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --quiet",
     "test": "jest",
     "test:watch": "jest --watch",

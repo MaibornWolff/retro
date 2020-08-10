@@ -31,5 +31,6 @@ COPY ./backend/package.json ./backend/yarn.lock ./
 RUN yarn install --silent
 COPY ./backend .
 COPY --from=frontend /app/frontend/build ./public/
+RUN yarn build
 EXPOSE 3001
 CMD [ "yarn", "start:prod" ]
