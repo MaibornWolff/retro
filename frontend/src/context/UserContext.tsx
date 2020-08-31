@@ -26,6 +26,10 @@ type UserContextProviderProps = {
   children?: React.ReactNode;
 };
 
+interface ParamTypes {
+  boardId: string;
+}
+
 function getInitialState(boardId: string) {
   const userObject = getUser(boardId);
 
@@ -40,7 +44,7 @@ function getInitialState(boardId: string) {
 export const UserContext = React.createContext<UserContextValues>(undefined!);
 
 export default function UserContextProvider(props: UserContextProviderProps) {
-  const { boardId } = useParams();
+  const { boardId } = useParams<ParamTypes>();
   const [userState, dispatch] = useReducer(reducer, getInitialState(boardId));
 
   function upvoteCard(boardId: string, cardId: string, votesLeft: number) {

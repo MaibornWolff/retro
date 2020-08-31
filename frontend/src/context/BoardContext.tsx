@@ -18,6 +18,10 @@ type BoardContextProviderProps = {
   children?: React.ReactNode;
 };
 
+interface ParamTypes {
+  boardId: string;
+}
+
 const initialState = {
   focusedCard: "",
   showContinueDiscussion: false,
@@ -34,7 +38,7 @@ let socket: SocketIOClient.Socket;
 export const BoardContext = React.createContext<BoardContextValues>(undefined!);
 
 export default function BoardContextProvider(props: BoardContextProviderProps) {
-  const { boardId } = useParams();
+  const { boardId } = useParams<ParamTypes>();
   const [boardState, dispatch] = useReducer(reducer, initialState);
 
   if (!socket) {
