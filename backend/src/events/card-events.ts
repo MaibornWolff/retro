@@ -5,7 +5,7 @@ import forIn from "lodash/forIn";
 import pull from "lodash/pull";
 
 import { RetroItem } from "../models/RetroItem";
-import { getPath, getBoard, stringify, logError } from "../utils";
+import { getPath, getRetroBoard, stringify, logError } from "../utils";
 import {
   CREATE_CARD,
   EDIT_CARD,
@@ -26,7 +26,7 @@ export function createCard(io: Server, client: Socket, roomId: string): void {
       const path = getPath(boardId);
       fs.readFile(path, UTF8, (error, file: string) => {
         if (error) logError(CREATE_CARD, error);
-        const board = getBoard(file);
+        const board = getRetroBoard(file);
 
         if (board === null) {
           client.emit(BOARD_ERROR);
@@ -54,7 +54,7 @@ export function deleteCard(io: Server, client: Socket, roomId: string): void {
     const path = getPath(boardId);
     fs.readFile(path, UTF8, (error, file: string) => {
       if (error) logError(DELETE_CARD, error);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) {
         client.emit(BOARD_ERROR);
@@ -78,7 +78,7 @@ export function editCard(io: Server, client: Socket, roomId: string): void {
       const path = getPath(boardId);
       fs.readFile(path, UTF8, (error, file: string) => {
         if (error) logError(EDIT_CARD, error);
-        const board = getBoard(file);
+        const board = getRetroBoard(file);
 
         if (board === null) {
           client.emit(BOARD_ERROR);
@@ -103,7 +103,7 @@ export function voteCard(io: Server, client: Socket, roomId: string): void {
     const path = getPath(boardId);
     fs.readFile(path, UTF8, (error, file: string) => {
       if (error) logError(VOTE_CARD, error);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) {
         client.emit(BOARD_ERROR);

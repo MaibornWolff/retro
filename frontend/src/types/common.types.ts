@@ -33,3 +33,16 @@ export interface RetroBoard {
     abstain: number;
   };
 }
+
+export interface Poker {
+  pokerId: string;
+  story: string;
+  error: boolean;
+  participants: PokerUser[];
+}
+
+interface PokerUser {
+  name: string;
+  vote: number;
+  voted: false;
+}

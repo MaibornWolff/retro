@@ -10,9 +10,10 @@ import cors from "cors";
 import { CronJob } from "cron";
 
 import apiRouter from "./routes/api-router";
+import pokerRouter from "./routes/poker-router";
 import { cleanStorage } from "./storage-clean-up";
 import { CONNECT, DISCONNECT } from "./events/event-names";
-import { boardEvents, columnEvents, cardEvents } from "./events";
+import { boardEvents, columnEvents, cardEvents, pokerEvents } from "./events";
 
 const app = express();
 const server = http.createServer(app);
@@ -53,6 +54,7 @@ app.use(json());
 app.use(express.static(publicDir));
 app.use("/api/boards", apiLimiter);
 app.use("/api/boards", apiRouter);
+app.use("/api/poker", pokerRouter);
 
 // https://bit.ly/2wMAs0i
 if (process.env.NODE_ENV === "PRODUCTION") {
@@ -62,16 +64,22 @@ if (process.env.NODE_ENV === "PRODUCTION") {
 }
 
 io.on(CONNECT, (client) => {
-  const roomId = client.handshake.query.boardId;
+  const retroRoomId = client.handshake.query.boardId;
+  const pokerRoomId = client.handshake.query.pokerId;
 
-  client.join(roomId);
+  if (retroRoomId) {
+    client.join(retroRoomId);
+    boardEvents(io, client, retroRoomId);
+    columnEvents(io, client, retroRoomId);
+    cardEvents(io, client, retroRoomId);
+  } else if (pokerRoomId) {
+    client.join(pokerRoomId);
+    pokerEvents(io, client, pokerRoomId);
+  }
+
   client.on(DISCONNECT, () => {
-    client.leave(roomId);
+    client.leaveAll();
   });
-
-  boardEvents(io, client, roomId);
-  columnEvents(io, client, roomId);
-  cardEvents(io, client, roomId);
 });
 
 server.listen(port, () => {

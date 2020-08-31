@@ -5,7 +5,7 @@ import puppeteer from "puppeteer";
 import chalk from "chalk";
 
 import {
-  getBoard,
+  getRetroBoard,
   getPath,
   getImg,
   stringify,
@@ -127,7 +127,7 @@ function getBoardWithExportType(
   boardData: string,
   exportType: string
 ): string | undefined {
-  const board = getBoard(boardData);
+  const board = getRetroBoard(boardData);
   if (board !== null) {
     board.boardId = "";
     if (exportType === "default") {

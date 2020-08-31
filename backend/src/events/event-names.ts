@@ -21,3 +21,11 @@ export const CONTINUE_DISCUSSION_YES = "continue discussion yes";
 export const CONTINUE_DISCUSSION_NO = "continue discussion no";
 export const CONTINUE_DISCUSSION_ABSTAIN = "continue discussion abstain";
 export const BOARD_ERROR = "board error";
+
+// PLANNING POKER RELATED
+export const POKER_ERROR = "poker error";
+export const JOIN_POKER = "join poker";
+export const JOIN_POKER_ERROR = "join poker error";
+export const JOIN_POKER_SESSION = "join poker session";
+export const UPDATE_POKER_STATE = "update poker state";
+export const SHOW_POKER_RESULTS = "show poker results";

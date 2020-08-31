@@ -26,6 +26,7 @@
     "qrcode": "^1.4.4",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
+    "react-card-flip": "^1.0.11",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",

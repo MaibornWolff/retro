@@ -27,6 +27,13 @@ export const defaultBoard = {
   },
 };
 
+export const defaultPoker = {
+  pokerId: "",
+  story: "",
+  participants: [],
+  error: false,
+};
+
 export const postData = (url = "", data = {}) => {
   return fetch(url, {
     method: "POST",

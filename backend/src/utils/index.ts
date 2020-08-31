@@ -8,6 +8,7 @@ import { Response } from "express";
 import { retroFormats } from "./retro-format-data";
 import { RetroBoard } from "../models/RetroBoard";
 import { RetroColumn } from "../models/RetroColumn";
+import { PokerState } from "../models/PokerState";
 
 export function getPath(id: string): string {
   return path.resolve(__dirname, `../../storage/${id}.json`);
@@ -17,7 +18,18 @@ export function getImg(id: string): string {
   return path.resolve(__dirname, `../../storage/${id}.png`);
 }
 
-export function getBoard(jsonContent: string): RetroBoard | null {
+export function getRetroBoard(jsonContent: string): RetroBoard | null {
+  try {
+    return JSON.parse(jsonContent);
+  } catch (_error) {
+    console.log(
+      chalk`{red.bold [ERROR] Could not parse JSON file:\n${jsonContent}}`
+    );
+    return null;
+  }
+}
+
+export function getPokerState(jsonContent: string): PokerState | null {
   try {
     return JSON.parse(jsonContent);
   } catch (_error) {

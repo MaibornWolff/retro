@@ -1,7 +1,7 @@
 import fs from "fs";
 import { Server, Socket } from "socket.io";
 
-import { getPath, getBoard, stringify, logError } from "../utils";
+import { getPath, getRetroBoard, stringify, logError } from "../utils";
 import {
   UPDATE_BOARD,
   JOIN_BOARD,
@@ -23,7 +23,7 @@ export function joinBoard(io: Server, client: Socket): void {
   client.on(JOIN_BOARD, (boardId: string) => {
     fs.readFile(getPath(boardId), UTF8, (error, file) => {
       if (error) client.emit(JOIN_ERROR);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) client.emit(BOARD_ERROR);
       client.emit(JOIN_BOARD, board);
@@ -45,7 +45,7 @@ export function unblurCards(io: Server, client: Socket, roomId: string): void {
     const path = getPath(boardId);
     fs.readFile(path, UTF8, (error, file: string) => {
       if (error) logError(UNBLUR_CARDS, error);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) {
         client.emit(BOARD_ERROR);
@@ -70,7 +70,7 @@ export function setMaxVotes(io: Server, client: Socket, roomId: string): void {
 
     fs.readFile(path, UTF8, (error, file: string) => {
       if (error) logError(SET_MAX_VOTES, error);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) {
         client.emit(BOARD_ERROR);
@@ -95,7 +95,7 @@ export function resetVotes(io: Server, client: Socket, roomId: string): void {
 
     fs.readFile(path, UTF8, (error, file: string) => {
       if (error) logError(RESET_VOTES, error);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) {
         client.emit(BOARD_ERROR);
@@ -123,7 +123,7 @@ export function toggleContinueDiscussion(
 
     fs.readFile(path, UTF8, (error, file: string) => {
       if (error) logError(SHOW_CONTINUE_DISCUSSION, error);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) {
         client.emit(BOARD_ERROR);
@@ -151,7 +151,7 @@ export function voteYes(io: Server, client: Socket, roomId: string): void {
 
     fs.readFile(path, UTF8, (error, file: string) => {
       if (error) logError(CONTINUE_DISCUSSION_YES, error);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) {
         client.emit(BOARD_ERROR);
@@ -173,7 +173,7 @@ export function voteNo(io: Server, client: Socket, roomId: string): void {
 
     fs.readFile(path, UTF8, (error, file: string) => {
       if (error) logError(CONTINUE_DISCUSSION_NO, error);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) {
         client.emit(BOARD_ERROR);
@@ -195,7 +195,7 @@ export function voteAbstain(io: Server, client: Socket, roomId: string): void {
 
     fs.readFile(path, UTF8, (error, file: string) => {
       if (error) logError(CONTINUE_DISCUSSION_ABSTAIN, error);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) {
         client.emit(BOARD_ERROR);

@@ -6,7 +6,7 @@ import orderBy from "lodash/orderBy";
 
 import { RetroColumn } from "../models/RetroColumn";
 import { RetroItem } from "../models/RetroItem";
-import { getPath, getBoard, stringify, logError } from "../utils";
+import { getPath, getRetroBoard, stringify, logError } from "../utils";
 import {
   CREATE_COLUMN,
   DELETE_COLUMN,
@@ -23,7 +23,7 @@ export function createColumn(io: Server, client: Socket, roomId: string): void {
     const path = getPath(boardId);
     fs.readFile(path, UTF8, (error, file: string) => {
       if (error) logError(CREATE_COLUMN, error);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) {
         client.emit(BOARD_ERROR);
@@ -48,7 +48,7 @@ export function deleteColumn(io: Server, client: Socket, roomId: string): void {
     const path = getPath(boardId);
     fs.readFile(path, UTF8, (error, file: string) => {
       if (error) logError(DELETE_COLUMN, error);
-      const board = getBoard(file);
+      const board = getRetroBoard(file);
 
       if (board === null) {
         client.emit(BOARD_ERROR);
@@ -75,7 +75,7 @@ export function sortColumn(io: Server, client: Socket, roomId: string): void {
       const path = getPath(boardId);
       fs.readFile(path, UTF8, (error, file: string) => {
         if (error) logError(SORT_COLUMN, error);
-        const board = getBoard(file);
+        const board = getRetroBoard(file);
 
         if (board === null) {
           client.emit(BOARD_ERROR);
@@ -103,7 +103,7 @@ export function editColumn(io: Server, client: Socket, roomId: string): void {
       const path = getPath(boardId);
       fs.readFile(path, UTF8, (error, file: string) => {
         if (error) logError(EDIT_COLUMN, error);
-        const board = getBoard(file);
+        const board = getRetroBoard(file);
 
         if (board === null) {
           client.emit(BOARD_ERROR);

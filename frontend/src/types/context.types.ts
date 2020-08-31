@@ -34,6 +34,12 @@ export interface DialogState {
   isCreateItemDialogOpen: boolean;
 }
 
+export interface PokerState {
+  name: string;
+  vote: number;
+  voted: boolean;
+}
+
 // --------------- REDUCER ACTION TYPES --------------- //
 export interface UserAction extends Action {
   payload?: {
@@ -58,6 +64,14 @@ export interface DialogAction extends Action {
     itemAuthor?: string;
     itemContent?: string;
     columnTitle?: string;
+  };
+}
+
+export interface PokerAction extends Action {
+  payload?: {
+    name?: string;
+    vote?: number;
+    voted?: boolean;
   };
 }
 
@@ -109,4 +123,11 @@ export interface DialogContextValues {
   closeEditItemDialog: () => void;
   closeEditColumnDialog: () => void;
   closeCreateItemDialog: () => void;
+}
+
+export interface PokerContextValues {
+  socket: SocketIOClient.Socket;
+  pokerId: string;
+  pokerState: PokerState;
+  setPokerName: (pokerId: string, name: string) => void;
 }

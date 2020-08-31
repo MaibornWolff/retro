@@ -9748,6 +9748,11 @@ react-beautiful-dnd@^13.0.0:
     redux "^4.0.4"
     use-memo-one "^1.1.1"
 
+react-card-flip@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/react-card-flip/-/react-card-flip-1.0.11.tgz#4d1d11637d0d6de8668c8c47550bb522bc8f6049"
+  integrity sha512-JwPJM4L7Fz3g+DN3N4XYfmZkWUPuc/00T6h8UUsAcXaWgGDNOVUd4vBm724I+a4ZlkNwRbCzHS7gbZEzysF/SA==
+
 react-dev-utils@^10.2.1:
   version "10.2.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-10.2.1.tgz#f6de325ae25fa4d546d09df4bb1befdc6dd19c19"

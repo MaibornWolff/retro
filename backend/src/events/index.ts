@@ -24,6 +24,7 @@ import {
   focusCard,
   removeFocusCard,
 } from "./card-events";
+import { joinPoker, joinPokerSession, showPokerResults } from "./poker-events";
 
 export function boardEvents(io: Server, client: Socket, roomId: string): void {
   joinBoard(io, client);
@@ -51,4 +52,10 @@ export function cardEvents(io: Server, client: Socket, roomId: string): void {
   voteCard(io, client, roomId);
   focusCard(io, client, roomId);
   removeFocusCard(io, client, roomId);
+}
+
+export function pokerEvents(io: Server, client: Socket, roomId: string): void {
+  joinPoker(io, client);
+  joinPokerSession(io, client, roomId);
+  showPokerResults(io, client, roomId);
 }

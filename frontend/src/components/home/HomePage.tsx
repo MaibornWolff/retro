@@ -5,6 +5,7 @@ import { Grid, Typography, makeStyles } from "@material-ui/core";
 
 import CreateBoardDialog from "./CreateBoardDialog";
 import LoadBoardDialog from "./LoadBoardDialog";
+import PlanningPokerDialog from "./PlanningPokerDialog";
 import hero from "../../assets/hero.jpg";
 import { Hero } from "../styled-components";
 
@@ -65,6 +66,9 @@ export default function HomePage() {
             </Grid>
             <Grid item>
               <LoadBoardDialog />
+            </Grid>
+            <Grid item>
+              <PlanningPokerDialog />
             </Grid>
           </Grid>
         </Grid>

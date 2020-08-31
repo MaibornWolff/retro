@@ -4,10 +4,12 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
 import HomePage from "./home/HomePage";
 import BoardPage from "./board/BoardPage";
+import PokerPage from "./poker/PokerPage";
 import ErrorPage from "./ErrorPage";
 import BoardContextProvider from "../context/BoardContext";
 import UserContextProvider from "../context/UserContext";
 import DialogContextProvider from "../context/DialogContext";
+import PokerContextProvider from "../context/PokerContext";
 
 const theme = createMuiTheme({
   palette: {
@@ -43,6 +45,15 @@ export default function App() {
                   </DialogContextProvider>
                 </BoardContextProvider>
               </UserContextProvider>
+            )}
+          />
+          <Route
+            exact
+            path="/poker/:pokerId"
+            render={() => (
+              <PokerContextProvider>
+                <PokerPage />
+              </PokerContextProvider>
             )}
           />
           <Route component={ErrorPage} />
