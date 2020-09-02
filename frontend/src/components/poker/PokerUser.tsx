@@ -33,7 +33,7 @@ export default function PokerUser(props: PokerUserProps) {
   const classes = useStyles(styleProps);
 
   return (
-    <ReactCardFlip isFlipped={props.isFlipped} flipDirection="vertical">
+    <ReactCardFlip isFlipped={props.isFlipped} flipDirection="horizontal">
       <Card className={classes.rootFront}>
         <CardContent>
           <Typography variant="h6" align="center">
