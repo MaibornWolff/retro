@@ -5,11 +5,11 @@ import { IconButton } from "@material-ui/core";
 import { UserContext } from "../../../../context/UserContext";
 import { DialogsContext } from "../../../../context/DialogContext";
 
-type CreateItemButton = {
+type CreateItemButtonProps = {
   columnId: string;
 };
 
-export default function CreateItemButton({ columnId }: CreateItemButton) {
+export default function CreateItemButton({ columnId }: CreateItemButtonProps) {
   const { userState } = useContext(UserContext);
   const { openCreateItemDialog } = useContext(DialogsContext);
 
