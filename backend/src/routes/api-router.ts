@@ -108,14 +108,6 @@ router.get("/board-export/:boardId", (req, res) => {
   });
 });
 
-router.delete("/:boardId", (req, res) => {
-  const boardId = req.params.boardId;
-  fs.unlink(getPath(boardId), (error) => {
-    if (error) throw error;
-    res.status(200).send();
-  });
-});
-
 function removeAllItemRefs(board: RetroBoard): void {
   board.items = {};
   for (const columnId in board.columns) {
