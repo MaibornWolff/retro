@@ -40,6 +40,7 @@
     "lodash": "^4.17.20",
     "nanoid": "^3.1.12",
     "puppeteer": "^5.2.1",
+    "rmby": "^1.1.1",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
