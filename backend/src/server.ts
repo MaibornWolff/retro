@@ -11,7 +11,7 @@ import { CronJob } from "cron";
 
 import apiRouter from "./routes/api-router";
 import pokerRouter from "./routes/poker-router";
-import { cleanStorage } from "./storage-clean-up";
+import { cleanStorage } from "./utils/storage-clean-up";
 import { CONNECT, DISCONNECT } from "./events/event-names";
 import { boardEvents, columnEvents, cardEvents, pokerEvents } from "./events";
 
