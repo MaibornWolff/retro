@@ -1,9 +1,9 @@
 FROM node:12-alpine as frontend
 WORKDIR /app/frontend
-COPY ./frontend/package.json ./frontend/yarn.lock ./
-RUN yarn install --silent
+COPY ./frontend/package.json ./frontend/package-lock.json ./
+RUN npm i --silent
 COPY ./frontend . 
-RUN yarn build:prod
+RUN npm run build:prod
 
 FROM node:12-alpine
 
@@ -27,10 +27,10 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 
 WORKDIR /app
-COPY ./backend/package.json ./backend/yarn.lock ./
-RUN yarn install --silent
+COPY ./backend/package.json ./backend/package-lock.json ./
+RUN npm i --silent
 COPY ./backend .
 COPY --from=frontend /app/frontend/build ./public/
-RUN yarn build
+RUN npm run build
 EXPOSE 3001
-CMD [ "yarn", "start:prod" ]
+CMD [ "npm", "run", "start:prod" ]

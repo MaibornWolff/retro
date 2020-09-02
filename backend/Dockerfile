@@ -1,9 +1,9 @@
 FROM node:12-alpine
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN yarn install --silent
+COPY package.json package-lock.json ./
+RUN npm i --silent
 COPY . .
 
 EXPOSE 3001
-CMD [ "yarn", "start" ]
+CMD [ "npm", "run", "start" ]

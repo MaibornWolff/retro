@@ -16,11 +16,11 @@ jobs:
 
       - run:
           name: Setup Backend Dependencies
-          command: cd backend && yarn install && cd ..
+          command: cd backend && npm i && cd ..
 
       - run:
           name: Setup Frontend Dependencies
-          command: cd frontend && yarn install && cd ..
+          command: cd frontend && npm i && cd ..
 
       - save_cache:
           paths:
@@ -30,8 +30,8 @@ jobs:
 
       - run:
           name: Run ESLint on backend
-          command: cd backend && yarn lint && cd ..
+          command: cd backend && npm run lint && cd ..
 
       - run:
           name: Run ESLint on frontend
-          command: cd frontend && yarn lint && cd ..
+          command: cd frontend && npm run lint && cd ..

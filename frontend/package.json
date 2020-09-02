@@ -66,7 +66,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:prod": "env-cmd -f .env.production.local yarn build",
+    "build:prod": "env-cmd -f .env.production.local npm run build",
     "deploy": "run-s -l -n build:prod deploy:frontend",
     "deploy:frontend": "cp -a build/. ../backend/public/",
     "test": "react-scripts test",
@@ -77,8 +77,8 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "yarn lint",
-      "yarn format"
+      "npm run lint",
+      "npm run format"
     ]
   },
   "husky": {

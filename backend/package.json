@@ -88,8 +88,8 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "yarn lint",
-      "yarn format"
+      "npm run lint",
+      "npm run format"
     ]
   },
   "husky": {

@@ -26,15 +26,15 @@ At work, we were using third party retrospective tools, which meant we couldn't 
 Install dependencies
 
 ```console
-$ cd backend && yarn && cd ..
-$ cd frontend && yarn && cd ..
+$ cd backend && npm i && cd ..
+$ cd frontend && npm i && cd ..
 ```
 
 Run servers
 
 ```console
-$ cd backend && yarn start:dev && cd ..
-$ cd frontend && yarn start && cd ..
+$ cd backend && npm run start:dev && cd ..
+$ cd frontend && npm run start && cd ..
 ```
 
 ## Branching
@@ -49,7 +49,7 @@ $ cd frontend && yarn start && cd ..
 
 - Install [PM2](https://pm2.keymetrics.io/) on your server
 - Clone this project on your server
-- Install the dependencies by running `yarn` on `backend` and `frontend`
+- Install the dependencies by running `npm i` on `backend` and `frontend`
 - Check if the proxy settings are correct
   - Check `backend/src/config/index.js`
   - Check `frontend/src/setupProxy.js`
@@ -60,7 +60,7 @@ $ cd frontend && yarn start && cd ..
     REACT_APP_PROD_URL=http://mydomain.com
     REACT_APP_PROD_PORT=80
     ```
-- Build the frontend by running `yarn deploy`
+- Build the frontend by running `npm run deploy`
 - Go to the `backend` folder and run `pm2 start processes.json`
 
 ### Docker
@@ -71,7 +71,7 @@ $ cd frontend && yarn start && cd ..
 
 ## Contributing
 
-- This project uses [Yarn](https://yarnpkg.com/lang/en/), [Prettier](https://prettier.io) and the latest LTS version of [Node.js](https://nodejs.org/en/)
+- This project uses [Prettier](https://prettier.io) and the latest LTS version of [Node.js](https://nodejs.org/en/)
 - You can also develop with the provided Docker containers!
   - on Linux, make sure to set an environment variable, since `host.docker.internal` is not working: 
     - `export DOCKER_HOST_IP=$(docker network inspect bridge --format='{{(index .IPAM.Config 0).Gateway}}')`
