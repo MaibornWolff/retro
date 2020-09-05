@@ -54,7 +54,12 @@ export default function PlanningPokerDialog() {
 
   async function handleSubmit() {
     const pokerId = nanoid();
-    const newPokerState = { pokerId, story: "", participants: [] };
+    const newPokerState = {
+      pokerId,
+      story: { storyTitle: "", storyUrl: "" },
+      participants: [],
+      error: false,
+    };
     const response = await postData("/api/poker/", newPokerState);
     resetState();
     navigateToPokerPage(response, pokerId);

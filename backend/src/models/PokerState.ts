@@ -1,7 +1,12 @@
 export type PokerState = {
   pokerId: string;
-  story: string;
+  story: PokerStory;
   participants: PokerParticipant[];
+};
+
+export type PokerStory = {
+  storyTitle: string;
+  storyUrl?: string;
 };
 
 export type PokerParticipant = {

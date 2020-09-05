@@ -29,7 +29,10 @@ export const defaultBoard = {
 
 export const defaultPoker = {
   pokerId: "",
-  story: "",
+  story: {
+    storyTitle: "",
+    storyUrl: "",
+  },
   participants: [],
   error: false,
 };

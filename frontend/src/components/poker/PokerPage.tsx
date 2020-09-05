@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Grid, makeStyles } from "@material-ui/core";
+import { Grid, Link, makeStyles, Typography } from "@material-ui/core";
 import { Redirect, useRouteMatch } from "react-router-dom";
 import isEqual from "lodash/isEqual";
 
@@ -18,9 +18,12 @@ import { PokerContext } from "../../context/PokerContext";
 import { Poker } from "../../types/common.types";
 import { defaultPoker } from "../../utils";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+  },
+  storyTitle: {
+    padding: theme.spacing(2),
   },
 }));
 
@@ -80,28 +83,41 @@ export default function PokerPage() {
   }
 
   return (
-    <>
+    <div>
       <PokerHeader />
-      <Grid container className={classes.root} direction="column">
+      <Grid
+        container
+        className={classes.root}
+        direction="column"
+        justify="space-between"
+      >
         <PokerActionButtons />
         <Grid item xs={12}>
-          {/* story title big */}
-          {/* story link */}
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+            <Typography variant="h4" className={classes.storyTitle}>
+              <Link
+                href={poker.story.storyUrl}
+                target="_blank"
+                rel="nofollow noreferrer"
+              >
+                {poker.story.storyTitle}
+              </Link>
+            </Typography>
+          </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Grid container direction="row">
+          <Grid container direction="row" justify="center" alignItems="center">
             {poker.participants.map((user, index) => {
-              return (
-                <PokerUser
-                  key={user.name + index}
-                  user={user}
-                  isFlipped={flip}
-                />
-              );
+              return <PokerUser key={index} user={user} isFlipped={flip} />;
             })}
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 }

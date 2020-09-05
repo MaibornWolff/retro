@@ -36,7 +36,7 @@ export interface RetroBoard {
 
 export interface Poker {
   pokerId: string;
-  story: string;
+  story: PokerStory;
   error: boolean;
   participants: PokerUser[];
 }
@@ -45,4 +45,9 @@ interface PokerUser {
   name: string;
   vote: number;
   voted: false;
+}
+
+interface PokerStory {
+  storyTitle: string;
+  storyUrl?: string;
 }

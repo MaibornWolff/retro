@@ -1,6 +1,7 @@
 import React from "react";
 import ReactCardFlip from "react-card-flip";
 import { Card, CardContent, makeStyles, Typography } from "@material-ui/core";
+import { CardText } from "../styled-components";
 
 interface PokerUserProps {
   user: { name: string; vote: number; voted: boolean };
@@ -11,14 +12,22 @@ const useStyles = makeStyles((theme) => ({
   rootFront: (props: any) => ({
     margin: theme.spacing(1),
     backgroundColor: props.backgroundColor,
-    minWidth: 200,
-    maxWidth: 470,
+    width: "10em",
+    height: "13em",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   }),
   rootBack: (props: any) => ({
     margin: theme.spacing(1),
     backgroundColor: props.backgroundColor,
-    minWidth: 200,
-    maxWidth: 470,
+    width: "10em",
+    height: "13em",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   }),
   title: {
     fontSize: 14,
@@ -28,31 +37,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PokerUser(props: PokerUserProps) {
   const styleProps = props.user.voted
-    ? { backgroundColor: "#4caf50" }
-    : { backgroundColor: "#f44336" };
+    ? { backgroundColor: "#48BB78" }
+    : { backgroundColor: "#F56565" };
   const classes = useStyles(styleProps);
 
   return (
     <ReactCardFlip isFlipped={props.isFlipped} flipDirection="horizontal">
       <Card className={classes.rootFront}>
         <CardContent>
-          <Typography variant="h6" align="center">
-            {props.user.name}
+          <Typography align="center" variant="h6" component="span">
+            <CardText>{props.user.name}</CardText>
           </Typography>
         </CardContent>
       </Card>
 
       <Card className={classes.rootBack}>
         <CardContent>
-          <Typography
-            className={classes.title}
-            color="textSecondary"
-            gutterBottom
-          >
-            {props.user.name}
-          </Typography>
-          <Typography variant="h6" align="center">
+          <Typography variant="h4" align="center">
             {props.user.vote}
+          </Typography>
+          <Typography className={classes.title} gutterBottom component="span">
+            <CardText>{props.user.name}</CardText>
           </Typography>
         </CardContent>
       </Card>

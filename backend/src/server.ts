@@ -54,6 +54,7 @@ app.use(json());
 app.use(express.static(publicDir));
 app.use("/api/boards", apiLimiter);
 app.use("/api/boards", apiRouter);
+app.use("/api/poker", apiLimiter);
 app.use("/api/poker", pokerRouter);
 
 // https://bit.ly/2wMAs0i

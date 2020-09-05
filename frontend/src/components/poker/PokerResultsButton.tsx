@@ -19,7 +19,12 @@ export default function PokerResultsButton() {
 
   return (
     <>
-      <Button variant="outlined" className={classes.root} onClick={handleClick}>
+      <Button
+        color="primary"
+        variant="outlined"
+        className={classes.root}
+        onClick={handleClick}
+      >
         Show Results
       </Button>
     </>
