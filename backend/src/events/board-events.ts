@@ -41,11 +41,11 @@ export function updateBoard(io: Server, client: Socket, roomId: string): void {
   });
 }
 
-function areEquallyBlurred(nonEmptyColumns: RetroColumn[]) {
-  return new Set(nonEmptyColumns.map((c) => c.isBlurred)).size === 1;
+function areEquallyBlurred(columns: RetroColumn[]): boolean {
+  return new Set(columns.map((c) => c.isBlurred)).size === 1;
 }
 
-function getNonEmpty(columns: RetroColumn[]) {
+function getNonEmpty(columns: RetroColumn[]): RetroColumn[] {
   return columns.filter((c) => c.itemIds.length > 0);
 }
 
