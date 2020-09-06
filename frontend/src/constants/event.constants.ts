@@ -11,6 +11,7 @@ export const SORT_COLUMN = "sort column";
 export const EDIT_COLUMN = "edit column";
 export const CREATE_COLUMN = "create column";
 export const DELETE_COLUMN = "delete column";
+export const TOGGLE_COLUMN_BLUR = "toggle column blur";
 export const VOTE_CARD = "vote card";
 export const EDIT_CARD = "edit card";
 export const FOCUS_CARD = "focus card";
