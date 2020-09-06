@@ -39,17 +39,15 @@ export function toggleColumnBlur(
   client: Socket,
   roomId: string
 ): void {
-  client.on(TOGGLE_COLUMN_BLUR, (boardId: string, columnId: string) => {
-    getBoard(boardId)
-      .then((board: RetroBoard) => {
-        blurColumn(board, columnId);
-        saveBoard(board)
-          .then(() => {
-            io.to(roomId).emit(UPDATE_BOARD, board);
-          })
-          .catch((e: Error) => handleBoardError(client, TOGGLE_COLUMN_BLUR, e));
-      })
-      .catch((e: Error) => handleBoardError(client, TOGGLE_COLUMN_BLUR, e));
+  client.on(TOGGLE_COLUMN_BLUR, async (boardId: string, columnId: string) => {
+    try {
+      const board = await getBoard(boardId);
+      blurColumn(board, columnId);
+      await saveBoard(board);
+      io.to(roomId).emit(UPDATE_BOARD, board);
+    } catch (e) {
+      handleBoardError(client, TOGGLE_COLUMN_BLUR, e);
+    }
   });
 }
 
