@@ -4,7 +4,12 @@ import io from "socket.io-client";
 
 import { reducer } from "../reducers/poker.reducer";
 import { PokerContextValues } from "../types/context.types";
-import { SET_NAME, CREATE_POKER_ROLE } from "../actions/poker.actions";
+import {
+  SET_NAME,
+  CREATE_POKER_ROLE,
+  SET_VOTE,
+  RESET_VOTES,
+} from "../actions/poker.actions";
 import { BACKEND_ENDPOINT } from "../utils";
 import {
   createPokerUser,
@@ -50,12 +55,26 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     setPokerUser("name", name, pokerId);
   }
 
+  function setPokerVote(pokerId: string, vote: number) {
+    dispatch({ type: SET_VOTE, payload: { vote } });
+    setPokerUser("vote", vote, pokerId);
+    setPokerUser("voted", true, pokerId);
+  }
+
+  function resetPokerVotes(pokerId: string) {
+    dispatch({ type: RESET_VOTES });
+    setPokerUser("vote", -1, pokerId);
+    setPokerUser("voted", false, pokerId);
+  }
+
   const value = {
     pokerId,
     socket,
     pokerState,
     setPokerName,
     createPokerRole,
+    setPokerVote,
+    resetPokerVotes,
   };
 
   return (

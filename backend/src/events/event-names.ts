@@ -31,3 +31,4 @@ export const JOIN_POKER_SESSION = "join poker session";
 export const UPDATE_POKER_STATE = "update poker state";
 export const SHOW_POKER_RESULTS = "show poker results";
 export const SET_POKER_STORY = "set poker story";
+export const SET_POKER_VOTE = "set poker vote";

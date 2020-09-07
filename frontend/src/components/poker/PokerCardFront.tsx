@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Card,
   CardActions,
@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import HowToVoteIcon from "@material-ui/icons/HowToVote";
 
+import PokerVoteDialog from "./PokerVoteDialog";
 import { CardText } from "../styled-components";
 import { PokerContext } from "../../context/PokerContext";
 
@@ -33,25 +34,30 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PokerCardFront(props: PokerCardFrontProps) {
   const { styleProps, userId, userName } = props;
+  const [open, setOpen] = useState(false);
   const { pokerState } = useContext(PokerContext);
   const classes = useStyles(styleProps);
 
   return (
-    <Card className={classes.root} elevation={8}>
-      <CardContent>
-        <Typography align="center" variant="h6" component="span">
-          <CardText>{userName}</CardText>
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <IconButton
-          color="primary"
-          aria-label="vote"
-          disabled={userId !== pokerState.id}
-        >
-          <HowToVoteIcon />
-        </IconButton>
-      </CardActions>
-    </Card>
+    <>
+      <Card className={classes.root} elevation={8}>
+        <CardContent>
+          <Typography align="center" variant="h6" component="span">
+            <CardText>{userName}</CardText>
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <IconButton
+            color="primary"
+            aria-label="vote"
+            disabled={userId !== pokerState.id}
+            onClick={() => setOpen(true)}
+          >
+            <HowToVoteIcon />
+          </IconButton>
+        </CardActions>
+      </Card>
+      <PokerVoteDialog open={open} setOpen={setOpen} userId={pokerState.id} />
+    </>
   );
 }

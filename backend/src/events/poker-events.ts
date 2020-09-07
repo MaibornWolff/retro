@@ -11,6 +11,7 @@ import {
   UPDATE_POKER_STATE,
   SHOW_POKER_RESULTS,
   SET_POKER_STORY,
+  SET_POKER_VOTE,
 } from "./event-names";
 
 const UTF8 = "utf8";
@@ -89,5 +90,31 @@ export function showPokerResults(
 ): void {
   client.on(SHOW_POKER_RESULTS, () => {
     io.to(roomId).emit(SHOW_POKER_RESULTS);
+  });
+}
+
+export function setPokerVote(io: Server, client: Socket, roomId: string): void {
+  client.on(SET_POKER_VOTE, (pokerId: string, userId: string, vote: number) => {
+    const path = getPath(pokerId);
+    fs.readFile(path, UTF8, (error, file: string) => {
+      if (error) logError(SET_POKER_VOTE, error);
+      const pokerState = getPokerState(file);
+
+      if (pokerState === null) {
+        client.emit(POKER_ERROR);
+      } else {
+        pokerState.participants.forEach((user) => {
+          if (user.id === userId) {
+            user.vote = vote;
+            user.voted = true;
+          }
+        });
+
+        fs.writeFile(path, stringify(pokerState), UTF8, (error) => {
+          if (error) logError(SET_POKER_VOTE, error);
+          io.to(roomId).emit(UPDATE_POKER_STATE, pokerState);
+        });
+      }
+    });
   });
 }

@@ -10,6 +10,8 @@ export type PokerStory = {
 };
 
 export type PokerParticipant = {
+  id: string;
+  role: string;
   name: string;
   vote: number;
   voted: boolean;

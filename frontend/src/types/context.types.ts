@@ -134,4 +134,6 @@ export interface PokerContextValues {
   pokerState: PokerUserState;
   setPokerName: (pokerId: string, name: string) => void;
   createPokerRole: (pokerId: string, role: string) => void;
+  setPokerVote: (pokerId: string, vote: number) => void;
+  resetPokerVotes: (pokerId: string) => void;
 }

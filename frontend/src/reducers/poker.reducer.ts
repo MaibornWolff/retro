@@ -2,7 +2,7 @@ import {
   CREATE_POKER_ROLE,
   SET_NAME,
   SET_VOTE,
-  SET_VOTED,
+  RESET_VOTES,
 } from "../actions/poker.actions";
 import { PokerUserState, PokerAction } from "../types/context.types";
 
@@ -25,11 +25,13 @@ export const reducer = (
       return {
         ...state,
         vote: action.payload?.vote as number,
+        voted: true,
       };
-    case SET_VOTED:
+    case RESET_VOTES:
       return {
         ...state,
-        voted: action.payload?.voted as boolean,
+        vote: -1,
+        voted: false,
       };
     default:
       return state;

@@ -30,6 +30,7 @@ import {
   joinPokerSession,
   showPokerResults,
   setPokerStory,
+  setPokerVote,
 } from "./poker-events";
 
 export function boardEvents(io: Server, client: Socket, roomId: string): void {
@@ -66,4 +67,5 @@ export function pokerEvents(io: Server, client: Socket, roomId: string): void {
   joinPokerSession(io, client, roomId);
   showPokerResults(io, client, roomId);
   setPokerStory(io, client, roomId);
+  setPokerVote(io, client, roomId);
 }
