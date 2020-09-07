@@ -81,6 +81,7 @@ export default function PokerPage() {
 
     socket.on(UPDATE_AND_RESET_POKER_STATE, (newPokerState: Poker) => {
       resetPokerVotes(pokerId);
+      setFlip(false);
       setPoker(newPokerState);
     });
 
