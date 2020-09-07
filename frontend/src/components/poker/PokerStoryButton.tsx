@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function StoryButton() {
+export default function PokerStoryButton() {
   const { pokerId, pokerState, socket } = useContext(PokerContext);
   const [open, setOpen] = useState(false);
   const [storyTitle, setStoryTitle] = useState("");

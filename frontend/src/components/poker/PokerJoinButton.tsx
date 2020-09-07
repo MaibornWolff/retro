@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function JoinPokerButton() {
+export default function PokerJoinButton() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const { pokerId, pokerState, socket, setPokerName } = useContext(

@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PokerResultsButton() {
+export default function PokerResultButton() {
   const classes = useStyles();
   const { pokerState, socket } = useContext(PokerContext);
 

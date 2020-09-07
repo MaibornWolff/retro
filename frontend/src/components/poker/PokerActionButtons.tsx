@@ -1,9 +1,9 @@
 import React from "react";
 import { Grid, makeStyles } from "@material-ui/core";
 
-import JoinPokerButton from "./JoinPokerButton";
-import StoryButton from "./StoryButton";
-import PokerResultsButton from "./PokerResultsButton";
+import PokerJoinButton from "./PokerJoinButton";
+import PokerStoryButton from "./PokerStoryButton";
+import PokerResultButton from "./PokerResultButton";
 import PokerResetButton from "./PokerResetButton";
 
 const useStyles = makeStyles((theme) => ({
@@ -18,10 +18,10 @@ export default function PokerActionButtons() {
   return (
     <Grid item xs={12} className={classes.root}>
       <Grid container direction="row">
-        <JoinPokerButton />
-        <StoryButton />
+        <PokerJoinButton />
+        <PokerStoryButton />
         <PokerResetButton />
-        <PokerResultsButton />
+        <PokerResultButton />
       </Grid>
     </Grid>
   );
