@@ -21,19 +21,6 @@ import { RetroBoard } from "../models/RetroBoard";
 
 const UTF8 = "utf8";
 
-function handleBoardError(client: Socket, eventName: string, err: Error) {
-  logError(TOGGLE_COLUMN_BLUR, err);
-  client.emit(BOARD_ERROR);
-}
-
-function blurColumn(board: RetroBoard, columnId: string) {
-  const column = board.columns[columnId];
-  column.isBlurred = !column.isBlurred;
-  column.itemIds.forEach((itemId) => {
-    board.items[itemId].isBlurred = column.isBlurred;
-  });
-}
-
 export function toggleColumnBlur(
   io: Server,
   client: Socket,
@@ -45,8 +32,9 @@ export function toggleColumnBlur(
       blurColumn(board, columnId);
       await saveBoard(board);
       io.to(roomId).emit(UPDATE_BOARD, board);
-    } catch (e) {
-      handleBoardError(client, TOGGLE_COLUMN_BLUR, e);
+    } catch (error) {
+      logError(TOGGLE_COLUMN_BLUR, error);
+      client.emit(BOARD_ERROR);
     }
   });
 }
@@ -153,4 +141,12 @@ export function editColumn(io: Server, client: Socket, roomId: string): void {
       });
     }
   );
+}
+
+function blurColumn(board: RetroBoard, columnId: string) {
+  const column = board.columns[columnId];
+  column.isBlurred = !column.isBlurred;
+  column.itemIds.forEach((itemId) => {
+    board.items[itemId].isBlurred = column.isBlurred;
+  });
 }

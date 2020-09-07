@@ -48,6 +48,7 @@ export default function PlanningPokerDialog() {
     if (response.ok) {
       history.push({
         pathname: `/poker/${pokerId}`,
+        state: { isModerator: true },
       });
     }
   }

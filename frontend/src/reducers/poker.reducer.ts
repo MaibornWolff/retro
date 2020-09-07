@@ -1,8 +1,21 @@
-import { SET_NAME, SET_VOTE, SET_VOTED } from "../actions/poker.actions";
-import { PokerState, PokerAction } from "../types/context.types";
+import {
+  CREATE_POKER_ROLE,
+  SET_NAME,
+  SET_VOTE,
+  SET_VOTED,
+} from "../actions/poker.actions";
+import { PokerUserState, PokerAction } from "../types/context.types";
 
-export const reducer = (state: PokerState, action: PokerAction): PokerState => {
+export const reducer = (
+  state: PokerUserState,
+  action: PokerAction
+): PokerUserState => {
   switch (action.type) {
+    case CREATE_POKER_ROLE:
+      return {
+        ...state,
+        role: action.payload?.role as string,
+      };
     case SET_NAME:
       return {
         ...state,

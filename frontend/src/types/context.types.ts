@@ -34,8 +34,9 @@ export interface DialogState {
   isCreateItemDialogOpen: boolean;
 }
 
-export interface PokerState {
+export interface PokerUserState {
   name: string;
+  role: string;
   vote: number;
   voted: boolean;
 }
@@ -70,6 +71,7 @@ export interface DialogAction extends Action {
 export interface PokerAction extends Action {
   payload?: {
     name?: string;
+    role?: string;
     vote?: number;
     voted?: boolean;
   };
@@ -128,6 +130,7 @@ export interface DialogContextValues {
 export interface PokerContextValues {
   socket: SocketIOClient.Socket;
   pokerId: string;
-  pokerState: PokerState;
+  pokerState: PokerUserState;
   setPokerName: (pokerId: string, name: string) => void;
+  createPokerRole: (pokerId: string, role: string) => void;
 }

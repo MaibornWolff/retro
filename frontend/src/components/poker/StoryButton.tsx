@@ -13,6 +13,7 @@ import {
 } from "@material-ui/core";
 import { PokerContext } from "../../context/PokerContext";
 import { SET_POKER_STORY } from "../../constants/event.constants";
+import { POKER_ROLE_MODERATOR } from "../../utils/poker.utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function StoryButton() {
-  const { pokerId, socket } = useContext(PokerContext);
+  const { pokerId, pokerState, socket } = useContext(PokerContext);
   const [open, setOpen] = useState(false);
   const [storyTitle, setStoryTitle] = useState("");
   const [storyUrl, setStoryUrl] = useState("");
@@ -56,6 +57,7 @@ export default function StoryButton() {
         variant="outlined"
         className={classes.root}
         onClick={() => setOpen(true)}
+        disabled={pokerState.role !== POKER_ROLE_MODERATOR}
       >
         Set Story
       </Button>

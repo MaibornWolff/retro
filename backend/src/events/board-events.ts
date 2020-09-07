@@ -41,22 +41,6 @@ export function updateBoard(io: Server, client: Socket, roomId: string): void {
   });
 }
 
-function areEquallyBlurred(columns: RetroColumn[]): boolean {
-  return new Set(columns.map((c) => c.isBlurred)).size === 1;
-}
-
-function getNonEmpty(columns: RetroColumn[]): RetroColumn[] {
-  return columns.filter((c) => c.itemIds.length > 0);
-}
-
-function overwriteIsBlurred(board: RetroBoard): void {
-  const columns = Object.values(board.columns);
-  const nonEmptyColumns = getNonEmpty(columns);
-  if (areEquallyBlurred(nonEmptyColumns)) {
-    board.isBlurred = nonEmptyColumns[0].isBlurred;
-  }
-}
-
 export function unblurCards(io: Server, client: Socket, roomId: string): void {
   client.on(UNBLUR_CARDS, (boardId: string) => {
     const path = getPath(boardId);
@@ -231,4 +215,20 @@ export function voteAbstain(io: Server, client: Socket, roomId: string): void {
       }
     });
   });
+}
+
+function areEquallyBlurred(columns: RetroColumn[]): boolean {
+  return new Set(columns.map((c) => c.isBlurred)).size === 1;
+}
+
+function getNonEmpty(columns: RetroColumn[]): RetroColumn[] {
+  return columns.filter((c) => c.itemIds.length > 0);
+}
+
+function overwriteIsBlurred(board: RetroBoard): void {
+  const columns = Object.values(board.columns);
+  const nonEmptyColumns = getNonEmpty(columns);
+  if (areEquallyBlurred(nonEmptyColumns)) {
+    board.isBlurred = nonEmptyColumns[0].isBlurred;
+  }
 }

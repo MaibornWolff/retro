@@ -1,3 +1,6 @@
+export const POKER_ROLE_MODERATOR = "moderator";
+export const POKER_ROLE_PARTICIPANT = "participant";
+
 export function getPokerUser(pokerId: string) {
   const user = sessionStorage.getItem(pokerId);
 
@@ -21,10 +24,10 @@ export function setPokerUser(
   }
 }
 
-export function createPokerUser(pokerId: string, name: string) {
+export function createPokerUser(pokerId: string, role: string) {
   saveToSessionStorage(
     pokerId,
-    JSON.stringify({ name, vote: -1, voted: false })
+    JSON.stringify({ name: "", role, vote: -1, voted: false })
   );
 }
 

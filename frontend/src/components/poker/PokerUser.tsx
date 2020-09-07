@@ -43,7 +43,7 @@ export default function PokerUser(props: PokerUserProps) {
 
   return (
     <ReactCardFlip isFlipped={props.isFlipped} flipDirection="horizontal">
-      <Card className={classes.rootFront}>
+      <Card className={classes.rootFront} elevation={8}>
         <CardContent>
           <Typography align="center" variant="h6" component="span">
             <CardText>{props.user.name}</CardText>
@@ -51,7 +51,7 @@ export default function PokerUser(props: PokerUserProps) {
         </CardContent>
       </Card>
 
-      <Card className={classes.rootBack}>
+      <Card className={classes.rootBack} elevation={8}>
         <CardContent>
           <Typography variant="h4" align="center">
             {props.user.vote}

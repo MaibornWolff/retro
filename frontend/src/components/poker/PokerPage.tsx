@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Grid, Link, makeStyles, Typography } from "@material-ui/core";
-import { Redirect, useRouteMatch } from "react-router-dom";
+import { Redirect, useLocation, useRouteMatch } from "react-router-dom";
 import isEqual from "lodash/isEqual";
 
 import PokerHeader from "./PokerHeader";
@@ -17,6 +17,11 @@ import {
 import { PokerContext } from "../../context/PokerContext";
 import { Poker } from "../../types/common.types";
 import { defaultPoker } from "../../utils";
+import {
+  getPokerUser,
+  POKER_ROLE_MODERATOR,
+  POKER_ROLE_PARTICIPANT,
+} from "../../utils/poker.utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,9 +35,10 @@ const useStyles = makeStyles((theme) => ({
 export default function PokerPage() {
   const [poker, setPoker] = useState<Poker>(defaultPoker);
   const [flip, setFlip] = useState(false);
-  const { pokerId, socket } = useContext(PokerContext);
+  const { pokerId, socket, createPokerRole } = useContext(PokerContext);
   const classes = useStyles();
   const match = useRouteMatch();
+  const location = useLocation();
 
   useEffect(() => {
     document.title = "Retro | Planning Poker";
@@ -53,6 +59,12 @@ export default function PokerPage() {
     });
 
     socket.on(JOIN_POKER, (pokerState: Poker) => {
+      if (location.state && getPokerUser(pokerId) === null) {
+        createPokerRole(pokerId, POKER_ROLE_MODERATOR);
+      } else if (getPokerUser(pokerId) === null) {
+        createPokerRole(pokerId, POKER_ROLE_PARTICIPANT);
+      }
+
       setPoker(pokerState);
     });
 

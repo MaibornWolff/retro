@@ -24,7 +24,9 @@ const useStyles = makeStyles((theme) => ({
 export default function JoinPokerButton() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
-  const { pokerId, socket, setPokerName } = useContext(PokerContext);
+  const { pokerId, pokerState, socket, setPokerName } = useContext(
+    PokerContext
+  );
   const classes = useStyles();
   const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
   const isError = name.length > 40;
@@ -47,14 +49,11 @@ export default function JoinPokerButton() {
   }
 
   function handleSubmit() {
-    const newUser = { name, vote: -1, voted: false };
-    socket.emit(JOIN_POKER_SESSION, newUser, pokerId);
+    const pokerUser = getPokerUser(pokerId);
+    pokerUser["name"] = name;
+    socket.emit(JOIN_POKER_SESSION, pokerUser, pokerId);
     setPokerName(pokerId, name);
     handleClose();
-  }
-
-  function hasAlreadyJoined() {
-    return getPokerUser(pokerId) !== null;
   }
 
   return (
@@ -64,7 +63,7 @@ export default function JoinPokerButton() {
         variant="outlined"
         className={classes.root}
         onClick={openDialog}
-        disabled={hasAlreadyJoined()}
+        disabled={Boolean(pokerState.name)}
       >
         Join Poker
       </Button>

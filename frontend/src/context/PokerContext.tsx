@@ -1,12 +1,16 @@
 import React, { useReducer } from "react";
 import { useParams } from "react-router-dom";
 import io from "socket.io-client";
-import { SET_NAME } from "../actions/poker.actions";
 
 import { reducer } from "../reducers/poker.reducer";
 import { PokerContextValues } from "../types/context.types";
+import { SET_NAME, CREATE_POKER_ROLE } from "../actions/poker.actions";
 import { BACKEND_ENDPOINT } from "../utils";
-import { createPokerUser, getPokerUser } from "../utils/poker.utils";
+import {
+  createPokerUser,
+  getPokerUser,
+  setPokerUser,
+} from "../utils/poker.utils";
 
 let socket: SocketIOClient.Socket;
 
@@ -36,9 +40,14 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     socket = io(BACKEND_ENDPOINT, { query: "pokerId=" + pokerId });
   }
 
+  function createPokerRole(pokerId: string, role: string) {
+    dispatch({ type: CREATE_POKER_ROLE, payload: { role } });
+    createPokerUser(pokerId, role);
+  }
+
   function setPokerName(pokerId: string, name: string) {
     dispatch({ type: SET_NAME, payload: { name } });
-    createPokerUser(pokerId, name);
+    setPokerUser("name", name, pokerId);
   }
 
   const value = {
@@ -46,6 +55,7 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     socket,
     pokerState,
     setPokerName,
+    createPokerRole,
   };
 
   return (
