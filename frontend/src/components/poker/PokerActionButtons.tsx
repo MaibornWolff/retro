@@ -4,6 +4,7 @@ import { Grid, makeStyles } from "@material-ui/core";
 import JoinPokerButton from "./JoinPokerButton";
 import StoryButton from "./StoryButton";
 import PokerResultsButton from "./PokerResultsButton";
+import PokerResetButton from "./PokerResetButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +20,7 @@ export default function PokerActionButtons() {
       <Grid container direction="row">
         <JoinPokerButton />
         <StoryButton />
+        <PokerResetButton />
         <PokerResultsButton />
       </Grid>
     </Grid>

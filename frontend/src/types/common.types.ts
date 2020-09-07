@@ -43,6 +43,8 @@ export interface Poker {
 }
 
 interface PokerUser {
+  id: string;
+  role: string;
   name: string;
   vote: number;
   voted: false;

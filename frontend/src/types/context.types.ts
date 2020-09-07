@@ -35,6 +35,7 @@ export interface DialogState {
 }
 
 export interface PokerUserState {
+  id: string;
   name: string;
   role: string;
   vote: number;
