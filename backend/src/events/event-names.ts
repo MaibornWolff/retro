@@ -3,6 +3,7 @@ export const DISCONNECT = "disconnect";
 export const CREATE_CARD = "create card";
 export const CREATE_COLUMN = "create column";
 export const DELETE_COLUMN = "delete column";
+export const TOGGLE_COLUMN_BLUR = "toggle column blur";
 export const UPDATE_BOARD = "update board";
 export const VOTE_CARD = "vote card";
 export const EDIT_CARD = "edit card";

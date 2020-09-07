@@ -10,6 +10,7 @@ export interface RetroColumn {
   id: string;
   columnTitle: string;
   itemIds: string[];
+  isBlurred: boolean;
 }
 
 export interface RetroBoard {

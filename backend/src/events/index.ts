@@ -11,6 +11,7 @@ import {
   voteAbstain,
 } from "./board-events";
 import {
+  toggleColumnBlur,
   createColumn,
   deleteColumn,
   sortColumn,
@@ -45,6 +46,7 @@ export function boardEvents(io: Server, client: Socket, roomId: string): void {
 
 export function columnEvents(io: Server, client: Socket, roomId: string): void {
   createColumn(io, client, roomId);
+  toggleColumnBlur(io, client, roomId);
   deleteColumn(io, client, roomId);
   sortColumn(io, client, roomId);
   editColumn(io, client, roomId);

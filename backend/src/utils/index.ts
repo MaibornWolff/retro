@@ -61,7 +61,7 @@ export function logError(eventName: string, error: any): void {
 export function processBoard(board: RetroBoard): RetroBoard {
   board.title = board.title.trim();
   const format = board.format;
-  const columns = createFormat(format);
+  const columns = createFormat(format, board);
 
   if (columns.length > 0) {
     columns.forEach((col) => {
@@ -73,18 +73,24 @@ export function processBoard(board: RetroBoard): RetroBoard {
   return board;
 }
 
-function createColumns(columnTitles: string[]) {
+function createColumns(columnTitles: string[], isBlurred: boolean) {
   const result: RetroColumn[] = [];
   columnTitles.forEach((columnTitle) =>
-    result.push({ id: nanoid(), columnTitle, itemIds: [] })
+    result.push({
+      id: nanoid(),
+      columnTitle,
+      itemIds: [],
+      isBlurred: isBlurred,
+    })
   );
   return result;
 }
 
-function createFormat(format: string) {
+function createFormat(format: string, board: RetroBoard) {
   let result: RetroColumn[] = [];
   forIn(retroFormats, (value, key) => {
-    if (format === key) result = createColumns(value.columnTitles);
+    if (format === key)
+      result = createColumns(value.columnTitles, board.isBlurred);
   });
   return result;
 }

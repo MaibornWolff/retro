@@ -16,6 +16,7 @@ import {
   BOARD_ERROR,
 } from "./event-names";
 import { RetroBoard } from "../models/RetroBoard";
+import { RetroColumn } from "../models/RetroColumn";
 
 const UTF8 = "utf8";
 
@@ -40,6 +41,22 @@ export function updateBoard(io: Server, client: Socket, roomId: string): void {
   });
 }
 
+function areEquallyBlurred(columns: RetroColumn[]): boolean {
+  return new Set(columns.map((c) => c.isBlurred)).size === 1;
+}
+
+function getNonEmpty(columns: RetroColumn[]): RetroColumn[] {
+  return columns.filter((c) => c.itemIds.length > 0);
+}
+
+function overwriteIsBlurred(board: RetroBoard): void {
+  const columns = Object.values(board.columns);
+  const nonEmptyColumns = getNonEmpty(columns);
+  if (areEquallyBlurred(nonEmptyColumns)) {
+    board.isBlurred = nonEmptyColumns[0].isBlurred;
+  }
+}
+
 export function unblurCards(io: Server, client: Socket, roomId: string): void {
   client.on(UNBLUR_CARDS, (boardId: string) => {
     const path = getPath(boardId);
@@ -50,9 +67,14 @@ export function unblurCards(io: Server, client: Socket, roomId: string): void {
       if (board === null) {
         client.emit(BOARD_ERROR);
       } else {
+        overwriteIsBlurred(board);
+
         board.isBlurred = !board.isBlurred;
         for (const cardId in board.items) {
           board.items[cardId].isBlurred = board.isBlurred;
+        }
+        for (const columnId in board.columns) {
+          board.columns[columnId].isBlurred = board.isBlurred;
         }
 
         fs.writeFile(path, stringify(board), UTF8, (error) => {

@@ -14,9 +14,42 @@ import {
   UPDATE_BOARD,
   EDIT_COLUMN,
   BOARD_ERROR,
+  TOGGLE_COLUMN_BLUR,
 } from "./event-names";
+import { getBoard, saveBoard } from "../repositories";
+import { RetroBoard } from "../models/RetroBoard";
 
 const UTF8 = "utf8";
+
+function handleBoardError(client: Socket, eventName: string, err: Error) {
+  logError(TOGGLE_COLUMN_BLUR, err);
+  client.emit(BOARD_ERROR);
+}
+
+function blurColumn(board: RetroBoard, columnId: string) {
+  const column = board.columns[columnId];
+  column.isBlurred = !column.isBlurred;
+  column.itemIds.forEach((itemId) => {
+    board.items[itemId].isBlurred = column.isBlurred;
+  });
+}
+
+export function toggleColumnBlur(
+  io: Server,
+  client: Socket,
+  roomId: string
+): void {
+  client.on(TOGGLE_COLUMN_BLUR, async (boardId: string, columnId: string) => {
+    try {
+      const board = await getBoard(boardId);
+      blurColumn(board, columnId);
+      await saveBoard(board);
+      io.to(roomId).emit(UPDATE_BOARD, board);
+    } catch (e) {
+      handleBoardError(client, TOGGLE_COLUMN_BLUR, e);
+    }
+  });
+}
 
 export function createColumn(io: Server, client: Socket, roomId: string): void {
   client.on(CREATE_COLUMN, (column: RetroColumn, boardId: string) => {
@@ -31,6 +64,7 @@ export function createColumn(io: Server, client: Socket, roomId: string): void {
         const { columnTitle } = column;
 
         column.columnTitle = columnTitle.trim();
+        column.isBlurred = board.isBlurred;
         board.columns[column.id] = column;
         board.columnOrder.push(column.id);
 
