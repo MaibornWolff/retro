@@ -13,6 +13,7 @@ import {
   POKER_ERROR,
   UPDATE_POKER_STATE,
   SHOW_POKER_RESULTS,
+  UPDATE_AND_RESET_POKER_STATE,
 } from "../../constants/event.constants";
 import { PokerContext } from "../../context/PokerContext";
 import { Poker } from "../../types/common.types";
@@ -35,7 +36,9 @@ const useStyles = makeStyles((theme) => ({
 export default function PokerPage() {
   const [poker, setPoker] = useState<Poker>(defaultPoker);
   const [flip, setFlip] = useState(false);
-  const { pokerId, socket, createPokerRole } = useContext(PokerContext);
+  const { pokerId, socket, createPokerRole, resetPokerVotes } = useContext(
+    PokerContext
+  );
   const classes = useStyles();
   const match = useRouteMatch();
   const location = useLocation();
@@ -74,6 +77,11 @@ export default function PokerPage() {
 
     socket.on(SHOW_POKER_RESULTS, () => {
       setFlip((prevFlip) => !prevFlip);
+    });
+
+    socket.on(UPDATE_AND_RESET_POKER_STATE, (newPokerState: Poker) => {
+      resetPokerVotes(pokerId);
+      setPoker(newPokerState);
     });
 
     socket.on(POKER_ERROR, () => {

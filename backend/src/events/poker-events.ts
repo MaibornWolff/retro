@@ -1,6 +1,10 @@
 import fs from "fs";
 import { Server, Socket } from "socket.io";
-import { PokerParticipant, PokerStory } from "src/models/PokerState";
+import {
+  PokerParticipant,
+  PokerState,
+  PokerStory,
+} from "src/models/PokerState";
 import { getPath, logError, getPokerState, stringify } from "../utils";
 
 import {
@@ -12,6 +16,8 @@ import {
   SHOW_POKER_RESULTS,
   SET_POKER_STORY,
   SET_POKER_VOTE,
+  POKER_RESET,
+  UPDATE_AND_RESET_POKER_STATE,
 } from "./event-names";
 
 const UTF8 = "utf8";
@@ -73,10 +79,11 @@ export function setPokerStory(
         const { storyTitle, storyUrl } = newStory;
         pokerState.story.storyTitle = storyTitle;
         pokerState.story.storyUrl = storyUrl;
+        resetVotes(pokerState);
 
         fs.writeFile(path, stringify(pokerState), UTF8, (error) => {
           if (error) logError(SET_POKER_STORY, error);
-          io.to(roomId).emit(UPDATE_POKER_STATE, pokerState);
+          io.to(roomId).emit(UPDATE_AND_RESET_POKER_STATE, pokerState);
         });
       }
     });
@@ -116,5 +123,32 @@ export function setPokerVote(io: Server, client: Socket, roomId: string): void {
         });
       }
     });
+  });
+}
+
+export function resetPoker(io: Server, client: Socket, roomId: string): void {
+  client.on(POKER_RESET, (pokerId: string) => {
+    const path = getPath(pokerId);
+    fs.readFile(path, UTF8, (error, file: string) => {
+      if (error) logError(SET_POKER_VOTE, error);
+      const pokerState = getPokerState(file);
+
+      if (pokerState === null) {
+        client.emit(POKER_ERROR);
+      } else {
+        resetVotes(pokerState);
+        fs.writeFile(path, stringify(pokerState), UTF8, (error) => {
+          if (error) logError(SET_POKER_VOTE, error);
+          io.to(roomId).emit(UPDATE_AND_RESET_POKER_STATE, pokerState);
+        });
+      }
+    });
+  });
+}
+
+function resetVotes(pokerState: PokerState) {
+  pokerState.participants.forEach((user) => {
+    user.vote = -1;
+    user.voted = false;
   });
 }

@@ -32,3 +32,5 @@ export const UPDATE_POKER_STATE = "update poker state";
 export const SHOW_POKER_RESULTS = "show poker results";
 export const SET_POKER_STORY = "set poker story";
 export const SET_POKER_VOTE = "set poker vote";
+export const POKER_RESET = "poker reset";
+export const UPDATE_AND_RESET_POKER_STATE = "update and reset poker state";
