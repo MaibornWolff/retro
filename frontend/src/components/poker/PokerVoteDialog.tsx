@@ -73,7 +73,7 @@ export default function PokerVoteDialog(props: PokerVoteDialogProps) {
           valueLabelDisplay="auto"
           marks={marks}
           min={0}
-          max={21}
+          max={34}
         />
       </DialogContent>
       <DialogActions>

@@ -65,6 +65,10 @@ export function getFibonacciMarks() {
       value: 21,
       label: "21",
     },
+    {
+      value: 34,
+      label: "34",
+    },
   ];
 }
 
