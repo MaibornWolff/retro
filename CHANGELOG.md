@@ -10,6 +10,42 @@
 
 ### Removed
 
+## [0.4.0] - 2020-09-19
+
+### Added
+
+- **Planning Poker**
+  - Retro now provides a page for planning poker sessions
+  - The person starting the session is the moderator, the rest joining are participants
+  - Every person who joins the session will have its own card where it can provide an estimation for an user story
+  - The moderator can set the current user story for estimation by providing the title and optionally an URL to the user story
+  - Initially all cards are red, meaning the user did not vote. When a user votes, the card turns green.
+
+- **Blur columns independently**
+  - Moderators can now blur columns independently, by clicking the triple dot button on a column
+  - Special thanks to @2mawi2 for realizing this feature! ❤️
+
+- **Share session button**
+  - The toolbar got an additional button for sharing a session
+  - Previously users had to manually copy the URL for sharing the session. This button will now automatically copy the URL to the clipboard when clicked
+
+### Changed
+
+- **Backend refactoring**
+  - Backend got refactored to TypeScript
+- **Drop yarn**
+  - Retro now uses `npm` as the default package manager
+- **rmby**
+  - Storage clean up is now handled by the `rmby` library
+
+### Fixed
+
+- Styling for buttons on the toolbar
+
+### Removed
+
+- There was a delete endpoint that was being used for tests. Since we will rethink the whole point of testing Retro, we currently don't need this endpoint anymore
+
 ## [0.3.5] - 2020-08-04
 
 ### Added
@@ -198,7 +234,8 @@
 - Combine two cards
 - Upvote cards
 
-[Unreleased]: https://github.com/yduman/retro/compare/0.3.5...master
+[Unreleased]: https://github.com/yduman/retro/compare/0.4.0...master
+[0.4.0]: https://github.com/yduman/retro/releases/tag/0.4.0
 [0.3.5]: https://github.com/yduman/retro/releases/tag/0.3.5
 [0.3.4]: https://github.com/yduman/retro/releases/tag/0.3.4
 [0.3.3]: https://github.com/yduman/retro/releases/tag/0.3.3
