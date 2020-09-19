@@ -1,6 +1,8 @@
-import { AppBar, makeStyles, Toolbar, Typography } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
+import { AppBar, makeStyles, Toolbar, Typography } from "@material-ui/core";
+
+import ShareSessionButton from "../common/ShareSessionButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +33,7 @@ export default function PokerHeader() {
               Planning Poker
             </Link>
           </Typography>
+          <ShareSessionButton />
         </Toolbar>
       </AppBar>
     </div>

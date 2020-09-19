@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
 
+import ShareSessionButton from "../../common/ShareSessionButton";
 import CreateColumnButton from "./CreateColumnButton";
 import UnblurCardsButton from "./UnblurCardsButton";
 import ExportBoardButton from "./ExportBoardButton";
@@ -59,6 +60,7 @@ export default function AppHeader() {
               Retro
             </Link>
           </Typography>
+          <ShareSessionButton />
           <CreateColumnButton />
           <Button
             color="inherit"
