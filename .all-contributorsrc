@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "mrpatpat",
+      "name": "Adrian Endrich",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2622069?v=4",
+      "profile": "https://github.com/mrpatpat",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "retro",
+  "projectOwner": "yduman",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
