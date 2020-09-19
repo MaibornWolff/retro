@@ -23,7 +23,7 @@
 
 - **Blur columns independently**
   - Moderators can now blur columns independently, by clicking the triple dot button on a column
-  - Special thanks to @2mawi2 for realizing this feature! ❤️
+  - Special thanks to [2mawi2](https://github.com/2mawi2) for realizing this feature! ❤️
 
 - **Share session button**
   - The toolbar got an additional button for sharing a session
@@ -50,7 +50,7 @@
 
 ### Added
 
-- Instead of blurring/unblurring all cards, we are now blurring/unblurring cards that are now owned by an user. Special thanks to @tobim-dev, @ravensinth et al. for realizing this feature ❤️
+- Instead of blurring/unblurring all cards, we are now blurring/unblurring cards that are now owned by an user. Special thanks to [tobim-dev](https://github.com/tobim-dev), [ravensinth](https://github.com/ravensinth) et al. for realizing this feature ❤️
 - The greeting text on the homepage now has a typewriter effect
 
 ### Removed
@@ -69,7 +69,7 @@
 
 - Import/Export of board data
   - If you want to reuse a board for another retrospective, you can now export the data of the board as JSON and import it later for another session
-  - Special thanks to @ClaasBusemann and @PaulaBre for their contribution!
+  - Special thanks to [ClaasBusemann](https://github.com/ClaasBusemann) and [PaulaBre](https://github.com/PaulaBre) for their contribution! ❤️
 - Docker development support
 - Container-based deployment support
 - Rate-limiting API
@@ -188,7 +188,7 @@
 - CSS issues
   - Really long words are now handled properly
   - Mobile UI should be a bit better now 
-    - _thanks to @mrpatpat_
+    - Special thanks to [mrpatpat](https://github.com/mrpatpat) for realizing this! ❤️
 - Improved render performance on several places
 - `LoadBoardDialog` validation should not result in a `SyntaxError` anymore
 - All invalid URLs will now be redirected to a 404 page
