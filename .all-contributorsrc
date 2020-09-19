@@ -50,6 +50,15 @@
         "code"
       ]
     },
+    {
+      "login": "2mawi2",
+      "name": "Marius Wichtner",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/17811051?v=4",
+      "profile": "https://github.com/2mawi2",
+      "contributions": [
+        "code"
+      ]
+    },
   ],
   "contributorsPerLine": 7,
   "projectName": "retro",
