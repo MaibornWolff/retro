@@ -6,14 +6,41 @@
   "commit": false,
   "contributors": [
     {
-      "login": "tobim",
-      "name": "tobim",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/858790?v=4",
-      "profile": "https://github.com/tobim",
+      "login": "mrpatpat",
+      "name": "Adrian Endrich",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2622069?v=4",
+      "profile": "https://github.com/mrpatpat",
       "contributions": [
         "code"
       ]
-    }
+    },
+    {
+      "login": "ClaasBusemann",
+      "name": "Claas Busemann",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/65392929?v=4",
+      "profile": "https://github.com/ClaasBusemann",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "PaulaBre",
+      "name": "PaulaBre",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/65403162?v=4",
+      "profile": "https://github.com/PaulaBre",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "tobim-dev",
+      "name": "Tobias",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/15176413?v=4",
+      "profile": "https://github.com/tobim-dev",
+      "contributions": [
+        "code"
+      ]
+    },
   ],
   "contributorsPerLine": 7,
   "projectName": "retro",
