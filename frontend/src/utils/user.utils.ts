@@ -4,7 +4,7 @@ export const ROLE_MODERATOR = "moderator";
 export const ROLE_PARTICIPANT = "participant";
 
 export function getUser(boardId: string) {
-  const userObject = sessionStorage.getItem(boardId);
+  const userObject = localStorage.getItem(boardId);
   if (userObject !== null) {
     return JSON.parse(userObject);
   }
@@ -15,7 +15,7 @@ export function setUser(propertyName: string, newValue: any, boardId: string) {
   const userObject = getUser(boardId);
   if (userObject !== null) {
     userObject[propertyName] = newValue;
-    saveToSessionStorage(boardId, JSON.stringify(userObject));
+    saveToLocalStorage(boardId, JSON.stringify(userObject));
   }
 }
 
@@ -33,7 +33,7 @@ export function setVotedItem(
     else removeFirstOccurenceFromArray(votedItems, cardId);
 
     userObject["votedItems"] = votedItems;
-    saveToSessionStorage(boardId, JSON.stringify(userObject));
+    saveToLocalStorage(boardId, JSON.stringify(userObject));
   }
 }
 
@@ -43,7 +43,7 @@ export function setMaxVoteCountAndReset(newVoteCount: number, boardId: string) {
     userObject["maxVoteCount"] = newVoteCount;
     userObject["votesLeft"] = newVoteCount;
     userObject["votedItems"] = [];
-    saveToSessionStorage(boardId, JSON.stringify(userObject));
+    saveToLocalStorage(boardId, JSON.stringify(userObject));
   }
 }
 
@@ -70,9 +70,9 @@ export function createRole(
     votesLeft: maxVoteCount,
     votedItems: [],
   });
-  saveToSessionStorage(boardId, data);
+  saveToLocalStorage(boardId, data);
 }
 
-function saveToSessionStorage(boardId: string, data: string) {
-  sessionStorage.setItem(boardId, data);
+function saveToLocalStorage(boardId: string, data: string) {
+  localStorage.setItem(boardId, data);
 }
