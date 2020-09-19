@@ -51,9 +51,9 @@ $ cd frontend && npm run start && cd ..
 - Clone this project on your server
 - Install the dependencies by running `npm i` on `backend` and `frontend`
 - Check if the proxy settings are correct
-  - Check `backend/src/config/index.js`
+  - Check `backend/src/config/index.ts`
   - Check `frontend/src/setupProxy.js`
-  - Check `frontend/src/utils/index.js`
+  - Check `frontend/src/utils/index.ts`
 - Provide an `.env.production.local` file inside of `frontend`
     ```
     # Example
