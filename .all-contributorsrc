@@ -13,7 +13,16 @@
       "contributions": [
         "code"
       ]
-    }
+    },
+    {
+      "login": "ClaasBusemann",
+      "name": "Claas Busemann",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/65392929?v=4",
+      "profile": "https://github.com/ClaasBusemann",
+      "contributions": [
+        "code"
+      ]
+    },
   ],
   "contributorsPerLine": 7,
   "projectName": "retro",
