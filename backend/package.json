@@ -14,7 +14,7 @@
     "url": "https://github.com/yduman/retro.git",
     "directory": "backend/"
   },
-  "version": "0.3.5",
+  "version": "0.4.0",
   "main": "src/server.ts",
   "license": "MIT",
   "private": true,
