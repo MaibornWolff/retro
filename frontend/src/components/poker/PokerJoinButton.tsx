@@ -65,7 +65,7 @@ export default function PokerJoinButton() {
         onClick={openDialog}
         disabled={Boolean(pokerState.name)}
       >
-        Join Poker
+        Join Session
       </Button>
       <Dialog
         fullWidth
@@ -75,7 +75,9 @@ export default function PokerJoinButton() {
         onClose={closeDialog}
         aria-labelledby="join-poker-dialog-title"
       >
-        <DialogTitle id="join-poker-dialog-title">Participate</DialogTitle>
+        <DialogTitle id="join-poker-dialog-title">
+          Join Poker Session
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Please provide a name, so that your team can recognize your

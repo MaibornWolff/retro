@@ -59,7 +59,7 @@ export default function PokerStoryButton() {
         onClick={() => setOpen(true)}
         disabled={pokerState.role !== POKER_ROLE_MODERATOR}
       >
-        Set Story
+        Set User Story
       </Button>
       <Dialog
         fullWidth
@@ -70,11 +70,12 @@ export default function PokerStoryButton() {
         aria-labelledby="set-story-poker-dialog-title"
       >
         <DialogTitle id="set-story-poker-dialog-title">
-          Set Story for Estimation
+          User Story to Discuss
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Provide the title of the story and optionally the URL to the story.
+            Provide the title of the user story and optionally an URL linking to
+            it.
           </DialogContentText>
           <TextField
             required

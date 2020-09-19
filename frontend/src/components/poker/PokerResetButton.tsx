@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1),
   },
+  yes: {
+    color: theme.palette.error.main,
+  },
 }));
 
 export default function PokerResetButton() {
@@ -61,7 +64,7 @@ export default function PokerResetButton() {
           <Button onClick={() => setOpen(false)} color="primary">
             No
           </Button>
-          <Button onClick={handleClick} color="primary">
+          <Button onClick={handleClick} className={classes.yes}>
             Yes
           </Button>
         </DialogActions>

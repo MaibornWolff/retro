@@ -30,7 +30,7 @@ export default function CreateItemDialog() {
   const { setUsername } = useContext(UserContext);
   const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
-  // get the username from localStorage, if set
+  // get the username from sessionStorage, if set
   useEffect(() => {
     setAuthor(dialogsState.itemAuthor);
   }, [dialogsState.itemAuthor]);
