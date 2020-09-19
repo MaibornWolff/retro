@@ -5,11 +5,11 @@
 
 ![CircleCI (all branches)](https://img.shields.io/circleci/project/github/yduman/retro.svg?style=flat-square) ![GitHub release](https://img.shields.io/github/release/yduman/retro.svg?style=flat-square) ![GitHub](https://img.shields.io/github/license/yduman/retro.svg?style=flat-square) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-![demo](./assets/retro.png)
-
 ## Table of Contents
 
 - [What is Retro?](#what-is-retro)
+- [Example - Retrospective](#example---retrospective)
+- [Example - Planning Poker](#example---planning-poker)
 - [Usage Locally](#usage-locally)
 - [Branching](#branching)
 - [Deployment Examples](#deployment-examples)
@@ -20,9 +20,17 @@
 
 ## What is Retro?
 
-Retro is a tool that you can use for your retrospectives. The goal of Retro is to aid teams in remote retrospectives.
+Retro is a tool that you can use for retrospectives and planning poker sessions. The goal of Retro is to aid teams in remote retrospectives.
 
-At work, we were using third party retrospective tools, which meant we couldn't express ourselves freely because of privacy reasons. Retro provides an open-source solution, where you can host the app on your own servers, so you can discuss freely again, since you own the data!
+At work, we were using third party retrospective tools, which meant we couldn't express ourselves freely because of privacy reasons. Retro provides an open-source solution, where you can host the app on your own servers, so you can discuss freely again, since you own the data.
+
+## Example - Retrospective
+
+![retro_example](./assets/Retro-Example.png)
+
+## Example - Planning Poker
+
+![planning_poker_example](./assets/PlanningPoker-Example.png)
 
 ## Usage Locally
 
