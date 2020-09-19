@@ -92,6 +92,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
+    <td align="center"><a href="https://github.com/tobim-dev"><img src="https://avatars3.githubusercontent.com/u/15176413?v=4" width="100px;" alt=""/><br /><sub><b>Tobias</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=tobim-dev" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/PaulaBre"><img src="https://avatars2.githubusercontent.com/u/65403162?v=4" width="100px;" alt=""/><br /><sub><b>PaulaBre</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=PaulaBre" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/ClaasBusemann"><img src="https://avatars2.githubusercontent.com/u/65392929?v=4" width="100px;" alt=""/><br /><sub><b>Claas Busemann</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=ClaasBusemann" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/mrpatpat"><img src="https://avatars2.githubusercontent.com/u/2622069?v=4" width="100px;" alt=""/><br /><sub><b>Adrian Endrich</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=mrpatpat" title="Code">💻</a></td>
