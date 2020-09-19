@@ -14,6 +14,7 @@ export const reducer = (
     case CREATE_POKER_ROLE:
       return {
         ...state,
+        id: action.payload?.id as string,
         role: action.payload?.role as string,
       };
     case SET_NAME:

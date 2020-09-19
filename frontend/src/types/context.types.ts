@@ -71,6 +71,7 @@ export interface DialogAction extends Action {
 
 export interface PokerAction extends Action {
   payload?: {
+    id?: string;
     name?: string;
     role?: string;
     vote?: number;

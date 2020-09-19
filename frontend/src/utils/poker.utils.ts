@@ -1,5 +1,3 @@
-import { nanoid } from "nanoid";
-
 export const POKER_ROLE_MODERATOR = "moderator";
 export const POKER_ROLE_PARTICIPANT = "participant";
 
@@ -26,10 +24,10 @@ export function setPokerUser(
   }
 }
 
-export function createPokerUser(pokerId: string, role: string) {
+export function createPokerUser(pokerId: string, userId: string, role: string) {
   saveToSessionStorage(
     pokerId,
-    JSON.stringify({ id: nanoid(), name: "", role, vote: -1, voted: false })
+    JSON.stringify({ id: userId, name: "", role, vote: -1, voted: false })
   );
 }
 

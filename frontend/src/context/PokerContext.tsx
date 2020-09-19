@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
-import { useParams } from "react-router-dom";
 import io from "socket.io-client";
+import { useParams } from "react-router-dom";
+import { nanoid } from "nanoid";
 
 import { reducer } from "../reducers/poker.reducer";
 import { PokerContextValues } from "../types/context.types";
@@ -29,10 +30,18 @@ interface ParamTypes {
 
 function getInitialState(pokerId: string) {
   const user = getPokerUser(pokerId);
+
   if (user !== null) {
     return user;
   }
-  return {};
+
+  return {
+    id: "",
+    name: "",
+    role: "",
+    vote: -1,
+    voted: false,
+  };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -46,8 +55,9 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
   }
 
   function createPokerRole(pokerId: string, role: string) {
-    dispatch({ type: CREATE_POKER_ROLE, payload: { role } });
-    createPokerUser(pokerId, role);
+    const userId = nanoid();
+    dispatch({ type: CREATE_POKER_ROLE, payload: { role, id: userId } });
+    createPokerUser(pokerId, userId, role);
   }
 
   function setPokerName(pokerId: string, name: string) {
