@@ -2,8 +2,8 @@
   "apps": [
     {
       "name": "Retro",
-      "script": "src/server.js",
-      "watch": "src/",
+      "script": "dist/server.js",
+      "watch": "dist/",
       "ignore_watch": "storage/",
       "log_date_format": "YYYY-MM-DD HH:mm Z"
     }
