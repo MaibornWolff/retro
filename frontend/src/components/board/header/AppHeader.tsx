@@ -33,9 +33,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.contrastText,
   },
   settingsButton: {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.secondary.contrastText,
-    marginRight: theme.spacing(1),
     textTransform: "none",
   },
 }));
@@ -64,7 +61,8 @@ export default function AppHeader() {
           </Typography>
           <CreateColumnButton />
           <Button
-            variant="contained"
+            color="inherit"
+            variant="text"
             className={classes.settingsButton}
             aria-label="board settings"
             aria-controls="settings-appbar"

@@ -79,8 +79,8 @@ export default function CreateColumnButton() {
   return (
     <div>
       <Button
-        variant="contained"
-        color="secondary"
+        variant="text"
+        color="inherit"
         aria-label="Add Column"
         onClick={openDialog}
         disabled={userState.role !== ROLE_MODERATOR}
