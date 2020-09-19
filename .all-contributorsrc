@@ -23,6 +23,15 @@
         "code"
       ]
     },
+    {
+      "login": "PaulaBre",
+      "name": "PaulaBre",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/65403162?v=4",
+      "profile": "https://github.com/PaulaBre",
+      "contributions": [
+        "code"
+      ]
+    },
   ],
   "contributorsPerLine": 7,
   "projectName": "retro",
