@@ -16,12 +16,19 @@ export default function ShareSessionButton() {
   const [open, setOpen] = useState(false);
   const classes = useStyles();
 
+  // in an unsecure environment (e.g. HTTP) navigator.clipboard will be 'undefined'
   async function handleClick() {
     try {
       await navigator.clipboard.writeText(location.href);
       setOpen(true);
     } catch (error) {
-      console.error("Failed to copy session URL: ", error);
+      const dummy = document.createElement("input");
+      document.body.appendChild(dummy);
+      dummy.value = location.href;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+      setOpen(true);
     }
   }
 
