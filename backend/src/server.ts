@@ -18,14 +18,10 @@ import { boardEvents, columnEvents, cardEvents, pokerEvents } from "./events";
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-const publicDir = path.resolve(__dirname, "../public");
-const storageDir = path.resolve(__dirname, "../storage");
 const port = process.env.PORT;
 
-const job = new CronJob("0 0 * * *", () => {
-  console.log(chalk`{blue.bold [INFO] Running cronjob for storage clean up}`);
-  cleanStorage(storageDir);
-});
+let publicDir = path.resolve(__dirname, "../public");
+let storageDir = path.resolve(__dirname, "../storage");
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -37,6 +33,8 @@ if (process.env.NODE_ENV === "DEVELOPMENT") {
 }
 
 if (process.env.NODE_ENV === "PRODUCTION") {
+  publicDir = path.resolve(__dirname, "../../public");
+  storageDir = path.resolve(__dirname, "../../storage");
   app.use(
     cors({
       origin: [
@@ -81,6 +79,11 @@ io.on(CONNECT, (client) => {
   client.on(DISCONNECT, () => {
     client.leaveAll();
   });
+});
+
+const job = new CronJob("0 0 * * *", () => {
+  console.log(chalk`{blue.bold [INFO] Running cronjob for storage clean up}`);
+  cleanStorage(storageDir);
 });
 
 server.listen(port, () => {
