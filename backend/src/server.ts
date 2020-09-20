@@ -18,7 +18,7 @@ import { boardEvents, columnEvents, cardEvents, pokerEvents } from "./events";
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-const port = process.env.PORT;
+const port: number = +(process.env.PORT || 3001);
 
 let publicDir = path.resolve(__dirname, "../public");
 let storageDir = path.resolve(__dirname, "../storage");

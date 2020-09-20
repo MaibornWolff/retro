@@ -79,8 +79,8 @@ router.get("/board-export/:boardId", (req, res) => {
   fs.readFile(getPath(boardId), UTF8, async (error) => {
     if (error) respondWithInvalidBoardId(res, error);
 
-    const exportHost = process.env.EXPORT_URL_HOST;
-    const exportPort = process.env.EXPORT_URL_PORT;
+    const exportHost: string = process.env.EXPORT_URL_HOST || "localhost";
+    const exportPort: number = +(process.env.EXPORT_URL_PORT || 3000);
     const browser = await puppeteer.launch({
       defaultViewport: { width, height },
       args: ["--no-sandbox", "--disable-setuid-sandbox"],

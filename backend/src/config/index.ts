@@ -1,6 +1,4 @@
 import chalk from "chalk";
-import { resolve } from "path";
-import { config } from "dotenv";
 
 const DEVELOPMENT = "DEVELOPMENT";
 const PRODUCTION = "PRODUCTION";
@@ -10,7 +8,11 @@ const env = process.env.NODE_ENV || DEVELOPMENT;
 console.log(chalk`{blue.bold [INFO] ENV is ${env}}`);
 
 if (env === DEVELOPMENT) {
-  config({ path: resolve(__dirname, "./env/dev.env") });
+  process.env.PORT = "3001";
+  process.env.EXPORT_URL_PORT = "3000";
+  process.env.EXPORT_URL_HOST = "localhost";
 } else if (env === PRODUCTION) {
-  config({ path: resolve(__dirname, "./env/prod.env") });
+  process.env.PORT = "3001";
+  process.env.EXPORT_URL_PORT = "3000";
+  process.env.EXPORT_URL_HOST = "localhost";
 }
