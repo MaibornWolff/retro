@@ -11,11 +11,19 @@ import { RetroColumn } from "../models/RetroColumn";
 import { PokerState } from "../models/PokerState";
 
 export function getPath(id: string): string {
-  return path.resolve(__dirname, `../../storage/${id}.json`);
+  if (process.env.NODE_ENV === "PRODUCTION") {
+    return path.resolve(__dirname, `../../../storage/${id}.json`);
+  } else {
+    return path.resolve(__dirname, `../../storage/${id}.json`);
+  }
 }
 
 export function getImg(id: string): string {
-  return path.resolve(__dirname, `../../storage/${id}.png`);
+  if (process.env.NODE_ENV === "PRODUCTION") {
+    return path.resolve(__dirname, `../../../storage/${id}.png`);
+  } else {
+    return path.resolve(__dirname, `../../storage/${id}.png`);
+  }
 }
 
 export function getRetroBoard(jsonContent: string): RetroBoard | null {
