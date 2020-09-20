@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "Retro",
-      "script": "dist/server.js",
+      "script": "dist/src/server.js",
       "watch": "dist/",
       "ignore_watch": "storage/",
       "log_date_format": "YYYY-MM-DD HH:mm Z"
