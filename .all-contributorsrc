@@ -58,6 +58,19 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "yduman",
+      "name": "Yadullah Duman",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/11931774?v=4",
+      "profile": "https://yduman.github.io/",
+      "contributions": [
+        "code",
+        "maintenance",
+        "projectManagement",
+        "review",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
