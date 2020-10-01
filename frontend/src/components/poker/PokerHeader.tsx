@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AppBar, makeStyles, Toolbar, Typography } from "@material-ui/core";
 
 import ShareSessionButton from "../common/ShareSessionButton";
+import PokerSettingsButton from "./PokerSettingsButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,7 @@ export default function PokerHeader() {
             </Link>
           </Typography>
           <ShareSessionButton />
+          <PokerSettingsButton />
         </Toolbar>
       </AppBar>
     </div>

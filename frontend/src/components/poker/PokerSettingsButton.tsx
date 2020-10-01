@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Button, Menu, Typography, makeStyles } from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
-import UnblurCardsButton from "./UnblurCardsButton";
-import VoteCountButton from "./VoteCountButton";
-import ExportBoardButton from "./ExportBoardButton";
-import ExportTemplateButton from "./ExportTemplateButton";
-import QrCodeButton from "./QrCodeButton";
+import { makeStyles } from "@material-ui/core/styles";
+import { Button, Menu, Typography } from "@material-ui/core";
+
+import PokerPointsSetupButton from "./PokerPointsSetupButton";
 
 const useStyles = makeStyles(() => ({
   settingsButton: {
@@ -13,7 +11,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function SettingsButton() {
+export default function PokerSettingsButton() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -32,8 +30,8 @@ export default function SettingsButton() {
         color="inherit"
         variant="text"
         className={classes.settingsButton}
-        aria-label="board settings"
-        aria-controls="settings-appbar"
+        aria-label="poker-settings"
+        aria-controls="poker-settings-appbar"
         aria-haspopup="true"
         onClick={handleSettings}
         startIcon={<SettingsIcon />}
@@ -42,7 +40,9 @@ export default function SettingsButton() {
       </Button>
       <Menu
         keepMounted
-        id="settings-appbar"
+        id="poker-settings-appbar"
+        open={open}
+        onClose={handleClose}
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: "top",
@@ -52,15 +52,8 @@ export default function SettingsButton() {
           vertical: "top",
           horizontal: "right",
         }}
-        open={open}
-        onClose={handleClose}
       >
-        <UnblurCardsButton />
-        <VoteCountButton />
-        <ExportBoardButton />
-        <ExportTemplateButton />
-        {/* <ContinueDiscussionButton /> */}
-        <QrCodeButton />
+        <PokerPointsSetupButton />
       </Menu>
     </>
   );
