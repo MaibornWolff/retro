@@ -50,7 +50,7 @@ $ cd frontend && npm run start && cd ..
 
 ## Branching
 
-- The `master` branch is always the latest development stage
+- The `master` branch is the latest development stage
 - Stable releases are tagged with their respective version number
 - There might be feature branches that contain new experimental stuff
 
