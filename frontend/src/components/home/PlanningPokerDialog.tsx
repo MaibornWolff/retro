@@ -15,6 +15,7 @@ import PeopleIcon from "@material-ui/icons/People";
 import { nanoid } from "nanoid";
 import { useHistory } from "react-router-dom";
 import { postData } from "../../utils";
+import { POKER_UNIT_FIBONACCI } from "../../constants/poker.constants";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -58,6 +59,11 @@ export default function PlanningPokerDialog() {
     const newPokerState = {
       pokerId,
       story: { storyTitle: "", storyUrl: "" },
+      pokerUnit: {
+        unitType: POKER_UNIT_FIBONACCI,
+        unitRangeLow: 0,
+        unitRangeHigh: 34,
+      },
       participants: [],
       error: false,
     };

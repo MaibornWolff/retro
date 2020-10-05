@@ -23,6 +23,7 @@ import {
   POKER_ROLE_MODERATOR,
   POKER_ROLE_PARTICIPANT,
 } from "../../utils/poker.utils";
+import { usePokerStore } from "../../hooks/poker.hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,8 +34,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// TODO: remove setPoker() calls if zustand works
 export default function PokerPage() {
-  const [poker, setPoker] = useState<Poker>(defaultPoker);
+  // const [poker, setPoker] = useState<Poker>(defaultPoker);
+  const poker = usePokerStore();
   const [flip, setFlip] = useState(false);
   const { pokerId, socket, createPokerRole, resetPokerVotes } = useContext(
     PokerContext
@@ -68,11 +71,13 @@ export default function PokerPage() {
         createPokerRole(pokerId, POKER_ROLE_PARTICIPANT);
       }
 
-      setPoker(pokerState);
+      poker.setPokerState(pokerState);
+      // setPoker(pokerState);
     });
 
     socket.on(UPDATE_POKER_STATE, (newPokerState: Poker) => {
-      setPoker(newPokerState);
+      poker.setPokerState(newPokerState);
+      // setPoker(newPokerState);
     });
 
     socket.on(SHOW_POKER_RESULTS, () => {
@@ -82,15 +87,18 @@ export default function PokerPage() {
     socket.on(UPDATE_AND_RESET_POKER_STATE, (newPokerState: Poker) => {
       resetPokerVotes(pokerId);
       setFlip(false);
-      setPoker(newPokerState);
+      poker.setPokerState(newPokerState);
+      // setPoker(newPokerState);
     });
 
     socket.on(POKER_ERROR, () => {
-      setPoker({ ...poker, error: true });
+      poker.setPokerError();
+      // setPoker({ ...poker, error: true });
     });
 
     socket.on(JOIN_POKER_ERROR, () => {
-      setPoker({ ...poker, error: true });
+      poker.setPokerError();
+      // setPoker({ ...poker, error: true });
     });
 
     return () => {

@@ -20,7 +20,7 @@ interface PokerVoteDialogProps {
   userId: string;
 }
 
-const marks = getFibonacciMarks();
+const marks = getFibonacciMarks(0, 34);
 
 function valueText(value: number) {
   return `${value}`;

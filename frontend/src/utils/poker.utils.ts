@@ -31,43 +31,59 @@ export function createPokerUser(pokerId: string, userId: string, role: string) {
   );
 }
 
-export function getFibonacciMarks() {
+function getFibonacciRange(low: number, high: number) {
+  let f1 = 0,
+    f2 = 1,
+    f3 = 1;
+  const result: number[] = [];
+
+  result.push(f1);
+  result.push(f2);
+
+  while (f1 <= high) {
+    result.push(f1);
+    if (f1 >= low) {
+      f1 = f2;
+      f2 = f3;
+      f3 = f1 + f2;
+    }
+  }
+
+  return Array.from(new Set(result));
+}
+
+type Mark = { value: any; label: string };
+
+export function getFibonacciMarks(low: number, high: number) {
+  const marks: Mark[] = [];
+  const fibonacciNumbers = getFibonacciRange(low, high);
+  fibonacciNumbers.forEach((num) =>
+    marks.push({ value: num, label: String(num) })
+  );
+  return marks;
+}
+
+export function getTShirtSizesMarks() {
   return [
     {
-      value: 0,
-      label: "0",
+      value: "XS",
+      label: "XS",
     },
     {
-      value: 1,
-      label: "1",
+      value: "S",
+      label: "S",
     },
     {
-      value: 2,
-      label: "2",
+      value: "M",
+      label: "M",
     },
     {
-      value: 3,
-      label: "3",
+      value: "L",
+      label: "L",
     },
     {
-      value: 5,
-      label: "5",
-    },
-    {
-      value: 8,
-      label: "8",
-    },
-    {
-      value: 13,
-      label: "13",
-    },
-    {
-      value: 21,
-      label: "21",
-    },
-    {
-      value: 34,
-      label: "34",
+      value: "XL",
+      label: "XL",
     },
   ];
 }

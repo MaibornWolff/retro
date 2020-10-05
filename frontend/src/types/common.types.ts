@@ -38,8 +38,15 @@ export interface RetroBoard {
 export interface Poker {
   pokerId: string;
   story: PokerStory;
+  pokerUnit: PokerUnit;
   error: boolean;
   participants: PokerUser[];
+}
+
+interface PokerUnit {
+  unitType: string;
+  unitRangeLow: number;
+  unitRangeHigh: number;
 }
 
 interface PokerUser {

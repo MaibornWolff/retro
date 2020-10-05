@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import { DraggableLocation } from "react-beautiful-dnd";
+import { POKER_UNIT_FIBONACCI } from "../constants/poker.constants";
 
 export const BACKEND_DEV_HOST = "localhost";
 
@@ -32,6 +33,11 @@ export const defaultPoker = {
   story: {
     storyTitle: "",
     storyUrl: "",
+  },
+  pokerUnit: {
+    unitType: POKER_UNIT_FIBONACCI,
+    unitRangeLow: 0,
+    unitRangeHigh: 34,
   },
   participants: [],
   error: false,
