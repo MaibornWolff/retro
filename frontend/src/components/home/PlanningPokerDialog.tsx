@@ -61,7 +61,6 @@ export default function PlanningPokerDialog() {
       story: { storyTitle: "", storyUrl: "" },
       pokerUnit: {
         unitType: POKER_UNIT_FIBONACCI,
-        unitRangeLow: 0,
         unitRangeHigh: 34,
       },
       participants: [],

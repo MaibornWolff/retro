@@ -21,7 +21,12 @@ import {
 
 import { PokerContext } from "../../context/PokerContext";
 import { POKER_ROLE_MODERATOR } from "../../utils/poker.utils";
-import { POKER_UNIT_FIBONACCI } from "../../constants/poker.constants";
+import { SET_POKER_UNIT } from "../../constants/event.constants";
+import {
+  POKER_UNIT_FIBONACCI,
+  POKER_UNIT_TSHIRT,
+  POKER_UNIT_NATURAL_NUMBERS,
+} from "../../constants/poker.constants";
 
 function getValueText(value: number) {
   return `${value}`;
@@ -36,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
 const PokerPointsSetupButton = React.forwardRef((_props: any, ref: any) => {
   const [open, setOpen] = useState(false);
   const [pokerUnit, setPokerUnit] = useState("");
-  const [fibRange, setFibRange] = useState<number>(34);
-  const { pokerState } = useContext(PokerContext);
+  const [unitRange, setUnitRange] = useState<number>(0);
+  const { pokerState, socket, pokerId } = useContext(PokerContext);
   const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
   const classes = useStyles();
 
@@ -46,7 +51,13 @@ const PokerPointsSetupButton = React.forwardRef((_props: any, ref: any) => {
   }
 
   function closeDialog() {
+    resetState();
     setOpen(false);
+  }
+
+  function resetState() {
+    setPokerUnit("");
+    setUnitRange(0);
   }
 
   function handleUnitChange(event: React.ChangeEvent<{ value: unknown }>) {
@@ -54,12 +65,12 @@ const PokerPointsSetupButton = React.forwardRef((_props: any, ref: any) => {
   }
 
   function handleFibRangeChange(event: any, newValue: number | number[]) {
-    setFibRange(newValue as number);
+    setUnitRange(newValue as number);
   }
 
-  // TODO: implement
   function handleSubmit() {
-    console.log("clicked");
+    socket.emit(SET_POKER_UNIT, pokerUnit, unitRange, pokerId);
+    closeDialog();
   }
 
   return (
@@ -94,24 +105,27 @@ const PokerPointsSetupButton = React.forwardRef((_props: any, ref: any) => {
               value={pokerUnit}
               onChange={handleUnitChange}
             >
-              <MenuItem value={"fibonacci"}>Fibonacci</MenuItem>
-              <MenuItem value={"tshirt"}>T-Shirt Size</MenuItem>
+              <MenuItem value={POKER_UNIT_FIBONACCI}>Fibonacci</MenuItem>
+              <MenuItem value={POKER_UNIT_TSHIRT}>T-Shirt Size</MenuItem>
+              <MenuItem value={POKER_UNIT_NATURAL_NUMBERS}>
+                Natural Numbers
+              </MenuItem>
             </Select>
           </FormControl>
-          {pokerUnit === POKER_UNIT_FIBONACCI ? (
+          {pokerUnit === POKER_UNIT_TSHIRT ? null : (
             <FormControl fullWidth>
               <Typography id="range-slider" gutterBottom>
                 Choose your range
               </Typography>
               <Slider
-                value={fibRange}
+                value={unitRange}
                 onChange={handleFibRangeChange}
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
                 getAriaValueText={getValueText}
               />
             </FormControl>
-          ) : null}
+          )}
         </DialogContent>
         <DialogActions>
           <Button color="primary" onClick={closeDialog}>

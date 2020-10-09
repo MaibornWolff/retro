@@ -63,6 +63,16 @@ export function getFibonacciMarks(low: number, high: number) {
   return marks;
 }
 
+export function getPokerUnitDisplayName(unitType: string): string {
+  const dict: { [key: string]: string } = {
+    fibonacci: "Fibonacci",
+    tshirt: "T-Shirt Size",
+    naturalnumbers: "Natural Numbers",
+  };
+
+  return dict[unitType];
+}
+
 export function getTShirtSizesMarks() {
   return [
     {

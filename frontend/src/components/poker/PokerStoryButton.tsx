@@ -38,7 +38,7 @@ export default function PokerStoryButton() {
     setStoryUrl(event.target.value);
   }
 
-  function handleClose() {
+  function closeDialog() {
     setStoryTitle("");
     setStoryUrl("");
     setOpen(false);
@@ -47,7 +47,7 @@ export default function PokerStoryButton() {
   function handleSubmit() {
     const newStory = { storyTitle, storyUrl };
     socket.emit(SET_POKER_STORY, newStory, pokerId);
-    handleClose();
+    closeDialog();
   }
 
   return (
@@ -66,7 +66,7 @@ export default function PokerStoryButton() {
         maxWidth="sm"
         fullScreen={fullScreen}
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={closeDialog}
         aria-labelledby="set-story-poker-dialog-title"
       >
         <DialogTitle id="set-story-poker-dialog-title">
@@ -100,7 +100,7 @@ export default function PokerStoryButton() {
           />
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={() => setOpen(false)}>
+          <Button color="primary" onClick={closeDialog}>
             Cancel
           </Button>
           <Button color="primary" onClick={handleSubmit} disabled={isError}>

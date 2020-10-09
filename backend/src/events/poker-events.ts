@@ -18,6 +18,7 @@ import {
   SET_POKER_VOTE,
   POKER_RESET,
   UPDATE_AND_RESET_POKER_STATE,
+  SET_POKER_UNIT,
 } from "./event-names";
 
 const UTF8 = "utf8";
@@ -144,6 +145,31 @@ export function resetPoker(io: Server, client: Socket, roomId: string): void {
       }
     });
   });
+}
+
+export function setPokerUnit(io: Server, client: Socket, roomId: string): void {
+  client.on(
+    SET_POKER_UNIT,
+    (pokerUnit: string, unitRange: number, pokerId: string) => {
+      const path = getPath(pokerId);
+      fs.readFile(path, UTF8, (error, file: string) => {
+        if (error) logError(SET_POKER_UNIT, error);
+        const pokerState = getPokerState(file);
+
+        if (pokerState === null) {
+          client.emit(POKER_ERROR);
+        } else {
+          pokerState.pokerUnit.unitType = pokerUnit;
+          pokerState.pokerUnit.unitRangeHigh = unitRange;
+
+          fs.writeFile(path, stringify(pokerState), UTF8, (error) => {
+            if (error) logError(SET_POKER_UNIT, error);
+            io.to(roomId).emit(UPDATE_POKER_STATE, pokerState);
+          });
+        }
+      });
+    }
+  );
 }
 
 function resetVotes(pokerState: PokerState) {

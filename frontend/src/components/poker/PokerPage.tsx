@@ -1,11 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Grid, Link, makeStyles, Typography } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import { Redirect, useLocation, useRouteMatch } from "react-router-dom";
 import isEqual from "lodash/isEqual";
 
 import PokerHeader from "./PokerHeader";
-import PokerUser from "./PokerUser";
 import PokerActionButtons from "./PokerActionButtons";
+import PokerTitle from "./PokerTitle";
+import PokerParticipants from "./PokerParticipants";
+import { PokerContext } from "../../context/PokerContext";
+import { Poker } from "../../types/common.types";
+import { defaultPoker } from "../../utils";
+import { usePokerStore } from "../../hooks/poker.hooks";
+import {
+  getPokerUser,
+  POKER_ROLE_MODERATOR,
+  POKER_ROLE_PARTICIPANT,
+} from "../../utils/poker.utils";
 import {
   CONNECT,
   JOIN_POKER,
@@ -15,15 +25,6 @@ import {
   SHOW_POKER_RESULTS,
   UPDATE_AND_RESET_POKER_STATE,
 } from "../../constants/event.constants";
-import { PokerContext } from "../../context/PokerContext";
-import { Poker } from "../../types/common.types";
-import { defaultPoker } from "../../utils";
-import {
-  getPokerUser,
-  POKER_ROLE_MODERATOR,
-  POKER_ROLE_PARTICIPANT,
-} from "../../utils/poker.utils";
-import { usePokerStore } from "../../hooks/poker.hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -111,6 +112,8 @@ export default function PokerPage() {
     return <Redirect to={"/error"} />;
   }
 
+  console.log(poker);
+
   return (
     <div>
       <PokerHeader />
@@ -122,29 +125,13 @@ export default function PokerPage() {
       >
         <PokerActionButtons />
         <Grid item xs={12}>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
-            <Typography variant="h4" className={classes.storyTitle}>
-              <Link
-                href={poker.story.storyUrl}
-                target="_blank"
-                rel="nofollow noreferrer"
-              >
-                {poker.story.storyTitle}
-              </Link>
-            </Typography>
-          </Grid>
+          <PokerTitle
+            storyTitle={poker.story.storyTitle}
+            storyUrl={poker.story.storyUrl}
+          />
         </Grid>
         <Grid item xs={12}>
-          <Grid container direction="row" justify="center" alignItems="center">
-            {poker.participants.map((user, index) => {
-              return <PokerUser key={index} user={user} isFlipped={flip} />;
-            })}
-          </Grid>
+          <PokerParticipants participants={poker.participants} flip={flip} />
         </Grid>
       </Grid>
     </div>

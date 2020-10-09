@@ -12,14 +12,12 @@ type PokerState = {
   setPokerError: () => void;
 };
 
-// TODO: remove low edge since this will be always 0
 type PokerUnit = {
   unitType: string;
-  unitRangeLow: number;
   unitRangeHigh: number;
 };
 
-type PokerUser = {
+export type PokerUser = {
   id: string;
   role: string;
   name: string;
@@ -40,7 +38,6 @@ export const usePokerStore = create<PokerState>((set) => ({
   },
   pokerUnit: {
     unitType: POKER_UNIT_FIBONACCI,
-    unitRangeLow: 0,
     unitRangeHigh: 34,
   },
   participants: [],

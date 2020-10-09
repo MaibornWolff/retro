@@ -1,7 +1,14 @@
 export type PokerState = {
   pokerId: string;
   story: PokerStory;
+  pokerUnit: PokerUnit;
+  error: boolean;
   participants: PokerParticipant[];
+};
+
+export type PokerUnit = {
+  unitType: string;
+  unitRangeHigh: number;
 };
 
 export type PokerStory = {

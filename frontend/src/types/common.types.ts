@@ -45,7 +45,6 @@ export interface Poker {
 
 interface PokerUnit {
   unitType: string;
-  unitRangeLow: number;
   unitRangeHigh: number;
 }
 
