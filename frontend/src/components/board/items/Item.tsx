@@ -12,19 +12,17 @@ type ItemProps = {
   isVoted: boolean;
 };
 
-// TODO: check if isDragging is needed
 function Item(props: ItemProps) {
   const { item, index, openSnackbar, isVoted } = props;
   const { id, author, content, points, isBlurred } = item;
 
   return (
     <Draggable draggableId={id} index={index}>
-      {(provided /*, snapshot*/) => (
+      {(provided) => (
         <ItemContainer
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          // isDragging={snapshot.isDragging}
         >
           <RetroItem
             id={id}
