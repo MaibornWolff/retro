@@ -4,12 +4,12 @@ import { Grid } from "@material-ui/core";
 import { PokerUser as PokerUserType } from "../../hooks/poker.hooks";
 import PokerUser from "./PokerUser";
 
-interface PokerParticipantsProps {
+interface PokerUsersProps {
   participants: PokerUserType[];
   flip: boolean;
 }
 
-export default function PokerParticipants(props: PokerParticipantsProps) {
+export default function PokerUsers(props: PokerUsersProps) {
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       {props.participants.map((user, index) => {

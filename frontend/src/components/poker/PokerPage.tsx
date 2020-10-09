@@ -6,7 +6,7 @@ import isEqual from "lodash/isEqual";
 import PokerHeader from "./PokerHeader";
 import PokerActionButtons from "./PokerActionButtons";
 import PokerTitle from "./PokerTitle";
-import PokerParticipants from "./PokerParticipants";
+import PokerUsers from "./PokerUsers";
 import { PokerContext } from "../../context/PokerContext";
 import { Poker } from "../../types/common.types";
 import { defaultPoker } from "../../utils";
@@ -131,7 +131,7 @@ export default function PokerPage() {
           />
         </Grid>
         <Grid item xs={12}>
-          <PokerParticipants participants={poker.participants} flip={flip} />
+          <PokerUsers participants={poker.participants} flip={flip} />
         </Grid>
       </Grid>
     </div>
