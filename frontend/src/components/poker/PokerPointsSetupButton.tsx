@@ -115,7 +115,7 @@ const PokerPointsSetupButton = React.forwardRef((_props: any, ref: any) => {
           {pokerUnit === POKER_UNIT_TSHIRT ? null : (
             <FormControl fullWidth>
               <Typography id="range-slider" gutterBottom>
-                Choose your range
+                Choose your maximum value
               </Typography>
               <Slider
                 value={unitRange}

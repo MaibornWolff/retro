@@ -1,6 +1,8 @@
 export const POKER_ROLE_MODERATOR = "moderator";
 export const POKER_ROLE_PARTICIPANT = "participant";
 
+export type Mark = { value: any; label: string };
+
 export function getPokerUser(pokerId: string) {
   const user = sessionStorage.getItem(pokerId);
 
@@ -31,32 +33,9 @@ export function createPokerUser(pokerId: string, userId: string, role: string) {
   );
 }
 
-function getFibonacciRange(low: number, high: number) {
-  let f1 = 0,
-    f2 = 1,
-    f3 = 1;
-  const result: number[] = [];
-
-  result.push(f1);
-  result.push(f2);
-
-  while (f1 <= high) {
-    result.push(f1);
-    if (f1 >= low) {
-      f1 = f2;
-      f2 = f3;
-      f3 = f1 + f2;
-    }
-  }
-
-  return Array.from(new Set(result));
-}
-
-type Mark = { value: any; label: string };
-
-export function getFibonacciMarks(low: number, high: number) {
+export function getFibonacciMarks(maxRange: number) {
   const marks: Mark[] = [];
-  const fibonacciNumbers = getFibonacciRange(low, high);
+  const fibonacciNumbers = getFibonacciRange(maxRange);
   fibonacciNumbers.forEach((num) =>
     marks.push({ value: num, label: String(num) })
   );
@@ -76,26 +55,51 @@ export function getPokerUnitDisplayName(unitType: string): string {
 export function getTShirtSizesMarks() {
   return [
     {
-      value: "XS",
+      value: 0,
       label: "XS",
     },
     {
-      value: "S",
+      value: 1,
       label: "S",
     },
     {
-      value: "M",
+      value: 2,
       label: "M",
     },
     {
-      value: "L",
+      value: 3,
       label: "L",
     },
     {
-      value: "XL",
+      value: 4,
       label: "XL",
     },
+    {
+      value: 5,
+      label: "XXL",
+    },
   ];
+}
+
+function getFibonacciRange(maxRange: number) {
+  let f1 = 0,
+    f2 = 1,
+    f3 = 1;
+  const result: number[] = [];
+
+  result.push(f1);
+  result.push(f2);
+
+  while (f1 <= maxRange) {
+    result.push(f1);
+    if (f1 >= 0) {
+      f1 = f2;
+      f2 = f3;
+      f3 = f1 + f2;
+    }
+  }
+
+  return Array.from(new Set(result));
 }
 
 function saveToSessionStorage(pokerId: string, data: string) {

@@ -35,9 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// TODO: remove setPoker() calls if zustand works
 export default function PokerPage() {
-  // const [poker, setPoker] = useState<Poker>(defaultPoker);
   const poker = usePokerStore();
   const [flip, setFlip] = useState(false);
   const { pokerId, socket, createPokerRole, resetPokerVotes } = useContext(
@@ -73,12 +71,10 @@ export default function PokerPage() {
       }
 
       poker.setPokerState(pokerState);
-      // setPoker(pokerState);
     });
 
     socket.on(UPDATE_POKER_STATE, (newPokerState: Poker) => {
       poker.setPokerState(newPokerState);
-      // setPoker(newPokerState);
     });
 
     socket.on(SHOW_POKER_RESULTS, () => {
@@ -89,17 +85,14 @@ export default function PokerPage() {
       resetPokerVotes(pokerId);
       setFlip(false);
       poker.setPokerState(newPokerState);
-      // setPoker(newPokerState);
     });
 
     socket.on(POKER_ERROR, () => {
       poker.setPokerError();
-      // setPoker({ ...poker, error: true });
     });
 
     socket.on(JOIN_POKER_ERROR, () => {
       poker.setPokerError();
-      // setPoker({ ...poker, error: true });
     });
 
     return () => {
@@ -111,8 +104,6 @@ export default function PokerPage() {
   if (poker.error) {
     return <Redirect to={"/error"} />;
   }
-
-  console.log(poker);
 
   return (
     <div>

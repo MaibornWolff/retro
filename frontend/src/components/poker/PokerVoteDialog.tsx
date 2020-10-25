@@ -5,14 +5,21 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Slider,
   Typography,
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import { getFibonacciMarks } from "../../utils/poker.utils";
 import { PokerContext } from "../../context/PokerContext";
 import { SET_POKER_VOTE } from "../../constants/event.constants";
+import { usePokerStore } from "../../hooks/poker.hooks";
+import { PokerFibonacciSlider } from "./sliders/PokerFibonacciSlider";
+import { PokerNaturalNumbersSlider } from "./sliders/PokerNaturalNumbersSlider";
+import { PokerTShirtSlider } from "./sliders/PokerTShirtSlider";
+import {
+  POKER_UNIT_FIBONACCI,
+  POKER_UNIT_NATURAL_NUMBERS,
+  POKER_UNIT_TSHIRT,
+} from "../../constants/poker.constants";
 
 interface PokerVoteDialogProps {
   open: boolean;
@@ -20,13 +27,12 @@ interface PokerVoteDialogProps {
   userId: string;
 }
 
-const marks = getFibonacciMarks(0, 34);
-
 function valueText(value: number) {
   return `${value}`;
 }
 
 export default function PokerVoteDialog(props: PokerVoteDialogProps) {
+  const pokerUnit = usePokerStore((state) => state.pokerUnit);
   const { open, setOpen, userId } = props;
   const { pokerId, socket, setPokerVote } = useContext(PokerContext);
   const [vote, setVote] = useState<number | Array<number>>(0);
@@ -47,6 +53,31 @@ export default function PokerVoteDialog(props: PokerVoteDialogProps) {
     handleClose();
   }
 
+  function renderSlider() {
+    switch (pokerUnit.unitType) {
+      case POKER_UNIT_FIBONACCI:
+        return (
+          <PokerFibonacciSlider
+            maxValue={pokerUnit.unitRangeHigh}
+            onChange={handleSliderChange}
+            valueText={valueText}
+          />
+        );
+      case POKER_UNIT_NATURAL_NUMBERS:
+        return (
+          <PokerNaturalNumbersSlider
+            maxValue={pokerUnit.unitRangeHigh}
+            onChange={handleSliderChange}
+            valueText={valueText}
+          />
+        );
+      case POKER_UNIT_TSHIRT:
+        return <PokerTShirtSlider onChange={handleSliderChange} />;
+      default:
+        return null;
+    }
+  }
+
   return (
     <Dialog
       fullWidth
@@ -63,18 +94,7 @@ export default function PokerVoteDialog(props: PokerVoteDialogProps) {
         <Typography id="vote-slider-label" gutterBottom>
           Estimation
         </Typography>
-        <Slider
-          color="primary"
-          defaultValue={0}
-          onChange={handleSliderChange}
-          getAriaValueText={valueText}
-          aria-labelledby="vote-slider-label"
-          step={null}
-          valueLabelDisplay="auto"
-          marks={marks}
-          min={0}
-          max={34}
-        />
+        {renderSlider()}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
