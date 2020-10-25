@@ -1,14 +1,25 @@
 # Changelog
 
-## [Unreleased]
+## [0.4.1] - 2020-10-25
 
 ### Added
 
+- **Change Planning Poker Units**
+  - Previously, Retro was just supporting planning poker for fibonacci numbers from 0 to 34. Now, the moderator can decide between three unit types and their maximum value. The unit types are fibonacci numbers, natural numbers and T-Shirt sizes. The allowed maximum value for the first two is 100 and T-Shirt sizes go from XS to XXL.
+- **Usage of zustand**
+  - Added the library [zustand](https://github.com/pmndrs/zustand), in order to explore it for the planning poker page. It handles state management really well and will probably be adopted into the board page as well.
+
 ### Changed
+
+- Usage of React 17 and ESLint 7
 
 ### Fixed
 
+- Multiple fixes regarding TypeScript deployment
+
 ### Removed
+
+- `supertest` library from backend, since there was no usage
 
 ## [0.4.0] - 2020-09-19
 
@@ -234,7 +245,8 @@
 - Combine two cards
 - Upvote cards
 
-[Unreleased]: https://github.com/yduman/retro/compare/0.4.0...master
+[Unreleased]: https://github.com/yduman/retro/compare/0.4.1...master
+[0.4.1]: https://github.com/yduman/retro/releases/tag/0.4.1
 [0.4.0]: https://github.com/yduman/retro/releases/tag/0.4.0
 [0.3.5]: https://github.com/yduman/retro/releases/tag/0.3.5
 [0.3.4]: https://github.com/yduman/retro/releases/tag/0.3.4
