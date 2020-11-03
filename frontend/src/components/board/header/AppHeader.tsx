@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   bar: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.secondary.main,
   },
   brand: {
     flexGrow: 1,
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     textDecoration: "none",
-    color: theme.palette.primary.contrastText,
+    color: theme.palette.primary.main,
   },
 }));
 

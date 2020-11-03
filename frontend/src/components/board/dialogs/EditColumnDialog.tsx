@@ -77,11 +77,11 @@ export default function EditColumnDialog() {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeEditColumnDialog} color="primary">
+        <Button onClick={closeEditColumnDialog} color="inherit">
           Cancel
         </Button>
-        <Button onClick={handleClick} color="primary" disabled={!input.isValid}>
-          Save
+        <Button onClick={handleClick} color="inherit" disabled={!input.isValid}>
+          Edit
         </Button>
       </DialogActions>
     </Dialog>

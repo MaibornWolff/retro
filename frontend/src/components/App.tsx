@@ -1,6 +1,7 @@
 import React from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import HomePage from "./home/HomePage";
 import BoardPage from "./board/BoardPage";
@@ -10,9 +11,11 @@ import BoardContextProvider from "../context/BoardContext";
 import UserContextProvider from "../context/UserContext";
 import DialogContextProvider from "../context/DialogContext";
 import PokerContextProvider from "../context/PokerContext";
+import { grey } from "@material-ui/core/colors";
 
-const theme = createMuiTheme({
+const lightTheme = createMuiTheme({
   palette: {
+    type: "light",
     primary: {
       main: "#424956",
       light: "#6d7483",
@@ -28,9 +31,22 @@ const theme = createMuiTheme({
   },
 });
 
+const darkTheme = createMuiTheme({
+  palette: {
+    type: "dark",
+    primary: {
+      main: grey["100"],
+    },
+    secondary: {
+      main: grey["800"],
+    },
+  },
+});
+
 export default function App() {
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
       <Router>
         <Switch>
           <Route path="/" exact component={HomePage} />
@@ -59,6 +75,6 @@ export default function App() {
           <Route component={ErrorPage} />
         </Switch>
       </Router>
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 }

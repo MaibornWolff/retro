@@ -44,7 +44,7 @@ export default function ShareSessionButton() {
     <>
       <Button
         variant="text"
-        color="inherit"
+        color="primary"
         aria-label="Share this session"
         onClick={handleClick}
         className={classes.button}

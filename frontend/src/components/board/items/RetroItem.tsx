@@ -43,18 +43,18 @@ type RetroItemProps = {
 const useStyles = makeStyles((theme) => ({
   avatar: {
     color: theme.palette.primary.contrastText,
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.primary.main,
   },
   avatarVoted: {
-    color: theme.palette.secondary.contrastText,
-    backgroundColor: theme.palette.secondary.light,
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.main,
   },
   actions: {
     display: "flex",
     justifyContent: "flex-end",
   },
   card: {
-    border: "1px solid lightgrey",
+    border: `1px solid ${theme.palette.secondary.light}`,
   },
   cardHeader: {
     padding: "8px",
@@ -67,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
   },
   downVoteButton: {
     marginTop: theme.spacing(1),
-    color: theme.palette.primary.main,
   },
   likeButton: {
     marginLeft: "auto",
@@ -141,6 +140,7 @@ function RetroItem(props: RetroItemProps) {
     <CardWrapper isBlurred={blurStatus}>
       <CardContainer>
         <Card
+          elevation={20}
           onMouseEnter={(event) => handleHover(event, true)}
           onMouseLeave={(event) => handleHover(event, false)}
           className={
@@ -180,7 +180,7 @@ function RetroItem(props: RetroItemProps) {
               <IconButton
                 className={classes.downVoteButton}
                 size="small"
-                color="primary"
+                color="inherit"
                 onClick={downVote}
               >
                 <ThumbDownIcon fontSize="small" />

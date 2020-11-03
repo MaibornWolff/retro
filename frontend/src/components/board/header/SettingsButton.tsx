@@ -29,7 +29,7 @@ export default function SettingsButton() {
   return (
     <>
       <Button
-        color="inherit"
+        color="primary"
         variant="text"
         className={classes.settingsButton}
         aria-label="board settings"
