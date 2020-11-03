@@ -97,17 +97,16 @@ function RetroItem(props: RetroItemProps) {
     openSnackbar();
   }
 
-  // keycode for "f" is 102
-  // keycode for "F" is 70
   function handleFocus(event: KeyboardEvent) {
     const role = userState.role;
 
     if (role === ROLE_MODERATOR) {
-      if (hasMouseFocus && event.keyCode === 102) {
+      if (hasMouseFocus && event.key === "f" && event.code === "KeyF") {
         socket.emit(FOCUS_CARD, id);
       } else if (
         event.shiftKey &&
-        event.keyCode === 70 &&
+        event.key === "F" &&
+        event.code === "KeyF" &&
         boardState.focusedCard !== ""
       ) {
         socket.emit(REMOVE_FOCUS_CARD);
