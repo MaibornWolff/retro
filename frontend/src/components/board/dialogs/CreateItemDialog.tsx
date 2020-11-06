@@ -128,12 +128,12 @@ export default function CreateItemDialog() {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={handleClose} color="inherit">
           Cancel
         </Button>
         <Button
           onClick={handleSubmit}
-          color="primary"
+          color="inherit"
           disabled={!authorInput.isValid || !contentInput.isValid}
         >
           Create

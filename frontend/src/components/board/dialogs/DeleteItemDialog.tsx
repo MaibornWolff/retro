@@ -51,7 +51,7 @@ export default function DeleteItemDialog() {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeDeleteItemDialog} color="primary">
+        <Button onClick={closeDeleteItemDialog} color="inherit">
           Cancel
         </Button>
         <Button

@@ -8,6 +8,7 @@ import PokerPointsSetupButton from "./PokerPointsSetupButton";
 const useStyles = makeStyles(() => ({
   settingsButton: {
     textTransform: "none",
+    color: "white",
   },
 }));
 
@@ -27,7 +28,6 @@ export default function PokerSettingsButton() {
   return (
     <>
       <Button
-        color="inherit"
         variant="text"
         className={classes.settingsButton}
         aria-label="poker-settings"

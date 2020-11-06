@@ -119,12 +119,12 @@ export default function EditItemDialog() {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeEditItemDialog} color="primary">
+        <Button onClick={closeEditItemDialog} color="inherit">
           Cancel
         </Button>
         <Button
           onClick={handleClick}
-          color="primary"
+          color="inherit"
           disabled={!authorInput.isValid || !contentInput.isValid}
         >
           Save

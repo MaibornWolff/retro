@@ -1,3 +1,5 @@
+import { Theme } from "@material-ui/core";
+
 export interface Action {
   type: string;
 }
@@ -137,4 +139,10 @@ export interface PokerContextValues {
   createPokerRole: (pokerId: string, role: string) => void;
   setPokerVote: (pokerId: string, vote: number) => void;
   resetPokerVotes: (pokerId: string) => void;
+}
+
+export interface ColorThemeContextValues {
+  currentTheme: Theme;
+  setDarkTheme: () => void;
+  setLightTheme: () => void;
 }

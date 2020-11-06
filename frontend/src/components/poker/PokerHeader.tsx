@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AppBar, makeStyles, Toolbar, Typography } from "@material-ui/core";
 
+import ToggleThemeButton from "../common/ToggleThemeButton";
 import ShareSessionButton from "../common/ShareSessionButton";
 import PokerSettingsButton from "./PokerSettingsButton";
 
@@ -10,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   bar: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.secondary.main,
   },
   brand: {
     flexGrow: 1,
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     textDecoration: "none",
-    color: theme.palette.primary.contrastText,
+    color: "white",
   },
 }));
 
@@ -34,6 +35,7 @@ export default function PokerHeader() {
               Planning Poker
             </Link>
           </Typography>
+          <ToggleThemeButton />
           <ShareSessionButton />
           <PokerSettingsButton />
         </Toolbar>

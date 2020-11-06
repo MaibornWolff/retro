@@ -96,6 +96,6 @@ export const ItemsContainerStyles = css<StyledProps>`
   flex: 1;
   padding: 0.2em;
   ${media.tablet`padding: 1em;`}
-  background-color: ${(p) => (p.isDraggingOver ? "#dcdcdc" : "inherit")};
+  /* background-color: ${(p) => (p.isDraggingOver ? "#dcdcdc" : "inherit")}; */
   transition: background-color 0.2s ease;
 `;

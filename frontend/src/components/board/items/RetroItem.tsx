@@ -9,6 +9,7 @@ import {
   CardHeader,
   Divider,
   IconButton,
+  Theme,
   Typography,
 } from "@material-ui/core";
 
@@ -29,6 +30,7 @@ import {
   VOTE_CARD,
 } from "../../../constants/event.constants";
 import { ROLE_MODERATOR } from "../../../utils/user.utils";
+import { ColorThemeContext } from "../../../context/ColorThemeContext";
 
 type RetroItemProps = {
   id: string;
@@ -40,22 +42,30 @@ type RetroItemProps = {
   openSnackbar: () => void;
 };
 
+const getCardBorderColor = (colorTheme: Theme, theme: Theme) => {
+  if (colorTheme.palette.type === "dark") {
+    return theme.palette.secondary.light;
+  } else {
+    return "lightgrey";
+  }
+};
+
 const useStyles = makeStyles((theme) => ({
   avatar: {
-    color: theme.palette.primary.contrastText,
-    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.secondary.contrastText,
+    backgroundColor: theme.palette.secondary.dark,
   },
   avatarVoted: {
-    color: theme.palette.secondary.contrastText,
-    backgroundColor: theme.palette.secondary.light,
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.dark,
   },
   actions: {
     display: "flex",
     justifyContent: "flex-end",
   },
-  card: {
-    border: "1px solid lightgrey",
-  },
+  card: (colorTheme: Theme) => ({
+    border: `1px solid ${getCardBorderColor(colorTheme, theme)}`,
+  }),
   cardHeader: {
     padding: "8px",
   },
@@ -67,7 +77,6 @@ const useStyles = makeStyles((theme) => ({
   },
   downVoteButton: {
     marginTop: theme.spacing(1),
-    color: theme.palette.primary.main,
   },
   likeButton: {
     marginLeft: "auto",
@@ -88,7 +97,9 @@ function RetroItem(props: RetroItemProps) {
   const [hasMouseFocus, setMouseFocus] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);
   const { userState, downvoteCard } = useContext(UserContext);
-  const classes = useStyles();
+  const { currentTheme } = useContext(ColorThemeContext);
+  console.log(currentTheme);
+  const classes = useStyles(currentTheme);
 
   function downVote() {
     const votesLeft = userState.votesLeft;
@@ -141,6 +152,7 @@ function RetroItem(props: RetroItemProps) {
     <CardWrapper isBlurred={blurStatus}>
       <CardContainer>
         <Card
+          elevation={20}
           onMouseEnter={(event) => handleHover(event, true)}
           onMouseLeave={(event) => handleHover(event, false)}
           className={
@@ -180,7 +192,7 @@ function RetroItem(props: RetroItemProps) {
               <IconButton
                 className={classes.downVoteButton}
                 size="small"
-                color="primary"
+                color="inherit"
                 onClick={downVote}
               >
                 <ThumbDownIcon fontSize="small" />
