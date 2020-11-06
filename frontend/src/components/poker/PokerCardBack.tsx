@@ -40,12 +40,17 @@ export default function PokerCardBack(props: PokerCardBackProps) {
   return (
     <Card className={classes.root} elevation={8}>
       <CardContent>
-        <Typography variant="h4" align="center">
+        <Typography color="secondary" variant="h4" align="center">
           {pokerUnitType === POKER_UNIT_TSHIRT
             ? getTShirtSizeFromValue(userVote)
             : userVote}
         </Typography>
-        <Typography className={classes.title} gutterBottom component="span">
+        <Typography
+          color="secondary"
+          className={classes.title}
+          gutterBottom
+          component="span"
+        >
           <CardText>{userName}</CardText>
         </Typography>
       </CardContent>

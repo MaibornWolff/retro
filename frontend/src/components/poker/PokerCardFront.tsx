@@ -42,13 +42,18 @@ export default function PokerCardFront(props: PokerCardFrontProps) {
     <>
       <Card className={classes.root} elevation={8}>
         <CardContent>
-          <Typography align="center" variant="h6" component="span">
+          <Typography
+            color="secondary"
+            align="center"
+            variant="h6"
+            component="span"
+          >
             <CardText>{userName}</CardText>
           </Typography>
         </CardContent>
         <CardActions>
           <IconButton
-            color="primary"
+            color="secondary"
             aria-label="vote"
             disabled={userId !== pokerState.id}
             onClick={() => setOpen(true)}

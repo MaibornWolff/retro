@@ -9,6 +9,7 @@ import {
   CardHeader,
   Divider,
   IconButton,
+  Theme,
   Typography,
 } from "@material-ui/core";
 
@@ -29,6 +30,7 @@ import {
   VOTE_CARD,
 } from "../../../constants/event.constants";
 import { ROLE_MODERATOR } from "../../../utils/user.utils";
+import { ColorThemeContext } from "../../../context/ColorThemeContext";
 
 type RetroItemProps = {
   id: string;
@@ -40,10 +42,18 @@ type RetroItemProps = {
   openSnackbar: () => void;
 };
 
+const getCardBorderColor = (colorTheme: Theme, theme: Theme) => {
+  if (colorTheme.palette.type === "dark") {
+    return theme.palette.secondary.light;
+  } else {
+    return "lightgrey";
+  }
+};
+
 const useStyles = makeStyles((theme) => ({
   avatar: {
-    color: theme.palette.primary.contrastText,
-    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.secondary.contrastText,
+    backgroundColor: theme.palette.secondary.dark,
   },
   avatarVoted: {
     color: theme.palette.primary.contrastText,
@@ -53,9 +63,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-end",
   },
-  card: {
-    border: `1px solid ${theme.palette.secondary.light}`,
-  },
+  card: (colorTheme: Theme) => ({
+    border: `1px solid ${getCardBorderColor(colorTheme, theme)}`,
+  }),
   cardHeader: {
     padding: "8px",
   },
@@ -87,7 +97,9 @@ function RetroItem(props: RetroItemProps) {
   const [hasMouseFocus, setMouseFocus] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);
   const { userState, downvoteCard } = useContext(UserContext);
-  const classes = useStyles();
+  const { currentTheme } = useContext(ColorThemeContext);
+  console.log(currentTheme);
+  const classes = useStyles(currentTheme);
 
   function downVote() {
     const votesLeft = userState.votesLeft;

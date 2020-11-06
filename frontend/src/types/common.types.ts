@@ -60,3 +60,7 @@ interface PokerStory {
   storyTitle: string;
   storyUrl?: string;
 }
+
+export type DarkTheme = "dark";
+
+export type LightTheme = "light";
