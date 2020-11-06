@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatarVoted: {
     color: theme.palette.primary.contrastText,
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.dark,
   },
   actions: {
     display: "flex",

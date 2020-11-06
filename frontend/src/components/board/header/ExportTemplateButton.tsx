@@ -126,12 +126,12 @@ export default function ExportTemplateButton() {
                 >
                   <FormControlLabel
                     value="default"
-                    control={<Radio />}
+                    control={<Radio color="primary" />}
                     label="Without Items"
                   />
                   <FormControlLabel
                     value="withItems"
-                    control={<Radio />}
+                    control={<Radio color="primary" />}
                     label="With Items"
                   />
                 </RadioGroup>

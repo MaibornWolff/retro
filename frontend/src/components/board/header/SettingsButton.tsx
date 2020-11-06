@@ -10,6 +10,7 @@ import QrCodeButton from "./QrCodeButton";
 const useStyles = makeStyles(() => ({
   settingsButton: {
     textTransform: "none",
+    color: "white",
   },
 }));
 
@@ -29,7 +30,6 @@ export default function SettingsButton() {
   return (
     <>
       <Button
-        color="primary"
         variant="text"
         className={classes.settingsButton}
         aria-label="board settings"

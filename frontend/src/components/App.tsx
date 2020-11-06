@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 
 import HomePage from "./home/HomePage";
 import BoardPage from "./board/BoardPage";
@@ -11,41 +11,13 @@ import BoardContextProvider from "../context/BoardContext";
 import UserContextProvider from "../context/UserContext";
 import DialogContextProvider from "../context/DialogContext";
 import PokerContextProvider from "../context/PokerContext";
-import { grey } from "@material-ui/core/colors";
-
-const lightTheme = createMuiTheme({
-  palette: {
-    type: "light",
-    primary: {
-      main: "#424956",
-      light: "#6d7483",
-      dark: "#1b222d",
-      contrastText: "#ffffff",
-    },
-    secondary: {
-      main: "#8452bb",
-      light: "#b680ee",
-      dark: "#53268a",
-      contrastText: "#ffffff",
-    },
-  },
-});
-
-const darkTheme = createMuiTheme({
-  palette: {
-    type: "dark",
-    primary: {
-      main: grey["100"],
-    },
-    secondary: {
-      main: grey["800"],
-    },
-  },
-});
+import { ColorThemeContext } from "../context/ColorThemeContext";
 
 export default function App() {
+  const { currentTheme } = useContext(ColorThemeContext);
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={currentTheme}>
       <CssBaseline />
       <Router>
         <Switch>

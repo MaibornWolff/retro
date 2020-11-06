@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
     textTransform: "none",
+    color: "white",
   },
 }));
 
@@ -44,7 +45,6 @@ export default function ShareSessionButton() {
     <>
       <Button
         variant="text"
-        color="primary"
         aria-label="Share this session"
         onClick={handleClick}
         className={classes.button}

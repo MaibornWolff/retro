@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, makeStyles } from "@material-ui/core";
 
+import ToggleThemeButton from "../../common/ToggleThemeButton";
 import ShareSessionButton from "../../common/ShareSessionButton";
 import CreateColumnButton from "./CreateColumnButton";
 import SettingsButton from "./SettingsButton";
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     textDecoration: "none",
-    color: theme.palette.primary.main,
+    color: "white",
   },
 }));
 
@@ -35,6 +36,7 @@ export default function AppHeader() {
               Retro
             </Link>
           </Typography>
+          <ToggleThemeButton />
           <ShareSessionButton />
           <CreateColumnButton />
           <SettingsButton />

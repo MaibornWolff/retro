@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import { IconButton, makeStyles } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 
 import { BoardContext } from "../../../context/BoardContext";
 import { UserContext } from "../../../context/UserContext";
@@ -11,17 +11,10 @@ type UpvoteItemButtonProps = {
   openSnackbar: () => void;
 };
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    color: theme.palette.primary.main,
-  },
-}));
-
 export default function UpvoteItemButton(props: UpvoteItemButtonProps) {
   const { id, openSnackbar } = props;
   const { boardId, socket } = useContext(BoardContext);
   const { userState, upvoteCard } = useContext(UserContext);
-  const classes = useStyles();
 
   function upVote() {
     const votesLeft = userState.votesLeft;
@@ -34,7 +27,7 @@ export default function UpvoteItemButton(props: UpvoteItemButtonProps) {
   }
 
   return (
-    <IconButton className={classes.button} size="small" onClick={upVote}>
+    <IconButton color="inherit" size="small" onClick={upVote}>
       <ThumbUpIcon fontSize="small" />
     </IconButton>
   );

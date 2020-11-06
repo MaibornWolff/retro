@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import EditIcon from "@material-ui/icons/Edit";
-import { IconButton, makeStyles } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 
 import { DialogsContext } from "../../../context/DialogContext";
 
@@ -10,20 +10,13 @@ type EditItemButtonProps = {
   content: string;
 };
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    color: theme.palette.primary.main,
-  },
-}));
-
 export default function EditItemButton(props: EditItemButtonProps) {
   const { id, author, content } = props;
   const { openEditItemDialog } = useContext(DialogsContext);
-  const classes = useStyles();
 
   return (
     <IconButton
-      className={classes.button}
+      color="inherit"
       size="small"
       onClick={() => openEditItemDialog(id, author, content)}
     >

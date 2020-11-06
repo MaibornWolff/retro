@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
     textTransform: "none",
+    color: "white",
   },
 }));
 
@@ -80,7 +81,6 @@ export default function CreateColumnButton() {
     <div>
       <Button
         variant="text"
-        color="primary"
         aria-label="Add Column"
         onClick={openDialog}
         disabled={userState.role !== ROLE_MODERATOR}
