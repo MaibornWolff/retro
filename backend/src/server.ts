@@ -3,7 +3,7 @@ import chalk from "chalk";
 import path from "path";
 import http from "http";
 import express from "express";
-import socketio from "socket.io";
+import { Server } from "socket.io";
 import rateLimit from "express-rate-limit";
 import { json } from "body-parser";
 import cors from "cors";
@@ -16,8 +16,8 @@ import { CONNECT, DISCONNECT } from "./events/event-names";
 import { boardEvents, columnEvents, cardEvents, pokerEvents } from "./events";
 
 const app = express();
-const server = http.createServer(app);
-const io = socketio(server);
+const httpServer = http.createServer(app);
+const io = new Server(httpServer);
 const port: number = +(process.env.PORT || 3001);
 
 let publicDir = path.resolve(__dirname, "../public");
@@ -62,22 +62,22 @@ if (process.env.NODE_ENV === "PRODUCTION") {
   });
 }
 
-io.on(CONNECT, (client) => {
-  const retroRoomId = client.handshake.query.boardId;
-  const pokerRoomId = client.handshake.query.pokerId;
+io.on(CONNECT, socket => {
+  const retroRoomId = socket.handshake.query.boardId;
+  const pokerRoomId = socket.handshake.query.pokerId;
 
   if (retroRoomId) {
-    client.join(retroRoomId);
-    boardEvents(io, client, retroRoomId);
-    columnEvents(io, client, retroRoomId);
-    cardEvents(io, client, retroRoomId);
+    socket.join(retroRoomId);
+    boardEvents(io, socket, retroRoomId);
+    columnEvents(io, socket, retroRoomId);
+    cardEvents(io, socket, retroRoomId);
   } else if (pokerRoomId) {
-    client.join(pokerRoomId);
-    pokerEvents(io, client, pokerRoomId);
+    socket.join(pokerRoomId);
+    pokerEvents(io, socket, pokerRoomId);
   }
 
-  client.on(DISCONNECT, () => {
-    client.leaveAll();
+  socket.on(DISCONNECT, () => {
+    socket.leaveAll();
   });
 });
 
@@ -86,7 +86,7 @@ const job = new CronJob("0 0 * * *", () => {
   cleanStorage(storageDir);
 });
 
-server.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(chalk`{blue.bold [INFO] Listening on ${port}}`);
   job.start();
   console.log(chalk`{blue.bold [INFO] Started cronjob}`);
