@@ -62,6 +62,8 @@ if (process.env.NODE_ENV === "PRODUCTION") {
   });
 }
 
+// FIXME: io.on("connect") is not triggered anymore. No implicit connection to default namespace
+// Needs to be changed to io.of(CONNECTION_STRING_FROM_FE).use((socket, next) => {})
 io.on(CONNECT, socket => {
   const retroRoomId = socket.handshake.query.boardId;
   const pokerRoomId = socket.handshake.query.pokerId;
