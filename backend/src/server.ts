@@ -3,7 +3,7 @@ import chalk from "chalk";
 import path from "path";
 import http from "http";
 import express from "express";
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 import rateLimit from "express-rate-limit";
 import { json } from "body-parser";
 import cors from "cors";
@@ -15,9 +15,19 @@ import { cleanStorage } from "./utils/storage-clean-up";
 import { CONNECT, DISCONNECT } from "./events/event-names";
 import { boardEvents, columnEvents, cardEvents, pokerEvents } from "./events";
 
+const origin = [
+  "http://localhost:3001",
+  "http://localhost:3000",
+  process.env.MW_RETRO_DEV as string,
+  process.env.MW_RETRO_PROD as string,
+  process.env.RETRO_PUBLIC_PROD as string,
+];
+
 const app = express();
 const httpServer = http.createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  cors: { origin },
+});
 const port: number = +(process.env.PORT || 3001);
 
 let publicDir = path.resolve(__dirname, "../public");
@@ -35,17 +45,7 @@ if (process.env.NODE_ENV === "DEVELOPMENT") {
 if (process.env.NODE_ENV === "PRODUCTION") {
   publicDir = path.resolve(__dirname, "../../public");
   storageDir = path.resolve(__dirname, "../../storage");
-  app.use(
-    cors({
-      origin: [
-        "http://localhost:3001",
-        "http://localhost:3000",
-        process.env.MW_RETRO_DEV as string,
-        process.env.MW_RETRO_PROD as string,
-        process.env.RETRO_PUBLIC_PROD as string,
-      ],
-    })
-  );
+  app.use(cors({ origin }));
 }
 
 app.use(json());
@@ -62,11 +62,10 @@ if (process.env.NODE_ENV === "PRODUCTION") {
   });
 }
 
-// FIXME: io.on("connect") is not triggered anymore. No implicit connection to default namespace
-// Needs to be changed to io.of(CONNECTION_STRING_FROM_FE).use((socket, next) => {})
-io.on(CONNECT, socket => {
-  const retroRoomId = socket.handshake.query.boardId;
-  const pokerRoomId = socket.handshake.query.pokerId;
+io.on(CONNECT, (socket: Socket) => {
+  // query is of type 'object' so we need to cast it here as any
+  const retroRoomId = (socket.handshake.query as any).boardId;
+  const pokerRoomId = (socket.handshake.query as any).pokerId;
 
   if (retroRoomId) {
     socket.join(retroRoomId);
@@ -79,7 +78,8 @@ io.on(CONNECT, socket => {
   }
 
   socket.on(DISCONNECT, () => {
-    socket.leaveAll();
+    socket.leave(retroRoomId);
+    socket.leave(pokerRoomId);
   });
 });
 
