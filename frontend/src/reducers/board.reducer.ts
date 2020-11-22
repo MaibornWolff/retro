@@ -36,7 +36,7 @@ export const reducer = (state: BoardState, action: BoardAction) => {
         ...state,
         continueDiscussionVotes: {
           ...state.continueDiscussionVotes,
-          yes: state.continueDiscussionVotes.yes += 1,
+          yes: (state.continueDiscussionVotes.yes += 1),
         },
       };
     case CONTINUE_DISCUSSION_VOTE_NO:
@@ -44,7 +44,7 @@ export const reducer = (state: BoardState, action: BoardAction) => {
         ...state,
         continueDiscussionVotes: {
           ...state.continueDiscussionVotes,
-          no: state.continueDiscussionVotes.no += 1,
+          no: (state.continueDiscussionVotes.no += 1),
         },
       };
     case CONTINUE_DISCUSSION_VOTE_ABSTAIN:
@@ -52,7 +52,7 @@ export const reducer = (state: BoardState, action: BoardAction) => {
         ...state,
         continueDiscussionVotes: {
           ...state.continueDiscussionVotes,
-          abstain: state.continueDiscussionVotes.abstain += 1,
+          abstain: (state.continueDiscussionVotes.abstain += 1),
         },
       };
     default:
