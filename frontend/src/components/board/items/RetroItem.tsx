@@ -98,7 +98,6 @@ function RetroItem(props: RetroItemProps) {
   const { boardId, boardState, socket } = useContext(BoardContext);
   const { userState, downvoteCard } = useContext(UserContext);
   const { currentTheme } = useContext(ColorThemeContext);
-  console.log(currentTheme);
   const classes = useStyles(currentTheme);
 
   function downVote() {

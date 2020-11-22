@@ -3,7 +3,7 @@ import chalk from "chalk";
 import path from "path";
 import http from "http";
 import express from "express";
-import socketio from "socket.io";
+import { Server, Socket } from "socket.io";
 import rateLimit from "express-rate-limit";
 import { json } from "body-parser";
 import cors from "cors";
@@ -15,9 +15,19 @@ import { cleanStorage } from "./utils/storage-clean-up";
 import { CONNECT, DISCONNECT } from "./events/event-names";
 import { boardEvents, columnEvents, cardEvents, pokerEvents } from "./events";
 
+const origin = [
+  "http://localhost:3001",
+  "http://localhost:3000",
+  process.env.MW_RETRO_DEV as string,
+  process.env.MW_RETRO_PROD as string,
+  process.env.RETRO_PUBLIC_PROD as string,
+];
+
 const app = express();
-const server = http.createServer(app);
-const io = socketio(server);
+const httpServer = http.createServer(app);
+const io = new Server(httpServer, {
+  cors: { origin },
+});
 const port: number = +(process.env.PORT || 3001);
 
 let publicDir = path.resolve(__dirname, "../public");
@@ -35,17 +45,7 @@ if (process.env.NODE_ENV === "DEVELOPMENT") {
 if (process.env.NODE_ENV === "PRODUCTION") {
   publicDir = path.resolve(__dirname, "../../public");
   storageDir = path.resolve(__dirname, "../../storage");
-  app.use(
-    cors({
-      origin: [
-        "http://localhost:3001",
-        "http://localhost:3000",
-        process.env.MW_RETRO_DEV as string,
-        process.env.MW_RETRO_PROD as string,
-        process.env.RETRO_PUBLIC_PROD as string,
-      ],
-    })
-  );
+  app.use(cors({ origin }));
 }
 
 app.use(json());
@@ -62,22 +62,24 @@ if (process.env.NODE_ENV === "PRODUCTION") {
   });
 }
 
-io.on(CONNECT, (client) => {
-  const retroRoomId = client.handshake.query.boardId;
-  const pokerRoomId = client.handshake.query.pokerId;
+io.on(CONNECT, (socket: Socket) => {
+  // query is of type 'object' so we need to cast it here as any
+  const retroRoomId = (socket.handshake.query as any).boardId;
+  const pokerRoomId = (socket.handshake.query as any).pokerId;
 
   if (retroRoomId) {
-    client.join(retroRoomId);
-    boardEvents(io, client, retroRoomId);
-    columnEvents(io, client, retroRoomId);
-    cardEvents(io, client, retroRoomId);
+    socket.join(retroRoomId);
+    boardEvents(io, socket, retroRoomId);
+    columnEvents(io, socket, retroRoomId);
+    cardEvents(io, socket, retroRoomId);
   } else if (pokerRoomId) {
-    client.join(pokerRoomId);
-    pokerEvents(io, client, pokerRoomId);
+    socket.join(pokerRoomId);
+    pokerEvents(io, socket, pokerRoomId);
   }
 
-  client.on(DISCONNECT, () => {
-    client.leaveAll();
+  socket.on(DISCONNECT, () => {
+    socket.leave(retroRoomId);
+    socket.leave(pokerRoomId);
   });
 });
 
@@ -86,7 +88,7 @@ const job = new CronJob("0 0 * * *", () => {
   cleanStorage(storageDir);
 });
 
-server.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(chalk`{blue.bold [INFO] Listening on ${port}}`);
   job.start();
   console.log(chalk`{blue.bold [INFO] Started cronjob}`);

@@ -24,10 +24,10 @@ export function getBoard(boardId: string): Promise<RetroBoard> {
   });
 }
 
-export function saveBoard(board: RetroBoard): Promise<RetroBoard> {
-  return new Promise<RetroBoard>((resolve, reject) => {
+export function saveBoard(board: RetroBoard): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
     const boardPath = getPath(board.boardId);
-    fs.writeFile(boardPath, stringify(board), UTF8, (error) => {
+    fs.writeFile(boardPath, stringify(board), UTF8, error => {
       if (error) {
         reject(
           new Error(
