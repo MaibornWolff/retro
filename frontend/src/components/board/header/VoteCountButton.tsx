@@ -1,8 +1,5 @@
 import React, { useState, useContext } from "react";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import IncrementIcon from "@material-ui/icons/Add";
-import DecrementIcon from "@material-ui/icons/Remove";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
   Dialog,
@@ -11,12 +8,13 @@ import {
   DialogActions,
   Grid,
   Typography,
-  DialogContentText,
   useMediaQuery,
   useTheme,
   MenuItem,
   ListItemIcon,
   ListItemText,
+  Slider,
+  FormControl,
 } from "@material-ui/core";
 
 import { UserContext } from "../../../context/UserContext";
@@ -25,18 +23,15 @@ import { defaultBoard } from "../../../utils";
 import { ROLE_MODERATOR } from "../../../utils/user.utils";
 import { SET_MAX_VOTES, RESET_VOTES } from "../../../constants/event.constants";
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-}));
+function getValueText(value: number) {
+  return `${value}`;
+}
 
 export default function VoteCountButton() {
   const { boardId, socket } = useContext(BoardContext);
   const { userState, setMaxVote, resetVotes } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [voteCount, setVoteCount] = useState(getVoteCount());
-  const classes = useStyles();
   const fullScreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   function getVoteCount() {
@@ -52,21 +47,13 @@ export default function VoteCountButton() {
     setOpen(false);
   }
 
-  function incr() {
-    setVoteCount(voteCount + 1);
-  }
-
-  function decr() {
-    setVoteCount(voteCount - 1);
-  }
-
-  function isDecrementDisabled() {
-    return voteCount < 1;
-  }
-
   function handleCancel() {
     setVoteCount(getVoteCount());
     closeDialog();
+  }
+
+  function handleVoteCountChange(event: any, newValue: number | number[]) {
+    setVoteCount(newValue as number);
   }
 
   function handleSave() {
@@ -106,42 +93,29 @@ export default function VoteCountButton() {
       >
         <DialogTitle id="vote-count-dialog">Vote Count Settings</DialogTitle>
         <DialogContent>
-          <DialogContentText id="vote-count-dialog-description">
-            Set your maximum vote count or reset all votes.
-          </DialogContentText>
-          <hr />
           <Grid container direction="column" alignItems="center">
             <Grid item>
+              <FormControl fullWidth>
+                <Typography id="vote-count-label" gutterBottom>
+                  Set your maximum vote count
+                </Typography>
+                <Slider
+                  value={voteCount}
+                  onChange={handleVoteCountChange}
+                  valueLabelDisplay="auto"
+                  aria-labelledby="vote-count-slider"
+                  getAriaValueText={getValueText}
+                  min={1}
+                  max={10}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item>
               <Typography variant="body1">
-                Everybody has <strong>{voteCount}</strong> votes.
+                Everybody has <strong>{voteCount}</strong> votes
               </Typography>
             </Grid>
-            <br />
-            <Grid item>
-              <Button
-                variant="contained"
-                size="small"
-                className={classes.button}
-                aria-label="Increase Vote Count"
-                onClick={incr}
-              >
-                <IncrementIcon fontSize="small" />
-                Increase
-              </Button>
-              <Button
-                variant="contained"
-                size="small"
-                className={classes.button}
-                aria-label="Decrease Vote Count"
-                disabled={isDecrementDisabled()}
-                onClick={decr}
-              >
-                <DecrementIcon fontSize="small" />
-                Decrease
-              </Button>
-            </Grid>
           </Grid>
-          <hr />
         </DialogContent>
         <DialogActions>
           <Button color="primary" onClick={handleReset}>
