@@ -8,12 +8,11 @@ import { RetroCard } from "../../../types/common.types";
 type ItemProps = {
   item: RetroCard;
   index: number;
-  openSnackbar: () => void;
   isVoted: boolean;
 };
 
 function Item(props: ItemProps) {
-  const { item, index, openSnackbar, isVoted } = props;
+  const { item, index, isVoted } = props;
   const { id, author, content, points, isBlurred } = item;
 
   return (
@@ -31,7 +30,6 @@ function Item(props: ItemProps) {
             points={points}
             isBlurred={isBlurred}
             isVoted={isVoted}
-            openSnackbar={openSnackbar}
           />
         </ItemContainer>
       )}

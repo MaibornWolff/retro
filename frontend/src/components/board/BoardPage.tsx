@@ -7,7 +7,6 @@ import { Redirect, useLocation, useRouteMatch } from "react-router-dom";
 import AppHeader from "./header/AppHeader";
 import BoardHeader from "./BoardHeader";
 import Columns from "./columns/Columns";
-import VoteCountSnackbar from "./VoteCountSnackbar";
 import Dialogs from "./dialogs/Dialogs";
 import CreateItemDialog from "./dialogs/CreateItemDialog";
 import DeleteItemDialog from "./dialogs/DeleteItemDialog";
@@ -47,6 +46,7 @@ import {
   CONTINUE_DISCUSSION_NO,
   BOARD_ERROR,
 } from "../../constants/event.constants";
+import VoteProgress from "./VoteProgress";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -59,7 +59,6 @@ let combineResult: DropResult;
 
 export default function BoardPage() {
   const [board, setBoard] = useState(defaultBoard as RetroBoard);
-  const [isSnackbarOpen, setSnackbar] = useState(false);
   const [isMergeDialogOpen, setMergeDialog] = useState(false);
   const [merge, setMerge] = useState(false);
   const {
@@ -127,13 +126,11 @@ export default function BoardPage() {
     socket.on(SET_MAX_VOTES, (newBoard: RetroBoard) => {
       setMaxVote(boardId, newBoard.maxVoteCount);
       setBoard(newBoard);
-      openSnackbar();
     });
 
     socket.on(RESET_VOTES, (newBoard: RetroBoard) => {
       resetVotes(boardId, newBoard.maxVoteCount);
       setBoard(newBoard);
-      openSnackbar();
     });
 
     socket.on(FOCUS_CARD, (focusedCard: string) => {
@@ -167,14 +164,6 @@ export default function BoardPage() {
 
     // eslint-disable-next-line
   }, []);
-
-  function openSnackbar() {
-    setSnackbar(true);
-  }
-
-  function closeSnackbar() {
-    setSnackbar(false);
-  }
 
   function openMergeDialog() {
     setMergeDialog(true);
@@ -232,7 +221,6 @@ export default function BoardPage() {
           column={column}
           itemMap={items}
           index={index}
-          openSnackbar={openSnackbar}
         />
       );
     });
@@ -245,6 +233,7 @@ export default function BoardPage() {
   return (
     <>
       <AppHeader />
+      <VoteProgress />
       <Grid container className={classes.root} direction="column">
         <BoardHeader title={board.title} />
         <Grid item xs={12}>
@@ -266,12 +255,6 @@ export default function BoardPage() {
             </Droppable>
           </DragDropContext>
         </Grid>
-        <VoteCountSnackbar
-          id="vote-count-snackbar"
-          open={isSnackbarOpen}
-          handleClose={closeSnackbar}
-          autoHideDuration={1000}
-        />
         <MergeCardsDialog
           open={isMergeDialogOpen}
           closeDialog={closeMergeDialog}

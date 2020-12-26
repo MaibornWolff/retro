@@ -39,7 +39,6 @@ type RetroItemProps = {
   points: number;
   isBlurred: boolean;
   isVoted: boolean;
-  openSnackbar: () => void;
 };
 
 const getCardBorderColor = (colorTheme: Theme, theme: Theme) => {
@@ -84,15 +83,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RetroItem(props: RetroItemProps) {
-  const {
-    id,
-    author,
-    content,
-    points,
-    isBlurred,
-    isVoted,
-    openSnackbar,
-  } = props;
+  const { id, author, content, points, isBlurred, isVoted } = props;
   const [blurStatus, setBlurStatus] = useState(isBlurred);
   const [hasMouseFocus, setMouseFocus] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);
@@ -104,7 +95,6 @@ function RetroItem(props: RetroItemProps) {
     const votesLeft = userState.votesLeft;
     socket.emit(VOTE_CARD, id, boardId, false);
     downvoteCard(boardId, id, votesLeft);
-    openSnackbar();
   }
 
   function handleFocus(event: KeyboardEvent) {
@@ -186,7 +176,7 @@ function RetroItem(props: RetroItemProps) {
             </Typography>
           </CardContent>
           <CardActions disableSpacing className={classes.actions}>
-            <UpvoteItemButton id={id} openSnackbar={openSnackbar} />
+            <UpvoteItemButton id={id} />
             {isVoted ? (
               <IconButton
                 className={classes.downVoteButton}

@@ -8,11 +8,10 @@ import { VOTE_CARD } from "../../../constants/event.constants";
 
 type UpvoteItemButtonProps = {
   id: string;
-  openSnackbar: () => void;
 };
 
 export default function UpvoteItemButton(props: UpvoteItemButtonProps) {
-  const { id, openSnackbar } = props;
+  const { id } = props;
   const { boardId, socket } = useContext(BoardContext);
   const { userState, upvoteCard } = useContext(UserContext);
 
@@ -22,7 +21,6 @@ export default function UpvoteItemButton(props: UpvoteItemButtonProps) {
     if (votesLeft > 0) {
       socket.emit(VOTE_CARD, id, boardId, true);
       upvoteCard(boardId, id, votesLeft);
-      openSnackbar();
     }
   }
 

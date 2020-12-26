@@ -9,11 +9,10 @@ import { RetroCard } from "../../../types/common.types";
 
 type ItemsProps = {
   items: RetroCard[];
-  openSnackbar: () => void;
 };
 
 function Items(props: ItemsProps) {
-  const { items, openSnackbar } = props;
+  const { items } = props;
   const { boardId } = useContext(BoardContext);
 
   function isVoted(cardId: string) {
@@ -26,12 +25,7 @@ function Items(props: ItemsProps) {
     return items.map((item, i) => {
       return (
         <Grid key={item.id} item style={{ width: "100%" }}>
-          <Item
-            item={item}
-            index={i}
-            openSnackbar={openSnackbar}
-            isVoted={isVoted(item.id)}
-          />
+          <Item item={item} index={i} isVoted={isVoted(item.id)} />
         </Grid>
       );
     });

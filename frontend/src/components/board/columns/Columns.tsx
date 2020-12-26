@@ -10,11 +10,10 @@ type ColumnsProps = {
     [key: string]: RetroCard;
   };
   index: number;
-  openSnackbar: () => void;
 };
 
 function Columns(props: ColumnsProps) {
-  const { column, itemMap, index, openSnackbar } = props;
+  const { column, itemMap, index } = props;
 
   function getItems() {
     let items: RetroCard[];
@@ -28,14 +27,7 @@ function Columns(props: ColumnsProps) {
     return items;
   }
 
-  return (
-    <Column
-      column={column}
-      items={getItems()}
-      index={index}
-      openSnackbar={openSnackbar}
-    />
-  );
+  return <Column column={column} items={getItems()} index={index} />;
 }
 
 export default Columns;

@@ -23,11 +23,10 @@ type ColumnProps = {
   column: RetroColumn;
   items: RetroCard[];
   index: number;
-  openSnackbar: () => void;
 };
 
 function Column(props: ColumnProps) {
-  const { column, items, index, openSnackbar } = props;
+  const { column, items, index } = props;
 
   return (
     <Draggable draggableId={column.id} index={index}>
@@ -55,7 +54,7 @@ function Column(props: ColumnProps) {
                 {...providedDroppable.droppableProps}
                 isDraggingOver={snapshot.isDraggingOver}
               >
-                <Items items={items} openSnackbar={openSnackbar} />
+                <Items items={items} />
                 {providedDroppable.placeholder}
               </ItemsContainer>
             )}
