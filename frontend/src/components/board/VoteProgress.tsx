@@ -27,7 +27,7 @@ export default function VoteProgress() {
       <Box display="flex" alignItems="center">
         <Box width="100%" p={2}>
           <Typography variant="body2" color="textSecondary">
-            {`Remaining Votes: ${userState.votesLeft}`}
+            {`Your remaining votes: ${userState.votesLeft}`}
           </Typography>
           <LinearProgress
             variant="determinate"
