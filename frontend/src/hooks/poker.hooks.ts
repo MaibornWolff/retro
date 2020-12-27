@@ -1,6 +1,6 @@
 import create from "zustand";
 import { POKER_UNIT_FIBONACCI } from "../constants/poker.constants";
-import { Poker } from "../types/common.types";
+import { Poker, PokerChartData } from "../types/common.types";
 
 type PokerState = {
   pokerId: string;
@@ -8,6 +8,7 @@ type PokerState = {
   pokerUnit: PokerUnit;
   error: boolean;
   participants: PokerUser[];
+  chartData: PokerChartData;
   setPokerState: (newPokerState: Poker) => void;
   setPokerError: () => void;
 };
@@ -42,6 +43,10 @@ export const usePokerStore = create<PokerState>((set) => ({
   },
   participants: [],
   error: false,
+  chartData: {
+    pieData: [],
+    mostVotedFor: "",
+  },
   setPokerState: (newPokerState) => set(() => ({ ...newPokerState })),
   setPokerError: () => set((state) => ({ ...state, error: true })),
 }));

@@ -25,6 +25,7 @@ import {
   SHOW_POKER_RESULTS,
   UPDATE_AND_RESET_POKER_STATE,
 } from "../../constants/event.constants";
+import PokerStats from "./PokerStats";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   },
   storyTitle: {
     padding: theme.spacing(2),
+  },
+  chart: {
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -77,8 +81,9 @@ export default function PokerPage() {
       poker.setPokerState(newPokerState);
     });
 
-    socket.on(SHOW_POKER_RESULTS, () => {
+    socket.on(SHOW_POKER_RESULTS, (newPokerState: Poker) => {
       setFlip((prevFlip) => !prevFlip);
+      poker.setPokerState(newPokerState);
     });
 
     socket.on(UPDATE_AND_RESET_POKER_STATE, (newPokerState: Poker) => {
@@ -123,6 +128,9 @@ export default function PokerPage() {
         </Grid>
         <Grid item xs={12}>
           <PokerUsers participants={poker.participants} flip={flip} />
+        </Grid>
+        <Grid item xs={12} className={classes.chart}>
+          {flip ? <PokerStats data={poker.chartData} /> : null}
         </Grid>
       </Grid>
     </div>

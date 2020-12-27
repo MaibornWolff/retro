@@ -41,6 +41,17 @@ export interface Poker {
   pokerUnit: PokerUnit;
   error: boolean;
   participants: PokerUser[];
+  chartData: PokerChartData;
+}
+
+export interface PokerChartData {
+  pieData: PieValue[];
+  mostVotedFor: string;
+}
+
+export interface PieValue {
+  name: string;
+  value: number;
 }
 
 interface PokerUnit {

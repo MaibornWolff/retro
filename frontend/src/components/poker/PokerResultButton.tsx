@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PokerResultButton() {
   const classes = useStyles();
-  const { pokerState, socket } = useContext(PokerContext);
+  const { pokerState, socket, pokerId } = useContext(PokerContext);
 
   function handleClick() {
-    socket.emit(SHOW_POKER_RESULTS);
+    socket.emit(SHOW_POKER_RESULTS, pokerId);
   }
 
   return (

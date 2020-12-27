@@ -1,6 +1,9 @@
 import fs from "fs";
 import { Server, Socket } from "socket.io";
+import { Dictionary, groupBy, maxBy } from "lodash";
+
 import {
+  PieValue,
   PokerParticipant,
   PokerState,
   PokerStory,
@@ -53,7 +56,7 @@ export function joinPokerSession(
         } else {
           pokerState.participants.push(newUser);
 
-          fs.writeFile(path, stringify(pokerState), UTF8, (error) => {
+          fs.writeFile(path, stringify(pokerState), UTF8, error => {
             if (error) logError(JOIN_POKER_SESSION, error);
             io.to(roomId).emit(UPDATE_POKER_STATE, pokerState);
           });
@@ -81,23 +84,14 @@ export function setPokerStory(
         pokerState.story.storyTitle = storyTitle;
         pokerState.story.storyUrl = storyUrl;
         resetVotes(pokerState);
+        resetCharts(pokerState);
 
-        fs.writeFile(path, stringify(pokerState), UTF8, (error) => {
+        fs.writeFile(path, stringify(pokerState), UTF8, error => {
           if (error) logError(SET_POKER_STORY, error);
           io.to(roomId).emit(UPDATE_AND_RESET_POKER_STATE, pokerState);
         });
       }
     });
-  });
-}
-
-export function showPokerResults(
-  io: Server,
-  client: Socket,
-  roomId: string
-): void {
-  client.on(SHOW_POKER_RESULTS, () => {
-    io.to(roomId).emit(SHOW_POKER_RESULTS);
   });
 }
 
@@ -111,14 +105,14 @@ export function setPokerVote(io: Server, client: Socket, roomId: string): void {
       if (pokerState === null) {
         client.emit(POKER_ERROR);
       } else {
-        pokerState.participants.forEach((user) => {
+        pokerState.participants.forEach(user => {
           if (user.id === userId) {
             user.vote = vote;
             user.voted = true;
           }
         });
 
-        fs.writeFile(path, stringify(pokerState), UTF8, (error) => {
+        fs.writeFile(path, stringify(pokerState), UTF8, error => {
           if (error) logError(SET_POKER_VOTE, error);
           io.to(roomId).emit(UPDATE_POKER_STATE, pokerState);
         });
@@ -138,7 +132,8 @@ export function resetPoker(io: Server, client: Socket, roomId: string): void {
         client.emit(POKER_ERROR);
       } else {
         resetVotes(pokerState);
-        fs.writeFile(path, stringify(pokerState), UTF8, (error) => {
+        resetCharts(pokerState);
+        fs.writeFile(path, stringify(pokerState), UTF8, error => {
           if (error) logError(SET_POKER_VOTE, error);
           io.to(roomId).emit(UPDATE_AND_RESET_POKER_STATE, pokerState);
         });
@@ -162,7 +157,7 @@ export function setPokerUnit(io: Server, client: Socket, roomId: string): void {
           pokerState.pokerUnit.unitType = pokerUnit;
           pokerState.pokerUnit.unitRangeHigh = unitRange;
 
-          fs.writeFile(path, stringify(pokerState), UTF8, (error) => {
+          fs.writeFile(path, stringify(pokerState), UTF8, error => {
             if (error) logError(SET_POKER_UNIT, error);
             io.to(roomId).emit(UPDATE_POKER_STATE, pokerState);
           });
@@ -172,9 +167,93 @@ export function setPokerUnit(io: Server, client: Socket, roomId: string): void {
   );
 }
 
+export function showPokerResults(
+  io: Server,
+  client: Socket,
+  roomId: string
+): void {
+  client.on(SHOW_POKER_RESULTS, (pokerId: string) => {
+    const path = getPath(pokerId);
+    fs.readFile(path, UTF8, (error, file: string) => {
+      if (error) logError(SHOW_POKER_RESULTS, error);
+      const pokerState = getPokerState(file);
+
+      if (pokerState === null) {
+        client.emit(POKER_ERROR);
+      } else {
+        resetCharts(pokerState);
+        const groupedVotes = groupVotes(pokerState);
+        populateChartData(pokerState, groupedVotes);
+
+        fs.writeFile(path, stringify(pokerState), UTF8, error => {
+          if (error) logError(SHOW_POKER_RESULTS, error);
+          io.to(roomId).emit(SHOW_POKER_RESULTS, pokerState);
+        });
+      }
+    });
+  });
+}
+
 function resetVotes(pokerState: PokerState) {
-  pokerState.participants.forEach((user) => {
+  pokerState.participants.forEach(user => {
     user.vote = -1;
     user.voted = false;
   });
+}
+
+function resetCharts(pokerState: PokerState) {
+  pokerState.chartData.pieData = [];
+  pokerState.chartData.mostVotedFor = "";
+}
+
+function groupVotes(pokerState: PokerState) {
+  const allVotes: number[] = [];
+
+  pokerState.participants.forEach(user => {
+    if (user.voted) {
+      allVotes.push(user.vote);
+    }
+  });
+
+  return groupBy(allVotes, Math.floor);
+}
+
+function populateChartData(
+  pokerState: PokerState,
+  groupedVotes: Dictionary<number[]>
+) {
+  for (const [key, val] of Object.entries(groupedVotes)) {
+    const pieValue: PieValue = { name: key, value: val.length };
+    pokerState.chartData.pieData.push(pieValue);
+  }
+
+  const mostVoted = maxBy(
+    pokerState.chartData.pieData,
+    (pv: PieValue) => pv.value
+  );
+
+  if (pokerState.pokerUnit.unitType === "tshirt") {
+    pokerState.chartData.mostVotedFor = mapValueToTshirtSize(mostVoted?.name);
+  } else {
+    pokerState.chartData.mostVotedFor = mostVoted?.name || "";
+  }
+}
+
+function mapValueToTshirtSize(internalValue: string | undefined) {
+  switch (internalValue) {
+    case "0":
+      return "XS";
+    case "1":
+      return "S";
+    case "2":
+      return "M";
+    case "3":
+      return "L";
+    case "4":
+      return "XL";
+    case "5":
+      return "XXL";
+    default:
+      return "";
+  }
 }

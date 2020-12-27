@@ -16,6 +16,7 @@ import { nanoid } from "nanoid";
 import { useHistory } from "react-router-dom";
 import { postData } from "../../utils";
 import { POKER_UNIT_FIBONACCI } from "../../constants/poker.constants";
+import { Poker } from "../../types/common.types";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -56,7 +57,7 @@ export default function PlanningPokerDialog() {
 
   async function handleSubmit() {
     const pokerId = nanoid();
-    const newPokerState = {
+    const newPokerState: Poker = {
       pokerId,
       story: { storyTitle: "", storyUrl: "" },
       pokerUnit: {
@@ -65,6 +66,10 @@ export default function PlanningPokerDialog() {
       },
       participants: [],
       error: false,
+      chartData: {
+        pieData: [],
+        mostVotedFor: "",
+      },
     };
     const response = await postData("/api/poker/", newPokerState);
     resetState();

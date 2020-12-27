@@ -4,6 +4,7 @@ export type PokerState = {
   pokerUnit: PokerUnit;
   error: boolean;
   participants: PokerParticipant[];
+  chartData: PokerChartData;
 };
 
 export type PokerUnit = {
@@ -22,4 +23,14 @@ export type PokerParticipant = {
   name: string;
   vote: number;
   voted: boolean;
+};
+
+export type PokerChartData = {
+  pieData: PieValue[];
+  mostVotedFor: string;
+};
+
+export type PieValue = {
+  name: string;
+  value: number;
 };
