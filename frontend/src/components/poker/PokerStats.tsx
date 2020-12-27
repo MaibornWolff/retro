@@ -13,12 +13,16 @@ export default function PokerStats(props: PokerStatsProps) {
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       <BarChart
-        width={400}
+        width={600}
         height={300}
         data={data}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
-        <XAxis dataKey="name" />
+        <XAxis
+          dataKey="name"
+          tick={{ fontSize: "10px", width: "50px", wordWrap: "break-word" }}
+          interval={0}
+        />
         <Tooltip cursor={false} />
         <Legend />
         <Bar name="number of votes" dataKey="value" fill="#8884d8" />
