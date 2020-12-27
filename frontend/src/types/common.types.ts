@@ -45,11 +45,10 @@ export interface Poker {
 }
 
 export interface PokerChartData {
-  pieData: PieValue[];
-  mostVotedFor: string;
+  data: ChartData[];
 }
 
-export interface PieValue {
+export interface ChartData {
   name: string;
   value: number;
 }

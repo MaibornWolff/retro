@@ -67,8 +67,7 @@ export default function PlanningPokerDialog() {
       participants: [],
       error: false,
       chartData: {
-        pieData: [],
-        mostVotedFor: "",
+        data: [],
       },
     };
     const response = await postData("/api/poker/", newPokerState);

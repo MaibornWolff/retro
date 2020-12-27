@@ -26,11 +26,10 @@ export type PokerParticipant = {
 };
 
 export type PokerChartData = {
-  pieData: PieValue[];
-  mostVotedFor: string;
+  data: ChartData[];
 };
 
-export type PieValue = {
+export type ChartData = {
   name: string;
   value: number;
 };

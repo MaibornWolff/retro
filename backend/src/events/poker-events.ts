@@ -3,7 +3,7 @@ import { Server, Socket } from "socket.io";
 import { Dictionary, groupBy, maxBy } from "lodash";
 
 import {
-  PieValue,
+  ChartData,
   PokerParticipant,
   PokerState,
   PokerStory,
@@ -202,8 +202,7 @@ function resetVotes(pokerState: PokerState) {
 }
 
 function resetCharts(pokerState: PokerState) {
-  pokerState.chartData.pieData = [];
-  pokerState.chartData.mostVotedFor = "";
+  pokerState.chartData.data = [];
 }
 
 function groupVotes(pokerState: PokerState) {
@@ -223,19 +222,14 @@ function populateChartData(
   groupedVotes: Dictionary<number[]>
 ) {
   for (const [key, val] of Object.entries(groupedVotes)) {
-    const pieValue: PieValue = { name: key, value: val.length };
-    pokerState.chartData.pieData.push(pieValue);
+    const dataVal: ChartData = { name: key, value: val.length };
+    pokerState.chartData.data.push(dataVal);
   }
 
-  const mostVoted = maxBy(
-    pokerState.chartData.pieData,
-    (pv: PieValue) => pv.value
-  );
-
   if (pokerState.pokerUnit.unitType === "tshirt") {
-    pokerState.chartData.mostVotedFor = mapValueToTshirtSize(mostVoted?.name);
-  } else {
-    pokerState.chartData.mostVotedFor = mostVoted?.name || "";
+    pokerState.chartData.data.forEach(data => {
+      data.name = mapValueToTshirtSize(data.name);
+    });
   }
 }
 

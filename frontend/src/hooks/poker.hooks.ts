@@ -44,8 +44,7 @@ export const usePokerStore = create<PokerState>((set) => ({
   participants: [],
   error: false,
   chartData: {
-    pieData: [],
-    mostVotedFor: "",
+    data: [],
   },
   setPokerState: (newPokerState) => set(() => ({ ...newPokerState })),
   setPokerError: () => set((state) => ({ ...state, error: true })),

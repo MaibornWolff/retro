@@ -7,17 +7,15 @@ interface PokerStatsProps {
   data: PokerChartData;
 }
 
-// TODO: get rid of mostVotedFor
-// TODO: handle stats for T-Shirt voting (see if setting in backend is enough)
 export default function PokerStats(props: PokerStatsProps) {
-  const { pieData, mostVotedFor } = props.data;
+  const { data } = props.data;
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       <BarChart
         width={400}
         height={300}
-        data={pieData}
+        data={data}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
         <XAxis dataKey="name" />
