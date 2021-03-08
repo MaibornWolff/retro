@@ -20,7 +20,7 @@ export default function PokerStats(props: PokerStatsProps) {
       >
         <XAxis
           dataKey="name"
-          tick={{ fontSize: "10px", width: "50px" }}
+          // tick={{ fontSize: "10px", width: "50px" }}
           interval={0}
         />
         <Tooltip cursor={false} />
