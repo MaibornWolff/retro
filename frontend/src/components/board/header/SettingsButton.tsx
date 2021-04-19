@@ -6,7 +6,6 @@ import VoteCountButton from "./VoteCountButton";
 import ExportBoardButton from "./ExportBoardButton";
 import ExportTemplateButton from "./ExportTemplateButton";
 import QrCodeButton from "./QrCodeButton";
-import ContinueDiscussionButton from "./ContinueDiscussionButton";
 
 const useStyles = makeStyles(() => ({
   settingsButton: {
@@ -60,7 +59,7 @@ export default function SettingsButton() {
         <VoteCountButton />
         <ExportBoardButton />
         <ExportTemplateButton />
-        <ContinueDiscussionButton />
+        {/*<ContinueDiscussionButton />*/}
         <QrCodeButton />
       </Menu>
     </>
