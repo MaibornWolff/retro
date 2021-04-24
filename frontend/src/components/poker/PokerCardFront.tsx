@@ -3,15 +3,24 @@ import {
   Card,
   CardActions,
   CardContent,
+  CardHeader,
   IconButton,
+  ListItemIcon,
+  ListItemText,
   makeStyles,
+  Menu,
+  MenuItem,
   Typography,
 } from "@material-ui/core";
 import HowToVoteIcon from "@material-ui/icons/HowToVote";
+import MenuIcon from "@material-ui/icons/MoreVert";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import PokerVoteDialog from "./PokerVoteDialog";
 import { CardText } from "../styled-components";
 import { PokerContext } from "../../context/PokerContext";
+import { POKER_ROLE_MODERATOR } from "../../utils/poker.utils";
+import { REMOVE_POKER_USER } from "../../constants/event.constants";
 
 interface PokerCardFrontProps {
   styleProps: { backgroundColor: string };
@@ -24,23 +33,67 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: props.backgroundColor,
     width: "10em",
-    height: "13em",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   }),
+  cardHeader: {
+    padding: 0,
+    marginLeft: "6rem",
+  },
 }));
 
 export default function PokerCardFront(props: PokerCardFrontProps) {
   const { styleProps, userId, userName } = props;
+  const { pokerState, socket, pokerId } = useContext(PokerContext);
   const [open, setOpen] = useState(false);
-  const { pokerState } = useContext(PokerContext);
+  const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles(styleProps);
+
+  function openMenu(event: any) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function closeMenu() {
+    setAnchorEl(null);
+  }
+
+  function removeUser(userId: string) {
+    socket.emit(REMOVE_POKER_USER, userId, pokerId);
+  }
 
   return (
     <>
       <Card className={classes.root} elevation={8}>
+        <CardHeader
+          className={classes.cardHeader}
+          action={
+            <>
+              <IconButton
+                color="secondary"
+                disabled={pokerState.role !== POKER_ROLE_MODERATOR}
+                aria-label="card settings"
+                onClick={openMenu}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="card-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={closeMenu}
+              >
+                <MenuItem onClick={() => removeUser(userId)}>
+                  <ListItemIcon>
+                    <DeleteIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Remove User" />
+                </MenuItem>
+              </Menu>
+            </>
+          }
+        />
         <CardContent>
           <Typography
             color="secondary"

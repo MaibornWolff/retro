@@ -1,6 +1,6 @@
 import fs from "fs";
 import { Server, Socket } from "socket.io";
-import { Dictionary, groupBy, maxBy } from "lodash";
+import { Dictionary, groupBy, filter } from "lodash";
 
 import {
   ChartData,
@@ -22,6 +22,7 @@ import {
   POKER_RESET,
   UPDATE_AND_RESET_POKER_STATE,
   SET_POKER_UNIT,
+  REMOVE_POKER_USER,
 } from "./event-names";
 
 const UTF8 = "utf8";
@@ -188,6 +189,35 @@ export function showPokerResults(
         fs.writeFile(path, stringify(pokerState), UTF8, error => {
           if (error) logError(SHOW_POKER_RESULTS, error);
           io.to(roomId).emit(SHOW_POKER_RESULTS, pokerState);
+        });
+      }
+    });
+  });
+}
+
+export function removePokerUser(
+  io: Server,
+  client: Socket,
+  roomId: string
+): void {
+  client.on(REMOVE_POKER_USER, (userId: string, pokerId: string) => {
+    const path = getPath(pokerId);
+    fs.readFile(path, UTF8, (error, file: string) => {
+      if (error) logError(REMOVE_POKER_USER, error);
+      const pokerState = getPokerState(file);
+
+      if (pokerState === null) {
+        client.emit(POKER_ERROR);
+      } else {
+        const updatedParticipants = filter(
+          pokerState.participants,
+          user => user.id !== userId
+        );
+        pokerState.participants = updatedParticipants;
+
+        fs.writeFile(path, stringify(pokerState), UTF8, error => {
+          if (error) logError(REMOVE_POKER_USER, error);
+          io.to(roomId).emit(UPDATE_POKER_STATE, pokerState);
         });
       }
     });
