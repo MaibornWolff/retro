@@ -7,6 +7,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  Chip,
   Divider,
   IconButton,
   Theme,
@@ -81,13 +82,6 @@ const useStyles = makeStyles((theme) => ({
   },
   likeButton: {
     marginLeft: "auto",
-  },
-  discussedBadge: {
-    backgroundColor: theme.palette.primary.light,
-    color: theme.palette.secondary.main,
-    borderRadius: "25px",
-    padding: "2px 20px",
-    margin: "0px 10px",
   },
 }));
 
@@ -195,7 +189,7 @@ function RetroItem(props: RetroItemProps) {
           <CardActions disableSpacing className={classes.actions}>
             <div>
               {isDiscussed ? (
-                <div className={classes.discussedBadge}>Discussed</div>
+                <Chip label={"Discussed"} variant="outlined" size={"small"} />
               ) : null}
             </div>
             <div>

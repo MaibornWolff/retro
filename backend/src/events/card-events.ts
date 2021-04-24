@@ -121,7 +121,7 @@ export function voteCard(io: Server, client: Socket, roomId: string): void {
   });
 }
 
-export function markAsDiscussedCard(
+export function markCardAsDiscussedCard(
   io: Server,
   client: Socket,
   roomId: string
