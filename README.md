@@ -2,18 +2,7 @@
 
 ![CircleCI (all branches)](https://img.shields.io/circleci/project/github/yduman/retro.svg?style=flat-square) ![GitHub release](https://img.shields.io/github/release/yduman/retro.svg?style=flat-square) ![GitHub](https://img.shields.io/github/license/yduman/retro.svg?style=flat-square) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-## Table of Contents
-
-- [What is Retro?](#what-is-retro)
-- [Example - Retrospective](#example---retrospective)
-- [Example - Planning Poker](#example---planning-poker)
-- [Usage Locally](#usage-locally)
-- [Branching](#branching)
-- [Deployment Examples](#deployment-examples)
-  - [PM2](#pm2)
-  - [Docker](#docker)
-- [Contributing](#contributing)
-- [Project State](#project-state)
+> ⚠️ I'm currently very busy with my studies. I'll continue my work around early July. 
 
 ## What is Retro?
 
