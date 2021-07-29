@@ -37,3 +37,4 @@ export const SET_POKER_VOTE = "set poker vote";
 export const POKER_RESET = "poker reset";
 export const UPDATE_AND_RESET_POKER_STATE = "update and reset poker state";
 export const SET_POKER_UNIT = "set poker unit";
+export const REMOVE_POKER_USER = "remove poker user";
