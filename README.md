@@ -2,8 +2,6 @@
 
 ![CircleCI (all branches)](https://img.shields.io/circleci/project/github/yduman/retro.svg?style=flat-square) ![GitHub release](https://img.shields.io/github/release/yduman/retro.svg?style=flat-square) ![GitHub](https://img.shields.io/github/license/yduman/retro.svg?style=flat-square) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-> ⚠️ I'm currently very busy with my studies. I'll continue my work around early July. 
-
 ## What is Retro?
 
 Retro is a tool that you can use for retrospectives and planning poker sessions. The goal of Retro is to aid teams in remote retrospectives.
@@ -17,6 +15,11 @@ At work, we were using third party retrospective tools, which meant we couldn't 
 ## Example - Planning Poker
 
 ![planning_poker_example](./assets/PlanningPoker-Example.png)
+
+## Requirements
+
+- Latest Node.js LTS version
+- NPM version >= 7
 
 ## Usage Locally
 
@@ -52,11 +55,11 @@ $ cd frontend && npm run start && cd ..
   - Check `frontend/src/setupProxy.js`
   - Check `frontend/src/utils/index.ts`
 - Provide an `.env.production.local` file inside of `frontend`
-    ```
-    # Example
-    REACT_APP_PROD_URL=http://mydomain.com
-    REACT_APP_PROD_PORT=80
-    ```
+  ```
+  # Example
+  REACT_APP_PROD_URL=http://mydomain.com
+  REACT_APP_PROD_PORT=80
+  ```
 - Build the frontend by running `npm run deploy`
 - Go to the `backend` folder and run `pm2 start processes.json`
 
@@ -70,7 +73,7 @@ $ cd frontend && npm run start && cd ..
 
 - This project uses [Prettier](https://prettier.io) and the latest LTS version of [Node.js](https://nodejs.org/en/)
 - You can also develop with the provided Docker containers!
-  - on Linux, make sure to set an environment variable, since `host.docker.internal` is not working: 
+  - on Linux, make sure to set an environment variable, since `host.docker.internal` is not working:
     - `export DOCKER_HOST_IP=$(docker network inspect bridge --format='{{(index .IPAM.Config 0).Gateway}}')`
 
 ## Project State
@@ -98,6 +101,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
