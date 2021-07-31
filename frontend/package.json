@@ -16,8 +16,20 @@
   "license": "MIT",
   "version": "0.4.1",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build:prod": "env-cmd -f .env.production.local npm run build",
+    "deploy": "run-s -l -n build:prod deploy:frontend",
+    "deploy:frontend": "cp -a build/. ../backend/public/",
+    "test": "react-scripts test",
+    "test:cov": "react-scripts test --env=jsdom --coverage --watchAll=false",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --quiet",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,html,css,json}\"",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
-    "@material-ui/core": "^4.12.2",
+    "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "http-proxy-middleware": "^2.0.1",
@@ -44,7 +56,7 @@
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.171",
     "@types/nanoid": "^2.1.0",
-    "@types/node": "^16.4.6",
+    "@types/node": "^16.4.8",
     "@types/qrcode": "^1.4.1",
     "@types/react": "^17.0.15",
     "@types/react-beautiful-dnd": "^13.1.1",
@@ -56,25 +68,13 @@
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
     "env-cmd": "^10.1.0",
-    "eslint": "^7.31.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.2",
     "typescript": "~4.3.5"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "build:prod": "env-cmd -f .env.production.local npm run build",
-    "deploy": "run-s -l -n build:prod deploy:frontend",
-    "deploy:frontend": "cp -a build/. ../backend/public/",
-    "test": "react-scripts test",
-    "test:cov": "react-scripts test --env=jsdom --coverage --watchAll=false",
-    "lint": "eslint \"src/**/*.{ts,tsx}\" --quiet",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,html,css,json}\"",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
