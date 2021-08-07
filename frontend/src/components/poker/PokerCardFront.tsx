@@ -32,15 +32,21 @@ const useStyles = makeStyles((theme) => ({
   root: (props: any) => ({
     margin: theme.spacing(1),
     backgroundColor: props.backgroundColor,
-    width: "10em",
+    width: "12em",
+    height: "16rem",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   }),
+  cardContent: {
+    width: "100%",
+    minHeight: "10rem",
+  },
   cardHeader: {
     padding: 0,
-    marginLeft: "6rem",
+    paddingTop: "8px",
+    marginLeft: "8rem",
   },
 }));
 
@@ -94,7 +100,7 @@ export default function PokerCardFront(props: PokerCardFrontProps) {
             </>
           }
         />
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <Typography
             color="secondary"
             align="center"

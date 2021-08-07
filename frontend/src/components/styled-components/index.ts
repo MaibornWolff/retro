@@ -61,6 +61,7 @@ export const CardText = styled.p`
   /* These are technically the same, but use both */
   overflow-wrap: break-word;
   word-wrap: break-word;
+  width: 100%;
 
   -ms-word-break: break-all;
   word-break: break-word;

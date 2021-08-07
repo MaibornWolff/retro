@@ -19,15 +19,20 @@ const useStyles = makeStyles((theme) => ({
   root: (props: any) => ({
     margin: theme.spacing(1),
     backgroundColor: props.backgroundColor,
-    width: "10em",
-    height: "13em",
+    width: "12em",
+    height: "16rem",
+  }),
+  cardContent: {
+    width: "100%",
+    minHeight: "100%",
+    margin: 0,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
-  }),
+  },
   title: {
-    fontSize: 14,
+    fontSize: 16,
     textAlign: "center",
   },
 }));
@@ -39,12 +44,7 @@ export default function PokerCardBack(props: PokerCardBackProps) {
 
   return (
     <Card className={classes.root} elevation={8}>
-      <CardContent>
-        <Typography color="secondary" variant="h4" align="center">
-          {pokerUnitType === POKER_UNIT_TSHIRT
-            ? getTShirtSizeFromValue(userVote)
-            : userVote}
-        </Typography>
+      <CardContent className={classes.cardContent}>
         <Typography
           color="secondary"
           className={classes.title}
@@ -52,6 +52,11 @@ export default function PokerCardBack(props: PokerCardBackProps) {
           component="span"
         >
           <CardText>{userName}</CardText>
+        </Typography>
+        <Typography color="secondary" variant="h4" align="center">
+          {pokerUnitType === POKER_UNIT_TSHIRT
+            ? getTShirtSizeFromValue(userVote)
+            : userVote}
         </Typography>
       </CardContent>
     </Card>

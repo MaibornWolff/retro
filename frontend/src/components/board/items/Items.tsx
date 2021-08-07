@@ -19,8 +19,6 @@ function Items(props: ItemsProps) {
     return hasVotedFor(cardId, boardId);
   }
 
-  // TODO: the style prop is a temporary solution
-  // https://github.com/mui-org/material-ui/issues/16912
   function renderItem() {
     return items.map((item, i) => {
       return (
