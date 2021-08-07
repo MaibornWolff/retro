@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -18,14 +24,10 @@ import DeleteItemButton from "./DeleteItemButton";
 import MarkAsDiscussedButton from "./MarkAsDiscussedButton";
 import EditItemButton from "./EditItemButton";
 import UpvoteItemButton from "./UpvoteItemButton";
+import BlurredItem from "./BlurredItem";
 import { UserContext } from "../../../context/UserContext";
 import { BoardContext } from "../../../context/BoardContext";
-import {
-  CardAuthor,
-  CardContainer,
-  CardWrapper,
-  CardText,
-} from "../../styled-components";
+import { CardAuthor, CardContainer, CardText } from "../../styled-components";
 import {
   FOCUS_CARD,
   REMOVE_FOCUS_CARD,
@@ -86,15 +88,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RetroItem(props: RetroItemProps) {
-  const {
-    id,
-    author,
-    content,
-    points,
-    isBlurred,
-    isVoted,
-    isDiscussed,
-  } = props;
+  const { id, author, content, points, isBlurred, isVoted, isDiscussed } =
+    props;
   const [blurStatus, setBlurStatus] = useState(isBlurred);
   const [hasMouseFocus, setMouseFocus] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);
@@ -149,69 +144,73 @@ function RetroItem(props: RetroItemProps) {
   }, [getIsBlurred]);
 
   return (
-    <CardWrapper isBlurred={blurStatus}>
-      <CardContainer>
-        <Card
-          elevation={20}
-          onMouseEnter={(event) => handleHover(event, true)}
-          onMouseLeave={(event) => handleHover(event, false)}
-          className={
-            boardState.focusedCard === id ? classes.cardFocused : classes.card
-          }
-        >
-          <CardHeader
-            className={classes.cardHeader}
-            avatar={
-              <Avatar
-                className={isVoted ? classes.avatarVoted : classes.avatar}
-                aria-label="number of votes"
-              >
-                {points}
-              </Avatar>
+    <Fragment>
+      {blurStatus ? (
+        <BlurredItem />
+      ) : (
+        <CardContainer>
+          <Card
+            elevation={20}
+            onMouseEnter={(event) => handleHover(event, true)}
+            onMouseLeave={(event) => handleHover(event, false)}
+            className={
+              boardState.focusedCard === id ? classes.cardFocused : classes.card
             }
-            title={
-              <Typography variant="body2" component={"span"}>
-                <CardAuthor>{author}</CardAuthor>
-              </Typography>
-            }
-          />
-          <Divider />
-          <CardContent>
-            <Typography
-              className={classes.contentBody}
-              variant="body2"
-              color="textSecondary"
-              component={"span"}
-            >
-              <CardText>{content}</CardText>
-            </Typography>
-          </CardContent>
-          <CardActions disableSpacing className={classes.actions}>
-            <div>
-              {isDiscussed ? (
-                <Chip label={"Discussed"} variant="outlined" size={"small"} />
-              ) : null}
-            </div>
-            <div>
-              <UpvoteItemButton id={id} />
-              {isVoted ? (
-                <IconButton
-                  className={classes.downVoteButton}
-                  size="small"
-                  color="inherit"
-                  onClick={downVote}
+          >
+            <CardHeader
+              className={classes.cardHeader}
+              avatar={
+                <Avatar
+                  className={isVoted ? classes.avatarVoted : classes.avatar}
+                  aria-label="number of votes"
                 >
-                  <ThumbDownIcon fontSize="small" />
-                </IconButton>
-              ) : null}
-              <EditItemButton id={id} author={author} content={content} />
-              <MarkAsDiscussedButton id={id} />
-              <DeleteItemButton id={id} />
-            </div>
-          </CardActions>
-        </Card>
-      </CardContainer>
-    </CardWrapper>
+                  {points}
+                </Avatar>
+              }
+              title={
+                <Typography variant="body2" component={"span"}>
+                  <CardAuthor>{author}</CardAuthor>
+                </Typography>
+              }
+            />
+            <Divider />
+            <CardContent>
+              <Typography
+                className={classes.contentBody}
+                variant="body2"
+                color="textSecondary"
+                component={"span"}
+              >
+                <CardText>{content}</CardText>
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing className={classes.actions}>
+              <div>
+                {isDiscussed ? (
+                  <Chip label={"Discussed"} variant="outlined" size={"small"} />
+                ) : null}
+              </div>
+              <div>
+                <UpvoteItemButton id={id} />
+                {isVoted ? (
+                  <IconButton
+                    className={classes.downVoteButton}
+                    size="small"
+                    color="inherit"
+                    onClick={downVote}
+                  >
+                    <ThumbDownIcon fontSize="small" />
+                  </IconButton>
+                ) : null}
+                <EditItemButton id={id} author={author} content={content} />
+                <MarkAsDiscussedButton id={id} />
+                <DeleteItemButton id={id} />
+              </div>
+            </CardActions>
+          </Card>
+        </CardContainer>
+      )}
+    </Fragment>
   );
 }
 
