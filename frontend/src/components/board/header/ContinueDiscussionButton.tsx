@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// TODO: re-visit this feature
 export default function ContinueDiscussionButton() {
   const [isDisabled, setDisabled] = useState(false);
   const { userState } = useContext(UserContext);

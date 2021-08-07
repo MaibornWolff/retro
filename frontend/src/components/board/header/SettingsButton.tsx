@@ -59,7 +59,6 @@ export default function SettingsButton() {
         <VoteCountButton />
         <ExportBoardButton />
         <ExportTemplateButton />
-        {/*<ContinueDiscussionButton />*/}
         <QrCodeButton />
       </Menu>
     </>

@@ -10,6 +10,28 @@
 
 ### Removed
 
+## [0.5.0] - 2021-08-07
+
+### Added
+
+- New dark and light theme
+- The planning poker now also displays a chart for the voting results. This is handy if you have a large team.
+- You can now mark cards as discussed, thanks to @tobim-dev !
+- The moderator can now remove participants manually from the planning poker. This is handy if a participant accidentally closed its tab and therefore lost the session.
+
+### Changed
+
+- Improved UI of vote count dialog
+- Improved UI of how many votes are left. No more buggy toasts!
+- Blurred cards are now displayed as skeletons
+- Participants can now only drag there own cards and cannot drag columns. The moderator can still drag all cards and also all columns.
+
+### Fixed
+
+- Deprecated `KeyboardEvent.keyCode`
+
+### Removed
+
 ## [0.4.1] - 2020-10-25
 
 ### Added
@@ -36,6 +58,7 @@
 ### Added
 
 - **Planning Poker**
+
   - Retro now provides a page for planning poker sessions
   - The person starting the session is the moderator, the rest joining are participants
   - Every person who joins the session will have its own card where it can provide an estimation for an user story
@@ -43,6 +66,7 @@
   - Initially all cards are red, meaning the user did not vote. When a user votes, the card turns green.
 
 - **Blur columns independently**
+
   - Moderators can now blur columns independently, by clicking the triple dot button on a column
   - Special thanks to [2mawi2](https://github.com/2mawi2) for realizing this feature! ❤️
 
@@ -102,7 +126,7 @@
   - Using TypeScript now!
   - Major UI redesign!
   - Hooks all the way - no more HOCs!
-  - Increased maximum card content length 
+  - Increased maximum card content length
 - Backend
   - Storage clean up will now be handled via Node.js instead of writing your own cronjob manually
 
@@ -165,13 +189,13 @@
     - by default, every user has 3 votes
   - While voting several things happen
     - a Snackbar opens which displays how many votes are left for the user
-    - on the voted card, a thumb-down icon appears, which let's you take back your vote 
+    - on the voted card, a thumb-down icon appears, which let's you take back your vote
     - all cards you voted for are highlighted with a dark background on the Avatar
     - after reaching your maximum amount of votes, you can't vote anymore, unless you take back a vote from another card
 - **Tab Name**
   - `document.title` is now set as `"Retro | <YOUR_BOARD_NAME>"`
 - **QR-Code**
-  - Mobile users can now scan a QR-Code which should open the link to the board in the browser 
+  - Mobile users can now scan a QR-Code which should open the link to the board in the browser
     - _thanks to @mrpatpat_
 - **Hooks and Context API**
   - we removed a lot of prop-drilling, boilerplate code and refactored all classes to functional components, utilizing React Hooks and the new Context API
@@ -208,7 +232,7 @@
 
 - CSS issues
   - Really long words are now handled properly
-  - Mobile UI should be a bit better now 
+  - Mobile UI should be a bit better now
     - Special thanks to [mrpatpat](https://github.com/mrpatpat) for realizing this! ❤️
 - Improved render performance on several places
 - `LoadBoardDialog` validation should not result in a `SyntaxError` anymore
@@ -243,9 +267,9 @@
 ### Added
 
 - Create boards
-- Create columns 
-- Create cards 
-- Delete columns 
+- Create columns
+- Create cards
+- Delete columns
 - Delete cards
 - Edit cards
 - Sort columns
@@ -255,7 +279,8 @@
 - Combine two cards
 - Upvote cards
 
-[Unreleased]: https://github.com/yduman/retro/compare/0.4.1...master
+[unreleased]: https://github.com/yduman/retro/compare/0.5.0...master
+[0.5.0]: https://github.com/yduman/retro/releases/tag/0.5.0
 [0.4.1]: https://github.com/yduman/retro/releases/tag/0.4.1
 [0.4.0]: https://github.com/yduman/retro/releases/tag/0.4.0
 [0.3.5]: https://github.com/yduman/retro/releases/tag/0.3.5

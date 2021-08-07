@@ -71,7 +71,10 @@ $ cd frontend && npm run start && cd ..
 
 ## Contributing
 
-- This project uses [Prettier](https://prettier.io) and the latest LTS version of [Node.js](https://nodejs.org/en/)
+- This project uses
+  - [Prettier](https://prettier.io)
+  - LTS version of [Node.js](https://nodejs.org/en/)
+  - [Conventional Commits](https://www.conventionalcommits.org/)
 - You can also develop with the provided Docker containers!
   - on Linux, make sure to set an environment variable, since `host.docker.internal` is not working:
     - `export DOCKER_HOST_IP=$(docker network inspect bridge --format='{{(index .IPAM.Config 0).Gateway}}')`
