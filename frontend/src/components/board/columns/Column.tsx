@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Card } from "@material-ui/core";
@@ -10,6 +10,8 @@ import {
   ColumnContainerStyles,
   ItemsContainerStyles,
 } from "../../styled-components";
+import { UserContext } from "../../../context/UserContext";
+import { ROLE_MODERATOR } from "../../../utils/user.utils";
 
 const ColumnContainer = styled(Card)`
   ${ColumnContainerStyles}
@@ -27,9 +29,14 @@ type ColumnProps = {
 
 function Column(props: ColumnProps) {
   const { column, items, index } = props;
+  const { userState } = useContext(UserContext);
 
   return (
-    <Draggable draggableId={column.id} index={index}>
+    <Draggable
+      draggableId={column.id}
+      index={index}
+      isDragDisabled={userState.role !== ROLE_MODERATOR}
+    >
       {(providedDraggable) => (
         <ColumnContainer
           {...providedDraggable.draggableProps}

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Draggable } from "react-beautiful-dnd";
 
 import RetroItem from "./RetroItem";
 import { ItemContainer } from "../../styled-components";
 import { RetroCard } from "../../../types/common.types";
+import { UserContext } from "../../../context/UserContext";
+import { ROLE_MODERATOR } from "../../../utils/user.utils";
 
 type ItemProps = {
   item: RetroCard;
@@ -13,10 +15,17 @@ type ItemProps = {
 
 function Item(props: ItemProps) {
   const { item, index, isVoted } = props;
-  const { id, author, content, points, isBlurred, isDiscussed} = item;
+  const { id, author, content, points, isBlurred, isDiscussed } = item;
+  const { userState } = useContext(UserContext);
 
   return (
-    <Draggable draggableId={id} index={index}>
+    <Draggable
+      draggableId={id}
+      index={index}
+      isDragDisabled={
+        userState.name !== author && userState.role !== ROLE_MODERATOR
+      }
+    >
       {(provided) => (
         <ItemContainer
           {...provided.draggableProps}
