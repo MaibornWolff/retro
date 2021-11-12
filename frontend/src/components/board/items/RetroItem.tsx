@@ -108,9 +108,9 @@ function RetroItem(props: RetroItemProps) {
     // Regex for matching every kind of URLs
     const urls = /(?:\w+:\/\/[\w.]+|[\w.]+\.\w+).*/.exec(content);
     
-    urls?.forEach((val: string) => {
-      const url = val.indexOf('//') == -1 ? 'https://' + val : val;
-      content = content.replace(val, `<a href="${url}" target="_blank" class="${classes.cardLink}">${val}</a>`); 
+    urls?.forEach((url: string) => {
+      const editedUrl = url.indexOf('//') == -1 ? 'https://' + url : url;
+      content = content.replace(url, `<a href="${editedUrl}" target="_blank" class="${classes.cardLink}">${url}</a>`); 
     });
 
     return content;
