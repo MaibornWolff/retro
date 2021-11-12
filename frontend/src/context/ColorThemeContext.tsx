@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from '@material-ui/core/styles'
 import { grey } from "@material-ui/core/colors";
 import { ColorThemeContextValues } from "../types/context.types";
 
@@ -7,7 +7,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const lightTheme = createMuiTheme({
+const lightTheme = createTheme({
   palette: {
     type: "light",
     primary: {
@@ -16,10 +16,11 @@ const lightTheme = createMuiTheme({
     secondary: {
       main: grey["900"],
     },
+    
   },
 });
 
-const darkTheme = createMuiTheme({
+const darkTheme = createTheme({
   palette: {
     type: "dark",
     primary: {
@@ -28,6 +29,7 @@ const darkTheme = createMuiTheme({
     secondary: {
       main: grey["800"],
     },
+
   },
 });
 

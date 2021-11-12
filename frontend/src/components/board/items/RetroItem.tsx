@@ -85,6 +85,12 @@ const useStyles = makeStyles((theme) => ({
   likeButton: {
     marginLeft: "auto",
   },
+  cardLink: {
+    color: theme.palette.primary.main, 
+    borderBottom: "dashed 1px",
+    borderColor: theme.palette.primary.main,
+    textDecoration: "none"
+  }
 }));
 
 function RetroItem(props: RetroItemProps) {
@@ -96,6 +102,19 @@ function RetroItem(props: RetroItemProps) {
   const { userState, downvoteCard } = useContext(UserContext);
   const { currentTheme } = useContext(ColorThemeContext);
   const classes = useStyles(currentTheme);
+  const contentWithLinks = createContentWithLinks(content); 
+
+  function createContentWithLinks(content: string) {
+    // Regex for matching every kind of URLs
+    const urls = /(?:\w+:\/\/[\w.]+|[\w.]+\.\w+).*/.exec(content);
+    
+    urls?.forEach((val: string) => {
+      const url = val.indexOf('//') == -1 ? 'https://' + val : val;
+      content = content.replace(val, `<a href="${url}" target="_blank" class="${classes.cardLink}">${val}</a>`); 
+    });
+
+    return content;
+  }
 
   function downVote() {
     const votesLeft = userState.votesLeft;
@@ -181,7 +200,7 @@ function RetroItem(props: RetroItemProps) {
                 color="textSecondary"
                 component={"span"}
               >
-                <CardText>{content}</CardText>
+                <CardText dangerouslySetInnerHTML={{__html : contentWithLinks }}/>
               </Typography>
             </CardContent>
             <CardActions disableSpacing className={classes.actions}>
