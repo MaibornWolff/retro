@@ -16,6 +16,7 @@ export interface UserState {
 export interface BoardState {
   focusedCard: string;
   showContinueDiscussion: boolean;
+  shownReactions: string[];
   continueDiscussionVotes: {
     yes: number;
     no: number;
@@ -58,6 +59,7 @@ export interface BoardAction extends Action {
   payload?: {
     focusedCard?: string;
     isToggled?: boolean;
+    reactionId?: string;
   };
 }
 
@@ -106,6 +108,7 @@ export interface BoardContextValues {
   boardState: BoardState;
   socket: SocketIOClient.Socket;
   setFocusedCard: (focusedCard: string) => void;
+  showReaction: (reactionId: string) => void;
   removeFocusedCard: () => void;
   toggleContinueDiscussion: (isToggled: boolean) => void;
   voteYes: () => void;

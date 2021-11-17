@@ -14,6 +14,8 @@ import {
   CONTINUE_DISCUSSION_NO,
   CONTINUE_DISCUSSION_ABSTAIN,
   BOARD_ERROR,
+  SEND_REACTION,
+  TOGGLE_REACTIONS,
 } from "./event-names";
 import { RetroBoard } from "../models/RetroBoard";
 import { RetroColumn } from "../models/RetroColumn";
@@ -34,7 +36,7 @@ export function joinBoard(io: Server, client: Socket): void {
 
 export function updateBoard(io: Server, client: Socket, roomId: string): void {
   client.on(UPDATE_BOARD, (board: RetroBoard, boardId: string) => {
-    fs.writeFile(getPath(boardId), stringify(board), UTF8, (error) => {
+    fs.writeFile(getPath(boardId), stringify(board), UTF8, error => {
       if (error) logError(UPDATE_BOARD, error);
       io.to(roomId).emit(UPDATE_BOARD, board);
     });
@@ -61,7 +63,7 @@ export function unblurCards(io: Server, client: Socket, roomId: string): void {
           board.columns[columnId].isBlurred = board.isBlurred;
         }
 
-        fs.writeFile(path, stringify(board), UTF8, (error) => {
+        fs.writeFile(path, stringify(board), UTF8, error => {
           if (error) logError(UNBLUR_CARDS, error);
           io.to(roomId).emit(UPDATE_BOARD, board);
         });
@@ -86,7 +88,7 @@ export function setMaxVotes(io: Server, client: Socket, roomId: string): void {
           board.items[cardId].points = 0;
         }
 
-        fs.writeFile(path, stringify(board), UTF8, (error) => {
+        fs.writeFile(path, stringify(board), UTF8, error => {
           if (error) logError(SET_MAX_VOTES, error);
           io.to(roomId).emit(SET_MAX_VOTES, board);
         });
@@ -110,7 +112,7 @@ export function resetVotes(io: Server, client: Socket, roomId: string): void {
           board.items[cardId].points = 0;
         }
 
-        fs.writeFile(path, stringify(board), UTF8, (error) => {
+        fs.writeFile(path, stringify(board), UTF8, error => {
           if (error) logError(RESET_VOTES, error);
           io.to(roomId).emit(RESET_VOTES, board);
         });
@@ -139,7 +141,7 @@ export function toggleContinueDiscussion(
         board.continueDiscussionVotes.no = 0;
         board.continueDiscussionVotes.abstain = 0;
 
-        fs.writeFile(path, stringify(board), UTF8, (error) => {
+        fs.writeFile(path, stringify(board), UTF8, error => {
           if (error) logError(SHOW_CONTINUE_DISCUSSION, error);
           io.to(roomId).emit(
             SHOW_CONTINUE_DISCUSSION,
@@ -164,7 +166,7 @@ export function voteYes(io: Server, client: Socket, roomId: string): void {
       } else {
         board.continueDiscussionVotes.yes += 1;
 
-        fs.writeFile(path, stringify(board), UTF8, (error) => {
+        fs.writeFile(path, stringify(board), UTF8, error => {
           if (error) logError(CONTINUE_DISCUSSION_YES, error);
           io.to(roomId).emit(CONTINUE_DISCUSSION_YES);
         });
@@ -186,7 +188,7 @@ export function voteNo(io: Server, client: Socket, roomId: string): void {
       } else {
         board.continueDiscussionVotes.no += 1;
 
-        fs.writeFile(path, stringify(board), UTF8, (error) => {
+        fs.writeFile(path, stringify(board), UTF8, error => {
           if (error) logError(CONTINUE_DISCUSSION_NO, error);
           io.to(roomId).emit(CONTINUE_DISCUSSION_NO);
         });
@@ -208,7 +210,7 @@ export function voteAbstain(io: Server, client: Socket, roomId: string): void {
       } else {
         board.continueDiscussionVotes.abstain += 1;
 
-        fs.writeFile(path, stringify(board), UTF8, (error) => {
+        fs.writeFile(path, stringify(board), UTF8, error => {
           if (error) logError(CONTINUE_DISCUSSION_ABSTAIN, error);
           io.to(roomId).emit(CONTINUE_DISCUSSION_ABSTAIN);
         });
@@ -217,12 +219,39 @@ export function voteAbstain(io: Server, client: Socket, roomId: string): void {
   });
 }
 
+export function sendReaction(io: Server, client: Socket, roomId: string): void {
+  client.on(SEND_REACTION, (boardId: string, reactionId: string) => {
+    io.to(roomId).emit(SEND_REACTION, reactionId);
+  });
+}
+
+export function toggleReactions(io: Server, client: Socket, roomId: string): void {
+  client.on(TOGGLE_REACTIONS, (boardId: string) => {
+    const path = getPath(boardId);
+    fs.readFile(path, UTF8, (error, file: string) => {
+      if (error) logError(TOGGLE_REACTIONS, error);
+      const board = getRetroBoard(file);
+
+      if (board === null) {
+        client.emit(BOARD_ERROR);
+      } else {
+        board.isReactionOn = !board.isReactionOn;
+
+        fs.writeFile(path, stringify(board), UTF8, error => {
+          if (error) logError(TOGGLE_REACTIONS, error);
+          io.to(roomId).emit(UPDATE_BOARD, board);
+        });
+      }
+    });
+  });
+}
+
 function areEquallyBlurred(columns: RetroColumn[]): boolean {
-  return new Set(columns.map((c) => c.isBlurred)).size === 1;
+  return new Set(columns.map(c => c.isBlurred)).size === 1;
 }
 
 function getNonEmpty(columns: RetroColumn[]): RetroColumn[] {
-  return columns.filter((c) => c.itemIds.length > 0);
+  return columns.filter(c => c.itemIds.length > 0);
 }
 
 function overwriteIsBlurred(board: RetroBoard): void {
