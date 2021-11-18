@@ -219,7 +219,7 @@ export default function BoardPage() {
   }
 
   function renderBoard(board: RetroBoard) {
-    const { columns, items, columnOrder } = board;
+    const { columns, items, columnOrder, comments } = board;
     return columnOrder.map((columnId, index) => {
       const column = columns[columnId];
       return (
@@ -227,6 +227,7 @@ export default function BoardPage() {
           key={column.id}
           column={column}
           itemMap={items}
+          commentMap={comments}
           index={index}
         />
       );

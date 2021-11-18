@@ -1,5 +1,6 @@
 import { RetroItem } from "./RetroItem";
 import { RetroColumn } from "./RetroColumn";
+import { RetroComment } from "./RetroComment";
 
 export type RetroBoard = {
   boardId: string;
@@ -8,6 +9,7 @@ export type RetroBoard = {
   items: { [name: string]: RetroItem };
   columns: { [name: string]: RetroColumn };
   columnOrder: string[];
+  comments: { [name: string]: RetroComment};
   error: boolean;
   isBlurred: boolean;
   isReactionOn: boolean;

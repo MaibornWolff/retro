@@ -37,6 +37,7 @@ export function createCard(io: Server, client: Socket, roomId: string): void {
           card.isBlurred = board.isBlurred;
           card.author = author.trim();
           card.content = content.trim();
+          card.commentIds = [];
           board.items[card.id] = card;
           board.columns[columnId].itemIds.push(card.id);
 

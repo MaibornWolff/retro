@@ -13,7 +13,7 @@ import apiRouter from "./routes/api-router";
 import pokerRouter from "./routes/poker-router";
 import { cleanStorage } from "./utils/storage-clean-up";
 import { CONNECT, DISCONNECT } from "./events/event-names";
-import { boardEvents, columnEvents, cardEvents, pokerEvents } from "./events";
+import { boardEvents, columnEvents, cardEvents, pokerEvents, commentEvents } from "./events";
 
 const origin = [
   "http://localhost:3001",
@@ -72,6 +72,7 @@ io.on(CONNECT, (socket: Socket) => {
     boardEvents(io, socket, retroRoomId);
     columnEvents(io, socket, retroRoomId);
     cardEvents(io, socket, retroRoomId);
+    commentEvents(io, socket, retroRoomId);
   } else if (pokerRoomId) {
     socket.join(pokerRoomId);
     pokerEvents(io, socket, pokerRoomId);
