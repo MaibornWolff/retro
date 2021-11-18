@@ -5,7 +5,7 @@ import { Card } from "@material-ui/core";
 
 import Items from "../items/Items";
 import ColumnHeader from "./column-header/ColumnHeader";
-import { RetroColumn, RetroCard } from "../../../types/common.types";
+import { RetroColumn, RetroCard, RetroComment } from "../../../types/common.types";
 import {
   ColumnContainerStyles,
   ItemsContainerStyles,
@@ -23,12 +23,15 @@ const ItemsContainer = styled.div`
 
 type ColumnProps = {
   column: RetroColumn;
+  commentMap: {
+    [key: string]: RetroComment;
+  };
   items: RetroCard[];
   index: number;
 };
 
 function Column(props: ColumnProps) {
-  const { column, items, index } = props;
+  const { column, items, index, commentMap } = props;
   const { userState } = useContext(UserContext);
 
   return (
@@ -61,7 +64,7 @@ function Column(props: ColumnProps) {
                 {...providedDroppable.droppableProps}
                 isDraggingOver={snapshot.isDraggingOver}
               >
-                <Items items={items} />
+                <Items items={items} commentMap={commentMap} />
                 {providedDroppable.placeholder}
               </ItemsContainer>
             )}

@@ -5,14 +5,17 @@ import { Grid } from "@material-ui/core";
 import Item from "./Item";
 import { BoardContext } from "../../../context/BoardContext";
 import { hasVotedFor } from "../../../utils/user.utils";
-import { RetroCard } from "../../../types/common.types";
+import { RetroCard, RetroComment } from "../../../types/common.types";
 
 type ItemsProps = {
   items: RetroCard[];
+  commentMap: {
+    [key: string]: RetroComment;
+  };
 };
 
 function Items(props: ItemsProps) {
-  const { items } = props;
+  const { items, commentMap } = props;
   const { boardId } = useContext(BoardContext);
 
   function isVoted(cardId: string) {
@@ -23,7 +26,7 @@ function Items(props: ItemsProps) {
     return items.map((item, i) => {
       return (
         <Grid key={item.id} item style={{ width: "100%" }}>
-          <Item item={item} index={i} isVoted={isVoted(item.id)} />
+          <Item item={item} index={i} commentMap={commentMap} isVoted={isVoted(item.id)} />
         </Grid>
       );
     });

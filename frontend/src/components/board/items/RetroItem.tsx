@@ -1,12 +1,3 @@
-import React, {
-  Fragment,
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-} from "react";
-import ThumbDownIcon from "@material-ui/icons/ThumbDown";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Avatar,
   Card,
@@ -19,26 +10,38 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
-
-import DeleteItemButton from "./DeleteItemButton";
-import MarkAsDiscussedButton from "./MarkAsDiscussedButton";
-import EditItemButton from "./EditItemButton";
-import UpvoteItemButton from "./UpvoteItemButton";
-import BlurredItem from "./BlurredItem";
-import { UserContext } from "../../../context/UserContext";
-import { BoardContext } from "../../../context/BoardContext";
-import { CardAuthor, CardContainer, CardText } from "../../styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+import CommentIcon from "@material-ui/icons/Comment";
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import React, {
+  Fragment,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import {
   FOCUS_CARD,
   REMOVE_FOCUS_CARD,
   VOTE_CARD,
 } from "../../../constants/event.constants";
-import { ROLE_MODERATOR } from "../../../utils/user.utils";
+import { BoardContext } from "../../../context/BoardContext";
 import { ColorThemeContext } from "../../../context/ColorThemeContext";
+import { UserContext } from "../../../context/UserContext";
+import { RetroComment } from "../../../types/common.types";
+import { ROLE_MODERATOR } from "../../../utils/user.utils";
+import { CardAuthor, CardContainer, CardText } from "../../styled-components";
+import BlurredItem from "./BlurredItem";
+import DeleteItemButton from "./DeleteItemButton";
+import EditItemButton from "./EditItemButton";
+import ExpandableComments from "./ExpandableComments";
+import MarkAsDiscussedButton from "./MarkAsDiscussedButton";
+import UpvoteItemButton from "./UpvoteItemButton";
 
 type RetroItemProps = {
   id: string;
   author: string;
+  comments: RetroComment[];
   content: string;
   points: number;
   isBlurred: boolean;
@@ -86,31 +89,43 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
   },
   cardLink: {
-    color: theme.palette.primary.main, 
+    color: theme.palette.primary.main,
     borderBottom: "dashed 1px",
     borderColor: theme.palette.primary.main,
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 }));
 
 function RetroItem(props: RetroItemProps) {
-  const { id, author, content, points, isBlurred, isVoted, isDiscussed } =
-    props;
+  const {
+    id,
+    author,
+    comments,
+    content,
+    points,
+    isBlurred,
+    isVoted,
+    isDiscussed,
+  } = props;
   const [blurStatus, setBlurStatus] = useState(isBlurred);
   const [hasMouseFocus, setMouseFocus] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);
   const { userState, downvoteCard } = useContext(UserContext);
   const { currentTheme } = useContext(ColorThemeContext);
   const classes = useStyles(currentTheme);
-  const contentWithLinks = createContentWithLinks(content); 
+  const contentWithLinks = createContentWithLinks(content);
 
   function createContentWithLinks(content: string) {
     // Regex for matching every kind of URLs
     const urls = /(?:\w+:\/\/[\w.]+|[\w.]+\.\w+).*/.exec(content);
-    
+
     urls?.forEach((url: string) => {
-      const editedUrl = url.indexOf('//') == -1 ? 'https://' + url : url;
-      content = content.replace(url, `<a href="${editedUrl}" target="_blank" class="${classes.cardLink}">${url}</a>`); 
+      const editedUrl = url.indexOf("//") == -1 ? "https://" + url : url;
+      content = content.replace(
+        url,
+        `<a href="${editedUrl}" target="_blank" class="${classes.cardLink}">${url}</a>`
+      );
     });
 
     return content;
@@ -120,6 +135,10 @@ function RetroItem(props: RetroItemProps) {
     const votesLeft = userState.votesLeft;
     socket.emit(VOTE_CARD, id, boardId, false);
     downvoteCard(boardId, id, votesLeft);
+  }
+
+  function toggleExpanded() {
+    setIsExpanded(!isExpanded);
   }
 
   function handleFocus(event: KeyboardEvent) {
@@ -200,11 +219,20 @@ function RetroItem(props: RetroItemProps) {
                 color="textSecondary"
                 component={"span"}
               >
-                <CardText dangerouslySetInnerHTML={{__html : contentWithLinks }}/>
+                <CardText
+                  dangerouslySetInnerHTML={{ __html: contentWithLinks }}
+                />
               </Typography>
             </CardContent>
             <CardActions disableSpacing className={classes.actions}>
               <div>
+                <IconButton
+                  size="small"
+                  color="inherit"
+                  onClick={toggleExpanded}
+                >
+                  <CommentIcon fontSize="small" />
+                </IconButton>
                 {isDiscussed ? (
                   <Chip label={"Discussed"} variant="outlined" size={"small"} />
                 ) : null}
@@ -226,6 +254,11 @@ function RetroItem(props: RetroItemProps) {
                 <DeleteItemButton id={id} />
               </div>
             </CardActions>
+            <ExpandableComments
+              isExpanded={isExpanded}
+              comments={comments}
+              cardId={id}
+            />
           </Card>
         </CardContainer>
       )}

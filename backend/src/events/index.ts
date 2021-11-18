@@ -36,6 +36,7 @@ import {
   setPokerUnit,
   removePokerUser,
 } from "./poker-events";
+import { commentCard, deleteComment, editComment } from "./comment-events";
 
 export function boardEvents(io: Server, client: Socket, roomId: string): void {
   joinBoard(io, client);
@@ -65,6 +66,12 @@ export function cardEvents(io: Server, client: Socket, roomId: string): void {
   voteCard(io, client, roomId);
   focusCard(io, client, roomId);
   removeFocusCard(io, client, roomId);
+}
+
+export function commentEvents(io: Server, client: Socket, roomId: string): void {
+  commentCard(io, client, roomId);
+  deleteComment(io, client, roomId);
+  editComment(io, client, roomId);
 }
 
 export function pokerEvents(io: Server, client: Socket, roomId: string): void {

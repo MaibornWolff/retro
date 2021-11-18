@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import ForumIcon from "@material-ui/icons/Forum";
 import { IconButton } from "@material-ui/core";
+import LibraryAddCheckIcon from "@material-ui/icons/LibraryAddCheck";
+import React, { useContext } from "react";
 import { MARK_CARD_DISCUSSED } from "../../../constants/event.constants";
 import { BoardContext } from "../../../context/BoardContext";
 
@@ -20,7 +20,7 @@ export default function MarkAsDiscussedButton(
 
   return (
     <IconButton size="small" color="inherit" onClick={() => handleClick()}>
-      <ForumIcon fontSize="small" />
+      <LibraryAddCheckIcon fontSize="small" />
     </IconButton>
   );
 }
