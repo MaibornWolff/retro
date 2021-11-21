@@ -92,17 +92,20 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://yduman.github.io/"><img src="https://avatars0.githubusercontent.com/u/11931774?v=4" width="100px;" alt=""/><br /><sub><b>Yadullah Duman</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=yduman" title="Code">💻</a> <a href="#maintenance-yduman" title="Maintenance">🚧</a> <a href="#projectManagement-yduman" title="Project Management">📆</a> <a href="https://github.com/yduman/retro/pulls?q=is%3Apr+reviewed-by%3Ayduman" title="Reviewed Pull Requests">👀</a> <a href="#ideas-yduman" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/mrpatpat"><img src="https://avatars2.githubusercontent.com/u/2622069?v=4" width="100px;" alt=""/><br /><sub><b>Adrian Endrich</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=mrpatpat" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ClaasBusemann"><img src="https://avatars2.githubusercontent.com/u/65392929?v=4" width="100px;" alt=""/><br /><sub><b>Claas Busemann</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=ClaasBusemann" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/PaulaBre"><img src="https://avatars2.githubusercontent.com/u/65403162?v=4" width="100px;" alt=""/><br /><sub><b>PaulaBre</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=PaulaBre" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/tobim-dev"><img src="https://avatars3.githubusercontent.com/u/15176413?v=4" width="100px;" alt=""/><br /><sub><b>Tobias</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=tobim-dev" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ravensinth"><img src="https://avatars0.githubusercontent.com/u/1155772?v=4" width="100px;" alt=""/><br /><sub><b>ravensinth</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=ravensinth" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/2mawi2"><img src="https://avatars2.githubusercontent.com/u/17811051?v=4" width="100px;" alt=""/><br /><sub><b>Marius Wichtner</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=2mawi2" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/mrpatpat"><img src="https://avatars2.githubusercontent.com/u/2622069?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adrian Endrich</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=mrpatpat" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ClaasBusemann"><img src="https://avatars2.githubusercontent.com/u/65392929?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Claas Busemann</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=ClaasBusemann" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/PaulaBre"><img src="https://avatars2.githubusercontent.com/u/65403162?v=4?s=100" width="100px;" alt=""/><br /><sub><b>PaulaBre</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=PaulaBre" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/tobim-dev"><img src="https://avatars3.githubusercontent.com/u/15176413?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tobias</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=tobim-dev" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ravensinth"><img src="https://avatars0.githubusercontent.com/u/1155772?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ravensinth</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=ravensinth" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/2mawi2"><img src="https://avatars2.githubusercontent.com/u/17811051?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marius Wichtner</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=2mawi2" title="Code">💻</a></td>
+    <td align="center"><a href="https://yduman.github.io/"><img src="https://avatars0.githubusercontent.com/u/11931774?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yadullah Duman</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=yduman" title="Code">💻</a> <a href="#maintenance-yduman" title="Maintenance">🚧</a> <a href="#projectManagement-yduman" title="Project Management">📆</a> <a href="https://github.com/yduman/retro/pulls?q=is%3Apr+reviewed-by%3Ayduman" title="Reviewed Pull Requests">👀</a> <a href="#ideas-yduman" title="Ideas, Planning, & Feedback">🤔</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/sillydomnom"><img src="https://avatars.githubusercontent.com/u/18489820?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dominik Schumann</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=sillydomnom" title="Code">💻</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
