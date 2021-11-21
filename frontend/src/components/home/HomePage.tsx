@@ -51,6 +51,7 @@ export default function HomePage() {
                   "Welcome to Retro.",
                   "Willkommen zu Retro.",
                   "Bienvenue à Retro.",
+                  "Selamat Datang di Retro.",
                 ],
                 autoStart: true,
                 loop: true,
