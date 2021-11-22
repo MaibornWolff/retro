@@ -5,11 +5,17 @@ import {
   CONTINUE_DISCUSSION_VOTE_YES,
   CONTINUE_DISCUSSION_VOTE_NO,
   CONTINUE_DISCUSSION_VOTE_ABSTAIN,
+  SHOW_REACTION,
 } from "../actions/board.actions";
 import { BoardState, BoardAction } from "../types/context.types";
 
-export const reducer = (state: BoardState, action: BoardAction) => {
+export const reducer = (state: BoardState, action: BoardAction) : BoardState => {
   switch (action.type) {
+    case SHOW_REACTION:
+      return {
+        ...state,
+        shownReactions: state.shownReactions.concat(action.payload?.reactionId as string),
+      };
     case SET_FOCUSED_CARD:
       return {
         ...state,

@@ -19,6 +19,7 @@ export const defaultBoard = {
   columnOrder: [],
   error: false,
   isBlurred: true,
+  isReactionOn: true,
   maxVoteCount: 3,
   showContinueDiscussion: false,
   continueDiscussionVotes: {

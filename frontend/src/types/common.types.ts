@@ -27,6 +27,7 @@ export interface RetroBoard {
   columnOrder: string[];
   error: boolean;
   isBlurred: boolean;
+  isReactionOn: boolean;
   maxVoteCount: number;
   showContinueDiscussion: boolean;
   continueDiscussionVotes: {

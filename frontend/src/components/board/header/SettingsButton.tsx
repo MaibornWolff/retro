@@ -6,6 +6,7 @@ import VoteCountButton from "./VoteCountButton";
 import ExportBoardButton from "./ExportBoardButton";
 import ExportTemplateButton from "./ExportTemplateButton";
 import QrCodeButton from "./QrCodeButton";
+import ToggleReactionsButton from "./ToggleReactionsButton";
 
 const useStyles = makeStyles(() => ({
   settingsButton: {
@@ -60,6 +61,7 @@ export default function SettingsButton() {
         <ExportBoardButton />
         <ExportTemplateButton />
         <QrCodeButton />
+        <ToggleReactionsButton />
       </Menu>
     </>
   );

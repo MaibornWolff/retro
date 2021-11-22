@@ -45,8 +45,10 @@ import {
   CONTINUE_DISCUSSION_ABSTAIN,
   CONTINUE_DISCUSSION_NO,
   BOARD_ERROR,
+  SEND_REACTION,
 } from "../../constants/event.constants";
 import VoteProgress from "./VoteProgress";
+import ReactionBar from "./footer/ReactionBar";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -65,6 +67,7 @@ export default function BoardPage() {
     boardId,
     socket,
     setFocusedCard,
+    showReaction,
     removeFocusedCard,
     toggleContinueDiscussion,
     voteYes,
@@ -156,6 +159,10 @@ export default function BoardPage() {
     socket.on(CONTINUE_DISCUSSION_ABSTAIN, () => {
       voteAbstain();
     });
+
+    socket.on(SEND_REACTION, (reactionId: string) => {
+      showReaction(reactionId);
+    })
 
     return () => {
       // Pass nothing to remove all listeners on all events.
@@ -255,6 +262,7 @@ export default function BoardPage() {
             </Droppable>
           </DragDropContext>
         </Grid>
+        {board.isReactionOn && <ReactionBar/>}
         <MergeCardsDialog
           open={isMergeDialogOpen}
           closeDialog={closeMergeDialog}

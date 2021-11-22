@@ -11,6 +11,7 @@ import {
   CONTINUE_DISCUSSION_VOTE_YES,
   CONTINUE_DISCUSSION_VOTE_NO,
   CONTINUE_DISCUSSION_VOTE_ABSTAIN,
+  SHOW_REACTION,
 } from "../actions/board.actions";
 import { BoardContextValues } from "../types/context.types";
 
@@ -24,6 +25,7 @@ interface ParamTypes {
 
 const initialState = {
   focusedCard: "",
+  shownReactions: [],
   showContinueDiscussion: false,
   continueDiscussionVotes: {
     yes: 0,
@@ -47,6 +49,10 @@ export default function BoardContextProvider(props: BoardContextProviderProps) {
 
   function setFocusedCard(focusedCard: string) {
     dispatch({ type: SET_FOCUSED_CARD, payload: { focusedCard } });
+  }
+
+  function showReaction(reactionId: string) {
+    dispatch({ type: SHOW_REACTION, payload: { reactionId } });
   }
 
   function removeFocusedCard() {
@@ -74,6 +80,7 @@ export default function BoardContextProvider(props: BoardContextProviderProps) {
     boardState,
     socket,
     setFocusedCard,
+    showReaction,
     removeFocusedCard,
     toggleContinueDiscussion,
     voteYes,
