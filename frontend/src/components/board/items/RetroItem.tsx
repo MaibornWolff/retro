@@ -6,6 +6,8 @@ import React, {
   useCallback,
 } from "react";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import HighlightIcon from "@material-ui/icons/Highlight";
+import HighlightOutlinedIcon from "@material-ui/icons/HighlightOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Avatar,
@@ -17,6 +19,7 @@ import {
   Divider,
   IconButton,
   Theme,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 
@@ -73,6 +76,10 @@ const useStyles = makeStyles((theme) => ({
   cardHeader: {
     padding: "8px",
   },
+  cardHeaderAction: {
+    paddingTop: "0.5em",
+    paddingRight: "0.5em",
+  },
   cardFocused: {
     border: "4px solid red",
   },
@@ -86,31 +93,33 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
   },
   cardLink: {
-    color: theme.palette.primary.main, 
+    color: theme.palette.primary.main,
     borderBottom: "dashed 1px",
     borderColor: theme.palette.primary.main,
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 }));
 
 function RetroItem(props: RetroItemProps) {
   const { id, author, content, points, isBlurred, isVoted, isDiscussed } =
     props;
   const [blurStatus, setBlurStatus] = useState(isBlurred);
-  const [hasMouseFocus, setMouseFocus] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);
   const { userState, downvoteCard } = useContext(UserContext);
   const { currentTheme } = useContext(ColorThemeContext);
   const classes = useStyles(currentTheme);
-  const contentWithLinks = createContentWithLinks(content); 
+  const contentWithLinks = createContentWithLinks(content);
 
   function createContentWithLinks(content: string) {
     // Regex for matching every kind of URLs
     const urls = /(?:\w+:\/\/[\w.]+|[\w.]+\.\w+).*/.exec(content);
-    
+
     urls?.forEach((url: string) => {
-      const editedUrl = url.indexOf('//') == -1 ? 'https://' + url : url;
-      content = content.replace(url, `<a href="${editedUrl}" target="_blank" class="${classes.cardLink}">${url}</a>`); 
+      const editedUrl = url.indexOf("//") == -1 ? "https://" + url : url;
+      content = content.replace(
+        url,
+        `<a href="${editedUrl}" target="_blank" class="${classes.cardLink}">${url}</a>`
+      );
     });
 
     return content;
@@ -122,41 +131,17 @@ function RetroItem(props: RetroItemProps) {
     downvoteCard(boardId, id, votesLeft);
   }
 
-  function handleFocus(event: KeyboardEvent) {
-    const role = userState.role;
-
-    if (role === ROLE_MODERATOR) {
-      if (hasMouseFocus && event.key === "f" && event.code === "KeyF") {
-        socket.emit(FOCUS_CARD, id);
-      } else if (
-        event.shiftKey &&
-        event.key === "F" &&
-        event.code === "KeyF" &&
-        boardState.focusedCard !== ""
-      ) {
-        socket.emit(REMOVE_FOCUS_CARD);
-      }
+  function toggleFocus() {
+    if (boardState.focusedCard === id) {
+      socket.emit(REMOVE_FOCUS_CARD);
+    } else {
+      socket.emit(FOCUS_CARD, id);
     }
-  }
-
-  function handleHover(
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    isFocused: boolean
-  ) {
-    setMouseFocus(isFocused);
   }
 
   const getIsBlurred = useCallback(() => {
     setBlurStatus(author === userState.name ? false : isBlurred);
   }, [author, isBlurred, userState.name]);
-
-  useEffect(() => {
-    document.addEventListener("keypress", handleFocus);
-
-    return () => {
-      document.removeEventListener("keypress", handleFocus);
-    };
-  });
 
   useEffect(() => {
     getIsBlurred();
@@ -170,8 +155,6 @@ function RetroItem(props: RetroItemProps) {
         <CardContainer>
           <Card
             elevation={20}
-            onMouseEnter={(event) => handleHover(event, true)}
-            onMouseLeave={(event) => handleHover(event, false)}
             className={
               boardState.focusedCard === id ? classes.cardFocused : classes.card
             }
@@ -191,6 +174,25 @@ function RetroItem(props: RetroItemProps) {
                   <CardAuthor>{author}</CardAuthor>
                 </Typography>
               }
+              action={
+                userState.role === ROLE_MODERATOR && (
+                  <div className={classes.cardHeaderAction}>
+                    <Tooltip title="Higlight card">
+                      <IconButton
+                        aria-label="Highlight"
+                        color="inherit"
+                        onClick={toggleFocus}
+                      >
+                        {boardState.focusedCard === id ? (
+                          <HighlightIcon />
+                        ) : (
+                          <HighlightOutlinedIcon />
+                        )}
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                )
+              }
             />
             <Divider />
             <CardContent>
@@ -200,7 +202,9 @@ function RetroItem(props: RetroItemProps) {
                 color="textSecondary"
                 component={"span"}
               >
-                <CardText dangerouslySetInnerHTML={{__html : contentWithLinks }}/>
+                <CardText
+                  dangerouslySetInnerHTML={{ __html: contentWithLinks }}
+                />
               </Typography>
             </CardContent>
             <CardActions disableSpacing className={classes.actions}>
