@@ -6,7 +6,6 @@ import { BoardContext } from "../../../context/BoardContext";
 import { UserContext } from "../../../context/UserContext";
 import { ROLE_MODERATOR } from "../../../utils/user.utils";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ToggleReactionsButton = React.forwardRef((props: unknown, ref: any) => {
   const { boardId, socket } = useContext(BoardContext);
   const { userState } = useContext(UserContext);

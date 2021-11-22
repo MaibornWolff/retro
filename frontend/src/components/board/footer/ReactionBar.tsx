@@ -1,6 +1,6 @@
 import { ButtonGroup, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { Fragment, useContext, useEffect, useRef, useState } from "react";
 import { SEND_REACTION } from "../../../constants/event.constants";
 import { BoardContext } from "../../../context/BoardContext";
 import Reaction from "./Reaction";
@@ -59,7 +59,7 @@ export default function ReactionBar() {
   }
 
   return (
-    <div>
+    <Fragment>
       {shownReactions.map((reaction, index) => {
         return (
           <Reaction
@@ -91,6 +91,6 @@ export default function ReactionBar() {
           );
         })}
       </ButtonGroup>
-    </div>
+    </Fragment>
   );
 }

@@ -1,6 +1,40 @@
 import { makeStyles } from "@material-ui/core";
 import React, { useEffect } from "react";
 
+type ReactionProps = {
+  reactionImage: string;
+  onFinished: () => void;
+};
+
+export default function Reaction(props: ReactionProps) {
+  const classes = useStyles();
+
+  function stopAnimation() {
+    //Remove entries in state after finished Animation
+    setTimeout(() => {
+      props.onFinished();
+    }, 2700);
+  }
+
+  useEffect(() => stopAnimation(), []);
+
+  return (
+    <div className={classes.reaction + " " + classes.reactionAnimationWobble}>
+      <div className={classes.reactAnimationFadeIn}>
+        <div className={classes.reactAnimationFadeOut}>
+          <img
+            src={props.reactionImage}
+            className={
+              classes.reactionImage + " " + classes.reactionAnimationSlide
+            }
+            alt="reaction"
+          ></img>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const useStyles = makeStyles({
   //Keyframes for animating the reactions
   "@keyframes wobble": {
@@ -85,32 +119,3 @@ const useStyles = makeStyles({
     animation: "$fadeIn 0.3s ease-in-out both",
   },
 });
-
-export default function Reaction(props: any) {
-  const classes = useStyles();
-
-  function stopAnimation() {
-    //Remove entries in state after finished Animation
-    setTimeout(() => {
-      props.onFinished();
-    }, 2700);
-  }
-
-  useEffect(() => stopAnimation(), []);
-
-  return (
-    <div className={classes.reaction + " " + classes.reactionAnimationWobble}>
-      <div className={classes.reactAnimationFadeIn}>
-        <div className={classes.reactAnimationFadeOut}>
-          <img
-            src={props.reactionImage}
-            className={
-              classes.reactionImage + " " + classes.reactionAnimationSlide
-            }
-            alt="reaction"
-          ></img>
-        </div>
-      </div>
-    </div>
-  );
-}
