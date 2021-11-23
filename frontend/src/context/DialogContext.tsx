@@ -1,22 +1,10 @@
 import React, { useReducer } from "react";
-
-import { reducer } from "../reducers/dialog.reducer";
 import {
-  OPEN_DELETE_ITEM_DIALOG,
-  CLOSE_DELETE_ITEM_DIALOG,
-  OPEN_DELETE_COLUMN_DIALOG,
-  CLOSE_DELETE_COLUMN_DIALOG,
-  OPEN_EDIT_ITEM_DIALOG,
-  CLOSE_EDIT_ITEM_DIALOG,
-  OPEN_EDIT_COLUMN_DIALOG,
-  CLOSE_EDIT_COLUMN_DIALOG,
-  OPEN_CREATE_ITEM_DIALOG,
-  CLOSE_CREATE_ITEM_DIALOG,
-  OPEN_RETRO_ITEM_DETAIL_DIALOG,
-  CLOSE_RETRO_ITEM_DETAIL_DIALOG,
+  CLOSE_CREATE_ITEM_DIALOG, CLOSE_DELETE_COLUMN_DIALOG, CLOSE_DELETE_ITEM_DIALOG, CLOSE_EDIT_COLUMN_DIALOG, CLOSE_EDIT_ITEM_DIALOG, CLOSE_RETRO_ITEM_DETAIL_DIALOG, OPEN_CREATE_ITEM_DIALOG, OPEN_DELETE_COLUMN_DIALOG, OPEN_DELETE_ITEM_DIALOG, OPEN_EDIT_COLUMN_DIALOG, OPEN_EDIT_ITEM_DIALOG, OPEN_RETRO_ITEM_DETAIL_DIALOG
 } from "../actions/dialog.actions";
+import { reducer } from "../reducers/dialog.reducer";
 import { DialogContextValues } from "../types/context.types";
-import { RetroCard, RetroComment } from "../types/common.types";
+
 
 const initialState = {
   itemId: null,

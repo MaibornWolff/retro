@@ -1,4 +1,4 @@
-import { Divider, List, makeStyles } from "@material-ui/core";
+import { Divider, List } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../../context/UserContext";
 import { RetroComment } from "../../../types/common.types";

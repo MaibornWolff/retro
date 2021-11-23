@@ -6,6 +6,13 @@ export interface RetroCard {
   points: number;
   isBlurred: boolean;
   isDiscussed: boolean;
+  isExpanded: boolean;
+}
+
+export interface RetroComment {
+  id: string;
+  author: string;
+  content: string;
 }
 
 export interface RetroComment {

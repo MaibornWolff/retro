@@ -96,8 +96,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RetroItem(props: RetroItemProps) {
-  const { id, author, content, points, isBlurred, isVoted, isDiscussed } =
-    props;
+  const {
+    id,
+    author,
+    content,
+    points,
+    isBlurred,
+    isVoted,
+    isDiscussed,
+  } = props;
   const [blurStatus, setBlurStatus] = useState(isBlurred);
   const [hasMouseFocus, setMouseFocus] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);

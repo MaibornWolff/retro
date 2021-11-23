@@ -7,10 +7,11 @@ import { RetroCard, RetroColumn } from "../../../types/common.types";
 import { ROLE_MODERATOR } from "../../../utils/user.utils";
 import {
   ColumnContainerStyles,
-  ItemsContainerStyles,
+  ItemsContainerStyles
 } from "../../styled-components";
 import Items from "../items/Items";
 import ColumnHeader from "./column-header/ColumnHeader";
+
 
 const ColumnContainer = styled(Card)`
   ${ColumnContainerStyles}

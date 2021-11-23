@@ -1,19 +1,18 @@
 import {
-  OPEN_DELETE_ITEM_DIALOG,
-  CLOSE_DELETE_ITEM_DIALOG,
-  OPEN_DELETE_COLUMN_DIALOG,
-  CLOSE_DELETE_COLUMN_DIALOG,
-  OPEN_EDIT_ITEM_DIALOG,
-  CLOSE_EDIT_ITEM_DIALOG,
-  OPEN_EDIT_COLUMN_DIALOG,
-  CLOSE_EDIT_COLUMN_DIALOG,
-  OPEN_CREATE_ITEM_DIALOG,
   CLOSE_CREATE_ITEM_DIALOG,
-  OPEN_RETRO_ITEM_DETAIL_DIALOG,
+  CLOSE_DELETE_COLUMN_DIALOG,
+  CLOSE_DELETE_ITEM_DIALOG,
+  CLOSE_EDIT_COLUMN_DIALOG,
+  CLOSE_EDIT_ITEM_DIALOG,
   CLOSE_RETRO_ITEM_DETAIL_DIALOG,
+  OPEN_CREATE_ITEM_DIALOG,
+  OPEN_DELETE_COLUMN_DIALOG,
+  OPEN_DELETE_ITEM_DIALOG,
+  OPEN_EDIT_COLUMN_DIALOG,
+  OPEN_EDIT_ITEM_DIALOG,
+  OPEN_RETRO_ITEM_DETAIL_DIALOG,
 } from "../actions/dialog.actions";
-import { RetroCard, RetroComment } from "../types/common.types";
-import { DialogState, DialogAction } from "../types/context.types";
+import { DialogAction, DialogState } from "../types/context.types";
 
 export const reducer = (state: DialogState, action: DialogAction) => {
   switch (action.type) {
@@ -97,14 +96,14 @@ export const reducer = (state: DialogState, action: DialogAction) => {
         isRetroItemDetailDialogOpen: true,
       };
     case CLOSE_RETRO_ITEM_DETAIL_DIALOG:
-        return {
-          ...state,
-          itemId: null,
-          author: "",
-          itemContent: "",
-          itemAuthor: "",
-          isRetroItemDetailDialogOpen: false,
-        };
+      return {
+        ...state,
+        itemId: null,
+        author: "",
+        itemContent: "",
+        itemAuthor: "",
+        isRetroItemDetailDialogOpen: false,
+      };
     default:
       return state;
   }

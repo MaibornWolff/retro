@@ -14,7 +14,7 @@ type ItemProps = {
 
 function Item(props: ItemProps) {
   const { item, index, isVoted } = props;
-  const { id, author, commentIds, content, points, isBlurred, isDiscussed } =
+  const { id, author, content, points, isBlurred, isDiscussed } =
     item;
   const { userState } = useContext(UserContext);
 

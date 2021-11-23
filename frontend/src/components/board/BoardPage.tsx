@@ -1,21 +1,24 @@
-import React, { useState, useEffect, useContext } from "react";
-import isEqual from "lodash/isEqual";
 import { Grid, makeStyles } from "@material-ui/core";
+import isEqual from "lodash/isEqual";
+import React, { useContext, useEffect, useState } from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { Redirect, useLocation, useRouteMatch } from "react-router-dom";
-
-import AppHeader from "./header/AppHeader";
-import BoardHeader from "./BoardHeader";
-import Columns from "./columns/Columns";
-import Dialogs from "./dialogs/Dialogs";
-import CreateItemDialog from "./dialogs/CreateItemDialog";
-import DeleteItemDialog from "./dialogs/DeleteItemDialog";
-import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
-import EditItemDialog from "./dialogs/EditItemDialog";
-import EditColumnDialog from "./dialogs/EditColumnDialog";
-import MergeCardsDialog from "./dialogs/MergeCardsDialog";
-
-import { FlexContainer } from "../styled-components";
+import {
+  BOARD_ERROR,
+  CONNECT,
+  CONTINUE_DISCUSSION_ABSTAIN,
+  CONTINUE_DISCUSSION_NO,
+  CONTINUE_DISCUSSION_YES,
+  FOCUS_CARD,
+  JOIN_BOARD,
+  JOIN_ERROR,
+  REMOVE_FOCUS_CARD,
+  RESET_VOTES,
+  SEND_REACTION,
+  SET_MAX_VOTES,
+  SHOW_CONTINUE_DISCUSSION,
+  UPDATE_BOARD,
+} from "../../constants/event.constants";
 import { BoardContext } from "../../context/BoardContext";
 import { UserContext } from "../../context/UserContext";
 import {
@@ -25,36 +28,30 @@ import {
 } from "../../types/common.types";
 import { defaultBoard, isSameColumn, isSamePosition } from "../../utils";
 import {
-  ROLE_MODERATOR,
-  ROLE_PARTICIPANT,
-  getUser,
-} from "../../utils/user.utils";
-import {
-  handleCombine,
   handleColumnDrag,
+  handleCombine,
   handleInsideColumnDrag,
   handleNormalDrag,
 } from "../../utils/dnd-handler.utils";
 import {
-  CONNECT,
-  UPDATE_BOARD,
-  JOIN_BOARD,
-  JOIN_ERROR,
-  SET_MAX_VOTES,
-  RESET_VOTES,
-  FOCUS_CARD,
-  REMOVE_FOCUS_CARD,
-  SHOW_CONTINUE_DISCUSSION,
-  CONTINUE_DISCUSSION_YES,
-  CONTINUE_DISCUSSION_ABSTAIN,
-  CONTINUE_DISCUSSION_NO,
-  BOARD_ERROR,
-  SEND_REACTION,
-  VOTE_CARD,
-} from "../../constants/event.constants";
-import VoteProgress from "./VoteProgress";
+  getUser,
+  ROLE_MODERATOR,
+  ROLE_PARTICIPANT,
+} from "../../utils/user.utils";
+import { FlexContainer } from "../styled-components";
+import BoardHeader from "./BoardHeader";
+import Columns from "./columns/Columns";
+import CreateItemDialog from "./dialogs/CreateItemDialog";
+import DeleteColumnDialog from "./dialogs/DeleteColumnDialog";
+import DeleteItemDialog from "./dialogs/DeleteItemDialog";
+import Dialogs from "./dialogs/Dialogs";
+import EditColumnDialog from "./dialogs/EditColumnDialog";
+import EditItemDialog from "./dialogs/EditItemDialog";
+import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 import RetroItemDetailDialog from "./dialogs/RetroItemDetailDialog";
 import ReactionBar from "./footer/ReactionBar";
+import AppHeader from "./header/AppHeader";
+import VoteProgress from "./VoteProgress";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -71,7 +68,6 @@ export default function BoardPage() {
   const [merge, setMerge] = useState(false);
   const {
     boardId,
-    boardState,
     socket,
     setFocusedCard,
     showReaction,
@@ -251,7 +247,7 @@ export default function BoardPage() {
   }
 
   function renderBoard(board: RetroBoard) {
-    const { columns, items, columnOrder, comments } = board;
+    const { columns, items, columnOrder } = board;
     return columnOrder.map((columnId, index) => {
       const column = columns[columnId];
       return (
