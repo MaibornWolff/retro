@@ -1,8 +1,7 @@
-import React from "react";
 import isEmpty from "lodash/isEmpty";
-
+import React from "react";
+import { RetroCard, RetroColumn } from "../../../types/common.types";
 import Column from "./Column";
-import { RetroColumn, RetroCard } from "../../../types/common.types";
 
 type ColumnsProps = {
   column: RetroColumn;

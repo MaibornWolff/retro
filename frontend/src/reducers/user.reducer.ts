@@ -1,14 +1,15 @@
-import { removeFirstOccurenceFromArray } from "../utils";
-import { UserState, UserAction } from "../types/context.types";
 import {
-  UPVOTE,
-  DOWNVOTE,
-  SET_MAX_VOTE,
-  RESET,
-  SET_NAME,
   CREATE_MODERATOR,
   CREATE_PARTICIPANT,
+  DOWNVOTE,
+  RESET,
+  SET_MAX_VOTE,
+  SET_NAME,
+  UPVOTE,
+  WROTE_COMMENT,
 } from "../actions/user.actions";
+import { UserAction, UserState } from "../types/context.types";
+import { removeFirstOccurenceFromArray } from "../utils";
 
 export const reducer = (state: UserState, action: UserAction): UserState => {
   switch (action.type) {
@@ -52,6 +53,7 @@ export const reducer = (state: UserState, action: UserAction): UserState => {
         maxVoteCount: action.payload?.maxVoteCount as number,
         votesLeft: action.payload?.maxVoteCount as number,
         votedItems: [],
+        writtenComments: [],
       };
     case CREATE_PARTICIPANT:
       return {
@@ -60,6 +62,14 @@ export const reducer = (state: UserState, action: UserAction): UserState => {
         maxVoteCount: action.payload?.maxVoteCount as number,
         votesLeft: action.payload?.maxVoteCount as number,
         votedItems: [],
+        writtenComments: [],
+      };
+    case WROTE_COMMENT:
+      return {
+        ...state,
+        writtenComments: state.writtenComments.concat(
+          action.payload?.commentId as string
+        ),
       };
     default:
       return state;

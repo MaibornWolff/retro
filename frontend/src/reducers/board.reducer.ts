@@ -1,20 +1,29 @@
 import {
-  SET_FOCUSED_CARD,
+  CONTINUE_DISCUSSION_VOTE_ABSTAIN,
+  CONTINUE_DISCUSSION_VOTE_NO,
+  CONTINUE_DISCUSSION_VOTE_YES,
   REMOVE_FOCUSED_CARD,
   SET_CONTINUE_DISCUSSION,
-  CONTINUE_DISCUSSION_VOTE_YES,
-  CONTINUE_DISCUSSION_VOTE_NO,
-  CONTINUE_DISCUSSION_VOTE_ABSTAIN,
+  SET_FOCUSED_CARD,
   SHOW_REACTION,
+  UPDATE_COMMENTS,
 } from "../actions/board.actions";
-import { BoardState, BoardAction } from "../types/context.types";
+import { RetroCommentMap } from "../types/common.types";
+import { BoardAction, BoardState } from "../types/context.types";
 
-export const reducer = (state: BoardState, action: BoardAction) : BoardState => {
+export const reducer = (state: BoardState, action: BoardAction): BoardState => {
   switch (action.type) {
+    case UPDATE_COMMENTS:
+      return {
+        ...state,
+        comments: action.payload?.comments as RetroCommentMap,
+      };
     case SHOW_REACTION:
       return {
         ...state,
-        shownReactions: state.shownReactions.concat(action.payload?.reactionId as string),
+        shownReactions: state.shownReactions.concat(
+          action.payload?.reactionId as string
+        ),
       };
     case SET_FOCUSED_CARD:
       return {

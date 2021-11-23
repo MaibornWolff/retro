@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
-import isEmpty from "lodash/isEmpty";
 import { Grid } from "@material-ui/core";
-
-import Item from "./Item";
+import isEmpty from "lodash/isEmpty";
+import React, { useContext } from "react";
 import { BoardContext } from "../../../context/BoardContext";
-import { hasVotedFor } from "../../../utils/user.utils";
 import { RetroCard } from "../../../types/common.types";
+import { hasVotedFor } from "../../../utils/user.utils";
+import Item from "./Item";
 
 type ItemsProps = {
   items: RetroCard[];

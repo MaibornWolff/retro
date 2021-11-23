@@ -16,6 +16,7 @@ export const defaultBoard = {
   format: "",
   items: {},
   columns: {},
+  comments: {},
   columnOrder: [],
   error: false,
   isBlurred: true,

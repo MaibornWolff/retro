@@ -1,10 +1,28 @@
 export interface RetroCard {
   id: string;
   author: string;
+  commentIds: string[];
   content: string;
   points: number;
   isBlurred: boolean;
   isDiscussed: boolean;
+  isExpanded: boolean;
+}
+
+export interface RetroComment {
+  id: string;
+  author: string;
+  content: string;
+}
+
+export interface RetroComment {
+  id: string;
+  author: string;
+  content: string;
+}
+
+export interface RetroCommentMap {
+  [cardId: string]: RetroComment[];
 }
 
 export interface RetroColumn {
@@ -23,6 +41,9 @@ export interface RetroBoard {
   };
   columns: {
     [key: string]: RetroColumn;
+  };
+  comments: {
+    [key: string]: RetroComment;
   };
   columnOrder: string[];
   error: boolean;

@@ -1,19 +1,10 @@
 import React, { useReducer } from "react";
-
-import { reducer } from "../reducers/dialog.reducer";
 import {
-  OPEN_DELETE_ITEM_DIALOG,
-  CLOSE_DELETE_ITEM_DIALOG,
-  OPEN_DELETE_COLUMN_DIALOG,
-  CLOSE_DELETE_COLUMN_DIALOG,
-  OPEN_EDIT_ITEM_DIALOG,
-  CLOSE_EDIT_ITEM_DIALOG,
-  OPEN_EDIT_COLUMN_DIALOG,
-  CLOSE_EDIT_COLUMN_DIALOG,
-  OPEN_CREATE_ITEM_DIALOG,
-  CLOSE_CREATE_ITEM_DIALOG,
+  CLOSE_CREATE_ITEM_DIALOG, CLOSE_DELETE_COLUMN_DIALOG, CLOSE_DELETE_ITEM_DIALOG, CLOSE_EDIT_COLUMN_DIALOG, CLOSE_EDIT_ITEM_DIALOG, CLOSE_RETRO_ITEM_DETAIL_DIALOG, OPEN_CREATE_ITEM_DIALOG, OPEN_DELETE_COLUMN_DIALOG, OPEN_DELETE_ITEM_DIALOG, OPEN_EDIT_COLUMN_DIALOG, OPEN_EDIT_ITEM_DIALOG, OPEN_RETRO_ITEM_DETAIL_DIALOG
 } from "../actions/dialog.actions";
+import { reducer } from "../reducers/dialog.reducer";
 import { DialogContextValues } from "../types/context.types";
+
 
 const initialState = {
   itemId: null,
@@ -21,11 +12,14 @@ const initialState = {
   itemAuthor: "",
   itemContent: "",
   columnTitle: "",
+  comments: null,
+  author: "",
   isDeleteItemDialogOpen: false,
   isDeleteColumnDialogOpen: false,
   isEditItemDialogOpen: false,
   isEditColumnDialogOpen: false,
   isCreateItemDialogOpen: false,
+  isRetroItemDetailDialogOpen: false,
 };
 
 type DialogContextProviderProps = {
@@ -95,6 +89,17 @@ export default function DialogContextProvider(
     dispatch({ type: CLOSE_CREATE_ITEM_DIALOG });
   }
 
+  function openRetroItemDetailDialog(itemId: string, author: string, itemAuthor: string, itemContent: string) {
+    dispatch({
+      type: OPEN_RETRO_ITEM_DETAIL_DIALOG,
+      payload: { itemId, author, itemAuthor, itemContent },
+    });
+  }
+
+  function closeRetroItemDetailDialog() {
+    dispatch({ type: CLOSE_RETRO_ITEM_DETAIL_DIALOG });
+  }
+
   const value = {
     dialogsState,
     openDeleteItemDialog,
@@ -107,6 +112,8 @@ export default function DialogContextProvider(
     closeEditItemDialog,
     closeEditColumnDialog,
     closeCreateItemDialog,
+    openRetroItemDetailDialog,
+    closeRetroItemDetailDialog,
   };
 
   return (
