@@ -29,6 +29,7 @@ export function commentCard(io: Server, client: Socket, roomId: string): void {
 
           comment.author = author.trim();
           comment.content = content.trim();
+          console.log(board.items[cardId]);
           board.items[cardId].commentIds.push(id);
           board.comments[id] = comment;
 

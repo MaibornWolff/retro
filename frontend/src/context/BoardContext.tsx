@@ -1,19 +1,20 @@
 import React, { useReducer } from "react";
 import { useParams } from "react-router-dom";
 import io from "socket.io-client";
-
-import { reducer } from "../reducers/board.reducer";
-import { BACKEND_ENDPOINT } from "../utils";
 import {
-  SET_FOCUSED_CARD,
+  CONTINUE_DISCUSSION_VOTE_ABSTAIN,
+  CONTINUE_DISCUSSION_VOTE_NO,
+  CONTINUE_DISCUSSION_VOTE_YES,
   REMOVE_FOCUSED_CARD,
   SET_CONTINUE_DISCUSSION,
-  CONTINUE_DISCUSSION_VOTE_YES,
-  CONTINUE_DISCUSSION_VOTE_NO,
-  CONTINUE_DISCUSSION_VOTE_ABSTAIN,
+  SET_FOCUSED_CARD,
   SHOW_REACTION,
+  UPDATE_COMMENTS,
 } from "../actions/board.actions";
+import { reducer } from "../reducers/board.reducer";
+import { RetroCommentMap } from "../types/common.types";
 import { BoardContextValues } from "../types/context.types";
+import { BACKEND_ENDPOINT } from "../utils";
 
 type BoardContextProviderProps = {
   children?: React.ReactNode;
@@ -26,6 +27,7 @@ interface ParamTypes {
 const initialState = {
   focusedCard: "",
   shownReactions: [],
+  comments: {},
   showContinueDiscussion: false,
   continueDiscussionVotes: {
     yes: 0,
@@ -63,6 +65,10 @@ export default function BoardContextProvider(props: BoardContextProviderProps) {
     dispatch({ type: SET_CONTINUE_DISCUSSION, payload: { isToggled } });
   }
 
+  function updateComments(comments: RetroCommentMap) {
+    dispatch({ type: UPDATE_COMMENTS, payload: { comments } });
+  }
+
   function voteYes() {
     dispatch({ type: CONTINUE_DISCUSSION_VOTE_YES });
   }
@@ -83,6 +89,7 @@ export default function BoardContextProvider(props: BoardContextProviderProps) {
     showReaction,
     removeFocusedCard,
     toggleContinueDiscussion,
+    updateComments,
     voteYes,
     voteNo,
     voteAbstain,

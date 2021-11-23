@@ -18,7 +18,11 @@ import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 import { FlexContainer } from "../styled-components";
 import { BoardContext } from "../../context/BoardContext";
 import { UserContext } from "../../context/UserContext";
-import { RetroBoard } from "../../types/common.types";
+import {
+  RetroBoard,
+  RetroCard,
+  RetroCommentMap,
+} from "../../types/common.types";
 import { defaultBoard, isSameColumn, isSamePosition } from "../../utils";
 import {
   ROLE_MODERATOR,
@@ -46,8 +50,10 @@ import {
   CONTINUE_DISCUSSION_NO,
   BOARD_ERROR,
   SEND_REACTION,
+  VOTE_CARD,
 } from "../../constants/event.constants";
 import VoteProgress from "./VoteProgress";
+import RetroItemDetailDialog from "./dialogs/RetroItemDetailDialog";
 import ReactionBar from "./footer/ReactionBar";
 
 const useStyles = makeStyles(() => ({
@@ -65,21 +71,19 @@ export default function BoardPage() {
   const [merge, setMerge] = useState(false);
   const {
     boardId,
+    boardState,
     socket,
     setFocusedCard,
     showReaction,
     removeFocusedCard,
     toggleContinueDiscussion,
+    updateComments,
     voteYes,
     voteNo,
     voteAbstain,
   } = useContext(BoardContext);
-  const {
-    createModerator,
-    createParticipant,
-    setMaxVote,
-    resetVotes,
-  } = useContext(UserContext);
+  const { createModerator, createParticipant, setMaxVote, resetVotes } =
+    useContext(UserContext);
   const classes = useStyles();
   const location = useLocation();
   const match = useRouteMatch();
@@ -116,6 +120,7 @@ export default function BoardPage() {
       }
 
       setBoard(boardData);
+      updateComments(getCommentMap(boardData));
     });
 
     socket.on(JOIN_ERROR, () => {
@@ -124,6 +129,7 @@ export default function BoardPage() {
 
     socket.on(UPDATE_BOARD, (newBoard: RetroBoard) => {
       setBoard(newBoard);
+      updateComments(getCommentMap(newBoard));
     });
 
     socket.on(SET_MAX_VOTES, (newBoard: RetroBoard) => {
@@ -162,7 +168,7 @@ export default function BoardPage() {
 
     socket.on(SEND_REACTION, (reactionId: string) => {
       showReaction(reactionId);
-    })
+    });
 
     return () => {
       // Pass nothing to remove all listeners on all events.
@@ -171,6 +177,32 @@ export default function BoardPage() {
 
     // eslint-disable-next-line
   }, []);
+
+  function getCommentMap(board: RetroBoard) {
+    const comments: RetroCommentMap = Object.keys(board.items)
+      // Get all Items
+      .map((columnId: string) => board.items[columnId])
+      //Bring all CommentIds in context to its cardId
+      .map((card: RetroCard) => ({ [card.id]: card.commentIds }))
+      //Get all RetroComments that match the cardId
+      .map((cardCommentsIds: { [x: string]: string[] }) => {
+        const cardId = Object.keys(cardCommentsIds)[0];
+        return {
+          [cardId]: cardCommentsIds[cardId].map(
+            (commentId: string) => board.comments[commentId]
+          ),
+        };
+      })
+      //Remove unnecessary Array Layer
+      .reduce(
+        (obj, item) => (
+          (obj[Object.keys(item)[0]] = item[Object.keys(item)[0]]), obj
+        ),
+        {}
+      );
+
+    return comments;
+  }
 
   function openMergeDialog() {
     setMergeDialog(true);
@@ -227,7 +259,6 @@ export default function BoardPage() {
           key={column.id}
           column={column}
           itemMap={items}
-          commentMap={comments}
           index={index}
         />
       );
@@ -263,7 +294,7 @@ export default function BoardPage() {
             </Droppable>
           </DragDropContext>
         </Grid>
-        {board.isReactionOn && <ReactionBar/>}
+        {board.isReactionOn && <ReactionBar />}
         <MergeCardsDialog
           open={isMergeDialogOpen}
           closeDialog={closeMergeDialog}
@@ -276,6 +307,7 @@ export default function BoardPage() {
           <EditItemDialog />
           <EditColumnDialog />
           <CreateItemDialog />
+          <RetroItemDetailDialog />
         </Dialogs>
       </Grid>
     </>

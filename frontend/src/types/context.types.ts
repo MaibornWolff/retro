@@ -1,4 +1,5 @@
 import { Theme } from "@material-ui/core";
+import { RetroCommentMap } from "./common.types";
 
 export interface Action {
   type: string;
@@ -11,12 +12,14 @@ export interface UserState {
   maxVoteCount: number;
   votesLeft: number;
   votedItems: string[];
+  writtenComments: string[];
 }
 
 export interface BoardState {
   focusedCard: string;
   showContinueDiscussion: boolean;
   shownReactions: string[];
+  comments: RetroCommentMap;
   continueDiscussionVotes: {
     yes: number;
     no: number;
@@ -30,11 +33,13 @@ export interface DialogState {
   itemAuthor: string;
   itemContent: string;
   columnTitle: string;
+  author: string;
   isDeleteItemDialogOpen: boolean;
   isDeleteColumnDialogOpen: boolean;
   isEditItemDialogOpen: boolean;
   isEditColumnDialogOpen: boolean;
   isCreateItemDialogOpen: boolean;
+  isRetroItemDetailDialogOpen: boolean;
 }
 
 export interface PokerUserState {
@@ -52,6 +57,7 @@ export interface UserAction extends Action {
     maxVoteCount?: number;
     name?: string;
     role?: string;
+    commentId?: string;
   };
 }
 
@@ -60,6 +66,7 @@ export interface BoardAction extends Action {
     focusedCard?: string;
     isToggled?: boolean;
     reactionId?: string;
+    comments?: RetroCommentMap;
   };
 }
 
@@ -70,6 +77,7 @@ export interface DialogAction extends Action {
     itemAuthor?: string;
     itemContent?: string;
     columnTitle?: string;
+    author?: string;
   };
 }
 
@@ -101,6 +109,7 @@ export interface UserContextValues {
     role: string,
     maxVoteCount: number
   ) => void;
+  commentItem: (boardId: string, commentId: string) => void;
 }
 
 export interface BoardContextValues {
@@ -111,6 +120,7 @@ export interface BoardContextValues {
   showReaction: (reactionId: string) => void;
   removeFocusedCard: () => void;
   toggleContinueDiscussion: (isToggled: boolean) => void;
+  updateComments: (comments: RetroCommentMap) => void;
   voteYes: () => void;
   voteNo: () => void;
   voteAbstain: () => void;
@@ -127,11 +137,18 @@ export interface DialogContextValues {
   ) => void;
   openEditColumnDialog: (columnId: string, columnTitle: string) => void;
   openCreateItemDialog: (columnId: string, itemAuthor: string) => void;
+  openRetroItemDetailDialog: (
+    itemId: string,
+    author: string,
+    itemAuthor: string,
+    itemContent: string
+  ) => void;
   closeDeleteItemDialog: () => void;
   closeDeleteColumnDialog: () => void;
   closeEditItemDialog: () => void;
   closeEditColumnDialog: () => void;
   closeCreateItemDialog: () => void;
+  closeRetroItemDetailDialog: () => void;
 }
 
 export interface PokerContextValues {

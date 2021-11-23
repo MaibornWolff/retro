@@ -5,3 +5,4 @@ export const RESET = "RESET";
 export const SET_NAME = "SET_NAME";
 export const CREATE_MODERATOR = "CREATE_MODERATOR";
 export const CREATE_PARTICIPANT = "CREATE_PARTICIPANT";
+export const WROTE_COMMENT = "WROTE_COMMENT";

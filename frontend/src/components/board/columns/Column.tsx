@@ -1,17 +1,16 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { Droppable, Draggable } from "react-beautiful-dnd";
 import { Card } from "@material-ui/core";
-
-import Items from "../items/Items";
-import ColumnHeader from "./column-header/ColumnHeader";
-import { RetroColumn, RetroCard, RetroComment } from "../../../types/common.types";
+import React, { useContext } from "react";
+import { Draggable, Droppable } from "react-beautiful-dnd";
+import styled from "styled-components";
+import { UserContext } from "../../../context/UserContext";
+import { RetroCard, RetroColumn } from "../../../types/common.types";
+import { ROLE_MODERATOR } from "../../../utils/user.utils";
 import {
   ColumnContainerStyles,
   ItemsContainerStyles,
 } from "../../styled-components";
-import { UserContext } from "../../../context/UserContext";
-import { ROLE_MODERATOR } from "../../../utils/user.utils";
+import Items from "../items/Items";
+import ColumnHeader from "./column-header/ColumnHeader";
 
 const ColumnContainer = styled(Card)`
   ${ColumnContainerStyles}
@@ -23,15 +22,12 @@ const ItemsContainer = styled.div`
 
 type ColumnProps = {
   column: RetroColumn;
-  commentMap: {
-    [key: string]: RetroComment;
-  };
   items: RetroCard[];
   index: number;
 };
 
 function Column(props: ColumnProps) {
-  const { column, items, index, commentMap } = props;
+  const { column, items, index } = props;
   const { userState } = useContext(UserContext);
 
   return (
@@ -64,7 +60,7 @@ function Column(props: ColumnProps) {
                 {...providedDroppable.droppableProps}
                 isDraggingOver={snapshot.isDraggingOver}
               >
-                <Items items={items} commentMap={commentMap} />
+                <Items items={items} />
                 {providedDroppable.placeholder}
               </ItemsContainer>
             )}

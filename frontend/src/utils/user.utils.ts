@@ -69,6 +69,7 @@ export function createRole(
     maxVoteCount,
     votesLeft: maxVoteCount,
     votedItems: [],
+    writtenComments: [],
   });
   saveToLocalStorage(boardId, data);
 }

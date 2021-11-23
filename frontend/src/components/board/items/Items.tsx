@@ -1,21 +1,17 @@
-import React, { useContext } from "react";
-import isEmpty from "lodash/isEmpty";
 import { Grid } from "@material-ui/core";
-
-import Item from "./Item";
+import isEmpty from "lodash/isEmpty";
+import React, { useContext } from "react";
 import { BoardContext } from "../../../context/BoardContext";
+import { RetroCard } from "../../../types/common.types";
 import { hasVotedFor } from "../../../utils/user.utils";
-import { RetroCard, RetroComment } from "../../../types/common.types";
+import Item from "./Item";
 
 type ItemsProps = {
   items: RetroCard[];
-  commentMap: {
-    [key: string]: RetroComment;
-  };
 };
 
 function Items(props: ItemsProps) {
-  const { items, commentMap } = props;
+  const { items } = props;
   const { boardId } = useContext(BoardContext);
 
   function isVoted(cardId: string) {
@@ -26,7 +22,7 @@ function Items(props: ItemsProps) {
     return items.map((item, i) => {
       return (
         <Grid key={item.id} item style={{ width: "100%" }}>
-          <Item item={item} index={i} commentMap={commentMap} isVoted={isVoted(item.id)} />
+          <Item item={item} index={i} isVoted={isVoted(item.id)} />
         </Grid>
       );
     });

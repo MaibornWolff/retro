@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Badge,
   Card,
   CardActions,
   CardContent,
@@ -27,21 +28,19 @@ import {
 } from "../../../constants/event.constants";
 import { BoardContext } from "../../../context/BoardContext";
 import { ColorThemeContext } from "../../../context/ColorThemeContext";
+import { DialogsContext } from "../../../context/DialogContext";
 import { UserContext } from "../../../context/UserContext";
-import { RetroComment } from "../../../types/common.types";
 import { ROLE_MODERATOR } from "../../../utils/user.utils";
 import { CardAuthor, CardContainer, CardText } from "../../styled-components";
 import BlurredItem from "./BlurredItem";
 import DeleteItemButton from "./DeleteItemButton";
 import EditItemButton from "./EditItemButton";
-import ExpandableComments from "./ExpandableComments";
 import MarkAsDiscussedButton from "./MarkAsDiscussedButton";
 import UpvoteItemButton from "./UpvoteItemButton";
 
 type RetroItemProps = {
   id: string;
   author: string;
-  comments: RetroComment[];
   content: string;
   points: number;
   isBlurred: boolean;
@@ -97,21 +96,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RetroItem(props: RetroItemProps) {
-  const {
-    id,
-    author,
-    comments,
-    content,
-    points,
-    isBlurred,
-    isVoted,
-    isDiscussed,
-  } = props;
+  const { id, author, content, points, isBlurred, isVoted, isDiscussed } =
+    props;
   const [blurStatus, setBlurStatus] = useState(isBlurred);
   const [hasMouseFocus, setMouseFocus] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);
   const { userState, downvoteCard } = useContext(UserContext);
+  const { openRetroItemDetailDialog } = useContext(DialogsContext);
   const { currentTheme } = useContext(ColorThemeContext);
   const classes = useStyles(currentTheme);
   const contentWithLinks = createContentWithLinks(content);
@@ -137,8 +128,8 @@ function RetroItem(props: RetroItemProps) {
     downvoteCard(boardId, id, votesLeft);
   }
 
-  function toggleExpanded() {
-    setIsExpanded(!isExpanded);
+  function openDetail() {
+    openRetroItemDetailDialog(id, userState.name, author, content);
   }
 
   function handleFocus(event: KeyboardEvent) {
@@ -226,12 +217,13 @@ function RetroItem(props: RetroItemProps) {
             </CardContent>
             <CardActions disableSpacing className={classes.actions}>
               <div>
-                <IconButton
-                  size="small"
-                  color="inherit"
-                  onClick={toggleExpanded}
-                >
-                  <CommentIcon fontSize="small" />
+                <IconButton size="small" color="inherit" onClick={openDetail}>
+                  <Badge
+                    badgeContent={boardState.comments[id]?.length}
+                    color="primary"
+                  >
+                    <CommentIcon fontSize="small" />
+                  </Badge>
                 </IconButton>
                 {isDiscussed ? (
                   <Chip label={"Discussed"} variant="outlined" size={"small"} />
@@ -254,11 +246,6 @@ function RetroItem(props: RetroItemProps) {
                 <DeleteItemButton id={id} />
               </div>
             </CardActions>
-            <ExpandableComments
-              isExpanded={isExpanded}
-              comments={comments}
-              cardId={id}
-            />
           </Card>
         </CardContainer>
       )}

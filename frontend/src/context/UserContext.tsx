@@ -1,26 +1,26 @@
 import React, { useReducer } from "react";
 import { useParams } from "react-router-dom";
-
-import { reducer } from "../reducers/user.reducer";
 import {
-  getUser,
-  setVotedItem,
-  setUser,
-  setMaxVoteCountAndReset,
-  createRole,
-  ROLE_MODERATOR,
-  ROLE_PARTICIPANT,
-} from "../utils/user.utils";
-import {
-  UPVOTE,
-  DOWNVOTE,
-  SET_MAX_VOTE,
-  RESET,
-  SET_NAME,
   CREATE_MODERATOR,
   CREATE_PARTICIPANT,
+  DOWNVOTE,
+  RESET,
+  SET_MAX_VOTE,
+  SET_NAME,
+  UPVOTE,
+  WROTE_COMMENT,
 } from "../actions/user.actions";
+import { reducer } from "../reducers/user.reducer";
 import { UserContextValues } from "../types/context.types";
+import {
+  createRole,
+  getUser,
+  ROLE_MODERATOR,
+  ROLE_PARTICIPANT,
+  setMaxVoteCountAndReset,
+  setUser,
+  setVotedItem,
+} from "../utils/user.utils";
 
 type UserContextProviderProps = {
   children?: React.ReactNode;
@@ -92,6 +92,12 @@ export default function UserContextProvider(props: UserContextProviderProps) {
     createRole(ROLE_PARTICIPANT, boardId, maxVoteCount);
   }
 
+  function commentItem(boardId: string, commentId: string) {
+    const oldCommentList = userState.writtenComments;
+    dispatch({ type: WROTE_COMMENT, payload: { commentId } });
+    setUser("writtenComments", oldCommentList.concat(commentId), boardId);
+  }
+
   const value = {
     userState,
     upvoteCard,
@@ -101,6 +107,7 @@ export default function UserContextProvider(props: UserContextProviderProps) {
     setUsername,
     createModerator,
     createParticipant,
+    commentItem,
   };
 
   return (

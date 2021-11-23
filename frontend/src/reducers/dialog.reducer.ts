@@ -9,7 +9,10 @@ import {
   CLOSE_EDIT_COLUMN_DIALOG,
   OPEN_CREATE_ITEM_DIALOG,
   CLOSE_CREATE_ITEM_DIALOG,
+  OPEN_RETRO_ITEM_DETAIL_DIALOG,
+  CLOSE_RETRO_ITEM_DETAIL_DIALOG,
 } from "../actions/dialog.actions";
+import { RetroCard, RetroComment } from "../types/common.types";
 import { DialogState, DialogAction } from "../types/context.types";
 
 export const reducer = (state: DialogState, action: DialogAction) => {
@@ -84,6 +87,24 @@ export const reducer = (state: DialogState, action: DialogAction) => {
         itemContent: "",
         isCreateItemDialogOpen: false,
       };
+    case OPEN_RETRO_ITEM_DETAIL_DIALOG:
+      return {
+        ...state,
+        itemId: action.payload?.itemId as string,
+        author: action.payload?.author as string,
+        itemAuthor: action.payload?.itemAuthor as string,
+        itemContent: action.payload?.itemContent as string,
+        isRetroItemDetailDialogOpen: true,
+      };
+    case CLOSE_RETRO_ITEM_DETAIL_DIALOG:
+        return {
+          ...state,
+          itemId: null,
+          author: "",
+          itemContent: "",
+          itemAuthor: "",
+          isRetroItemDetailDialogOpen: false,
+        };
     default:
       return state;
   }

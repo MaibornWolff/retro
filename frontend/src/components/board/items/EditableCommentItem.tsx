@@ -13,35 +13,26 @@ import { nanoid } from "nanoid";
 import React, { useContext, useState } from "react";
 import { COMMENT_CARD, EDIT_COMMENT } from "../../../constants/event.constants";
 import { BoardContext } from "../../../context/BoardContext";
+import { UserContext } from "../../../context/UserContext";
+import { RetroComment } from "../../../types/common.types";
 
-const useStyles = makeStyles(() => ({
-  //Styles to match the Text
-  authorField: {
-    width: "75%",
-    fontSize: "1rem",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    lineHeight: "1.5",
-    letterSpacing: "0.00938em",
-  },
-  contentField: {
-    width: "75%",
-    fontSize: "0.875rem",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    lineHeight: "1.43",
-    letterSpacing: "0.01071em",
-  },
-  fullWidth: {
-    width: "100%",
-  },
-}));
+type EditableCommentItemProps = {
+  isCreating: boolean;
+  comment: RetroComment;
+  cardId?: string;
+  onClose?: () => void;
+};
 
-export default function EditableCommentItem(props: any) {
-  const { boardId, socket } = useContext(BoardContext);
-  const [authorInput, setAuthorInput] = useState(props.comment?.author);
-  const [contentInput, setContentInput] = useState(props.comment?.content);
-  const classes = useStyles();
+export default function EditableCommentItem(props: EditableCommentItemProps) {
   //To differentiate between edit Mode and create Mode
   const isCreating = props.isCreating;
+  const { boardId, socket } = useContext(BoardContext);
+  const { userState, setUsername, commentItem } = useContext(UserContext);
+  const [authorInput, setAuthorInput] = useState(
+    isCreating ? userState.name : props.comment.author
+  );
+  const [contentInput, setContentInput] = useState(props.comment?.content);
+  const classes = useStyles();
 
   function onAuthorChange(e: any) {
     setAuthorInput(e.target.value);
@@ -52,6 +43,8 @@ export default function EditableCommentItem(props: any) {
   }
   function handleSubmit(e: any) {
     e.preventDefault();
+    setUsername(boardId, authorInput);
+
     if (isCreating) {
       const comment = {
         id: nanoid(),
@@ -59,6 +52,7 @@ export default function EditableCommentItem(props: any) {
         content: contentInput,
       };
       socket.emit(COMMENT_CARD, boardId, props.cardId, comment);
+      commentItem(boardId, comment.id);
       setContentInput("");
     } else {
       const comment = {
@@ -67,7 +61,7 @@ export default function EditableCommentItem(props: any) {
         content: contentInput,
       };
       socket.emit(EDIT_COMMENT, boardId, comment);
-      props.onClose();
+      (props.onClose as () => void)();
     }
   }
 
@@ -124,3 +118,24 @@ export default function EditableCommentItem(props: any) {
     </ListItem>
   );
 }
+
+const useStyles = makeStyles(() => ({
+  //Styles to match the Text
+  authorField: {
+    width: "75%",
+    fontSize: "1rem",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    lineHeight: "1.5",
+    letterSpacing: "0.00938em",
+  },
+  contentField: {
+    width: "75%",
+    fontSize: "0.875rem",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    lineHeight: "1.43",
+    letterSpacing: "0.01071em",
+  },
+  fullWidth: {
+    width: "100%",
+  },
+}));

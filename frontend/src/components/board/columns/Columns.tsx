@@ -1,22 +1,18 @@
-import React from "react";
 import isEmpty from "lodash/isEmpty";
-
+import React from "react";
+import { RetroCard, RetroColumn } from "../../../types/common.types";
 import Column from "./Column";
-import { RetroColumn, RetroCard, RetroComment } from "../../../types/common.types";
 
 type ColumnsProps = {
   column: RetroColumn;
   itemMap: {
     [key: string]: RetroCard;
   };
-  commentMap: {
-    [key: string]: RetroComment;
-  };
   index: number;
 };
 
 function Columns(props: ColumnsProps) {
-  const { column, itemMap, commentMap, index } = props;
+  const { column, itemMap, index } = props;
 
   function getItems() {
     let items: RetroCard[];
@@ -30,7 +26,7 @@ function Columns(props: ColumnsProps) {
     return items;
   }
 
-  return <Column column={column} items={getItems()} commentMap={commentMap} index={index} />;
+  return <Column column={column} items={getItems()} index={index} />;
 }
 
 export default Columns;

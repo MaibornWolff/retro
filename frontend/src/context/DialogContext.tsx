@@ -12,8 +12,11 @@ import {
   CLOSE_EDIT_COLUMN_DIALOG,
   OPEN_CREATE_ITEM_DIALOG,
   CLOSE_CREATE_ITEM_DIALOG,
+  OPEN_RETRO_ITEM_DETAIL_DIALOG,
+  CLOSE_RETRO_ITEM_DETAIL_DIALOG,
 } from "../actions/dialog.actions";
 import { DialogContextValues } from "../types/context.types";
+import { RetroCard, RetroComment } from "../types/common.types";
 
 const initialState = {
   itemId: null,
@@ -21,11 +24,14 @@ const initialState = {
   itemAuthor: "",
   itemContent: "",
   columnTitle: "",
+  comments: null,
+  author: "",
   isDeleteItemDialogOpen: false,
   isDeleteColumnDialogOpen: false,
   isEditItemDialogOpen: false,
   isEditColumnDialogOpen: false,
   isCreateItemDialogOpen: false,
+  isRetroItemDetailDialogOpen: false,
 };
 
 type DialogContextProviderProps = {
@@ -95,6 +101,17 @@ export default function DialogContextProvider(
     dispatch({ type: CLOSE_CREATE_ITEM_DIALOG });
   }
 
+  function openRetroItemDetailDialog(itemId: string, author: string, itemAuthor: string, itemContent: string) {
+    dispatch({
+      type: OPEN_RETRO_ITEM_DETAIL_DIALOG,
+      payload: { itemId, author, itemAuthor, itemContent },
+    });
+  }
+
+  function closeRetroItemDetailDialog() {
+    dispatch({ type: CLOSE_RETRO_ITEM_DETAIL_DIALOG });
+  }
+
   const value = {
     dialogsState,
     openDeleteItemDialog,
@@ -107,6 +124,8 @@ export default function DialogContextProvider(
     closeEditItemDialog,
     closeEditColumnDialog,
     closeCreateItemDialog,
+    openRetroItemDetailDialog,
+    closeRetroItemDetailDialog,
   };
 
   return (
