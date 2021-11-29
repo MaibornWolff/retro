@@ -1,3 +1,14 @@
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import HighlightIcon from "@material-ui/icons/Highlight";
+import HighlightOutlinedIcon from "@material-ui/icons/HighlightOutlined";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Avatar,
   Badge,
@@ -9,6 +20,7 @@ import {
   Divider,
   IconButton,
   Theme,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -75,6 +87,10 @@ const useStyles = makeStyles((theme) => ({
   cardHeader: {
     padding: "8px",
   },
+  cardHeaderAction: {
+    paddingTop: "0.5em",
+    paddingRight: "0.5em",
+  },
   cardFocused: {
     border: "4px solid red",
   },
@@ -106,7 +122,6 @@ function RetroItem(props: RetroItemProps) {
     isDiscussed,
   } = props;
   const [blurStatus, setBlurStatus] = useState(isBlurred);
-  const [hasMouseFocus, setMouseFocus] = useState(false);
   const { boardId, boardState, socket } = useContext(BoardContext);
   const { userState, downvoteCard } = useContext(UserContext);
   const { openRetroItemDetailDialog } = useContext(DialogsContext);
@@ -138,42 +153,18 @@ function RetroItem(props: RetroItemProps) {
   function openDetail() {
     openRetroItemDetailDialog(id, userState.name, author, content);
   }
-
-  function handleFocus(event: KeyboardEvent) {
-    const role = userState.role;
-
-    if (role === ROLE_MODERATOR) {
-      if (hasMouseFocus && event.key === "f" && event.code === "KeyF") {
-        socket.emit(FOCUS_CARD, id);
-      } else if (
-        event.shiftKey &&
-        event.key === "F" &&
-        event.code === "KeyF" &&
-        boardState.focusedCard !== ""
-      ) {
-        socket.emit(REMOVE_FOCUS_CARD);
-      }
+        
+  function toggleFocus() {
+    if (boardState.focusedCard === id) {
+      socket.emit(REMOVE_FOCUS_CARD);
+    } else {
+      socket.emit(FOCUS_CARD, id);
     }
-  }
-
-  function handleHover(
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    isFocused: boolean
-  ) {
-    setMouseFocus(isFocused);
   }
 
   const getIsBlurred = useCallback(() => {
     setBlurStatus(author === userState.name ? false : isBlurred);
   }, [author, isBlurred, userState.name]);
-
-  useEffect(() => {
-    document.addEventListener("keypress", handleFocus);
-
-    return () => {
-      document.removeEventListener("keypress", handleFocus);
-    };
-  });
 
   useEffect(() => {
     getIsBlurred();
@@ -187,8 +178,6 @@ function RetroItem(props: RetroItemProps) {
         <CardContainer>
           <Card
             elevation={20}
-            onMouseEnter={(event) => handleHover(event, true)}
-            onMouseLeave={(event) => handleHover(event, false)}
             className={
               boardState.focusedCard === id ? classes.cardFocused : classes.card
             }
@@ -207,6 +196,25 @@ function RetroItem(props: RetroItemProps) {
                 <Typography variant="body2" component={"span"}>
                   <CardAuthor>{author}</CardAuthor>
                 </Typography>
+              }
+              action={
+                userState.role === ROLE_MODERATOR && (
+                  <div className={classes.cardHeaderAction}>
+                    <Tooltip title="Higlight card">
+                      <IconButton
+                        aria-label="Highlight"
+                        color="inherit"
+                        onClick={toggleFocus}
+                      >
+                        {boardState.focusedCard === id ? (
+                          <HighlightIcon />
+                        ) : (
+                          <HighlightOutlinedIcon />
+                        )}
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                )
               }
             />
             <Divider />
