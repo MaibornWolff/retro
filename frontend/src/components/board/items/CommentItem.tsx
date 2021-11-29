@@ -3,7 +3,7 @@ import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
-  makeStyles,
+  makeStyles
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   deleteButton: {
     color: theme.palette.error.main,
   },
+  commentContent: {
+    whiteSpace: "pre-wrap",
+  },
 }));
 
 export default function CommentItem(props: CommentItemProps) {
@@ -36,8 +39,12 @@ export default function CommentItem(props: CommentItemProps) {
   return (
     <ListItem alignItems="flex-start">
       <ListItemText
-        primary={props.comment.author}
-        secondary={props.comment.content}
+        primary={<span>{props.comment.author}</span>}
+        secondary={
+          <span className={classes.commentContent}>
+            {props.comment.content}
+          </span>
+        }
       />
       <ListItemSecondaryAction>
         {props.editable && (

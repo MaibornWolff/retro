@@ -1,24 +1,15 @@
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Dialog,
+  Button, Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
-  Divider,
-  makeStyles,
-  Theme,
-  Typography,
-  useMediaQuery,
-  useTheme,
+  DialogTitle, makeStyles,
+  Theme, useMediaQuery,
+  useTheme
 } from "@material-ui/core";
 import React, { useContext } from "react";
 import { BoardContext } from "../../../context/BoardContext";
 import { ColorThemeContext } from "../../../context/ColorThemeContext";
 import { DialogsContext } from "../../../context/DialogContext";
-import { CardAuthor, CardContainer, CardText } from "../../styled-components";
 import Comments from "../items/Comments";
 
 const getCardBorderColor = (colorTheme: Theme, theme: Theme) => {
@@ -60,31 +51,10 @@ export default function RetroItemDetailDialog() {
       onClose={handleClose}
       aria-labelledby="new-card-dialog"
     >
-      <DialogTitle id="new-card-dialog">Comments</DialogTitle>
+      <DialogTitle id="new-card-dialog">
+        {dialogsState.itemAuthor}&apos;s Card Comments
+      </DialogTitle>
       <DialogContent>
-        <CardContainer>
-          <Card elevation={0} className={classes.card}>
-            <CardHeader
-              className={classes.cardHeader}
-              title={
-                <Typography variant="body2" component={"span"}>
-                  <CardAuthor>{dialogsState.itemAuthor}</CardAuthor>
-                </Typography>
-              }
-            />
-            <Divider />
-            <CardContent>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component={"span"}
-              >
-                <CardText>{dialogsState.itemContent}</CardText>
-              </Typography>
-            </CardContent>
-          </Card>
-        </CardContainer>
-        <Divider />
         <Comments
           cardId={dialogsState.itemId ?? ""}
           comments={boardState.comments[dialogsState.itemId ?? ""] ?? []}

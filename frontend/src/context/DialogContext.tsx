@@ -1,10 +1,20 @@
 import React, { useReducer } from "react";
 import {
-  CLOSE_CREATE_ITEM_DIALOG, CLOSE_DELETE_COLUMN_DIALOG, CLOSE_DELETE_ITEM_DIALOG, CLOSE_EDIT_COLUMN_DIALOG, CLOSE_EDIT_ITEM_DIALOG, CLOSE_RETRO_ITEM_DETAIL_DIALOG, OPEN_CREATE_ITEM_DIALOG, OPEN_DELETE_COLUMN_DIALOG, OPEN_DELETE_ITEM_DIALOG, OPEN_EDIT_COLUMN_DIALOG, OPEN_EDIT_ITEM_DIALOG, OPEN_RETRO_ITEM_DETAIL_DIALOG
+  CLOSE_CREATE_ITEM_DIALOG,
+  CLOSE_DELETE_COLUMN_DIALOG,
+  CLOSE_DELETE_ITEM_DIALOG,
+  CLOSE_EDIT_COLUMN_DIALOG,
+  CLOSE_EDIT_ITEM_DIALOG,
+  CLOSE_RETRO_ITEM_DETAIL_DIALOG,
+  OPEN_CREATE_ITEM_DIALOG,
+  OPEN_DELETE_COLUMN_DIALOG,
+  OPEN_DELETE_ITEM_DIALOG,
+  OPEN_EDIT_COLUMN_DIALOG,
+  OPEN_EDIT_ITEM_DIALOG,
+  OPEN_RETRO_ITEM_DETAIL_DIALOG,
 } from "../actions/dialog.actions";
 import { reducer } from "../reducers/dialog.reducer";
 import { DialogContextValues } from "../types/context.types";
-
 
 const initialState = {
   itemId: null,
@@ -89,7 +99,12 @@ export default function DialogContextProvider(
     dispatch({ type: CLOSE_CREATE_ITEM_DIALOG });
   }
 
-  function openRetroItemDetailDialog(itemId: string, author: string, itemAuthor: string, itemContent: string) {
+  function openRetroItemDetailDialog(
+    itemId: string,
+    author: string,
+    itemAuthor: string,
+    itemContent: string
+  ) {
     dispatch({
       type: OPEN_RETRO_ITEM_DETAIL_DIALOG,
       payload: { itemId, author, itemAuthor, itemContent },
