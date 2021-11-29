@@ -102,12 +102,11 @@ export default function DialogContextProvider(
   function openRetroItemDetailDialog(
     itemId: string,
     author: string,
-    itemAuthor: string,
-    itemContent: string
+    itemAuthor: string
   ) {
     dispatch({
       type: OPEN_RETRO_ITEM_DETAIL_DIALOG,
-      payload: { itemId, author, itemAuthor, itemContent },
+      payload: { itemId, author, itemAuthor },
     });
   }
 

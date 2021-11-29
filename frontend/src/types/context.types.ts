@@ -140,8 +140,7 @@ export interface DialogContextValues {
   openRetroItemDetailDialog: (
     itemId: string,
     author: string,
-    itemAuthor: string,
-    itemContent: string
+    itemAuthor: string
   ) => void;
   closeDeleteItemDialog: () => void;
   closeDeleteColumnDialog: () => void;

@@ -92,7 +92,6 @@ export const reducer = (state: DialogState, action: DialogAction) => {
         itemId: action.payload?.itemId as string,
         author: action.payload?.author as string,
         itemAuthor: action.payload?.itemAuthor as string,
-        itemContent: action.payload?.itemContent as string,
         isRetroItemDetailDialogOpen: true,
       };
     case CLOSE_RETRO_ITEM_DETAIL_DIALOG:
@@ -100,7 +99,6 @@ export const reducer = (state: DialogState, action: DialogAction) => {
         ...state,
         itemId: null,
         author: "",
-        itemContent: "",
         itemAuthor: "",
         isRetroItemDetailDialogOpen: false,
       };
