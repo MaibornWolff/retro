@@ -35,7 +35,7 @@
     "http-proxy-middleware": "^2.0.1",
     "lodash": "^4.17.21",
     "material-ui-dropzone": "^3.5.0",
-    "nanoid": "^3.1.23",
+    "nanoid": "^3.1.31",
     "qrcode": "^1.4.4",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
