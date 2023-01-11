@@ -22,8 +22,6 @@
     "build:prod": "env-cmd -f .env.production.local npm run build",
     "deploy": "run-s -l -n build:prod deploy:frontend",
     "deploy:frontend": "cp -a build/. ../backend/public/",
-    "test": "react-scripts test",
-    "test:cov": "react-scripts test --env=jsdom --coverage --watchAll=false",
     "lint": "eslint \"src/**/*.{ts,tsx}\" --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,html,css,json}\"",
     "eject": "react-scripts eject"
@@ -50,10 +48,6 @@
     "zustand": "^3.5.7"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.171",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^16.4.8",
