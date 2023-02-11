@@ -34,7 +34,7 @@
     "express": "^4.17.1",
     "express-rate-limit": "^5.3.0",
     "lodash": "^4.17.21",
-    "nanoid": "^3.1.23",
+    "nanoid": "^3.1.31",
     "puppeteer": "^10.1.0",
     "rmby": "^1.1.1",
     "socket.io": "^4.1.3"
