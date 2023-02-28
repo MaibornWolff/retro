@@ -49,7 +49,6 @@ To unify the appearance of all commit messages we only accept commit messages us
 [optional body]
 
 [optional footer]
-
 ```
 
 ### Examples

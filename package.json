@@ -14,6 +14,7 @@
   "private": true,
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "all-contributors-cli": "^6.24.0",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-config-standard-with-typescript": "^33.0.0",

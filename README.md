@@ -21,67 +21,35 @@ At work, we were using third party retrospective tools, which meant we couldn't 
 - Latest Node.js LTS version
 - NPM version >= 7
 
-## Usage Locally
+## Hosting
 
-Install dependencies
+TBD
 
-```console
-$ cd backend && npm i && cd ..
-$ cd frontend && npm i && cd ..
+## Development
+
+### Install dependencies
+
+```
+$ npm install
 ```
 
-Run servers
+### Run dev servers
 
-```console
-$ cd backend && npm run start:dev && cd ..
-$ cd frontend && npm run start && cd ..
+```
+$ npm run frontend:dev
+$ npm run backend:dev
+$ npm run watch:shared
 ```
 
-## Branching
-
-- The `master` branch is the latest development stage
-- Stable releases are tagged with their respective version number
-- There might be feature branches that contain new experimental stuff
-
-## Deployment Examples
-
-### PM2
-
-- Install [PM2](https://pm2.keymetrics.io/) on your server
-- Clone this project on your server
-- Install the dependencies by running `npm i` on `backend` and `frontend`
-- Check if the proxy settings are correct
-  - Check `backend/src/config/index.ts`
-  - Check `frontend/src/setupProxy.js`
-  - Check `frontend/src/utils/index.ts`
-- Provide an `.env.production.local` file inside of `frontend`
-  ```
-  # Example
-  REACT_APP_PROD_URL=http://mydomain.com
-  REACT_APP_PROD_PORT=80
-  ```
-- Build the frontend by running `npm run deploy`
-- Go to the `backend` folder and run `pm2 start processes.json`
-
-### Docker
-
-- There is a `Dockerfile` on the project root which builds everything and runs the server
-- You might want to define your own restart policy then
-- The server runs without process managers. You can read [here](https://www.docker.com/blog/keep-nodejs-rockin-in-docker/) why.
+| Application | Port |
+| ----------- | :--: |
+| Frontend    | 3000 |
+| Backend     | 3001 |
+| Signaling   | 3002 |
 
 ## Contributing
 
-- This project uses
-  - [Prettier](https://prettier.io)
-  - LTS version of [Node.js](https://nodejs.org/en/)
-  - [Conventional Commits](https://www.conventionalcommits.org/)
-- You can also develop with the provided Docker containers!
-  - on Linux, make sure to set an environment variable, since `host.docker.internal` is not working:
-    - `export DOCKER_HOST_IP=$(docker network inspect bridge --format='{{(index .IPAM.Config 0).Gateway}}')`
-
-## Project State
-
-- You can always watch the current state of the project at [Trello](https://trello.com/b/AhEZ0aLs/retro)
+For information on how to contribute, see [Contributing](https://github.com/MaibornWolff/retro/blob/master/CONTRIBUTING.md)
 
 ## Contributors ✨
 
@@ -91,18 +59,22 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://github.com/mrpatpat"><img src="https://avatars2.githubusercontent.com/u/2622069?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adrian Endrich</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=mrpatpat" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ClaasBusemann"><img src="https://avatars2.githubusercontent.com/u/65392929?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Claas Busemann</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=ClaasBusemann" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/PaulaBre"><img src="https://avatars2.githubusercontent.com/u/65403162?v=4?s=100" width="100px;" alt=""/><br /><sub><b>PaulaBre</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=PaulaBre" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/tobim-dev"><img src="https://avatars3.githubusercontent.com/u/15176413?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tobias</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=tobim-dev" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ravensinth"><img src="https://avatars0.githubusercontent.com/u/1155772?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ravensinth</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=ravensinth" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/2mawi2"><img src="https://avatars2.githubusercontent.com/u/17811051?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marius Wichtner</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=2mawi2" title="Code">💻</a></td>
-    <td align="center"><a href="https://yduman.github.io/"><img src="https://avatars0.githubusercontent.com/u/11931774?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yadullah Duman</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=yduman" title="Code">💻</a> <a href="#maintenance-yduman" title="Maintenance">🚧</a> <a href="#projectManagement-yduman" title="Project Management">📆</a> <a href="https://github.com/yduman/retro/pulls?q=is%3Apr+reviewed-by%3Ayduman" title="Reviewed Pull Requests">👀</a> <a href="#ideas-yduman" title="Ideas, Planning, & Feedback">🤔</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/sillydomnom"><img src="https://avatars.githubusercontent.com/u/18489820?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dominik Schumann</b></sub></a><br /><a href="https://github.com/yduman/retro/commits?author=sillydomnom" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mrpatpat"><img src="https://avatars2.githubusercontent.com/u/2622069?v=4?s=100" width="100px;" alt="Adrian Endrich"/><br /><sub><b>Adrian Endrich</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=mrpatpat" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/NearW"><img src="https://avatars.githubusercontent.com/u/12533626?v=4?s=100" width="100px;" alt="Ben Willenbring"/><br /><sub><b>Ben Willenbring</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=NearW" title="Code">💻</a> <a href="#ideas-NearW" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-NearW" title="Maintenance">🚧</a> <a href="#projectManagement-NearW" title="Project Management">📆</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ClaasBusemann"><img src="https://avatars2.githubusercontent.com/u/65392929?v=4?s=100" width="100px;" alt="Claas Busemann"/><br /><sub><b>Claas Busemann</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=ClaasBusemann" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sillydomnom"><img src="https://avatars.githubusercontent.com/u/18489820?v=4?s=100" width="100px;" alt="Dominik Schumann"/><br /><sub><b>Dominik Schumann</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=sillydomnom" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/2mawi2"><img src="https://avatars2.githubusercontent.com/u/17811051?v=4?s=100" width="100px;" alt="Marius Wichtner"/><br /><sub><b>Marius Wichtner</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=2mawi2" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/PaulaBre"><img src="https://avatars2.githubusercontent.com/u/65403162?v=4?s=100" width="100px;" alt="PaulaBre"/><br /><sub><b>PaulaBre</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=PaulaBre" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/tobim-dev"><img src="https://avatars3.githubusercontent.com/u/15176413?v=4?s=100" width="100px;" alt="Tobias"/><br /><sub><b>Tobias</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=tobim-dev" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://yduman.github.io/"><img src="https://avatars0.githubusercontent.com/u/11931774?v=4?s=100" width="100px;" alt="Yadullah Duman"/><br /><sub><b>Yadullah Duman</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=yduman" title="Code">💻</a> <a href="https://github.com/MaibornWolff/retro/pulls?q=is%3Apr+reviewed-by%3Ayduman" title="Reviewed Pull Requests">👀</a> <a href="#ideas-yduman" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ravensinth"><img src="https://avatars0.githubusercontent.com/u/1155772?v=4?s=100" width="100px;" alt="ravensinth"/><br /><sub><b>ravensinth</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=ravensinth" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/reitermaniacL"><img src="https://avatars.githubusercontent.com/u/7762085?v=4?s=100" width="100px;" alt="reitermaniacL"/><br /><sub><b>reitermaniacL</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=reitermaniacL" title="Code">💻</a> <a href="#ideas-reitermaniacL" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-reitermaniacL" title="Maintenance">🚧</a> <a href="#projectManagement-reitermaniacL" title="Project Management">📆</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
