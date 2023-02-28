@@ -16,6 +16,11 @@
 - option to auto allow all / auto reject
 - add tooltip to icon buttons (e.g. as ToolTipIconButton)
 - fix light theme and use a proper primary color?
+- add commit and branch name linting
+
+# Refactorings
+
+- change all "export default" to "export"
 
 # Follow-Up
 
