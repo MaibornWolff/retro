@@ -4,15 +4,15 @@
 
 ## What is Retro?
 
-Retro is a tool that you can use for retrospectives and planning poker sessions. The goal of Retro is to aid teams in remote retrospectives.
+Retro is a tool that is used for retrospectives and planning poker sessions. The goal of Retro is to have an easy to use and secure way of having retro and planning poker sessions.
 
-At work, we were using third party retrospective tools, which meant we couldn't express ourselves freely because of privacy reasons. Retro provides an open-source solution, where you can host the app on your own servers, so you can discuss freely again, since you own the data.
+Retro uses a peer-to-peer approach, where all communication including retro and poker information is shared between users only and never reaches a backend server. The backend server is only used for signaling, which is the initial handshake between the participants in a room. This is possible by following the [WebRTC](https://webrtc.org/) protocol.
 
-## Example - Retrospective
+## Retrospective
 
 ![retro_example](./assets/Retro-Example.png)
 
-## Example - Planning Poker
+## Planning Poker
 
 ![planning_poker_example](./assets/PlanningPoker-Example.png)
 
