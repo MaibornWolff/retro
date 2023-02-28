@@ -6,6 +6,30 @@
   "commit": false,
   "contributors": [
     {
+      "login": "NearW",
+      "name": "Ben Willenbring",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12533626?v=4",
+      "profile": "https://github.com/NearW",
+      "contributions": [
+        "code",
+        "maintenance",
+        "review",
+        "ideas"
+      ]
+    },
+    {
+      "login": "reitermaniacL",
+      "name": "Lukas Richter",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7762085?v=4",
+      "profile": "https://github.com/reitermaniacL",
+      "contributions": [
+        "code",
+        "maintenance",
+        "review",
+        "ideas"
+      ]
+    },
+    {
       "login": "mrpatpat",
       "name": "Adrian Endrich",
       "avatar_url": "https://avatars2.githubusercontent.com/u/2622069?v=4",
@@ -65,11 +89,9 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/11931774?v=4",
       "profile": "https://yduman.github.io/",
       "contributions": [
+        "creator"
         "code",
-        "maintenance",
-        "projectManagement",
-        "review",
-        "ideas"
+        "ideas",
       ]
     },
     {
