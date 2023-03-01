@@ -17,10 +17,13 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { generateId } from "../../../common/utils/generateId";
 import { usePokerContext } from "../../context/PokerContext";
-import { useRoomIdFromPath } from "../../../common/hooks/useRoomIdFromPath";
 
-export default function PokerJoinDialog({ isOpen, close }: DialogProps) {
-  const { handleAddToWaitingList, handleJoinSession } = usePokerContext();
+interface JoinPokerDialogProps extends DialogProps {
+  roomId: string;
+}
+
+export default function JoinPokerDialog({ isOpen, close, roomId }: JoinPokerDialogProps) {
+  const { handleAddToWaitingList } = usePokerContext();
   const {
     value: name,
     setValue: setName,
@@ -34,7 +37,6 @@ export default function PokerJoinDialog({ isOpen, close }: DialogProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  const roomIdFromPath = useRoomIdFromPath();
 
   function handleClose() {
     setName("");
@@ -48,18 +50,15 @@ export default function PokerJoinDialog({ isOpen, close }: DialogProps) {
       return;
     }
 
-    const roomId = roomIdFromPath ?? generateId();
     const newUser: User = {
       ...user,
       id: generateId(),
       name,
-      role: roomIdFromPath ? "participant" : "moderator",
+      role: "participant",
     };
     setRoomId(roomId);
     setUser(newUser);
-    roomIdFromPath
-      ? handleAddToWaitingList({ userId: newUser.id, userName: name })
-      : handleJoinSession(newUser);
+    handleAddToWaitingList({ userId: newUser.id, userName: name });
     navigate(`/poker/${roomId}`);
     handleClose();
   }

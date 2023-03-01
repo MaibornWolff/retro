@@ -1,13 +1,13 @@
-import React from "react";
 import { Button, useTheme } from "@mui/material";
-import { useDialog } from "../../retro/hooks/useDialog";
-import PokerJoinDialog from "./dialogs/PokerJoinDialog";
+import React from "react";
 import { useUserContext } from "../../common/context/UserContext";
+import { useDialog } from "../../retro/hooks/useDialog";
+import CreatePokerDialog from "./dialogs/CreatePokerDialog";
 
-export default function PokerJoinButton() {
+export default function CreatePokerButton() {
   const { isOpen, closeDialog, openDialog } = useDialog(true);
-  const theme = useTheme();
   const { user } = useUserContext();
+  const theme = useTheme();
 
   return (
     <>
@@ -21,10 +21,10 @@ export default function PokerJoinButton() {
             margin: theme.spacing(1),
           }}
         >
-          Join Session
+          Create Session
         </Button>
       )}
-      <PokerJoinDialog isOpen={isOpen} close={closeDialog} />
+      <CreatePokerDialog isOpen={isOpen} close={closeDialog} />
     </>
   );
 }
