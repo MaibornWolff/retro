@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Typography, useTheme } from "@mui/material";
 import { useRetroContext } from "../context/RetroContext";
 
-export default function RetroHeader() {
+export default function RetroTitle() {
   const theme = useTheme();
   const { retroState } = useRetroContext();
 

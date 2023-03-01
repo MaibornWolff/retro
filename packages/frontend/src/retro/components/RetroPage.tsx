@@ -3,8 +3,7 @@ import { Grid, useTheme } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Navigate } from "react-router-dom";
 
-import AppHeader from "./header/AppHeader";
-import RetroHeader from "./RetroHeader";
+import RetroHeader from "./header/RetroHeader";
 import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 import VoteProgress from "./VoteProgress";
 import Columns from "./columns/Columns";
@@ -17,6 +16,7 @@ import { useExportRetroContext } from "../context/ExportRetroContext";
 import { isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
+import RetroTitle from "./RetroHeader";
 
 export default function RetroPage() {
   const { retroState } = useRetroContext();
@@ -44,14 +44,14 @@ export default function RetroPage() {
   if (isWaitingUser(retroState.waitingList, user.id))
     return (
       <>
-        <AppHeader />
+        <RetroHeader />
         <WaitingForApproval />
       </>
     );
 
   return (
     <>
-      <AppHeader />
+      <RetroHeader />
       <VoteProgress />
       <Grid
         container
@@ -59,7 +59,7 @@ export default function RetroPage() {
         direction="column"
         ref={boardRef}
       >
-        <RetroHeader />
+        <RetroTitle />
         <Grid item xs={12}>
           <DragDropContext onDragEnd={onDragEnd}>
             <Columns />

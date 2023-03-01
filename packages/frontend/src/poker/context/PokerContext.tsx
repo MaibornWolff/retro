@@ -1,4 +1,4 @@
-import React, { Dispatch, useContext, useEffect, useReducer } from "react";
+import React, { Dispatch, useContext, useReducer } from "react";
 import { usePeerToPeer } from "../../common/hooks/usePeerToPeer";
 import { PokerState } from "../types/pokerTypes";
 import {
@@ -35,6 +35,8 @@ export interface PokerContextValues {
   handleTransferModeratorRole: (payload: TransferModeratorRoleAction["payload"]) => void;
   handleKickUser: (userId: string) => void;
   handleJoinSession: (payload: JoinSessionAction["payload"]) => void;
+  handleRejectJoinUser: (userId: string) => void;
+  handleAcceptJoinUser: (userId: string) => void;
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
 }
 
@@ -60,11 +62,10 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
 
   useSyncUser(state.participants);
 
-  useEffect(() => {
-    console.log(state.waitingList);
-  }, [state.waitingList]);
-
-  const { broadcastAction, sendAction } = usePeerToPeer<PokerState, PokerAction>({
+  const { broadcastAction, sendAction, rejectJoinUser, acceptJoinUser } = usePeerToPeer<
+    PokerState,
+    PokerAction
+  >({
     state,
     onDataReceived: dispatch,
     onUserDisconnected: handleUserDisconnect,
@@ -132,7 +133,7 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
   }
 
   function handleJoinSession(payload: JoinSessionAction["payload"]) {
-    dispatch({ type: "JOIN_SESSION", payload });
+    dispatchAndBroadcast({ type: "JOIN_SESSION", payload });
   }
 
   const value: PokerContextValues = {
@@ -149,6 +150,8 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     handleKickUser,
     handleJoinSession,
     handleAddToWaitingList,
+    handleRejectJoinUser: rejectJoinUser,
+    handleAcceptJoinUser: acceptJoinUser,
   };
 
   return <PokerContext.Provider value={value}>{props.children}</PokerContext.Provider>;

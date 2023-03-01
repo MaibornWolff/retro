@@ -6,10 +6,19 @@ import ToggleThemeButton from "../../common/components/ToggleThemeButton";
 import ShareSessionButton from "../../common/components/ShareSessionButton";
 import PokerSettingsButton from "./PokerSettingsButton";
 import { useUserContext } from "../../common/context/UserContext";
+import ParticipantsButton from "../../common/components/ParticipantsButton";
+import { usePokerContext } from "../context/PokerContext";
 
 export default function PokerHeader() {
   const { user } = useUserContext();
   const theme = useTheme();
+  const {
+    pokerState,
+    handleKickUser,
+    handleAcceptJoinUser,
+    handleRejectJoinUser,
+    handleTransferModeratorRole,
+  } = usePokerContext();
 
   return (
     <div style={{ flexGrow: 1 }}>
@@ -26,6 +35,13 @@ export default function PokerHeader() {
           </Typography>
           <ToggleThemeButton />
           <ShareSessionButton isDisabled={!user.id} />
+          <ParticipantsButton
+            state={pokerState}
+            handleKickUser={handleKickUser}
+            handleRejectJoinUser={handleRejectJoinUser}
+            handleAcceptJoinUser={handleAcceptJoinUser}
+            handleTransferModeratorRole={handleTransferModeratorRole}
+          />
           <PokerSettingsButton />
         </Toolbar>
       </AppBar>

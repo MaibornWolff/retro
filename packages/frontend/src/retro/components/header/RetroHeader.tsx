@@ -6,9 +6,17 @@ import ToggleThemeButton from "../../../common/components/ToggleThemeButton";
 import ShareSessionButton from "../../../common/components/ShareSessionButton";
 import CreateColumnButton from "./CreateColumnButton";
 import SettingsButton from "./SettingsButton";
-import ParticipantsButton from "./ParticipantsButton";
+import ParticipantsButton from "../../../common/components/ParticipantsButton";
+import { useRetroContext } from "../../context/RetroContext";
 
-export default function AppHeader() {
+export default function RetroHeader() {
+  const {
+    retroState,
+    handleKickUser,
+    handleAcceptJoinUser,
+    handleRejectJoinUser,
+    handleTransferModeratorRole,
+  } = useRetroContext();
   const theme = useTheme();
 
   return (
@@ -44,7 +52,13 @@ export default function AppHeader() {
           </Typography>
           <ToggleThemeButton />
           <ShareSessionButton />
-          <ParticipantsButton />
+          <ParticipantsButton
+            state={retroState}
+            handleKickUser={handleKickUser}
+            handleAcceptJoinUser={handleAcceptJoinUser}
+            handleRejectJoinUser={handleRejectJoinUser}
+            handleTransferModeratorRole={handleTransferModeratorRole}
+          />
           <CreateColumnButton />
           <SettingsButton />
         </Toolbar>
