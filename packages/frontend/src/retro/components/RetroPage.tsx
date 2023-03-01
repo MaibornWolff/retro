@@ -15,15 +15,15 @@ import { useRoomIdExists } from "../../common/hooks/useRoomIdExists";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { useExportRetroContext } from "../context/ExportRetroContext";
 import { isWaitingUser } from "../../common/utils/participantsUtils";
-import { WaitingForApproval } from "./WaitingForApproval";
 import { useUserContext } from "../../common/context/UserContext";
+import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 
 export default function RetroPage() {
   const { retroState } = useRetroContext();
+  const { user } = useUserContext();
   const { isError } = useErrorContext();
   const { boardRef } = useExportRetroContext();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
-  const { user } = useUserContext();
   const theme = useTheme();
 
   useRoomIdExists();

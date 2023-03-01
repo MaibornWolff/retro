@@ -20,7 +20,7 @@ import { usePokerContext } from "../../context/PokerContext";
 import { useRoomIdFromPath } from "../../../common/hooks/useRoomIdFromPath";
 
 export default function PokerJoinDialog({ isOpen, close }: DialogProps) {
-  const { handleJoinSession } = usePokerContext();
+  const { handleAddToWaitingList, handleJoinSession } = usePokerContext();
   const {
     value: name,
     setValue: setName,
@@ -57,7 +57,9 @@ export default function PokerJoinDialog({ isOpen, close }: DialogProps) {
     };
     setRoomId(roomId);
     setUser(newUser);
-    handleJoinSession(newUser);
+    roomIdFromPath
+      ? handleAddToWaitingList({ userId: newUser.id, userName: name })
+      : handleJoinSession(newUser);
     navigate(`/poker/${roomId}`);
     handleClose();
   }

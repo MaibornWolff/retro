@@ -1,10 +1,12 @@
 import { User } from "../../common/types/commonTypes";
+import { UserByUserId } from "../../retro/types/retroTypes";
 
 export interface PokerState {
   story: PokerStory;
   pokerUnit: PokerUnit;
   participants: PokerParticipantByUserId;
   showResults: boolean;
+  waitingList: UserByUserId;
 }
 
 export interface PokerUnit {

@@ -1,4 +1,4 @@
-import React, { Dispatch, useContext, useReducer } from "react";
+import React, { Dispatch, useContext, useEffect, useReducer } from "react";
 import { usePeerToPeer } from "../../common/hooks/usePeerToPeer";
 import { PokerState } from "../types/pokerTypes";
 import {
@@ -9,8 +9,14 @@ import {
 } from "../types/pokerActions";
 import { pokerReducer } from "../reducers/pokerReducer";
 import { useErrorContext } from "../../common/context/ErrorContext";
-import { JoinSessionAction, TransferModeratorRoleAction } from "../../common/types/peerToPeerTypes";
+import {
+  AddToWaitingListAction,
+  JoinSessionAction,
+  RemoveFromWaitingListAction,
+  TransferModeratorRoleAction,
+} from "../../common/types/peerToPeerTypes";
 import { useSyncUser } from "../../common/hooks/useSyncUser";
+import { useUserContext } from "../../common/context/UserContext";
 
 interface PokerContextProviderProps {
   children?: React.ReactNode;
@@ -29,6 +35,7 @@ export interface PokerContextValues {
   handleTransferModeratorRole: (payload: TransferModeratorRoleAction["payload"]) => void;
   handleKickUser: (userId: string) => void;
   handleJoinSession: (payload: JoinSessionAction["payload"]) => void;
+  handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
 }
 
 const initialState: PokerState = {
@@ -42,65 +49,82 @@ const initialState: PokerState = {
   },
   participants: {},
   showResults: false,
+  waitingList: {},
 };
 
 export const PokerContext = React.createContext<PokerContextValues>(undefined!);
 export default function PokerContextProvider(props: PokerContextProviderProps) {
   const [state, dispatch] = useReducer(pokerReducer, initialState);
+  const { user } = useUserContext();
   const { setIsError } = useErrorContext();
 
   useSyncUser(state.participants);
+
+  useEffect(() => {
+    console.log(state.waitingList);
+  }, [state.waitingList]);
 
   const { broadcastAction, sendAction } = usePeerToPeer<PokerState, PokerAction>({
     state,
     onDataReceived: dispatch,
     onUserDisconnected: handleUserDisconnect,
     onError: handleError,
+    onRequestJoinRoom: handleAddToWaitingList,
+    onJoinRoomRejected: handleJoinRoomReject,
+    onJoinSession: handleJoinSession,
   });
+
+  function dispatchAndBroadcast(action: PokerAction) {
+    dispatch(action);
+    broadcastAction(action);
+  }
 
   function handleError() {
     setIsError(true);
   }
 
   function handleUserDisconnect(userId: string) {
-    const event: PokerAction = { type: "DISCONNECT", payload: userId };
-    dispatch(event);
+    dispatch({ type: "DISCONNECT", payload: userId });
+  }
+
+  function handleAddToWaitingList(payload: AddToWaitingListAction["payload"]) {
+    dispatch({ type: "ADD_TO_WAITING_LIST", payload });
+  }
+
+  function handleJoinRoomReject(userId: string) {
+    if (userId === user.id) {
+      setIsError(true);
+      return;
+    }
+    handleRemoveFromWaitingList({ userId });
+  }
+
+  function handleRemoveFromWaitingList(payload: RemoveFromWaitingListAction["payload"]) {
+    dispatch({ type: "REMOVE_FROM_WAITING_LIST", payload });
   }
 
   function handleShowPokerResults() {
-    const event: PokerAction = { type: "SHOW_POKER_RESULTS" };
-    dispatch(event);
-    broadcastAction(event);
+    dispatchAndBroadcast({ type: "SHOW_POKER_RESULTS" });
   }
 
   function handleSetUserStory(payload: SetUserStoryAction["payload"]) {
-    const event: PokerAction = { type: "SET_USER_STORY", payload };
-    dispatch(event);
-    broadcastAction(event);
+    dispatchAndBroadcast({ type: "SET_USER_STORY", payload });
   }
 
   function handleResetUserStory() {
-    const event: PokerAction = { type: "RESET_USER_STORY" };
-    dispatch(event);
-    broadcastAction(event);
+    dispatchAndBroadcast({ type: "RESET_USER_STORY" });
   }
 
   function handleSetPokerUnit(payload: SetPokerUnitAction["payload"]) {
-    const event: PokerAction = { type: "SET_POKER_UNIT", payload };
-    dispatch(event);
-    broadcastAction(event);
+    dispatchAndBroadcast({ type: "SET_POKER_UNIT", payload });
   }
 
   function handleSendVote(payload: SendVoteAction["payload"]) {
-    const event: PokerAction = { type: "SEND_VOTE", payload };
-    dispatch(event);
-    broadcastAction(event);
+    dispatchAndBroadcast({ type: "SEND_VOTE", payload });
   }
 
   function handleTransferModeratorRole(payload: TransferModeratorRoleAction["payload"]) {
-    const event: PokerAction = { type: "TRANSFER_MODERATOR_ROLE", payload };
-    dispatch(event);
-    broadcastAction(event);
+    dispatchAndBroadcast({ type: "TRANSFER_MODERATOR_ROLE", payload });
   }
 
   function handleKickUser(userId: string) {
@@ -108,8 +132,7 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
   }
 
   function handleJoinSession(payload: JoinSessionAction["payload"]) {
-    const event: PokerAction = { type: "JOIN_SESSION", payload };
-    dispatch(event);
+    dispatch({ type: "JOIN_SESSION", payload });
   }
 
   const value: PokerContextValues = {
@@ -125,6 +148,7 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     handleTransferModeratorRole,
     handleKickUser,
     handleJoinSession,
+    handleAddToWaitingList,
   };
 
   return <PokerContext.Provider value={value}>{props.children}</PokerContext.Provider>;

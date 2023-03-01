@@ -7,6 +7,7 @@ import {
   getRemainingParticipantsWithNewModerator,
   hasRemainingModerator,
 } from "../../common/utils/participantsUtils";
+import { User } from "../../common/types/commonTypes";
 
 export const pokerReducer = (state: PokerState, action: PokerAction): PokerState => {
   switch (action.type) {
@@ -41,10 +42,12 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
       };
     case "JOIN_SESSION": {
       const { name, id, role } = action.payload;
+      const { [id]: removedUser, ...remainingWaitingList } = state.waitingList;
       const newParticipant: PokerParticipant = { ...initialParticipant, name, id, role };
       return {
         ...state,
         participants: { ...state.participants, [id]: newParticipant },
+        waitingList: remainingWaitingList,
       };
     }
     case "SEND_VOTE": {
@@ -69,16 +72,31 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
       };
       return { ...state, participants };
     }
+    case "ADD_TO_WAITING_LIST": {
+      const waitingUser: User = {
+        ...initialParticipant,
+        id: action.payload.userId,
+        name: action.payload.userName,
+      };
+      return { ...state, waitingList: { ...state.waitingList, [waitingUser.id]: waitingUser } };
+    }
+    case "REMOVE_FROM_WAITING_LIST": {
+      const { [action.payload.userId]: removedUser, ...remainingUsers } = state.waitingList;
+      return { ...state, waitingList: { ...remainingUsers } };
+    }
     case "DISCONNECT": {
-      const { participants } = state;
+      const { participants, waitingList } = state;
       const disconnectedUserId = action.payload;
       const remainingParticipants = hasRemainingModerator(participants, disconnectedUserId)
         ? getRemainingParticipants(participants, disconnectedUserId)
         : getRemainingParticipantsWithNewModerator(participants, disconnectedUserId);
 
+      const { [disconnectedUserId]: removedUser, ...remainingWaitingUsers } = waitingList;
+
       return {
         ...state,
         participants: remainingParticipants,
+        waitingList: remainingWaitingUsers,
       };
     }
     default:
