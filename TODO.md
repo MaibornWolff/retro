@@ -1,5 +1,10 @@
 # Mandatory
 
+- unite create retro / poker buttons (use props)
+- move vote/voted to separate record
+  - pass participants / waiting list in participant button props
+- cleanup todos
+
 - add error page if user is rejected
 - add allow/reject user to poker app
 - write tests (jest, react-testing-library, react-hooks-testing-library)
