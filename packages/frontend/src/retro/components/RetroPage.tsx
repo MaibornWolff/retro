@@ -59,7 +59,6 @@ export default function RetroPage() {
   return (
     <>
       <RetroHeader />
-      <VoteProgress />
       <Grid
         container
         sx={{ backgroundColor: theme.palette.background.default }}
@@ -67,6 +66,7 @@ export default function RetroPage() {
         ref={boardRef}
       >
         <RetroTitle />
+        <VoteProgress />
         <Grid item xs={12}>
           <DragDropContext onDragEnd={onDragEnd}>
             <Columns />

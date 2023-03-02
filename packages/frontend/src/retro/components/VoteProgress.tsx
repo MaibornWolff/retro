@@ -19,7 +19,7 @@ export default function VoteProgress() {
   return (
     <div style={{ width: "100%" }}>
       <Box display="flex" alignItems="center">
-        <Box width="100%" p={2}>
+        <Box width="100%" px={2} pb={2}>
           <Typography variant="body2" color="textSecondary">
             {`Your remaining votes: ${votesLeft}`}
           </Typography>
