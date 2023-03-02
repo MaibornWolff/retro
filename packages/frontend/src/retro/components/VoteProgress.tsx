@@ -1,32 +1,21 @@
 import React from "react";
-import { Box, LinearProgress, Typography } from "@mui/material";
-import { useRetroContext } from "../context/RetroContext";
-import { useVotesLeft } from "../hooks/useVotesLeft";
+import { Box, Typography } from "@mui/material";
 import { useUserContext } from "../../common/context/UserContext";
-
-function normalise(value: number, min = 0, max: number) {
-  return ((value - min) * 100) / (max - min);
-}
+import CircularProgressWithLabel from "./CircularProgressWithLabel";
 
 export default function VoteProgress() {
   const { user } = useUserContext();
-  const { retroState } = useRetroContext();
-  const { maxVoteCount } = retroState;
-  const votesLeft = useVotesLeft();
 
   if (!user.id) return null;
 
   return (
     <div style={{ width: "100%" }}>
       <Box display="flex" alignItems="center">
-        <Box width="100%" px={2} pb={2}>
-          <Typography variant="body2" color="textSecondary">
-            {`Your remaining votes: ${votesLeft}`}
+        <Box width="100%" px={2} display={"flex"} alignItems="center">
+          <Typography variant="body1" color="textPrimary" mr={2}>
+            {"Remaining votes:"}
           </Typography>
-          <LinearProgress
-            variant="determinate"
-            value={normalise(maxVoteCount - votesLeft, 0, maxVoteCount)}
-          />
+          <CircularProgressWithLabel />
         </Box>
       </Box>
     </div>
