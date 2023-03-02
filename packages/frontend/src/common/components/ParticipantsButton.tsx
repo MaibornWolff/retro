@@ -3,11 +3,11 @@ import { Badge, Button, Typography, useTheme } from "@mui/material";
 import { People } from "@mui/icons-material";
 import { useDialog } from "../../retro/hooks/useDialog";
 import { ParticipantsDialog } from "./ParticipantsDialog";
-import { RetroState } from "../../retro/types/retroTypes";
-import { PokerState } from "../../poker/types/pokerTypes";
+import { UserByUserId } from "../../retro/types/retroTypes";
 
 interface ParticipantButtonProps {
-  state: RetroState | PokerState;
+  participants: UserByUserId;
+  waitingList: UserByUserId;
   handleKickUser: (userId: string) => void;
   handleRejectJoinUser: (userId: string) => void;
   handleAcceptJoinUser: (userId: string) => void;
@@ -15,7 +15,8 @@ interface ParticipantButtonProps {
 }
 
 export default function ParticipantsButton({
-  state,
+  participants,
+  waitingList,
   handleKickUser,
   handleRejectJoinUser,
   handleAcceptJoinUser,
@@ -24,7 +25,7 @@ export default function ParticipantsButton({
   const { isOpen, openDialog, closeDialog } = useDialog();
   const theme = useTheme();
 
-  const waitingUsersCount = Object.values(state.waitingList).length;
+  const waitingUsersCount = Object.values(waitingList).length;
 
   return (
     <>
@@ -46,7 +47,8 @@ export default function ParticipantsButton({
       <ParticipantsDialog
         isOpen={isOpen}
         close={closeDialog}
-        state={state}
+        participants={participants}
+        waitingList={waitingList}
         handleKickUser={handleKickUser}
         handleAcceptJoinUser={handleAcceptJoinUser}
         handleRejectJoinUser={handleRejectJoinUser}

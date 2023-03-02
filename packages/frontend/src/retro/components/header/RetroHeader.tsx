@@ -11,11 +11,11 @@ import { useRetroContext } from "../../context/RetroContext";
 
 export default function RetroHeader() {
   const {
-    retroState,
     handleKickUser,
     handleAcceptJoinUser,
     handleRejectJoinUser,
     handleTransferModeratorRole,
+    retroState,
   } = useRetroContext();
   const theme = useTheme();
 
@@ -53,7 +53,8 @@ export default function RetroHeader() {
           <ToggleThemeButton />
           <ShareSessionButton />
           <ParticipantsButton
-            state={retroState}
+            participants={retroState.participants}
+            waitingList={retroState.waitingList}
             handleKickUser={handleKickUser}
             handleAcceptJoinUser={handleAcceptJoinUser}
             handleRejectJoinUser={handleRejectJoinUser}

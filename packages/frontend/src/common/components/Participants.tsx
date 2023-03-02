@@ -1,22 +1,21 @@
 import React from "react";
 import Participant from "./Participant";
-import { RetroState } from "../../retro/types/retroTypes";
-import { PokerState } from "../../poker/types/pokerTypes";
+import { UserByUserId } from "../../retro/types/retroTypes";
 
 interface ParticipantsProps {
-  state: RetroState | PokerState;
+  participants: UserByUserId;
   handleKickUser: (userId: string) => void;
   handleTransferModeratorRole: (userId: string) => void;
 }
 
 export default function Participants({
-  state,
+  participants,
   handleKickUser,
   handleTransferModeratorRole,
 }: ParticipantsProps) {
   return (
     <>
-      {Object.values(state.participants).map((participant) => (
+      {Object.values(participants).map((participant) => (
         <Participant
           key={participant.id}
           participant={participant}

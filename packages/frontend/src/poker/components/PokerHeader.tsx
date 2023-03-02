@@ -36,7 +36,8 @@ export default function PokerHeader() {
           <ToggleThemeButton />
           <ShareSessionButton isDisabled={!user.id} />
           <ParticipantsButton
-            state={pokerState}
+            participants={pokerState.participants}
+            waitingList={pokerState.waitingList}
             handleKickUser={handleKickUser}
             handleRejectJoinUser={handleRejectJoinUser}
             handleAcceptJoinUser={handleAcceptJoinUser}

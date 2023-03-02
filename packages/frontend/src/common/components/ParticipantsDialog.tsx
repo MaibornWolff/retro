@@ -14,11 +14,11 @@ import { isEmpty } from "lodash";
 import { WaitingList } from "./WaitingList";
 import { DialogProps } from "../types/commonTypes";
 import Participants from "./Participants";
-import { RetroState } from "../../retro/types/retroTypes";
-import { PokerState } from "../../poker/types/pokerTypes";
+import { UserByUserId } from "../../retro/types/retroTypes";
 
 interface ParticipantDialogProps extends DialogProps {
-  state: RetroState | PokerState;
+  participants: UserByUserId;
+  waitingList: UserByUserId;
   handleKickUser: (userId: string) => void;
   handleRejectJoinUser: (userId: string) => void;
   handleAcceptJoinUser: (userId: string) => void;
@@ -28,16 +28,17 @@ interface ParticipantDialogProps extends DialogProps {
 export function ParticipantsDialog({
   isOpen,
   close,
-  state,
   handleKickUser,
   handleRejectJoinUser,
   handleAcceptJoinUser,
   handleTransferModeratorRole,
+  participants,
+  waitingList,
 }: ParticipantDialogProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const isDividerVisible = !isEmpty(state.waitingList) && !isEmpty(state.participants);
+  const isDividerVisible = !isEmpty(waitingList) && !isEmpty(participants);
 
   return (
     <Dialog
@@ -53,12 +54,12 @@ export function ParticipantsDialog({
         },
       }}
     >
-      {!isEmpty(state.waitingList) && (
+      {!isEmpty(waitingList) && (
         <>
           <DialogTitle id="participants-dialog">Waiting for approval</DialogTitle>
           <DialogContent>
             <WaitingList
-              state={state}
+              waitingList={waitingList}
               handleAcceptJoinUser={handleAcceptJoinUser}
               handleRejectJoinUser={handleRejectJoinUser}
             />
@@ -66,12 +67,12 @@ export function ParticipantsDialog({
         </>
       )}
       {isDividerVisible && <Divider />}
-      {!isEmpty(state.participants) && (
+      {!isEmpty(participants) && (
         <>
           <DialogTitle id="participants-dialog">Participants</DialogTitle>
           <DialogContent>
             <Participants
-              state={state}
+              participants={participants}
               handleKickUser={handleKickUser}
               handleTransferModeratorRole={handleTransferModeratorRole}
             />
