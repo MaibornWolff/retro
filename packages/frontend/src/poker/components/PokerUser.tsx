@@ -4,17 +4,22 @@ import ReactCardFlip from "react-card-flip";
 import PokerCardFront from "./cards/PokerCardFront";
 import PokerCardBack from "./cards/PokerCardBack";
 import { usePokerContext } from "../context/PokerContext";
-import { PokerParticipant } from "../types/pokerTypes";
+import { User } from "../../common/types/commonTypes";
+import { VoteByUserId } from "../types/pokerTypes";
+import { hasVoted } from "../utils/pokerUtils";
 
 interface PokerUserProps {
-  user: PokerParticipant;
+  user: User;
+  votes: VoteByUserId;
 }
 
-export default function PokerUser({ user }: PokerUserProps) {
+export default function PokerUser({ user, votes }: PokerUserProps) {
   const { pokerState } = usePokerContext();
 
-  const { id, name, vote, voted, role } = user;
-  const styleProps = voted ? { backgroundColor: "#48BB78" } : { backgroundColor: "#F56565" };
+  const { id, name, role } = user;
+  const styleProps = hasVoted(votes, id)
+    ? { backgroundColor: "#48BB78" }
+    : { backgroundColor: "#F56565" };
 
   return (
     <ReactCardFlip isFlipped={pokerState.showResults} flipDirection="horizontal">
@@ -22,7 +27,7 @@ export default function PokerUser({ user }: PokerUserProps) {
       <PokerCardBack
         styleProps={styleProps}
         userName={name}
-        userVote={vote}
+        userVote={votes[id]}
         userId={id}
         role={role}
       />

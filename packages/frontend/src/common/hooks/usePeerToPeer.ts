@@ -159,7 +159,6 @@ export function usePeerToPeer<T, E extends BaseAction>({
     });
 
     socket.on("userDisconnected", ({ disconnectedUserId }) => {
-      console.debug("user Disconnected");
       disconnectUser(disconnectedUserId);
     });
 

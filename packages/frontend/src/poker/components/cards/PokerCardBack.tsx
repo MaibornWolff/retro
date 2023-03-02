@@ -4,14 +4,15 @@ import { usePokerContext } from "../../context/PokerContext";
 import PokerCard from "./PokerCard";
 import { UserRole } from "../../../common/types/commonTypes";
 
-function getTShirtSizeFromValue(value: number) {
+function getTShirtSizeFromValue(value?: number): string | undefined {
+  if (!value) return;
   return ["XS", "S", "M", "L", "XL", "XXL"][value];
 }
 
 interface PokerCardBackProps {
   styleProps: { backgroundColor: string };
   userName: string;
-  userVote: number;
+  userVote?: number;
   role: UserRole;
   userId: string;
 }
@@ -25,7 +26,6 @@ export default function PokerCardBack({
 }: PokerCardBackProps) {
   const { pokerState } = usePokerContext();
   const pokerUnitType = pokerState.pokerUnit.unitType;
-  const userVoteLabel = userVote === -1 ? "" : userVote;
 
   return (
     <PokerCard
@@ -35,7 +35,7 @@ export default function PokerCardBack({
       role={role}
       FooterComponent={
         <Typography color="secondary" variant="h4" align="center" paddingBottom="16px">
-          {pokerUnitType === "tshirt" ? getTShirtSizeFromValue(userVote) ?? "" : userVoteLabel}
+          {pokerUnitType === "tshirt" ? getTShirtSizeFromValue(userVote) ?? "" : userVote ?? ""}
         </Typography>
       }
     />

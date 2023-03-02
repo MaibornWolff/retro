@@ -1,17 +1,21 @@
 import React from "react";
-import { User } from "../../../common/types/commonTypes";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Cancel, CheckCircle, Person } from "@mui/icons-material";
-import { useUserContext } from "../../../common/context/UserContext";
-import { isModerator } from "../../../common/utils/participantsUtils";
-import { useRetroContext } from "../../context/RetroContext";
+import { User } from "../types/commonTypes";
+import { useUserContext } from "../context/UserContext";
+import { isModerator } from "../utils/participantsUtils";
 
 interface WaitingUserProps {
   waitingUser: User;
+  handleRejectJoinUser: (userId: string) => void;
+  handleAcceptJoinUser: (userId: string) => void;
 }
-export default function WaitingUser({ waitingUser }: WaitingUserProps) {
+export default function WaitingUser({
+  waitingUser,
+  handleRejectJoinUser,
+  handleAcceptJoinUser,
+}: WaitingUserProps) {
   const { user } = useUserContext();
-  const { handleRejectJoinUser, handleAcceptJoinUser } = useRetroContext();
 
   function handleRejectJoinUserClick() {
     handleRejectJoinUser(waitingUser.id);

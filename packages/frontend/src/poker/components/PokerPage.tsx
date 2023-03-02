@@ -11,9 +11,13 @@ import PokerStats from "./PokerStats";
 import { useRoomIdExists } from "../../common/hooks/useRoomIdExists";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { usePokerContext } from "../context/PokerContext";
+import { isWaitingUser } from "../../common/utils/participantsUtils";
+import { useUserContext } from "../../common/context/UserContext";
+import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 
 export default function PokerPage() {
   const { pokerState } = usePokerContext();
+  const { user } = useUserContext();
   const { isError } = useErrorContext();
   const theme = useTheme();
   useRoomIdExists();
@@ -27,6 +31,14 @@ export default function PokerPage() {
   });
 
   if (isError) return <Navigate to={"/error"} />;
+
+  if (isWaitingUser(pokerState.waitingList, user.id))
+    return (
+      <>
+        <PokerHeader />
+        <WaitingForApproval />
+      </>
+    );
 
   return (
     <div>

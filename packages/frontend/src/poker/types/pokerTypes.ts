@@ -1,20 +1,17 @@
-import { User } from "../../common/types/commonTypes";
+import { UserByUserId } from "../../retro/types/retroTypes";
 
 export interface PokerState {
   story: PokerStory;
   pokerUnit: PokerUnit;
-  participants: PokerParticipantByUserId;
+  participants: UserByUserId;
   showResults: boolean;
+  waitingList: UserByUserId;
+  votes: VoteByUserId;
 }
 
 export interface PokerUnit {
   unitType: PokerUnitType;
   unitRangeHigh: number;
-}
-
-export interface PokerParticipant extends User {
-  vote: number;
-  voted: boolean;
 }
 
 export interface PokerStory {
@@ -27,6 +24,6 @@ export interface ChartData {
   value: number;
 }
 
-export type PokerParticipantByUserId = Record<string, PokerParticipant>;
+export type VoteByUserId = Record<string, number>;
 
 export type PokerUnitType = "fibonacci" | "tshirt" | "naturalnumbers";

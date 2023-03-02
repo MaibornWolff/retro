@@ -11,7 +11,7 @@ export default function PokerStats() {
 
   useEffect(() => {
     const chartData = pokerState.showResults
-      ? generateChartData(Object.values(pokerState.participants), pokerState.pokerUnit)
+      ? generateChartData(pokerState.votes, pokerState.pokerUnit)
       : [];
     setChartData(chartData);
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,19 +1,24 @@
 import React from "react";
-import { User } from "../../../common/types/commonTypes";
 import { Box, IconButton, Typography } from "@mui/material";
 import { AddModerator, LocalPolice, Person, RemoveCircle } from "@mui/icons-material";
-import { useUserContext } from "../../../common/context/UserContext";
-import { useRetroContext } from "../../context/RetroContext";
-import { isModerator } from "../../../common/utils/participantsUtils";
-import { useDialog } from "../../hooks/useDialog";
-import { TransferModeratorRoleDialog } from "../dialogs/TransferModeratorRoleDialog";
+import { TransferModeratorRoleDialog } from "../../retro/components/dialogs/TransferModeratorRoleDialog";
+import { isModerator } from "../utils/participantsUtils";
+import { useUserContext } from "../context/UserContext";
+import { useDialog } from "../../retro/hooks/useDialog";
+import { User } from "../types/commonTypes";
 
 interface ParticipantProps {
   participant: User;
+  handleKickUser: (userId: string) => void;
+  handleTransferModeratorRole: (userId: string) => void;
 }
-export default function Participant({ participant }: ParticipantProps) {
+export default function Participant({
+  participant,
+  handleKickUser,
+  handleTransferModeratorRole,
+}: ParticipantProps) {
   const { isOpen, openDialog, closeDialog } = useDialog();
-  const { handleKickUser } = useRetroContext();
+
   const { user } = useUserContext();
 
   function handleKickUserClick() {
@@ -57,9 +62,12 @@ export default function Participant({ participant }: ParticipantProps) {
           )}
         </Box>
       </Box>
-      <TransferModeratorRoleDialog participant={participant} isOpen={isOpen} close={closeDialog} />
+      <TransferModeratorRoleDialog
+        participant={participant}
+        isOpen={isOpen}
+        close={closeDialog}
+        handleTransferModeratorRole={handleTransferModeratorRole}
+      />
     </>
   );
 }
-
-// 3d24h15min

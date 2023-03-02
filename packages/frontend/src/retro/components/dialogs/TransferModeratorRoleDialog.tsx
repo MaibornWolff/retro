@@ -13,19 +13,19 @@ import {
 import { DialogProps, User } from "../../../common/types/commonTypes";
 import { useUserContext } from "../../../common/context/UserContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
-import { useRetroContext } from "../../context/RetroContext";
 
 interface TransferModeratorRoleDialogProps extends DialogProps {
   participant: User;
+  handleTransferModeratorRole: (userId: string) => void;
 }
 
 export function TransferModeratorRoleDialog({
   isOpen,
   close,
   participant,
+  handleTransferModeratorRole,
 }: TransferModeratorRoleDialogProps) {
   const { user } = useUserContext();
-  const { handleTransferModeratorRole } = useRetroContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
