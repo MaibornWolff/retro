@@ -21,7 +21,7 @@ import TextInput from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRoomContext } from "../../../common/context/RoomContext";
 
-export default function CreateRetroDialog({ isOpen, close }: DialogProps) {
+export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const {
     value: title,
     setValue: setTitle,
@@ -84,9 +84,9 @@ export default function CreateRetroDialog({ isOpen, close }: DialogProps) {
       fullScreen={fullScreen}
       open={isOpen}
       onClose={handleClose}
-      aria-labelledby="form-dialog-join-retro"
+      aria-labelledby="form-dialog-create-retro"
     >
-      <DialogTitle id="form-dialog-join-retro">Create Retro Session</DialogTitle>
+      <DialogTitle id="form-dialog-create-retro">Create Retro Session</DialogTitle>
       <DialogContent sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <div>
           <DialogContentText>Please enter your name.</DialogContentText>

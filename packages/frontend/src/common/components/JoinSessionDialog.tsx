@@ -1,5 +1,3 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import {
   Button,
   Dialog,
@@ -10,16 +8,27 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import React from "react";
+import { useValidatedTextInput } from "../hooks/useValidatedTextInput";
+import { useRoomContext } from "../context/RoomContext";
+import { useUserContext } from "../context/UserContext";
+import { DialogProps, User } from "../types/commonTypes";
+import { generateId } from "../utils/generateId";
+import TextInput from "./TextInput";
 
-import { useUserContext } from "../../../common/context/UserContext";
-import { DialogProps, User } from "../../../common/types/commonTypes";
-import { generateId } from "../../../common/utils/generateId";
-import TextInput from "../../../common/components/TextInput";
-import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
-import { useRoomContext } from "../../../common/context/RoomContext";
-import { usePokerContext } from "../../context/PokerContext";
+interface JoinSessionDialogProps extends DialogProps {
+  roomId: string;
+  handleAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
+  navigateToRoom: () => void;
+}
 
-export default function CreatePokerDialog({ isOpen, close }: DialogProps) {
+export default function JoinSessionDialog({
+  isOpen,
+  close,
+  roomId,
+  handleAddToWaitingList,
+  navigateToRoom,
+}: JoinSessionDialogProps) {
   const {
     value: name,
     setValue: setName,
@@ -28,12 +37,10 @@ export default function CreatePokerDialog({ isOpen, close }: DialogProps) {
     handleChange,
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
-  const { handleJoinSession } = usePokerContext();
-  const { user, setUser } = useUserContext();
   const { setRoomId } = useRoomContext();
+  const { user, setUser } = useUserContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const navigate = useNavigate();
 
   function handleClose() {
     setName("");
@@ -43,22 +50,23 @@ export default function CreatePokerDialog({ isOpen, close }: DialogProps) {
 
   function handleSubmit() {
     if (!isValid || user.id) {
-      setIsError(!isValid);
+      setIsError(true);
       return;
     }
-    const roomId = generateId();
+
     const newUser: User = {
       ...user,
       id: generateId(),
       name,
-      role: "moderator",
+      role: "participant",
     };
     setRoomId(roomId);
     setUser(newUser);
-    handleJoinSession(newUser);
-    navigate(`/poker/${roomId}`);
+    handleAddToWaitingList({ userId: newUser.id, userName: name });
+    navigateToRoom();
     handleClose();
   }
+
   return (
     <Dialog
       fullWidth

@@ -1,14 +1,20 @@
 import React from "react";
 import { Button, useTheme } from "@mui/material";
 import { useDialog } from "../../retro/hooks/useDialog";
-import JoinPokerDialog from "./dialogs/JoinPokerDialog";
-import { useUserContext } from "../../common/context/UserContext";
+import { useUserContext } from "../context/UserContext";
+import JoinSessionDialog from "./JoinSessionDialog";
 
-interface JoinPokerButtonProps {
+interface JoinSessionButtonProps {
   roomId: string;
+  navigateToRoom: () => void;
+  handleAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
 }
 
-export default function JoinPokerButton({ roomId }: JoinPokerButtonProps) {
+export default function JoinSessionButton({
+  roomId,
+  navigateToRoom,
+  handleAddToWaitingList,
+}: JoinSessionButtonProps) {
   const { isOpen, closeDialog, openDialog } = useDialog(true);
   const { user } = useUserContext();
   const theme = useTheme();
@@ -28,7 +34,13 @@ export default function JoinPokerButton({ roomId }: JoinPokerButtonProps) {
           Join Session
         </Button>
       )}
-      <JoinPokerDialog isOpen={isOpen} close={closeDialog} roomId={roomId} />
+      <JoinSessionDialog
+        isOpen={isOpen}
+        close={closeDialog}
+        roomId={roomId}
+        handleAddToWaitingList={handleAddToWaitingList}
+        navigateToRoom={navigateToRoom}
+      />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Grid, useTheme } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import RetroHeader from "./header/RetroHeader";
 import MergeCardsDialog from "./dialogs/MergeCardsDialog";
@@ -9,7 +9,6 @@ import VoteProgress from "./VoteProgress";
 import Columns from "./columns/Columns";
 import { useDragAndDrop } from "../hooks/useDragAndDrop";
 import { useRetroContext } from "../context/RetroContext";
-import SetupRetroButton from "./SetupRetroButton";
 import { useRoomIdExists } from "../../common/hooks/useRoomIdExists";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { useExportRetroContext } from "../context/ExportRetroContext";
@@ -17,14 +16,18 @@ import { isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import RetroTitle from "./RetroHeader";
+import SetupSessionButton from "../../common/components/SetupSessionButton";
+import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 
 export default function RetroPage() {
-  const { retroState } = useRetroContext();
+  const { retroState, handleAddToWaitingList } = useRetroContext();
   const { user } = useUserContext();
   const { isError } = useErrorContext();
   const { boardRef } = useExportRetroContext();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
   const theme = useTheme();
+  const roomId = useRoomIdFromPath();
+  const navigate = useNavigate();
 
   useRoomIdExists();
 
@@ -39,6 +42,10 @@ export default function RetroPage() {
       document.title = "Retro";
     };
   }, [retroState.title]);
+
+  function navigateToRoom() {
+    navigate(`/retro/${roomId ?? ""}`);
+  }
 
   if (isError) return <Navigate to={"/error"} />;
   if (isWaitingUser(retroState.waitingList, user.id))
@@ -55,7 +62,7 @@ export default function RetroPage() {
       <VoteProgress />
       <Grid
         container
-        sx={{ flexGrow: 1, backgroundColor: theme.palette.background.default }}
+        sx={{ backgroundColor: theme.palette.background.default }}
         direction="column"
         ref={boardRef}
       >
@@ -70,7 +77,11 @@ export default function RetroPage() {
           closeDialog={closeMergeDialog}
           onMergeCards={handleMergeCards}
         />
-        <SetupRetroButton />
+        <SetupSessionButton
+          handleAddToWaitingList={handleAddToWaitingList}
+          roomId={roomId}
+          navigateToRoom={navigateToRoom}
+        />
       </Grid>
     </>
   );

@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Button,
   Dialog,
@@ -8,22 +9,16 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import TextInput from "../../../common/components/TextInput";
-import React from "react";
-import { DialogProps, User } from "../../../common/types/commonTypes";
-import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
+import { usePokerContext } from "../../context/PokerContext";
 import { useRoomContext } from "../../../common/context/RoomContext";
 import { useUserContext } from "../../../common/context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { generateId } from "../../../common/utils/generateId";
-import { usePokerContext } from "../../context/PokerContext";
+import { DialogProps, User } from "../../../common/types/commonTypes";
+import TextInput from "../../../common/components/TextInput";
+import { useNavigate } from "react-router-dom";
 
-interface JoinPokerDialogProps extends DialogProps {
-  roomId: string;
-}
-
-export default function JoinPokerDialog({ isOpen, close, roomId }: JoinPokerDialogProps) {
-  const { handleAddToWaitingList } = usePokerContext();
+export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const {
     value: name,
     setValue: setName,
@@ -32,8 +27,9 @@ export default function JoinPokerDialog({ isOpen, close, roomId }: JoinPokerDial
     handleChange,
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
-  const { setRoomId } = useRoomContext();
   const { user, setUser } = useUserContext();
+  const { handleJoinSession } = usePokerContext();
+  const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
@@ -46,23 +42,22 @@ export default function JoinPokerDialog({ isOpen, close, roomId }: JoinPokerDial
 
   function handleSubmit() {
     if (!isValid || user.id) {
-      setIsError(true);
+      setIsError(!isValid);
       return;
     }
-
+    const roomId = generateId();
     const newUser: User = {
       ...user,
       id: generateId(),
       name,
-      role: "participant",
+      role: "moderator",
     };
     setRoomId(roomId);
     setUser(newUser);
-    handleAddToWaitingList({ userId: newUser.id, userName: name });
+    handleJoinSession(newUser);
     navigate(`/poker/${roomId}`);
     handleClose();
   }
-
   return (
     <Dialog
       fullWidth
@@ -70,13 +65,11 @@ export default function JoinPokerDialog({ isOpen, close, roomId }: JoinPokerDial
       fullScreen={fullScreen}
       open={isOpen}
       onClose={handleClose}
-      aria-labelledby="join-poker-dialog-title"
+      aria-labelledby="join-session-dialog-title"
     >
-      <DialogTitle id="join-poker-dialog-title">Join Poker Session</DialogTitle>
+      <DialogTitle id="join-session-dialog-title">Join Session</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Please provide a name, so that your team can recognize your estimation.
-        </DialogContentText>
+        <DialogContentText>Please provide your name for this session.</DialogContentText>
         <TextInput
           onSubmit={handleSubmit}
           required

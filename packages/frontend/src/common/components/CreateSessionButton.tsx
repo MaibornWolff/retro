@@ -1,13 +1,16 @@
 import { Button, useTheme } from "@mui/material";
 import React from "react";
-import { useUserContext } from "../../common/context/UserContext";
+import { useUserContext } from "../context/UserContext";
 import { useDialog } from "../../retro/hooks/useDialog";
-import CreatePokerDialog from "./dialogs/CreatePokerDialog";
+import { useNamespace } from "../hooks/useNamespace";
+import CreatePokerSessionDialog from "../../poker/components/dialogs/CreatePokerSessionDialog";
+import CreateRetroSessionDialog from "../../retro/components/dialogs/CreateRetroSessionDialog";
 
-export default function CreatePokerButton() {
+export default function CreateSessionButton() {
   const { isOpen, closeDialog, openDialog } = useDialog(true);
   const { user } = useUserContext();
   const theme = useTheme();
+  const namespace = useNamespace();
 
   return (
     <>
@@ -24,7 +27,9 @@ export default function CreatePokerButton() {
           Create Session
         </Button>
       )}
-      <CreatePokerDialog isOpen={isOpen} close={closeDialog} />
+
+      {namespace === "poker" && <CreatePokerSessionDialog isOpen={isOpen} close={closeDialog} />}
+      {namespace === "retro" && <CreateRetroSessionDialog isOpen={isOpen} close={closeDialog} />}
     </>
   );
 }

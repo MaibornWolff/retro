@@ -1,9 +1,5 @@
 # Mandatory
 
-- unite create retro / poker buttons (use props)
-- pass participants / waiting list in participant button props
-- cleanup todos
-
 - add error page if user is rejected
 - add allow/reject user to poker app
 - write tests (jest, react-testing-library, react-hooks-testing-library)
@@ -21,6 +17,7 @@
 - add tooltip to icon buttons (e.g. as ToolTipIconButton)
 - fix light theme and use a proper primary color?
 - add commit and branch name linting
+- fix join/create session button width in retro
 
 # Refactorings
 
