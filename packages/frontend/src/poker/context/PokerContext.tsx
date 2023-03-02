@@ -52,6 +52,7 @@ const initialState: PokerState = {
   participants: {},
   showResults: false,
   waitingList: {},
+  votes: {},
 };
 
 export const PokerContext = React.createContext<PokerContextValues>(undefined!);

@@ -8,7 +8,7 @@ export default function PokerUsers() {
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
       {Object.values(pokerState.participants).map((user) => {
-        return <PokerUser key={user.id} user={user} />;
+        return <PokerUser key={user.id} user={user} votes={pokerState.votes} />;
       })}
     </Grid>
   );

@@ -1,10 +1,5 @@
 import { Dictionary, groupBy } from "lodash";
-import {
-  ChartData,
-  PokerParticipant,
-  PokerParticipantByUserId,
-  PokerUnit,
-} from "../types/pokerTypes";
+import { ChartData, PokerUnit, VoteByUserId } from "../types/pokerTypes";
 
 const tShirtSizeByInternalValue: Record<string, string> = {
   "0": "XS",
@@ -28,17 +23,13 @@ export function getTShirtSizesMarks() {
   });
 }
 
-export function generateChartData(participants: PokerParticipant[], pokerUnit: PokerUnit) {
-  const groupedVotes = groupVotes(participants);
+export function generateChartData(votes: VoteByUserId, pokerUnit: PokerUnit) {
+  const groupedVotes = groupBy(Object.values(votes), Math.floor);
   return populateChartData(pokerUnit, groupedVotes);
 }
 
-export function resetAllVotes(participants: PokerParticipantByUserId): PokerParticipantByUserId {
-  const newParticipants: PokerParticipantByUserId = {};
-  Object.entries(participants).forEach(([userId, participant]) => {
-    newParticipants[userId] = { ...participant, vote: -1, voted: false };
-  });
-  return newParticipants;
+export function hasVoted(votes: VoteByUserId, userId: string) {
+  return Boolean(votes[userId]);
 }
 
 function populateChartData(pokerUnit: PokerUnit, groupedVotes: Dictionary<number[]>): ChartData[] {
@@ -66,14 +57,6 @@ function getFibonacciRange(maxRange: number) {
   }
 
   return Array.from(result);
-}
-
-function groupVotes(participants: PokerParticipant[]) {
-  const votes = participants
-    .filter((participant) => participant.voted)
-    .map((participant) => participant.vote);
-
-  return groupBy(votes, Math.floor);
 }
 
 function mapValueToTshirtSize(internalValue: string | undefined) {

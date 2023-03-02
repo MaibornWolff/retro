@@ -1,5 +1,4 @@
-import { PokerParticipant, PokerParticipantByUserId, PokerState } from "../types/pokerTypes";
-import { resetAllVotes } from "../utils/pokerUtils";
+import { PokerState } from "../types/pokerTypes";
 import { PokerAction } from "../types/pokerActions";
 import {
   findModerator,
@@ -8,6 +7,8 @@ import {
   hasRemainingModerator,
 } from "../../common/utils/participantsUtils";
 import { User } from "../../common/types/commonTypes";
+import { initialUserState } from "../../common/context/UserContext";
+import { UserByUserId } from "../../retro/types/retroTypes";
 
 export const pokerReducer = (state: PokerState, action: PokerAction): PokerState => {
   switch (action.type) {
@@ -27,13 +28,13 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
         ...state,
         showResults: false,
         story: action.payload,
-        participants: resetAllVotes(state.participants),
+        votes: {},
       };
     case "RESET_USER_STORY":
       return {
         ...state,
         showResults: false,
-        participants: resetAllVotes(state.participants),
+        votes: {},
       };
     case "SET_POKER_UNIT":
       return {
@@ -43,7 +44,7 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
     case "JOIN_SESSION": {
       const { name, id, role } = action.payload;
       const { [id]: removedUser, ...remainingWaitingList } = state.waitingList;
-      const newParticipant: PokerParticipant = { ...initialParticipant, name, id, role };
+      const newParticipant: User = { ...initialUserState, name, id, role };
       return {
         ...state,
         participants: { ...state.participants, [id]: newParticipant },
@@ -53,11 +54,12 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
     case "SEND_VOTE": {
       const user = state.participants[action.payload.userId];
       if (!user) return state;
+
       return {
         ...state,
-        participants: {
-          ...state.participants,
-          [user.id]: { ...user, voted: true, vote: action.payload.vote },
+        votes: {
+          ...state.votes,
+          [user.id]: action.payload.vote,
         },
       };
     }
@@ -65,7 +67,7 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
       const user = state.participants[action.payload];
       const currentModerator = findModerator(state.participants);
       if (!user || !currentModerator) return state;
-      const participants: PokerParticipantByUserId = {
+      const participants: UserByUserId = {
         ...state.participants,
         [action.payload]: { ...user, role: "moderator" },
         [currentModerator.id]: { ...currentModerator, role: "participant" },
@@ -74,7 +76,7 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
     }
     case "ADD_TO_WAITING_LIST": {
       const waitingUser: User = {
-        ...initialParticipant,
+        ...initialUserState,
         id: action.payload.userId,
         name: action.payload.userName,
       };
@@ -102,12 +104,4 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
     default:
       return state;
   }
-};
-
-const initialParticipant: PokerParticipant = {
-  id: "",
-  role: "participant",
-  name: "",
-  vote: -1,
-  voted: false,
 };
