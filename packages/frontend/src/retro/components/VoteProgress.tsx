@@ -9,15 +9,11 @@ export default function VoteProgress() {
   if (!user.id) return null;
 
   return (
-    <div style={{ width: "100%" }}>
-      <Box display="flex" alignItems="center">
-        <Box width="100%" px={2} display={"flex"} alignItems="center">
-          <Typography variant="body1" color="textPrimary" mr={2}>
-            {"Remaining votes:"}
-          </Typography>
-          <CircularProgressWithLabel />
-        </Box>
-      </Box>
-    </div>
+    <Box width="100%" px={2} display="flex" alignItems="center">
+      <Typography variant="body1" color="textPrimary" mr={2}>
+        {"Remaining votes:"}
+      </Typography>
+      <CircularProgressWithLabel />
+    </Box>
   );
 }

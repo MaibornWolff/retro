@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Grid, useTheme } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import RetroHeader from "./header/RetroHeader";
 import MergeCardsDialog from "./dialogs/MergeCardsDialog";
@@ -16,18 +16,15 @@ import { isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import RetroTitle from "./RetroHeader";
-import SetupSessionButton from "../../common/components/SetupSessionButton";
-import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
+import RetroActionButtons from "./RetroActionButtons";
 
 export default function RetroPage() {
-  const { retroState, handleAddToWaitingList } = useRetroContext();
+  const { retroState } = useRetroContext();
   const { user } = useUserContext();
   const { isError } = useErrorContext();
   const { boardRef } = useExportRetroContext();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
   const theme = useTheme();
-  const roomId = useRoomIdFromPath();
-  const navigate = useNavigate();
 
   useRoomIdExists();
 
@@ -42,10 +39,6 @@ export default function RetroPage() {
       document.title = "Retro";
     };
   }, [retroState.title]);
-
-  function navigateToRoom() {
-    navigate(`/retro/${roomId ?? ""}`);
-  }
 
   if (isError) return <Navigate to={"/error"} />;
   if (isWaitingUser(retroState.waitingList, user.id))
@@ -66,7 +59,12 @@ export default function RetroPage() {
         ref={boardRef}
       >
         <RetroTitle />
-        <VoteProgress />
+        <Grid container spacing={2} direction="row" justifyContent="flex-start" alignItems="center">
+          <Grid item>
+            <VoteProgress />
+          </Grid>
+          <RetroActionButtons />
+        </Grid>
         <Grid item xs={12}>
           <DragDropContext onDragEnd={onDragEnd}>
             <Columns />
@@ -76,11 +74,6 @@ export default function RetroPage() {
           open={isMergeDialogOpen}
           closeDialog={closeMergeDialog}
           onMergeCards={handleMergeCards}
-        />
-        <SetupSessionButton
-          handleAddToWaitingList={handleAddToWaitingList}
-          roomId={roomId}
-          navigateToRoom={navigateToRoom}
         />
       </Grid>
     </>

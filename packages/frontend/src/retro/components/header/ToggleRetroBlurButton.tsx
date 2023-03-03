@@ -1,32 +1,30 @@
 import React from "react";
-import { BlurOff } from "@mui/icons-material";
-import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
+import { BlurOff, BlurOn } from "@mui/icons-material";
+import { Button, ListItemIcon, ListItemText, MenuItem, Typography } from "@mui/material";
 
 import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
 
-const ToggleRetroBlurButton = React.forwardRef((props: unknown, ref: any) => {
-  const { handleToggleRetroBlur } = useRetroContext();
+export default function ToggleRetroBlurButton() {
+  const { handleToggleRetroBlur, retroState } = useRetroContext();
+  const { isBlurred } = retroState;
   const { user } = useUserContext();
+  const buttonText = isBlurred ? "Unblur Board" : "Blur Board";
+  const buttonIcon = isBlurred ? <BlurOff /> : <BlurOn />;
 
   function toggleRetroBlur() {
     handleToggleRetroBlur();
   }
 
   return (
-    <MenuItem
-      ref={ref}
-      aria-label="Unblur Cards"
-      color="primary"
+    <Button
+      variant="outlined"
+      aria-label="Toggle Blur"
       onClick={toggleRetroBlur}
       disabled={user.role !== "moderator"}
+      startIcon={buttonIcon}
     >
-      <ListItemIcon>
-        <BlurOff fontSize="small" />
-      </ListItemIcon>
-      <ListItemText primary="Toggle Blur" />
-    </MenuItem>
+      {buttonText}
+    </Button>
   );
-});
-
-export default ToggleRetroBlurButton;
+}

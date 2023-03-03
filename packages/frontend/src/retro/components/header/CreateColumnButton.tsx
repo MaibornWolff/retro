@@ -9,18 +9,19 @@ export default function CreateColumnButton() {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { user } = useUserContext();
   const theme = useTheme();
+  if (user.role !== "moderator") return null;
 
   return (
     <>
       <Button
-        variant="text"
+        variant="outlined"
         aria-label="Add Column"
         onClick={openDialog}
         disabled={user.role !== "moderator"}
-        sx={{ marginRight: theme.spacing(1), textTransform: "none", color: "white" }}
+        sx={{ marginRight: theme.spacing(1) }}
         startIcon={<Add />}
       >
-        <Typography color="inherit">Add Column</Typography>
+        Add Column
       </Button>
       <CreateColumnDialog isOpen={isOpen} close={closeDialog} />
     </>

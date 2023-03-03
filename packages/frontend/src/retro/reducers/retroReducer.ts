@@ -171,6 +171,7 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
         columns: state.columns.map((column) => {
           return { ...column, isBlurred: !column.isBlurred };
         }),
+        isBlurred: !state.isBlurred,
       };
     case "CHANGE_RETRO_FORMAT": {
       const retroFormat = retroFormatConfig[action.payload];

@@ -52,7 +52,6 @@ export default function SettingsButton() {
         onClose={handleClose}
         onClick={handleClose}
       >
-        <ToggleRetroBlurButton />
         <VoteCountButton />
         <ExportRetroImageButton />
         <ExportRetroButton />

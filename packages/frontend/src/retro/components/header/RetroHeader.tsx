@@ -60,7 +60,6 @@ export default function RetroHeader() {
             handleRejectJoinUser={handleRejectJoinUser}
             handleTransferModeratorRole={handleTransferModeratorRole}
           />
-          <CreateColumnButton />
           <SettingsButton />
         </Toolbar>
       </AppBar>

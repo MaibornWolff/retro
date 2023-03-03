@@ -18,6 +18,7 @@
 - fix join/create session button width in retro
 - Move Add Column button to fitting place
 - remove upper right menu on poker card
+- do not blur own cards
 
 # Refactorings
 
