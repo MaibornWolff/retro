@@ -13,15 +13,17 @@ export default function ToggleRetroBlurButton() {
   const buttonIcon = isBlurred ? <BlurOff /> : <BlurOn />;
 
   function toggleRetroBlur() {
+    if (user.role !== "moderator") return;
     handleToggleRetroBlur();
   }
+
+  if (user.role !== "moderator") return null;
 
   return (
     <Button
       variant="outlined"
       aria-label="Toggle Blur"
       onClick={toggleRetroBlur}
-      disabled={user.role !== "moderator"}
       startIcon={buttonIcon}
     >
       {buttonText}

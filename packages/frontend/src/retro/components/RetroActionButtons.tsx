@@ -8,7 +8,6 @@ import { useRetroContext } from "../context/RetroContext";
 import ToggleRetroBlurButton from "./header/ToggleRetroBlurButton";
 
 export default function RetroActionButtons() {
-  const theme = useTheme();
   const navigate = useNavigate();
   const roomId = useRoomIdFromPath();
   const { handleAddToWaitingList } = useRetroContext();
