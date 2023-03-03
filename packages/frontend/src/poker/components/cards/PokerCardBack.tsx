@@ -14,7 +14,6 @@ interface PokerCardBackProps {
   userName: string;
   userVote?: number;
   role: UserRole;
-  userId: string;
 }
 
 export default function PokerCardBack({
@@ -22,7 +21,6 @@ export default function PokerCardBack({
   userName,
   userVote,
   role,
-  userId,
 }: PokerCardBackProps) {
   const { pokerState } = usePokerContext();
   const pokerUnitType = pokerState.pokerUnit.unitType;
@@ -30,7 +28,6 @@ export default function PokerCardBack({
   return (
     <PokerCard
       styleProps={styleProps}
-      userId={userId}
       userName={userName}
       role={role}
       FooterComponent={

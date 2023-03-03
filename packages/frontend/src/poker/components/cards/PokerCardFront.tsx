@@ -27,7 +27,6 @@ export default function PokerCardFront({
   return (
     <PokerCard
       styleProps={styleProps}
-      userId={userId}
       userName={userName}
       role={role}
       FooterComponent={

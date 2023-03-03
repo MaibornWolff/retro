@@ -24,13 +24,7 @@ export default function PokerUser({ user, votes }: PokerUserProps) {
   return (
     <ReactCardFlip isFlipped={pokerState.showResults} flipDirection="horizontal">
       <PokerCardFront styleProps={styleProps} userName={name} userId={id} role={role} />
-      <PokerCardBack
-        styleProps={styleProps}
-        userName={name}
-        userVote={votes[id]}
-        userId={id}
-        role={role}
-      />
+      <PokerCardBack styleProps={styleProps} userName={name} userVote={votes[id]} role={role} />
     </ReactCardFlip>
   );
 }
