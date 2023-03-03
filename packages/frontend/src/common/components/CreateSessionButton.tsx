@@ -23,6 +23,7 @@ export default function CreateSessionButton() {
           sx={{
             margin: theme.spacing(1),
           }}
+          fullWidth
         >
           Create Session
         </Button>

@@ -21,9 +21,8 @@ export const Hero = styled.div<StyledProps>`
 
 export const FlexContainer = styled.div`
   display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  ${media.desktop ? `flex-direction: row;` : ""}
+  white-space: nowrap;
+  overflow-x: scroll;
 `;
 
 export const PageNotFoundContainer = styled.div`

@@ -1,6 +1,6 @@
 import React from "react";
 import { Add } from "@mui/icons-material";
-import { Button, Typography, useTheme } from "@mui/material";
+import { Button, useTheme } from "@mui/material";
 import { useUserContext } from "../../../common/context/UserContext";
 import { CreateColumnDialog } from "../dialogs/CreateColumnDialog";
 import { useDialog } from "../../hooks/useDialog";
@@ -20,6 +20,7 @@ export default function CreateColumnButton() {
         disabled={user.role !== "moderator"}
         sx={{ marginRight: theme.spacing(1) }}
         startIcon={<Add />}
+        fullWidth
       >
         Add Column
       </Button>

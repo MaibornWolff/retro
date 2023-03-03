@@ -1,6 +1,6 @@
 import React from "react";
 import { BlurOff, BlurOn } from "@mui/icons-material";
-import { Button, ListItemIcon, ListItemText, MenuItem, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 
 import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
@@ -25,6 +25,7 @@ export default function ToggleRetroBlurButton() {
       aria-label="Toggle Blur"
       onClick={toggleRetroBlur}
       startIcon={buttonIcon}
+      fullWidth
     >
       {buttonText}
     </Button>

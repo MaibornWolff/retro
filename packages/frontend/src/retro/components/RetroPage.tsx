@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Grid, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Navigate } from "react-router-dom";
 
@@ -61,32 +61,23 @@ export default function RetroPage() {
   return (
     <>
       <RetroHeader />
-      <Grid
-        container
-        sx={{ backgroundColor: theme.palette.background.default }}
-        direction="column"
-        ref={boardRef}
-      >
-        <RetroTitle />
-        <Grid container direction="row" alignItems="center" pb={2}>
-          <Grid item>
-            <VoteProgress />
-          </Grid>
-          <Grid item>
-            <RetroActionButtons />
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Columns />
-          </DragDropContext>
-        </Grid>
+      <Box sx={{ backgroundColor: theme.palette.background.default, width: "100%" }} ref={boardRef}>
+        <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
+          <RetroTitle />
+          <VoteProgress />
+        </Box>
+        <Box sx={{ display: "flex", gap: "1rem" }}>
+          <RetroActionButtons />
+        </Box>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Columns />
+        </DragDropContext>
         <MergeCardsDialog
           open={isMergeDialogOpen}
           closeDialog={closeMergeDialog}
           onMergeCards={handleMergeCards}
         />
-      </Grid>
+      </Box>
     </>
   );
 }

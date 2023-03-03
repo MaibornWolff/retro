@@ -30,6 +30,7 @@ export default function JoinSessionButton({
           sx={{
             margin: theme.spacing(1),
           }}
+          fullWidth
         >
           Join Session
         </Button>
