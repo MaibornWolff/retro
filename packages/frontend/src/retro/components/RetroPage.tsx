@@ -17,14 +17,23 @@ import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import RetroTitle from "./RetroHeader";
 import RetroActionButtons from "./RetroActionButtons";
+import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 
 export default function RetroPage() {
-  const { retroState } = useRetroContext();
-  const { user } = useUserContext();
+  const { retroState, resetRetroState } = useRetroContext();
+  const { user, resetUser } = useUserContext();
   const { isError } = useErrorContext();
   const { boardRef } = useExportRetroContext();
+  const roomIdFromPath = useRoomIdFromPath();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
   const theme = useTheme();
+
+  useEffect(() => {
+    if (!roomIdFromPath) {
+      resetUser();
+      resetRetroState();
+    }
+  }, [roomIdFromPath, resetUser, resetRetroState]);
 
   useRoomIdExists();
 

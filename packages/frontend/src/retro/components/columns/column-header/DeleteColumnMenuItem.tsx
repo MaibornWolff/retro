@@ -1,7 +1,7 @@
 import React from "react";
 import { Delete } from "@mui/icons-material";
 import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
-import DeleteColumnDialog from "../../dialogs/DeleteColumnDialog";
+import { DeleteColumnDialog } from "../../dialogs/DeleteColumnDialog";
 import { useDialog } from "../../../hooks/useDialog";
 
 interface DeleteColumnMenuItemProps {
