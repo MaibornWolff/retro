@@ -59,11 +59,13 @@ export default function RetroPage() {
         ref={boardRef}
       >
         <RetroTitle />
-        <Grid container spacing={2} direction="row" justifyContent="flex-start" alignItems="center">
+        <Grid container direction="row" alignItems="center" pb={2}>
           <Grid item>
             <VoteProgress />
           </Grid>
-          <RetroActionButtons />
+          <Grid item>
+            <RetroActionButtons />
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <DragDropContext onDragEnd={onDragEnd}>

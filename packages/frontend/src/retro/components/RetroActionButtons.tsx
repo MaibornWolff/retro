@@ -18,7 +18,7 @@ export default function RetroActionButtons() {
   }
 
   return (
-    <>
+    <Grid container direction="row" alignItems="center" spacing={2}>
       <Grid item>
         <SetupSessionButton
           roomId={roomId}
@@ -27,11 +27,11 @@ export default function RetroActionButtons() {
         />
       </Grid>
       <Grid item>
-        <CreateColumnButton />
-      </Grid>
-      <Grid item>
         <ToggleRetroBlurButton />
       </Grid>
-    </>
+      <Grid item>
+        <CreateColumnButton />
+      </Grid>
+    </Grid>
   );
 }

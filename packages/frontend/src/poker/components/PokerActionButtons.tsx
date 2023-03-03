@@ -20,15 +20,23 @@ export default function PokerActionButtons() {
 
   return (
     <Grid item xs={12} sx={{ margin: theme.spacing(1) }}>
-      <Grid container direction="row" sx={{ height: "20px" }}>
-        <SetupSessionButton
-          roomId={roomId}
-          navigateToRoom={navigateToRoom}
-          handleAddToWaitingList={handleAddToWaitingList}
-        />
-        <PokerStoryButton />
-        <PokerResetButton />
-        <PokerResultButton />
+      <Grid container direction="row">
+        <Grid item>
+          <SetupSessionButton
+            roomId={roomId}
+            navigateToRoom={navigateToRoom}
+            handleAddToWaitingList={handleAddToWaitingList}
+          />
+        </Grid>
+        <Grid item>
+          <PokerStoryButton />
+        </Grid>
+        <Grid item>
+          <PokerResetButton />
+        </Grid>
+        <Grid item>
+          <PokerResultButton />
+        </Grid>
       </Grid>
     </Grid>
   );
