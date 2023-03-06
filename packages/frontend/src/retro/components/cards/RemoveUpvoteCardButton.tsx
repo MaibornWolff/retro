@@ -28,6 +28,7 @@ export default function RemoveUpvoteCardButton({
   return (
     <CardActionButton
       {...props}
+      tooltipText="Remove Upvote"
       onClick={handleRemoveUpvote}
       disabled={(props.disabled ?? false) || !isCardVotedByUser(card, user.id)}
     >

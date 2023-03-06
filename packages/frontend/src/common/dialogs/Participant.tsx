@@ -1,11 +1,12 @@
 import React from "react";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { AddModerator, LocalPolice, Person, RemoveCircle } from "@mui/icons-material";
 import { TransferModeratorRoleDialog } from "../../retro/components/dialogs/TransferModeratorRoleDialog";
 import { isModerator } from "../utils/participantsUtils";
 import { useUserContext } from "../context/UserContext";
 import { useDialog } from "../../retro/hooks/useDialog";
 import { User } from "../types/commonTypes";
+import TooltipIconButton from "../TooltipIconButton";
 
 interface ParticipantProps {
   participant: User;
@@ -43,21 +44,23 @@ export default function Participant({
         <Box>
           {isModerator(user) && (
             <>
-              <IconButton
+              <TooltipIconButton
                 aria-label="Transfer Moderator Role"
                 onClick={openDialog}
                 disabled={isModerator(participant)}
+                tooltipText="Transfer Moderator Role"
               >
                 <AddModerator />
-              </IconButton>
-              <IconButton
+              </TooltipIconButton>
+              <TooltipIconButton
                 color="error"
                 aria-label="Kick user"
                 onClick={handleKickUserClick}
                 disabled={isModerator(participant)}
+                tooltipText="Kick User"
               >
                 <RemoveCircle />
-              </IconButton>
+              </TooltipIconButton>
             </>
           )}
         </Box>

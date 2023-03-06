@@ -30,6 +30,7 @@ export default function MarkAsDiscussedButton({
   return (
     <CardActionButton
       {...props}
+      tooltipText={"Mark as discussed"}
       onClick={handleClick}
       disabled={(props.disabled ?? false) || !isModerator}
     >

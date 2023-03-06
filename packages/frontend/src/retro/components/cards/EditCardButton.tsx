@@ -27,6 +27,7 @@ export default function EditCardButton({ columnIndex, card, ...props }: EditCard
     <>
       <CardActionButton
         {...props}
+        tooltipText="Edit Card"
         onClick={handleOpenEditCardDialog}
         disabled={(props.disabled ?? false) || !isPrivileged}
       >

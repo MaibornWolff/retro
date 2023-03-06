@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Cancel, CheckCircle, Person } from "@mui/icons-material";
 import { User } from "../types/commonTypes";
 import { useUserContext } from "../context/UserContext";
 import { isModerator } from "../utils/participantsUtils";
+import TooltipIconButton from "../TooltipIconButton";
 
 interface WaitingUserProps {
   waitingUser: User;
@@ -42,12 +43,21 @@ export default function WaitingUser({
         <Box>
           {isModerator(user) && (
             <>
-              <IconButton aria-label="Accept" color="success" onClick={handleAcceptJoinUserClick}>
+              <TooltipIconButton
+                tooltipText="Accept"
+                aria-label="Accept"
+                color="success"
+                onClick={handleAcceptJoinUserClick}
+              >
                 <CheckCircle />
-              </IconButton>
-              <IconButton aria-label="Reject" onClick={handleRejectJoinUserClick}>
+              </TooltipIconButton>
+              <TooltipIconButton
+                tooltipText="Reject"
+                aria-label="Reject"
+                onClick={handleRejectJoinUserClick}
+              >
                 <Cancel color="error" />
-              </IconButton>
+              </TooltipIconButton>
             </>
           )}
         </Box>

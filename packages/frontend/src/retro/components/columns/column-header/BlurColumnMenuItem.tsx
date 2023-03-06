@@ -1,5 +1,5 @@
 import React from "react";
-import { BlurOff } from "@mui/icons-material";
+import { BlurOff, BlurOn } from "@mui/icons-material";
 import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { RetroColumn } from "../../../types/retroTypes";
 import { useRetroContext } from "../../../context/RetroContext";
@@ -14,16 +14,17 @@ const BlurColumnMenuItem = React.forwardRef(
     const { handleToggleColumnBlur } = useRetroContext();
     const { user } = useUserContext();
 
+    const menuItemText = column.isBlurred ? "Unblur Column" : "Blur Column";
+    const menuItemIcon = column.isBlurred ? <BlurOff /> : <BlurOn />;
+
     function toggleBlur() {
       handleToggleColumnBlur(column.index);
     }
 
     return (
       <MenuItem ref={ref} onClick={toggleBlur} disabled={user.role !== "moderator"}>
-        <ListItemIcon>
-          <BlurOff fontSize="small" />
-        </ListItemIcon>
-        <ListItemText primary="Toggle Blur" />
+        <ListItemIcon>{menuItemIcon}</ListItemIcon>
+        <ListItemText primary={menuItemText} />
       </MenuItem>
     );
   }
