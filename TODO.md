@@ -17,7 +17,6 @@
 - add commit and branch name linting
 - fix join/create session button width in retro
 - new slogan for readme
-- reset poker state on back navigation
 - add rimraff
 
 # Refactorings

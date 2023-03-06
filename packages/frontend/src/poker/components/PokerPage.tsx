@@ -14,12 +14,22 @@ import { usePokerContext } from "../context/PokerContext";
 import { isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
+import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 
 export default function PokerPage() {
-  const { pokerState } = usePokerContext();
-  const { user } = useUserContext();
+  const { pokerState, resetPokerState } = usePokerContext();
+  const { user, resetUser } = useUserContext();
   const { isError } = useErrorContext();
+  const roomIdFromPath = useRoomIdFromPath();
   const theme = useTheme();
+
+  useEffect(() => {
+    if (!roomIdFromPath) {
+      resetUser();
+      resetPokerState();
+    }
+  }, [roomIdFromPath, resetUser, resetPokerState]);
+
   useRoomIdExists();
 
   useEffect(() => {
