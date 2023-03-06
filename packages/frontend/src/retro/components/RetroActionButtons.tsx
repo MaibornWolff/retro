@@ -18,7 +18,7 @@ export default function RetroActionButtons() {
     navigate(`/retro/${roomId ?? ""}`);
   }
 
-  const gridElementWidth = 1;
+  const gridElementWidth = 1.2;
 
   return (
     <Grid container direction="row" alignItems="center" spacing={2} sx={{ width: "100%" }}>

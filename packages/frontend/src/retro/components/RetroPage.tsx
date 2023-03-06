@@ -62,11 +62,11 @@ export default function RetroPage() {
     <>
       <RetroHeader />
       <Box sx={{ backgroundColor: theme.palette.background.default, width: "100%" }} ref={boardRef}>
-        <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", p: 2 }}>
           <RetroTitle />
           <VoteProgress />
         </Box>
-        <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Box sx={{ display: "flex", gap: "1rem", p: 2 }}>
           <RetroActionButtons />
         </Box>
         <DragDropContext onDragEnd={onDragEnd}>
