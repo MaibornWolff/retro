@@ -5,8 +5,8 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Divider,
+  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -54,31 +54,33 @@ export function ParticipantsDialog({
         },
       }}
     >
-      {!isEmpty(waitingList) && (
-        <>
-          <DialogTitle id="participants-dialog">Waiting for approval</DialogTitle>
-          <DialogContent>
+      <DialogContent>
+        {!isEmpty(waitingList) && (
+          <>
+            <Typography variant={"h5"} pb={1}>
+              Waiting for approval
+            </Typography>
             <WaitingList
               waitingList={waitingList}
               handleAcceptJoinUser={handleAcceptJoinUser}
               handleRejectJoinUser={handleRejectJoinUser}
             />
-          </DialogContent>
-        </>
-      )}
-      {isDividerVisible && <Divider />}
-      {!isEmpty(participants) && (
-        <>
-          <DialogTitle id="participants-dialog">Participants</DialogTitle>
-          <DialogContent>
+          </>
+        )}
+        {isDividerVisible && <Divider sx={{ marginY: 2 }} />}
+        {!isEmpty(participants) && (
+          <>
+            <Typography variant={"h5"} pb={1}>
+              Participants
+            </Typography>
             <Participants
               participants={participants}
               handleKickUser={handleKickUser}
               handleTransferModeratorRole={handleTransferModeratorRole}
             />
-          </DialogContent>
-        </>
-      )}
+          </>
+        )}
+      </DialogContent>
       <DialogActions>
         <Button onClick={close} color="primary">
           Close

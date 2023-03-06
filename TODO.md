@@ -18,7 +18,6 @@
 - fix join/create session button width in retro
 - new slogan for readme
 - reset poker state on back navigation
-- check scroll behaviour in participants dialog
 - add rimraff
 
 # Refactorings
