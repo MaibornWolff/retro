@@ -15,7 +15,6 @@
 - add tooltip to icon buttons (e.g. as ToolTipIconButton)
 - fix light theme and use a proper primary color?
 - add commit and branch name linting
-- fix join/create session button width in retro
 - new slogan for readme
 
 # Refactorings
