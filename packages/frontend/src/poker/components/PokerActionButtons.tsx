@@ -1,12 +1,12 @@
 import React from "react";
 import { Grid, useTheme } from "@mui/material";
-import PokerStoryButton from "./PokerStoryButton";
-import PokerResultButton from "./PokerResultButton";
-import PokerResetButton from "./PokerResetButton";
-import SetupSessionButton from "../../common/components/SetupSessionButton";
 import { useNavigate } from "react-router-dom";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { usePokerContext } from "../context/PokerContext";
+import SetupSessionButton from "../../common/components/buttons/SetupSessionButton";
+import PokerStoryButton from "./buttons/PokerStoryButton";
+import PokerResetButton from "./buttons/PokerResetButton";
+import PokerResultButton from "./buttons/PokerResultButton";
 
 export default function PokerActionButtons() {
   const theme = useTheme();
@@ -25,7 +25,7 @@ export default function PokerActionButtons() {
           <SetupSessionButton
             roomId={roomId}
             navigateToRoom={navigateToRoom}
-            handleAddToWaitingList={handleAddToWaitingList}
+            onAddToWaitingList={handleAddToWaitingList}
           />
         </Grid>
         <Grid item>

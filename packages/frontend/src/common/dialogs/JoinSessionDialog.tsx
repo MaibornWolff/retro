@@ -14,11 +14,11 @@ import { useRoomContext } from "../context/RoomContext";
 import { useUserContext } from "../context/UserContext";
 import { DialogProps, User } from "../types/commonTypes";
 import { generateId } from "../utils/generateId";
-import TextInput from "./TextInput";
+import TextInput from "../components/TextInput";
 
 interface JoinSessionDialogProps extends DialogProps {
   roomId: string;
-  handleAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
+  onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
   navigateToRoom: () => void;
 }
 
@@ -26,7 +26,7 @@ export default function JoinSessionDialog({
   isOpen,
   close,
   roomId,
-  handleAddToWaitingList,
+  onAddToWaitingList,
   navigateToRoom,
 }: JoinSessionDialogProps) {
   const {
@@ -62,7 +62,7 @@ export default function JoinSessionDialog({
     };
     setRoomId(roomId);
     setUser(newUser);
-    handleAddToWaitingList({ userId: newUser.id, userName: name });
+    onAddToWaitingList({ userId: newUser.id, userName: name });
     navigateToRoom();
     handleClose();
   }

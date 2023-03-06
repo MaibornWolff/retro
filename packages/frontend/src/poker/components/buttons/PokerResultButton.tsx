@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, useTheme } from "@mui/material";
-import { usePokerContext } from "../context/PokerContext";
-import { useUserContext } from "../../common/context/UserContext";
+import { useUserContext } from "../../../common/context/UserContext";
+import { usePokerContext } from "../../context/PokerContext";
 
 export default function PokerResultButton() {
   const theme = useTheme();

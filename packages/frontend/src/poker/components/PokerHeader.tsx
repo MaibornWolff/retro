@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, useTheme } from "@mui/material";
 
-import ToggleThemeButton from "../../common/components/ToggleThemeButton";
-import ShareSessionButton from "../../common/components/ShareSessionButton";
-import PokerSettingsButton from "./PokerSettingsButton";
 import { useUserContext } from "../../common/context/UserContext";
-import ParticipantsButton from "../../common/components/ParticipantsButton";
 import { usePokerContext } from "../context/PokerContext";
+import ToggleThemeButton from "../../common/components/buttons/ToggleThemeButton";
+import ShareSessionButton from "../../common/components/buttons/ShareSessionButton";
+import ParticipantsButton from "../../common/components/buttons/ParticipantsButton";
+import PokerSettingsButton from "./buttons/PokerSettingsButton";
 
 export default function PokerHeader() {
   const { user } = useUserContext();
@@ -39,9 +39,9 @@ export default function PokerHeader() {
             participants={pokerState.participants}
             waitingList={pokerState.waitingList}
             handleKickUser={handleKickUser}
-            handleRejectJoinUser={handleRejectJoinUser}
-            handleAcceptJoinUser={handleAcceptJoinUser}
-            handleTransferModeratorRole={handleTransferModeratorRole}
+            onRejectJoinUser={handleRejectJoinUser}
+            onAcceptJoinUser={handleAcceptJoinUser}
+            onTransferModeratorRole={handleTransferModeratorRole}
           />
           <PokerSettingsButton />
         </Toolbar>

@@ -3,7 +3,6 @@ import { Box, useTheme } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Navigate } from "react-router-dom";
 
-import RetroHeader from "./header/RetroHeader";
 import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 import VoteProgress from "./VoteProgress";
 import Columns from "./columns/Columns";
@@ -15,9 +14,10 @@ import { useExportRetroContext } from "../context/ExportRetroContext";
 import { isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
-import RetroTitle from "./RetroHeader";
+import RetroTitle from "./RetroTitle";
 import RetroActionButtons from "./RetroActionButtons";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
+import RetroHeader from "./RetroHeader";
 
 export default function RetroPage() {
   const { retroState, resetRetroState } = useRetroContext();

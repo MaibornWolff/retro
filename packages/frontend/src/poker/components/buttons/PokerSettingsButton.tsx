@@ -3,7 +3,7 @@ import { Settings } from "@mui/icons-material";
 import { Button, Menu, Typography } from "@mui/material";
 
 import PokerPointsSetupButton from "./PokerPointsSetupButton";
-import { useUserContext } from "../../common/context/UserContext";
+import { useUserContext } from "../../../common/context/UserContext";
 
 export default function PokerSettingsButton() {
   const { user } = useUserContext();

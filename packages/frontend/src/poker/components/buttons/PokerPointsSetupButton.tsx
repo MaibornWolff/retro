@@ -17,11 +17,10 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-
-import { usePokerContext } from "../context/PokerContext";
-import { PokerUnit, PokerUnitType } from "../types/pokerTypes";
-import { useUserContext } from "../../common/context/UserContext";
-import { useFullscreen } from "../../retro/hooks/useFullscreen";
+import { useUserContext } from "../../../common/context/UserContext";
+import { usePokerContext } from "../../context/PokerContext";
+import { useFullscreen } from "../../../retro/hooks/useFullscreen";
+import { PokerUnit, PokerUnitType } from "../../types/pokerTypes";
 
 function getValueText(value: number) {
   return `${value}`;

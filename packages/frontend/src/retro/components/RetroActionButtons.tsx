@@ -1,12 +1,12 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import SetupSessionButton from "../../common/components/SetupSessionButton";
 import { useNavigate } from "react-router-dom";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
-import CreateColumnButton from "./header/CreateColumnButton";
 import { useRetroContext } from "../context/RetroContext";
-import ToggleRetroBlurButton from "./header/ToggleRetroBlurButton";
 import { useUserContext } from "../../common/context/UserContext";
+import SetupSessionButton from "../../common/components/buttons/SetupSessionButton";
+import ToggleRetroBlurButton from "./buttons/ToggleRetroBlurButton";
+import CreateColumnButton from "./buttons/CreateColumnButton";
 
 export default function RetroActionButtons() {
   const { user } = useUserContext();
@@ -27,7 +27,7 @@ export default function RetroActionButtons() {
           <SetupSessionButton
             roomId={roomId}
             navigateToRoom={navigateToRoom}
-            handleAddToWaitingList={handleAddToWaitingList}
+            onAddToWaitingList={handleAddToWaitingList}
           />
         </Grid>
       )}

@@ -1,19 +1,19 @@
 import React from "react";
 import { Button, useTheme } from "@mui/material";
-import { useDialog } from "../../retro/hooks/useDialog";
-import { useUserContext } from "../context/UserContext";
-import JoinSessionDialog from "./JoinSessionDialog";
+import { useDialog } from "../../../retro/hooks/useDialog";
+import { useUserContext } from "../../context/UserContext";
+import JoinSessionDialog from "../../dialogs/JoinSessionDialog";
 
 interface JoinSessionButtonProps {
   roomId: string;
   navigateToRoom: () => void;
-  handleAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
+  onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
 }
 
 export default function JoinSessionButton({
   roomId,
   navigateToRoom,
-  handleAddToWaitingList,
+  onAddToWaitingList,
 }: JoinSessionButtonProps) {
   const { isOpen, closeDialog, openDialog } = useDialog(true);
   const { user } = useUserContext();
@@ -39,7 +39,7 @@ export default function JoinSessionButton({
         isOpen={isOpen}
         close={closeDialog}
         roomId={roomId}
-        handleAddToWaitingList={handleAddToWaitingList}
+        onAddToWaitingList={onAddToWaitingList}
         navigateToRoom={navigateToRoom}
       />
     </>

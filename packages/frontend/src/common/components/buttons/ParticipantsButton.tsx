@@ -1,26 +1,26 @@
 import React from "react";
 import { Badge, Button, Typography, useTheme } from "@mui/material";
 import { People } from "@mui/icons-material";
-import { useDialog } from "../../retro/hooks/useDialog";
-import { ParticipantsDialog } from "./ParticipantsDialog";
-import { UserByUserId } from "../../retro/types/retroTypes";
+import { UserByUserId } from "../../../retro/types/retroTypes";
+import { useDialog } from "../../../retro/hooks/useDialog";
+import { ParticipantsDialog } from "../../dialogs/ParticipantsDialog";
 
 interface ParticipantButtonProps {
   participants: UserByUserId;
   waitingList: UserByUserId;
   handleKickUser: (userId: string) => void;
-  handleRejectJoinUser: (userId: string) => void;
-  handleAcceptJoinUser: (userId: string) => void;
-  handleTransferModeratorRole: (userId: string) => void;
+  onRejectJoinUser: (userId: string) => void;
+  onAcceptJoinUser: (userId: string) => void;
+  onTransferModeratorRole: (userId: string) => void;
 }
 
 export default function ParticipantsButton({
   participants,
   waitingList,
   handleKickUser,
-  handleRejectJoinUser,
-  handleAcceptJoinUser,
-  handleTransferModeratorRole,
+  onRejectJoinUser,
+  onAcceptJoinUser,
+  onTransferModeratorRole,
 }: ParticipantButtonProps) {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const theme = useTheme();
@@ -49,10 +49,10 @@ export default function ParticipantsButton({
         close={closeDialog}
         participants={participants}
         waitingList={waitingList}
-        handleKickUser={handleKickUser}
-        handleAcceptJoinUser={handleAcceptJoinUser}
-        handleRejectJoinUser={handleRejectJoinUser}
-        handleTransferModeratorRole={handleTransferModeratorRole}
+        onKickUser={handleKickUser}
+        onAcceptJoinUser={onAcceptJoinUser}
+        onRejectJoinUser={onRejectJoinUser}
+        onTransferModeratorRole={onTransferModeratorRole}
       />
     </>
   );

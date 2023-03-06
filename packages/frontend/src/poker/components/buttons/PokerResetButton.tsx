@@ -8,10 +8,9 @@ import {
   DialogTitle,
   useTheme,
 } from "@mui/material";
-
-import { usePokerContext } from "../context/PokerContext";
-import { useUserContext } from "../../common/context/UserContext";
-import { useFullscreen } from "../../retro/hooks/useFullscreen";
+import { useUserContext } from "../../../common/context/UserContext";
+import { usePokerContext } from "../../context/PokerContext";
+import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 
 export default function PokerResetButton() {
   const { user } = useUserContext();
