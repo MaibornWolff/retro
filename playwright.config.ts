@@ -10,7 +10,7 @@ import { defineConfig, devices } from "@playwright/test";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: "./tests",
+  testDir: "./e2e",
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -30,20 +30,12 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
-  webServer: [
-    {
-      command: "nx dev backend",
-      port: 3001,
-      timeout: 120 * 1000,
-      reuseExistingServer: !process.env.CI,
-    },
-    {
-      command: "nx start frontend",
-      port: 3000,
-      timeout: 120 * 1000,
-      reuseExistingServer: !process.env.CI,
-    },
-  ],
+  webServer: {
+    command: "nx start frontend",
+    port: 3000,
+    timeout: 120 * 1000,
+    reuseExistingServer: !process.env.CI,
+  },
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
@@ -54,8 +46,9 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
     launchOptions: {
-      slowMo: 500,
+      slowMo: 5,
     },
+    permissions: ["clipboard-read"],
   },
 
   /* Configure projects for major browsers */
@@ -75,25 +68,6 @@ export default defineConfig({
       use: { ...devices["Desktop Safari"] },
     },
 */
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { channel: 'chrome' },
-    // },
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
