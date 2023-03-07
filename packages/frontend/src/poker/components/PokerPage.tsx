@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Grid, useTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Grid, Snackbar, useTheme } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
 import PokerHeader from "./PokerHeader";
@@ -15,6 +15,8 @@ import { isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
+import Alert from "../../common/components/Alert";
+import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 
 export default function PokerPage() {
   const { pokerState, resetPokerState } = usePokerContext();
@@ -22,6 +24,10 @@ export default function PokerPage() {
   const { isError } = useErrorContext();
   const roomIdFromPath = useRoomIdFromPath();
   const theme = useTheme();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  useRoomIdExists();
+  useFirstWaitingUser({ waitingList: pokerState.waitingList, onFirstUserWaiting: showSnackbar });
 
   useEffect(() => {
     if (!roomIdFromPath) {
@@ -30,8 +36,6 @@ export default function PokerPage() {
     }
   }, [roomIdFromPath, resetUser, resetPokerState]);
 
-  useRoomIdExists();
-
   useEffect(() => {
     document.title = "Retro | Planning Poker";
 
@@ -39,6 +43,16 @@ export default function PokerPage() {
       document.title = "Retro";
     };
   });
+
+  function showSnackbar() {
+    setSnackbarOpen(true);
+  }
+
+  const handleCloseSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") return;
+
+    setSnackbarOpen(false);
+  };
 
   if (isError) return <Navigate to={"/error"} />;
 
@@ -51,7 +65,7 @@ export default function PokerPage() {
     );
 
   return (
-    <div>
+    <>
       <PokerHeader />
       <Grid container sx={{ flexGrow: 1 }} direction="column" justifyContent="space-between">
         <PokerActionButtons />
@@ -65,6 +79,13 @@ export default function PokerPage() {
           {pokerState.showResults ? <PokerStats /> : null}
         </Grid>
       </Grid>
-    </div>
+      <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleCloseSnackbar}>
+        <div>
+          <Alert onClose={handleCloseSnackbar} severity="info">
+            There is a new participant waiting to be accepted.
+          </Alert>
+        </div>
+      </Snackbar>
+    </>
   );
 }

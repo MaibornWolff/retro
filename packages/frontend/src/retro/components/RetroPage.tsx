@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Box, useTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Snackbar, useTheme } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Navigate } from "react-router-dom";
 
@@ -18,6 +18,8 @@ import RetroTitle from "./RetroTitle";
 import RetroActionButtons from "./RetroActionButtons";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import RetroHeader from "./RetroHeader";
+import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
+import Alert from "../../common/components/Alert";
 
 export default function RetroPage() {
   const { retroState, resetRetroState } = useRetroContext();
@@ -27,6 +29,10 @@ export default function RetroPage() {
   const roomIdFromPath = useRoomIdFromPath();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
   const theme = useTheme();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  useRoomIdExists();
+  useFirstWaitingUser({ waitingList: retroState.waitingList, onFirstUserWaiting: showSnackbar });
 
   useEffect(() => {
     if (!roomIdFromPath) {
@@ -35,7 +41,15 @@ export default function RetroPage() {
     }
   }, [roomIdFromPath, resetUser, resetRetroState]);
 
-  useRoomIdExists();
+  function showSnackbar() {
+    setSnackbarOpen(true);
+  }
+
+  const handleCloseSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") return;
+
+    setSnackbarOpen(false);
+  };
 
   useEffect(() => {
     if (!retroState.title) {
@@ -78,6 +92,13 @@ export default function RetroPage() {
           onMergeCards={handleMergeCards}
         />
       </Box>
+      <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleCloseSnackbar}>
+        <div>
+          <Alert onClose={handleCloseSnackbar} severity="info">
+            There is a new participant waiting to be accepted.
+          </Alert>
+        </div>
+      </Snackbar>
     </>
   );
 }

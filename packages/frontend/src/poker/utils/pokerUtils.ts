@@ -47,13 +47,11 @@ function getFibonacciRange(maxRange: number) {
   let f3 = 1;
   const result = new Set([f1, f2]);
 
-  while (f1 <= maxRange) {
-    result.add(f1);
-    if (f1 >= 0) {
-      f1 = f2;
-      f2 = f3;
-      f3 = f1 + f2;
-    }
+  while (f3 <= maxRange) {
+    result.add(f3);
+    f1 = f2;
+    f2 = f3;
+    f3 = f1 + f2;
   }
 
   return Array.from(result);
