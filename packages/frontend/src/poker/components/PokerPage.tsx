@@ -8,7 +8,6 @@ import PokerTitle from "./PokerTitle";
 import PokerUsers from "./PokerUsers";
 
 import PokerStats from "./PokerStats";
-import { useRoomIdExists } from "../../common/hooks/useRoomIdExists";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { usePokerContext } from "../context/PokerContext";
 import { isWaitingUser } from "../../common/utils/participantsUtils";
@@ -20,7 +19,6 @@ export default function PokerPage() {
   const { user } = useUserContext();
   const { isError } = useErrorContext();
   const theme = useTheme();
-  useRoomIdExists();
 
   useEffect(() => {
     document.title = "Retro | Planning Poker";

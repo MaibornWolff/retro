@@ -15,6 +15,8 @@ import { useUserContext } from "../context/UserContext";
 import { DialogProps, User } from "../types/commonTypes";
 import { generateId } from "../utils/generateId";
 import TextInput from "./TextInput";
+import { roomIdExists } from "../adapter/backendAdapter";
+import { useNamespace } from "../hooks/useNamespace";
 
 interface JoinSessionDialogProps extends DialogProps {
   roomId: string;
@@ -41,6 +43,7 @@ export default function JoinSessionDialog({
   const { user, setUser } = useUserContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const namespace = useNamespace();
 
   function handleClose() {
     setName("");
@@ -48,8 +51,9 @@ export default function JoinSessionDialog({
     setIsError(false);
   }
 
-  function handleSubmit() {
-    if (!isValid || user.id) {
+  async function handleSubmit() {
+    const roomExists = await roomIdExists({ roomId, namespace });
+    if (!isValid || user.id || !roomExists) {
       setIsError(true);
       return;
     }

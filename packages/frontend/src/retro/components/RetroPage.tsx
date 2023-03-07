@@ -9,7 +9,6 @@ import VoteProgress from "./VoteProgress";
 import Columns from "./columns/Columns";
 import { useDragAndDrop } from "../hooks/useDragAndDrop";
 import { useRetroContext } from "../context/RetroContext";
-import { useRoomIdExists } from "../../common/hooks/useRoomIdExists";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { useExportRetroContext } from "../context/ExportRetroContext";
 import { isWaitingUser } from "../../common/utils/participantsUtils";
@@ -25,8 +24,6 @@ export default function RetroPage() {
   const { boardRef } = useExportRetroContext();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
   const theme = useTheme();
-
-  useRoomIdExists();
 
   useEffect(() => {
     if (!retroState.title) {
