@@ -7,6 +7,8 @@
     "backend:dev": "nx dev backend",
     "watch:shared": "nx run-many --targets=build:watch --all",
     "e2e": "npx playwright test",
+    "e2e:headed": "npx playwright test --headed",
+    "e2e:debug": "npx playwright test --debug",
     "format": "prettier --write .",
     "prepare": "husky install",
     "lint": "eslint .",
