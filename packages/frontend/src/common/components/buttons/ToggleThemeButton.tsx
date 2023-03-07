@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Brightness6 } from "@mui/icons-material";
 import { Button, Typography, useTheme } from "@mui/material";
-import { ColorThemeContext } from "../context/ColorThemeContext";
+import { ColorThemeContext } from "../../context/ColorThemeContext";
 
 export default function ToggleThemeButton() {
   const theme = useTheme();

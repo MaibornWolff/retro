@@ -1,5 +1,5 @@
 import React from "react";
-import { CardActions, IconButton } from "@mui/material";
+import { CardActions } from "@mui/material";
 import { HowToVote } from "@mui/icons-material";
 
 import PokerVoteDialog from "../dialogs/PokerVoteDialog";
@@ -7,6 +7,7 @@ import PokerCard from "./PokerCard";
 import { UserRole } from "../../../common/types/commonTypes";
 import { useDialog } from "../../../retro/hooks/useDialog";
 import { useUserContext } from "../../../common/context/UserContext";
+import TooltipIconButton from "../../../common/TooltipIconButton";
 
 interface PokerCardFrontProps {
   styleProps: { backgroundColor: string };
@@ -33,15 +34,16 @@ export default function PokerCardFront({
         <>
           {userId === user.id && (
             <CardActions sx={{ justifyContent: "center" }}>
-              <IconButton
+              <TooltipIconButton
                 color="secondary"
                 aria-label="vote"
                 onClick={() => {
                   openDialog();
                 }}
+                tooltipText="Vote"
               >
                 <HowToVote />
-              </IconButton>
+              </TooltipIconButton>
             </CardActions>
           )}
         </>

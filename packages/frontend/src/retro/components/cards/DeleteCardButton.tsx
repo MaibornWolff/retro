@@ -26,6 +26,7 @@ export default function DeleteCardButton({ card, columnIndex, ...props }: Delete
   return (
     <>
       <CardActionButton
+        tooltipText={"Delete Card"}
         onClick={handleOpenDeleteCardDialog}
         disabled={(props.disabled ?? false) || !isPrivileged}
       >

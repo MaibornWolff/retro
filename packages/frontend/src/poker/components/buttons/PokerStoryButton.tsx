@@ -8,11 +8,11 @@ import {
   DialogTitle,
   useTheme,
 } from "@mui/material";
-import { usePokerContext } from "../context/PokerContext";
-import TextInput from "../../common/components/TextInput";
-import { useValidatedTextInput } from "../../common/hooks/useValidatedTextInput";
-import { useUserContext } from "../../common/context/UserContext";
-import { useFullscreen } from "../../retro/hooks/useFullscreen";
+import { usePokerContext } from "../../context/PokerContext";
+import { useUserContext } from "../../../common/context/UserContext";
+import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
+import { useFullscreen } from "../../../retro/hooks/useFullscreen";
+import TextInput from "../../../common/components/TextInput";
 
 export default function PokerStoryButton() {
   const { handleSetUserStory } = usePokerContext();

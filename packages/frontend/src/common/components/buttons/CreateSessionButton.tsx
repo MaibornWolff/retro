@@ -1,10 +1,10 @@
 import { Button, useTheme } from "@mui/material";
 import React from "react";
-import { useUserContext } from "../context/UserContext";
-import { useDialog } from "../../retro/hooks/useDialog";
-import { useNamespace } from "../hooks/useNamespace";
-import CreatePokerSessionDialog from "../../poker/components/dialogs/CreatePokerSessionDialog";
-import CreateRetroSessionDialog from "../../retro/components/dialogs/CreateRetroSessionDialog";
+import { useDialog } from "../../../retro/hooks/useDialog";
+import { useUserContext } from "../../context/UserContext";
+import { useNamespace } from "../../hooks/useNamespace";
+import CreatePokerSessionDialog from "../../../poker/components/dialogs/CreatePokerSessionDialog";
+import CreateRetroSessionDialog from "../../../retro/components/dialogs/CreateRetroSessionDialog";
 
 export default function CreateSessionButton() {
   const { isOpen, closeDialog, openDialog } = useDialog(true);
@@ -23,6 +23,7 @@ export default function CreateSessionButton() {
           sx={{
             margin: theme.spacing(1),
           }}
+          fullWidth
         >
           Create Session
         </Button>

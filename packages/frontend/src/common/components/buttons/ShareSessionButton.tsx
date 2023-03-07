@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Button, Snackbar, Typography, useTheme } from "@mui/material";
 import { Share } from "@mui/icons-material";
-
-import Alert from "./Alert";
+import Alert from "../Alert";
 
 interface ShareSessionButtonProps {
   isDisabled?: boolean;

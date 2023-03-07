@@ -9,8 +9,8 @@ export default function VoteProgress() {
   if (!user.id) return null;
 
   return (
-    <Box width="100%" px={2} display="flex" alignItems="center">
-      <Typography variant="body1" color="textPrimary" mr={2}>
+    <Box px={2} display="flex" alignItems="center">
+      <Typography variant="body1" color="textPrimary" mr={2} noWrap>
         {"Remaining votes:"}
       </Typography>
       <CircularProgressWithLabel />

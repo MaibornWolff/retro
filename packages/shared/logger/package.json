@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "build": "rm -rf dist && tsc -b",
-    "build:watch": "rm -rf dist && tsc -b --watch"
+    "build": "rimraff dist && tsc -b",
+    "build:watch": "rimraf dist && tsc -b --watch"
   },
   "dependencies": {
     "winston": "^3.8.2"

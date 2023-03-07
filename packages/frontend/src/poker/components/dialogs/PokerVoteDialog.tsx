@@ -22,7 +22,7 @@ function valueText(value: number) {
 export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
   const [vote, setVote] = useState<number>(0);
   const fullScreen = useFullscreen();
-  const { pokerState, handleSendVote, dispatchPokerStateAction } = usePokerContext();
+  const { pokerState, handleSendVote } = usePokerContext();
   const { user } = useUserContext();
 
   function handleSliderChange(event: any, newValue: number | number[]) {
@@ -36,8 +36,6 @@ export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
   }
 
   function handleSubmit() {
-    const userUpdate = { ...user, vote, voted: true };
-    dispatchPokerStateAction({ type: "SET_USER", payload: userUpdate });
     handleSendVote({ vote, userId: user.id });
     handleClose();
   }

@@ -9,14 +9,11 @@
 
 # Improvement
 
-- write tests (jest, react-testing-library, react-hooks-testing-library)
+- write tests (playwright)
 - accept all button on waiting list (maybe reject all?)
 - option to auto allow all / auto reject
-- add tooltip to icon buttons (e.g. as ToolTipIconButton)
 - fix light theme and use a proper primary color?
 - add commit and branch name linting
-- fix join/create session button width in retro
-- Move Add Column button to fitting place
 - new slogan for readme
 
 # Refactorings

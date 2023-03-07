@@ -21,9 +21,8 @@ export const Hero = styled.div<StyledProps>`
 
 export const FlexContainer = styled.div`
   display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  ${media.desktop ? `flex-direction: row;` : ""}
+  white-space: nowrap;
+  overflow-x: auto;
 `;
 
 export const PageNotFoundContainer = styled.div`
@@ -85,7 +84,7 @@ export const Unblur = styled.a`
 export const ColumnContainerStyles = css`
   display: flex;
   flex-direction: column;
-  width: 25rem;
+  min-width: 25rem;
   margin: 0.8em 0.2em 0.8em 0.2em;
   ${media.tablet ? `margin: 0.8em;` : ""}
 `;

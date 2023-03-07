@@ -5,33 +5,33 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Divider,
+  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { isEmpty } from "lodash";
-import { WaitingList } from "./WaitingList";
 import { DialogProps } from "../types/commonTypes";
 import Participants from "./Participants";
 import { UserByUserId } from "../../retro/types/retroTypes";
+import { WaitingList } from "./WaitingList";
 
 interface ParticipantDialogProps extends DialogProps {
   participants: UserByUserId;
   waitingList: UserByUserId;
-  handleKickUser: (userId: string) => void;
-  handleRejectJoinUser: (userId: string) => void;
-  handleAcceptJoinUser: (userId: string) => void;
-  handleTransferModeratorRole: (userId: string) => void;
+  onKickUser: (userId: string) => void;
+  onRejectJoinUser: (userId: string) => void;
+  onAcceptJoinUser: (userId: string) => void;
+  onTransferModeratorRole: (userId: string) => void;
 }
 
 export function ParticipantsDialog({
   isOpen,
   close,
-  handleKickUser,
-  handleRejectJoinUser,
-  handleAcceptJoinUser,
-  handleTransferModeratorRole,
+  onKickUser,
+  onRejectJoinUser,
+  onAcceptJoinUser,
+  onTransferModeratorRole,
   participants,
   waitingList,
 }: ParticipantDialogProps) {
@@ -54,31 +54,33 @@ export function ParticipantsDialog({
         },
       }}
     >
-      {!isEmpty(waitingList) && (
-        <>
-          <DialogTitle id="participants-dialog">Waiting for approval</DialogTitle>
-          <DialogContent>
+      <DialogContent>
+        {!isEmpty(waitingList) && (
+          <>
+            <Typography variant={"h5"} pb={1}>
+              Waiting for approval
+            </Typography>
             <WaitingList
               waitingList={waitingList}
-              handleAcceptJoinUser={handleAcceptJoinUser}
-              handleRejectJoinUser={handleRejectJoinUser}
+              handleAcceptJoinUser={onAcceptJoinUser}
+              handleRejectJoinUser={onRejectJoinUser}
             />
-          </DialogContent>
-        </>
-      )}
-      {isDividerVisible && <Divider />}
-      {!isEmpty(participants) && (
-        <>
-          <DialogTitle id="participants-dialog">Participants</DialogTitle>
-          <DialogContent>
+          </>
+        )}
+        {isDividerVisible && <Divider sx={{ marginY: 2 }} />}
+        {!isEmpty(participants) && (
+          <>
+            <Typography variant={"h5"} pb={1}>
+              Participants
+            </Typography>
             <Participants
               participants={participants}
-              handleKickUser={handleKickUser}
-              handleTransferModeratorRole={handleTransferModeratorRole}
+              handleKickUser={onKickUser}
+              handleTransferModeratorRole={onTransferModeratorRole}
             />
-          </DialogContent>
-        </>
-      )}
+          </>
+        )}
+      </DialogContent>
       <DialogActions>
         <Button onClick={close} color="primary">
           Close

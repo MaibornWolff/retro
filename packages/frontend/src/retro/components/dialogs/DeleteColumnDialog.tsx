@@ -15,11 +15,7 @@ interface DeleteColumnDialogProps extends DialogProps {
   columnIndex: number;
 }
 
-export default function DeleteColumnDialog({
-  isOpen,
-  close,
-  columnIndex,
-}: DeleteColumnDialogProps) {
+export function DeleteColumnDialog({ isOpen, close, columnIndex }: DeleteColumnDialogProps) {
   const { handleDeleteColumn } = useRetroContext();
   const fullScreen = useFullscreen();
 

@@ -8,9 +8,7 @@ import {
   CardHeader,
   Chip,
   Divider,
-  IconButton,
   Theme,
-  Tooltip,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -22,6 +20,7 @@ import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
 import { sumVotes } from "../../utils/retroUtils";
 import RetroCardActions from "./RetroCardActions";
+import TooltipIconButton from "../../../common/TooltipIconButton";
 
 interface RetroItemProps {
   card: RetroCardType;
@@ -115,11 +114,14 @@ function RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
           action={
             user.role === "moderator" && (
               <div style={{ paddingTop: "0.5em", paddingRight: "0.5em" }}>
-                <Tooltip title="Highlight card">
-                  <IconButton aria-label="Highlight" color="inherit" onClick={toggleHighlight}>
-                    {retroState.highlightedCardId === id ? <Highlight /> : <HighlightOutlined />}
-                  </IconButton>
-                </Tooltip>
+                <TooltipIconButton
+                  tooltipText="Highlight Card"
+                  aria-label="Highlight"
+                  color="inherit"
+                  onClick={toggleHighlight}
+                >
+                  {retroState.highlightedCardId === id ? <Highlight /> : <HighlightOutlined />}
+                </TooltipIconButton>
               </div>
             )
           }

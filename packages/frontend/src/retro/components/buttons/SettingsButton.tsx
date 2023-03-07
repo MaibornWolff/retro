@@ -5,7 +5,6 @@ import VoteCountButton from "./VoteCountButton";
 import ExportRetroImageButton from "./ExportRetroImageButton";
 import ExportRetroButton from "./ExportRetroButton";
 import QrCodeButton from "./QrCodeButton";
-import ToggleRetroBlurButton from "./ToggleRetroBlurButton";
 import ImportRetroButton from "./ImportRetroButton";
 
 export default function SettingsButton() {

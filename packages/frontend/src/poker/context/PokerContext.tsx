@@ -1,4 +1,4 @@
-import React, { Dispatch, useContext, useReducer } from "react";
+import React, { useCallback, useContext, useReducer } from "react";
 import { usePeerToPeer } from "../../common/hooks/usePeerToPeer";
 import { PokerState } from "../types/pokerTypes";
 import {
@@ -26,7 +26,7 @@ export interface PokerContextValues {
   pokerState: PokerState;
   broadcastAction: (event: PokerAction) => void;
   sendAction: (event: PokerAction, userId: string) => void;
-  dispatchPokerStateAction: Dispatch<PokerAction>;
+  resetPokerState: () => void;
   handleShowPokerResults: () => void;
   handleSetUserStory: (payload: SetUserStoryAction["payload"]) => void;
   handleResetUserStory: () => void;
@@ -137,11 +137,15 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     dispatchAndBroadcast({ type: "JOIN_SESSION", payload });
   }
 
+  const resetPokerState = useCallback(() => {
+    dispatch({ type: "INITIALIZE_STATE", payload: initialState });
+  }, []);
+
   const value: PokerContextValues = {
     pokerState: state,
     broadcastAction,
     sendAction,
-    dispatchPokerStateAction: dispatch,
+    resetPokerState,
     handleShowPokerResults,
     handleSetUserStory,
     handleResetUserStory,

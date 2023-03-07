@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from "react";
+import React, { useCallback, useContext, useReducer } from "react";
 import { usePeerToPeer } from "../../common/hooks/usePeerToPeer";
 import { RetroState } from "../types/retroTypes";
 import {
@@ -50,6 +50,7 @@ export interface RetroContextValues {
   retroState: RetroState;
   broadcastAction: (event: RetroAction) => void;
   sendAction: (event: RetroAction, userId: string) => void;
+  resetRetroState: () => void;
   handleUpvoteCard: (payload: CardUpvoteAction["payload"]) => void;
   handleChangeMaxVote: (payload: MaxVoteChangeAction["payload"]) => void;
   handleResetVotes: () => void;
@@ -211,10 +212,15 @@ export default function RetroContextProvider(props: RetroContextProviderProps) {
     dispatchAndBroadcast({ type: "TRANSFER_MODERATOR_ROLE", payload });
   }
 
+  const resetRetroState = useCallback(() => {
+    dispatch({ type: "SET_RETRO_STATE", payload: initialState });
+  }, []);
+
   const value: RetroContextValues = {
     retroState: state,
     broadcastAction,
     sendAction,
+    resetRetroState,
     handleUpvoteCard,
     handleChangeMaxVote,
     handleResetVotes,

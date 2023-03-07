@@ -1,17 +1,17 @@
 import React from "react";
-import { useUserContext } from "../context/UserContext";
 import JoinSessionButton from "./JoinSessionButton";
 import CreateSessionButton from "./CreateSessionButton";
+import { useUserContext } from "../../context/UserContext";
 
 interface SetupSessionButtonProps {
   roomId?: string;
   navigateToRoom: () => void;
-  handleAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
+  onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
 }
 
 export default function SetupSessionButton({
   navigateToRoom,
-  handleAddToWaitingList,
+  onAddToWaitingList,
   roomId,
 }: SetupSessionButtonProps) {
   const { user } = useUserContext();
@@ -22,7 +22,7 @@ export default function SetupSessionButton({
     <JoinSessionButton
       roomId={roomId}
       navigateToRoom={navigateToRoom}
-      handleAddToWaitingList={handleAddToWaitingList}
+      onAddToWaitingList={onAddToWaitingList}
     />
   ) : (
     <CreateSessionButton />

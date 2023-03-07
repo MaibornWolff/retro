@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { Grid, useTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Snackbar, useTheme } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Navigate } from "react-router-dom";
 
-import RetroHeader from "./header/RetroHeader";
 import MergeCardsDialog from "./dialogs/MergeCardsDialog";
 import VoteProgress from "./VoteProgress";
 import Columns from "./columns/Columns";
@@ -14,16 +13,41 @@ import { useExportRetroContext } from "../context/ExportRetroContext";
 import { isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
-import RetroTitle from "./RetroHeader";
+import RetroTitle from "./RetroTitle";
 import RetroActionButtons from "./RetroActionButtons";
+import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
+import RetroHeader from "./RetroHeader";
+import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
+import Alert from "../../common/components/Alert";
 
 export default function RetroPage() {
-  const { retroState } = useRetroContext();
-  const { user } = useUserContext();
+  const { retroState, resetRetroState } = useRetroContext();
+  const { user, resetUser } = useUserContext();
   const { isError } = useErrorContext();
   const { boardRef } = useExportRetroContext();
+  const roomIdFromPath = useRoomIdFromPath();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
   const theme = useTheme();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  useFirstWaitingUser({ waitingList: retroState.waitingList, onFirstUserWaiting: showSnackbar });
+
+  useEffect(() => {
+    if (!roomIdFromPath) {
+      resetUser();
+      resetRetroState();
+    }
+  }, [roomIdFromPath, resetUser, resetRetroState]);
+
+  function showSnackbar() {
+    setSnackbarOpen(true);
+  }
+
+  const handleCloseSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") return;
+
+    setSnackbarOpen(false);
+  };
 
   useEffect(() => {
     if (!retroState.title) {
@@ -49,32 +73,30 @@ export default function RetroPage() {
   return (
     <>
       <RetroHeader />
-      <Grid
-        container
-        sx={{ backgroundColor: theme.palette.background.default }}
-        direction="column"
-        ref={boardRef}
-      >
-        <RetroTitle />
-        <Grid container direction="row" alignItems="center" pb={2}>
-          <Grid item>
-            <VoteProgress />
-          </Grid>
-          <Grid item>
-            <RetroActionButtons />
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Columns />
-          </DragDropContext>
-        </Grid>
+      <Box sx={{ backgroundColor: theme.palette.background.default, width: "100%" }} ref={boardRef}>
+        <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", p: 2 }}>
+          <RetroTitle />
+          <VoteProgress />
+        </Box>
+        <Box sx={{ display: "flex", gap: "1rem", p: 2 }}>
+          <RetroActionButtons />
+        </Box>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Columns />
+        </DragDropContext>
         <MergeCardsDialog
           open={isMergeDialogOpen}
           closeDialog={closeMergeDialog}
           onMergeCards={handleMergeCards}
         />
-      </Grid>
+      </Box>
+      <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleCloseSnackbar}>
+        <div>
+          <Alert onClose={handleCloseSnackbar} severity="info">
+            There is a new participant waiting to be accepted.
+          </Alert>
+        </div>
+      </Snackbar>
     </>
   );
 }

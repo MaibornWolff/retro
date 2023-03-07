@@ -25,6 +25,7 @@ export default function ToggleRetroBlurButton() {
       aria-label={buttonText}
       onClick={toggleRetroBlur}
       startIcon={buttonIcon}
+      fullWidth
     >
       {buttonText}
     </Button>
