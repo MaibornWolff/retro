@@ -66,8 +66,6 @@
       "profile": "https://yduman.github.io/",
       "contributions": [
         "code",
-        "maintenance",
-        "projectManagement",
         "review",
         "ideas"
       ]
@@ -80,13 +78,48 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "NearW",
+      "name": "Ben Willenbring",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12533626?v=4",
+      "profile": "https://github.com/NearW",
+      "contributions": [
+        "code",
+        "ideas",
+        "maintenance",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "dostulataa",
+      "name": "dostualtaa",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7762085?v=4",
+      "profile": "https://github.com/dostulataa",
+      "contributions": [
+        "code",
+        "ideas",
+        "maintenance",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "Hall-Ma",
+      "name": "Maria Hallmann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72517530?v=4",
+      "profile": "https://github.com/Hall-Ma",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
-  "contributorsSortAlphabetically": false,
+  "contributorsSortAlphabetically": true,
   "projectName": "retro",
-  "projectOwner": "yduman",
+  "projectOwner": "MaibornWolff",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "angular"
 }

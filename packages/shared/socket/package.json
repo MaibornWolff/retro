@@ -1,0 +1,16 @@
+{
+  "name": "@shared/socket",
+  "version": "1.0.0",
+  "description": "Provides reusable events for socket.io",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "build": "rimraf dist && tsc -b",
+    "build:watch": "rimraf dist && tsc -b --watch"
+  }
+}

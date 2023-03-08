@@ -1,0 +1,27 @@
+import React from "react";
+import { IconButtonProps } from "@mui/material";
+import TooltipIconButton from "../../../common/TooltipIconButton";
+
+interface CardActionButtonProps extends IconButtonProps {
+  onClick: () => void;
+  tooltipText: string;
+}
+
+export default function CardActionButton({
+  tooltipText,
+  onClick,
+  children,
+  ...props
+}: CardActionButtonProps) {
+  return (
+    <TooltipIconButton
+      tooltipText={tooltipText}
+      {...props}
+      color="inherit"
+      size="small"
+      onClick={onClick}
+    >
+      {children}
+    </TooltipIconButton>
+  );
+}
