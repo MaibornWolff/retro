@@ -13,6 +13,7 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 import TextInput from "../../../common/components/TextInput";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 export default function PokerStoryButton() {
   const { handleSetUserStory } = usePokerContext();
@@ -52,7 +53,7 @@ export default function PokerStoryButton() {
     closeDialog();
   }
 
-  if (user.role !== "moderator") return null;
+  if (!isModerator(user)) return null;
 
   return (
     <>

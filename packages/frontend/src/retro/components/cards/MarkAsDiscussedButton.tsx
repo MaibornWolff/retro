@@ -5,6 +5,7 @@ import { RetroCard } from "../../types/retroTypes";
 import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
 import CardActionButton from "./CardActionButton";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 interface MarkItemAsDiscussedButtonProps extends IconButtonProps {
   card: RetroCard;
@@ -19,11 +20,10 @@ export default function MarkAsDiscussedButton({
   const { user } = useUserContext();
   const { handleToggleCardDiscussed } = useRetroContext();
 
-  const isModerator = user.role === "moderator";
-  if (!isModerator) return null;
+  if (!isModerator(user)) return null;
 
   function handleClick() {
-    if (!isModerator) return;
+    if (!isModerator(user)) return;
     handleToggleCardDiscussed({ cardIndex: card.index, columnIndex });
   }
 
@@ -32,7 +32,7 @@ export default function MarkAsDiscussedButton({
       {...props}
       tooltipText={"Mark as discussed"}
       onClick={handleClick}
-      disabled={(props.disabled ?? false) || !isModerator}
+      disabled={(props.disabled ?? false) || !isModerator(user)}
     >
       <Forum />
     </CardActionButton>

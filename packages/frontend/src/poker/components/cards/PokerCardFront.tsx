@@ -4,35 +4,27 @@ import { HowToVote } from "@mui/icons-material";
 
 import PokerVoteDialog from "../dialogs/PokerVoteDialog";
 import PokerCard from "./PokerCard";
-import { UserRole } from "../../../common/types/commonTypes";
+import { User } from "../../../common/types/commonTypes";
 import { useDialog } from "../../../retro/hooks/useDialog";
 import { useUserContext } from "../../../common/context/UserContext";
 import TooltipIconButton from "../../../common/TooltipIconButton";
 
 interface PokerCardFrontProps {
   styleProps: { backgroundColor: string };
-  userName: string;
-  userId: string;
-  role: UserRole;
+  pokerUser: User;
 }
 
-export default function PokerCardFront({
-  styleProps,
-  userId,
-  userName,
-  role,
-}: PokerCardFrontProps) {
+export default function PokerCardFront({ styleProps, pokerUser }: PokerCardFrontProps) {
   const { isOpen, closeDialog, openDialog } = useDialog(false);
   const { user } = useUserContext();
 
   return (
     <PokerCard
       styleProps={styleProps}
-      userName={userName}
-      role={role}
+      pokerUser={pokerUser}
       FooterComponent={
         <>
-          {userId === user.id && (
+          {pokerUser.id === user.id && (
             <CardActions sx={{ justifyContent: "center" }}>
               <TooltipIconButton
                 color="secondary"

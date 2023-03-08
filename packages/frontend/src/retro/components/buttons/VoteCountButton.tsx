@@ -18,6 +18,7 @@ import {
 import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
 import { useFullscreen } from "../../hooks/useFullscreen";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 function getValueText(value: number) {
   return `${value}`;
@@ -64,7 +65,7 @@ export default function VoteCountButton() {
         aria-label="Set Vote Count"
         color="primary"
         onClick={openDialog}
-        disabled={user.role !== "moderator"}
+        disabled={!isModerator(user)}
       >
         <ListItemIcon>
           <ThumbUp fontSize="small" />

@@ -5,6 +5,7 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { RetroSchemaV1 } from "../../types/retroSchema";
 import { RetroState } from "../../types/retroTypes";
 import { useRetroContext } from "../../context/RetroContext";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 export default function ImportRetroButton() {
   const inputFile = useRef<HTMLInputElement>(null);
@@ -33,7 +34,7 @@ export default function ImportRetroButton() {
         aria-label="Import Retro"
         color="primary"
         onClick={openFileBrowser}
-        disabled={user.role !== "moderator"}
+        disabled={!isModerator(user)}
       >
         <ListItemIcon>
           <Publish fontSize="small" />

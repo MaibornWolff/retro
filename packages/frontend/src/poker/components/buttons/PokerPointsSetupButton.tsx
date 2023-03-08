@@ -21,6 +21,7 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { usePokerContext } from "../../context/PokerContext";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 import { PokerUnit, PokerUnitType } from "../../types/pokerTypes";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 function getValueText(value: number) {
   return `${value}`;
@@ -64,7 +65,7 @@ const PokerPointsSetupButton = React.forwardRef((_props: any, ref: any) => {
         aria-label="Change Poker Unit"
         color="primary"
         onClick={openDialog}
-        disabled={user.role !== "moderator"}
+        disabled={!isModerator(user)}
       >
         <ListItemIcon>
           <Build fontSize="small" />

@@ -11,6 +11,7 @@ import {
 import { useUserContext } from "../../../common/context/UserContext";
 import { usePokerContext } from "../../context/PokerContext";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 export default function PokerResetButton() {
   const { user } = useUserContext();
@@ -24,7 +25,7 @@ export default function PokerResetButton() {
     setOpen(false);
   }
 
-  if (user.role !== "moderator") return null;
+  if (!isModerator(user)) return null;
 
   return (
     <>
@@ -35,7 +36,7 @@ export default function PokerResetButton() {
         onClick={() => {
           setOpen(true);
         }}
-        disabled={user.role !== "moderator"}
+        disabled={!isModerator(user)}
       >
         Reset Votes
       </Button>

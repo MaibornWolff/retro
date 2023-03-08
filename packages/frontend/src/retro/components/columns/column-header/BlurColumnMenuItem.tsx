@@ -4,6 +4,7 @@ import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { RetroColumn } from "../../../types/retroTypes";
 import { useRetroContext } from "../../../context/RetroContext";
 import { useUserContext } from "../../../../common/context/UserContext";
+import { isModerator } from "../../../../common/utils/participantsUtils";
 
 interface BlurColumnMenuItemProperties {
   column: RetroColumn;
@@ -22,7 +23,7 @@ const BlurColumnMenuItem = React.forwardRef(
     }
 
     return (
-      <MenuItem ref={ref} onClick={toggleBlur} disabled={user.role !== "moderator"}>
+      <MenuItem ref={ref} onClick={toggleBlur} disabled={!isModerator(user)}>
         <ListItemIcon>{menuItemIcon}</ListItemIcon>
         <ListItemText primary={menuItemText} />
       </MenuItem>

@@ -8,6 +8,7 @@ import DeleteColumnMenuItem from "./DeleteColumnMenuItem";
 import BlurColumnMenuItem from "./BlurColumnMenuItem";
 import { RetroColumn } from "../../../types/retroTypes";
 import { useUserContext } from "../../../../common/context/UserContext";
+import { isModerator } from "../../../../common/utils/participantsUtils";
 
 interface ColumnMenuProps {
   column: RetroColumn;
@@ -17,7 +18,7 @@ function ColumnMenu({ column }: ColumnMenuProps) {
   const [anchorEl, setAnchorEl] = useState(null);
   const { user } = useUserContext();
 
-  if (user.role !== "moderator") return null;
+  if (!isModerator(user)) return null;
 
   function openMenu(event: any) {
     setAnchorEl(event.currentTarget);

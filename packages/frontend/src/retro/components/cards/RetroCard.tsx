@@ -21,6 +21,7 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { sumVotes } from "../../utils/retroUtils";
 import RetroCardActions from "./RetroCardActions";
 import TooltipIconButton from "../../../common/TooltipIconButton";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 interface RetroItemProps {
   card: RetroCardType;
@@ -75,11 +76,11 @@ function RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
       ? { border: "4px solid red" }
       : { border: `1px solid ${getCardBorderColor(currentTheme, theme)}` };
 
-  const blurValue = user.role === "moderator" ? "blur(1px)" : "blur(5px)";
+  const blurValue = isModerator(user) ? "blur(1px)" : "blur(5px)";
   const totalVotes = sumVotes(card);
   const isVoted = sumVotes(card) > 0;
   const authors = owners.map(({ name }) => name);
-  const isSelectableText = !isBlurred || user.role === "moderator";
+  const isSelectableText = !isBlurred || isModerator(user);
   const voteColor = isVoted
     ? theme.palette.primary.contrastText
     : theme.palette.secondary.contrastText;
@@ -112,7 +113,7 @@ function RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
             </Typography>
           }
           action={
-            user.role === "moderator" && (
+            isModerator(user) && (
               <div style={{ paddingTop: "0.5em", paddingRight: "0.5em" }}>
                 <TooltipIconButton
                   tooltipText="Highlight Card"

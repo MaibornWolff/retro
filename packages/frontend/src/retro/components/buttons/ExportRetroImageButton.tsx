@@ -4,6 +4,7 @@ import { PhotoCamera } from "@mui/icons-material";
 import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { useUserContext } from "../../../common/context/UserContext";
 import { useExportRetroContext } from "../../context/ExportRetroContext";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 export default function ExportRetroImageButton() {
   const { user } = useUserContext();
@@ -21,7 +22,7 @@ export default function ExportRetroImageButton() {
         aria-label="Export Retro"
         color="primary"
         onClick={handleExport}
-        disabled={user.role !== "moderator"}
+        disabled={!isModerator(user)}
       >
         <ListItemIcon>
           <PhotoCamera fontSize="small" />

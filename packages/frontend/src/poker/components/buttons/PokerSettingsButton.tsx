@@ -4,6 +4,7 @@ import { Button, Menu, Typography } from "@mui/material";
 
 import PokerPointsSetupButton from "./PokerPointsSetupButton";
 import { useUserContext } from "../../../common/context/UserContext";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 export default function PokerSettingsButton() {
   const { user } = useUserContext();
@@ -18,7 +19,7 @@ export default function PokerSettingsButton() {
     setAnchorEl(null);
   };
 
-  if (user.role !== "moderator") return null;
+  if (!isModerator(user)) return null;
 
   return (
     <>
