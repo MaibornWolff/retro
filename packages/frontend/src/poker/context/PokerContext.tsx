@@ -17,6 +17,7 @@ import {
 } from "../../common/types/peerToPeerTypes";
 import { useSyncUser } from "../../common/hooks/useSyncUser";
 import { useUserContext } from "../../common/context/UserContext";
+import { ErrorState } from "../../common/types/commonTypes";
 
 interface PokerContextProviderProps {
   children?: React.ReactNode;
@@ -59,7 +60,7 @@ export const PokerContext = React.createContext<PokerContextValues>(undefined!);
 export default function PokerContextProvider(props: PokerContextProviderProps) {
   const [state, dispatch] = useReducer(pokerReducer, initialState);
   const { user } = useUserContext();
-  const { setIsError } = useErrorContext();
+  const { setError } = useErrorContext();
 
   useSyncUser(state.participants);
 
@@ -81,8 +82,8 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     broadcastAction(action);
   }
 
-  function handleError() {
-    setIsError(true);
+  function handleError(error: ErrorState) {
+    setError(error);
   }
 
   function handleUserDisconnect(userId: string) {
@@ -95,7 +96,7 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
 
   function handleJoinRoomReject(userId: string) {
     if (userId === user.id) {
-      setIsError(true);
+      setError({ type: "REJECTED" });
       return;
     }
     handleRemoveFromWaitingList({ userId });

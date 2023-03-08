@@ -1,6 +1,5 @@
 # Mandatory
 
-- add error page if user is rejected
 - encryption of all communication
 - test in a real environment (users joining via the internet)
 - provide some config json (for properties like maxVoteCount and log level)

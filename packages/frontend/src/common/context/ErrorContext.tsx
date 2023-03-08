@@ -1,22 +1,29 @@
-import React, { Dispatch, SetStateAction, useContext, useState } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useContext, useState } from "react";
+import { ErrorState } from "../types/commonTypes";
 
 interface ErrorContextProviderProps {
   children?: React.ReactNode;
 }
 
 export interface ErrorContextValues {
-  isError: boolean;
-  setIsError: Dispatch<SetStateAction<boolean>>;
+  error?: ErrorState;
+  setError: Dispatch<SetStateAction<ErrorState | undefined>>;
+  resetError: () => void;
 }
 
 export const ErrorContext = React.createContext<ErrorContextValues>(undefined!);
 
 export default function ErrorContextProvider(props: ErrorContextProviderProps) {
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState<ErrorState | undefined>(undefined);
+
+  const resetError = useCallback(() => {
+    setError(undefined);
+  }, []);
 
   const value: ErrorContextValues = {
-    isError,
-    setIsError,
+    error,
+    setError,
+    resetError,
   };
 
   return <ErrorContext.Provider value={value}>{props.children}</ErrorContext.Provider>;

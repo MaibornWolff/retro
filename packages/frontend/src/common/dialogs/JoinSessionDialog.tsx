@@ -18,6 +18,7 @@ import { generateId } from "../utils/generateId";
 import { roomIdExists } from "../adapter/backendAdapter";
 import { useNamespace } from "../hooks/useNamespace";
 import TextInput from "../components/TextInput";
+import { useErrorContext } from "../context/ErrorContext";
 
 interface JoinSessionDialogProps extends DialogProps {
   roomId: string;
@@ -40,6 +41,7 @@ export default function JoinSessionDialog({
     handleChange,
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
+  const { setError } = useErrorContext();
   const { setRoomId } = useRoomContext();
   const { user, setUser } = useUserContext();
   const theme = useTheme();
@@ -54,7 +56,10 @@ export default function JoinSessionDialog({
 
   async function handleSubmit() {
     const roomExists = await roomIdExists({ roomId, namespace });
-    if (!isValid || user.id || !roomExists) {
+    if (!roomExists) {
+      setError({ type: "ROOM_NOT_FOUND" });
+    }
+    if (!isValid || user.id) {
       setIsError(true);
       return;
     }

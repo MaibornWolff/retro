@@ -23,7 +23,7 @@ import Alert from "../../common/components/Alert";
 export default function RetroPage() {
   const { retroState, resetRetroState } = useRetroContext();
   const { user, resetUser } = useUserContext();
-  const { isError } = useErrorContext();
+  const { error } = useErrorContext();
   const { boardRef } = useExportRetroContext();
   const roomIdFromPath = useRoomIdFromPath();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
@@ -61,7 +61,7 @@ export default function RetroPage() {
     };
   }, [retroState.title]);
 
-  if (isError) return <Navigate to={"/error"} />;
+  if (error) return <Navigate to={"/error"} />;
   if (isWaitingUser(retroState.waitingList, user.id))
     return (
       <>

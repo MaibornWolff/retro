@@ -20,7 +20,7 @@ import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser
 export default function PokerPage() {
   const { pokerState, resetPokerState } = usePokerContext();
   const { user, resetUser } = useUserContext();
-  const { isError } = useErrorContext();
+  const { error } = useErrorContext();
   const roomIdFromPath = useRoomIdFromPath();
   const theme = useTheme();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -52,7 +52,7 @@ export default function PokerPage() {
     setSnackbarOpen(false);
   };
 
-  if (isError) return <Navigate to={"/error"} />;
+  if (error) return <Navigate to={"/error"} />;
 
   if (isWaitingUser(pokerState.waitingList, user.id))
     return (
