@@ -30,7 +30,5 @@ export async function rejectUser(page: Page) {
 }
 
 export async function transferModeratorRole(page: Page) {
-  await page.getByRole("button", { name: "Transfer Moderator Role" }).first().click();
-  await page.getByRole("button", { name: "Yes, transfer" }).click();
-  await page.getByRole("button", { name: "Close" }).click();
+  await page.getByRole("button", { name: "Transfer Moderator Role" }).last().click();
 }
