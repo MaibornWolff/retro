@@ -92,15 +92,25 @@
       ]
     },
     {
-      "login": "reitermaniacL",
-      "name": "reitermaniacL",
+      "login": "dostulataa",
+      "name": "dostualtaa",
       "avatar_url": "https://avatars.githubusercontent.com/u/7762085?v=4",
-      "profile": "https://github.com/reitermaniacL",
+      "profile": "https://github.com/dostulataa",
       "contributions": [
         "code",
         "ideas",
         "maintenance",
         "projectManagement"
+      ]
+    },
+    {
+      "login": "Hall-Ma",
+      "name": "Maria Hallmann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72517530?v=4",
+      "profile": "https://github.com/Hall-Ma",
+      "contributions": [
+        "code",
+        "test"
       ]
     }
   ],
