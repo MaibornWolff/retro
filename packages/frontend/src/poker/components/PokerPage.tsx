@@ -8,7 +8,6 @@ import PokerTitle from "./PokerTitle";
 import PokerUsers from "./PokerUsers";
 
 import PokerStats from "./PokerStats";
-import { useRoomIdExists } from "../../common/hooks/useRoomIdExists";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { usePokerContext } from "../context/PokerContext";
 import { isWaitingUser } from "../../common/utils/participantsUtils";
@@ -21,12 +20,11 @@ import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser
 export default function PokerPage() {
   const { pokerState, resetPokerState } = usePokerContext();
   const { user, resetUser } = useUserContext();
-  const { isError } = useErrorContext();
+  const { error } = useErrorContext();
   const roomIdFromPath = useRoomIdFromPath();
   const theme = useTheme();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  useRoomIdExists();
   useFirstWaitingUser({ waitingList: pokerState.waitingList, onFirstUserWaiting: showSnackbar });
 
   useEffect(() => {
@@ -54,7 +52,7 @@ export default function PokerPage() {
     setSnackbarOpen(false);
   };
 
-  if (isError) return <Navigate to={"/error"} />;
+  if (error) return <Navigate to={"/error"} />;
 
   if (isWaitingUser(pokerState.waitingList, user.id))
     return (

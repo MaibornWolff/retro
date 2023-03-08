@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { PeerConnection, usePeerConnections } from "./usePeerConnections";
-import { BaseAction, User } from "../types/commonTypes";
+import { BaseAction, ErrorState, User } from "../types/commonTypes";
 import { isModerator } from "../utils/participantsUtils";
 import { PeerToPeerAction } from "../types/peerToPeerTypes";
 import { useRoomContext } from "../context/RoomContext";
@@ -18,7 +18,7 @@ export interface UsePeerToPeerOptions<T, E extends BaseAction> {
   onDataReceived: (data: E | PeerToPeerAction<T>) => void;
   onUserDisconnected?: (userId: string) => void;
   onJoinSession?: (user: User) => void;
-  onError: () => void;
+  onError: (error: ErrorState) => void;
   onRequestJoinRoom?: ({ userId, userName }: { userId: string; userName: string }) => void;
   onJoinRoomRejected?: (userId: string) => void;
 }
@@ -128,7 +128,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
 
     if (data.type === "KICK") {
       socket.disconnect();
-      onError();
+      onError({ type: "KICKED" });
     }
 
     if (!isStateUpToDate.current) {
@@ -195,7 +195,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     if (!user.id || !roomId || !user.name) return;
 
     if (socket.disconnected) {
-      onError();
+      onError({ type: "DISCONNECTED" });
       return;
     }
     if (isModerator(user)) {
