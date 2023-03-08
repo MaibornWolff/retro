@@ -2,13 +2,14 @@ import React from "react";
 import { Button, useTheme } from "@mui/material";
 import { useUserContext } from "../../../common/context/UserContext";
 import { usePokerContext } from "../../context/PokerContext";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 export default function PokerResultButton() {
   const theme = useTheme();
   const { user } = useUserContext();
   const { handleShowPokerResults } = usePokerContext();
 
-  if (user.role !== "moderator") return null;
+  if (!isModerator(user)) return null;
 
   function handleClick() {
     handleShowPokerResults();

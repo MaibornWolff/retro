@@ -3,19 +3,19 @@ import { Card, CardContent, CardHeader, Typography, useTheme } from "@mui/materi
 import { LocalPolice } from "@mui/icons-material";
 
 import { CardText } from "../../../common/styled-components";
+import { User } from "../../../common/types/commonTypes";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 interface PokerCardProps {
   styleProps: { backgroundColor: string };
-  userName: string;
-  role: string;
+  pokerUser: User;
   FooterComponent?: React.ReactNode;
   DialogComponent?: React.ReactNode;
 }
 
 export default function PokerCard({
   styleProps,
-  userName,
-  role,
+  pokerUser,
   FooterComponent,
   DialogComponent,
 }: PokerCardProps) {
@@ -36,7 +36,7 @@ export default function PokerCard({
       >
         <CardHeader
           sx={{ height: "64px" }}
-          avatar={<>{role === "moderator" && <LocalPolice color="secondary" />}</>}
+          avatar={<>{isModerator(pokerUser) && <LocalPolice color="secondary" />}</>}
         />
         <CardContent
           sx={{
@@ -47,7 +47,7 @@ export default function PokerCard({
           }}
         >
           <Typography color="secondary" align="center" variant="h6">
-            <CardText>{userName}</CardText>
+            <CardText>{pokerUser.name}</CardText>
           </Typography>
         </CardContent>
         {FooterComponent}

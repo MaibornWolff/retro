@@ -4,6 +4,7 @@ import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { useUserContext } from "../../../common/context/UserContext";
 import { useRetroContext } from "../../context/RetroContext";
 import { RetroSchemaV1 } from "../../types/retroSchema";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 export default function ExportRetroButton() {
   const { user } = useUserContext();
@@ -30,7 +31,7 @@ export default function ExportRetroButton() {
         aria-label="Export Retro"
         color="primary"
         onClick={handleExport}
-        disabled={user.role !== "moderator"}
+        disabled={!isModerator(user)}
       >
         <ListItemIcon>
           <GetApp fontSize="small" />

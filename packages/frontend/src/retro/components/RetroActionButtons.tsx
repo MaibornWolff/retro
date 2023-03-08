@@ -21,7 +21,7 @@ export default function RetroActionButtons() {
   const gridElementWidth = 1.2;
 
   return (
-    <Grid container direction="row" alignItems="center" spacing={2} sx={{ width: "100%" }}>
+    <Grid container direction="row" alignItems="center" gap={2}>
       {!user.id && (
         <Grid item xs={gridElementWidth}>
           <SetupSessionButton
@@ -31,11 +31,11 @@ export default function RetroActionButtons() {
           />
         </Grid>
       )}
-      <Grid item xs={gridElementWidth}>
-        <ToggleRetroBlurButton />
-      </Grid>
-      <Grid item xs={gridElementWidth}>
+      <Grid item>
         <CreateColumnButton />
+      </Grid>
+      <Grid item>
+        <ToggleRetroBlurButton />
       </Grid>
     </Grid>
   );

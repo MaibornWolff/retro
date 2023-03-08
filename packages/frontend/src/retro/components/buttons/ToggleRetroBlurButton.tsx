@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 
 import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 export default function ToggleRetroBlurButton() {
   const { handleToggleRetroBlur, retroState } = useRetroContext();
@@ -13,19 +14,19 @@ export default function ToggleRetroBlurButton() {
   const buttonIcon = isBlurred ? <BlurOff /> : <BlurOn />;
 
   function toggleRetroBlur() {
-    if (user.role !== "moderator") return;
+    if (!isModerator(user)) return;
     handleToggleRetroBlur();
   }
 
-  if (user.role !== "moderator") return null;
+  if (!isModerator(user)) return null;
 
   return (
     <Button
       variant="outlined"
-      aria-label="Toggle Blur"
+      aria-label={buttonText}
       onClick={toggleRetroBlur}
       startIcon={buttonIcon}
-      fullWidth
+      sx={{ width: "100%" }}
     >
       {buttonText}
     </Button>

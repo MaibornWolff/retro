@@ -8,6 +8,7 @@ import ColumnHeader from "./column-header/ColumnHeader";
 import { CardsContainerStyles, ColumnContainerStyles } from "../../../common/styled-components";
 import { RetroColumn } from "../../types/retroTypes";
 import { useUserContext } from "../../../common/context/UserContext";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 const ColumnContainer = styled(Card)`
   ${ColumnContainerStyles}
@@ -25,11 +26,7 @@ function Column({ column }: ColumnProps) {
   const { user } = useUserContext();
 
   return (
-    <Draggable
-      draggableId={column.id}
-      index={column.index}
-      isDragDisabled={user.role !== "moderator"}
-    >
+    <Draggable draggableId={column.id} index={column.index} isDragDisabled={!isModerator(user)}>
       {(providedDraggable) => (
         <ColumnContainer
           {...providedDraggable.draggableProps}

@@ -8,7 +8,6 @@ import VoteProgress from "./VoteProgress";
 import Columns from "./columns/Columns";
 import { useDragAndDrop } from "../hooks/useDragAndDrop";
 import { useRetroContext } from "../context/RetroContext";
-import { useRoomIdExists } from "../../common/hooks/useRoomIdExists";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { useExportRetroContext } from "../context/ExportRetroContext";
 import { isWaitingUser } from "../../common/utils/participantsUtils";
@@ -24,14 +23,13 @@ import Alert from "../../common/components/Alert";
 export default function RetroPage() {
   const { retroState, resetRetroState } = useRetroContext();
   const { user, resetUser } = useUserContext();
-  const { isError } = useErrorContext();
+  const { error } = useErrorContext();
   const { boardRef } = useExportRetroContext();
   const roomIdFromPath = useRoomIdFromPath();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
   const theme = useTheme();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  useRoomIdExists();
   useFirstWaitingUser({ waitingList: retroState.waitingList, onFirstUserWaiting: showSnackbar });
 
   useEffect(() => {
@@ -63,7 +61,7 @@ export default function RetroPage() {
     };
   }, [retroState.title]);
 
-  if (isError) return <Navigate to={"/error"} />;
+  if (error) return <Navigate to={"/error"} />;
   if (isWaitingUser(retroState.waitingList, user.id))
     return (
       <>

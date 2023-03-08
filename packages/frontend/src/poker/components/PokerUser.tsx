@@ -16,15 +16,14 @@ interface PokerUserProps {
 export default function PokerUser({ user, votes }: PokerUserProps) {
   const { pokerState } = usePokerContext();
 
-  const { id, name, role } = user;
-  const styleProps = hasVoted(votes, id)
+  const styleProps = hasVoted(votes, user.id)
     ? { backgroundColor: "#48BB78" }
     : { backgroundColor: "#F56565" };
 
   return (
     <ReactCardFlip isFlipped={pokerState.showResults} flipDirection="horizontal">
-      <PokerCardFront styleProps={styleProps} userName={name} userId={id} role={role} />
-      <PokerCardBack styleProps={styleProps} userName={name} userVote={votes[id]} role={role} />
+      <PokerCardFront styleProps={styleProps} pokerUser={user} />
+      <PokerCardBack styleProps={styleProps} pokerUser={user} userVote={votes[user.id]} />
     </ReactCardFlip>
   );
 }

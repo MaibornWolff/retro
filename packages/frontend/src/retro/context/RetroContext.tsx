@@ -31,6 +31,7 @@ import {
 import { useUserContext } from "../../common/context/UserContext";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { useSyncUser } from "../../common/hooks/useSyncUser";
+import { ErrorState } from "../../common/types/commonTypes";
 
 interface RetroContextProviderProps {
   children?: React.ReactNode;
@@ -82,7 +83,7 @@ export const RetroContext = React.createContext<RetroContextValues>(undefined!);
 export default function RetroContextProvider(props: RetroContextProviderProps) {
   const [state, dispatch] = useReducer(retroReducer, initialState);
   const { user } = useUserContext();
-  const { setIsError } = useErrorContext();
+  const { setError } = useErrorContext();
 
   useSyncUser(state.participants);
 
@@ -104,8 +105,8 @@ export default function RetroContextProvider(props: RetroContextProviderProps) {
     broadcastAction(action);
   }
 
-  function handleError() {
-    setIsError(true);
+  function handleError(error: ErrorState) {
+    setError(error);
   }
 
   function handleAddToWaitingList(payload: AddToWaitingListAction["payload"]) {
@@ -118,7 +119,7 @@ export default function RetroContextProvider(props: RetroContextProviderProps) {
 
   function handleJoinRoomReject(userId: string) {
     if (userId === user.id) {
-      setIsError(true);
+      setError({ type: "REJECTED" });
       return;
     }
     handleRemoveFromWaitingList({ userId });

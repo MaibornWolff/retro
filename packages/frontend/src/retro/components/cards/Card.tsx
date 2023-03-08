@@ -5,6 +5,7 @@ import { CardContainer } from "../../../common/styled-components";
 import { RetroCard as RetroCardType } from "../../types/retroTypes";
 import RetroCard from "./RetroCard";
 import { useUserContext } from "../../../common/context/UserContext";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 interface ItemProps {
   card: RetroCardType;
@@ -16,7 +17,7 @@ function Card({ card, isBlurred, columnIndex }: ItemProps) {
   const { user } = useUserContext();
 
   return (
-    <Draggable draggableId={card.id} index={card.index} isDragDisabled={user.role !== "moderator"}>
+    <Draggable draggableId={card.id} index={card.index} isDragDisabled={!isModerator(user)}>
       {(provided) => (
         <CardContainer
           {...provided.draggableProps}

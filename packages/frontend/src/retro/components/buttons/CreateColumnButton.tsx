@@ -4,11 +4,12 @@ import { Button } from "@mui/material";
 import { useUserContext } from "../../../common/context/UserContext";
 import { CreateColumnDialog } from "../dialogs/CreateColumnDialog";
 import { useDialog } from "../../hooks/useDialog";
+import { isModerator } from "../../../common/utils/participantsUtils";
 
 export default function CreateColumnButton() {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { user } = useUserContext();
-  if (user.role !== "moderator") return null;
+  if (!isModerator(user)) return null;
 
   return (
     <>
@@ -16,9 +17,9 @@ export default function CreateColumnButton() {
         variant="outlined"
         aria-label="Add Column"
         onClick={openDialog}
-        disabled={user.role !== "moderator"}
+        disabled={!isModerator(user)}
         startIcon={<Add />}
-        fullWidth
+        sx={{ width: "100%" }}
       >
         Add Column
       </Button>
