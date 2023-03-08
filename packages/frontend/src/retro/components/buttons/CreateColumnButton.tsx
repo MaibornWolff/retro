@@ -18,7 +18,7 @@ export default function CreateColumnButton() {
         onClick={openDialog}
         disabled={user.role !== "moderator"}
         startIcon={<Add />}
-        fullWidth
+        sx={{ width: "100%" }}
       >
         Add Column
       </Button>
