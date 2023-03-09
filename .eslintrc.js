@@ -20,8 +20,13 @@ module.exports = {
     sourceType: "module",
     project: ["tsconfig.json"],
   },
-  plugins: ["react", "prettier"],
+  plugins: ["react", "prettier", "unused-imports"],
   rules: {
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      { vars: "all", varsIgnorePattern: "^_", args: "after-used", argsIgnorePattern: "^_" },
+    ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/consistent-type-imports": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
