@@ -1,4 +1,3 @@
-import { PokerState } from "../types/pokerTypes";
 import { PokerAction } from "../types/pokerActions";
 import {
   findModerator,
@@ -9,6 +8,7 @@ import {
 import { User } from "../../common/types/commonTypes";
 import { initialUserState } from "../../common/context/UserContext";
 import { UserByUserId } from "../../retro/types/retroTypes";
+import { PokerState } from "../pokerSlice";
 
 export const pokerReducer = (state: PokerState, action: PokerAction): PokerState => {
   switch (action.type) {

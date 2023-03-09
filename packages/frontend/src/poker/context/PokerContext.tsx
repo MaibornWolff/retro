@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useReducer } from "react";
 import { usePeerToPeer } from "../../common/hooks/usePeerToPeer";
-import { PokerState } from "../types/pokerTypes";
 import {
   PokerAction,
   SendVoteAction,
@@ -18,6 +17,7 @@ import {
 import { useSyncUser } from "../../common/hooks/useSyncUser";
 import { useUserContext } from "../../common/context/UserContext";
 import { ErrorState } from "../../common/types/commonTypes";
+import { initialPokerState, PokerState } from "../pokerSlice";
 
 interface PokerContextProviderProps {
   children?: React.ReactNode;
@@ -41,24 +41,9 @@ export interface PokerContextValues {
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
 }
 
-const initialState: PokerState = {
-  story: {
-    storyTitle: "",
-    storyUrl: "",
-  },
-  pokerUnit: {
-    unitType: "fibonacci",
-    unitRangeHigh: 34,
-  },
-  participants: {},
-  showResults: false,
-  waitingList: {},
-  votes: {},
-};
-
 export const PokerContext = React.createContext<PokerContextValues>(undefined!);
 export default function PokerContextProvider(props: PokerContextProviderProps) {
-  const [state, dispatch] = useReducer(pokerReducer, initialState);
+  const [state, dispatch] = useReducer(pokerReducer, initialPokerState);
   const { user } = useUserContext();
   const { setError } = useErrorContext();
 
@@ -139,7 +124,7 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
   }
 
   const resetPokerState = useCallback(() => {
-    dispatch({ type: "INITIALIZE_STATE", payload: initialState });
+    dispatch({ type: "INITIALIZE_STATE", payload: initialPokerState });
   }, []);
 
   const value: PokerContextValues = {

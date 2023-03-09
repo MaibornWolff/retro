@@ -14,47 +14,51 @@ import UserContextProvider from "./common/context/UserContext";
 import ErrorContextProvider from "./common/context/ErrorContext";
 import RoomContextProvider from "./common/context/RoomContext";
 import ExportRetroContextProvider from "./retro/context/ExportRetroContext";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 export default function App() {
   const { currentTheme } = useContext(ColorThemeContext);
 
   return (
     <ErrorContextProvider>
-      <ThemeProvider theme={currentTheme}>
-        <CssBaseline />
-        <Router>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route
-              path="/retro/*"
-              element={
-                <RoomContextProvider>
-                  <UserContextProvider>
-                    <RetroContextProvider>
-                      <ExportRetroContextProvider>
-                        <RetroPage />
-                      </ExportRetroContextProvider>
-                    </RetroContextProvider>
-                  </UserContextProvider>
-                </RoomContextProvider>
-              }
-            />
-            <Route
-              path="/poker/*"
-              element={
-                <RoomContextProvider>
-                  <UserContextProvider>
-                    <PokerContextProvider>
-                      <PokerPage />
-                    </PokerContextProvider>
-                  </UserContextProvider>
-                </RoomContextProvider>
-              }
-            />
-            <Route path="/error" element={<ErrorPage />} />
-          </Routes>
-        </Router>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={currentTheme}>
+          <CssBaseline />
+          <Router>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route
+                path="/retro/*"
+                element={
+                  <RoomContextProvider>
+                    <UserContextProvider>
+                      <RetroContextProvider>
+                        <ExportRetroContextProvider>
+                          <RetroPage />
+                        </ExportRetroContextProvider>
+                      </RetroContextProvider>
+                    </UserContextProvider>
+                  </RoomContextProvider>
+                }
+              />
+              <Route
+                path="/poker/*"
+                element={
+                  <RoomContextProvider>
+                    <UserContextProvider>
+                      <PokerContextProvider>
+                        <PokerPage />
+                      </PokerContextProvider>
+                    </UserContextProvider>
+                  </RoomContextProvider>
+                }
+              />
+              <Route path="/error" element={<ErrorPage />} />
+            </Routes>
+          </Router>
+        </ThemeProvider>
+      </Provider>
     </ErrorContextProvider>
   );
 }

@@ -42,5 +42,9 @@
   "workspaces": [
     "packages/*",
     "packages/shared/*"
-  ]
+  ],
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
+    "react-redux": "^8.0.5"
+  }
 }

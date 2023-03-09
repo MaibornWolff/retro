@@ -1,6 +1,7 @@
-import { PokerState, PokerStory, PokerUnit } from "./pokerTypes";
+import { PokerStory, PokerUnit } from "./pokerTypes";
 import { BaseAction, User } from "../../common/types/commonTypes";
 import { PeerToPeerAction } from "../../common/types/peerToPeerTypes";
+import { PokerState } from "../pokerSlice";
 
 export interface ShowPokerResultsAction extends BaseAction {
   type: "SHOW_POKER_RESULTS";

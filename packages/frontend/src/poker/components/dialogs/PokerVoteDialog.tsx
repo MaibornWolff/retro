@@ -14,6 +14,8 @@ import { DialogProps } from "../../../common/types/commonTypes";
 import { useUserContext } from "../../../common/context/UserContext";
 import { usePokerContext } from "../../context/PokerContext";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
+import { useSelector } from "react-redux";
+import { PokerState } from "../../pokerSlice";
 
 function valueText(value: number) {
   return `${value}`;
@@ -22,7 +24,8 @@ function valueText(value: number) {
 export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
   const [vote, setVote] = useState<number>(0);
   const fullScreen = useFullscreen();
-  const { pokerState, handleSendVote } = usePokerContext();
+  const { handleSendVote } = usePokerContext();
+  const { pokerUnit } = useSelector((state: PokerState) => state);
   const { user } = useUserContext();
 
   function handleSliderChange(event: any, newValue: number | number[]) {
@@ -41,7 +44,6 @@ export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
   }
 
   function renderSlider() {
-    const { pokerUnit } = pokerState;
     switch (pokerUnit.unitType) {
       case "fibonacci":
         return (
