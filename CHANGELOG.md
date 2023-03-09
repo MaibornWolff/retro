@@ -10,6 +10,27 @@
 
 ### Removed
 
+## [0.6.0] - 2022-03-08
+
+### Added
+
+- peer to peer communication
+- participants button and dialog
+- waiting list
+- requesting access feature
+
+### Changed
+
+- adapted positioning of ui elements
+- vote indicator is now smaller and in the upper right corner
+
+### Fixed
+
+- made all existing features work again
+- fixed broken import / export functionality
+
+### Removed
+
 ## [0.5.0] - 2021-08-07
 
 ### Added

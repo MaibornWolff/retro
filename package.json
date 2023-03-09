@@ -1,6 +1,6 @@
 {
-  "name": "webrtc-poc",
-  "version": "0.0.0",
+  "name": "retro",
+  "version": "0.6.0",
   "license": "MIT",
   "scripts": {
     "frontend:dev": "nx start frontend",
