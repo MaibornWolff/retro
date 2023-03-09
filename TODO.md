@@ -8,6 +8,7 @@
 
 # Improvement
 
+- implement github actions pipeline
 - write tests (playwright)
 - accept all button on waiting list (maybe reject all?)
 - option to auto allow all / auto reject
