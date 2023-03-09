@@ -9,6 +9,7 @@
     "e2e": "npx playwright test",
     "e2e:headed": "npx playwright test --headed",
     "e2e:debug": "npx playwright test --debug",
+    "format:check": "prettier --check .",
     "format": "prettier --write .",
     "prepare": "husky install",
     "lint": "eslint .",
