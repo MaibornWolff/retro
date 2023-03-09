@@ -10,11 +10,11 @@ Retro uses a peer-to-peer approach, where all communication including retro and 
 
 ## Retrospective
 
-![retro_example](./assets/Retro-Example.png)
+![retro_example](./assets/retro_example_page.png)
 
 ## Planning Poker
 
-![planning_poker_example](./assets/PlanningPoker-Example.png)
+![planning_poker_example](./assets/poker_example_page.png)
 
 ## Requirements
 
