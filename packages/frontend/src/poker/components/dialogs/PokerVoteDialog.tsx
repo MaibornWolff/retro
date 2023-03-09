@@ -12,10 +12,10 @@ import { PokerNaturalNumbersSlider } from "../sliders/PokerNaturalNumbersSlider"
 import { PokerTShirtSlider } from "../sliders/PokerTShirtSlider";
 import { DialogProps } from "../../../common/types/commonTypes";
 import { useUserContext } from "../../../common/context/UserContext";
-import { usePokerContext } from "../../context/PokerContext";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
+import { sendVote } from "../../pokerSlice";
 
 function valueText(value: number) {
   return `${value}`;
@@ -24,7 +24,7 @@ function valueText(value: number) {
 export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
   const [vote, setVote] = useState<number>(0);
   const fullScreen = useFullscreen();
-  const { handleSendVote } = usePokerContext();
+  const dispatch = useDispatch();
   const { unitType, unitRangeHigh } = useSelector((state: RootState) => state.poker.pokerUnit);
   const { user } = useUserContext();
 
@@ -39,7 +39,7 @@ export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
   }
 
   function handleSubmit() {
-    handleSendVote({ vote, userId: user.id });
+    dispatch(sendVote({ vote, userId: user.id }));
     handleClose();
   }
 

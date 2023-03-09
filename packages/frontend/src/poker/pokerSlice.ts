@@ -67,6 +67,7 @@ export const pokerSlice = createSlice({
       state.participants[id] = newParticipant;
     },
     sendVote: (state, action: PayloadAction<{ userId: string; vote: number }>) => {
+      console.log(action.payload);
       const user = state.participants[action.payload.userId];
       if (!user) return state;
 
