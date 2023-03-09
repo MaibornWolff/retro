@@ -15,7 +15,7 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { usePokerContext } from "../../context/PokerContext";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 import { useSelector } from "react-redux";
-import { PokerState } from "../../pokerSlice";
+import { RootState } from "../../../store";
 
 function valueText(value: number) {
   return `${value}`;
@@ -25,7 +25,7 @@ export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
   const [vote, setVote] = useState<number>(0);
   const fullScreen = useFullscreen();
   const { handleSendVote } = usePokerContext();
-  const { pokerUnit } = useSelector((state: PokerState) => state);
+  const { unitType, unitRangeHigh } = useSelector((state: RootState) => state.poker.pokerUnit);
   const { user } = useUserContext();
 
   function handleSliderChange(event: any, newValue: number | number[]) {
@@ -44,11 +44,11 @@ export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
   }
 
   function renderSlider() {
-    switch (pokerUnit.unitType) {
+    switch (unitType) {
       case "fibonacci":
         return (
           <PokerFibonacciSlider
-            maxValue={pokerUnit.unitRangeHigh}
+            maxValue={unitRangeHigh}
             onChange={handleSliderChange}
             valueText={valueText}
           />
@@ -56,7 +56,7 @@ export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
       case "naturalnumbers":
         return (
           <PokerNaturalNumbersSlider
-            maxValue={pokerUnit.unitRangeHigh}
+            maxValue={unitRangeHigh}
             onChange={handleSliderChange}
             valueText={valueText}
           />

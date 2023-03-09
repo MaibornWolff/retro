@@ -1,6 +1,5 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store";
 import { UserByUserId } from "../retro/types/retroTypes";
 import { PokerStory, PokerUnit, VoteByUserId } from "./types/pokerTypes";
 import { User } from "../common/types/commonTypes";
@@ -122,6 +121,6 @@ export const {
 } = pokerSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectPoker = (state: RootState) => state.poker;
+// export const selectPoker = (state: RootState) => state.poker;
 
 export default pokerSlice.reducer;
