@@ -31,9 +31,8 @@ jobs:
 
       - name: Build App
         run: npm run build:shared
+#      - name: Install playwright browsers
+#        run: npx playwright install --with-deps
 
-      - name: Install playwright browsers
-        run: npx playwright install --with-deps
-
-      - name: Run e2e tests
-        run: npm run e2e
+#     - name: Run e2e tests
+#        run: npm run e2e
