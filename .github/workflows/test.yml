@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  runs-on: "ubuntu-latest"
+  runs-on: ubuntu-latest
   env:
     working-directory: ./
   steps:
