@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "build": "rimraff dist && tsc -b",
+    "build": "rimraf dist && tsc -b",
     "build:watch": "rimraf dist && tsc -b --watch"
   },
   "dependencies": {

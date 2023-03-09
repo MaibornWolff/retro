@@ -29,6 +29,9 @@ jobs:
       - name: Run Prettier
         run: npm run lint
 
+      - name: Build App
+        run: npm run build:shared
+
       - name: Install playwright browsers
         run: npx playwright install --with-deps
 
