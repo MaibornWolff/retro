@@ -10,7 +10,7 @@ import { useDragAndDrop } from "../hooks/useDragAndDrop";
 import { useRetroContext } from "../context/RetroContext";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { useExportRetroContext } from "../context/ExportRetroContext";
-import { isWaitingUser } from "../../common/utils/participantsUtils";
+import { isModerator, isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import RetroTitle from "./RetroTitle";
@@ -40,7 +40,7 @@ export default function RetroPage() {
   }, [roomIdFromPath, resetUser, resetRetroState]);
 
   function showSnackbar() {
-    setSnackbarOpen(true);
+    if (isModerator(user)) setSnackbarOpen(true);
   }
 
   const handleCloseSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
