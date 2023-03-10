@@ -12,7 +12,11 @@ export default function ExportRetroButton() {
 
   // TODO: handle versions correctly
   function handleExport() {
-    const { participants, waitingList, ...exportRetroState } = retroState;
+    const {
+      participants: _participants,
+      waitingList: _waitingList,
+      ...exportRetroState
+    } = retroState;
     const exportBoard: RetroSchemaV1 = { ...exportRetroState, version: "1.0.0" };
     const date = new Date();
     const fileName = `retro-${date.toISOString()}.json`;

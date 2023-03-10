@@ -43,12 +43,12 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
       };
     case "JOIN_SESSION": {
       const { name, id, role } = action.payload;
-      const { [id]: removedUser, ...remainingWaitingList } = state.waitingList;
+      const remainingWaitingUsers = getRemainingParticipants(state.waitingList, id);
       const newParticipant: User = { ...initialUserState, name, id, role };
       return {
         ...state,
         participants: { ...state.participants, [id]: newParticipant },
-        waitingList: remainingWaitingList,
+        waitingList: remainingWaitingUsers,
       };
     }
     case "SEND_VOTE": {
@@ -83,8 +83,11 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
       return { ...state, waitingList: { ...state.waitingList, [waitingUser.id]: waitingUser } };
     }
     case "REMOVE_FROM_WAITING_LIST": {
-      const { [action.payload.userId]: removedUser, ...remainingUsers } = state.waitingList;
-      return { ...state, waitingList: { ...remainingUsers } };
+      const remainingWaitingUsers = getRemainingParticipants(
+        state.waitingList,
+        action.payload.userId
+      );
+      return { ...state, waitingList: remainingWaitingUsers };
     }
     case "DISCONNECT": {
       const { participants, waitingList } = state;
@@ -93,7 +96,7 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
         ? getRemainingParticipants(participants, disconnectedUserId)
         : getRemainingParticipantsWithNewModerator(participants, disconnectedUserId);
 
-      const { [disconnectedUserId]: removedUser, ...remainingWaitingUsers } = waitingList;
+      const remainingWaitingUsers = getRemainingParticipants(waitingList, disconnectedUserId);
 
       return {
         ...state,

@@ -6,7 +6,7 @@ export function getRemainingParticipants<T extends User>(
   participants: Record<string, T>,
   disconnectedUserId: string
 ): Record<string, T> {
-  const { [disconnectedUserId]: disconnectedUser, ...remainingParticipants } = participants;
+  const { [disconnectedUserId]: _disconnectedUser, ...remainingParticipants } = participants;
   return { ...remainingParticipants };
 }
 
@@ -14,7 +14,7 @@ export function getRemainingParticipantsWithNewModerator<T extends User>(
   participants: Record<string, T>,
   disconnectedUserId: string
 ): Record<string, T> {
-  const { [disconnectedUserId]: disconnectedUser, ...remainingParticipants } = participants;
+  const { [disconnectedUserId]: _disconnectedUser, ...remainingParticipants } = participants;
   const newModerator = determineNewModerator(Object.values(remainingParticipants));
   if (!newModerator) return remainingParticipants;
 
