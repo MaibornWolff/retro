@@ -10,7 +10,7 @@ import PokerUsers from "./PokerUsers";
 import PokerStats from "./PokerStats";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { usePokerContext } from "../context/PokerContext";
-import { isWaitingUser } from "../../common/utils/participantsUtils";
+import { isModerator, isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
@@ -43,7 +43,7 @@ export default function PokerPage() {
   });
 
   function showSnackbar() {
-    setSnackbarOpen(true);
+    if (isModerator(user)) setSnackbarOpen(true);
   }
 
   const handleCloseSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
