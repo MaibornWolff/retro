@@ -23,8 +23,20 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   reporter: process.env.CI ? "github" : "list",
-
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  webServer: [
+    {
+      command: "npm run frontend:dev",
+      port: 3000,
+      timeout: 120 * 1000,
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: "npm run backend:dev",
+      port: 3001,
+      timeout: 120 * 1000,
+      reuseExistingServer: !process.env.CI,
+    },
+  ],
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,

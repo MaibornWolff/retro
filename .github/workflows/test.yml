@@ -32,12 +32,6 @@ jobs:
       - name: Build App
         run: npm run build:shared
 
-      - name: Run Frontend
-        run: npm run frontend:dev
-
-      - name: Run Backend
-        run: npm run backend:dev
-
       - name: Install playwright browsers
         run: npx playwright install --with-deps
 
