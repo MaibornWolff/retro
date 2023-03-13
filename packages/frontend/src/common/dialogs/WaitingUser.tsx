@@ -44,16 +44,16 @@ export default function WaitingUser({
           {isModerator(user) && (
             <>
               <TooltipIconButton
-                tooltipText="Accept"
-                aria-label="Accept"
+                tooltipText="Accept User"
+                aria-label="Accept User"
                 color="success"
                 onClick={handleAcceptJoinUserClick}
               >
                 <CheckCircle />
               </TooltipIconButton>
               <TooltipIconButton
-                tooltipText="Reject"
-                aria-label="Reject"
+                tooltipText="Reject User"
+                aria-label="Reject User"
                 onClick={handleRejectJoinUserClick}
               >
                 <Cancel color="error" />
