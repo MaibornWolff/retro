@@ -19,17 +19,17 @@ test("should have all required elements as moderator", async ({ page }) => {
 });
 
 test("should accept user and show required elements as participant", async ({ context, page }) => {
-  const user = "User 1";
+  const newUser = "User 2";
   await setupRetroPage(page);
 
   const urlWithRoomId: string = page.url();
-  const newPage = await joinNewUser(urlWithRoomId, context, user);
+  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
 
   await page.getByRole("button", { name: "Participants" }).click();
 
   await page
     .getByRole("listitem")
-    .filter({ hasText: user })
+    .filter({ hasText: newUser })
     .getByRole("button", { name: "Accept User" })
     .click();
 
@@ -42,67 +42,68 @@ test("should accept user and show required elements as participant", async ({ co
 });
 
 test("should reject user and show error page", async ({ context, page }) => {
-  const user = "User 1";
+  const newUser = "User 2";
   await setupRetroPage(page);
 
   const urlWithRoomId: string = page.url();
-  const newPage = await joinNewUser(urlWithRoomId, context, user);
+  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
 
   await page.getByRole("button", { name: "Participants" }).click();
   await page
     .getByRole("listitem")
-    .filter({ hasText: user })
+    .filter({ hasText: newUser })
     .getByRole("button", { name: "Reject User" })
     .click();
 
+  await expect(page.getByRole("listitem", { name: newUser })).not.toBeVisible();
   await expect(newPage.getByRole("heading", { name: "Test Session" })).not.toBeVisible();
   await expect(newPage.getByText("Your join request has been rejected.")).toBeVisible();
   expect(newPage.url()).toContain("error");
 });
 
 test("should kick user and show error page", async ({ context, page }) => {
-  const user = "User 1";
+  const newUser = "User 2";
   await setupRetroPage(page);
 
   const urlWithRoomId: string = page.url();
-  const newPage = await joinNewUser(urlWithRoomId, context, user);
+  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
   await page.getByRole("button", { name: "Participants" }).click();
 
   await page
     .getByRole("listitem")
-    .filter({ hasText: user })
+    .filter({ hasText: newUser })
     .getByRole("button", { name: "Accept User" })
     .click();
   await page
     .getByRole("listitem")
-    .filter({ hasText: user })
+    .filter({ hasText: newUser })
     .getByRole("button", { name: "Kick user" })
     .click();
 
+  await expect(page.getByRole("listitem", { name: newUser })).not.toBeVisible();
   await expect(newPage.getByRole("heading", { name: "Test Session" })).not.toBeVisible();
   await expect(newPage.getByText("You have been removed from the session.")).toBeVisible();
   expect(newPage.url()).toContain("error");
 });
 
 test("should accept user and transfer moderator role", async ({ context, page }) => {
-  const user = "User 1";
+  const newUser = "User 2";
   await setupRetroPage(page);
 
   const urlWithRoomId: string = page.url();
-  const newPage = await joinNewUser(urlWithRoomId, context, user);
+  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
 
   await page.getByRole("button", { name: "Participants" }).click();
   await page
     .getByRole("listitem")
-    .filter({ hasText: user })
+    .filter({ hasText: newUser })
     .getByRole("button", { name: "Accept User" })
     .click();
   await page
     .getByRole("listitem")
-    .filter({ hasText: user })
+    .filter({ hasText: newUser })
     .getByRole("button", { name: "Transfer Moderator Role" })
     .click();
-
   await page.getByRole("button", { name: "Yes, transfer" }).click();
   await page.getByRole("button", { name: "Close" }).click();
 
