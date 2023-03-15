@@ -60,6 +60,7 @@ export default function PokerStoryButton() {
       <Button
         color="primary"
         variant="outlined"
+        aria-label="Set User Story"
         sx={{ margin: theme.spacing(1) }}
         onClick={() => {
           setOpen(true);
