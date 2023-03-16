@@ -1,5 +1,7 @@
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
 
 export function generateId() {
-  return nanoid();
+  const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+  const nanoId = customAlphabet(alphabet); // nanoId alphabet without special chars
+  return nanoId();
 }

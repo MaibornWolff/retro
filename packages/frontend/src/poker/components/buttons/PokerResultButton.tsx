@@ -7,7 +7,8 @@ import { isModerator } from "../../../common/utils/participantsUtils";
 export default function PokerResultButton() {
   const theme = useTheme();
   const { user } = useUserContext();
-  const { handleShowPokerResults } = usePokerContext();
+  const { handleShowPokerResults, pokerState } = usePokerContext();
+  const noUserVoted = Object.keys(pokerState.votes).length === 0;
 
   if (!isModerator(user)) return null;
 
@@ -19,7 +20,9 @@ export default function PokerResultButton() {
     <Button
       color="primary"
       variant="outlined"
+      aria-label="Show Results"
       sx={{ margin: theme.spacing(1) }}
+      disabled={noUserVoted}
       onClick={handleClick}
     >
       Show Results

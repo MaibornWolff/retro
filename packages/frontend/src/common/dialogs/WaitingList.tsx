@@ -14,15 +14,16 @@ export function WaitingList({
   handleAcceptJoinUser,
 }: WaitingListProps) {
   return (
-    <>
+    <ul style={{ margin: 0, padding: 0 }}>
       {Object.values(waitingList).map((waitingUser) => (
-        <WaitingUser
-          key={waitingUser.id}
-          waitingUser={waitingUser}
-          handleAcceptJoinUser={handleAcceptJoinUser}
-          handleRejectJoinUser={handleRejectJoinUser}
-        />
+        <li key={waitingUser.id} style={{ listStyleType: "none" }}>
+          <WaitingUser
+            waitingUser={waitingUser}
+            handleAcceptJoinUser={handleAcceptJoinUser}
+            handleRejectJoinUser={handleRejectJoinUser}
+          />
+        </li>
       ))}
-    </>
+    </ul>
   );
 }

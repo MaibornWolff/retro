@@ -1,13 +1,10 @@
 import { BrowserContext, Page } from "@playwright/test";
 
-export function isChromium(browserName: string) {
-  return browserName === "chromium";
-}
-
 export async function setupRetroPage(page: Page) {
+  await page.goto("/");
   await page.getByRole("button", { name: "Retrospective" }).click();
   const inputs = await page.getByRole("textbox").all();
-  await inputs[0]?.fill("User name");
+  await inputs[0]?.fill("User 1");
   await inputs[1]?.fill("Test Session");
   await page.selectOption("select", "Went Well, To Improve, Action Items");
   await page.getByRole("button", { name: "Create" }).click();
@@ -21,14 +18,10 @@ export async function joinNewUser(urlWithRoomId: string, context: BrowserContext
   return page;
 }
 
-export async function acceptUser(page: Page) {
-  await page.getByRole("button", { name: "Accept" }).first().click();
-}
-
-export async function rejectUser(page: Page) {
-  await page.getByRole("button", { name: "Reject" }).first().click();
-}
-
-export async function transferModeratorRole(page: Page) {
-  await page.getByRole("button", { name: "Transfer Moderator Role" }).last().click();
+export async function setupPokerPage(page: Page) {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Planning Poker" }).click();
+  await page.getByRole("button", { name: "Start" }).click();
+  await page.getByLabel("Name").fill("User 1");
+  await page.getByRole("button", { name: "Join" }).click();
 }
