@@ -28,7 +28,7 @@ export default function PokerCardFront({ styleProps, pokerUser }: PokerCardFront
             <CardActions sx={{ justifyContent: "center" }}>
               <TooltipIconButton
                 color="secondary"
-                aria-label="vote"
+                aria-label="Vote"
                 onClick={() => {
                   openDialog();
                 }}

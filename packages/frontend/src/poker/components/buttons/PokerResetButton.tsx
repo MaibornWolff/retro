@@ -16,9 +16,10 @@ import { isModerator } from "../../../common/utils/participantsUtils";
 export default function PokerResetButton() {
   const { user } = useUserContext();
   const [open, setOpen] = useState(false);
-  const { handleResetUserStory } = usePokerContext();
+  const { handleResetUserStory, pokerState } = usePokerContext();
   const fullScreen = useFullscreen();
   const theme = useTheme();
+  const noUserVoted = Object.keys(pokerState.votes).length === 0;
 
   function handleClick() {
     handleResetUserStory();
@@ -32,11 +33,12 @@ export default function PokerResetButton() {
       <Button
         color="primary"
         variant="outlined"
+        aria-label="Reset Votes"
         sx={{ margin: theme.spacing(1) }}
         onClick={() => {
           setOpen(true);
         }}
-        disabled={!isModerator(user)}
+        disabled={noUserVoted}
       >
         Reset Votes
       </Button>

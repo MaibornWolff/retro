@@ -28,11 +28,9 @@ export function usePeerConnections({
   const addPeerConnection = (newConnections: DataConnection[]) => {
     peerConnectionsRef.current = [...peerConnectionsRef.current, ...newConnections];
 
-    const newUserIds: PeerConnection[] = newConnections
-      .filter((connection) => connection.peer)
-      .map((connection) => {
-        return { userId: connection.peer, isReady: false };
-      });
+    const newUserIds: PeerConnection[] = newConnections.map((connection) => {
+      return { userId: connection.peer, isReady: false };
+    });
 
     setPeerConnections((oldState) => {
       previousPeerConnectionsRef.current = [...oldState];

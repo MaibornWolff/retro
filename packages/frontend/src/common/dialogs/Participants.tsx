@@ -14,15 +14,16 @@ export default function Participants({
   handleTransferModeratorRole,
 }: ParticipantsProps) {
   return (
-    <>
+    <ul style={{ margin: 0, padding: 0 }}>
       {Object.values(participants).map((participant) => (
-        <Participant
-          key={participant.id}
-          participant={participant}
-          handleKickUser={handleKickUser}
-          handleTransferModeratorRole={handleTransferModeratorRole}
-        />
+        <li key={participant.id} style={{ listStyleType: "none" }}>
+          <Participant
+            participant={participant}
+            handleKickUser={handleKickUser}
+            handleTransferModeratorRole={handleTransferModeratorRole}
+          />
+        </li>
       ))}
-    </>
+    </ul>
   );
 }
