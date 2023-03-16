@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { joinNewUser, setupRetroPage, setupPokerPage } from "./testUtils";
 
-test("should have all required elements as moderator", async ({ page }) => {
+test("Retro: should have all required elements as moderator", async ({ page }) => {
   await setupRetroPage(page);
 
   await page.getByRole("button", { name: "Add Column" }).click();
@@ -18,7 +18,10 @@ test("should have all required elements as moderator", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "New Column" })).toBeVisible();
 });
 
-test("should accept user and show required elements as participant", async ({ context, page }) => {
+test("Retro: should accept user and show required elements as participant", async ({
+  context,
+  page,
+}) => {
   const newUser = "User 2";
   await setupRetroPage(page);
 
@@ -41,7 +44,7 @@ test("should accept user and show required elements as participant", async ({ co
   await expect(newPage.getByRole("heading", { name: "Action Items" })).toBeVisible();
 });
 
-test("should reject user and show error page", async ({ context, page }) => {
+test("Retro: should reject user and show error page", async ({ context, page }) => {
   const newUser = "User 2";
   await setupRetroPage(page);
 
@@ -61,7 +64,7 @@ test("should reject user and show error page", async ({ context, page }) => {
   expect(newPage.url()).toContain("error");
 });
 
-test("should kick user and show error page", async ({ context, page }) => {
+test("Retro: should kick user and show error page", async ({ context, page }) => {
   const newUser = "User 2";
   await setupRetroPage(page);
 
@@ -86,7 +89,7 @@ test("should kick user and show error page", async ({ context, page }) => {
   expect(newPage.url()).toContain("error");
 });
 
-test("should accept user and transfer moderator role", async ({ context, page }) => {
+test("Retro: should accept user and transfer moderator role", async ({ context, page }) => {
   const newUser = "User 2";
   await setupRetroPage(page);
 
@@ -114,7 +117,7 @@ test("should accept user and transfer moderator role", async ({ context, page })
   await expect(page.getByRole("button", { name: "Add Column" })).not.toBeVisible();
 });
 
-test("should have all required elements as moderator", async ({ page }) => {
+test("Poker: should have all required elements as moderator", async ({ page }) => {
   await setupPokerPage(page);
   await page.getByRole("button", { name: "Set User Story" }).click();
   await page.getByLabel("Story Title").fill("Test User Story");
@@ -128,7 +131,7 @@ test("should have all required elements as moderator", async ({ page }) => {
   await expect(page.getByRole("button", { name: "Show Results" })).toBeDisabled();
 });
 
-test("should accept user, vote and show results", async ({ page, context }) => {
+test("Poker: should accept user, vote and show results", async ({ page, context }) => {
   const newUser = "User 2";
   await setupPokerPage(page);
 
@@ -184,7 +187,7 @@ test("should accept user, vote and show results", async ({ page, context }) => {
   await expect(newPage.getByRole("button", { name: "Reset Votes" })).not.toBeVisible();
 });
 
-test("should reject user and show error page", async ({ page, context }) => {
+test("Poker: should reject user and show error page", async ({ page, context }) => {
   const newUser = "User 2";
   await setupPokerPage(page);
 
@@ -206,7 +209,7 @@ test("should reject user and show error page", async ({ page, context }) => {
   expect(newPage.url()).toContain("error");
 });
 
-test("should kick user and show error page", async ({ page, context }) => {
+test("Poker: should kick user and show error page", async ({ page, context }) => {
   const newUser = "User 2";
   await setupPokerPage(page);
 
@@ -233,7 +236,7 @@ test("should kick user and show error page", async ({ page, context }) => {
   expect(newPage.url()).toContain("error");
 });
 
-test("should accept user and transfer moderator role", async ({ page, context }) => {
+test("Poker: should accept user and transfer moderator role", async ({ page, context }) => {
   const newUser = "User 2";
   await setupPokerPage(page);
 
