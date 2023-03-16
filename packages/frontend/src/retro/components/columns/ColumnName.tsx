@@ -6,8 +6,6 @@ interface ColumNameProps {
   columnTitle: string;
 }
 
-const ColumnName = ({ columnTitle }: ColumNameProps) => (
-  <Typography variant="subtitle2">{columnTitle}</Typography>
-);
-
-export default ColumnName;
+export function ColumnName({ columnTitle }: ColumNameProps) {
+  return <Typography variant="subtitle2">{columnTitle}</Typography>;
+}

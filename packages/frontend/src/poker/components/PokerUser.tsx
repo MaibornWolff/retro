@@ -1,8 +1,8 @@
 import React from "react";
 import ReactCardFlip from "react-card-flip";
 
-import PokerCardFront from "./cards/PokerCardFront";
-import PokerCardBack from "./cards/PokerCardBack";
+import { PokerCardFront } from "./cards/PokerCardFront";
+import { PokerCardBack } from "./cards/PokerCardBack";
 import { usePokerContext } from "../context/PokerContext";
 import { User } from "../../common/types/commonTypes";
 import { VoteByUserId } from "../types/pokerTypes";
@@ -13,7 +13,7 @@ interface PokerUserProps {
   votes: VoteByUserId;
 }
 
-export default function PokerUser({ user, votes }: PokerUserProps) {
+export function PokerUser({ user, votes }: PokerUserProps) {
   const { pokerState } = usePokerContext();
 
   const styleProps = hasVoted(votes, user.id)

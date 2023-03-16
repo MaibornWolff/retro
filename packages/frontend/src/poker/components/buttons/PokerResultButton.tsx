@@ -4,7 +4,7 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { usePokerContext } from "../../context/PokerContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export default function PokerResultButton() {
+export function PokerResultButton() {
   const theme = useTheme();
   const { user } = useUserContext();
   const { handleShowPokerResults, pokerState } = usePokerContext();

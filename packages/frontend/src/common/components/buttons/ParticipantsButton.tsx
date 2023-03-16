@@ -14,7 +14,7 @@ interface ParticipantButtonProps {
   onTransferModeratorRole: (userId: string) => void;
 }
 
-export default function ParticipantsButton({
+export function ParticipantsButton({
   participants,
   waitingList,
   handleKickUser,

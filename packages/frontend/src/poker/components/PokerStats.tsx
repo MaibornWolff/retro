@@ -5,7 +5,7 @@ import { usePokerContext } from "../context/PokerContext";
 import { ChartData } from "../types/pokerTypes";
 import { generateChartData } from "../utils/pokerUtils";
 
-export default function PokerStats() {
+export function PokerStats() {
   const { pokerState } = usePokerContext();
   const [chartData, setChartData] = useState<ChartData[]>([]);
 

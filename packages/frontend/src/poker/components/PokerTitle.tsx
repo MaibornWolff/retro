@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Link, Typography, useTheme } from "@mui/material";
 import { usePokerContext } from "../context/PokerContext";
 
-export default function PokerTitle() {
+export function PokerTitle() {
   const { storyTitle, storyUrl } = usePokerContext().pokerState.story;
   const theme = useTheme();
 

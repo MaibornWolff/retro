@@ -19,8 +19,8 @@ import { RetroCard as RetroCardType } from "../../types/retroTypes";
 import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
 import { sumVotes } from "../../utils/retroUtils";
-import RetroCardActions from "./RetroCardActions";
-import TooltipIconButton from "../../../common/TooltipIconButton";
+import { RetroCardActions } from "./RetroCardActions";
+import { TooltipIconButton } from "../../../common/TooltipIconButton";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
 interface RetroItemProps {
@@ -37,7 +37,7 @@ const getCardBorderColor = (colorTheme: Theme, theme: Theme) => {
   }
 };
 
-function RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
+function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
   const { isDiscussed, content, owners, id } = card;
   const { retroState, handleHighlightCard, handleUnhighlightCard } = useRetroContext();
   const { user } = useUserContext();
@@ -152,4 +152,4 @@ function RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
   );
 }
 
-export default React.memo(RetroCard);
+export const RetroCard = React.memo(_RetroCard);

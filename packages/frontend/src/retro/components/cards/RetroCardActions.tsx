@@ -1,11 +1,11 @@
 import React from "react";
 import { RetroCard } from "../../types/retroTypes";
 import { useUserContext } from "../../../common/context/UserContext";
-import EditCardButton from "./EditCardButton";
-import MarkAsDiscussedButton from "./MarkAsDiscussedButton";
-import DeleteCardButton from "./DeleteCardButton";
-import RemoveUpvoteCardButton from "./RemoveUpvoteCardButton";
-import UpvoteCardButton from "./UpvoteCardButton";
+import { EditCardButton } from "./EditCardButton";
+import { MarkAsDiscussedButton } from "./MarkAsDiscussedButton";
+import { DeleteCardButton } from "./DeleteCardButton";
+import { RemoveUpvoteCardButton } from "./RemoveUpvoteCardButton";
+import { UpvoteCardButton } from "./UpvoteCardButton";
 
 interface RetroCardActionsProps {
   card: RetroCard;
@@ -13,7 +13,7 @@ interface RetroCardActionsProps {
   isBlurred: boolean;
 }
 
-export default function RetroCardActions({ card, columnIndex, isBlurred }: RetroCardActionsProps) {
+export function RetroCardActions({ card, columnIndex, isBlurred }: RetroCardActionsProps) {
   const { user } = useUserContext();
 
   const isButtonDisabled = isBlurred && user.role === "participant";

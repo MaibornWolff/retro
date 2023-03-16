@@ -1,6 +1,6 @@
 import React from "react";
-import JoinSessionButton from "./JoinSessionButton";
-import CreateSessionButton from "./CreateSessionButton";
+import { JoinSessionButton } from "./JoinSessionButton";
+import { CreateSessionButton } from "./CreateSessionButton";
 import { useUserContext } from "../../context/UserContext";
 
 interface SetupSessionButtonProps {
@@ -9,7 +9,7 @@ interface SetupSessionButtonProps {
   onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
 }
 
-export default function SetupSessionButton({
+export function SetupSessionButton({
   navigateToRoom,
   onAddToWaitingList,
   roomId,

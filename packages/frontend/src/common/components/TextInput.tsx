@@ -1,14 +1,14 @@
 import React, { KeyboardEvent } from "react";
 import { TextField } from "@mui/material";
 import { StandardTextFieldProps } from "@mui/material/TextField/TextField";
-import ErrorHelperText from "./ErrorHelperText";
+import { ErrorHelperText } from "./ErrorHelperText";
 
 interface TextInputProps extends StandardTextFieldProps {
   onSubmit: () => void;
   errorHelperText?: string;
 }
 
-export default function TextInput({ onSubmit, errorHelperText, ...props }: TextInputProps) {
+export function TextInput({ onSubmit, errorHelperText, ...props }: TextInputProps) {
   function handleSubmitOnEnter(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter") {
       event.preventDefault();

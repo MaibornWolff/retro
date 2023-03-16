@@ -3,9 +3,9 @@ import { Box, Snackbar, useTheme } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Navigate } from "react-router-dom";
 
-import MergeCardsDialog from "./dialogs/MergeCardsDialog";
-import VoteProgress from "./VoteProgress";
-import Columns from "./columns/Columns";
+import { MergeCardsDialog } from "./dialogs/MergeCardsDialog";
+import { VoteProgress } from "./VoteProgress";
+import { Columns } from "./columns/Columns";
 import { useDragAndDrop } from "../hooks/useDragAndDrop";
 import { useRetroContext } from "../context/RetroContext";
 import { useErrorContext } from "../../common/context/ErrorContext";
@@ -13,14 +13,14 @@ import { useExportRetroContext } from "../context/ExportRetroContext";
 import { isModerator, isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
-import RetroTitle from "./RetroTitle";
-import RetroActionButtons from "./RetroActionButtons";
+import { RetroTitle } from "./RetroTitle";
+import { RetroActionButtons } from "./RetroActionButtons";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
-import RetroHeader from "./RetroHeader";
+import { RetroHeader } from "./RetroHeader";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
-import Alert from "../../common/components/Alert";
+import { Alert } from "../../common/components/Alert";
 
-export default function RetroPage() {
+export function RetroPage() {
   const { retroState, resetRetroState } = useRetroContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();

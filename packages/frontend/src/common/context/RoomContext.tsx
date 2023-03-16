@@ -11,7 +11,7 @@ export interface RoomContextValues {
 
 export const RoomContext = React.createContext<RoomContextValues>(undefined!);
 
-export default function RoomContextProvider(props: RoomContextProviderProps) {
+export function RoomContextProvider(props: RoomContextProviderProps) {
   const [roomId, setRoomId] = useState("");
 
   const value: RoomContextValues = {

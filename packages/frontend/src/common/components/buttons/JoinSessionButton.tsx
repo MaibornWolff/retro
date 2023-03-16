@@ -2,7 +2,7 @@ import React from "react";
 import { Button, useTheme } from "@mui/material";
 import { useDialog } from "../../../retro/hooks/useDialog";
 import { useUserContext } from "../../context/UserContext";
-import JoinSessionDialog from "../../dialogs/JoinSessionDialog";
+import { JoinSessionDialog } from "../../dialogs/JoinSessionDialog";
 
 interface JoinSessionButtonProps {
   roomId: string;
@@ -10,7 +10,7 @@ interface JoinSessionButtonProps {
   onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
 }
 
-export default function JoinSessionButton({
+export function JoinSessionButton({
   roomId,
   navigateToRoom,
   onAddToWaitingList,

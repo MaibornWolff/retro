@@ -15,10 +15,10 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { generateId } from "../../../common/utils/generateId";
 import { DialogProps, User } from "../../../common/types/commonTypes";
-import TextInput from "../../../common/components/TextInput";
+import { TextInput } from "../../../common/components/TextInput";
 import { useNavigate } from "react-router-dom";
 
-export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
+export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const {
     value: name,
     setValue: setName,

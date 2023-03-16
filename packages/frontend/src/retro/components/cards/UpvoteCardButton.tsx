@@ -5,14 +5,14 @@ import { useVotesLeft } from "../../hooks/useVotesLeft";
 import { useRetroContext } from "../../context/RetroContext";
 import { RetroCard } from "../../types/retroTypes";
 import { useUserContext } from "../../../common/context/UserContext";
-import CardActionButton from "./CardActionButton";
+import { CardActionButton } from "./CardActionButton";
 
 interface UpvoteItemButtonProps extends IconButtonProps {
   card: RetroCard;
   columnIndex: number;
 }
 
-export default function UpvoteCardButton({ columnIndex, card, ...props }: UpvoteItemButtonProps) {
+export function UpvoteCardButton({ columnIndex, card, ...props }: UpvoteItemButtonProps) {
   const { handleUpvoteCard } = useRetroContext();
   const { user } = useUserContext();
   const votesLeft = useVotesLeft();

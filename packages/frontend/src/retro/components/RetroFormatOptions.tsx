@@ -1,7 +1,7 @@
 import React from "react";
 import { retroFormatConfig } from "../config/formatConfig";
 
-export default function RetroFormatOptions() {
+export function RetroFormatOptions() {
   return (
     <>
       {Object.entries(retroFormatConfig).map(([key, { name }]) => (

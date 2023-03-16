@@ -15,11 +15,7 @@ interface MergeCardsDialogProps {
   onMergeCards: () => void;
 }
 
-export default function MergeCardsDialog({
-  open,
-  closeDialog,
-  onMergeCards,
-}: MergeCardsDialogProps) {
+export function MergeCardsDialog({ open, closeDialog, onMergeCards }: MergeCardsDialogProps) {
   const fullScreen = useFullscreen();
 
   function mergeCards() {

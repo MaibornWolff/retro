@@ -2,22 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Grid, Snackbar, useTheme } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
-import PokerHeader from "./PokerHeader";
-import PokerActionButtons from "./PokerActionButtons";
-import PokerTitle from "./PokerTitle";
-import PokerUsers from "./PokerUsers";
-
-import PokerStats from "./PokerStats";
+import { PokerHeader } from "./PokerHeader";
+import { PokerActionButtons } from "./PokerActionButtons";
+import { PokerTitle } from "./PokerTitle";
+import { PokerUsers } from "./PokerUsers";
+import { PokerStats } from "./PokerStats";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { usePokerContext } from "../context/PokerContext";
 import { isModerator, isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
-import Alert from "../../common/components/Alert";
+import { Alert } from "../../common/components/Alert";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 
-export default function PokerPage() {
+export function PokerPage() {
   const { pokerState, resetPokerState } = usePokerContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();

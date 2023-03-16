@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 import { PageNotFoundContainer, PageNotFoundText } from "./common/styled-components";
 import { useErrorContext } from "./common/context/ErrorContext";
 
-export default function ErrorPage() {
+export function ErrorPage() {
   const { error, resetError } = useErrorContext();
   const errorType = useRef<string | undefined>(undefined);
 

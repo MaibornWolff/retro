@@ -57,7 +57,7 @@ const initialState: PokerState = {
 };
 
 export const PokerContext = React.createContext<PokerContextValues>(undefined!);
-export default function PokerContextProvider(props: PokerContextProviderProps) {
+export function PokerContextProvider(props: PokerContextProviderProps) {
   const [state, dispatch] = useReducer(pokerReducer, initialState);
   const { user } = useUserContext();
   const { setError } = useErrorContext();

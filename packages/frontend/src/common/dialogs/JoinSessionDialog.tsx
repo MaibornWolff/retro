@@ -17,7 +17,7 @@ import { generateId } from "../utils/generateId";
 
 import { roomIdExists } from "../adapter/backendAdapter";
 import { useNamespace } from "../hooks/useNamespace";
-import TextInput from "../components/TextInput";
+import { TextInput } from "../components/TextInput";
 import { useErrorContext } from "../context/ErrorContext";
 
 interface JoinSessionDialogProps extends DialogProps {
@@ -26,7 +26,7 @@ interface JoinSessionDialogProps extends DialogProps {
   navigateToRoom: () => void;
 }
 
-export default function JoinSessionDialog({
+export function JoinSessionDialog({
   isOpen,
   close,
   roomId,

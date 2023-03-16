@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Settings } from "@mui/icons-material";
 import { Button, Menu, Typography } from "@mui/material";
 
-import PokerPointsSetupButton from "./PokerPointsSetupButton";
+import { PokerPointsSetupButton } from "./PokerPointsSetupButton";
 import { useUserContext } from "../../../common/context/UserContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export default function PokerSettingsButton() {
+export function PokerSettingsButton() {
   const { user } = useUserContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);

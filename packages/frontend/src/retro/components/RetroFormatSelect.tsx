@@ -1,13 +1,13 @@
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { FormControl, FormHelperText, InputLabel, NativeSelect } from "@mui/material";
-import RetroFormatOptions from "./RetroFormatOptions";
+import { RetroFormatOptions } from "./RetroFormatOptions";
 
 interface RetroFormatSelectProps {
   onFormatChange: Dispatch<SetStateAction<string>>;
   format: string;
 }
 
-export default function RetroFormatSelect({ onFormatChange, format }: RetroFormatSelectProps) {
+export function RetroFormatSelect({ onFormatChange, format }: RetroFormatSelectProps) {
   function handleChange(event: ChangeEvent<HTMLSelectElement>) {
     const newFormat = event.target.value;
     onFormatChange(newFormat);

@@ -2,12 +2,12 @@ import React from "react";
 import Typewriter from "typewriter-effect";
 import { Grid, Typography, useTheme } from "@mui/material";
 
-import PlanningPokerDialog from "./PlanningPokerDialog";
+import { PlanningPokerDialog } from "./PlanningPokerDialog";
 import { Hero } from "../../common/styled-components";
-import RedirectToRetroButton from "./RedirectToRetroButton";
+import { RedirectToRetroButton } from "./RedirectToRetroButton";
 import hero from "../assets/hero.jpg";
 
-export default function HomePage() {
+export function HomePage() {
   const theme = useTheme();
 
   return (

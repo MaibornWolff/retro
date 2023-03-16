@@ -24,7 +24,7 @@ function getValueText(value: number) {
   return `${value}`;
 }
 
-export default function VoteCountButton() {
+export function VoteCountButton() {
   const { retroState, handleChangeMaxVote, handleResetVotes } = useRetroContext();
   const { user } = useUserContext();
   const [open, setOpen] = useState(false);

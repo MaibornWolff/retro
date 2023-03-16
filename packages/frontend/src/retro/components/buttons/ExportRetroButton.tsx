@@ -6,7 +6,7 @@ import { useRetroContext } from "../../context/RetroContext";
 import { RetroSchemaV1 } from "../../types/retroSchema";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export default function ExportRetroButton() {
+export function ExportRetroButton() {
   const { user } = useUserContext();
   const { retroState } = useRetroContext();
 

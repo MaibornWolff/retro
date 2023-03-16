@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { useRetroContext } from "../../context/RetroContext";
-import TextInput from "../../../common/components/TextInput";
+import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { RetroColumn } from "../../types/retroTypes";
 import { DialogProps } from "../../../common/types/commonTypes";
@@ -11,7 +11,7 @@ interface EditColumnDialogProps extends DialogProps {
   column: RetroColumn;
 }
 
-export default function EditColumnDialog({ isOpen, close, column }: EditColumnDialogProps) {
+export function EditColumnDialog({ isOpen, close, column }: EditColumnDialogProps) {
   const {
     value: title,
     setValue: setTitle,

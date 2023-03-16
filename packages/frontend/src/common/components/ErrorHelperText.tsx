@@ -6,7 +6,7 @@ interface ErrorHelperTextProps {
   message?: string;
 }
 
-export default function ErrorHelperText({ isError, message }: ErrorHelperTextProps) {
+export function ErrorHelperText({ isError, message }: ErrorHelperTextProps) {
   if (!isError || !message) return null;
 
   return (

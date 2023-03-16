@@ -13,7 +13,7 @@ export interface ErrorContextValues {
 
 export const ErrorContext = React.createContext<ErrorContextValues>(undefined!);
 
-export default function ErrorContextProvider(props: ErrorContextProviderProps) {
+export function ErrorContextProvider(props: ErrorContextProviderProps) {
   const [error, setError] = useState<ErrorState | undefined>(undefined);
 
   const resetError = useCallback(() => {

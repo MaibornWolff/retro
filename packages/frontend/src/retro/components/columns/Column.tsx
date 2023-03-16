@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { Card } from "@mui/material";
 
-import Cards from "../cards/Cards";
-import ColumnHeader from "./column-header/ColumnHeader";
+import { Cards } from "../cards/Cards";
+import { ColumnHeader } from "./column-header/ColumnHeader";
 import { CardsContainerStyles, ColumnContainerStyles } from "../../../common/styled-components";
 import { RetroColumn } from "../../types/retroTypes";
 import { useUserContext } from "../../../common/context/UserContext";
@@ -22,7 +22,7 @@ interface ColumnProps {
   column: RetroColumn;
 }
 
-function Column({ column }: ColumnProps) {
+export function Column({ column }: ColumnProps) {
   const { user } = useUserContext();
 
   return (
@@ -52,5 +52,3 @@ function Column({ column }: ColumnProps) {
     </Draggable>
   );
 }
-
-export default Column;

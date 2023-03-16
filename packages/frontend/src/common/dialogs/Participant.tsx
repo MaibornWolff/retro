@@ -6,14 +6,14 @@ import { isModerator } from "../utils/participantsUtils";
 import { useUserContext } from "../context/UserContext";
 import { useDialog } from "../../retro/hooks/useDialog";
 import { User } from "../types/commonTypes";
-import TooltipIconButton from "../TooltipIconButton";
+import { TooltipIconButton } from "../TooltipIconButton";
 
 interface ParticipantProps {
   participant: User;
   handleKickUser: (userId: string) => void;
   handleTransferModeratorRole: (userId: string) => void;
 }
-export default function Participant({
+export function Participant({
   participant,
   handleKickUser,
   handleTransferModeratorRole,

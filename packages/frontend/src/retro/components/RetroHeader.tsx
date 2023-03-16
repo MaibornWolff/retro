@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, useTheme } from "@mui/material";
 import { useRetroContext } from "../context/RetroContext";
-import ToggleThemeButton from "../../common/components/buttons/ToggleThemeButton";
-import ShareSessionButton from "../../common/components/buttons/ShareSessionButton";
-import ParticipantsButton from "../../common/components/buttons/ParticipantsButton";
-import SettingsButton from "./buttons/SettingsButton";
+import { ToggleThemeButton } from "../../common/components/buttons/ToggleThemeButton";
+import { ShareSessionButton } from "../../common/components/buttons/ShareSessionButton";
+import { ParticipantsButton } from "../../common/components/buttons/ParticipantsButton";
+import { SettingsButton } from "./buttons/SettingsButton";
 
-export default function RetroHeader() {
+export function RetroHeader() {
   const {
     handleKickUser,
     handleAcceptJoinUser,

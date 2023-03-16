@@ -4,14 +4,14 @@ import { Cancel, CheckCircle, Person } from "@mui/icons-material";
 import { User } from "../types/commonTypes";
 import { useUserContext } from "../context/UserContext";
 import { isModerator } from "../utils/participantsUtils";
-import TooltipIconButton from "../TooltipIconButton";
+import { TooltipIconButton } from "../TooltipIconButton";
 
 interface WaitingUserProps {
   waitingUser: User;
   handleRejectJoinUser: (userId: string) => void;
   handleAcceptJoinUser: (userId: string) => void;
 }
-export default function WaitingUser({
+export function WaitingUser({
   waitingUser,
   handleRejectJoinUser,
   handleAcceptJoinUser,

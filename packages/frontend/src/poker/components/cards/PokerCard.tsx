@@ -13,7 +13,7 @@ interface PokerCardProps {
   DialogComponent?: React.ReactNode;
 }
 
-export default function PokerCard({
+export function PokerCard({
   styleProps,
   pokerUser,
   FooterComponent,

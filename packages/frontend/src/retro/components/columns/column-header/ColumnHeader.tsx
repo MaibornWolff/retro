@@ -1,16 +1,16 @@
 import React from "react";
 import { CardHeader, useTheme } from "@mui/material";
 
-import ColumnName from "../ColumnName";
-import ColumnMenu from "./ColumnMenu";
+import { ColumnName } from "../ColumnName";
+import { ColumnMenu } from "./ColumnMenu";
 import { RetroColumn } from "../../../types/retroTypes";
-import CreateCardButton from "./CreateCardButton";
+import { CreateCardButton } from "./CreateCardButton";
 
 interface ColumnHeaderProps {
   column: RetroColumn;
 }
 
-export default function ColumnHeader({ column }: ColumnHeaderProps) {
+export function ColumnHeader({ column }: ColumnHeaderProps) {
   const theme = useTheme();
 
   const { columnTitle } = column;

@@ -3,10 +3,10 @@ import React from "react";
 import { useDialog } from "../../../retro/hooks/useDialog";
 import { useUserContext } from "../../context/UserContext";
 import { useNamespace } from "../../hooks/useNamespace";
-import CreatePokerSessionDialog from "../../../poker/components/dialogs/CreatePokerSessionDialog";
-import CreateRetroSessionDialog from "../../../retro/components/dialogs/CreateRetroSessionDialog";
+import { CreatePokerSessionDialog } from "../../../poker/components/dialogs/CreatePokerSessionDialog";
+import { CreateRetroSessionDialog } from "../../../retro/components/dialogs/CreateRetroSessionDialog";
 
-export default function CreateSessionButton() {
+export function CreateSessionButton() {
   const { isOpen, closeDialog, openDialog } = useDialog(true);
   const { user } = useUserContext();
   const theme = useTheme();

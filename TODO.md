@@ -12,10 +12,9 @@
 - option to auto allow all / auto reject
 - fix light theme and use a proper primary color?
 - add commit and branch name linting
+- add semantic release
 
 # Refactorings
-
-- change all "export default" to "export"
 
 # Follow-Up
 
