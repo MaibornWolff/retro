@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { io, Socket } from "socket.io-client";
-import { backendUrl } from "./usePeerToPeer";
 import { useNamespace } from "./useNamespace";
 import { ClientToServerEvents, ServerToClientEvents } from "@shared/socket";
 import { useUserContext } from "../context/UserContext";
 import { useRoomContext } from "../context/RoomContext";
+import { configuration } from "@shared/configuration";
 
 export function useSocket() {
   const { user } = useUserContext();
@@ -12,6 +12,7 @@ export function useSocket() {
   const socketNamespace = useNamespace();
 
   const socket = useMemo(() => {
+    const backendUrl = configuration.backendUrl.url;
     console.debug(`Established socket connection with: ${backendUrl}`);
     return io(`${backendUrl}/${socketNamespace}`) as Socket<
       ServerToClientEvents,

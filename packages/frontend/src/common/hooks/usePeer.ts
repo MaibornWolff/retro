@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import Peer from "peerjs";
 import { useUserContext } from "../context/UserContext";
+import { configuration } from "@shared/configuration";
 
 const peerOptions = {
-  host: "localhost",
-  port: 3002,
+  host: configuration.signalingServerUrl.host,
+  port: configuration.signalingServerUrl.port,
 };
 
 export function usePeer() {

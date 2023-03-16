@@ -1,4 +1,4 @@
-import { backendUrl } from "../hooks/usePeerToPeer";
+import { configuration } from "@shared/configuration";
 
 interface RoomIdExistsOptions {
   roomId?: string;
@@ -7,6 +7,6 @@ interface RoomIdExistsOptions {
 
 export async function roomIdExists({ roomId, namespace }: RoomIdExistsOptions): Promise<boolean> {
   if (!roomId) return false;
-  const response = await fetch(backendUrl + `/${namespace}/rooms/${roomId}`);
+  const response = await fetch(`${configuration.backendUrl.url}/${namespace}/rooms/${roomId}`);
   return response.status === 200;
 }
