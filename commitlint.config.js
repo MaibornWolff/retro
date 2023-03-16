@@ -4,7 +4,7 @@ module.exports = {
 
   parserPreset: {
     parserOpts: {
-      issuePrefixes: ["ABC-", "#"],
+      issuePrefixes: ["#"],
     },
   },
 };
