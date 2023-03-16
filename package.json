@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "build": "nx run-many --targets=build --all",
+    "watch": "nx run-many --targets=build:watch --all",
     "frontend:dev": "nx start frontend",
     "backend:dev": "nx dev backend",
-    "build:shared": "nx run-many --targets=build --all",
-    "watch:shared": "nx run-many --targets=build:watch --all",
     "e2e": "npx playwright test",
     "e2e:headed": "npx playwright test --headed",
     "e2e:debug": "npx playwright test --debug",
