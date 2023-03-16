@@ -1,7 +1,7 @@
 import { BrowserContext, Page } from "@playwright/test";
 
 export async function setupRetroPage(page: Page) {
-  await page.goto("http://localhost:3000/", { timeout: 60000 });
+  await page.goto("/");
   await page.getByRole("button", { name: "Retrospective" }).click();
   const inputs = await page.getByRole("textbox").all();
   await inputs[0]?.fill("User 1");
@@ -19,7 +19,7 @@ export async function joinNewUser(urlWithRoomId: string, context: BrowserContext
 }
 
 export async function setupPokerPage(page: Page) {
-  await page.goto("http://localhost:3000/", { timeout: 60000 });
+  await page.goto("/");
   await page.getByRole("button", { name: "Planning Poker" }).click();
   await page.getByRole("button", { name: "Start" }).click();
   await page.getByLabel("Name").fill("User 1");
