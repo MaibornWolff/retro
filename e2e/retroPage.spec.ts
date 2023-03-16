@@ -1,20 +1,5 @@
 import { expect, test } from "@playwright/test";
-import {
-  acceptUser,
-  isChromium,
-  joinNewUser,
-  rejectUser,
-  setupRetroPage,
-  transferModeratorRole,
-} from "./testUtils";
-
-test.beforeEach(async ({ page }) => {
-  await page.goto("/");
-});
-
-test.afterEach(async ({ page }) => {
-  await page.close();
-});
+import { joinNewUser, setupRetroPage } from "./testUtils";
 
 test("should have all required elements as moderator", async ({ page }) => {
   await setupRetroPage(page);
@@ -33,31 +18,21 @@ test("should have all required elements as moderator", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "New Column" })).toBeVisible();
 });
 
-test("should accept user and show required elements as participant", async ({
-  context,
-  page,
-  browserName,
-}) => {
+test("should accept user and show required elements as participant", async ({ context, page }) => {
+  const newUser = "User 2";
   await setupRetroPage(page);
 
-  await page.getByText("Share Session").click();
-  const urlWithRoomId: string = isChromium(browserName)
-    ? await page.evaluate("navigator.clipboard.readText()")
-    : page.url();
+  const urlWithRoomId: string = page.url();
+  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
 
-  const newPage = await joinNewUser(urlWithRoomId, context, "User1");
+  await page.getByRole("button", { name: "Participants" }).click();
 
-  const waitingForApprovalLocator = newPage.getByRole("heading", {
-    name: "Waiting for approval...",
-  });
+  await page
+    .getByRole("listitem")
+    .filter({ hasText: newUser })
+    .getByRole("button", { name: "Accept User" })
+    .click();
 
-  await page.getByText("Participants").click();
-
-  const participantsDialog = page.getByRole("heading", { name: "Waiting for approval" });
-  await Promise.all([participantsDialog.waitFor({ state: "visible" }), acceptUser(page)]);
-  await Promise.all([waitingForApprovalLocator.waitFor({ state: "hidden" })]);
-
-  await expect(waitingForApprovalLocator).not.toBeVisible();
   await expect(newPage.getByRole("button", { name: "Blur Board" })).not.toBeVisible();
   await expect(newPage.getByRole("button", { name: "Add Column" })).not.toBeVisible();
   await expect(newPage.getByRole("heading", { name: "Test Session" })).toBeVisible();
@@ -66,46 +41,69 @@ test("should accept user and show required elements as participant", async ({
   await expect(newPage.getByRole("heading", { name: "Action Items" })).toBeVisible();
 });
 
-test("should reject user and show error page", async ({ context, page, browserName }) => {
+test("should reject user and show error page", async ({ context, page }) => {
+  const newUser = "User 2";
   await setupRetroPage(page);
 
-  await page.getByText("Share Session").click();
-  const urlWithRoomId: string = isChromium(browserName)
-    ? await page.evaluate("navigator.clipboard.readText()")
-    : page.url();
+  const urlWithRoomId: string = page.url();
+  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
 
-  const newPage = await joinNewUser(urlWithRoomId, context, "User1");
+  await page.getByRole("button", { name: "Participants" }).click();
+  await page
+    .getByRole("listitem")
+    .filter({ hasText: newUser })
+    .getByRole("button", { name: "Reject User" })
+    .click();
 
-  await page.getByText("Participants").click();
-  const participantsDialog = page.getByRole("heading", { name: "Waiting for approval" });
-  await Promise.all([participantsDialog.waitFor({ state: "visible" }), rejectUser(page)]);
-
+  await expect(page.getByRole("listitem", { name: newUser })).not.toBeVisible();
   await expect(newPage.getByRole("heading", { name: "Test Session" })).not.toBeVisible();
-  await expect(newPage.getByText("You were disconnected from the session.")).toBeVisible();
+  await expect(newPage.getByText("Your join request has been rejected.")).toBeVisible();
   expect(newPage.url()).toContain("error");
 });
 
-test("should accept user and transfer moderator role", async ({ context, page, browserName }) => {
+test("should kick user and show error page", async ({ context, page }) => {
+  const newUser = "User 2";
   await setupRetroPage(page);
 
-  await page.getByText("Share Session").click();
-  const urlWithRoomId: string = isChromium(browserName)
-    ? await page.evaluate("navigator.clipboard.readText()")
-    : page.url();
+  const urlWithRoomId: string = page.url();
+  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
+  await page.getByRole("button", { name: "Participants" }).click();
 
-  const newPage = await joinNewUser(urlWithRoomId, context, "User1");
+  await page
+    .getByRole("listitem")
+    .filter({ hasText: newUser })
+    .getByRole("button", { name: "Accept User" })
+    .click();
+  await page
+    .getByRole("listitem")
+    .filter({ hasText: newUser })
+    .getByRole("button", { name: "Kick user" })
+    .click();
 
-  const waitingForApprovalLocator = newPage.getByRole("heading", {
-    name: "Waiting for approval...",
-  });
+  await expect(page.getByRole("listitem", { name: newUser })).not.toBeVisible();
+  await expect(newPage.getByRole("heading", { name: "Test Session" })).not.toBeVisible();
+  await expect(newPage.getByText("You have been removed from the session.")).toBeVisible();
+  expect(newPage.url()).toContain("error");
+});
 
-  await page.getByText("Participants").click();
+test("should accept user and transfer moderator role", async ({ context, page }) => {
+  const newUser = "User 2";
+  await setupRetroPage(page);
 
-  const participantsDialog = page.getByRole("heading", { name: "Waiting for approval" });
-  await Promise.all([participantsDialog.waitFor({ state: "visible" }), acceptUser(page)]);
-  await Promise.all([waitingForApprovalLocator.waitFor({ state: "hidden" })]);
+  const urlWithRoomId: string = page.url();
+  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
 
-  await Promise.all([participantsDialog.waitFor({ state: "hidden" }), transferModeratorRole(page)]);
+  await page.getByRole("button", { name: "Participants" }).click();
+  await page
+    .getByRole("listitem")
+    .filter({ hasText: newUser })
+    .getByRole("button", { name: "Accept User" })
+    .click();
+  await page
+    .getByRole("listitem")
+    .filter({ hasText: newUser })
+    .getByRole("button", { name: "Transfer Moderator Role" })
+    .click();
   await page.getByRole("button", { name: "Yes, transfer" }).click();
   await page.getByRole("button", { name: "Close" }).click();
 

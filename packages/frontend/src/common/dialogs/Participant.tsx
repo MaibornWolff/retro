@@ -54,7 +54,7 @@ export default function Participant({
               </TooltipIconButton>
               <TooltipIconButton
                 color="error"
-                aria-label="Kick user"
+                aria-label="Kick User"
                 onClick={handleKickUserClick}
                 disabled={isModerator(participant)}
                 tooltipText="Kick User"

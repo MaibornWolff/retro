@@ -92,7 +92,6 @@ export function usePeerToPeer<T, E extends BaseAction>({
     connectedUserId: string;
   }) {
     if (!peer) return;
-
     console.debug("New user connected", {
       connectedUserIds,
       connectedUserId,
@@ -105,7 +104,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
       return;
     }
 
-    const newConnections = unconnectedUserIds.map((id) => peer.connect(id));
+    const newConnections = unconnectedUserIds.map((id) => peer.connect(id, { reliable: true }));
 
     console.debug("Peer-Connections established with users:", unconnectedUserIds);
     addPeerConnection(newConnections);
@@ -186,8 +185,13 @@ export function usePeerToPeer<T, E extends BaseAction>({
       });
     });
 
+    peer?.on("error", (error) => {
+      console.debug("Peer Connection Error: ", error);
+    });
+
     return () => {
       peer?.off("connection");
+      peer?.off("error");
     };
   });
 
