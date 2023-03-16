@@ -26,8 +26,8 @@ export default defineConfig({
   webServer: [
     {
       command: "npm run frontend:dev",
-      port: 3000,
       timeout: 120 * 1000,
+      url: "http://localhost:3000/",
       reuseExistingServer: !process.env.CI,
     },
     {
