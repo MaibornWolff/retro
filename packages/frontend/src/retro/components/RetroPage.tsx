@@ -30,6 +30,7 @@ export default function RetroPage() {
   const theme = useTheme();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
+  // why is this triggered when we join the session using isAutoAllowActivated: true?
   useFirstWaitingUser({ waitingList: retroState.waitingList, onFirstUserWaiting: showSnackbar });
 
   useEffect(() => {

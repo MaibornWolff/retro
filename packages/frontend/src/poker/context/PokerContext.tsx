@@ -17,7 +17,7 @@ import {
 } from "../../common/types/peerToPeerTypes";
 import { useSyncUser } from "../../common/hooks/useSyncUser";
 import { useUserContext } from "../../common/context/UserContext";
-import { ErrorState } from "../../common/types/commonTypes";
+import { ErrorState, User } from "../../common/types/commonTypes";
 
 interface PokerContextProviderProps {
   children?: React.ReactNode;
@@ -39,6 +39,7 @@ export interface PokerContextValues {
   handleRejectJoinUser: (userId: string) => void;
   handleAcceptJoinUser: (userId: string) => void;
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
+  handleJoinRoom: ({ user, roomId }: { user: User; roomId: string }) => void;
 }
 
 const initialState: PokerState = {
@@ -54,6 +55,7 @@ const initialState: PokerState = {
   showResults: false,
   waitingList: {},
   votes: {},
+  isAutoAllowActivated: true,
 };
 
 export const PokerContext = React.createContext<PokerContextValues>(undefined!);
@@ -64,7 +66,7 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
 
   useSyncUser(state.participants);
 
-  const { broadcastAction, sendAction, rejectJoinUser, acceptJoinUser } = usePeerToPeer<
+  const { broadcastAction, sendAction, rejectJoinUser, acceptJoinUser, joinRoom } = usePeerToPeer<
     PokerState,
     PokerAction
   >({
@@ -158,6 +160,7 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     handleAddToWaitingList,
     handleRejectJoinUser: rejectJoinUser,
     handleAcceptJoinUser: acceptJoinUser,
+    handleJoinRoom: joinRoom,
   };
 
   return <PokerContext.Provider value={value}>{props.children}</PokerContext.Provider>;

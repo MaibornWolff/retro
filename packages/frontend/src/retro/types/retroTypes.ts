@@ -26,6 +26,7 @@ export interface RetroState {
   highlightedCardId?: string;
   participants: UserByUserId;
   waitingList: UserByUserId;
+  isAutoAllowActivated: boolean;
 }
 
 export type VotesByUserId = Record<string, number>;

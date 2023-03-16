@@ -142,7 +142,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     });
 
     socket.on("acceptedJoinRequest", ({ userId }) => {
-      if (userId === user.id) emitJoinRoom();
+      if (userId === user.id) emitJoinRoom({ roomId, user });
     });
 
     socket.on("rejectedJoinRequest", ({ userId }) => {
@@ -203,7 +203,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
       return;
     }
     if (isModerator(user)) {
-      emitJoinRoom();
+      emitJoinRoom({ roomId, user });
     } else {
       emitRequestJoinRoom();
     }
@@ -215,5 +215,6 @@ export function usePeerToPeer<T, E extends BaseAction>({
     sendAction,
     rejectJoinUser: emitRejectJoinUser,
     acceptJoinUser: emitAcceptJoinUser,
+    joinRoom: emitJoinRoom,
   };
 }

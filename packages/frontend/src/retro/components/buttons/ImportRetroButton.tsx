@@ -24,7 +24,12 @@ export default function ImportRetroButton() {
 
     const retroJson = await file.text();
     const importedRetro: RetroSchemaV1 = JSON.parse(retroJson);
-    const retro: RetroState = { ...importedRetro, participants: {}, waitingList: {} };
+    const retro: RetroState = {
+      ...importedRetro,
+      participants: {},
+      waitingList: {},
+      isAutoAllowActivated: false,
+    };
     handleSetRetroState(retro);
   }
 
