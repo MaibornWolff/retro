@@ -1,15 +1,15 @@
 import React from "react";
 import { Add } from "@mui/icons-material";
 import { RetroColumn } from "../../../types/retroTypes";
-import CreateCardDialog from "../../dialogs/CreateCardDialog";
+import { CreateCardDialog } from "../../dialogs/CreateCardDialog";
 import { useDialog } from "../../../hooks/useDialog";
-import TooltipIconButton from "../../../../common/TooltipIconButton";
+import { TooltipIconButton } from "../../../../common/TooltipIconButton";
 
 interface CreateCardButtonProps {
   column: RetroColumn;
 }
 
-export default function CreateCardButton({ column }: CreateCardButtonProps) {
+export function CreateCardButton({ column }: CreateCardButtonProps) {
   const { isOpen, closeDialog, openDialog } = useDialog();
 
   return (

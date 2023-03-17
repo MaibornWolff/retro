@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import { usePokerContext } from "../../context/PokerContext";
-import PokerCard from "./PokerCard";
+import { PokerCard } from "./PokerCard";
 import { User } from "../../../common/types/commonTypes";
 
 function getTShirtSizeFromValue(value?: number): string | undefined {
@@ -15,7 +15,7 @@ interface PokerCardBackProps {
   userVote?: number;
 }
 
-export default function PokerCardBack({ styleProps, pokerUser, userVote }: PokerCardBackProps) {
+export function PokerCardBack({ styleProps, pokerUser, userVote }: PokerCardBackProps) {
   const { pokerState } = usePokerContext();
   const pokerUnitType = pokerState.pokerUnit.unitType;
 

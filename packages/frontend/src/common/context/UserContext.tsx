@@ -19,7 +19,7 @@ export interface UserContextValues {
 
 export const UserContext = React.createContext<UserContextValues>(undefined!);
 
-export default function UserContextProvider(props: UserContextProviderProps) {
+export function UserContextProvider(props: UserContextProviderProps) {
   const [user, setUser] = useState(initialUserState);
 
   const resetUser = useCallback(() => {

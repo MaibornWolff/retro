@@ -2,19 +2,19 @@ import React from "react";
 import { CardActions } from "@mui/material";
 import { HowToVote } from "@mui/icons-material";
 
-import PokerVoteDialog from "../dialogs/PokerVoteDialog";
-import PokerCard from "./PokerCard";
+import { PokerVoteDialog } from "../dialogs/PokerVoteDialog";
+import { PokerCard } from "./PokerCard";
 import { User } from "../../../common/types/commonTypes";
 import { useDialog } from "../../../retro/hooks/useDialog";
 import { useUserContext } from "../../../common/context/UserContext";
-import TooltipIconButton from "../../../common/TooltipIconButton";
+import { TooltipIconButton } from "../../../common/TooltipIconButton";
 
 interface PokerCardFrontProps {
   styleProps: { backgroundColor: string };
   pokerUser: User;
 }
 
-export default function PokerCardFront({ styleProps, pokerUser }: PokerCardFrontProps) {
+export function PokerCardFront({ styleProps, pokerUser }: PokerCardFrontProps) {
   const { isOpen, closeDialog, openDialog } = useDialog(false);
   const { user } = useUserContext();
 

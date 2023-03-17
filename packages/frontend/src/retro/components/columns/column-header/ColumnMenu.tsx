@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { MoreVert } from "@mui/icons-material";
 import { IconButton, Menu } from "@mui/material";
 
-import SortColumnMenuItem from "./SortColumnMenuItem";
-import EditColumnMenuItem from "./EditColumnMenuItem";
-import DeleteColumnMenuItem from "./DeleteColumnMenuItem";
-import BlurColumnMenuItem from "./BlurColumnMenuItem";
+import { SortColumnMenuItem } from "./SortColumnMenuItem";
+import { EditColumnMenuItem } from "./EditColumnMenuItem";
+import { DeleteColumnMenuItem } from "./DeleteColumnMenuItem";
+import { BlurColumnMenuItem } from "./BlurColumnMenuItem";
 import { RetroColumn } from "../../../types/retroTypes";
 import { useUserContext } from "../../../../common/context/UserContext";
 import { isModerator } from "../../../../common/utils/participantsUtils";
@@ -14,7 +14,7 @@ interface ColumnMenuProps {
   column: RetroColumn;
 }
 
-function ColumnMenu({ column }: ColumnMenuProps) {
+export function ColumnMenu({ column }: ColumnMenuProps) {
   const [anchorEl, setAnchorEl] = useState(null);
   const { user } = useUserContext();
 
@@ -57,5 +57,3 @@ function ColumnMenu({ column }: ColumnMenuProps) {
     </>
   );
 }
-
-export default ColumnMenu;

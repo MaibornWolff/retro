@@ -15,7 +15,7 @@ import {
 import { useDialog } from "../../hooks/useDialog";
 import { useFullscreen } from "../../hooks/useFullscreen";
 
-export default function QrCodeButton() {
+export function QrCodeButton() {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const qrCanvas = useRef<HTMLCanvasElement>(null);
   const fullScreen = useFullscreen();

@@ -12,10 +12,10 @@ import { usePokerContext } from "../../context/PokerContext";
 import { useUserContext } from "../../../common/context/UserContext";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
-import TextInput from "../../../common/components/TextInput";
+import { TextInput } from "../../../common/components/TextInput";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export default function PokerStoryButton() {
+export function PokerStoryButton() {
   const { handleSetUserStory } = usePokerContext();
   const { user } = useUserContext();
   const [open, setOpen] = useState(false);

@@ -38,7 +38,7 @@ const darkTheme = createTheme({
 
 export const ColorThemeContext = React.createContext<ColorThemeContextValues>(undefined!);
 
-export default function ColorThemeContextProvider(props: Props) {
+export function ColorThemeContextProvider(props: Props) {
   const [currentTheme, setCurrentTheme] = useState(darkTheme);
 
   function setDarkTheme() {

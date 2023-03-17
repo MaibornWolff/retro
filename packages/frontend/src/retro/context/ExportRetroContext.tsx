@@ -10,7 +10,7 @@ export interface ExportRetroContextValues {
 
 export const ExportRetroContext = React.createContext<ExportRetroContextValues>(undefined!);
 
-export default function ExportRetroContextProvider(props: ExportRetroContextProviderProps) {
+export function ExportRetroContextProvider(props: ExportRetroContextProviderProps) {
   const boardRef = useRef<HTMLDivElement>(null);
 
   const value: ExportRetroContextValues = {

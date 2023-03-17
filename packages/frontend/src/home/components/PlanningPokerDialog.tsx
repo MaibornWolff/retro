@@ -13,7 +13,7 @@ import { Casino } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useFullscreen } from "../../retro/hooks/useFullscreen";
 
-export default function PlanningPokerDialog() {
+export function PlanningPokerDialog() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();

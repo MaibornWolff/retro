@@ -5,14 +5,14 @@ import { useRetroContext } from "../../context/RetroContext";
 import { RetroCard } from "../../types/retroTypes";
 import { useUserContext } from "../../../common/context/UserContext";
 import { isCardVotedByUser } from "../../utils/cardUtils";
-import CardActionButton from "./CardActionButton";
+import { CardActionButton } from "./CardActionButton";
 
 interface RemoveUpvoteItemButtonProps extends IconButtonProps {
   card: RetroCard;
   columnIndex: number;
 }
 
-export default function RemoveUpvoteCardButton({
+export function RemoveUpvoteCardButton({
   columnIndex,
   card,
   ...props

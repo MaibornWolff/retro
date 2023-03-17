@@ -13,7 +13,7 @@ import { usePokerContext } from "../../context/PokerContext";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export default function PokerResetButton() {
+export function PokerResetButton() {
   const { user } = useUserContext();
   const [open, setOpen] = useState(false);
   const { handleResetUserStory, pokerState } = usePokerContext();

@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import TextInput from "../../../common/components/TextInput";
+import { TextInput } from "../../../common/components/TextInput";
 import { generateId } from "../../../common/utils/generateId";
 import { RetroColumn } from "../../types/retroTypes";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";

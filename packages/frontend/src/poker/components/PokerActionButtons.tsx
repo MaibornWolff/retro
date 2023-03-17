@@ -3,12 +3,12 @@ import { Grid, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { usePokerContext } from "../context/PokerContext";
-import SetupSessionButton from "../../common/components/buttons/SetupSessionButton";
-import PokerStoryButton from "./buttons/PokerStoryButton";
-import PokerResetButton from "./buttons/PokerResetButton";
-import PokerResultButton from "./buttons/PokerResultButton";
+import { SetupSessionButton } from "../../common/components/buttons/SetupSessionButton";
+import { PokerStoryButton } from "./buttons/PokerStoryButton";
+import { PokerResetButton } from "./buttons/PokerResetButton";
+import { PokerResultButton } from "./buttons/PokerResultButton";
 
-export default function PokerActionButtons() {
+export function PokerActionButtons() {
   const theme = useTheme();
   const navigate = useNavigate();
   const roomId = useRoomIdFromPath();

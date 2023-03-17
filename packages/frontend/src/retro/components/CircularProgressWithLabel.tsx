@@ -7,7 +7,7 @@ function normalise(value: number, min = 0, max: number) {
   return ((value - min) * 100) / (max - min);
 }
 
-export default function CircularProgressWithLabel() {
+export function CircularProgressWithLabel() {
   const { retroState } = useRetroContext();
   const { maxVoteCount } = retroState;
   const votesLeft = useVotesLeft();

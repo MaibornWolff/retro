@@ -19,7 +19,7 @@ function valueText(value: number) {
   return `${value}`;
 }
 
-export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
+export function PokerVoteDialog({ isOpen, close }: DialogProps) {
   const [vote, setVote] = useState<number>(0);
   const fullScreen = useFullscreen();
   const { pokerState, handleSendVote } = usePokerContext();

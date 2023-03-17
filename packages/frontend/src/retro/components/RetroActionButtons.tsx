@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { useRetroContext } from "../context/RetroContext";
 import { useUserContext } from "../../common/context/UserContext";
-import SetupSessionButton from "../../common/components/buttons/SetupSessionButton";
-import ToggleRetroBlurButton from "./buttons/ToggleRetroBlurButton";
-import CreateColumnButton from "./buttons/CreateColumnButton";
+import { SetupSessionButton } from "../../common/components/buttons/SetupSessionButton";
+import { ToggleRetroBlurButton } from "./buttons/ToggleRetroBlurButton";
+import { CreateColumnButton } from "./buttons/CreateColumnButton";
 
-export default function RetroActionButtons() {
+export function RetroActionButtons() {
   const { user } = useUserContext();
   const navigate = useNavigate();
   const roomId = useRoomIdFromPath();

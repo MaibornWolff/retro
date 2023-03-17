@@ -1,5 +1,5 @@
 import React from "react";
-import WaitingUser from "./WaitingUser";
+import { WaitingUser } from "./WaitingUser";
 import { UserByUserId } from "../../retro/types/retroTypes";
 
 interface WaitingListProps {

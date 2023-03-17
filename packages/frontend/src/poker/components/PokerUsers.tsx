@@ -1,9 +1,9 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import PokerUser from "./PokerUser";
+import { PokerUser } from "./PokerUser";
 import { usePokerContext } from "../context/PokerContext";
 
-export default function PokerUsers() {
+export function PokerUsers() {
   const { pokerState } = usePokerContext();
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">

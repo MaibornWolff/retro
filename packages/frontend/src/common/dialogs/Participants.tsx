@@ -1,5 +1,5 @@
 import React from "react";
-import Participant from "./Participant";
+import { Participant } from "./Participant";
 import { UserByUserId } from "../../retro/types/retroTypes";
 
 interface ParticipantsProps {
@@ -8,7 +8,7 @@ interface ParticipantsProps {
   handleTransferModeratorRole: (userId: string) => void;
 }
 
-export default function Participants({
+export function Participants({
   participants,
   handleKickUser,
   handleTransferModeratorRole,

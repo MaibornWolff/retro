@@ -6,7 +6,7 @@ import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export default function ToggleRetroBlurButton() {
+export function ToggleRetroBlurButton() {
   const { handleToggleRetroBlur, retroState } = useRetroContext();
   const { isBlurred } = retroState;
   const { user } = useUserContext();

@@ -4,12 +4,12 @@ import { AppBar, Toolbar, Typography, useTheme } from "@mui/material";
 
 import { useUserContext } from "../../common/context/UserContext";
 import { usePokerContext } from "../context/PokerContext";
-import ToggleThemeButton from "../../common/components/buttons/ToggleThemeButton";
-import ShareSessionButton from "../../common/components/buttons/ShareSessionButton";
-import ParticipantsButton from "../../common/components/buttons/ParticipantsButton";
-import PokerSettingsButton from "./buttons/PokerSettingsButton";
+import { ToggleThemeButton } from "../../common/components/buttons/ToggleThemeButton";
+import { ShareSessionButton } from "../../common/components/buttons/ShareSessionButton";
+import { ParticipantsButton } from "../../common/components/buttons/ParticipantsButton";
+import { PokerSettingsButton } from "./buttons/PokerSettingsButton";
 
-export default function PokerHeader() {
+export function PokerHeader() {
   const { user } = useUserContext();
   const theme = useTheme();
   const {

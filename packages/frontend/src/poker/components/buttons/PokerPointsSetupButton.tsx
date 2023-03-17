@@ -27,7 +27,7 @@ function getValueText(value: number) {
   return `${value}`;
 }
 
-const PokerPointsSetupButton = React.forwardRef((_props: any, ref: any) => {
+export const PokerPointsSetupButton = React.forwardRef((_props: any, ref: any) => {
   const [open, setOpen] = useState(false);
   const { user } = useUserContext();
   const { pokerState, handleSetPokerUnit } = usePokerContext();
@@ -127,5 +127,3 @@ const PokerPointsSetupButton = React.forwardRef((_props: any, ref: any) => {
     </>
   );
 });
-
-export default PokerPointsSetupButton;

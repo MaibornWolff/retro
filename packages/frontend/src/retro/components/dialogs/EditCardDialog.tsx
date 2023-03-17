@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { useRetroContext } from "../../context/RetroContext";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
-import TextInput from "../../../common/components/TextInput";
+import { TextInput } from "../../../common/components/TextInput";
 import { RetroCard } from "../../types/retroTypes";
 import { DialogProps } from "../../../common/types/commonTypes";
 import { useFullscreen } from "../../hooks/useFullscreen";
@@ -12,7 +12,7 @@ interface EditCardDialogProps extends DialogProps {
   columnIndex: number;
 }
 
-export default function EditCardDialog({ isOpen, close, card, columnIndex }: EditCardDialogProps) {
+export function EditCardDialog({ isOpen, close, card, columnIndex }: EditCardDialogProps) {
   const {
     value: content,
     setValue: setContent,

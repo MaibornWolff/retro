@@ -1,11 +1,11 @@
 import React from "react";
 
-import Column from "./Column";
+import { Column } from "./Column";
 import { Droppable } from "react-beautiful-dnd";
 import { FlexContainer } from "../../../common/styled-components";
 import { useRetroContext } from "../../context/RetroContext";
 
-function Columns() {
+export function Columns() {
   const { retroState } = useRetroContext();
 
   return (
@@ -21,5 +21,3 @@ function Columns() {
     </Droppable>
   );
 }
-
-export default Columns;

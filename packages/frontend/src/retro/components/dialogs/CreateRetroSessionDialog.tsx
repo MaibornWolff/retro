@@ -11,17 +11,17 @@ import {
   useTheme,
 } from "@mui/material";
 
-import RetroFormatSelect from "../RetroFormatSelect";
+import { RetroFormatSelect } from "../RetroFormatSelect";
 import { defaultFormat } from "../../config/formatConfig";
 import { useUserContext } from "../../../common/context/UserContext";
 import { useRetroContext } from "../../context/RetroContext";
 import { DialogProps, User } from "../../../common/types/commonTypes";
 import { generateId } from "../../../common/utils/generateId";
-import TextInput from "../../../common/components/TextInput";
+import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRoomContext } from "../../../common/context/RoomContext";
 
-export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
+export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const {
     value: title,
     setValue: setTitle,

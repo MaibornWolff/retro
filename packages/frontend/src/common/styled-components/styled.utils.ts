@@ -6,7 +6,7 @@ const sizes: any = {
   phone: 576,
 };
 
-const media = Object.keys(sizes).reduce<
+export const media = Object.keys(sizes).reduce<
   Record<keyof typeof sizes, (l: TemplateStringsArray, ...p: any[]) => string>
 >((acc: any, label: any) => {
   acc[label] = (literals: TemplateStringsArray, ...placeholders: any[]) =>
@@ -17,5 +17,3 @@ const media = Object.keys(sizes).reduce<
     `.join("");
   return acc;
 }, {});
-
-export default media;

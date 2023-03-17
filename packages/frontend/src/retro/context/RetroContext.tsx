@@ -80,7 +80,7 @@ export interface RetroContextValues {
 
 export const RetroContext = React.createContext<RetroContextValues>(undefined!);
 
-export default function RetroContextProvider(props: RetroContextProviderProps) {
+export function RetroContextProvider(props: RetroContextProviderProps) {
   const [state, dispatch] = useReducer(retroReducer, initialState);
   const { user } = useUserContext();
   const { setError } = useErrorContext();

@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { useUserContext } from "../../common/context/UserContext";
-import CircularProgressWithLabel from "./CircularProgressWithLabel";
+import { CircularProgressWithLabel } from "./CircularProgressWithLabel";
 
-export default function VoteProgress() {
+export function VoteProgress() {
   const { user } = useUserContext();
 
   if (!user.id) return null;

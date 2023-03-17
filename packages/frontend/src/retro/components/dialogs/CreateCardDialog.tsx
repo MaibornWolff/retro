@@ -5,7 +5,7 @@ import { RetroCard } from "../../types/retroTypes";
 import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
 import { generateId } from "../../../common/utils/generateId";
-import TextInput from "../../../common/components/TextInput";
+import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { DialogProps } from "../../../common/types/commonTypes";
 import { useFullscreen } from "../../hooks/useFullscreen";
@@ -14,7 +14,7 @@ interface CreateCardDialogProps extends DialogProps {
   columnIndex: number;
 }
 
-export default function CreateCardDialog({ isOpen, close, columnIndex }: CreateCardDialogProps) {
+export function CreateCardDialog({ isOpen, close, columnIndex }: CreateCardDialogProps) {
   const {
     value: content,
     setValue: setContent,

@@ -2,7 +2,7 @@ import React from "react";
 import isEmpty from "lodash/isEmpty";
 import { Grid } from "@mui/material";
 
-import Card from "./Card";
+import { Card } from "./Card";
 import { RetroColumn } from "../../types/retroTypes";
 import { useUserContext } from "../../../common/context/UserContext";
 
@@ -10,7 +10,7 @@ interface ItemsProps {
   column: RetroColumn;
 }
 
-function Cards({ column }: ItemsProps) {
+function _Cards({ column }: ItemsProps) {
   const { user } = useUserContext();
   if (isEmpty(column.cards)) return null;
   function renderItem() {
@@ -31,4 +31,4 @@ function Cards({ column }: ItemsProps) {
   );
 }
 
-export default React.memo(Cards);
+export const Cards = React.memo(_Cards);

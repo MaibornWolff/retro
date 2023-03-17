@@ -6,7 +6,7 @@ import { CreateColumnDialog } from "../dialogs/CreateColumnDialog";
 import { useDialog } from "../../hooks/useDialog";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export default function CreateColumnButton() {
+export function CreateColumnButton() {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { user } = useUserContext();
   if (!isModerator(user)) return null;

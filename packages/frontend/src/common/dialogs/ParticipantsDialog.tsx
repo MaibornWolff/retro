@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { isEmpty } from "lodash";
 import { DialogProps } from "../types/commonTypes";
-import Participants from "./Participants";
+import { Participants } from "./Participants";
 import { UserByUserId } from "../../retro/types/retroTypes";
 import { WaitingList } from "./WaitingList";
 
