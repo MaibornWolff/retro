@@ -7,7 +7,7 @@ interface RoomIdExistsOptions {
 
 export async function roomIdExists({ roomId, namespace }: RoomIdExistsOptions): Promise<boolean> {
   if (!roomId) return false;
-  const backendUrl: string = configuration.backendUrl.url;
+  const backendUrl = configuration.backendUrl.url;
   const response = await fetch(`${backendUrl}/${namespace}/rooms/${roomId}`);
   return response.status === 200;
 }

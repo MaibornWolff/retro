@@ -12,7 +12,7 @@ export function useSocket() {
   const socketNamespace = useNamespace();
 
   const socket = useMemo(() => {
-    const backendUrl: string = configuration.backendUrl.url;
+    const backendUrl = configuration.backendUrl.url;
     console.debug(`Established socket connection with: ${backendUrl}`);
     return io(`${backendUrl}/${socketNamespace}`) as Socket<
       ServerToClientEvents,
