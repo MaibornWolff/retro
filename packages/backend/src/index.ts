@@ -13,9 +13,11 @@ const server = setupServer();
 const signalingServer = setupSignalingServer();
 
 server.listen(serverPort, () => {
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   logger.info(`Server running on port ${serverPort}`);
 });
 
 signalingServer.listen(signalingServerPort, () => {
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   logger.info(`Signaling server running on port ${signalingServerPort}`);
 });
