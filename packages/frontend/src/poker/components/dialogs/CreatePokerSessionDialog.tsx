@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -6,6 +6,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControlLabel,
+  Switch,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -28,16 +30,21 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
   const { user, setUser } = useUserContext();
-  const { handleJoinSession } = usePokerContext();
+  const { handleJoinSession, handleAutoAcceptChanged } = usePokerContext();
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
+  const [isAutoAcceptActivated, setIsAutoAcceptActivated] = useState(false);
 
   function handleClose() {
     setName("");
     close();
     setIsError(false);
+  }
+
+  function toggleAutoAccept() {
+    setIsAutoAcceptActivated((prevState) => !prevState);
   }
 
   function handleSubmit() {
@@ -55,6 +62,7 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
     setRoomId(roomId);
     setUser(newUser);
     handleJoinSession(newUser);
+    handleAutoAcceptChanged(isAutoAcceptActivated);
     navigate(`/poker/${roomId}`);
     handleClose();
   }
@@ -65,9 +73,9 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
       fullScreen={fullScreen}
       open={isOpen}
       onClose={handleClose}
-      aria-labelledby="join-session-dialog-title"
+      aria-labelledby="create-session-dialog-title"
     >
-      <DialogTitle id="join-session-dialog-title">Join Session</DialogTitle>
+      <DialogTitle id="create-session-dialog-title">Create Session</DialogTitle>
       <DialogContent>
         <DialogContentText>Please provide your name for this session.</DialogContentText>
         <TextInput
@@ -81,6 +89,12 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
           id="user-name"
           label="Name"
           type="text"
+        />
+        <FormControlLabel
+          control={
+            <Switch checked={isAutoAcceptActivated} onChange={toggleAutoAccept} color="primary" />
+          }
+          label="Activate Auto-Accept"
         />
       </DialogContent>
       <DialogActions>

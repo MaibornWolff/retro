@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useReducer } from "react";
 import { usePeerToPeer } from "../../common/hooks/usePeerToPeer";
 import { PokerState } from "../types/pokerTypes";
 import {
+  AutoAcceptChangedAction,
   PokerAction,
   SendVoteAction,
   SetPokerUnitAction,
@@ -39,6 +40,7 @@ export interface PokerContextValues {
   handleRejectJoinUser: (userId: string) => void;
   handleAcceptJoinUser: (userId: string) => void;
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
+  handleAutoAcceptChanged: (payload: AutoAcceptChangedAction["payload"]) => void;
   handleJoinRoom: ({ user, roomId }: { user: User; roomId: string }) => void;
 }
 
@@ -55,7 +57,7 @@ const initialState: PokerState = {
   showResults: false,
   waitingList: {},
   votes: {},
-  isAutoAllowActivated: true,
+  isAutoAllowActivated: false,
 };
 
 export const PokerContext = React.createContext<PokerContextValues>(undefined!);
@@ -140,6 +142,10 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     dispatchAndBroadcast({ type: "JOIN_SESSION", payload });
   }
 
+  function handleAutoAcceptChanged(payload: AutoAcceptChangedAction["payload"]) {
+    dispatchAndBroadcast({ type: "AUTO_ACCEPT_CHANGED", payload });
+  }
+
   const resetPokerState = useCallback(() => {
     dispatch({ type: "INITIALIZE_STATE", payload: initialState });
   }, []);
@@ -149,6 +155,7 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     broadcastAction,
     sendAction,
     resetPokerState,
+    handleAutoAcceptChanged,
     handleShowPokerResults,
     handleSetUserStory,
     handleResetUserStory,

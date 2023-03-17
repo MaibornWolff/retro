@@ -7,6 +7,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControlLabel,
+  Switch,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -39,13 +41,19 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
     isValid: isNameValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
   const [format, setFormat] = useState(defaultFormat);
-  const { retroState, handleChangeRetroFormat, handleSetRetroState, handleJoinSession } =
-    useRetroContext();
+  const {
+    retroState,
+    handleChangeRetroFormat,
+    handleSetRetroState,
+    handleJoinSession,
+    handleAutoAcceptChanged,
+  } = useRetroContext();
   const { user, setUser } = useUserContext();
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
+  const [isAutoAcceptActivated, setIsAutoAcceptActivated] = useState(false);
 
   function handleClose() {
     setName("");
@@ -53,6 +61,10 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
     close();
     setIsNameError(false);
     setIsTitleError(false);
+  }
+
+  function toggleAutoAccept() {
+    setIsAutoAcceptActivated((prevState) => !prevState);
   }
 
   function handleSubmit() {
@@ -73,6 +85,7 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
     setUser(newUser);
     handleJoinSession(newUser);
     handleChangeRetroFormat(format);
+    handleAutoAcceptChanged(isAutoAcceptActivated);
     navigate(`/retro/${roomId}`);
     handleClose();
   }
@@ -112,6 +125,12 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
           />
         </div>
         <RetroFormatSelect onFormatChange={setFormat} format={format} />
+        <FormControlLabel
+          control={
+            <Switch checked={isAutoAcceptActivated} onChange={toggleAutoAccept} color="primary" />
+          }
+          label="Activate Auto-Accept"
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
