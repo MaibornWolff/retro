@@ -30,6 +30,15 @@ export interface ClientToServerEvents {
     userName: string;
   }) => void;
   joinRoom: ({ roomId, userId }: { roomId: string; userId: string }) => void;
+  createRoom: ({
+    roomId,
+    userId,
+    isAutoAcceptActivated,
+  }: {
+    roomId: string;
+    userId: string;
+    isAutoAcceptActivated: boolean;
+  }) => void;
   acceptJoinRequest: ({ roomId, userId }: { roomId: string; userId: string }) => void;
   rejectJoinRequest: ({ roomId, userId }: { roomId: string; userId: string }) => void;
   dataListenerEstablished: ({

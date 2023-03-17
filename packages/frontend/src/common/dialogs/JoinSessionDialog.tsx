@@ -24,8 +24,6 @@ interface JoinSessionDialogProps extends DialogProps {
   roomId: string;
   onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
   navigateToRoom: () => void;
-  isAutoAllowActivated: boolean;
-  onJoinRoom: ({ user, roomId }: { user: User; roomId: string }) => void;
 }
 
 export default function JoinSessionDialog({
@@ -34,8 +32,6 @@ export default function JoinSessionDialog({
   roomId,
   onAddToWaitingList,
   navigateToRoom,
-  isAutoAllowActivated,
-  onJoinRoom,
 }: JoinSessionDialogProps) {
   const {
     value: name,
@@ -76,14 +72,7 @@ export default function JoinSessionDialog({
     };
     setRoomId(roomId);
     setUser(newUser);
-    if (isAutoAllowActivated) {
-      // we don't need user, only user id
-      // also, can we somehow ommit the parameters in favor of our roomId and user states?
-      // (see comment in useSocket)
-      onJoinRoom({ user: newUser, roomId });
-    } else {
-      onAddToWaitingList({ userId: newUser.id, userName: name });
-    }
+    onAddToWaitingList({ userId: newUser.id, userName: name });
     navigateToRoom();
     handleClose();
   }

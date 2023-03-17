@@ -12,7 +12,7 @@ export default function RetroActionButtons() {
   const { user } = useUserContext();
   const navigate = useNavigate();
   const roomId = useRoomIdFromPath();
-  const { handleAddToWaitingList, retroState, handleJoinRoom } = useRetroContext();
+  const { handleAddToWaitingList } = useRetroContext();
 
   function navigateToRoom() {
     navigate(`/retro/${roomId ?? ""}`);
@@ -28,8 +28,6 @@ export default function RetroActionButtons() {
             roomId={roomId}
             navigateToRoom={navigateToRoom}
             onAddToWaitingList={handleAddToWaitingList}
-            isAutoAllowActivated={retroState.isAutoAllowActivated}
-            onJoinRoom={handleJoinRoom}
           />
         </Grid>
       )}

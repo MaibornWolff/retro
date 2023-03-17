@@ -1,17 +1,19 @@
 import express from "express";
 import http from "http";
-import { Server, Socket } from "socket.io";
+import { Namespace, Server, Socket } from "socket.io";
 import cors from "cors";
 
 import { ClientToServerEvents, ServerToClientEvents } from "@shared/socket";
 import ConnectionStore from "./store/ConnectionStore";
 import { logger } from "@shared/logger";
+import RoomStore from "./store/RoomStore";
 
 export function setupServer() {
   const app = express();
   const server = http.createServer(app);
 
   const connectionStore = new ConnectionStore();
+  const roomStore = new RoomStore();
 
   const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
     cors: {
@@ -34,12 +36,35 @@ export function setupServer() {
   namespaces.forEach((namespace) => {
     const ioNamespace = io.of(namespace);
     ioNamespace.on("connection", (socket: Socket) => {
+      socket.on("createRoom", async ({ roomId, userId, isAutoAcceptActivated }) => {
+        await socket.join(roomId);
+        const waitingRoomId = getWaitingRoomId(roomId);
+        await socket.join(waitingRoomId);
+
+        roomStore.addRoom(roomId, { isAutoAcceptActivated });
+        connectionStore.addConnection(socket.id, {
+          userId,
+          waitingRoomId,
+          roomId,
+        });
+        logger.debug("Creating room", {
+          userId,
+          roomId,
+          connectionStoreState: connectionStore.get(),
+        });
+      });
+
       socket.on("requestJoinRoom", async ({ roomId, userId, userName }) => {
         const waitingRoomId = getWaitingRoomId(roomId);
         await socket.join(waitingRoomId);
         connectionStore.addConnection(socket.id, { userId, waitingRoomId });
         logger.debug("requestJoinRoom", { waitingRoomId, userId, userName });
-        socket.to(waitingRoomId).emit("requestedJoinRoom", { userId, userName });
+        const roomConfiguration = roomStore.getRoomConfiguration(roomId);
+        if (roomConfiguration?.isAutoAcceptActivated) {
+          await handleJoinRoom(socket, roomId, ioNamespace, userId);
+        } else {
+          socket.to(waitingRoomId).emit("requestedJoinRoom", { userId, userName });
+        }
       });
 
       socket.on("acceptJoinRequest", ({ roomId, userId }) => {
@@ -49,22 +74,9 @@ export function setupServer() {
       });
 
       socket.on("joinRoom", async ({ roomId, userId }) => {
-        await socket.join(roomId);
         const waitingRoomId = getWaitingRoomId(roomId);
         await socket.join(waitingRoomId);
-
-        const socketIdsInRoom = Array.from(ioNamespace.adapter.rooms.get(roomId) ?? []);
-        connectionStore.addConnection(socket.id, { userId, waitingRoomId, roomId });
-        const connectedUserIds = connectionStore.getConnections(socketIdsInRoom);
-        logger.debug("Joining room", {
-          userId,
-          roomId,
-          connectionStoreState: connectionStore.get(),
-        });
-        ioNamespace.to(roomId).emit("userConnected", {
-          connectedUserIds,
-          connectedUserId: userId,
-        });
+        await handleJoinRoom(socket, roomId, ioNamespace, userId);
       });
 
       socket.on("rejectJoinRequest", async ({ roomId, userId }) => {
@@ -97,6 +109,33 @@ export function setupServer() {
       });
     });
   });
+
+  async function handleJoinRoom(
+    socket: Socket,
+    roomId: string,
+    ioNamespace: Namespace<ClientToServerEvents, ServerToClientEvents>,
+    userId: string
+  ) {
+    await socket.join(roomId);
+    const waitingRoomId = getWaitingRoomId(roomId);
+    const socketIdsInRoom = Array.from(ioNamespace.adapter.rooms.get(roomId) ?? []);
+
+    connectionStore.addConnection(socket.id, {
+      userId,
+      waitingRoomId,
+      roomId,
+    });
+    const connectedUserIds = connectionStore.getConnections(socketIdsInRoom);
+    logger.debug("Joining room", {
+      userId,
+      roomId,
+      connectionStoreState: connectionStore.get(),
+    });
+    ioNamespace.to(roomId).emit("userConnected", {
+      connectedUserIds,
+      connectedUserId: userId,
+    });
+  }
 
   return server;
 }

@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useReducer } from "react";
 import { usePeerToPeer } from "../../common/hooks/usePeerToPeer";
 import { RetroState } from "../types/retroTypes";
 import {
-  AutoAcceptChangedAction,
   CardRemoveUpvoteAction,
   CardUpvoteAction,
   ChangeRetroFormatAction,
@@ -32,7 +31,7 @@ import {
 import { useUserContext } from "../../common/context/UserContext";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { useSyncUser } from "../../common/hooks/useSyncUser";
-import { ErrorState, User } from "../../common/types/commonTypes";
+import { ErrorState } from "../../common/types/commonTypes";
 
 interface RetroContextProviderProps {
   children?: React.ReactNode;
@@ -46,7 +45,6 @@ const initialState: RetroState = {
   maxVoteCount: 3,
   participants: {},
   waitingList: {},
-  isAutoAllowActivated: false,
 };
 
 export interface RetroContextValues {
@@ -78,8 +76,6 @@ export interface RetroContextValues {
   handleRejectJoinUser: (userId: string) => void;
   handleAcceptJoinUser: (userId: string) => void;
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
-  handleAutoAcceptChanged: (payload: AutoAcceptChangedAction["payload"]) => void;
-  handleJoinRoom: ({ user, roomId }: { user: User; roomId: string }) => void;
 }
 
 export const RetroContext = React.createContext<RetroContextValues>(undefined!);
@@ -91,7 +87,7 @@ export default function RetroContextProvider(props: RetroContextProviderProps) {
 
   useSyncUser(state.participants);
 
-  const { broadcastAction, sendAction, rejectJoinUser, acceptJoinUser, joinRoom } = usePeerToPeer<
+  const { broadcastAction, sendAction, rejectJoinUser, acceptJoinUser } = usePeerToPeer<
     RetroState,
     RetroAction
   >({
@@ -217,10 +213,6 @@ export default function RetroContextProvider(props: RetroContextProviderProps) {
     dispatchAndBroadcast({ type: "TRANSFER_MODERATOR_ROLE", payload });
   }
 
-  function handleAutoAcceptChanged(payload: AutoAcceptChangedAction["payload"]) {
-    dispatchAndBroadcast({ type: "AUTO_ACCEPT_CHANGED", payload });
-  }
-
   const resetRetroState = useCallback(() => {
     dispatch({ type: "SET_RETRO_STATE", payload: initialState });
   }, []);
@@ -230,7 +222,6 @@ export default function RetroContextProvider(props: RetroContextProviderProps) {
     broadcastAction,
     sendAction,
     resetRetroState,
-    handleAutoAcceptChanged,
     handleUpvoteCard,
     handleChangeMaxVote,
     handleResetVotes,
@@ -255,7 +246,6 @@ export default function RetroContextProvider(props: RetroContextProviderProps) {
     handleRejectJoinUser: rejectJoinUser,
     handleAcceptJoinUser: acceptJoinUser,
     handleAddToWaitingList,
-    handleJoinRoom: joinRoom,
   };
 
   return <RetroContext.Provider value={value}>{props.children}</RetroContext.Provider>;

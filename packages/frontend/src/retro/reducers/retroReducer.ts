@@ -221,9 +221,6 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
       );
       return { ...state, waitingList: remainingWaitingUsers };
     }
-    case "AUTO_ACCEPT_CHANGED": {
-      return { ...state, isAutoAllowActivated: action.payload };
-    }
     case "DISCONNECT": {
       const { participants, waitingList } = state;
       const disconnectedUserId = action.payload;

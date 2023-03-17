@@ -28,7 +28,6 @@ export default function ImportRetroButton() {
       ...importedRetro,
       participants: {},
       waitingList: {},
-      isAutoAllowActivated: false,
     };
     handleSetRetroState(retro);
   }

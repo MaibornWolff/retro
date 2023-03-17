@@ -7,7 +7,6 @@ export interface PokerState {
   showResults: boolean;
   waitingList: UserByUserId;
   votes: VoteByUserId;
-  isAutoAllowActivated: boolean;
 }
 
 export interface PokerUnit {

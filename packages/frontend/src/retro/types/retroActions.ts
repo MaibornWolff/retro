@@ -90,11 +90,6 @@ export interface ChangeRetroFormatAction extends BaseAction {
   payload: string;
 }
 
-export interface AutoAcceptChangedAction extends BaseAction {
-  type: "AUTO_ACCEPT_CHANGED";
-  payload: boolean;
-}
-
 export type RetroAction =
   | PeerToPeerAction<RetroState>
   | CardUpvoteAction
@@ -114,5 +109,4 @@ export type RetroAction =
   | ToggleRetroBlurAction
   | ToggleCardDiscussedAction
   | ChangeRetroFormatAction
-  | SortCardsByVotesDescendingAction
-  | AutoAcceptChangedAction;
+  | SortCardsByVotesDescendingAction;

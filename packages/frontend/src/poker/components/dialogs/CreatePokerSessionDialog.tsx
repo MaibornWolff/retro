@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Dialog,
@@ -30,12 +30,11 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
   const { user, setUser } = useUserContext();
-  const { handleJoinSession, handleAutoAcceptChanged } = usePokerContext();
-  const { setRoomId } = useRoomContext();
+  const { handleJoinSession } = usePokerContext();
+  const { setRoomId, isAutoAcceptActivated, setIsAutoAcceptActivated } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  const [isAutoAcceptActivated, setIsAutoAcceptActivated] = useState(false);
 
   function handleClose() {
     setName("");
@@ -62,7 +61,6 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
     setRoomId(roomId);
     setUser(newUser);
     handleJoinSession(newUser);
-    handleAutoAcceptChanged(isAutoAcceptActivated);
     navigate(`/poker/${roomId}`);
     handleClose();
   }
@@ -91,9 +89,7 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
           type="text"
         />
         <FormControlLabel
-          control={
-            <Switch checked={isAutoAcceptActivated} onChange={toggleAutoAccept} color="primary" />
-          }
+          control={<Switch checked={isAutoAcceptActivated} onChange={toggleAutoAccept} />}
           label="Activate Auto-Accept"
         />
       </DialogContent>

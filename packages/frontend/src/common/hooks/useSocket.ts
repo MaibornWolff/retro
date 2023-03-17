@@ -32,8 +32,19 @@ export function useSocket() {
   // it would be nicer if we did not need the parameters here
   // but after clicking join room in JoinRoomDialog, they seem to be not yet set.
   function emitJoinRoom({ user, roomId }: { user: User; roomId: string }) {
-    console.log("emit join room with", { roomId, userid: user.id });
     socket.emit("joinRoom", { roomId, userId: user.id });
+  }
+
+  function emitCreateRoom({
+    user,
+    roomId,
+    isAutoAcceptActivated,
+  }: {
+    user: User;
+    roomId: string;
+    isAutoAcceptActivated: boolean;
+  }) {
+    socket.emit("createRoom", { roomId, userId: user.id, isAutoAcceptActivated });
   }
 
   function emitRequestJoinRoom() {
@@ -55,5 +66,6 @@ export function useSocket() {
     emitRejectJoinUser,
     emitDataListenerEstablished,
     emitRequestJoinRoom,
+    emitCreateRoom,
   };
 }

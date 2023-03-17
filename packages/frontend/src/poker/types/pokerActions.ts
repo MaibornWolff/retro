@@ -20,11 +20,6 @@ export interface SetPokerUnitAction extends BaseAction {
   payload: PokerUnit;
 }
 
-export interface AutoAcceptChangedAction extends BaseAction {
-  type: "AUTO_ACCEPT_CHANGED";
-  payload: boolean;
-}
-
 export interface SendVoteAction extends BaseAction {
   type: "SEND_VOTE";
   payload: { userId: string; vote: number };
@@ -42,5 +37,4 @@ export type PokerAction =
   | ResetUserStoryAction
   | SetPokerUnitAction
   | SendVoteAction
-  | SetUserAction
-  | AutoAcceptChangedAction;
+  | SetUserAction;

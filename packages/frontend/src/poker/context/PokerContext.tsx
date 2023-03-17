@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useReducer } from "react";
 import { usePeerToPeer } from "../../common/hooks/usePeerToPeer";
 import { PokerState } from "../types/pokerTypes";
 import {
-  AutoAcceptChangedAction,
   PokerAction,
   SendVoteAction,
   SetPokerUnitAction,
@@ -18,7 +17,7 @@ import {
 } from "../../common/types/peerToPeerTypes";
 import { useSyncUser } from "../../common/hooks/useSyncUser";
 import { useUserContext } from "../../common/context/UserContext";
-import { ErrorState, User } from "../../common/types/commonTypes";
+import { ErrorState } from "../../common/types/commonTypes";
 
 interface PokerContextProviderProps {
   children?: React.ReactNode;
@@ -40,8 +39,6 @@ export interface PokerContextValues {
   handleRejectJoinUser: (userId: string) => void;
   handleAcceptJoinUser: (userId: string) => void;
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
-  handleAutoAcceptChanged: (payload: AutoAcceptChangedAction["payload"]) => void;
-  handleJoinRoom: ({ user, roomId }: { user: User; roomId: string }) => void;
 }
 
 const initialState: PokerState = {
@@ -57,7 +54,6 @@ const initialState: PokerState = {
   showResults: false,
   waitingList: {},
   votes: {},
-  isAutoAllowActivated: false,
 };
 
 export const PokerContext = React.createContext<PokerContextValues>(undefined!);
@@ -68,7 +64,7 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
 
   useSyncUser(state.participants);
 
-  const { broadcastAction, sendAction, rejectJoinUser, acceptJoinUser, joinRoom } = usePeerToPeer<
+  const { broadcastAction, sendAction, rejectJoinUser, acceptJoinUser } = usePeerToPeer<
     PokerState,
     PokerAction
   >({
@@ -142,10 +138,6 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     dispatchAndBroadcast({ type: "JOIN_SESSION", payload });
   }
 
-  function handleAutoAcceptChanged(payload: AutoAcceptChangedAction["payload"]) {
-    dispatchAndBroadcast({ type: "AUTO_ACCEPT_CHANGED", payload });
-  }
-
   const resetPokerState = useCallback(() => {
     dispatch({ type: "INITIALIZE_STATE", payload: initialState });
   }, []);
@@ -155,7 +147,6 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     broadcastAction,
     sendAction,
     resetPokerState,
-    handleAutoAcceptChanged,
     handleShowPokerResults,
     handleSetUserStory,
     handleResetUserStory,
@@ -167,7 +158,6 @@ export default function PokerContextProvider(props: PokerContextProviderProps) {
     handleAddToWaitingList,
     handleRejectJoinUser: rejectJoinUser,
     handleAcceptJoinUser: acceptJoinUser,
-    handleJoinRoom: joinRoom,
   };
 
   return <PokerContext.Provider value={value}>{props.children}</PokerContext.Provider>;

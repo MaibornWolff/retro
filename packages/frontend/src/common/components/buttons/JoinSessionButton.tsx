@@ -3,22 +3,17 @@ import { Button, useTheme } from "@mui/material";
 import { useDialog } from "../../../retro/hooks/useDialog";
 import { useUserContext } from "../../context/UserContext";
 import JoinSessionDialog from "../../dialogs/JoinSessionDialog";
-import { User } from "../../types/commonTypes";
 
 interface JoinSessionButtonProps {
   roomId: string;
   navigateToRoom: () => void;
   onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
-  isAutoAllowActivated: boolean;
-  onJoinRoom: ({ user, roomId }: { user: User; roomId: string }) => void;
 }
 
 export default function JoinSessionButton({
   roomId,
   navigateToRoom,
   onAddToWaitingList,
-  isAutoAllowActivated,
-  onJoinRoom,
 }: JoinSessionButtonProps) {
   const { isOpen, closeDialog, openDialog } = useDialog(true);
   const { user } = useUserContext();
@@ -46,8 +41,6 @@ export default function JoinSessionButton({
         roomId={roomId}
         onAddToWaitingList={onAddToWaitingList}
         navigateToRoom={navigateToRoom}
-        isAutoAllowActivated={isAutoAllowActivated}
-        onJoinRoom={onJoinRoom}
       />
     </>
   );

@@ -32,7 +32,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
   onRequestJoinRoom,
   onJoinRoomRejected,
 }: UsePeerToPeerOptions<T, E>) {
-  const { roomId } = useRoomContext();
+  const { roomId, isAutoAcceptActivated } = useRoomContext();
   const { user } = useUserContext();
   const isStateUpToDate = useIsStateUpToDate();
   const {
@@ -42,6 +42,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     emitRejectJoinUser,
     emitDataListenerEstablished,
     emitJoinRoom,
+    emitCreateRoom,
   } = useSocket();
   const peer = usePeer();
   const { addPeerConnection, removePeerConnection, readyPeerConnection, peerConnections } =
@@ -203,7 +204,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
       return;
     }
     if (isModerator(user)) {
-      emitJoinRoom({ roomId, user });
+      emitCreateRoom({ roomId, user, isAutoAcceptActivated });
     } else {
       emitRequestJoinRoom();
     }
@@ -215,6 +216,5 @@ export function usePeerToPeer<T, E extends BaseAction>({
     sendAction,
     rejectJoinUser: emitRejectJoinUser,
     acceptJoinUser: emitAcceptJoinUser,
-    joinRoom: emitJoinRoom,
   };
 }

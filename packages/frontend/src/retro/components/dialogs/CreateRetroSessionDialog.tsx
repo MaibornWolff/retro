@@ -41,13 +41,8 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
     isValid: isNameValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
   const [format, setFormat] = useState(defaultFormat);
-  const {
-    retroState,
-    handleChangeRetroFormat,
-    handleSetRetroState,
-    handleJoinSession,
-    handleAutoAcceptChanged,
-  } = useRetroContext();
+  const { retroState, handleChangeRetroFormat, handleSetRetroState, handleJoinSession } =
+    useRetroContext();
   const { user, setUser } = useUserContext();
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
@@ -85,7 +80,6 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
     setUser(newUser);
     handleJoinSession(newUser);
     handleChangeRetroFormat(format);
-    handleAutoAcceptChanged(isAutoAcceptActivated);
     navigate(`/retro/${roomId}`);
     handleClose();
   }

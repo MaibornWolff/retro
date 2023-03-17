@@ -12,7 +12,7 @@ export default function PokerActionButtons() {
   const theme = useTheme();
   const navigate = useNavigate();
   const roomId = useRoomIdFromPath();
-  const { handleAddToWaitingList, pokerState, handleJoinRoom } = usePokerContext();
+  const { handleAddToWaitingList } = usePokerContext();
 
   function navigateToRoom() {
     navigate(`/poker/${roomId ?? ""}`);
@@ -26,8 +26,6 @@ export default function PokerActionButtons() {
             roomId={roomId}
             navigateToRoom={navigateToRoom}
             onAddToWaitingList={handleAddToWaitingList}
-            isAutoAllowActivated={pokerState.isAutoAllowActivated}
-            onJoinRoom={handleJoinRoom}
           />
         </Grid>
         <Grid item>
