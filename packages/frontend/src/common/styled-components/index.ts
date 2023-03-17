@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import media from "./styled.utils";
+import { media } from "./styled.utils";
 
 interface StyledProps {
   img?: string;

@@ -4,7 +4,7 @@ import { Server, Socket } from "socket.io";
 import cors from "cors";
 
 import { ClientToServerEvents, ServerToClientEvents } from "@shared/socket";
-import ConnectionStore from "./store/ConnectionStore";
+import { ConnectionStore } from "./store/ConnectionStore";
 import { logger } from "@shared/logger";
 
 export function setupServer() {

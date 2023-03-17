@@ -4,7 +4,7 @@ export interface SocketConnection {
   userId: string;
 }
 
-export default class ConnectionStore {
+export class ConnectionStore {
   constructor() {
     this.connectionBySocketId = new Map();
   }
