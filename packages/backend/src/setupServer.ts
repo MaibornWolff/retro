@@ -43,9 +43,7 @@ export function setupServer() {
     const roomExists = io.of(`/${namespace}`).adapter.rooms.has(roomId);
     roomExists ? res.status(200) : res.status(404);
     if (roomExists) {
-      console.log("put request body", req.body);
       const { isActivated }: RoomConfigurationRequestBody = req.body;
-      console.log("put request sent with flag", isActivated);
       roomStore.updateIsAutoAcceptActivated(roomId, isActivated);
     }
     return res.send();
