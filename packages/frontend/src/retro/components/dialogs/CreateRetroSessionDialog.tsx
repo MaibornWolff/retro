@@ -97,7 +97,7 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
       <DialogTitle id="form-dialog-create-retro">Create Retro Session</DialogTitle>
       <DialogContent sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <div>
-          <DialogContentText>Please enter your name.</DialogContentText>
+          <DialogContentText>Please enter your name</DialogContentText>
           <TextInput
             value={name}
             onSubmit={handleSubmit}
@@ -109,7 +109,7 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
           />
         </div>
         <div>
-          <DialogContentText>Please provide a name for your new retro.</DialogContentText>
+          <DialogContentText>Please provide a name for your new retro</DialogContentText>
           <TextInput
             value={title}
             onSubmit={handleSubmit}
@@ -119,12 +119,19 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
             label="Retro Name"
           />
         </div>
-        <RetroFormatSelect onFormatChange={setFormat} format={format} />
-        <FormControlLabel
-          labelPlacement="start"
-          control={<Switch checked={isSwitchActivated} onChange={toggleChecked} />}
-          label="Auto-Accept"
-        />
+        <div>
+          <DialogContentText>Choose your retro format</DialogContentText>
+          <RetroFormatSelect onFormatChange={setFormat} format={format} />
+        </div>
+        <div>
+          <DialogContentText>Automatically accept all joining users</DialogContentText>
+          <FormControlLabel
+            labelPlacement="start"
+            control={<Switch checked={isSwitchActivated} onChange={toggleChecked} />}
+            label="Auto-Accept"
+            sx={{ justifyContent: "flex-end", marginLeft: 0 }}
+          />
+        </div>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">

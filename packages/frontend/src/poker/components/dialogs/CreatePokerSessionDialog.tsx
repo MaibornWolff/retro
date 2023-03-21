@@ -78,24 +78,30 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
     >
       <DialogTitle id="create-session-dialog-title">Create Session</DialogTitle>
       <DialogContent>
-        <DialogContentText>Please provide your name for this session.</DialogContentText>
-        <TextInput
-          onSubmit={handleSubmit}
-          required
-          autoFocus
-          fullWidth
-          value={name}
-          onChange={handleChange}
-          error={isError}
-          id="user-name"
-          label="Name"
-          type="text"
-        />
-        <FormControlLabel
-          labelPlacement="start"
-          control={<Switch checked={isSwitchActivated} onChange={toggleChecked} />}
-          label="Auto-Accept"
-        />
+        <div>
+          <DialogContentText>Please provide your name for this session</DialogContentText>
+          <TextInput
+            onSubmit={handleSubmit}
+            required
+            autoFocus
+            fullWidth
+            value={name}
+            onChange={handleChange}
+            error={isError}
+            id="user-name"
+            label="Name"
+            type="text"
+          />
+        </div>
+        <div style={{ marginTop: "1rem" }}>
+          <DialogContentText>Automatically accept all joining users</DialogContentText>
+          <FormControlLabel
+            labelPlacement="start"
+            control={<Switch checked={isSwitchActivated} onChange={toggleChecked} />}
+            label="Auto-Accept"
+            sx={{ justifyContent: "flex-end", marginLeft: 0 }}
+          />
+        </div>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">

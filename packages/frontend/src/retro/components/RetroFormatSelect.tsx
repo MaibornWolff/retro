@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { FormControl, FormHelperText, InputLabel, NativeSelect } from "@mui/material";
+import { FormControl, NativeSelect } from "@mui/material";
 import RetroFormatOptions from "./RetroFormatOptions";
 
 interface RetroFormatSelectProps {
@@ -15,7 +15,6 @@ export default function RetroFormatSelect({ onFormatChange, format }: RetroForma
 
   return (
     <FormControl fullWidth>
-      <InputLabel htmlFor="retro-format-native-helper">Retro Format</InputLabel>
       <NativeSelect
         value={format}
         onChange={handleChange}
@@ -26,7 +25,6 @@ export default function RetroFormatSelect({ onFormatChange, format }: RetroForma
       >
         <RetroFormatOptions />
       </NativeSelect>
-      <FormHelperText>Choose your Retro format</FormHelperText>
     </FormControl>
   );
 }
