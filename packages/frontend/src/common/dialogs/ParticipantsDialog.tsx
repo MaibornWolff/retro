@@ -6,6 +6,8 @@ import {
   DialogActions,
   DialogContent,
   Divider,
+  FormControlLabel,
+  Switch,
   Typography,
   useMediaQuery,
   useTheme,
@@ -15,6 +17,11 @@ import { DialogProps } from "../types/commonTypes";
 import Participants from "./Participants";
 import { UserByUserId } from "../../retro/types/retroTypes";
 import { WaitingList } from "./WaitingList";
+import { useRoomContext } from "../context/RoomContext";
+import { useUserContext } from "../context/UserContext";
+import { isModerator } from "../utils/participantsUtils";
+import { putIsAutoAcceptActivated } from "../adapter/backendAdapter";
+import { useNamespace } from "../hooks/useNamespace";
 
 interface ParticipantDialogProps extends DialogProps {
   participants: UserByUserId;
@@ -37,8 +44,16 @@ export function ParticipantsDialog({
 }: ParticipantDialogProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const { isAutoAcceptActivated, setIsAutoAcceptActivated, roomId } = useRoomContext();
+  const namespace = useNamespace();
   const isDividerVisible = !isEmpty(waitingList) && !isEmpty(participants);
+  const { user } = useUserContext();
+
+  async function toggleChecked() {
+    const toggledValue = !isAutoAcceptActivated;
+    setIsAutoAcceptActivated(toggledValue);
+    await putIsAutoAcceptActivated({ roomId, namespace, isActivated: toggledValue });
+  }
 
   return (
     <Dialog
@@ -81,7 +96,14 @@ export function ParticipantsDialog({
           </>
         )}
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{ justifyContent: "space-between" }}>
+        {isModerator(user) && (
+          <FormControlLabel
+            labelPlacement="start"
+            control={<Switch checked={isAutoAcceptActivated} onChange={toggleChecked} />}
+            label="Auto-Accept"
+          />
+        )}
         <Button onClick={close} color="primary">
           Close
         </Button>

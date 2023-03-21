@@ -8,8 +8,8 @@
 
 # Improvement
 
-- accept all button on waiting list (maybe reject all?)
-- option to auto allow all / auto reject
+- fetch room configuration when you have been made moderator
+- adapt end to end tests to auto accept behaviour
 - fix light theme and use a proper primary color?
 - add commit and branch name linting
 

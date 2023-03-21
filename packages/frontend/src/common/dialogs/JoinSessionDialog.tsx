@@ -42,7 +42,7 @@ export default function JoinSessionDialog({
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
   const { setError } = useErrorContext();
-  const { setRoomId } = useRoomContext();
+  const { setRoomId, setIsAutoAcceptActivated } = useRoomContext();
   const { user, setUser } = useUserContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -58,7 +58,9 @@ export default function JoinSessionDialog({
     const roomConfiguration = await getRoomConfiguration({ roomId, namespace });
     if (!roomConfiguration) {
       setError({ type: "ROOM_NOT_FOUND" });
+      return;
     }
+    const { isAutoAcceptActivated } = roomConfiguration;
     if (!isValid || user.id) {
       setIsError(true);
       return;
@@ -71,8 +73,9 @@ export default function JoinSessionDialog({
       role: "participant",
     };
     setRoomId(roomId);
+    setIsAutoAcceptActivated(isAutoAcceptActivated);
     setUser(newUser);
-    if (!roomConfiguration?.isAutoAcceptActivated) {
+    if (!isAutoAcceptActivated) {
       onAddToWaitingList({ userId: newUser.id, userName: name });
     }
     navigateToRoom();

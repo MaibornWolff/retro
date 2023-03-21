@@ -35,10 +35,10 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  const [isSwitchActive, setIsSwitchActive] = useState(isAutoAcceptActivated);
+  const [isSwitchActivated, setIsSwitchActivated] = useState(isAutoAcceptActivated);
 
   const toggleChecked = () => {
-    setIsSwitchActive((prev) => !prev);
+    setIsSwitchActivated((prev) => !prev);
   };
 
   function handleClose() {
@@ -60,7 +60,7 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
       role: "moderator",
     };
     setRoomId(roomId);
-    setIsAutoAcceptActivated(isSwitchActive);
+    setIsAutoAcceptActivated(isSwitchActivated);
     setUser(newUser);
     handleJoinSession(newUser);
     navigate(`/poker/${roomId}`);
@@ -92,8 +92,9 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
           type="text"
         />
         <FormControlLabel
-          control={<Switch checked={isSwitchActive} onChange={toggleChecked} />}
-          label="Activate Auto-Accept"
+          labelPlacement="start"
+          control={<Switch checked={isSwitchActivated} onChange={toggleChecked} />}
+          label="Auto-Accept"
         />
       </DialogContent>
       <DialogActions>

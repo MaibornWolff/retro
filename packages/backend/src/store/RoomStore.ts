@@ -17,6 +17,11 @@ export default class RoomStore {
     this.roomConfigurationByRoomId.set(roomId, roomConfiguration);
   }
 
+  updateIsAutoAcceptActivated(roomId: string, isActivated: boolean) {
+    const config = this.getRoomConfiguration(roomId);
+    this.roomConfigurationByRoomId.set(roomId, { ...config, isAutoAcceptActivated: isActivated });
+  }
+
   removeRoom(roomId: string) {
     this.roomConfigurationByRoomId.delete(roomId);
   }

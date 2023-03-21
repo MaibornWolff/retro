@@ -7,6 +7,7 @@ import { ClientToServerEvents, ServerToClientEvents } from "@shared/socket";
 import ConnectionStore from "./store/ConnectionStore";
 import { logger } from "@shared/logger";
 import RoomStore from "./store/RoomStore";
+import { RoomConfigurationRequestBody } from "../../shared/types/types";
 
 export function setupServer() {
   const app = express();
@@ -23,6 +24,7 @@ export function setupServer() {
   });
 
   app.use(cors());
+  app.use(express.json());
 
   app.get("/:namespace/rooms/:roomId", (req, res) => {
     const { roomId, namespace } = req.params;
@@ -34,6 +36,19 @@ export function setupServer() {
     } else {
       return res.send();
     }
+  });
+
+  app.put("/:namespace/rooms/:roomId/isAutoAcceptActivated", (req, res) => {
+    const { roomId, namespace } = req.params;
+    const roomExists = io.of(`/${namespace}`).adapter.rooms.has(roomId);
+    roomExists ? res.status(200) : res.status(404);
+    if (roomExists) {
+      console.log("put request body", req.body);
+      const { isActivated }: RoomConfigurationRequestBody = req.body;
+      console.log("put request sent with flag", isActivated);
+      roomStore.updateIsAutoAcceptActivated(roomId, isActivated);
+    }
+    return res.send();
   });
 
   const namespaces = ["/retro", "/poker"];
