@@ -44,11 +44,11 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
   const { retroState, handleChangeRetroFormat, handleSetRetroState, handleJoinSession } =
     useRetroContext();
   const { user, setUser } = useUserContext();
-  const { setRoomId } = useRoomContext();
+  const { setRoomId, isAutoAcceptActivated, setIsAutoAcceptActivated } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  const [isAutoAcceptActivated, setIsAutoAcceptActivated] = useState(false);
+  const [isSwitchActive, setIsSwitchActive] = useState(isAutoAcceptActivated);
 
   function handleClose() {
     setName("");
@@ -58,8 +58,8 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
     setIsTitleError(false);
   }
 
-  function toggleAutoAccept() {
-    setIsAutoAcceptActivated((prevState) => !prevState);
+  function toggleChecked() {
+    setIsSwitchActive((prevState) => !prevState);
   }
 
   function handleSubmit() {
@@ -76,6 +76,7 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
       role: "moderator",
     };
     setRoomId(roomId);
+    setIsAutoAcceptActivated(isSwitchActive);
     handleSetRetroState({ ...retroState, title });
     setUser(newUser);
     handleJoinSession(newUser);
@@ -120,9 +121,7 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
         </div>
         <RetroFormatSelect onFormatChange={setFormat} format={format} />
         <FormControlLabel
-          control={
-            <Switch checked={isAutoAcceptActivated} onChange={toggleAutoAccept} color="primary" />
-          }
+          control={<Switch checked={isSwitchActive} onChange={toggleChecked} />}
           label="Activate Auto-Accept"
         />
       </DialogContent>

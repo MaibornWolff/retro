@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -35,15 +35,16 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
+  const [isSwitchActive, setIsSwitchActive] = useState(isAutoAcceptActivated);
+
+  const toggleChecked = () => {
+    setIsSwitchActive((prev) => !prev);
+  };
 
   function handleClose() {
     setName("");
     close();
     setIsError(false);
-  }
-
-  function toggleAutoAccept() {
-    setIsAutoAcceptActivated((prevState) => !prevState);
   }
 
   function handleSubmit() {
@@ -59,11 +60,13 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
       role: "moderator",
     };
     setRoomId(roomId);
+    setIsAutoAcceptActivated(isSwitchActive);
     setUser(newUser);
     handleJoinSession(newUser);
     navigate(`/poker/${roomId}`);
     handleClose();
   }
+
   return (
     <Dialog
       fullWidth
@@ -89,7 +92,7 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
           type="text"
         />
         <FormControlLabel
-          control={<Switch checked={isAutoAcceptActivated} onChange={toggleAutoAccept} />}
+          control={<Switch checked={isSwitchActive} onChange={toggleChecked} />}
           label="Activate Auto-Accept"
         />
       </DialogContent>

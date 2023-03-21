@@ -28,7 +28,12 @@ export function setupServer() {
     const { roomId, namespace } = req.params;
     const roomExists = io.of(`/${namespace}`).adapter.rooms.has(roomId);
     roomExists ? res.status(200) : res.status(404);
-    return res.send();
+    if (roomExists) {
+      const roomConfiguration = roomStore.getRoomConfiguration(roomId);
+      return res.send(roomConfiguration);
+    } else {
+      return res.send();
+    }
   });
 
   const namespaces = ["/retro", "/poker"];

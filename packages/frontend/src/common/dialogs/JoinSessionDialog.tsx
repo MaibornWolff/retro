@@ -15,7 +15,7 @@ import { useUserContext } from "../context/UserContext";
 import { DialogProps, User } from "../types/commonTypes";
 import { generateId } from "../utils/generateId";
 
-import { roomIdExists } from "../adapter/backendAdapter";
+import { getRoomConfiguration } from "../adapter/backendAdapter";
 import { useNamespace } from "../hooks/useNamespace";
 import TextInput from "../components/TextInput";
 import { useErrorContext } from "../context/ErrorContext";
@@ -55,8 +55,8 @@ export default function JoinSessionDialog({
   }
 
   async function handleSubmit() {
-    const roomExists = await roomIdExists({ roomId, namespace });
-    if (!roomExists) {
+    const roomConfiguration = await getRoomConfiguration({ roomId, namespace });
+    if (!roomConfiguration) {
       setError({ type: "ROOM_NOT_FOUND" });
     }
     if (!isValid || user.id) {
@@ -72,7 +72,9 @@ export default function JoinSessionDialog({
     };
     setRoomId(roomId);
     setUser(newUser);
-    onAddToWaitingList({ userId: newUser.id, userName: name });
+    if (!roomConfiguration?.isAutoAcceptActivated) {
+      onAddToWaitingList({ userId: newUser.id, userName: name });
+    }
     navigateToRoom();
     handleClose();
   }
