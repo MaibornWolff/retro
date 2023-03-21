@@ -16,6 +16,7 @@ import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import Alert from "../../common/components/Alert";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
+import { useFetchRoomConfigurationWhenModerator } from "../../common/hooks/useFetchRoomConfigurationWhenModerator";
 
 export default function PokerPage() {
   const { pokerState, resetPokerState } = usePokerContext();
@@ -26,6 +27,7 @@ export default function PokerPage() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useFirstWaitingUser({ waitingList: pokerState.waitingList, onFirstUserWaiting: showSnackbar });
+  useFetchRoomConfigurationWhenModerator();
 
   useEffect(() => {
     if (!roomIdFromPath) {

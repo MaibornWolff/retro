@@ -19,6 +19,7 @@ import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import RetroHeader from "./RetroHeader";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 import Alert from "../../common/components/Alert";
+import { useFetchRoomConfigurationWhenModerator } from "../../common/hooks/useFetchRoomConfigurationWhenModerator";
 
 export default function RetroPage() {
   const { retroState, resetRetroState } = useRetroContext();
@@ -30,8 +31,8 @@ export default function RetroPage() {
   const theme = useTheme();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  // why is this triggered when we join the session using isAutoAllowActivated: true?
   useFirstWaitingUser({ waitingList: retroState.waitingList, onFirstUserWaiting: showSnackbar });
+  useFetchRoomConfigurationWhenModerator();
 
   useEffect(() => {
     if (!roomIdFromPath) {
