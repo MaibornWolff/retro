@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Button,
@@ -48,11 +48,14 @@ export function ParticipantsDialog({
   const namespace = useNamespace();
   const isDividerVisible = !isEmpty(waitingList) && !isEmpty(participants);
   const { user } = useUserContext();
+  const [isSwitchDisabled, setIsSwitchDisabled] = useState(false);
 
   async function toggleChecked() {
+    setIsSwitchDisabled(true);
     const toggledValue = !isAutoAcceptActivated;
     setIsAutoAcceptActivated(toggledValue);
     await putIsAutoAcceptActivated({ roomId, namespace, isActivated: toggledValue });
+    setIsSwitchDisabled(false);
   }
 
   return (
@@ -100,7 +103,13 @@ export function ParticipantsDialog({
         {isModerator(user) && (
           <FormControlLabel
             labelPlacement="start"
-            control={<Switch checked={isAutoAcceptActivated} onChange={toggleChecked} />}
+            control={
+              <Switch
+                checked={isAutoAcceptActivated}
+                onChange={toggleChecked}
+                disabled={isSwitchDisabled}
+              />
+            }
             label="Auto-Accept"
           />
         )}
