@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Snackbar, useTheme } from "@mui/material";
+import { Box, Snackbar } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Navigate } from "react-router-dom";
 
@@ -27,7 +27,6 @@ export function RetroPage() {
   const { boardRef } = useExportRetroContext();
   const roomIdFromPath = useRoomIdFromPath();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
-  const theme = useTheme();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useFirstWaitingUser({ waitingList: retroState.waitingList, onFirstUserWaiting: showSnackbar });
@@ -73,7 +72,7 @@ export function RetroPage() {
   return (
     <>
       <RetroHeader />
-      <Box sx={{ backgroundColor: theme.palette.background.default, width: "100%" }} ref={boardRef}>
+      <Box sx={{ width: "100%" }} ref={boardRef}>
         <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", p: 2 }}>
           <RetroTitle />
           <VoteProgress />

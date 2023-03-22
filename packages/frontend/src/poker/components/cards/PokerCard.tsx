@@ -7,7 +7,7 @@ import { User } from "../../../common/types/commonTypes";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
 interface PokerCardProps {
-  styleProps: { backgroundColor: string };
+  styleProps: { backgroundImage: string };
   pokerUser: User;
   FooterComponent?: React.ReactNode;
   DialogComponent?: React.ReactNode;
@@ -26,7 +26,7 @@ export function PokerCard({
       <Card
         sx={{
           margin: theme.spacing(1),
-          backgroundColor: styleProps.backgroundColor,
+          backgroundImage: styleProps.backgroundImage,
           width: "12em",
           height: "16rem",
           display: "flex",
@@ -36,7 +36,7 @@ export function PokerCard({
       >
         <CardHeader
           sx={{ height: "64px" }}
-          avatar={<>{isModerator(pokerUser) && <LocalPolice color="secondary" />}</>}
+          avatar={<>{isModerator(pokerUser) && <LocalPolice />}</>}
         />
         <CardContent
           sx={{
@@ -46,7 +46,7 @@ export function PokerCard({
             paddingX: "16px",
           }}
         >
-          <Typography color="secondary" align="center" variant="h6">
+          <Typography align="center" variant="h6">
             <CardText>{pokerUser.name}</CardText>
           </Typography>
         </CardContent>

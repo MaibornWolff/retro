@@ -10,7 +10,7 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { TooltipIconButton } from "../../../common/TooltipIconButton";
 
 interface PokerCardFrontProps {
-  styleProps: { backgroundColor: string };
+  styleProps: { backgroundImage: string };
   pokerUser: User;
 }
 
@@ -27,7 +27,6 @@ export function PokerCardFront({ styleProps, pokerUser }: PokerCardFrontProps) {
           {pokerUser.id === user.id && (
             <CardActions sx={{ justifyContent: "center" }}>
               <TooltipIconButton
-                color="secondary"
                 aria-label="Vote"
                 onClick={() => {
                   openDialog();

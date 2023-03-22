@@ -25,7 +25,7 @@ export function PokerSettingsButton() {
     <>
       <Button
         variant="text"
-        sx={{ textTransform: "none", color: "white" }}
+        sx={{ textTransform: "none" }}
         aria-label="poker-settings"
         aria-controls="poker-settings-appbar"
         aria-haspopup="true"

@@ -114,14 +114,8 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
         <RetroFormatSelect onFormatChange={setFormat} format={format} />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button
-          onClick={handleSubmit}
-          color="primary"
-          disabled={!isNameValid || !isTitleValid || !format}
-        >
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleSubmit} disabled={!isNameValid || !isTitleValid || !format}>
           Create
         </Button>
       </DialogActions>

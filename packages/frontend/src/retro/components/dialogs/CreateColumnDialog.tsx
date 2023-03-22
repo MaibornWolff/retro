@@ -72,10 +72,8 @@ export function CreateColumnDialog({ isOpen, close }: DialogProps) {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeDialog} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} color="primary" disabled={!isValid}>
+        <Button onClick={closeDialog}>Cancel</Button>
+        <Button onClick={handleSubmit} disabled={!isValid}>
           Create
         </Button>
       </DialogActions>

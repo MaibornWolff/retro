@@ -9,7 +9,6 @@ interface PokerTShirtSliderProps {
 export function PokerTShirtSlider(props: PokerTShirtSliderProps) {
   return (
     <Slider
-      color="primary"
       defaultValue={0}
       onChange={props.onChange}
       aria-labelledby="vote-slider-label"

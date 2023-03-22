@@ -60,10 +60,8 @@ export function EditColumnDialog({ isOpen, close, column }: EditColumnDialogProp
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={close} color="inherit">
-          Cancel
-        </Button>
-        <Button onClick={handleEdit} color="inherit" disabled={!isValid}>
+        <Button onClick={close}>Cancel</Button>
+        <Button onClick={handleEdit} disabled={!isValid}>
           Edit
         </Button>
       </DialogActions>

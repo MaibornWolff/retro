@@ -118,7 +118,6 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
                 <TooltipIconButton
                   tooltipText="Highlight Card"
                   aria-label="Highlight"
-                  color="inherit"
                   onClick={toggleHighlight}
                 >
                   {retroState.highlightedCardId === id ? <Highlight /> : <HighlightOutlined />}

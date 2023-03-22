@@ -10,7 +10,7 @@ function getTShirtSizeFromValue(value?: number): string | undefined {
 }
 
 interface PokerCardBackProps {
-  styleProps: { backgroundColor: string };
+  styleProps: { backgroundImage: string };
   pokerUser: User;
   userVote?: number;
 }
@@ -24,7 +24,7 @@ export function PokerCardBack({ styleProps, pokerUser, userVote }: PokerCardBack
       styleProps={styleProps}
       pokerUser={pokerUser}
       FooterComponent={
-        <Typography color="secondary" variant="h4" align="center" paddingBottom="16px">
+        <Typography variant="h4" align="center" paddingBottom="16px">
           {pokerUnitType === "tshirt" ? getTShirtSizeFromValue(userVote) ?? "" : userVote ?? ""}
         </Typography>
       }

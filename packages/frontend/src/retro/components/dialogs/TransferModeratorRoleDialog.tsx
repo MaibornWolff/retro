@@ -52,12 +52,8 @@ export function TransferModeratorRoleDialog({
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={close} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleTransferModeratorRoleClick} color="primary">
-          Yes, transfer
-        </Button>
+        <Button onClick={close}>Cancel</Button>
+        <Button onClick={handleTransferModeratorRoleClick}>Yes, transfer</Button>
       </DialogActions>
     </Dialog>
   );

@@ -12,14 +12,18 @@ interface ColumnHeaderProps {
 
 export function ColumnHeader({ column }: ColumnHeaderProps) {
   const theme = useTheme();
-
+  const secondaryColor = theme.palette.secondary.main;
   const { columnTitle } = column;
+  const isDarkMode = theme.palette.mode === "dark";
+
+  const headerGradientDark = `linear-gradient(19deg, ${secondaryColor} 0%, #302879 100%)`;
+  const headerGradientLight = `linear-gradient(19deg, #E1E1DD 0%, ${secondaryColor} 100%)`;
+  const headerGradient = isDarkMode ? headerGradientDark : headerGradientLight;
 
   return (
     <CardHeader
       sx={{
-        backgroundColor: theme.palette.secondary.main,
-        color: theme.palette.secondary.contrastText,
+        backgroundImage: headerGradient,
       }}
       title={<ColumnName columnTitle={columnTitle} />}
       action={

@@ -10,7 +10,7 @@ export function VoteProgress() {
 
   return (
     <Box px={2} display="flex" alignItems="center">
-      <Typography variant="body1" color="textPrimary" mr={2} noWrap>
+      <Typography variant="body1" mr={2} noWrap>
         {"Remaining votes:"}
       </Typography>
       <CircularProgressWithLabel />

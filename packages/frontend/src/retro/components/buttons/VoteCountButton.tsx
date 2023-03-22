@@ -61,12 +61,7 @@ export function VoteCountButton() {
 
   return (
     <>
-      <MenuItem
-        aria-label="Set Vote Count"
-        color="primary"
-        onClick={openDialog}
-        disabled={!isModerator(user)}
-      >
+      <MenuItem aria-label="Set Vote Count" onClick={openDialog} disabled={!isModerator(user)}>
         <ListItemIcon>
           <ThumbUp fontSize="small" />
         </ListItemIcon>
@@ -108,15 +103,9 @@ export function VoteCountButton() {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={handleReset}>
-            Reset Votes
-          </Button>
-          <Button color="primary" onClick={handleCancel}>
-            Cancel
-          </Button>
-          <Button color="primary" onClick={handleSave}>
-            Save
-          </Button>
+          <Button onClick={handleReset}>Reset Votes</Button>
+          <Button onClick={handleCancel}>Cancel</Button>
+          <Button onClick={handleSave}>Save</Button>
         </DialogActions>
       </Dialog>
     </>

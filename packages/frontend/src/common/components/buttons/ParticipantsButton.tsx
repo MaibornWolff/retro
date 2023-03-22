@@ -33,7 +33,7 @@ export function ParticipantsButton({
         variant="text"
         aria-label="Open Participants"
         onClick={openDialog}
-        sx={{ marginRight: theme.spacing(1), textTransform: "none", color: "white" }}
+        sx={{ marginRight: theme.spacing(1), textTransform: "none" }}
         startIcon={
           <>
             <Badge color="error" badgeContent={waitingUsersCount} max={99}>
@@ -42,7 +42,7 @@ export function ParticipantsButton({
           </>
         }
       >
-        <Typography color="inherit">Participants</Typography>
+        <Typography>Participants</Typography>
       </Button>
       <ParticipantsDialog
         isOpen={isOpen}

@@ -20,16 +20,18 @@ export function PokerHeader() {
     handleTransferModeratorRole,
   } = usePokerContext();
 
+  const isDarkMode = theme.palette.mode === "dark";
+  const secondaryColor = theme.palette.secondary.main;
+  const headerGradientDark = `linear-gradient(19deg, ${secondaryColor} 0%, #302879 100%)`;
+  const headerGradientLight = `linear-gradient(19deg, #E1E1DD 0%, #F9FBFF 100%)`;
+  const headerGradient = isDarkMode ? headerGradientDark : headerGradientLight;
+
   return (
     <div style={{ flexGrow: 1 }}>
-      <AppBar sx={{ backgroundColor: theme.palette.secondary.main }} position="static">
+      <AppBar sx={{ backgroundImage: headerGradient }} position="static">
         <Toolbar>
-          <Typography
-            variant="h4"
-            color="inherit"
-            sx={{ flexGrow: 1, fontFamily: "Permanent Marker, cursive" }}
-          >
-            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          <Typography variant="h4" sx={{ flexGrow: 1, fontFamily: "Permanent Marker, cursive" }}>
+            <Link to="/" style={{ textDecoration: "none", color: theme.palette.primary.main }}>
               Planning Poker
             </Link>
           </Typography>

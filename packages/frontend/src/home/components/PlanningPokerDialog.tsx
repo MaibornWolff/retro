@@ -37,7 +37,6 @@ export function PlanningPokerDialog() {
       <Fab
         size="large"
         variant="extended"
-        color="primary"
         onClick={openDialog}
         sx={{
           margin: theme.spacing(1),
@@ -67,12 +66,8 @@ export function PlanningPokerDialog() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSubmit} color="primary">
-            Start
-          </Button>
+          <Button onClick={closeDialog}>Cancel</Button>
+          <Button onClick={handleSubmit}>Start</Button>
         </DialogActions>
       </Dialog>
     </>

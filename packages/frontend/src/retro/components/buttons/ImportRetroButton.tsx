@@ -30,12 +30,7 @@ export function ImportRetroButton() {
 
   return (
     <>
-      <MenuItem
-        aria-label="Import Retro"
-        color="primary"
-        onClick={openFileBrowser}
-        disabled={!isModerator(user)}
-      >
+      <MenuItem aria-label="Import Retro" onClick={openFileBrowser} disabled={!isModerator(user)}>
         <ListItemIcon>
           <Publish fontSize="small" />
         </ListItemIcon>

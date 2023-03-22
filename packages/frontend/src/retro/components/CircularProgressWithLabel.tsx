@@ -30,7 +30,7 @@ export function CircularProgressWithLabel() {
           justifyContent: "center",
         }}
       >
-        <Typography variant="h6" component="div" color="text.primary">
+        <Typography variant="h6" component="div">
           {votesLeft}
         </Typography>
       </Box>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { createTheme, Theme } from "@mui/material";
-import { grey } from "@mui/material/colors";
 
 interface Props {
   children?: React.ReactNode;
@@ -13,25 +12,44 @@ export interface ColorThemeContextValues {
 }
 
 const lightTheme = createTheme({
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: "#E1E1DD",
+          backgroundImage: `linear-gradient(19deg, #E1E1DD 0%, #F9FBFF 50%)`,
+        },
+      },
+    },
+  },
   palette: {
     mode: "light",
     primary: {
-      main: grey["900"],
+      main: "#383b3e",
     },
     secondary: {
-      main: grey["900"],
+      main: "#F9FBFF",
     },
   },
 });
 
 const darkTheme = createTheme({
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundImage: `linear-gradient(19deg, #212121 0%, #1e194b 100%)`,
+        },
+      },
+    },
+  },
   palette: {
     mode: "dark",
     primary: {
-      main: grey["100"],
+      main: "#FFFFFF",
     },
     secondary: {
-      main: grey["800"],
+      main: "#1e194b",
     },
   },
 });

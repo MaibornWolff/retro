@@ -18,7 +18,6 @@ export function PokerResultButton() {
 
   return (
     <Button
-      color="primary"
       variant="outlined"
       aria-label="Show Results"
       sx={{ margin: theme.spacing(1) }}

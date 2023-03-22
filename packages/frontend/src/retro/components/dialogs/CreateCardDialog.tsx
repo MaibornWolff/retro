@@ -78,10 +78,8 @@ export function CreateCardDialog({ isOpen, close, columnIndex }: CreateCardDialo
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="inherit">
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} color="inherit" disabled={!isValid}>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleSubmit} disabled={!isValid}>
           Create
         </Button>
       </DialogActions>

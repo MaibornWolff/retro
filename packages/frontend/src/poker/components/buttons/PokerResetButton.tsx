@@ -31,7 +31,6 @@ export function PokerResetButton() {
   return (
     <>
       <Button
-        color="primary"
         variant="outlined"
         aria-label="Reset Votes"
         sx={{ margin: theme.spacing(1) }}
@@ -63,7 +62,6 @@ export function PokerResetButton() {
             onClick={() => {
               setOpen(false);
             }}
-            color="primary"
           >
             No
           </Button>

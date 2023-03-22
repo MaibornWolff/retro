@@ -25,7 +25,6 @@ export function SettingsButton() {
         variant="text"
         sx={{
           textTransform: "none",
-          color: "white",
         }}
         aria-label="retro settings"
         aria-controls="settings-appbar"

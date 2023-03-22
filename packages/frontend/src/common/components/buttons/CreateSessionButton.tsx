@@ -16,7 +16,6 @@ export function CreateSessionButton() {
     <>
       {!isOpen && !user.id && (
         <Button
-          color="primary"
           variant="outlined"
           onClick={openDialog}
           disabled={Boolean(user.name)}

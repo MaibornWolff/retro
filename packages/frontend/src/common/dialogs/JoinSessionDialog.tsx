@@ -105,10 +105,8 @@ export function JoinSessionDialog({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} color="primary" disabled={!isValid}>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleSubmit} disabled={!isValid}>
           Join
         </Button>
       </DialogActions>

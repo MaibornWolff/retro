@@ -63,7 +63,6 @@ export const PokerPointsSetupButton = React.forwardRef((_props: any, ref: any) =
       <MenuItem
         ref={ref}
         aria-label="Change Poker Unit"
-        color="primary"
         onClick={openDialog}
         disabled={!isModerator(user)}
       >
@@ -116,12 +115,8 @@ export const PokerPointsSetupButton = React.forwardRef((_props: any, ref: any) =
           )}
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={closeDialog}>
-            Cancel
-          </Button>
-          <Button color="primary" onClick={handleSubmit}>
-            Save
-          </Button>
+          <Button onClick={closeDialog}>Cancel</Button>
+          <Button onClick={handleSubmit}>Save</Button>
         </DialogActions>
       </Dialog>
     </>

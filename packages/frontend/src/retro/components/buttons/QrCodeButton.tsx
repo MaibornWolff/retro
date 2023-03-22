@@ -26,7 +26,7 @@ export function QrCodeButton() {
 
   return (
     <>
-      <MenuItem aria-label="QR Code" color="primary" onClick={openDialog}>
+      <MenuItem aria-label="QR Code" onClick={openDialog}>
         <ListItemIcon>
           <CropFree fontSize="small" />
         </ListItemIcon>
@@ -47,9 +47,7 @@ export function QrCodeButton() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={closeDialog}>
-            Close
-          </Button>
+          <Button onClick={closeDialog}>Close</Button>
         </DialogActions>
       </Dialog>
     </>

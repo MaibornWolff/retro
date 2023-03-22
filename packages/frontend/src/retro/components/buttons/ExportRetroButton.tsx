@@ -31,12 +31,7 @@ export function ExportRetroButton() {
 
   return (
     <>
-      <MenuItem
-        aria-label="Export Retro"
-        color="primary"
-        onClick={handleExport}
-        disabled={!isModerator(user)}
-      >
+      <MenuItem aria-label="Export Retro" onClick={handleExport} disabled={!isModerator(user)}>
         <ListItemIcon>
           <GetApp fontSize="small" />
         </ListItemIcon>
