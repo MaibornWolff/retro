@@ -8,7 +8,7 @@ import { ShareSessionButton } from "./buttons/ShareSessionButton";
 import { ParticipantsButton } from "./buttons/ParticipantsButton";
 import { UserByUserId } from "../../retro/types/retroTypes";
 import { useNamespace } from "../hooks/useNamespace";
-import { SettingsButton } from "../../retro/components/buttons/SettingsButton";
+import { SettingsButton } from "./buttons/SettingsButton";
 
 interface AppHeaderProps {
   participants: UserByUserId;
