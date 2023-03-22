@@ -17,28 +17,23 @@ interface PokerUserProps {
 export function PokerUser({ user, votes }: PokerUserProps) {
   const { pokerState } = usePokerContext();
 
-  const isDarkTheme = useTheme().palette.mode === "dark";
+  const theme = useTheme();
+  const isDarkTheme = theme.palette.mode === "dark";
+  const votedGradientDark = `linear-gradient(19deg, #4e6423 0%, #9ac14d 60%)`;
+  const notVotedGradientDark = `linear-gradient(19deg, #4b1631 0%, #972d63 60%)`;
+  const votedGradientLight = `linear-gradient(19deg, #a1d68b 0%, #82c864 80%)`;
+  const notVotedGradientLight = `linear-gradient(19deg, #f483b0 0%, #f05a96 80%)`;
 
-  const votedPropsDark = {
-    backgroundImage: `linear-gradient(19deg, #4e6423 0%, #9ac14d 60%)`,
+  let gradient: string;
+  if (hasVoted(votes, user.id)) {
+    gradient = isDarkTheme ? votedGradientDark : votedGradientLight;
+  } else {
+    gradient = isDarkTheme ? notVotedGradientDark : notVotedGradientLight;
+  }
+
+  const styleProps = {
+    backgroundImage: gradient,
   };
-
-  const notVotedPropsDark = {
-    backgroundImage: `linear-gradient(19deg, #4b1631 0%, #972d63 60%)`,
-  };
-
-  const votedPropsLight = {
-    backgroundImage: `linear-gradient(19deg, #a1d68b 0%, #82c864 80%)`,
-  };
-
-  const notVotedPropsLight = {
-    backgroundImage: `linear-gradient(19deg, #f483b0 0%, #f05a96 80%)`,
-  };
-
-  const stylePropsDark = hasVoted(votes, user.id) ? votedPropsDark : notVotedPropsDark;
-  const stylePropsLight = hasVoted(votes, user.id) ? votedPropsLight : notVotedPropsLight;
-
-  const styleProps = isDarkTheme ? stylePropsDark : stylePropsLight;
 
   return (
     <ReactCardFlip isFlipped={pokerState.showResults} flipDirection="horizontal">

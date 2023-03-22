@@ -16,12 +16,24 @@ import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { RetroTitle } from "./RetroTitle";
 import { RetroActionButtons } from "./RetroActionButtons";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
-import { RetroHeader } from "./RetroHeader";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 import { Alert } from "../../common/components/Alert";
+import { AppHeader } from "../../common/components/AppHeader";
+import { VoteCountButton } from "./buttons/VoteCountButton";
+import { ExportRetroImageButton } from "./buttons/ExportRetroImageButton";
+import { ExportRetroButton } from "./buttons/ExportRetroButton";
+import { ImportRetroButton } from "./buttons/ImportRetroButton";
+import { QrCodeButton } from "./buttons/QrCodeButton";
 
 export function RetroPage() {
-  const { retroState, resetRetroState } = useRetroContext();
+  const {
+    retroState,
+    resetRetroState,
+    handleKickUser,
+    handleAcceptJoinUser,
+    handleRejectJoinUser,
+    handleTransferModeratorRole,
+  } = useRetroContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
   const { boardRef } = useExportRetroContext();
@@ -64,14 +76,36 @@ export function RetroPage() {
   if (isWaitingUser(retroState.waitingList, user.id))
     return (
       <>
-        <RetroHeader />
+        <AppHeader
+          participants={retroState.participants}
+          waitingList={retroState.waitingList}
+          onKickUser={handleKickUser}
+          onAcceptJoinUser={handleAcceptJoinUser}
+          onRejectJoinUser={handleRejectJoinUser}
+          onTransferModeratorRole={handleTransferModeratorRole}
+          settingElements={[]}
+        />
         <WaitingForApproval />
       </>
     );
 
   return (
     <>
-      <RetroHeader />
+      <AppHeader
+        participants={retroState.participants}
+        waitingList={retroState.waitingList}
+        onKickUser={handleKickUser}
+        onAcceptJoinUser={handleAcceptJoinUser}
+        onRejectJoinUser={handleRejectJoinUser}
+        onTransferModeratorRole={handleTransferModeratorRole}
+        settingElements={[
+          <VoteCountButton key={"VoteCountButton"} />,
+          <ExportRetroImageButton key={"ExportRetroImageButton"} />,
+          <ExportRetroButton key={"ExportRetroButton"} />,
+          <ImportRetroButton key={"ImportRetroButton"} />,
+          <QrCodeButton key={"QrCodeButton"} />,
+        ]}
+      />
       <Box sx={{ width: "100%" }} ref={boardRef}>
         <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", p: 2 }}>
           <RetroTitle />

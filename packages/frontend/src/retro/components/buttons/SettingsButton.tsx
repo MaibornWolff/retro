@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Button, Menu, Typography } from "@mui/material";
 import { Settings } from "@mui/icons-material";
-import { VoteCountButton } from "./VoteCountButton";
-import { ExportRetroImageButton } from "./ExportRetroImageButton";
-import { ExportRetroButton } from "./ExportRetroButton";
-import { QrCodeButton } from "./QrCodeButton";
-import { ImportRetroButton } from "./ImportRetroButton";
 
-export function SettingsButton() {
+interface SettingsButtonProps {
+  settingElements: JSX.Element[];
+}
+
+export function SettingsButton({ settingElements }: SettingsButtonProps) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -50,11 +49,7 @@ export function SettingsButton() {
         onClose={handleClose}
         onClick={handleClose}
       >
-        <VoteCountButton />
-        <ExportRetroImageButton />
-        <ExportRetroButton />
-        <ImportRetroButton />
-        <QrCodeButton />
+        {settingElements}
       </Menu>
     </>
   );

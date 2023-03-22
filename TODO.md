@@ -8,8 +8,6 @@
 
 # Improvement
 
-- accept all button on waiting list (maybe reject all?)
-- option to auto allow all / auto reject
 - fix light theme and use a proper primary color?
 - add semantic release
 
