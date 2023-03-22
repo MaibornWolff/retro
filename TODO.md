@@ -8,7 +8,6 @@
 
 # Improvement
 
-- disable auto allow switch while requesting
 - adapt end to end tests to auto accept behaviour
 - fix light theme and use a proper primary color?
 - add commit and branch name linting
