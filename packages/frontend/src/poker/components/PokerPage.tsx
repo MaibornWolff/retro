@@ -71,7 +71,6 @@ export function PokerPage() {
           onAcceptJoinUser={handleAcceptJoinUser}
           onRejectJoinUser={handleRejectJoinUser}
           onTransferModeratorRole={handleTransferModeratorRole}
-          settingElements={[]}
         />
         <WaitingForApproval />
       </>
@@ -86,8 +85,9 @@ export function PokerPage() {
         onAcceptJoinUser={handleAcceptJoinUser}
         onRejectJoinUser={handleRejectJoinUser}
         onTransferModeratorRole={handleTransferModeratorRole}
-        settingElements={[<PokerPointsSetupButton key={"poker-points-setup"} />]}
-      />
+      >
+        <PokerPointsSetupButton />
+      </AppHeader>
       <Grid container sx={{ flexGrow: 1 }} direction="column" justifyContent="space-between">
         <PokerActionButtons />
         <Grid item xs={12}>

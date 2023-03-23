@@ -83,7 +83,6 @@ export function RetroPage() {
           onAcceptJoinUser={handleAcceptJoinUser}
           onRejectJoinUser={handleRejectJoinUser}
           onTransferModeratorRole={handleTransferModeratorRole}
-          settingElements={[]}
         />
         <WaitingForApproval />
       </>
@@ -98,14 +97,13 @@ export function RetroPage() {
         onAcceptJoinUser={handleAcceptJoinUser}
         onRejectJoinUser={handleRejectJoinUser}
         onTransferModeratorRole={handleTransferModeratorRole}
-        settingElements={[
-          <VoteCountButton key={"VoteCountButton"} />,
-          <ExportRetroImageButton key={"ExportRetroImageButton"} />,
-          <ExportRetroButton key={"ExportRetroButton"} />,
-          <ImportRetroButton key={"ImportRetroButton"} />,
-          <QrCodeButton key={"QrCodeButton"} />,
-        ]}
-      />
+      >
+        <VoteCountButton />
+        <ExportRetroImageButton />
+        <ExportRetroButton />
+        <ImportRetroButton />
+        <QrCodeButton />
+      </AppHeader>
       <Box sx={{ width: "100%" }} ref={boardRef}>
         <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", p: 2 }}>
           <RetroTitle />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, useTheme } from "@mui/material";
 
@@ -17,7 +17,7 @@ interface AppHeaderProps {
   onRejectJoinUser: (userId: string) => void;
   onAcceptJoinUser: (userId: string) => void;
   onTransferModeratorRole: (userId: string) => void;
-  settingElements: JSX.Element[];
+  children?: ReactNode;
 }
 
 export function AppHeader({
@@ -27,7 +27,7 @@ export function AppHeader({
   onRejectJoinUser,
   onAcceptJoinUser,
   onTransferModeratorRole,
-  settingElements,
+  children,
 }: AppHeaderProps) {
   const { user } = useUserContext();
   const theme = useTheme();
@@ -57,7 +57,7 @@ export function AppHeader({
             onAcceptJoinUser={onAcceptJoinUser}
             onTransferModeratorRole={onTransferModeratorRole}
           />
-          {settingElements.length > 0 && <SettingsButton settingElements={settingElements} />}
+          <SettingsButton>{children}</SettingsButton>
         </Toolbar>
       </AppBar>
     </div>

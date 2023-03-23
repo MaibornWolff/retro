@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { Button, Menu, Typography } from "@mui/material";
 import { Settings } from "@mui/icons-material";
 
 interface SettingsButtonProps {
-  settingElements: JSX.Element[];
+  children?: ReactNode;
 }
 
-export function SettingsButton({ settingElements }: SettingsButtonProps) {
+export function SettingsButton({ children }: SettingsButtonProps) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -25,7 +25,7 @@ export function SettingsButton({ settingElements }: SettingsButtonProps) {
         sx={{
           textTransform: "none",
         }}
-        aria-label="retro settings"
+        aria-label="settings button"
         aria-controls="settings-appbar"
         aria-haspopup="true"
         onClick={handleSettings}
@@ -49,7 +49,7 @@ export function SettingsButton({ settingElements }: SettingsButtonProps) {
         onClose={handleClose}
         onClick={handleClose}
       >
-        {settingElements}
+        {children}
       </Menu>
     </>
   );
