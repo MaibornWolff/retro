@@ -33,6 +33,7 @@ export function Column({ column }: ColumnProps) {
           {...providedDraggable.dragHandleProps}
           ref={providedDraggable.innerRef}
           elevation={3}
+          style={{ borderRadius: "15px" }}
         >
           <ColumnHeader column={column} />
           <Droppable droppableId={column.id} type="item" isCombineEnabled={true}>

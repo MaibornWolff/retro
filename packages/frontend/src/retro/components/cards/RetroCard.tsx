@@ -31,7 +31,7 @@ interface RetroItemProps {
 
 const getCardBorderColor = (colorTheme: Theme, theme: Theme) => {
   if (colorTheme.palette.mode === "dark") {
-    return theme.palette.secondary.light;
+    return theme.palette.background.default;
   } else {
     return "lightgrey";
   }
@@ -73,7 +73,7 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
 
   const highlightedCardStyle =
     retroState.highlightedCardId === id
-      ? { border: "4px solid red" }
+      ? { border: "1px solid red" }
       : { border: `1px solid ${getCardBorderColor(currentTheme, theme)}` };
 
   const blurValue = isModerator(user) ? "blur(1px)" : "blur(5px)";
@@ -82,9 +82,9 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
   const authors = owners.map(({ name }) => name);
   const isSelectableText = !isBlurred || isModerator(user);
   const voteColor = isVoted
-    ? theme.palette.primary.contrastText
-    : theme.palette.secondary.contrastText;
-  const voteBackgroundColor = isVoted ? theme.palette.primary.light : theme.palette.secondary.light;
+    ? theme.palette.secondary.contrastText
+    : theme.palette.primary.contrastText;
+  const voteBackgroundColor = isVoted ? theme.palette.secondary.main : theme.palette.primary.main;
 
   return (
     <CardContainer>
@@ -93,6 +93,7 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
         sx={{
           ...highlightedCardStyle,
           filter: isBlurred ? blurValue : undefined,
+          borderRadius: 3,
         }}
       >
         <CardHeader
