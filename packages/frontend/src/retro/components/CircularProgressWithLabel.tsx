@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { useVotesLeft } from "../hooks/useVotesLeft";
 import { useRetroContext } from "../context/RetroContext";
@@ -8,6 +8,7 @@ function normalise(value: number, min = 0, max: number) {
 }
 
 export function CircularProgressWithLabel() {
+  const theme = useTheme();
   const { retroState } = useRetroContext();
   const { maxVoteCount } = retroState;
   const votesLeft = useVotesLeft();
@@ -17,6 +18,7 @@ export function CircularProgressWithLabel() {
       <CircularProgress
         variant="determinate"
         value={normalise(maxVoteCount - votesLeft, maxVoteCount, 0)}
+        sx={{ color: theme.palette.secondary.main }}
       />
       <Box
         sx={{
