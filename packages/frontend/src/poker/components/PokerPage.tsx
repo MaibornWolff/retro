@@ -96,7 +96,7 @@ export function PokerPage() {
         <Grid item xs={12}>
           <PokerUsers />
         </Grid>
-        <Grid item xs={12} sx={{ marginTop: theme.spacing(2) }}>
+        <Grid item xs={12} sx={{ marginTop: theme.spacing(10) }}>
           {pokerState.showResults ? <PokerStats /> : null}
         </Grid>
       </Grid>

@@ -10,17 +10,18 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { TooltipIconButton } from "../../../common/TooltipIconButton";
 
 interface PokerCardFrontProps {
-  styleProps: { backgroundImage: string };
+  voted: boolean;
   pokerUser: User;
 }
 
-export function PokerCardFront({ styleProps, pokerUser }: PokerCardFrontProps) {
+export function PokerCardFront({ voted, pokerUser }: PokerCardFrontProps) {
   const { isOpen, closeDialog, openDialog } = useDialog(false);
   const { user } = useUserContext();
+  const iconColor = voted ? "black" : "white";
 
   return (
     <PokerCard
-      styleProps={styleProps}
+      voted={voted}
       pokerUser={pokerUser}
       FooterComponent={
         <>
@@ -32,6 +33,7 @@ export function PokerCardFront({ styleProps, pokerUser }: PokerCardFrontProps) {
                   openDialog();
                 }}
                 tooltipText="Vote"
+                sx={{ color: iconColor }}
               >
                 <HowToVote />
               </TooltipIconButton>

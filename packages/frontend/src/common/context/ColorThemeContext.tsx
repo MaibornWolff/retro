@@ -11,17 +11,20 @@ export interface ColorThemeContextValues {
   setLightTheme: () => void;
 }
 
+declare module "@mui/material/styles" {
+  interface PaletteOptions {
+    highlightColorPrimary: string;
+    highlightColorSecondary: string;
+    highlightColorTertiary: string;
+  }
+  interface Palette {
+    highlightColorPrimary: string;
+    highlightColorSecondary: string;
+    highlightColorTertiary: string;
+  }
+}
+
 const lightTheme = createTheme({
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        body: {
-          backgroundColor: "#E1E1DD",
-          backgroundImage: `linear-gradient(19deg, #E1E1DD 0%, #F9FBFF 50%)`,
-        },
-      },
-    },
-  },
   palette: {
     mode: "light",
     primary: {
@@ -30,27 +33,28 @@ const lightTheme = createTheme({
     secondary: {
       main: "#F9FBFF",
     },
+    highlightColorPrimary: "#b41964",
+    highlightColorSecondary: "#14b400",
+    highlightColorTertiary: "#00b4f0",
   },
 });
 
 const darkTheme = createTheme({
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        body: {
-          backgroundImage: `linear-gradient(19deg, #212121 0%, #1e194b 100%)`,
-        },
-      },
-    },
-  },
   palette: {
     mode: "dark",
     primary: {
       main: "#FFFFFF",
     },
     secondary: {
-      main: "#1e194b",
+      main: "#b41964",
     },
+    background: {
+      default: "#191c38",
+      paper: "#191c38",
+    },
+    highlightColorPrimary: "#b41964",
+    highlightColorSecondary: "#14b400",
+    highlightColorTertiary: "#00b4f0",
   },
 });
 

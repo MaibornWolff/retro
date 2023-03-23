@@ -7,32 +7,32 @@ import { User } from "../../../common/types/commonTypes";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
 interface PokerCardProps {
-  styleProps: { backgroundImage: string };
+  voted: boolean;
   pokerUser: User;
   FooterComponent?: React.ReactNode;
   DialogComponent?: React.ReactNode;
 }
 
-export function PokerCard({
-  styleProps,
-  pokerUser,
-  FooterComponent,
-  DialogComponent,
-}: PokerCardProps) {
+export function PokerCard({ voted, pokerUser, FooterComponent, DialogComponent }: PokerCardProps) {
   const theme = useTheme();
+  const backgroundColor = voted
+    ? theme.palette.highlightColorSecondary
+    : theme.palette.highlightColorPrimary;
+  const fontColor = voted ? "black" : "white";
 
   return (
     <>
       <Card
         sx={{
           margin: theme.spacing(1),
-          backgroundImage: styleProps.backgroundImage,
+          background: backgroundColor,
+          color: fontColor,
           width: "12em",
           height: "16rem",
           display: "flex",
           flexDirection: "column",
         }}
-        elevation={8}
+        elevation={5}
       >
         <CardHeader
           sx={{ height: "64px" }}

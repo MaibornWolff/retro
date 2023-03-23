@@ -84,12 +84,12 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
   const voteColor = isVoted
     ? theme.palette.primary.contrastText
     : theme.palette.secondary.contrastText;
-  const voteBackgroundColor = isVoted ? theme.palette.primary.dark : theme.palette.secondary.dark;
+  const voteBackgroundColor = isVoted ? theme.palette.primary.light : theme.palette.secondary.light;
 
   return (
     <CardContainer>
       <Card
-        elevation={20}
+        elevation={5}
         sx={{
           ...highlightedCardStyle,
           filter: isBlurred ? blurValue : undefined,

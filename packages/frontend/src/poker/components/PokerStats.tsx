@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Bar, BarChart, Legend, Tooltip, XAxis } from "recharts";
-import { Grid } from "@mui/material";
+import { Grid, useTheme } from "@mui/material";
 import { usePokerContext } from "../context/PokerContext";
 import { ChartData } from "../types/pokerTypes";
 import { generateChartData } from "../utils/pokerUtils";
@@ -32,7 +32,11 @@ export function PokerStats() {
         />
         <Tooltip cursor={false} />
         <Legend />
-        <Bar name="number of votes" dataKey="value" fill="#8884d8" />
+        <Bar
+          name="number of votes"
+          dataKey="value"
+          fill={useTheme().palette.highlightColorTertiary}
+        />
       </BarChart>
     </Grid>
   );
