@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { Card } from "@mui/material";
+import { Card, Divider } from "@mui/material";
 
 import { Cards } from "../cards/Cards";
 import { ColumnHeader } from "./column-header/ColumnHeader";
@@ -36,6 +36,7 @@ export function Column({ column }: ColumnProps) {
           style={{ borderRadius: "15px" }}
         >
           <ColumnHeader column={column} />
+          <Divider />
           <Droppable droppableId={column.id} type="item" isCombineEnabled={true}>
             {(providedDroppable, snapshot) => (
               <CardsContainer
