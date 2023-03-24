@@ -34,27 +34,29 @@ export function AppHeader({
   const namespace = useNamespace();
 
   return (
-    <div style={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h4" sx={{ flexGrow: 1, fontFamily: "Permanent Marker, cursive" }}>
-            <Link to="/" style={{ textDecoration: "none", color: theme.palette.primary.main }}>
-              {namespace === "poker" ? "Planning Poker" : "Retro"}
-            </Link>
-          </Typography>
-          <ToggleThemeButton />
-          <ShareSessionButton isDisabled={!user.id} />
-          <ParticipantsButton
-            participants={participants}
-            waitingList={waitingList}
-            handleKickUser={onKickUser}
-            onRejectJoinUser={onRejectJoinUser}
-            onAcceptJoinUser={onAcceptJoinUser}
-            onTransferModeratorRole={onTransferModeratorRole}
-          />
-          <SettingsButton>{children}</SettingsButton>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar
+      position="static"
+      enableColorOnDark={true}
+      sx={{ backgroundColor: theme.palette.background.paper }}
+    >
+      <Toolbar>
+        <Typography variant="h4" sx={{ flexGrow: 1, fontFamily: "Permanent Marker, cursive" }}>
+          <Link to="/" style={{ textDecoration: "none", color: theme.palette.primary.main }}>
+            {namespace === "poker" ? "Planning Poker" : "Retro"}
+          </Link>
+        </Typography>
+        <ToggleThemeButton />
+        <ShareSessionButton isDisabled={!user.id} />
+        <ParticipantsButton
+          participants={participants}
+          waitingList={waitingList}
+          handleKickUser={onKickUser}
+          onRejectJoinUser={onRejectJoinUser}
+          onAcceptJoinUser={onAcceptJoinUser}
+          onTransferModeratorRole={onTransferModeratorRole}
+        />
+        <SettingsButton>{children}</SettingsButton>
+      </Toolbar>
+    </AppBar>
   );
 }

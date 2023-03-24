@@ -12,6 +12,7 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { usePokerContext } from "../../context/PokerContext";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { RestartAlt } from "@mui/icons-material";
 
 export function PokerResetButton() {
   const { user } = useUserContext();
@@ -33,7 +34,8 @@ export function PokerResetButton() {
       <Button
         variant="outlined"
         aria-label="Reset Votes"
-        sx={{ margin: theme.spacing(1) }}
+        sx={{ margin: theme.spacing(1), borderRadius: "10px" }}
+        startIcon={<RestartAlt />}
         onClick={() => {
           setOpen(true);
         }}

@@ -19,7 +19,7 @@ export function CreateColumnButton() {
         onClick={openDialog}
         disabled={!isModerator(user)}
         startIcon={<Add />}
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", borderRadius: "10px" }}
       >
         Add Column
       </Button>

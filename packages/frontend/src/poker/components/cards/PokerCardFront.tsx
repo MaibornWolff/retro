@@ -1,5 +1,5 @@
 import React from "react";
-import { CardActions } from "@mui/material";
+import { CardActions, useTheme } from "@mui/material";
 import { HowToVote } from "@mui/icons-material";
 
 import { PokerVoteDialog } from "../dialogs/PokerVoteDialog";
@@ -15,9 +15,10 @@ interface PokerCardFrontProps {
 }
 
 export function PokerCardFront({ voted, pokerUser }: PokerCardFrontProps) {
+  const theme = useTheme();
   const { isOpen, closeDialog, openDialog } = useDialog(false);
   const { user } = useUserContext();
-  const iconColor = voted ? "black" : "white";
+  const iconColor = voted || theme.palette.mode === "light" ? "black" : "white";
 
   return (
     <PokerCard

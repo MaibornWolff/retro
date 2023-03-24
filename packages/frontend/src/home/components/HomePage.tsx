@@ -27,7 +27,6 @@ export function HomePage() {
             variant="h2"
             sx={{
               margin: theme.spacing(2),
-              color: theme.palette.primary.main,
             }}
           >
             <Typewriter

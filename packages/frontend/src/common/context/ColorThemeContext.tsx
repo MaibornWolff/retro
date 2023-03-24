@@ -28,14 +28,18 @@ const lightTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#383b3e",
+      main: "#000000",
     },
     secondary: {
-      main: "#F9FBFF",
+      main: "#00b4f0",
     },
-    highlightColorPrimary: "#b41964",
-    highlightColorSecondary: "#14b400",
-    highlightColorTertiary: "#00b4f0",
+    background: {
+      default: "#B0BEC5",
+      paper: "#CFD8DC",
+    },
+    highlightColorPrimary: "#f05a96",
+    highlightColorSecondary: "#82c864",
+    highlightColorTertiary: "#6ed210",
   },
 });
 

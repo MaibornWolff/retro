@@ -3,6 +3,7 @@ import { Button, useTheme } from "@mui/material";
 import { useUserContext } from "../../../common/context/UserContext";
 import { usePokerContext } from "../../context/PokerContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { Visibility } from "@mui/icons-material";
 
 export function PokerResultButton() {
   const theme = useTheme();
@@ -20,9 +21,10 @@ export function PokerResultButton() {
     <Button
       variant="outlined"
       aria-label="Show Results"
-      sx={{ margin: theme.spacing(1) }}
+      sx={{ margin: theme.spacing(1), borderRadius: "10px" }}
       disabled={noUserVoted}
       onClick={handleClick}
+      startIcon={<Visibility />}
     >
       Show Results
     </Button>

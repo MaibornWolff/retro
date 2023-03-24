@@ -93,7 +93,7 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
         sx={{
           ...highlightedCardStyle,
           filter: isBlurred ? blurValue : undefined,
-          borderRadius: 3,
+          borderRadius: "15px",
         }}
       >
         <CardHeader

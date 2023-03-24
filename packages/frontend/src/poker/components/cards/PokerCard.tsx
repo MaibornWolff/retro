@@ -18,7 +18,7 @@ export function PokerCard({ voted, pokerUser, FooterComponent, DialogComponent }
   const backgroundColor = voted
     ? theme.palette.highlightColorSecondary
     : theme.palette.highlightColorPrimary;
-  const fontColor = voted ? "black" : "white";
+  const fontColor = voted || theme.palette.mode === "light" ? "black" : "white";
 
   return (
     <>
@@ -31,6 +31,7 @@ export function PokerCard({ voted, pokerUser, FooterComponent, DialogComponent }
           height: "16rem",
           display: "flex",
           flexDirection: "column",
+          borderRadius: "15px",
         }}
         elevation={5}
       >

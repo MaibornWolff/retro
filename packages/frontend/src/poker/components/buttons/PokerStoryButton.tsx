@@ -14,6 +14,7 @@ import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInp
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 import { TextInput } from "../../../common/components/TextInput";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { Article } from "@mui/icons-material";
 
 export function PokerStoryButton() {
   const { handleSetUserStory } = usePokerContext();
@@ -60,10 +61,11 @@ export function PokerStoryButton() {
       <Button
         variant="outlined"
         aria-label="Set User Story"
-        sx={{ margin: theme.spacing(1) }}
+        sx={{ margin: theme.spacing(1), borderRadius: "10px" }}
         onClick={() => {
           setOpen(true);
         }}
+        startIcon={<Article />}
       >
         Set User Story
       </Button>
