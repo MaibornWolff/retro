@@ -28,6 +28,7 @@ export function JoinSessionButton({
           disabled={Boolean(user.name)}
           sx={{
             margin: theme.spacing(1),
+            borderRadius: "10px",
           }}
           fullWidth
         >
