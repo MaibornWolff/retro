@@ -59,9 +59,13 @@ export function PokerStoryButton() {
   return (
     <>
       <Button
-        variant="outlined"
+        variant="contained"
         aria-label="Set User Story"
-        sx={{ margin: theme.spacing(1), borderRadius: "10px" }}
+        sx={{
+          margin: theme.spacing(1),
+          borderRadius: "10px",
+          boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
+        }}
         onClick={() => {
           setOpen(true);
         }}

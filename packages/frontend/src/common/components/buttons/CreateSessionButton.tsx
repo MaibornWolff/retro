@@ -16,12 +16,13 @@ export function CreateSessionButton() {
     <>
       {!isOpen && !user.id && (
         <Button
-          variant="outlined"
+          variant="contained"
           onClick={openDialog}
           disabled={Boolean(user.name)}
           sx={{
             margin: theme.spacing(1),
             borderRadius: "10px",
+            boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
           }}
           fullWidth
         >
