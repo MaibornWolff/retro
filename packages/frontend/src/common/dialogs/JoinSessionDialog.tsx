@@ -86,11 +86,9 @@ export function JoinSessionDialog({
       onClose={handleClose}
       aria-labelledby="join-poker-dialog-title"
     >
-      <DialogTitle id="join-poker-dialog-title">Join Poker Session</DialogTitle>
+      <DialogTitle id="join-poker-dialog-title">Join Session</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Please provide a name, so that your team can recognize your estimation.
-        </DialogContentText>
+        <DialogContentText>Please provide your name for this session.</DialogContentText>
         <TextInput
           onSubmit={handleSubmit}
           required

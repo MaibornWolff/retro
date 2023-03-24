@@ -2,10 +2,10 @@ import React from "react";
 import Typewriter from "typewriter-effect";
 import { Grid, Typography, useTheme } from "@mui/material";
 
-import { PlanningPokerDialog } from "./PlanningPokerDialog";
 import { Hero } from "../../common/styled-components";
 import { RedirectToRetroButton } from "./RedirectToRetroButton";
 import hero from "../assets/hero.jpg";
+import { RedirectToPlanningPokerButton } from "./RedirectToPlanningPokerButton";
 
 export function HomePage() {
   const theme = useTheme();
@@ -53,7 +53,7 @@ export function HomePage() {
               <RedirectToRetroButton />
             </Grid>
             <Grid item>
-              <PlanningPokerDialog />
+              <RedirectToPlanningPokerButton />
             </Grid>
           </Grid>
         </Grid>
