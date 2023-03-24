@@ -129,12 +129,7 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
         />
         <Divider />
         <CardContent>
-          <Typography
-            sx={{ whiteSpace: "pre-line" }}
-            variant="body2"
-            color="textSecondary"
-            component={"span"}
-          >
+          <Typography sx={{ whiteSpace: "pre-line" }} variant="body2" component={"span"}>
             <CardText
               style={{ userSelect: isSelectableText ? "auto" : "none" }}
               dangerouslySetInnerHTML={{ __html: contentWithLinks }}
