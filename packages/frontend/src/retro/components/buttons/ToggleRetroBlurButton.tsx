@@ -22,7 +22,7 @@ export function ToggleRetroBlurButton() {
 
   return (
     <Button
-      variant="outlined"
+      variant="contained"
       aria-label={buttonText}
       onClick={toggleRetroBlur}
       startIcon={buttonIcon}

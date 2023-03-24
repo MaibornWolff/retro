@@ -14,7 +14,7 @@ export function CreateColumnButton() {
   return (
     <>
       <Button
-        variant="outlined"
+        variant="contained"
         aria-label="Add Column"
         onClick={openDialog}
         disabled={!isModerator(user)}
