@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { usePokerContext } from "../context/PokerContext";
 import { SetupSessionButton } from "../../common/components/buttons/SetupSessionButton";
-import { PokerStoryButton } from "./buttons/PokerStoryButton";
-import { PokerResetButton } from "./buttons/PokerResetButton";
+import { ResetVotesButton } from "./buttons/ResetVotesButton";
 import { PokerResultButton } from "./buttons/PokerResultButton";
+import { SetStoryButton } from "./buttons/SetStoryButton";
 
 export function PokerActionButtons() {
   const theme = useTheme();
@@ -29,10 +29,10 @@ export function PokerActionButtons() {
           />
         </Grid>
         <Grid item>
-          <PokerStoryButton />
+          <SetStoryButton />
         </Grid>
         <Grid item>
-          <PokerResetButton />
+          <ResetVotesButton />
         </Grid>
         <Grid item>
           <PokerResultButton />

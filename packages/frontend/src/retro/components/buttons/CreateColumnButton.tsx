@@ -3,8 +3,8 @@ import { Add } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { useUserContext } from "../../../common/context/UserContext";
 import { CreateColumnDialog } from "../dialogs/CreateColumnDialog";
-import { useDialog } from "../../hooks/useDialog";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { useDialog } from "../../../common/hooks/useDialog";
 
 export function CreateColumnButton() {
   const { isOpen, openDialog, closeDialog } = useDialog();

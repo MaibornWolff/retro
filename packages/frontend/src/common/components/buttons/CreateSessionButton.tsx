@@ -1,10 +1,10 @@
 import { Button, useTheme } from "@mui/material";
 import React from "react";
-import { useDialog } from "../../../retro/hooks/useDialog";
 import { useUserContext } from "../../context/UserContext";
 import { useNamespace } from "../../hooks/useNamespace";
 import { CreatePokerSessionDialog } from "../../../poker/components/dialogs/CreatePokerSessionDialog";
 import { CreateRetroSessionDialog } from "../../../retro/components/dialogs/CreateRetroSessionDialog";
+import { useDialog } from "../../hooks/useDialog";
 
 export function CreateSessionButton() {
   const { isOpen, closeDialog, openDialog } = useDialog(true);

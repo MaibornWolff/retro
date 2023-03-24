@@ -4,8 +4,8 @@ import { IconButtonProps } from "@mui/material";
 import { RetroCard } from "../../types/retroTypes";
 import { useIsPrivileged } from "../../hooks/useIsPrivileged";
 import { CardActionButton } from "./CardActionButton";
-import { useDialog } from "../../hooks/useDialog";
 import { DeleteCardDialog } from "../dialogs/DeleteCardDialog";
+import { useDialog } from "../../../common/hooks/useDialog";
 
 interface DeleteItemButtonProps extends IconButtonProps {
   card: RetroCard;

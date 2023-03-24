@@ -5,9 +5,9 @@ import { HowToVote } from "@mui/icons-material";
 import { PokerVoteDialog } from "../dialogs/PokerVoteDialog";
 import { PokerCard } from "./PokerCard";
 import { User } from "../../../common/types/commonTypes";
-import { useDialog } from "../../../retro/hooks/useDialog";
 import { useUserContext } from "../../../common/context/UserContext";
 import { TooltipIconButton } from "../../../common/TooltipIconButton";
+import { useDialog } from "../../../common/hooks/useDialog";
 
 interface PokerCardFrontProps {
   styleProps: { backgroundColor: string };

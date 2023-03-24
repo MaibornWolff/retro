@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Settings } from "@mui/icons-material";
 import { Button, Menu, Typography } from "@mui/material";
 
-import { PokerPointsSetupButton } from "./PokerPointsSetupButton";
+import { EstimationUnitSetupMenuItem } from "./EstimationUnitSetupMenuItem";
 import { useUserContext } from "../../../common/context/UserContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
@@ -49,7 +49,7 @@ export function PokerSettingsButton() {
           horizontal: "right",
         }}
       >
-        <PokerPointsSetupButton />
+        <EstimationUnitSetupMenuItem />
       </Menu>
     </>
   );

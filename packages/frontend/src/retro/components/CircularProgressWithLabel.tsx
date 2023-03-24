@@ -1,22 +1,24 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import React from "react";
-import { useVotesLeft } from "../hooks/useVotesLeft";
-import { useRetroContext } from "../context/RetroContext";
 
 function normalise(value: number, min = 0, max: number) {
   return ((value - min) * 100) / (max - min);
 }
 
-export function CircularProgressWithLabel() {
-  const { retroState } = useRetroContext();
-  const { maxVoteCount } = retroState;
-  const votesLeft = useVotesLeft();
+interface CircularProgressWithLabelProps {
+  maxValue: number;
+  currentValue: number;
+}
 
+export function CircularProgressWithLabel({
+  maxValue,
+  currentValue,
+}: CircularProgressWithLabelProps) {
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress
         variant="determinate"
-        value={normalise(maxVoteCount - votesLeft, maxVoteCount, 0)}
+        value={normalise(maxValue - currentValue, maxValue, 0)}
       />
       <Box
         sx={{
@@ -31,7 +33,7 @@ export function CircularProgressWithLabel() {
         }}
       >
         <Typography variant="h6" component="div" color="text.primary">
-          {votesLeft}
+          {currentValue}
         </Typography>
       </Box>
     </Box>

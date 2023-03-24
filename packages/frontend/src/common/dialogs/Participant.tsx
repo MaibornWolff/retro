@@ -4,9 +4,9 @@ import { AddModerator, LocalPolice, Person, RemoveCircle } from "@mui/icons-mate
 import { TransferModeratorRoleDialog } from "../../retro/components/dialogs/TransferModeratorRoleDialog";
 import { isModerator } from "../utils/participantsUtils";
 import { useUserContext } from "../context/UserContext";
-import { useDialog } from "../../retro/hooks/useDialog";
 import { User } from "../types/commonTypes";
 import { TooltipIconButton } from "../TooltipIconButton";
+import { useDialog } from "../hooks/useDialog";
 
 interface ParticipantProps {
   participant: User;

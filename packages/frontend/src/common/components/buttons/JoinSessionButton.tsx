@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, useTheme } from "@mui/material";
-import { useDialog } from "../../../retro/hooks/useDialog";
 import { useUserContext } from "../../context/UserContext";
 import { JoinSessionDialog } from "../../dialogs/JoinSessionDialog";
+import { useDialog } from "../../hooks/useDialog";
 
 interface JoinSessionButtonProps {
   roomId: string;

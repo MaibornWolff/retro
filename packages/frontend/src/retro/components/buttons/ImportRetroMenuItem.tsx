@@ -7,7 +7,7 @@ import { RetroState } from "../../types/retroTypes";
 import { useRetroContext } from "../../context/RetroContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export function ImportRetroButton() {
+export function ImportRetroMenuItem() {
   const inputFile = useRef<HTMLInputElement>(null);
   const { user } = useUserContext();
   const { handleSetRetroState } = useRetroContext();
