@@ -15,12 +15,10 @@ declare module "@mui/material/styles" {
   interface PaletteOptions {
     highlightColorPrimary: string;
     highlightColorSecondary: string;
-    highlightColorTertiary: string;
   }
   interface Palette {
     highlightColorPrimary: string;
     highlightColorSecondary: string;
-    highlightColorTertiary: string;
   }
 }
 
@@ -39,7 +37,6 @@ const lightTheme = createTheme({
     },
     highlightColorPrimary: "#f05a96",
     highlightColorSecondary: "#82c864",
-    highlightColorTertiary: "#6ed210",
   },
 });
 
@@ -58,7 +55,6 @@ const darkTheme = createTheme({
     },
     highlightColorPrimary: "#b41964",
     highlightColorSecondary: "#14b400",
-    highlightColorTertiary: "#00b4f0",
   },
 });
 

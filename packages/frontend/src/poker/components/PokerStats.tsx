@@ -32,11 +32,7 @@ export function PokerStats() {
         />
         <Tooltip cursor={false} />
         <Legend />
-        <Bar
-          name="number of votes"
-          dataKey="value"
-          fill={useTheme().palette.highlightColorTertiary}
-        />
+        <Bar name="number of votes" dataKey="value" fill={useTheme().palette.secondary.main} />
       </BarChart>
     </Grid>
   );
