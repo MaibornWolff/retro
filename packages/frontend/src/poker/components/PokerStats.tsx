@@ -17,6 +17,7 @@ export function PokerStats() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokerState.showResults]);
 
+  const primaryColor = useTheme().palette.primary.main;
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
       <BarChart
@@ -29,10 +30,15 @@ export function PokerStats() {
           dataKey="name"
           // tick={{ fontSize: "10px", width: "50px" }}
           interval={0}
+          stroke={primaryColor}
         />
-        <Tooltip cursor={false} />
+        <Tooltip
+          cursor={false}
+          labelStyle={{ color: "#303030" }}
+          itemStyle={{ color: "#303030" }}
+        />
         <Legend />
-        <Bar name="number of votes" dataKey="value" fill={useTheme().palette.primary.main} />
+        <Bar name="number of votes" dataKey="value" fill={primaryColor} />
       </BarChart>
     </Grid>
   );
