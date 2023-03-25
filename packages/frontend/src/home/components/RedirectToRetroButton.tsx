@@ -15,7 +15,6 @@ export function RedirectToRetroButton() {
     <Fab
       size="large"
       variant="extended"
-      color="primary"
       onClick={navigateToRetro}
       sx={{
         margin: theme.spacing(1),

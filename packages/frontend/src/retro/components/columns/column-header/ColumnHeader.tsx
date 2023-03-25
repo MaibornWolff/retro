@@ -1,5 +1,5 @@
 import React from "react";
-import { CardHeader, useTheme } from "@mui/material";
+import { CardHeader } from "@mui/material";
 
 import { ColumnName } from "../ColumnName";
 import { ColumnMenu } from "./ColumnMenu";
@@ -11,16 +11,10 @@ interface ColumnHeaderProps {
 }
 
 export function ColumnHeader({ column }: ColumnHeaderProps) {
-  const theme = useTheme();
-
   const { columnTitle } = column;
 
   return (
     <CardHeader
-      sx={{
-        backgroundColor: theme.palette.secondary.main,
-        color: theme.palette.secondary.contrastText,
-      }}
       title={<ColumnName columnTitle={columnTitle} />}
       action={
         <div>

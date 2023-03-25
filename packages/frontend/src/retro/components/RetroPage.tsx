@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Snackbar, useTheme } from "@mui/material";
+import { Box, Snackbar } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Navigate } from "react-router-dom";
 
@@ -16,18 +16,29 @@ import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { RetroTitle } from "./RetroTitle";
 import { RetroActionButtons } from "./RetroActionButtons";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
-import { RetroHeader } from "./RetroHeader";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 import { Alert } from "../../common/components/Alert";
+import { AppHeader } from "../../common/components/AppHeader";
+import { VoteCountButton } from "./buttons/VoteCountButton";
+import { ExportRetroImageButton } from "./buttons/ExportRetroImageButton";
+import { ExportRetroButton } from "./buttons/ExportRetroButton";
+import { ImportRetroButton } from "./buttons/ImportRetroButton";
+import { QrCodeButton } from "./buttons/QrCodeButton";
 
 export function RetroPage() {
-  const { retroState, resetRetroState } = useRetroContext();
+  const {
+    retroState,
+    resetRetroState,
+    handleKickUser,
+    handleAcceptJoinUser,
+    handleRejectJoinUser,
+    handleTransferModeratorRole,
+  } = useRetroContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
   const { boardRef } = useExportRetroContext();
   const roomIdFromPath = useRoomIdFromPath();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
-  const theme = useTheme();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useFirstWaitingUser({ waitingList: retroState.waitingList, onFirstUserWaiting: showSnackbar });
@@ -65,15 +76,35 @@ export function RetroPage() {
   if (isWaitingUser(retroState.waitingList, user.id))
     return (
       <>
-        <RetroHeader />
+        <AppHeader
+          participants={retroState.participants}
+          waitingList={retroState.waitingList}
+          onKickUser={handleKickUser}
+          onAcceptJoinUser={handleAcceptJoinUser}
+          onRejectJoinUser={handleRejectJoinUser}
+          onTransferModeratorRole={handleTransferModeratorRole}
+        />
         <WaitingForApproval />
       </>
     );
 
   return (
     <>
-      <RetroHeader />
-      <Box sx={{ backgroundColor: theme.palette.background.default, width: "100%" }} ref={boardRef}>
+      <AppHeader
+        participants={retroState.participants}
+        waitingList={retroState.waitingList}
+        onKickUser={handleKickUser}
+        onAcceptJoinUser={handleAcceptJoinUser}
+        onRejectJoinUser={handleRejectJoinUser}
+        onTransferModeratorRole={handleTransferModeratorRole}
+      >
+        <VoteCountButton />
+        <ExportRetroImageButton />
+        <ExportRetroButton />
+        <ImportRetroButton />
+        <QrCodeButton />
+      </AppHeader>
+      <Box sx={{ width: "100%" }} ref={boardRef}>
         <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", p: 2 }}>
           <RetroTitle />
           <VoteProgress />

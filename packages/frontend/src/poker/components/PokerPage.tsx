@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Grid, Snackbar, useTheme } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
-import { PokerHeader } from "./PokerHeader";
 import { PokerActionButtons } from "./PokerActionButtons";
 import { PokerTitle } from "./PokerTitle";
 import { PokerUsers } from "./PokerUsers";
@@ -15,9 +14,18 @@ import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { Alert } from "../../common/components/Alert";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
+import { AppHeader } from "../../common/components/AppHeader";
+import { PokerPointsSetupButton } from "./buttons/PokerPointsSetupButton";
 
 export function PokerPage() {
-  const { pokerState, resetPokerState } = usePokerContext();
+  const {
+    pokerState,
+    resetPokerState,
+    handleKickUser,
+    handleAcceptJoinUser,
+    handleRejectJoinUser,
+    handleTransferModeratorRole,
+  } = usePokerContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
   const roomIdFromPath = useRoomIdFromPath();
@@ -56,14 +64,30 @@ export function PokerPage() {
   if (isWaitingUser(pokerState.waitingList, user.id))
     return (
       <>
-        <PokerHeader />
+        <AppHeader
+          participants={pokerState.participants}
+          waitingList={pokerState.waitingList}
+          onKickUser={handleKickUser}
+          onAcceptJoinUser={handleAcceptJoinUser}
+          onRejectJoinUser={handleRejectJoinUser}
+          onTransferModeratorRole={handleTransferModeratorRole}
+        />
         <WaitingForApproval />
       </>
     );
 
   return (
     <>
-      <PokerHeader />
+      <AppHeader
+        participants={pokerState.participants}
+        waitingList={pokerState.waitingList}
+        onKickUser={handleKickUser}
+        onAcceptJoinUser={handleAcceptJoinUser}
+        onRejectJoinUser={handleRejectJoinUser}
+        onTransferModeratorRole={handleTransferModeratorRole}
+      >
+        <PokerPointsSetupButton />
+      </AppHeader>
       <Grid container sx={{ flexGrow: 1 }} direction="column" justifyContent="space-between">
         <PokerActionButtons />
         <Grid item xs={12}>
@@ -72,7 +96,7 @@ export function PokerPage() {
         <Grid item xs={12}>
           <PokerUsers />
         </Grid>
-        <Grid item xs={12} sx={{ marginTop: theme.spacing(2) }}>
+        <Grid item xs={12} sx={{ marginTop: theme.spacing(10) }}>
           {pokerState.showResults ? <PokerStats /> : null}
         </Grid>
       </Grid>

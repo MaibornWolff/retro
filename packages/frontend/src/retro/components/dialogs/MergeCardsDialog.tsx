@@ -40,10 +40,8 @@ export function MergeCardsDialog({ open, closeDialog, onMergeCards }: MergeCards
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeDialog} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={mergeCards} color="primary" autoFocus>
+        <Button onClick={closeDialog}>Cancel</Button>
+        <Button onClick={mergeCards} autoFocus>
           Merge
         </Button>
       </DialogActions>

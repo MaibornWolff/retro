@@ -14,6 +14,7 @@ import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInp
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 import { TextInput } from "../../../common/components/TextInput";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { Article } from "@mui/icons-material";
 
 export function PokerStoryButton() {
   const { handleSetUserStory } = usePokerContext();
@@ -58,13 +59,17 @@ export function PokerStoryButton() {
   return (
     <>
       <Button
-        color="primary"
-        variant="outlined"
+        variant="contained"
         aria-label="Set User Story"
-        sx={{ margin: theme.spacing(1) }}
+        sx={{
+          margin: theme.spacing(1),
+          borderRadius: "10px",
+          boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
+        }}
         onClick={() => {
           setOpen(true);
         }}
+        startIcon={<Article />}
       >
         Set User Story
       </Button>
@@ -100,10 +105,8 @@ export function PokerStoryButton() {
           />
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={closeDialog}>
-            Cancel
-          </Button>
-          <Button color="primary" onClick={handleSubmit} disabled={!isStoryTitleValid}>
+          <Button onClick={closeDialog}>Cancel</Button>
+          <Button onClick={handleSubmit} disabled={!isStoryTitleValid}>
             Set Story
           </Button>
         </DialogActions>

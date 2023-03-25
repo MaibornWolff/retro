@@ -33,7 +33,6 @@ export function ColumnMenu({ column }: ColumnMenuProps) {
   return (
     <>
       <IconButton
-        color="inherit"
         aria-label="Column Menu"
         aria-owns={open ? "column-menu" : undefined}
         aria-haspopup="true"

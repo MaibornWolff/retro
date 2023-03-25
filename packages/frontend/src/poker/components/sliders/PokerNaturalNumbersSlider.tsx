@@ -10,7 +10,6 @@ interface PokerNaturalNumbersSliderProps {
 export function PokerNaturalNumbersSlider(props: PokerNaturalNumbersSliderProps) {
   return (
     <Slider
-      color="primary"
       defaultValue={0}
       onChange={props.onChange}
       getAriaValueText={props.valueText}
