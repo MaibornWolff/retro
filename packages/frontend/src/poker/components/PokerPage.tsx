@@ -15,7 +15,7 @@ import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { Alert } from "../../common/components/Alert";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 import { AppHeader } from "../../common/components/AppHeader";
-import { PokerPointsSetupButton } from "./buttons/PokerPointsSetupButton";
+import { EstimationUnitSetupMenuItem } from "./buttons/EstimationUnitSetupMenuItem";
 
 export function PokerPage() {
   const {
@@ -86,7 +86,7 @@ export function PokerPage() {
         onRejectJoinUser={handleRejectJoinUser}
         onTransferModeratorRole={handleTransferModeratorRole}
       >
-        <PokerPointsSetupButton />
+        <EstimationUnitSetupMenuItem />
       </AppHeader>
       <Grid container sx={{ flexGrow: 1 }} direction="column" justifyContent="space-between">
         <PokerActionButtons />

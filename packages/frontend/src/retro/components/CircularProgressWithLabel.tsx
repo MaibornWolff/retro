@@ -9,7 +9,10 @@ interface CircularProgressWithLabelProps {
   maxValue: number;
   currentValue: number;
 }
-export function CircularProgressWithLabel() {
+export function CircularProgressWithLabel({
+  maxValue,
+  currentValue,
+}: CircularProgressWithLabelProps) {
   const theme = useTheme();
 
   return (

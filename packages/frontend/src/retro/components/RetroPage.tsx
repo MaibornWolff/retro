@@ -19,11 +19,11 @@ import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 import { Alert } from "../../common/components/Alert";
 import { AppHeader } from "../../common/components/AppHeader";
-import { VoteCountButton } from "./buttons/VoteCountButton";
-import { ExportRetroImageButton } from "./buttons/ExportRetroImageButton";
-import { ExportRetroButton } from "./buttons/ExportRetroButton";
-import { ImportRetroButton } from "./buttons/ImportRetroButton";
-import { QrCodeButton } from "./buttons/QrCodeButton";
+import { QrCodeMenuItem } from "./buttons/QrCodeMenuItem";
+import { ExportRetroImageMenuItem } from "./buttons/ExportRetroImageMenuItem";
+import { ExportRetroMenuItem } from "./buttons/ExportRetroMenuItem";
+import { ImportRetroMenuItem } from "./buttons/ImportRetroMenuItem";
+import { ManageVotesMenuItem } from "./buttons/ManageVotesMenuItem";
 
 export function RetroPage() {
   const {
@@ -98,11 +98,11 @@ export function RetroPage() {
         onRejectJoinUser={handleRejectJoinUser}
         onTransferModeratorRole={handleTransferModeratorRole}
       >
-        <VoteCountButton />
-        <ExportRetroImageButton />
-        <ExportRetroButton />
-        <ImportRetroButton />
-        <QrCodeButton />
+        <ManageVotesMenuItem />
+        <ExportRetroImageMenuItem />
+        <ExportRetroMenuItem />
+        <ImportRetroMenuItem />
+        <QrCodeMenuItem />
       </AppHeader>
       <Box sx={{ width: "100%" }} ref={boardRef}>
         <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", p: 2 }}>

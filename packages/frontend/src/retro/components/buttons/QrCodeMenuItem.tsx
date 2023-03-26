@@ -4,7 +4,7 @@ import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { useDialog } from "../../../common/hooks/useDialog";
 import { QrCodeDialog } from "../dialogs/QrCodeDialog";
 
-export function QrCodeButton() {
+export function QrCodeMenuItem() {
   const { isOpen, openDialog, closeDialog } = useDialog();
 
   return (
