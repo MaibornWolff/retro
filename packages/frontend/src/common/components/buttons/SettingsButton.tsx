@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { Button, Menu, Typography } from "@mui/material";
 import { Settings } from "@mui/icons-material";
-import { ManageVotesMenuItem } from "./ManageVotesMenuItem";
-import { ExportRetroImageMenuItem } from "./ExportRetroImageMenuItem";
-import { ExportRetroMenuItem } from "./ExportRetroMenuItem";
-import { QrCodeButton } from "./QrCodeButton";
-import { ImportRetroMenuItem } from "./ImportRetroMenuItem";
 
-export function SettingsButton() {
+interface SettingsButtonProps {
+  children?: ReactNode;
+}
+
+export function SettingsButton({ children }: SettingsButtonProps) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -25,9 +24,8 @@ export function SettingsButton() {
         variant="text"
         sx={{
           textTransform: "none",
-          color: "white",
         }}
-        aria-label="retro settings"
+        aria-label="settings button"
         aria-controls="settings-appbar"
         aria-haspopup="true"
         onClick={handleSettings}
@@ -51,11 +49,7 @@ export function SettingsButton() {
         onClose={handleClose}
         onClick={handleClose}
       >
-        <ManageVotesMenuItem />
-        <ExportRetroImageMenuItem />
-        <ExportRetroMenuItem />
-        <ImportRetroMenuItem />
-        <QrCodeButton />
+        {children}
       </Menu>
     </>
   );

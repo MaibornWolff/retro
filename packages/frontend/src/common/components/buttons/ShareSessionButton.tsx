@@ -39,11 +39,11 @@ export function ShareSessionButton({ isDisabled = false }: ShareSessionButtonPro
         variant="text"
         aria-label="Share this session"
         onClick={handleClick}
-        sx={{ marginRight: theme.spacing(1), textTransform: "none", color: "white" }}
+        sx={{ marginRight: theme.spacing(1), textTransform: "none" }}
         startIcon={<Share />}
         disabled={isDisabled}
       >
-        <Typography color="inherit">Share Session</Typography>
+        <Typography>Share Session</Typography>
       </Button>
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
         <div>

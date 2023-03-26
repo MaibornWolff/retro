@@ -20,10 +20,10 @@ export function ToggleThemeButton() {
       variant="text"
       aria-label="Share this session"
       onClick={toggleTheme}
-      sx={{ marginRight: theme.spacing(1), textTransform: "none", color: "white" }}
+      sx={{ marginRight: theme.spacing(1), textTransform: "none" }}
       startIcon={<Brightness6 />}
     >
-      <Typography color="inherit">Change Theme</Typography>
+      <Typography>Change Theme</Typography>
     </Button>
   );
 }

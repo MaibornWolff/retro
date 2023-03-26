@@ -1,5 +1,5 @@
 import React from "react";
-import { CardActions } from "@mui/material";
+import { CardActions, useTheme } from "@mui/material";
 import { HowToVote } from "@mui/icons-material";
 
 import { PokerVoteDialog } from "../dialogs/PokerVoteDialog";
@@ -10,29 +10,31 @@ import { TooltipIconButton } from "../../../common/TooltipIconButton";
 import { useDialog } from "../../../common/hooks/useDialog";
 
 interface PokerCardFrontProps {
-  styleProps: { backgroundColor: string };
+  voted: boolean;
   pokerUser: User;
 }
 
-export function PokerCardFront({ styleProps, pokerUser }: PokerCardFrontProps) {
+export function PokerCardFront({ voted, pokerUser }: PokerCardFrontProps) {
+  const theme = useTheme();
   const { isOpen, closeDialog, openDialog } = useDialog(false);
   const { user } = useUserContext();
+  const iconColor = voted || theme.palette.mode === "light" ? "black" : "white";
 
   return (
     <PokerCard
-      styleProps={styleProps}
+      voted={voted}
       pokerUser={pokerUser}
       FooterComponent={
         <>
           {pokerUser.id === user.id && (
             <CardActions sx={{ justifyContent: "center" }}>
               <TooltipIconButton
-                color="secondary"
                 aria-label="Vote"
                 onClick={() => {
                   openDialog();
                 }}
                 tooltipText="Vote"
+                sx={{ color: iconColor }}
               >
                 <HowToVote />
               </TooltipIconButton>

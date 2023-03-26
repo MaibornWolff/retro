@@ -14,13 +14,7 @@ export function CardActionButton({
   ...props
 }: CardActionButtonProps) {
   return (
-    <TooltipIconButton
-      tooltipText={tooltipText}
-      {...props}
-      color="inherit"
-      size="small"
-      onClick={onClick}
-    >
+    <TooltipIconButton tooltipText={tooltipText} {...props} size="small" onClick={onClick}>
       {children}
     </TooltipIconButton>
   );

@@ -68,10 +68,8 @@ export function EditCardDialog({ isOpen, close, card, columnIndex }: EditCardDia
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={close} color="inherit">
-          Cancel
-        </Button>
-        <Button onClick={handleSave} color="inherit" disabled={!isValid}>
+        <Button onClick={close}>Cancel</Button>
+        <Button onClick={handleSave} disabled={!isValid}>
           Save
         </Button>
       </DialogActions>

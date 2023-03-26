@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { createTheme, Theme } from "@mui/material";
-import { grey } from "@mui/material/colors";
 
 interface Props {
   children?: React.ReactNode;
@@ -12,15 +11,32 @@ export interface ColorThemeContextValues {
   setLightTheme: () => void;
 }
 
+declare module "@mui/material/styles" {
+  interface PaletteOptions {
+    highlightColorPrimary: string;
+    highlightColorSecondary: string;
+  }
+  interface Palette {
+    highlightColorPrimary: string;
+    highlightColorSecondary: string;
+  }
+}
+
 const lightTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: grey["900"],
+      main: "#303030",
     },
     secondary: {
-      main: grey["900"],
+      main: "#00b4f0",
     },
+    background: {
+      default: "#B0BEC5",
+      paper: "#CFD8DC",
+    },
+    highlightColorPrimary: "#f05a96",
+    highlightColorSecondary: "#82c864",
   },
 });
 
@@ -28,11 +44,17 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: grey["100"],
+      main: "#EFEFEF",
     },
     secondary: {
-      main: grey["800"],
+      main: "#b41964",
     },
+    background: {
+      default: "#191c38",
+      paper: "#191c38",
+    },
+    highlightColorPrimary: "#b41964",
+    highlightColorSecondary: "#14b400",
   },
 });
 

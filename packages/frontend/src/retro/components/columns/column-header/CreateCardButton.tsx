@@ -14,7 +14,7 @@ export function CreateCardButton({ column }: CreateCardButtonProps) {
 
   return (
     <>
-      <TooltipIconButton tooltipText="Create Card" color="inherit" onClick={openDialog}>
+      <TooltipIconButton tooltipText="Create Card" onClick={openDialog}>
         <Add fontSize="small" />
       </TooltipIconButton>
       <CreateCardDialog isOpen={isOpen} close={closeDialog} columnIndex={column.index} />

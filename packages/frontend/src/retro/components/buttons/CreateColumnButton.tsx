@@ -14,12 +14,16 @@ export function CreateColumnButton() {
   return (
     <>
       <Button
-        variant="outlined"
+        variant="contained"
         aria-label="Add Column"
         onClick={openDialog}
         disabled={!isModerator(user)}
         startIcon={<Add />}
-        sx={{ width: "100%" }}
+        sx={{
+          width: "100%",
+          borderRadius: "10px",
+          boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
+        }}
       >
         Add Column
       </Button>

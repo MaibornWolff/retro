@@ -31,7 +31,7 @@ interface RetroItemProps {
 
 const getCardBorderColor = (colorTheme: Theme, theme: Theme) => {
   if (colorTheme.palette.mode === "dark") {
-    return theme.palette.secondary.light;
+    return theme.palette.background.default;
   } else {
     return "lightgrey";
   }
@@ -73,7 +73,7 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
 
   const highlightedCardStyle =
     retroState.highlightedCardId === id
-      ? { border: "4px solid red" }
+      ? { border: "1px solid red" }
       : { border: `1px solid ${getCardBorderColor(currentTheme, theme)}` };
 
   const blurValue = isModerator(user) ? "blur(1px)" : "blur(5px)";
@@ -82,17 +82,18 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
   const authors = owners.map(({ name }) => name);
   const isSelectableText = !isBlurred || isModerator(user);
   const voteColor = isVoted
-    ? theme.palette.primary.contrastText
-    : theme.palette.secondary.contrastText;
-  const voteBackgroundColor = isVoted ? theme.palette.primary.dark : theme.palette.secondary.dark;
+    ? theme.palette.secondary.contrastText
+    : theme.palette.primary.contrastText;
+  const voteBackgroundColor = isVoted ? theme.palette.secondary.main : theme.palette.primary.main;
 
   return (
     <CardContainer>
       <Card
-        elevation={20}
+        elevation={5}
         sx={{
           ...highlightedCardStyle,
           filter: isBlurred ? blurValue : undefined,
+          borderRadius: "15px",
         }}
       >
         <CardHeader
@@ -118,7 +119,6 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
                 <TooltipIconButton
                   tooltipText="Highlight Card"
                   aria-label="Highlight"
-                  color="inherit"
                   onClick={toggleHighlight}
                 >
                   {retroState.highlightedCardId === id ? <Highlight /> : <HighlightOutlined />}
@@ -129,12 +129,7 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
         />
         <Divider />
         <CardContent>
-          <Typography
-            sx={{ whiteSpace: "pre-line" }}
-            variant="body2"
-            color="textSecondary"
-            component={"span"}
-          >
+          <Typography sx={{ whiteSpace: "pre-line" }} variant="body2" component={"span"}>
             <CardText
               style={{ userSelect: isSelectableText ? "auto" : "none" }}
               dangerouslySetInnerHTML={{ __html: contentWithLinks }}

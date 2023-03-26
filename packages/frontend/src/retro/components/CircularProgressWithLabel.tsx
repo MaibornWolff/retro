@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography, useTheme } from "@mui/material";
 import React from "react";
 
 function normalise(value: number, min = 0, max: number) {
@@ -9,16 +9,15 @@ interface CircularProgressWithLabelProps {
   maxValue: number;
   currentValue: number;
 }
+export function CircularProgressWithLabel() {
+  const theme = useTheme();
 
-export function CircularProgressWithLabel({
-  maxValue,
-  currentValue,
-}: CircularProgressWithLabelProps) {
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress
         variant="determinate"
         value={normalise(maxValue - currentValue, maxValue, 0)}
+        sx={{ color: theme.palette.secondary.main }}
       />
       <Box
         sx={{

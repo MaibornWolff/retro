@@ -43,9 +43,7 @@ export function DeleteCardDialog({ isOpen, close, columnIndex, cardIndex }: Dele
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={close} color="inherit">
-          Cancel
-        </Button>
+        <Button onClick={close}>Cancel</Button>
         <Button onClick={handleClick} color="error" autoFocus>
           Delete
         </Button>

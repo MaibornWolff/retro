@@ -9,7 +9,7 @@ export function QrCodeButton() {
 
   return (
     <>
-      <MenuItem aria-label="QR Code" color="primary" onClick={openDialog}>
+      <MenuItem aria-label="QR Code" onClick={openDialog}>
         <ListItemIcon>
           <CropFree fontSize="small" />
         </ListItemIcon>

@@ -82,9 +82,7 @@ export function ParticipantsDialog({
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={close} color="primary">
-          Close
-        </Button>
+        <Button onClick={close}>Close</Button>
       </DialogActions>
     </Dialog>
   );
