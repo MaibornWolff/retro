@@ -8,7 +8,6 @@
 
 # Improvement
 
-- fix light theme and use a proper primary color?
 - add semantic release
 
 # Refactorings
