@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 import { useErrorContext } from "./common/context/ErrorContext";
+import { FlexBox } from "./common/components/FlexBox";
 
 export function ErrorPage() {
   const { error, resetError } = useErrorContext();
@@ -30,7 +31,7 @@ export function ErrorPage() {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <FlexBox style={{ flexDirection: "column", alignItems: "center" }}>
       <h2
         style={{
           fontFamily: '"Permanent Marker", cursive',
@@ -43,6 +44,6 @@ export function ErrorPage() {
       <Link style={{ marginTop: "12px" }} to="/">
         Return to Homepage
       </Link>
-    </div>
+    </FlexBox>
   );
 }

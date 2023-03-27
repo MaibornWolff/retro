@@ -24,6 +24,7 @@ import { ExportRetroImageMenuItem } from "./buttons/ExportRetroImageMenuItem";
 import { ExportRetroMenuItem } from "./buttons/ExportRetroMenuItem";
 import { ImportRetroMenuItem } from "./buttons/ImportRetroMenuItem";
 import { ManageVotesMenuItem } from "./buttons/ManageVotesMenuItem";
+import { FlexBox } from "../../common/components/FlexBox";
 
 export function RetroPage() {
   const {
@@ -105,13 +106,13 @@ export function RetroPage() {
         <QrCodeMenuItem />
       </AppHeader>
       <Box sx={{ width: "100%" }} ref={boardRef}>
-        <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", p: 2 }}>
+        <FlexBox sx={{ width: "100%", justifyContent: "space-between", p: 2 }}>
           <RetroTitle />
           <VoteProgress />
-        </Box>
-        <Box sx={{ display: "flex", gap: "1rem", p: 2 }}>
+        </FlexBox>
+        <FlexBox sx={{ gap: "1rem", p: 2 }}>
           <RetroActionButtons />
-        </Box>
+        </FlexBox>
         <DragDropContext onDragEnd={onDragEnd}>
           <Columns />
         </DragDropContext>
