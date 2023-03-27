@@ -6,8 +6,8 @@ import { PokerVoteDialog } from "../dialogs/PokerVoteDialog";
 import { PokerCard } from "./PokerCard";
 import { User } from "../../../common/types/commonTypes";
 import { useUserContext } from "../../../common/context/UserContext";
-import { TooltipIconButton } from "../../../common/TooltipIconButton";
 import { useDialog } from "../../../common/hooks/useDialog";
+import { TooltipIconButton } from "../../../common/components/buttons/TooltipIconButton";
 
 interface PokerCardFrontProps {
   voted: boolean;

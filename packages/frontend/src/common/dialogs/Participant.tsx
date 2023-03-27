@@ -5,9 +5,9 @@ import { TransferModeratorRoleDialog } from "../../retro/components/dialogs/Tran
 import { isModerator } from "../utils/participantsUtils";
 import { useUserContext } from "../context/UserContext";
 import { User } from "../types/commonTypes";
-import { TooltipIconButton } from "../TooltipIconButton";
 import { useDialog } from "../hooks/useDialog";
 import { FlexBox } from "../components/FlexBox";
+import { TooltipIconButton } from "../components/buttons/TooltipIconButton";
 
 interface ParticipantProps {
   participant: User;

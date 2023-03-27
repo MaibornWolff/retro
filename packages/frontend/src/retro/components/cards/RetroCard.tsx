@@ -19,9 +19,9 @@ import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
 import { sumVotes } from "../../utils/retroUtils";
 import { RetroCardActions } from "./RetroCardActions";
-import { TooltipIconButton } from "../../../common/TooltipIconButton";
 import { isModerator } from "../../../common/utils/participantsUtils";
 import { CardText } from "../../../poker/components/cards/CardText";
+import { TooltipIconButton } from "../../../common/components/buttons/TooltipIconButton";
 
 interface RetroItemProps {
   card: RetroCardType;
