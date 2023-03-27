@@ -18,8 +18,9 @@ export function ResetVotesButton() {
   return (
     <>
       <ActionButton
+        aria-label="Reset votes"
         onClick={openDialog}
-        label={"Reset Votes"}
+        label="Reset votes"
         isDisabled={noUserVoted}
         icon={<RestartAlt />}
       />

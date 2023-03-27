@@ -85,10 +85,10 @@ export function EstimationUnitSetupDialog({ isOpen, close }: DialogProps) {
         )}
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={close}>
+        <Button aria-label="Close" color="primary" onClick={close}>
           Cancel
         </Button>
-        <Button color="primary" onClick={handleSubmit}>
+        <Button aria-label="Save" color="primary" onClick={handleSubmit}>
           Save
         </Button>
       </DialogActions>

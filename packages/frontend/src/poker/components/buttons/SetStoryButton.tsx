@@ -14,7 +14,12 @@ export function SetStoryButton() {
 
   return (
     <>
-      <ActionButton onClick={openDialog} label={"Set User Story"} icon={<Article />} />
+      <ActionButton
+        aria-label="Set user story"
+        onClick={openDialog}
+        label="Set user story"
+        icon={<Article />}
+      />
       <SetStoryDialog isOpen={isOpen} close={closeDialog} />
     </>
   );

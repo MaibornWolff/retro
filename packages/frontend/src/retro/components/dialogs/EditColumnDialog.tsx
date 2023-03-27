@@ -49,6 +49,7 @@ export function EditColumnDialog({ isOpen, close, column }: EditColumnDialogProp
       <DialogTitle id="edit-column-dialog">Edit Column</DialogTitle>
       <DialogContent>
         <TextInput
+          aria-label="Column name"
           onSubmit={handleEdit}
           required
           autoFocus
@@ -60,8 +61,10 @@ export function EditColumnDialog({ isOpen, close, column }: EditColumnDialogProp
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={close}>Cancel</Button>
-        <Button onClick={handleEdit} disabled={!isValid}>
+        <Button aria-label="Cancel" onClick={close}>
+          Cancel
+        </Button>
+        <Button aria-label="Edit" onClick={handleEdit} disabled={!isValid}>
           Edit
         </Button>
       </DialogActions>

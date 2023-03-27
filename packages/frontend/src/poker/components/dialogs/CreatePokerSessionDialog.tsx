@@ -71,6 +71,7 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
       <DialogContent>
         <DialogContentText>Please provide your name for this session.</DialogContentText>
         <TextInput
+          aria-label="Name"
           onSubmit={handleSubmit}
           required
           autoFocus
@@ -84,8 +85,10 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSubmit} disabled={!isValid}>
+        <Button aria-label="Cancel" onClick={handleClose}>
+          Cancel
+        </Button>
+        <Button aria-label="Join" onClick={handleSubmit} disabled={!isValid}>
           Join
         </Button>
       </DialogActions>

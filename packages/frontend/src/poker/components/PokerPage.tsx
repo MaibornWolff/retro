@@ -59,7 +59,7 @@ export function PokerPage() {
     setSnackbarOpen(false);
   };
 
-  if (error) return <Navigate to={"/error"} />;
+  if (error) return <Navigate to="/error" />;
 
   if (isWaitingUser(pokerState.waitingList, user.id))
     return (

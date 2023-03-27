@@ -57,7 +57,7 @@ export function ParticipantsDialog({
       <DialogContent>
         {!isEmpty(waitingList) && (
           <>
-            <Typography variant={"h5"} pb={1}>
+            <Typography variant="h5" pb={1}>
               Waiting for approval
             </Typography>
             <WaitingList
@@ -70,7 +70,7 @@ export function ParticipantsDialog({
         {isDividerVisible && <Divider sx={{ marginY: 2 }} />}
         {!isEmpty(participants) && (
           <>
-            <Typography variant={"h5"} pb={1}>
+            <Typography variant="h5" pb={1}>
               Participants
             </Typography>
             <Participants
@@ -82,7 +82,9 @@ export function ParticipantsDialog({
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={close}>Close</Button>
+        <Button aria-label="close" onClick={close}>
+          Close
+        </Button>
       </DialogActions>
     </Dialog>
   );

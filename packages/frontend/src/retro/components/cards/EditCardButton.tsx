@@ -27,6 +27,7 @@ export function EditCardButton({ columnIndex, card, ...props }: EditCardButtonPr
     <>
       <CardActionButton
         {...props}
+        aria-label="Edit Card"
         tooltipText="Edit Card"
         onClick={handleOpenEditCardDialog}
         disabled={(props.disabled ?? false) || !isPrivileged}

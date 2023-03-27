@@ -34,7 +34,7 @@ export function QrCodeDialog({ isOpen, close }: DialogProps) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={close}>
+        <Button aria-label="Close" color="primary" onClick={close}>
           Close
         </Button>
       </DialogActions>

@@ -65,6 +65,7 @@ export function CreateCardDialog({ isOpen, close, columnIndex }: CreateCardDialo
       <DialogTitle id="new-card-dialog">New Card</DialogTitle>
       <DialogContent>
         <TextInput
+          aria-label="Card Content"
           onSubmit={handleSubmit}
           required
           multiline
@@ -78,8 +79,10 @@ export function CreateCardDialog({ isOpen, close, columnIndex }: CreateCardDialo
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSubmit} disabled={!isValid}>
+        <Button aria-label="Cancel" onClick={handleClose}>
+          Cancel
+        </Button>
+        <Button aria-label="Create" onClick={handleSubmit} disabled={!isValid}>
           Create
         </Button>
       </DialogActions>

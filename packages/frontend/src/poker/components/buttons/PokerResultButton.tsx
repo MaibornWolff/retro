@@ -18,8 +18,9 @@ export function PokerResultButton() {
 
   return (
     <ActionButton
+      aria-label="Show results"
       onClick={handleClick}
-      label={"Show Results"}
+      label="Show results"
       isDisabled={noUserVoted}
       icon={<Visibility />}
     />

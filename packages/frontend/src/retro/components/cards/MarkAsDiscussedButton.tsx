@@ -30,7 +30,8 @@ export function MarkAsDiscussedButton({
   return (
     <CardActionButton
       {...props}
-      tooltipText={"Mark as discussed"}
+      aria-label="Mark as discussed"
+      tooltipText="Mark as discussed"
       onClick={handleClick}
       disabled={(props.disabled ?? false) || !isModerator(user)}
     >

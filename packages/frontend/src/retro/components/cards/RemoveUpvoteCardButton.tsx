@@ -29,6 +29,7 @@ export function RemoveUpvoteCardButton({
     <CardActionButton
       {...props}
       tooltipText="Remove Upvote"
+      aria-label="Remove Upvote"
       onClick={handleRemoveUpvote}
       disabled={(props.disabled ?? false) || !isCardVotedByUser(card, user.id)}
     >

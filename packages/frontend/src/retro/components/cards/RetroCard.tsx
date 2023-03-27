@@ -117,13 +117,15 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
         />
         <Divider />
         <CardContent>
-          <Typography sx={{ whiteSpace: "pre-line" }} variant="body2" component={"span"}>
+          <Typography sx={{ whiteSpace: "pre-line" }} variant="body2" component="span">
             <CardText isSelectable={isSelectableText} withHyperlinks={true} text={content} />
           </Typography>
         </CardContent>
         <CardActions disableSpacing sx={{ display: "flex", justifyContent: "space-between" }}>
           <div>
-            {isDiscussed ? <Chip label={"Discussed"} variant="outlined" size={"small"} /> : null}
+            {isDiscussed ? (
+              <Chip aria-label="Discussed" label="Discussed" variant="outlined" size="small" />
+            ) : null}
           </div>
           <RetroCardActions card={card} columnIndex={columnIndex} isBlurred={isBlurred} />
         </CardActions>

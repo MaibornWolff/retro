@@ -41,8 +41,10 @@ export function DeleteColumnDialog({ isOpen, close, columnIndex }: DeleteColumnD
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={close}>Cancel</Button>
-        <Button onClick={handleClick} color="error" autoFocus>
+        <Button aria-label="Cancel" onClick={close}>
+          Cancel
+        </Button>
+        <Button aria-label="Delete" onClick={handleClick} color="error" autoFocus>
           Delete
         </Button>
       </DialogActions>
