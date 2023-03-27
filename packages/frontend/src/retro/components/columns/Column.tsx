@@ -1,21 +1,32 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { Card, Divider } from "@mui/material";
 
 import { Cards } from "../cards/Cards";
 import { ColumnHeader } from "./column-header/ColumnHeader";
-import { CardsContainerStyles, ColumnContainerStyles } from "../../../common/styled-components";
 import { RetroColumn } from "../../types/retroTypes";
 import { useUserContext } from "../../../common/context/UserContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { media } from "../../../common/styled-components/styled.utils";
 
 const ColumnContainer = styled(Card)`
-  ${ColumnContainerStyles}
+  ${css`
+    display: flex;
+    flex-direction: column;
+    min-width: 25rem;
+    margin: 0.8em 0.2em 0.8em 0.2em;
+    ${media.tablet ? `margin: 0.8em;` : ""}
+  `}
 `;
 
 const CardsContainer = styled.div`
-  ${CardsContainerStyles};
+  ${css`
+    flex: 1;
+    padding: 0.2em;
+    ${media.tablet ? `padding: 1em;` : ""}
+    transition: background-color 0.2s ease;
+  `};
 `;
 
 interface ColumnProps {
@@ -38,11 +49,10 @@ export function Column({ column }: ColumnProps) {
           <ColumnHeader column={column} />
           <Divider />
           <Droppable droppableId={column.id} type="item" isCombineEnabled={true}>
-            {(providedDroppable, snapshot) => (
+            {(providedDroppable) => (
               <CardsContainer
                 ref={providedDroppable.innerRef}
                 {...providedDroppable.droppableProps}
-                isDraggingOver={snapshot.isDraggingOver}
               >
                 <Cards column={column} />
                 {providedDroppable.placeholder}

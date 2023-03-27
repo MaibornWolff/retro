@@ -12,7 +12,6 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { CardAuthors, CardContainer, CardText } from "../../../common/styled-components";
 
 import { ColorThemeContext } from "../../../common/context/ColorThemeContext";
 import { RetroCard as RetroCardType } from "../../types/retroTypes";
@@ -22,6 +21,7 @@ import { sumVotes } from "../../utils/retroUtils";
 import { RetroCardActions } from "./RetroCardActions";
 import { TooltipIconButton } from "../../../common/TooltipIconButton";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { CardText } from "../../../poker/components/cards/CardText";
 
 interface RetroItemProps {
   card: RetroCardType;
@@ -43,25 +43,6 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
   const { user } = useUserContext();
   const { currentTheme } = useContext(ColorThemeContext);
   const theme = useTheme();
-  const contentWithLinks = createContentWithLinks(content);
-
-  function createContentWithLinks(content: string) {
-    // Regex for matching every kind of URLs
-    const urls = /(?:\w+:\/\/[\w.]+|[\w.]+\.\w+).*/.exec(content);
-
-    urls?.forEach((url: string) => {
-      const editedUrl = !url.includes("//") ? "https://" + url : url;
-      content = content.replace(
-        url,
-        `<a href="${editedUrl}" target="_blank" style={{    color: theme.palette.primary.main,
-    borderBottom: "dashed 1px",
-    borderColor: theme.palette.primary.main,
-    textDecoration: "none"}}>${url}</a>`
-      );
-    });
-
-    return content;
-  }
 
   function toggleHighlight() {
     if (retroState.highlightedCardId === id) {
@@ -87,7 +68,7 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
   const voteBackgroundColor = isVoted ? theme.palette.secondary.main : theme.palette.primary.main;
 
   return (
-    <CardContainer>
+    <div style={{ marginBottom: "1em" }}>
       <Card
         elevation={5}
         sx={{
@@ -107,10 +88,17 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
             </Avatar>
           }
           title={
-            <Typography variant="body2" component={"span"}>
-              <CardAuthors style={{ userSelect: !isSelectableText ? "none" : "auto" }}>
-                {authors}
-              </CardAuthors>
+            <Typography
+              variant="body2"
+              style={{
+                userSelect: !isSelectableText ? "none" : "auto",
+                maxWidth: "15vw",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {authors}
             </Typography>
           }
           action={
@@ -130,10 +118,7 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
         <Divider />
         <CardContent>
           <Typography sx={{ whiteSpace: "pre-line" }} variant="body2" component={"span"}>
-            <CardText
-              style={{ userSelect: isSelectableText ? "auto" : "none" }}
-              dangerouslySetInnerHTML={{ __html: contentWithLinks }}
-            />
+            <CardText isSelectable={isSelectableText} withHyperlinks={true} text={content} />
           </Typography>
         </CardContent>
         <CardActions disableSpacing sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -143,7 +128,7 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
           <RetroCardActions card={card} columnIndex={columnIndex} isBlurred={isBlurred} />
         </CardActions>
       </Card>
-    </CardContainer>
+    </div>
   );
 }
 

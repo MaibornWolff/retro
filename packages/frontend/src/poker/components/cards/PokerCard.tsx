@@ -2,9 +2,9 @@ import React from "react";
 import { Card, CardContent, CardHeader, Typography, useTheme } from "@mui/material";
 import { LocalPolice } from "@mui/icons-material";
 
-import { CardText } from "../../../common/styled-components";
 import { User } from "../../../common/types/commonTypes";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { CardText } from "./CardText";
 
 interface PokerCardProps {
   voted: boolean;
@@ -48,7 +48,7 @@ export function PokerCard({ voted, pokerUser, FooterComponent, DialogComponent }
           }}
         >
           <Typography align="center" variant="h6">
-            <CardText>{pokerUser.name}</CardText>
+            <CardText text={pokerUser.name} isSelectable={false} withHyperlinks={false} />
           </Typography>
         </CardContent>
         {FooterComponent}
