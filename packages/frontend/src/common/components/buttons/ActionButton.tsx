@@ -1,18 +1,19 @@
-import { Button, useTheme } from "@mui/material";
+import { Button, ButtonProps, useTheme } from "@mui/material";
 import React from "react";
 
-interface ActionButtonProps {
+interface ActionButtonProps extends ButtonProps {
   onClick: () => void;
   label: string;
   isDisabled?: boolean;
   icon?: React.ReactNode;
 }
 
-export function ActionButton({ onClick, isDisabled, label, icon }: ActionButtonProps) {
+export function ActionButton({ onClick, isDisabled, label, icon, ...props }: ActionButtonProps) {
   const theme = useTheme();
 
   return (
     <Button
+      {...props}
       variant="contained"
       onClick={onClick}
       disabled={isDisabled}
