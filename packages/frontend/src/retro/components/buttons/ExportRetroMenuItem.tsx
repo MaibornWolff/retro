@@ -6,7 +6,7 @@ import { useRetroContext } from "../../context/RetroContext";
 import { RetroSchemaV1 } from "../../types/retroSchema";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export function ExportRetroButton() {
+export function ExportRetroMenuItem() {
   const { user } = useUserContext();
   const { retroState } = useRetroContext();
 

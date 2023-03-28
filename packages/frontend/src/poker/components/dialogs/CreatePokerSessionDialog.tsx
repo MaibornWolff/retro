@@ -67,9 +67,9 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
       onClose={handleClose}
       aria-labelledby="join-session-dialog-title"
     >
-      <DialogTitle id="join-session-dialog-title">Join Session</DialogTitle>
+      <DialogTitle id="join-session-dialog-title">Create Planning Poker Session</DialogTitle>
       <DialogContent>
-        <DialogContentText>Please provide your name for this session.</DialogContentText>
+        <DialogContentText>Please provide your name for this session</DialogContentText>
         <TextInput
           onSubmit={handleSubmit}
           required

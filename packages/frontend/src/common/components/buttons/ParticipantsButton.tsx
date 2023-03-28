@@ -2,7 +2,7 @@ import React from "react";
 import { Badge, Button, Typography, useTheme } from "@mui/material";
 import { People } from "@mui/icons-material";
 import { UserByUserId } from "../../../retro/types/retroTypes";
-import { useDialog } from "../../../retro/hooks/useDialog";
+import { useDialog } from "../../hooks/useDialog";
 import { ParticipantsDialog } from "../../dialogs/ParticipantsDialog";
 
 interface ParticipantButtonProps {

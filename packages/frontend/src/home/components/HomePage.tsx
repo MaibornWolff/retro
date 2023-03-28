@@ -2,16 +2,26 @@ import React from "react";
 import Typewriter from "typewriter-effect";
 import { Grid, Typography, useTheme } from "@mui/material";
 
-import { PlanningPokerDialog } from "./PlanningPokerDialog";
-import { Hero } from "../../common/styled-components";
 import { RedirectToRetroButton } from "./RedirectToRetroButton";
 import hero from "../assets/hero.jpg";
+import { RedirectToPlanningPokerButton } from "./RedirectToPlanningPokerButton";
 
 export function HomePage() {
   const theme = useTheme();
 
   return (
-    <Hero img={hero}>
+    <div
+      style={{
+        width: "100%",
+        height: "100vh",
+        position: "fixed",
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${hero})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <Grid
         sx={{
           flexGrow: 1,
@@ -52,11 +62,11 @@ export function HomePage() {
               <RedirectToRetroButton />
             </Grid>
             <Grid item>
-              <PlanningPokerDialog />
+              <RedirectToPlanningPokerButton />
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Hero>
+    </div>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Delete } from "@mui/icons-material";
 import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { DeleteColumnDialog } from "../../dialogs/DeleteColumnDialog";
-import { useDialog } from "../../../hooks/useDialog";
+import { useDialog } from "../../../../common/hooks/useDialog";
 
 interface DeleteColumnMenuItemProps {
   columnIndex: number;

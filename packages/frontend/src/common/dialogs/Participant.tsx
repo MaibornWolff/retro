@@ -4,9 +4,10 @@ import { AddModerator, LocalPolice, Person, RemoveCircle } from "@mui/icons-mate
 import { TransferModeratorRoleDialog } from "../../retro/components/dialogs/TransferModeratorRoleDialog";
 import { isModerator } from "../utils/participantsUtils";
 import { useUserContext } from "../context/UserContext";
-import { useDialog } from "../../retro/hooks/useDialog";
 import { User } from "../types/commonTypes";
-import { TooltipIconButton } from "../TooltipIconButton";
+import { useDialog } from "../hooks/useDialog";
+import { FlexBox } from "../components/FlexBox";
+import { TooltipIconButton } from "../components/buttons/TooltipIconButton";
 
 interface ParticipantProps {
   participant: User;
@@ -29,18 +30,17 @@ export function Participant({
 
   return (
     <>
-      <Box
+      <FlexBox
         sx={{
-          display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           minHeight: "40px",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <FlexBox sx={{ alignItems: "center", gap: "12px" }}>
           {isModerator(participant) ? <LocalPolice /> : <Person />}
           <Typography>{participant.name}</Typography>
-        </Box>
+        </FlexBox>
         <Box>
           {isModerator(user) && (
             <>
@@ -64,7 +64,7 @@ export function Participant({
             </>
           )}
         </Box>
-      </Box>
+      </FlexBox>
       <TransferModeratorRoleDialog
         participant={participant}
         isOpen={isOpen}

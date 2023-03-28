@@ -1,6 +1,6 @@
 import React from "react";
 import { IconButtonProps } from "@mui/material";
-import { TooltipIconButton } from "../../../common/TooltipIconButton";
+import { TooltipIconButton } from "../../../common/components/buttons/TooltipIconButton";
 
 interface CardActionButtonProps extends IconButtonProps {
   onClick: () => void;

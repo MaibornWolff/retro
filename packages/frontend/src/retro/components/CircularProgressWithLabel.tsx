@@ -1,41 +1,43 @@
 import { Box, CircularProgress, Typography, useTheme } from "@mui/material";
 import React from "react";
-import { useVotesLeft } from "../hooks/useVotesLeft";
-import { useRetroContext } from "../context/RetroContext";
+import { FlexBox } from "../../common/components/FlexBox";
 
 function normalise(value: number, min = 0, max: number) {
   return ((value - min) * 100) / (max - min);
 }
 
-export function CircularProgressWithLabel() {
+interface CircularProgressWithLabelProps {
+  maxValue: number;
+  currentValue: number;
+}
+export function CircularProgressWithLabel({
+  maxValue,
+  currentValue,
+}: CircularProgressWithLabelProps) {
   const theme = useTheme();
-  const { retroState } = useRetroContext();
-  const { maxVoteCount } = retroState;
-  const votesLeft = useVotesLeft();
 
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress
         variant="determinate"
-        value={normalise(maxVoteCount - votesLeft, maxVoteCount, 0)}
+        value={normalise(maxValue - currentValue, maxValue, 0)}
         sx={{ color: theme.palette.secondary.main }}
       />
-      <Box
+      <FlexBox
         sx={{
           top: 0,
           left: 0,
           bottom: 0,
           right: 0,
           position: "absolute",
-          display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
         <Typography variant="h6" component="div">
-          {votesLeft}
+          {currentValue}
         </Typography>
-      </Box>
+      </FlexBox>
     </Box>
   );
 }

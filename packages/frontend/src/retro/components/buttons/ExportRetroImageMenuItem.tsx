@@ -6,7 +6,7 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { useExportRetroContext } from "../../context/ExportRetroContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export function ExportRetroImageButton() {
+export function ExportRetroImageMenuItem() {
   const { user } = useUserContext();
   const { boardRef } = useExportRetroContext();
 

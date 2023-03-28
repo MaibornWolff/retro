@@ -1,8 +1,9 @@
 import React from "react";
-import { Button, useTheme } from "@mui/material";
-import { useDialog } from "../../../retro/hooks/useDialog";
 import { useUserContext } from "../../context/UserContext";
 import { JoinSessionDialog } from "../../dialogs/JoinSessionDialog";
+import { useDialog } from "../../hooks/useDialog";
+import { ActionButton } from "./ActionButton";
+import { PlayArrow } from "@mui/icons-material";
 
 interface JoinSessionButtonProps {
   roomId: string;
@@ -17,24 +18,16 @@ export function JoinSessionButton({
 }: JoinSessionButtonProps) {
   const { isOpen, closeDialog, openDialog } = useDialog(true);
   const { user } = useUserContext();
-  const theme = useTheme();
 
   return (
     <>
       {!isOpen && !user.id && (
-        <Button
-          variant="contained"
+        <ActionButton
           onClick={openDialog}
-          disabled={Boolean(user.name)}
-          sx={{
-            margin: theme.spacing(1),
-            borderRadius: "10px",
-            boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
-          }}
-          fullWidth
-        >
-          Join Session
-        </Button>
+          label="Join Session"
+          isDisabled={Boolean(user.name)}
+          icon={<PlayArrow />}
+        />
       )}
       <JoinSessionDialog
         isOpen={isOpen}

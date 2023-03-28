@@ -89,7 +89,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
       <DialogTitle id="form-dialog-create-retro">Create Retro Session</DialogTitle>
       <DialogContent sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <div>
-          <DialogContentText>Please enter your name.</DialogContentText>
+          <DialogContentText>Please enter your name</DialogContentText>
           <TextInput
             value={name}
             onSubmit={handleSubmit}
@@ -101,7 +101,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
           />
         </div>
         <div>
-          <DialogContentText>Please provide a name for your new retro.</DialogContentText>
+          <DialogContentText>Please provide your name for this session</DialogContentText>
           <TextInput
             value={title}
             onSubmit={handleSubmit}

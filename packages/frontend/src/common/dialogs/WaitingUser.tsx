@@ -4,7 +4,8 @@ import { Cancel, CheckCircle, Person } from "@mui/icons-material";
 import { User } from "../types/commonTypes";
 import { useUserContext } from "../context/UserContext";
 import { isModerator } from "../utils/participantsUtils";
-import { TooltipIconButton } from "../TooltipIconButton";
+import { FlexBox } from "../components/FlexBox";
+import { TooltipIconButton } from "../components/buttons/TooltipIconButton";
 
 interface WaitingUserProps {
   waitingUser: User;
@@ -28,18 +29,17 @@ export function WaitingUser({
 
   return (
     <>
-      <Box
+      <FlexBox
         sx={{
-          display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           minHeight: "40px",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <FlexBox sx={{ alignItems: "center", gap: "12px" }}>
           <Person />
           <Typography>{waitingUser.name}</Typography>
-        </Box>
+        </FlexBox>
         <Box>
           {isModerator(user) && (
             <>
@@ -61,7 +61,7 @@ export function WaitingUser({
             </>
           )}
         </Box>
-      </Box>
+      </FlexBox>
     </>
   );
 }

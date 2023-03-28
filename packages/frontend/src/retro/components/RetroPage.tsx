@@ -19,11 +19,12 @@ import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 import { Alert } from "../../common/components/Alert";
 import { AppHeader } from "../../common/components/AppHeader";
-import { VoteCountButton } from "./buttons/VoteCountButton";
-import { ExportRetroImageButton } from "./buttons/ExportRetroImageButton";
-import { ExportRetroButton } from "./buttons/ExportRetroButton";
-import { ImportRetroButton } from "./buttons/ImportRetroButton";
-import { QrCodeButton } from "./buttons/QrCodeButton";
+import { QrCodeMenuItem } from "./buttons/QrCodeMenuItem";
+import { ExportRetroImageMenuItem } from "./buttons/ExportRetroImageMenuItem";
+import { ExportRetroMenuItem } from "./buttons/ExportRetroMenuItem";
+import { ImportRetroMenuItem } from "./buttons/ImportRetroMenuItem";
+import { ManageVotesMenuItem } from "./buttons/ManageVotesMenuItem";
+import { FlexBox } from "../../common/components/FlexBox";
 
 export function RetroPage() {
   const {
@@ -72,7 +73,7 @@ export function RetroPage() {
     };
   }, [retroState.title]);
 
-  if (error) return <Navigate to={"/error"} />;
+  if (error) return <Navigate to="/error" />;
   if (isWaitingUser(retroState.waitingList, user.id))
     return (
       <>
@@ -98,20 +99,20 @@ export function RetroPage() {
         onRejectJoinUser={handleRejectJoinUser}
         onTransferModeratorRole={handleTransferModeratorRole}
       >
-        <VoteCountButton />
-        <ExportRetroImageButton />
-        <ExportRetroButton />
-        <ImportRetroButton />
-        <QrCodeButton />
+        <ManageVotesMenuItem />
+        <ExportRetroImageMenuItem />
+        <ExportRetroMenuItem />
+        <ImportRetroMenuItem />
+        <QrCodeMenuItem />
       </AppHeader>
       <Box sx={{ width: "100%" }} ref={boardRef}>
-        <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", p: 2 }}>
+        <FlexBox sx={{ width: "100%", justifyContent: "space-between", p: 2 }}>
           <RetroTitle />
           <VoteProgress />
-        </Box>
-        <Box sx={{ display: "flex", gap: "1rem", p: 2 }}>
+        </FlexBox>
+        <FlexBox sx={{ gap: "1rem", p: 2 }}>
           <RetroActionButtons />
-        </Box>
+        </FlexBox>
         <DragDropContext onDragEnd={onDragEnd}>
           <Columns />
         </DragDropContext>

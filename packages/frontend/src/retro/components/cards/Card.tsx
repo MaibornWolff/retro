@@ -1,7 +1,6 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
-import { CardContainer } from "../../../common/styled-components";
 import { RetroCard as RetroCardType } from "../../types/retroTypes";
 import { RetroCard } from "./RetroCard";
 import { useUserContext } from "../../../common/context/UserContext";
@@ -19,13 +18,9 @@ export function Card({ card, isBlurred, columnIndex }: ItemProps) {
   return (
     <Draggable draggableId={card.id} index={card.index} isDragDisabled={!isModerator(user)}>
       {(provided) => (
-        <CardContainer
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-        >
+        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <RetroCard card={card} isBlurred={isBlurred} columnIndex={columnIndex} />
-        </CardContainer>
+        </div>
       )}
     </Draggable>
   );
