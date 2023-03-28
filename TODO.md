@@ -10,6 +10,7 @@
 
 - add semantic release
 - What happened to column widths?
+- create / join buttons style and placement
 
 # Refactorings
 

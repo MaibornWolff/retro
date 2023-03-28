@@ -31,7 +31,7 @@ export function ErrorPage() {
   }
 
   return (
-    <FlexBox style={{ flexDirection: "column", alignItems: "center" }}>
+    <FlexBox sx={{ flexDirection: "column", alignItems: "center" }}>
       <h2
         style={{
           fontFamily: '"Permanent Marker", cursive',

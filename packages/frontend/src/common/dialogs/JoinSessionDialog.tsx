@@ -88,7 +88,7 @@ export function JoinSessionDialog({
     >
       <DialogTitle id="join-poker-dialog-title">Join Session</DialogTitle>
       <DialogContent>
-        <DialogContentText>Please provide your name for this session.</DialogContentText>
+        <DialogContentText>Please provide your name for this session</DialogContentText>
         <TextInput
           onSubmit={handleSubmit}
           required
