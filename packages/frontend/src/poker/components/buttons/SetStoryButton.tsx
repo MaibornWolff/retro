@@ -14,7 +14,7 @@ export function SetStoryButton() {
 
   return (
     <>
-      <ActionButton onClick={openDialog} label={"Set User Story"} icon={<Article />} />
+      <ActionButton onClick={openDialog} label="Set User Story" icon={<Article />} />
       <SetStoryDialog isOpen={isOpen} close={closeDialog} />
     </>
   );
