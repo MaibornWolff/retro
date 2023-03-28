@@ -63,7 +63,6 @@ export function SetStoryDialog({ isOpen, close }: DialogProps) {
           Provide the title of the user story and optionally an URL linking to it.
         </DialogContentText>
         <TextInput
-          aria-label="Story Title"
           required
           autoFocus
           value={storyTitle}
@@ -74,7 +73,6 @@ export function SetStoryDialog({ isOpen, close }: DialogProps) {
           label="Story Title"
         />
         <TextInput
-          aria-label="Story URL"
           value={storyUrl}
           onChange={handleStoryUrlChange}
           onSubmit={handleSubmit}
@@ -83,15 +81,10 @@ export function SetStoryDialog({ isOpen, close }: DialogProps) {
         />
       </DialogContent>
       <DialogActions>
-        <Button aria-label="Cancel" color="primary" onClick={closeDialog}>
+        <Button color="primary" onClick={closeDialog}>
           Cancel
         </Button>
-        <Button
-          aria-label="Set Story"
-          color="primary"
-          onClick={handleSubmit}
-          disabled={!isStoryTitleValid}
-        >
+        <Button color="primary" onClick={handleSubmit} disabled={!isStoryTitleValid}>
           Set Story
         </Button>
       </DialogActions>

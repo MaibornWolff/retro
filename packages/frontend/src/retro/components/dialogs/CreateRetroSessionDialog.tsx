@@ -91,7 +91,6 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
         <div>
           <DialogContentText>Please enter your name.</DialogContentText>
           <TextInput
-            aria-label="User Name"
             value={name}
             onSubmit={handleSubmit}
             onChange={handleNameChange}
@@ -104,7 +103,6 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
         <div>
           <DialogContentText>Please provide a name for your new retro.</DialogContentText>
           <TextInput
-            aria-label="Retro name"
             value={title}
             onSubmit={handleSubmit}
             onChange={handleTitleChange}
@@ -116,14 +114,8 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
         <RetroFormatSelect onFormatChange={setFormat} format={format} />
       </DialogContent>
       <DialogActions>
-        <Button aria-label="Cancel" onClick={handleClose}>
-          Cancel
-        </Button>
-        <Button
-          aria-label="Create"
-          onClick={handleSubmit}
-          disabled={!isNameValid || !isTitleValid || !format}
-        >
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleSubmit} disabled={!isNameValid || !isTitleValid || !format}>
           Create
         </Button>
       </DialogActions>

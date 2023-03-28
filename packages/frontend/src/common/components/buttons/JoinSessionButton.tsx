@@ -23,9 +23,8 @@ export function JoinSessionButton({
     <>
       {!isOpen && !user.id && (
         <ActionButton
-          aria-label="Join session"
           onClick={openDialog}
-          label="Join session"
+          label={"Join Session"}
           isDisabled={Boolean(user.name)}
           icon={<PlayArrow />}
         />

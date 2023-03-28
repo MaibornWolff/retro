@@ -73,7 +73,7 @@ export function RetroPage() {
     };
   }, [retroState.title]);
 
-  if (error) return <Navigate to="/error" />;
+  if (error) return <Navigate to={"/error"} />;
   if (isWaitingUser(retroState.waitingList, user.id))
     return (
       <>

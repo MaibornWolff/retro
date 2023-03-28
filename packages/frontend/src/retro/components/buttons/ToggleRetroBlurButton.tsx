@@ -10,7 +10,7 @@ export function ToggleRetroBlurButton() {
   const { handleToggleRetroBlur, retroState } = useRetroContext();
   const { isBlurred } = retroState;
   const { user } = useUserContext();
-  const buttonText = isBlurred ? "Unblur board" : "Blur board";
+  const buttonText = isBlurred ? "Unblur Board" : "Blur Board";
   const buttonIcon = isBlurred ? <BlurOff /> : <BlurOn />;
 
   function toggleRetroBlur() {
@@ -20,12 +20,5 @@ export function ToggleRetroBlurButton() {
 
   if (!isModerator(user)) return null;
 
-  return (
-    <ActionButton
-      aria-label={buttonText}
-      onClick={toggleRetroBlur}
-      label={buttonText}
-      icon={buttonIcon}
-    />
-  );
+  return <ActionButton onClick={toggleRetroBlur} label={buttonText} icon={buttonIcon} />;
 }

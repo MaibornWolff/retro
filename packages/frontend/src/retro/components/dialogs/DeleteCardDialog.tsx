@@ -43,10 +43,8 @@ export function DeleteCardDialog({ isOpen, close, columnIndex, cardIndex }: Dele
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button aria-label="Cancel" onClick={close}>
-          Cancel
-        </Button>
-        <Button aria-label="Delete" onClick={handleClick} color="error" autoFocus>
+        <Button onClick={close}>Cancel</Button>
+        <Button onClick={handleClick} color="error" autoFocus>
           Delete
         </Button>
       </DialogActions>

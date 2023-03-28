@@ -26,8 +26,7 @@ export function DeleteCardButton({ card, columnIndex, ...props }: DeleteItemButt
   return (
     <>
       <CardActionButton
-        aria-label="Delete Card"
-        tooltipText="Delete Card"
+        tooltipText={"Delete Card"}
         onClick={handleOpenDeleteCardDialog}
         disabled={(props.disabled ?? false) || !isPrivileged}
       >

@@ -52,12 +52,8 @@ export function TransferModeratorRoleDialog({
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button aria-label="Cancel" onClick={close}>
-          Cancel
-        </Button>
-        <Button aria-label="Yes, transfer" onClick={handleTransferModeratorRoleClick}>
-          Yes, transfer
-        </Button>
+        <Button onClick={close}>Cancel</Button>
+        <Button onClick={handleTransferModeratorRoleClick}>Yes, transfer</Button>
       </DialogActions>
     </Dialog>
   );

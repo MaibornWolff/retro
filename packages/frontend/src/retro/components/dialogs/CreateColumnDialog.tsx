@@ -61,7 +61,6 @@ export function CreateColumnDialog({ isOpen, close }: DialogProps) {
       <DialogTitle id="new-column-dialog">Create New Column</DialogTitle>
       <DialogContent>
         <TextInput
-          aria-label="Column Name"
           onSubmit={handleSubmit}
           required
           autoFocus
@@ -73,10 +72,8 @@ export function CreateColumnDialog({ isOpen, close }: DialogProps) {
         />
       </DialogContent>
       <DialogActions>
-        <Button aria-label="Cancel" onClick={closeDialog}>
-          Cancel
-        </Button>
-        <Button aria-label="Create" onClick={handleSubmit} disabled={!isValid}>
+        <Button onClick={closeDialog}>Cancel</Button>
+        <Button onClick={handleSubmit} disabled={!isValid}>
           Create
         </Button>
       </DialogActions>

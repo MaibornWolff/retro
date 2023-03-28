@@ -14,12 +14,7 @@ export function CreateSessionButton() {
   return (
     <>
       {!isOpen && !user.id && (
-        <ActionButton
-          aria-label="Create session"
-          onClick={openDialog}
-          label="Create Session"
-          isDisabled={Boolean(user.name)}
-        />
+        <ActionButton onClick={openDialog} label="Create Session" isDisabled={Boolean(user.name)} />
       )}
 
       {namespace === "poker" && <CreatePokerSessionDialog isOpen={isOpen} close={closeDialog} />}

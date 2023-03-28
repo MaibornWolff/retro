@@ -83,12 +83,8 @@ export function PokerVoteDialog({ isOpen, close }: DialogProps) {
         {renderSlider()}
       </DialogContent>
       <DialogActions>
-        <Button aria-label="Cancel" onClick={handleClose}>
-          Cancel
-        </Button>
-        <Button aria-label="Submit" onClick={handleSubmit}>
-          Submit
-        </Button>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleSubmit}>Submit</Button>
       </DialogActions>
     </Dialog>
   );

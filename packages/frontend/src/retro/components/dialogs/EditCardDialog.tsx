@@ -55,7 +55,6 @@ export function EditCardDialog({ isOpen, close, card, columnIndex }: EditCardDia
       <DialogTitle id="edit-card-dialog">Edit Card</DialogTitle>
       <DialogContent>
         <TextInput
-          aria-label="Card content"
           onSubmit={handleSave}
           autoFocus
           required
@@ -69,10 +68,8 @@ export function EditCardDialog({ isOpen, close, card, columnIndex }: EditCardDia
         />
       </DialogContent>
       <DialogActions>
-        <Button aria-label="Cancel" onClick={close}>
-          Cancel
-        </Button>
-        <Button aria-label="Save" onClick={handleSave} disabled={!isValid}>
+        <Button onClick={close}>Cancel</Button>
+        <Button onClick={handleSave} disabled={!isValid}>
           Save
         </Button>
       </DialogActions>

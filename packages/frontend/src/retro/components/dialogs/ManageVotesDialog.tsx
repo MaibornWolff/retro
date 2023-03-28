@@ -77,13 +77,13 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button aria-label="Reset Votes" color="primary" onClick={handleReset}>
+        <Button color="primary" onClick={handleReset}>
           Reset Votes
         </Button>
-        <Button aria-label="Cancel" color="primary" onClick={handleCancel}>
+        <Button color="primary" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button aria-label="Save" color="primary" onClick={handleSave}>
+        <Button color="primary" onClick={handleSave}>
           Save
         </Button>
       </DialogActions>
