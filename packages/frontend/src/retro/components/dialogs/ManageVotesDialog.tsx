@@ -6,7 +6,6 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
-  Grid,
   Slider,
   Typography,
 } from "@mui/material";
@@ -52,40 +51,28 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
     >
       <DialogTitle id="vote-count-dialog">Vote Count Settings</DialogTitle>
       <DialogContent>
-        <Grid container direction="column" alignItems="center">
-          <Grid item>
-            <FormControl fullWidth>
-              <Typography id="vote-count-label" gutterBottom>
-                Set your maximum vote count
-              </Typography>
-              <Slider
-                value={voteCount}
-                onChange={handleVoteCountChange}
-                valueLabelDisplay="auto"
-                aria-labelledby="vote-count-slider"
-                getAriaValueText={getValueText}
-                min={1}
-                max={10}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item>
-            <Typography variant="body1">
-              Everybody has <strong>{voteCount}</strong> votes
-            </Typography>
-          </Grid>
-        </Grid>
+        <FormControl fullWidth>
+          <Typography id="vote-count-label" gutterBottom>
+            Set your maximum vote count
+          </Typography>
+          <Slider
+            value={voteCount}
+            onChange={handleVoteCountChange}
+            valueLabelDisplay="auto"
+            aria-labelledby="vote-count-slider"
+            getAriaValueText={getValueText}
+            min={1}
+            max={10}
+          />
+        </FormControl>
+        <Typography variant="body1">
+          Everybody has <strong>{voteCount}</strong> votes
+        </Typography>
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={handleReset}>
-          Reset Votes
-        </Button>
-        <Button color="primary" onClick={handleCancel}>
-          Cancel
-        </Button>
-        <Button color="primary" onClick={handleSave}>
-          Save
-        </Button>
+        <Button onClick={handleReset}>Reset Votes</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
+        <Button onClick={handleSave}>Save</Button>
       </DialogActions>
     </Dialog>
   );

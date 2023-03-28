@@ -6,11 +6,10 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
-  InputLabel,
   MenuItem,
-  Select,
   SelectChangeEvent,
   Slider,
+  TextField,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -51,24 +50,19 @@ export function EstimationUnitSetupDialog({ isOpen, close }: DialogProps) {
     >
       <DialogTitle id="poker-unit-dialog">Change Poker Unit</DialogTitle>
       <DialogContent>
-        <FormControl
+        <TextField
+          select
+          id="poker-unit-select"
+          value={pokerUnit}
+          onChange={() => handleUnitChange}
+          label="Poker Unit"
           fullWidth
-          sx={{
-            marginBottom: theme.spacing(1),
-          }}
+          sx={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }}
         >
-          <InputLabel id="poker-unit-select-label">Poker Unit</InputLabel>
-          <Select
-            labelId="poker-unit-select-label"
-            id="poker-unit-select"
-            value={pokerUnit}
-            onChange={handleUnitChange}
-          >
-            <MenuItem value="fibonacci">Fibonacci</MenuItem>
-            <MenuItem value="tshirt">T-Shirt Size</MenuItem>
-            <MenuItem value="naturalnumbers">Natural Numbers</MenuItem>
-          </Select>
-        </FormControl>
+          <MenuItem value="fibonacci">Fibonacci</MenuItem>
+          <MenuItem value="tshirt">T-Shirt Size</MenuItem>
+          <MenuItem value="naturalnumbers">Natural Numbers</MenuItem>
+        </TextField>
         {pokerUnit === "tshirt" ? null : (
           <FormControl fullWidth>
             <Typography id="range-slider" gutterBottom>
@@ -85,12 +79,8 @@ export function EstimationUnitSetupDialog({ isOpen, close }: DialogProps) {
         )}
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={close}>
-          Cancel
-        </Button>
-        <Button color="primary" onClick={handleSubmit}>
-          Save
-        </Button>
+        <Button onClick={close}>Cancel</Button>
+        <Button onClick={handleSubmit}>Save</Button>
       </DialogActions>
     </Dialog>
   );
