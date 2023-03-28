@@ -22,7 +22,7 @@ export function Column({ column }: ColumnProps) {
           sx={{
             display: "flex",
             flexDirection: "column",
-            minWidth: "25rem",
+            width: "25rem",
             margin: "0.8em",
             borderRadius: "15px",
           }}
