@@ -23,7 +23,12 @@ export function UpvoteCardButton({ columnIndex, card, ...props }: UpvoteItemButt
   }
 
   return (
-    <CardActionButton {...props} onClick={handleUpvote} tooltipText="Upvote Card">
+    <CardActionButton
+      {...props}
+      disabled={votesLeft === 0}
+      onClick={handleUpvote}
+      tooltipText="Upvote Card"
+    >
       <ThumbUp />
     </CardActionButton>
   );
