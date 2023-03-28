@@ -15,7 +15,6 @@ export const EstimationUnitSetupMenuItem = React.forwardRef((_props: any, ref: a
       <MenuItem
         ref={ref}
         aria-label="Change Poker Unit"
-        color="primary"
         onClick={openDialog}
         disabled={!isModerator(user)}
       >

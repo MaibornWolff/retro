@@ -15,7 +15,6 @@ export function RedirectToPlanningPokerButton() {
     <Fab
       size="large"
       variant="extended"
-      color="primary"
       onClick={navigateToPlanningPoker}
       sx={{
         margin: theme.spacing(1),

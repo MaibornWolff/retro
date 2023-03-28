@@ -35,12 +35,8 @@ export function ResetVotesDialog({ isOpen, close }: DialogProps) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={close} color="primary">
-          No
-        </Button>
-        <Button onClick={handleClick} color="error">
-          Yes
-        </Button>
+        <Button onClick={close}>No</Button>
+        <Button onClick={handleClick}>Yes</Button>
       </DialogActions>
     </Dialog>
   );

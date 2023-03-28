@@ -13,12 +13,7 @@ export function ManageVotesMenuItem() {
 
   return (
     <>
-      <MenuItem
-        aria-label="Set Vote Count"
-        color="primary"
-        onClick={openDialog}
-        disabled={!isModerator(user)}
-      >
+      <MenuItem aria-label="Set Vote Count" onClick={openDialog} disabled={!isModerator(user)}>
         <ListItemIcon>
           <ThumbUp fontSize="small" />
         </ListItemIcon>

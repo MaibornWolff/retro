@@ -81,10 +81,8 @@ export function SetStoryDialog({ isOpen, close }: DialogProps) {
         />
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={closeDialog}>
-          Cancel
-        </Button>
-        <Button color="primary" onClick={handleSubmit} disabled={!isStoryTitleValid}>
+        <Button onClick={closeDialog}>Cancel</Button>
+        <Button onClick={handleSubmit} disabled={!isStoryTitleValid}>
           Set Story
         </Button>
       </DialogActions>
