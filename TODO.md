@@ -11,6 +11,7 @@
 - add semantic release
 - create / join buttons style and placement
 - add possibility for moderator to activate / deactivate voting retro cards
+- convert margins, paddings, etc. to theme.spacing (which is 8 by default)
 
 # Refactorings
 
