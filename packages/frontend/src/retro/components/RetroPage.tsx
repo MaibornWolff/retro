@@ -105,12 +105,12 @@ export function RetroPage() {
         <ImportRetroMenuItem />
         <QrCodeMenuItem />
       </AppHeader>
-      <Box sx={{ width: "100%" }} ref={boardRef}>
-        <FlexBox sx={{ width: "100%", justifyContent: "space-between", p: 2 }}>
+      <Box ref={boardRef}>
+        <FlexBox justifyContent="space-between" p={1} pl={2}>
           <RetroTitle />
           <VoteProgress />
         </FlexBox>
-        <FlexBox sx={{ gap: "1rem", p: 2 }}>
+        <FlexBox p={1}>
           <RetroActionButtons />
         </FlexBox>
         <DragDropContext onDragEnd={onDragEnd}>
@@ -123,11 +123,11 @@ export function RetroPage() {
         />
       </Box>
       <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleCloseSnackbar}>
-        <div>
+        <Box>
           <Alert onClose={handleCloseSnackbar} severity="info">
             There is a new participant waiting to be accepted.
           </Alert>
-        </div>
+        </Box>
       </Snackbar>
     </>
   );

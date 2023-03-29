@@ -17,10 +17,10 @@ export function ColumnHeader({ column }: ColumnHeaderProps) {
     <CardHeader
       title={<ColumnName columnTitle={columnTitle} />}
       action={
-        <div>
+        <>
           <CreateCardButton column={column} />
           <ColumnMenu column={column} />
-        </div>
+        </>
       }
     />
   );

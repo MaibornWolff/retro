@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Bar, BarChart, Legend, Tooltip, XAxis } from "recharts";
-import { Grid, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 import { usePokerContext } from "../context/PokerContext";
 import { ChartData } from "../types/pokerTypes";
 import { generateChartData } from "../utils/pokerUtils";
+import { FlexBox } from "../../common/components/FlexBox";
 
 export function PokerStats() {
   const { pokerState } = usePokerContext();
@@ -19,7 +20,7 @@ export function PokerStats() {
 
   const primaryColor = useTheme().palette.primary.main;
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
+    <FlexBox justifyContent="center" width="100%">
       <BarChart
         width={600}
         height={300}
@@ -40,6 +41,6 @@ export function PokerStats() {
         <Legend />
         <Bar name="number of votes" dataKey="value" fill={primaryColor} />
       </BarChart>
-    </Grid>
+    </FlexBox>
   );
 }

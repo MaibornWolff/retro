@@ -30,14 +30,8 @@ export function Participant({
 
   return (
     <>
-      <FlexBox
-        sx={{
-          alignItems: "center",
-          justifyContent: "space-between",
-          minHeight: "40px",
-        }}
-      >
-        <FlexBox sx={{ alignItems: "center", gap: "12px" }}>
+      <FlexBox alignItems="center" justifyContent="space-between" minHeight={5}>
+        <FlexBox gap={2} alignItems="center" mb={1}>
           {isModerator(participant) ? <LocalPolice /> : <Person />}
           <Typography>{participant.name}</Typography>
         </FlexBox>

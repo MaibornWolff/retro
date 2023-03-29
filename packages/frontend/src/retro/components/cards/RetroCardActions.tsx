@@ -6,6 +6,7 @@ import { MarkAsDiscussedButton } from "./MarkAsDiscussedButton";
 import { DeleteCardButton } from "./DeleteCardButton";
 import { RemoveUpvoteCardButton } from "./RemoveUpvoteCardButton";
 import { UpvoteCardButton } from "./UpvoteCardButton";
+import { Box } from "@mui/material";
 
 interface RetroCardActionsProps {
   card: RetroCard;
@@ -19,12 +20,12 @@ export function RetroCardActions({ card, columnIndex, isBlurred }: RetroCardActi
   const isButtonDisabled = isBlurred && user.role === "participant";
 
   return (
-    <div>
+    <Box>
       <UpvoteCardButton disabled={isButtonDisabled} card={card} columnIndex={columnIndex} />
       <RemoveUpvoteCardButton disabled={isButtonDisabled} card={card} columnIndex={columnIndex} />
       <EditCardButton disabled={isButtonDisabled} card={card} columnIndex={columnIndex} />
       <MarkAsDiscussedButton disabled={isButtonDisabled} card={card} columnIndex={columnIndex} />
       <DeleteCardButton disabled={isButtonDisabled} card={card} columnIndex={columnIndex} />
-    </div>
+    </Box>
   );
 }

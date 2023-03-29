@@ -7,14 +7,12 @@ export function WaitingForApproval() {
 
   return (
     <FlexBox
-      sx={{
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        width: "100%",
-        height: "100vh",
-        gap: "8rem",
-      }}
+      alignItems="center"
+      justifyContent="center"
+      flexDirection="column"
+      width="100%"
+      height="100vh"
+      gap="8rem"
     >
       <Typography variant="h2">{message}</Typography>
       <CircularProgress size="4rem" />

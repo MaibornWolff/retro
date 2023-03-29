@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Snackbar, useTheme } from "@mui/material";
+import { Box, Snackbar } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
-import { PokerActionButtons } from "./PokerActionButtons";
 import { PokerTitle } from "./PokerTitle";
 import { PokerUsers } from "./PokerUsers";
 import { PokerStats } from "./PokerStats";
@@ -16,6 +15,8 @@ import { Alert } from "../../common/components/Alert";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 import { AppHeader } from "../../common/components/AppHeader";
 import { EstimationUnitSetupMenuItem } from "./buttons/EstimationUnitSetupMenuItem";
+import { PokerActionButtons } from "./PokerActionButtons";
+import { FlexBox } from "../../common/components/FlexBox";
 
 export function PokerPage() {
   const {
@@ -29,7 +30,6 @@ export function PokerPage() {
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
   const roomIdFromPath = useRoomIdFromPath();
-  const theme = useTheme();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useFirstWaitingUser({ waitingList: pokerState.waitingList, onFirstUserWaiting: showSnackbar });
@@ -88,24 +88,18 @@ export function PokerPage() {
       >
         <EstimationUnitSetupMenuItem />
       </AppHeader>
-      <Grid container sx={{ flexGrow: 1 }} direction="column" justifyContent="space-between">
+      <FlexBox mt={1}>
         <PokerActionButtons />
-        <Grid item xs={12}>
-          <PokerTitle />
-        </Grid>
-        <Grid item xs={12}>
-          <PokerUsers />
-        </Grid>
-        <Grid item xs={12} sx={{ marginTop: theme.spacing(10) }}>
-          {pokerState.showResults ? <PokerStats /> : null}
-        </Grid>
-      </Grid>
+      </FlexBox>
+      <PokerTitle />
+      <PokerUsers />
+      <FlexBox mt={10}>{pokerState.showResults ? <PokerStats /> : null}</FlexBox>
       <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleCloseSnackbar}>
-        <div>
+        <Box>
           <Alert onClose={handleCloseSnackbar} severity="info">
             There is a new participant waiting to be accepted.
           </Alert>
-        </div>
+        </Box>
       </Snackbar>
     </>
   );

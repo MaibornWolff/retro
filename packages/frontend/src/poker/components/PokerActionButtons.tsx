@@ -15,15 +15,13 @@ export function PokerActionButtons() {
   const { user } = useUserContext();
   const { handleAddToWaitingList } = usePokerContext();
 
-  const gridElementWidth = 1.2;
-
   function navigateToRoom() {
     navigate(`/poker/${roomId ?? ""}`);
   }
   return (
     <Grid container direction="row" alignItems="center" gap={2}>
       {!user.id && (
-        <Grid item xs={gridElementWidth}>
+        <Grid item>
           <SetupSessionButton
             roomId={roomId}
             navigateToRoom={navigateToRoom}

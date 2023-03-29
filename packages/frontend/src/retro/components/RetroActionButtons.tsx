@@ -18,12 +18,10 @@ export function RetroActionButtons() {
     navigate(`/retro/${roomId ?? ""}`);
   }
 
-  const gridElementWidth = 1.2;
-
   return (
     <Grid container direction="row" alignItems="center" gap={2}>
       {!user.id && (
-        <Grid item xs={gridElementWidth}>
+        <Grid item>
           <SetupSessionButton
             roomId={roomId}
             navigateToRoom={navigateToRoom}
