@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Box, Snackbar } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
 import { PokerTitle } from "./PokerTitle";
@@ -11,12 +10,12 @@ import { isModerator, isWaitingUser } from "../../common/utils/participantsUtils
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
-import { Alert } from "../../common/components/Alert";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 import { AppHeader } from "../../common/components/AppHeader";
 import { EstimationUnitSetupMenuItem } from "./buttons/EstimationUnitSetupMenuItem";
-import { PokerActionButtons } from "./PokerActionButtons";
 import { FlexBox } from "../../common/components/FlexBox";
+import { NewParticipantSnackbar } from "../../common/components/NewParticipantSnackbar";
+import { PokerActionButtons } from "./PokerActionButtons";
 
 export function PokerPage() {
   const {
@@ -88,19 +87,14 @@ export function PokerPage() {
       >
         <EstimationUnitSetupMenuItem />
       </AppHeader>
-      <FlexBox mt={1}>
-        <PokerActionButtons />
-      </FlexBox>
+      <PokerActionButtons />
       <PokerTitle />
       <PokerUsers />
       <FlexBox mt={10}>{pokerState.showResults ? <PokerStats /> : null}</FlexBox>
-      <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleCloseSnackbar}>
-        <Box>
-          <Alert onClose={handleCloseSnackbar} severity="info">
-            There is a new participant waiting to be accepted.
-          </Alert>
-        </Box>
-      </Snackbar>
+      <NewParticipantSnackbar
+        isSnackbarOpen={snackbarOpen}
+        handleCloseSnackbar={handleCloseSnackbar}
+      />
     </>
   );
 }

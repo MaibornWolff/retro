@@ -3,7 +3,7 @@ import { useUserContext } from "../../context/UserContext";
 import { JoinSessionDialog } from "../../dialogs/JoinSessionDialog";
 import { useDialog } from "../../hooks/useDialog";
 import { ActionButton } from "./ActionButton";
-import { PlayArrow } from "@mui/icons-material";
+import { PersonAdd } from "@mui/icons-material";
 
 interface JoinSessionButtonProps {
   roomId: string;
@@ -26,7 +26,7 @@ export function JoinSessionButton({
           onClick={openDialog}
           label="Join Session"
           isDisabled={Boolean(user.name)}
-          icon={<PlayArrow />}
+          icon={<PersonAdd />}
         />
       )}
       <JoinSessionDialog
