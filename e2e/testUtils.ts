@@ -21,7 +21,6 @@ export async function joinNewUser(urlWithRoomId: string, context: BrowserContext
 export async function setupPokerPage(page: Page) {
   await page.goto("/");
   await page.getByRole("button", { name: "Planning Poker" }).click();
-  await page.getByRole("button", { name: "Start" }).click();
   await page.getByLabel("Name").fill("User 1");
   await page.getByRole("button", { name: "Join" }).click();
 }

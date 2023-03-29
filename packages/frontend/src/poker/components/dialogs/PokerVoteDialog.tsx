@@ -19,7 +19,7 @@ function valueText(value: number) {
   return `${value}`;
 }
 
-export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
+export function PokerVoteDialog({ isOpen, close }: DialogProps) {
   const [vote, setVote] = useState<number>(0);
   const fullScreen = useFullscreen();
   const { pokerState, handleSendVote } = usePokerContext();
@@ -83,12 +83,8 @@ export default function PokerVoteDialog({ isOpen, close }: DialogProps) {
         {renderSlider()}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} color="primary">
-          Submit
-        </Button>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleSubmit}>Submit</Button>
       </DialogActions>
     </Dialog>
   );

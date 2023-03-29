@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Box, Snackbar, useTheme } from "@mui/material";
+import { Box, Snackbar } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Navigate } from "react-router-dom";
 
-import MergeCardsDialog from "./dialogs/MergeCardsDialog";
-import VoteProgress from "./VoteProgress";
-import Columns from "./columns/Columns";
+import { MergeCardsDialog } from "./dialogs/MergeCardsDialog";
+import { VoteProgress } from "./VoteProgress";
+import { Columns } from "./columns/Columns";
 import { useDragAndDrop } from "../hooks/useDragAndDrop";
 import { useRetroContext } from "../context/RetroContext";
 import { useErrorContext } from "../../common/context/ErrorContext";
@@ -13,22 +13,34 @@ import { useExportRetroContext } from "../context/ExportRetroContext";
 import { isModerator, isWaitingUser } from "../../common/utils/participantsUtils";
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
-import RetroTitle from "./RetroTitle";
-import RetroActionButtons from "./RetroActionButtons";
+import { RetroTitle } from "./RetroTitle";
+import { RetroActionButtons } from "./RetroActionButtons";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
-import RetroHeader from "./RetroHeader";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
-import Alert from "../../common/components/Alert";
+import { Alert } from "../../common/components/Alert";
 import { useFetchRoomConfigurationWhenModerator } from "../../common/hooks/useFetchRoomConfigurationWhenModerator";
+import { AppHeader } from "../../common/components/AppHeader";
+import { QrCodeMenuItem } from "./buttons/QrCodeMenuItem";
+import { ExportRetroImageMenuItem } from "./buttons/ExportRetroImageMenuItem";
+import { ExportRetroMenuItem } from "./buttons/ExportRetroMenuItem";
+import { ImportRetroMenuItem } from "./buttons/ImportRetroMenuItem";
+import { ManageVotesMenuItem } from "./buttons/ManageVotesMenuItem";
+import { FlexBox } from "../../common/components/FlexBox";
 
-export default function RetroPage() {
-  const { retroState, resetRetroState } = useRetroContext();
+export function RetroPage() {
+  const {
+    retroState,
+    resetRetroState,
+    handleKickUser,
+    handleAcceptJoinUser,
+    handleRejectJoinUser,
+    handleTransferModeratorRole,
+  } = useRetroContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
   const { boardRef } = useExportRetroContext();
   const roomIdFromPath = useRoomIdFromPath();
   const { isMergeDialogOpen, onDragEnd, closeMergeDialog, handleMergeCards } = useDragAndDrop();
-  const theme = useTheme();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useFirstWaitingUser({ waitingList: retroState.waitingList, onFirstUserWaiting: showSnackbar });
@@ -63,26 +75,46 @@ export default function RetroPage() {
     };
   }, [retroState.title]);
 
-  if (error) return <Navigate to={"/error"} />;
+  if (error) return <Navigate to="/error" />;
   if (isWaitingUser(retroState.waitingList, user.id))
     return (
       <>
-        <RetroHeader />
+        <AppHeader
+          participants={retroState.participants}
+          waitingList={retroState.waitingList}
+          onKickUser={handleKickUser}
+          onAcceptJoinUser={handleAcceptJoinUser}
+          onRejectJoinUser={handleRejectJoinUser}
+          onTransferModeratorRole={handleTransferModeratorRole}
+        />
         <WaitingForApproval />
       </>
     );
 
   return (
     <>
-      <RetroHeader />
-      <Box sx={{ backgroundColor: theme.palette.background.default, width: "100%" }} ref={boardRef}>
-        <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", p: 2 }}>
+      <AppHeader
+        participants={retroState.participants}
+        waitingList={retroState.waitingList}
+        onKickUser={handleKickUser}
+        onAcceptJoinUser={handleAcceptJoinUser}
+        onRejectJoinUser={handleRejectJoinUser}
+        onTransferModeratorRole={handleTransferModeratorRole}
+      >
+        <ManageVotesMenuItem />
+        <ExportRetroImageMenuItem />
+        <ExportRetroMenuItem />
+        <ImportRetroMenuItem />
+        <QrCodeMenuItem />
+      </AppHeader>
+      <Box sx={{ width: "100%" }} ref={boardRef}>
+        <FlexBox sx={{ width: "100%", justifyContent: "space-between", p: 2 }}>
           <RetroTitle />
           <VoteProgress />
-        </Box>
-        <Box sx={{ display: "flex", gap: "1rem", p: 2 }}>
+        </FlexBox>
+        <FlexBox sx={{ gap: "1rem", p: 2 }}>
           <RetroActionButtons />
-        </Box>
+        </FlexBox>
         <DragDropContext onDragEnd={onDragEnd}>
           <Columns />
         </DragDropContext>

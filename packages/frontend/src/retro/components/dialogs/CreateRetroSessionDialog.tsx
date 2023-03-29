@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -13,17 +14,17 @@ import {
   useTheme,
 } from "@mui/material";
 
-import RetroFormatSelect from "../RetroFormatSelect";
+import { RetroFormatSelect } from "../RetroFormatSelect";
 import { defaultFormat } from "../../config/formatConfig";
 import { useUserContext } from "../../../common/context/UserContext";
 import { useRetroContext } from "../../context/RetroContext";
 import { DialogProps, User } from "../../../common/types/commonTypes";
 import { generateId } from "../../../common/utils/generateId";
-import TextInput from "../../../common/components/TextInput";
+import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRoomContext } from "../../../common/context/RoomContext";
 
-export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
+export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const {
     value: title,
     setValue: setTitle,
@@ -96,7 +97,7 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
     >
       <DialogTitle id="form-dialog-create-retro">Create Retro Session</DialogTitle>
       <DialogContent sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <div>
+        <Box>
           <DialogContentText>Please enter your name</DialogContentText>
           <TextInput
             value={name}
@@ -107,9 +108,9 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
             label="Name"
             autoFocus
           />
-        </div>
-        <div>
-          <DialogContentText>Please provide a name for your new retro</DialogContentText>
+        </Box>
+        <Box>
+          <DialogContentText>Please provide your name for this session</DialogContentText>
           <TextInput
             value={title}
             onSubmit={handleSubmit}
@@ -118,12 +119,12 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
             id="retro-name"
             label="Retro Name"
           />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <DialogContentText>Choose your retro format</DialogContentText>
           <RetroFormatSelect onFormatChange={setFormat} format={format} />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <DialogContentText>Automatically accept all joining users</DialogContentText>
           <FormControlLabel
             labelPlacement="start"
@@ -131,17 +132,11 @@ export default function CreateRetroSessionDialog({ isOpen, close }: DialogProps)
             label="Auto-Accept"
             sx={{ justifyContent: "flex-end", marginLeft: 0 }}
           />
-        </div>
+        </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button
-          onClick={handleSubmit}
-          color="primary"
-          disabled={!isNameValid || !isTitleValid || !format}
-        >
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleSubmit} disabled={!isNameValid || !isTitleValid || !format}>
           Create
         </Button>
       </DialogActions>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import { usePokerContext } from "../../context/PokerContext";
-import PokerCard from "./PokerCard";
+import { PokerCard } from "./PokerCard";
 import { User } from "../../../common/types/commonTypes";
 
 function getTShirtSizeFromValue(value?: number): string | undefined {
@@ -10,21 +10,22 @@ function getTShirtSizeFromValue(value?: number): string | undefined {
 }
 
 interface PokerCardBackProps {
-  styleProps: { backgroundColor: string };
+  voted: boolean;
   pokerUser: User;
   userVote?: number;
 }
 
-export default function PokerCardBack({ styleProps, pokerUser, userVote }: PokerCardBackProps) {
+export function PokerCardBack({ voted, pokerUser, userVote }: PokerCardBackProps) {
   const { pokerState } = usePokerContext();
   const pokerUnitType = pokerState.pokerUnit.unitType;
+  const fontColor = voted ? "black" : "white";
 
   return (
     <PokerCard
-      styleProps={styleProps}
+      voted={voted}
       pokerUser={pokerUser}
       FooterComponent={
-        <Typography color="secondary" variant="h4" align="center" paddingBottom="16px">
+        <Typography variant="h4" align="center" paddingBottom="16px" color={fontColor}>
           {pokerUnitType === "tshirt" ? getTShirtSizeFromValue(userVote) ?? "" : userVote ?? ""}
         </Typography>
       }

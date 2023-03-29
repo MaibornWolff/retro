@@ -7,7 +7,7 @@ import { RetroState } from "../../types/retroTypes";
 import { useRetroContext } from "../../context/RetroContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export default function ImportRetroButton() {
+export function ImportRetroMenuItem() {
   const inputFile = useRef<HTMLInputElement>(null);
   const { user } = useUserContext();
   const { handleSetRetroState } = useRetroContext();
@@ -34,12 +34,7 @@ export default function ImportRetroButton() {
 
   return (
     <>
-      <MenuItem
-        aria-label="Import Retro"
-        color="primary"
-        onClick={openFileBrowser}
-        disabled={!isModerator(user)}
-      >
+      <MenuItem aria-label="Import Retro" onClick={openFileBrowser} disabled={!isModerator(user)}>
         <ListItemIcon>
           <Publish fontSize="small" />
         </ListItemIcon>

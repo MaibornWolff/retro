@@ -1,38 +1,40 @@
 import React from "react";
-import { CardActions } from "@mui/material";
+import { CardActions, useTheme } from "@mui/material";
 import { HowToVote } from "@mui/icons-material";
 
-import PokerVoteDialog from "../dialogs/PokerVoteDialog";
-import PokerCard from "./PokerCard";
+import { PokerVoteDialog } from "../dialogs/PokerVoteDialog";
+import { PokerCard } from "./PokerCard";
 import { User } from "../../../common/types/commonTypes";
-import { useDialog } from "../../../retro/hooks/useDialog";
 import { useUserContext } from "../../../common/context/UserContext";
-import TooltipIconButton from "../../../common/TooltipIconButton";
+import { useDialog } from "../../../common/hooks/useDialog";
+import { TooltipIconButton } from "../../../common/components/buttons/TooltipIconButton";
 
 interface PokerCardFrontProps {
-  styleProps: { backgroundColor: string };
+  voted: boolean;
   pokerUser: User;
 }
 
-export default function PokerCardFront({ styleProps, pokerUser }: PokerCardFrontProps) {
+export function PokerCardFront({ voted, pokerUser }: PokerCardFrontProps) {
+  const theme = useTheme();
   const { isOpen, closeDialog, openDialog } = useDialog(false);
   const { user } = useUserContext();
+  const iconColor = voted || theme.palette.mode === "light" ? "black" : "white";
 
   return (
     <PokerCard
-      styleProps={styleProps}
+      voted={voted}
       pokerUser={pokerUser}
       FooterComponent={
         <>
           {pokerUser.id === user.id && (
             <CardActions sx={{ justifyContent: "center" }}>
               <TooltipIconButton
-                color="secondary"
                 aria-label="Vote"
                 onClick={() => {
                   openDialog();
                 }}
                 tooltipText="Vote"
+                sx={{ color: iconColor }}
               >
                 <HowToVote />
               </TooltipIconButton>

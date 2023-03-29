@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { Settings } from "@mui/icons-material";
+import React, { ReactNode, useState } from "react";
 import { Button, Menu, Typography } from "@mui/material";
+import { Settings } from "@mui/icons-material";
 
-import PokerPointsSetupButton from "./PokerPointsSetupButton";
-import { useUserContext } from "../../../common/context/UserContext";
-import { isModerator } from "../../../common/utils/participantsUtils";
+interface SettingsButtonProps {
+  children?: ReactNode;
+}
 
-export default function PokerSettingsButton() {
-  const { user } = useUserContext();
+export function SettingsButton({ children }: SettingsButtonProps) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -19,15 +18,15 @@ export default function PokerSettingsButton() {
     setAnchorEl(null);
   };
 
-  if (!isModerator(user)) return null;
-
   return (
     <>
       <Button
         variant="text"
-        sx={{ textTransform: "none", color: "white" }}
-        aria-label="poker-settings"
-        aria-controls="poker-settings-appbar"
+        sx={{
+          textTransform: "none",
+        }}
+        aria-label="settings button"
+        aria-controls="settings-appbar"
         aria-haspopup="true"
         onClick={handleSettings}
         startIcon={<Settings />}
@@ -36,9 +35,7 @@ export default function PokerSettingsButton() {
       </Button>
       <Menu
         keepMounted
-        id="poker-settings-appbar"
-        open={open}
-        onClose={handleClose}
+        id="settings-appbar"
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: "top",
@@ -48,8 +45,11 @@ export default function PokerSettingsButton() {
           vertical: "top",
           horizontal: "right",
         }}
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
       >
-        <PokerPointsSetupButton />
+        {children}
       </Menu>
     </>
   );

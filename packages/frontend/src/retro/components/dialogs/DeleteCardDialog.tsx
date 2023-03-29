@@ -17,12 +17,7 @@ interface DeleteCardDialogProps extends DialogProps {
   cardIndex: number;
 }
 
-export default function DeleteCardDialog({
-  isOpen,
-  close,
-  columnIndex,
-  cardIndex,
-}: DeleteCardDialogProps) {
+export function DeleteCardDialog({ isOpen, close, columnIndex, cardIndex }: DeleteCardDialogProps) {
   const { handleDeleteCard } = useRetroContext();
   const fullScreen = useFullscreen();
 
@@ -48,9 +43,7 @@ export default function DeleteCardDialog({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={close} color="inherit">
-          Cancel
-        </Button>
+        <Button onClick={close}>Cancel</Button>
         <Button onClick={handleClick} color="error" autoFocus>
           Delete
         </Button>

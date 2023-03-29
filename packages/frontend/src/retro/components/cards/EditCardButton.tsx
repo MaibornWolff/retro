@@ -3,16 +3,16 @@ import { Edit } from "@mui/icons-material";
 import { IconButtonProps } from "@mui/material";
 import { RetroCard } from "../../types/retroTypes";
 import { useIsPrivileged } from "../../hooks/useIsPrivileged";
-import CardActionButton from "./CardActionButton";
-import EditCardDialog from "../dialogs/EditCardDialog";
-import { useDialog } from "../../hooks/useDialog";
+import { CardActionButton } from "./CardActionButton";
+import { EditCardDialog } from "../dialogs/EditCardDialog";
+import { useDialog } from "../../../common/hooks/useDialog";
 
 interface EditCardButtonProps extends IconButtonProps {
   card: RetroCard;
   columnIndex: number;
 }
 
-export default function EditCardButton({ columnIndex, card, ...props }: EditCardButtonProps) {
+export function EditCardButton({ columnIndex, card, ...props }: EditCardButtonProps) {
   const { isOpen, closeDialog, openDialog } = useDialog();
   const isPrivileged = useIsPrivileged(card);
 

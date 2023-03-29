@@ -3,7 +3,7 @@ import { Brightness6 } from "@mui/icons-material";
 import { Button, Typography, useTheme } from "@mui/material";
 import { ColorThemeContext } from "../../context/ColorThemeContext";
 
-export default function ToggleThemeButton() {
+export function ToggleThemeButton() {
   const theme = useTheme();
   const { currentTheme, setDarkTheme, setLightTheme } = useContext(ColorThemeContext);
 
@@ -20,10 +20,10 @@ export default function ToggleThemeButton() {
       variant="text"
       aria-label="Share this session"
       onClick={toggleTheme}
-      sx={{ marginRight: theme.spacing(1), textTransform: "none", color: "white" }}
+      sx={{ marginRight: theme.spacing(1), textTransform: "none" }}
       startIcon={<Brightness6 />}
     >
-      <Typography color="inherit">Change Theme</Typography>
+      <Typography>Change Theme</Typography>
     </Button>
   );
 }

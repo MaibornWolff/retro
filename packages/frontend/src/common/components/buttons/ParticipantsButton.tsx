@@ -2,7 +2,7 @@ import React from "react";
 import { Badge, Button, Typography, useTheme } from "@mui/material";
 import { People } from "@mui/icons-material";
 import { UserByUserId } from "../../../retro/types/retroTypes";
-import { useDialog } from "../../../retro/hooks/useDialog";
+import { useDialog } from "../../hooks/useDialog";
 import { ParticipantsDialog } from "../../dialogs/ParticipantsDialog";
 
 interface ParticipantButtonProps {
@@ -14,7 +14,7 @@ interface ParticipantButtonProps {
   onTransferModeratorRole: (userId: string) => void;
 }
 
-export default function ParticipantsButton({
+export function ParticipantsButton({
   participants,
   waitingList,
   handleKickUser,
@@ -33,7 +33,7 @@ export default function ParticipantsButton({
         variant="text"
         aria-label="Open Participants"
         onClick={openDialog}
-        sx={{ marginRight: theme.spacing(1), textTransform: "none", color: "white" }}
+        sx={{ marginRight: theme.spacing(1), textTransform: "none" }}
         startIcon={
           <>
             <Badge color="error" badgeContent={waitingUsersCount} max={99}>
@@ -42,7 +42,7 @@ export default function ParticipantsButton({
           </>
         }
       >
-        <Typography color="inherit">Participants</Typography>
+        <Typography>Participants</Typography>
       </Button>
       <ParticipantsDialog
         isOpen={isOpen}

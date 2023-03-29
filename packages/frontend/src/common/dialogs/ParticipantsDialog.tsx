@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { isEmpty } from "lodash";
 import { DialogProps } from "../types/commonTypes";
-import Participants from "./Participants";
+import { Participants } from "./Participants";
 import { UserByUserId } from "../../retro/types/retroTypes";
 import { WaitingList } from "./WaitingList";
 import { useRoomContext } from "../context/RoomContext";
@@ -75,7 +75,7 @@ export function ParticipantsDialog({
       <DialogContent>
         {!isEmpty(waitingList) && (
           <>
-            <Typography variant={"h5"} pb={1}>
+            <Typography variant="h5" pb={1}>
               Waiting for approval
             </Typography>
             <WaitingList
@@ -88,7 +88,7 @@ export function ParticipantsDialog({
         {isDividerVisible && <Divider sx={{ marginY: 2 }} />}
         {!isEmpty(participants) && (
           <>
-            <Typography variant={"h5"} pb={1}>
+            <Typography variant="h5" pb={1}>
               Participants
             </Typography>
             <Participants
@@ -113,9 +113,7 @@ export function ParticipantsDialog({
             label="Auto-Accept"
           />
         )}
-        <Button onClick={close} color="primary">
-          Close
-        </Button>
+        <Button onClick={close}>Close</Button>
       </DialogActions>
     </Dialog>
   );

@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 
-import { PageNotFoundContainer, PageNotFoundText } from "./common/styled-components";
 import { useErrorContext } from "./common/context/ErrorContext";
+import { FlexBox } from "./common/components/FlexBox";
 
-export default function ErrorPage() {
+export function ErrorPage() {
   const { error, resetError } = useErrorContext();
   const errorType = useRef<string | undefined>(undefined);
 
@@ -31,12 +31,19 @@ export default function ErrorPage() {
   }
 
   return (
-    <PageNotFoundContainer>
-      <PageNotFoundText>Oh no, an error occurred :(</PageNotFoundText>
+    <FlexBox sx={{ flexDirection: "column", alignItems: "center" }}>
+      <h2
+        style={{
+          fontFamily: '"Permanent Marker", cursive',
+          fontSize: "280%",
+        }}
+      >
+        Oh no, an error occurred :(
+      </h2>
       <Typography variant="body1">{getErrorMessage()}</Typography>
       <Link style={{ marginTop: "12px" }} to="/">
         Return to Homepage
       </Link>
-    </PageNotFoundContainer>
+    </FlexBox>
   );
 }

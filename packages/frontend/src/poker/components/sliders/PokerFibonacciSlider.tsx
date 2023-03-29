@@ -11,7 +11,6 @@ interface PokerFibonacciSliderProps {
 export function PokerFibonacciSlider(props: PokerFibonacciSliderProps) {
   return (
     <Slider
-      color="primary"
       defaultValue={0}
       onChange={props.onChange}
       getAriaValueText={props.valueText}

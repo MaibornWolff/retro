@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -17,10 +18,10 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { generateId } from "../../../common/utils/generateId";
 import { DialogProps, User } from "../../../common/types/commonTypes";
-import TextInput from "../../../common/components/TextInput";
+import { TextInput } from "../../../common/components/TextInput";
 import { useNavigate } from "react-router-dom";
 
-export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
+export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const {
     value: name,
     setValue: setName,
@@ -76,24 +77,22 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
       onClose={handleClose}
       aria-labelledby="create-session-dialog-title"
     >
-      <DialogTitle id="create-session-dialog-title">Create Session</DialogTitle>
+      <DialogTitle id="create-session-dialog-title">Create Planning Poker Session</DialogTitle>
       <DialogContent>
-        <div>
-          <DialogContentText>Please provide your name for this session</DialogContentText>
-          <TextInput
-            onSubmit={handleSubmit}
-            required
-            autoFocus
-            fullWidth
-            value={name}
-            onChange={handleChange}
-            error={isError}
-            id="user-name"
-            label="Name"
-            type="text"
-          />
-        </div>
-        <div style={{ marginTop: "1rem" }}>
+        <DialogContentText>Please provide your name for this session</DialogContentText>
+        <TextInput
+          onSubmit={handleSubmit}
+          required
+          autoFocus
+          fullWidth
+          value={name}
+          onChange={handleChange}
+          error={isError}
+          id="user-name"
+          label="Name"
+          type="text"
+        />
+        <Box sx={{ mt: 2 }}>
           <DialogContentText>Automatically accept all joining users</DialogContentText>
           <FormControlLabel
             labelPlacement="start"
@@ -101,13 +100,11 @@ export default function CreatePokerSessionDialog({ isOpen, close }: DialogProps)
             label="Auto-Accept"
             sx={{ justifyContent: "flex-end", marginLeft: 0 }}
           />
-        </div>
+        </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} color="primary" disabled={!isValid}>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleSubmit} disabled={!isValid}>
           Join
         </Button>
       </DialogActions>

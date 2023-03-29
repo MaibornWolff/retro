@@ -3,10 +3,10 @@ import { Add } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { useUserContext } from "../../../common/context/UserContext";
 import { CreateColumnDialog } from "../dialogs/CreateColumnDialog";
-import { useDialog } from "../../hooks/useDialog";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { useDialog } from "../../../common/hooks/useDialog";
 
-export default function CreateColumnButton() {
+export function CreateColumnButton() {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { user } = useUserContext();
   if (!isModerator(user)) return null;
@@ -14,12 +14,16 @@ export default function CreateColumnButton() {
   return (
     <>
       <Button
-        variant="outlined"
+        variant="contained"
         aria-label="Add Column"
         onClick={openDialog}
         disabled={!isModerator(user)}
         startIcon={<Add />}
-        sx={{ width: "100%" }}
+        sx={{
+          width: "100%",
+          borderRadius: "10px",
+          boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
+        }}
       >
         Add Column
       </Button>

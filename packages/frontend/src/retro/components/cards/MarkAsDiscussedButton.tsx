@@ -4,7 +4,7 @@ import { IconButtonProps } from "@mui/material";
 import { RetroCard } from "../../types/retroTypes";
 import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
-import CardActionButton from "./CardActionButton";
+import { CardActionButton } from "./CardActionButton";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
 interface MarkItemAsDiscussedButtonProps extends IconButtonProps {
@@ -12,7 +12,7 @@ interface MarkItemAsDiscussedButtonProps extends IconButtonProps {
   columnIndex: number;
 }
 
-export default function MarkAsDiscussedButton({
+export function MarkAsDiscussedButton({
   card,
   columnIndex,
   ...props
@@ -30,7 +30,7 @@ export default function MarkAsDiscussedButton({
   return (
     <CardActionButton
       {...props}
-      tooltipText={"Mark as discussed"}
+      tooltipText="Mark as discussed"
       onClick={handleClick}
       disabled={(props.disabled ?? false) || !isModerator(user)}
     >

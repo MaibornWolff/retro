@@ -3,16 +3,16 @@ import { Delete } from "@mui/icons-material";
 import { IconButtonProps } from "@mui/material";
 import { RetroCard } from "../../types/retroTypes";
 import { useIsPrivileged } from "../../hooks/useIsPrivileged";
-import CardActionButton from "./CardActionButton";
-import { useDialog } from "../../hooks/useDialog";
-import DeleteCardDialog from "../dialogs/DeleteCardDialog";
+import { CardActionButton } from "./CardActionButton";
+import { DeleteCardDialog } from "../dialogs/DeleteCardDialog";
+import { useDialog } from "../../../common/hooks/useDialog";
 
 interface DeleteItemButtonProps extends IconButtonProps {
   card: RetroCard;
   columnIndex: number;
 }
 
-export default function DeleteCardButton({ card, columnIndex, ...props }: DeleteItemButtonProps) {
+export function DeleteCardButton({ card, columnIndex, ...props }: DeleteItemButtonProps) {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const isPrivileged = useIsPrivileged(card);
 
@@ -26,7 +26,7 @@ export default function DeleteCardButton({ card, columnIndex, ...props }: Delete
   return (
     <>
       <CardActionButton
-        tooltipText={"Delete Card"}
+        tooltipText="Delete Card"
         onClick={handleOpenDeleteCardDialog}
         disabled={(props.disabled ?? false) || !isPrivileged}
       >

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Bar, BarChart, Legend, Tooltip, XAxis } from "recharts";
-import { Grid } from "@mui/material";
+import { Grid, useTheme } from "@mui/material";
 import { usePokerContext } from "../context/PokerContext";
 import { ChartData } from "../types/pokerTypes";
 import { generateChartData } from "../utils/pokerUtils";
 
-export default function PokerStats() {
+export function PokerStats() {
   const { pokerState } = usePokerContext();
   const [chartData, setChartData] = useState<ChartData[]>([]);
 
@@ -17,6 +17,7 @@ export default function PokerStats() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokerState.showResults]);
 
+  const primaryColor = useTheme().palette.primary.main;
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
       <BarChart
@@ -29,10 +30,15 @@ export default function PokerStats() {
           dataKey="name"
           // tick={{ fontSize: "10px", width: "50px" }}
           interval={0}
+          stroke={primaryColor}
         />
-        <Tooltip cursor={false} />
+        <Tooltip
+          cursor={false}
+          labelStyle={{ color: "#303030" }}
+          itemStyle={{ color: "#303030" }}
+        />
         <Legend />
-        <Bar name="number of votes" dataKey="value" fill="#8884d8" />
+        <Bar name="number of votes" dataKey="value" fill={primaryColor} />
       </BarChart>
     </Grid>
   );

@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import TextInput from "../../../common/components/TextInput";
+import { TextInput } from "../../../common/components/TextInput";
 import { generateId } from "../../../common/utils/generateId";
 import { RetroColumn } from "../../types/retroTypes";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
@@ -72,10 +72,8 @@ export function CreateColumnDialog({ isOpen, close }: DialogProps) {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeDialog} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} color="primary" disabled={!isValid}>
+        <Button onClick={closeDialog}>Cancel</Button>
+        <Button onClick={handleSubmit} disabled={!isValid}>
           Create
         </Button>
       </DialogActions>

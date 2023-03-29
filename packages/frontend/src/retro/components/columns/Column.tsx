@@ -1,56 +1,56 @@
 import React from "react";
-import styled from "styled-components";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { Card } from "@mui/material";
+import { Card, Divider } from "@mui/material";
 
-import Cards from "../cards/Cards";
-import ColumnHeader from "./column-header/ColumnHeader";
-import { CardsContainerStyles, ColumnContainerStyles } from "../../../common/styled-components";
+import { Cards } from "../cards/Cards";
+import { ColumnHeader } from "./column-header/ColumnHeader";
 import { RetroColumn } from "../../types/retroTypes";
 import { useUserContext } from "../../../common/context/UserContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
-
-const ColumnContainer = styled(Card)`
-  ${ColumnContainerStyles}
-`;
-
-const CardsContainer = styled.div`
-  ${CardsContainerStyles};
-`;
 
 interface ColumnProps {
   column: RetroColumn;
 }
 
-function Column({ column }: ColumnProps) {
+export function Column({ column }: ColumnProps) {
   const { user } = useUserContext();
 
   return (
     <Draggable draggableId={column.id} index={column.index} isDragDisabled={!isModerator(user)}>
       {(providedDraggable) => (
-        <ColumnContainer
+        <Card
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "25rem",
+            margin: "0.8em",
+            borderRadius: "15px",
+          }}
           {...providedDraggable.draggableProps}
           {...providedDraggable.dragHandleProps}
           ref={providedDraggable.innerRef}
-          raised
+          elevation={3}
         >
           <ColumnHeader column={column} />
+          <Divider />
           <Droppable droppableId={column.id} type="item" isCombineEnabled={true}>
-            {(providedDroppable, snapshot) => (
-              <CardsContainer
+            {(providedDroppable) => (
+              <div
+                style={{
+                  flex: 1,
+                  padding: "1em",
+                  transition: "background-color 0.2s ease",
+                }}
                 ref={providedDroppable.innerRef}
                 {...providedDroppable.droppableProps}
-                isDraggingOver={snapshot.isDraggingOver}
               >
                 <Cards column={column} />
                 {providedDroppable.placeholder}
-              </CardsContainer>
+              </div>
             )}
           </Droppable>
-        </ColumnContainer>
+        </Card>
       )}
     </Draggable>
   );
 }
-
-export default Column;

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Button, Snackbar, Typography, useTheme } from "@mui/material";
 import { Share } from "@mui/icons-material";
-import Alert from "../Alert";
+import { Alert } from "../Alert";
 
 interface ShareSessionButtonProps {
   isDisabled?: boolean;
 }
 
-export default function ShareSessionButton({ isDisabled = false }: ShareSessionButtonProps) {
+export function ShareSessionButton({ isDisabled = false }: ShareSessionButtonProps) {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
 
@@ -39,11 +39,11 @@ export default function ShareSessionButton({ isDisabled = false }: ShareSessionB
         variant="text"
         aria-label="Share this session"
         onClick={handleClick}
-        sx={{ marginRight: theme.spacing(1), textTransform: "none", color: "white" }}
+        sx={{ marginRight: theme.spacing(1), textTransform: "none" }}
         startIcon={<Share />}
         disabled={isDisabled}
       >
-        <Typography color="inherit">Share Session</Typography>
+        <Typography>Share Session</Typography>
       </Button>
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
         <div>

@@ -1,11 +1,11 @@
 import React from "react";
-import { Button, useTheme } from "@mui/material";
 import { useUserContext } from "../../../common/context/UserContext";
 import { usePokerContext } from "../../context/PokerContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { Visibility } from "@mui/icons-material";
+import { ActionButton } from "../../../common/components/buttons/ActionButton";
 
-export default function PokerResultButton() {
-  const theme = useTheme();
+export function PokerResultButton() {
   const { user } = useUserContext();
   const { handleShowPokerResults, pokerState } = usePokerContext();
   const noUserVoted = Object.keys(pokerState.votes).length === 0;
@@ -17,15 +17,11 @@ export default function PokerResultButton() {
   }
 
   return (
-    <Button
-      color="primary"
-      variant="outlined"
-      aria-label="Show Results"
-      sx={{ margin: theme.spacing(1) }}
-      disabled={noUserVoted}
+    <ActionButton
       onClick={handleClick}
-    >
-      Show Results
-    </Button>
+      label="Show Results"
+      isDisabled={noUserVoted}
+      icon={<Visibility />}
+    />
   );
 }

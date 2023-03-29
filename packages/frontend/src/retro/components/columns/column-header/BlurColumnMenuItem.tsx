@@ -10,7 +10,7 @@ interface BlurColumnMenuItemProperties {
   column: RetroColumn;
 }
 
-const BlurColumnMenuItem = React.forwardRef(
+export const BlurColumnMenuItem = React.forwardRef(
   ({ column }: BlurColumnMenuItemProperties, ref: any) => {
     const { handleToggleColumnBlur } = useRetroContext();
     const { user } = useUserContext();
@@ -30,5 +30,3 @@ const BlurColumnMenuItem = React.forwardRef(
     );
   }
 );
-
-export default BlurColumnMenuItem;

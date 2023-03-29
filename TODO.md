@@ -9,12 +9,11 @@
 # Improvement
 
 - adapt end to end tests to auto accept behaviour
-- fix light theme and use a proper primary color?
-- add commit and branch name linting
+- add semantic release
+- What happened to column widths?
+- create / join buttons style and placement
 
 # Refactorings
-
-- change all "export default" to "export"
 
 # Follow-Up
 

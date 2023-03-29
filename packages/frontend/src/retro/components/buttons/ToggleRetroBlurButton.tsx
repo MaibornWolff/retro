@@ -1,12 +1,12 @@
 import React from "react";
 import { BlurOff, BlurOn } from "@mui/icons-material";
-import { Button } from "@mui/material";
 
 import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { ActionButton } from "../../../common/components/buttons/ActionButton";
 
-export default function ToggleRetroBlurButton() {
+export function ToggleRetroBlurButton() {
   const { handleToggleRetroBlur, retroState } = useRetroContext();
   const { isBlurred } = retroState;
   const { user } = useUserContext();
@@ -20,15 +20,5 @@ export default function ToggleRetroBlurButton() {
 
   if (!isModerator(user)) return null;
 
-  return (
-    <Button
-      variant="outlined"
-      aria-label={buttonText}
-      onClick={toggleRetroBlur}
-      startIcon={buttonIcon}
-      sx={{ width: "100%" }}
-    >
-      {buttonText}
-    </Button>
-  );
+  return <ActionButton onClick={toggleRetroBlur} label={buttonText} icon={buttonIcon} />;
 }

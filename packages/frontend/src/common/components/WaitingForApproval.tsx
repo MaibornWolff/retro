@@ -1,13 +1,13 @@
 import React from "react";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
+import { FlexBox } from "./FlexBox";
 
 export function WaitingForApproval() {
   const message = "Waiting for approval...";
 
   return (
-    <Box
+    <FlexBox
       sx={{
-        display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
@@ -18,6 +18,6 @@ export function WaitingForApproval() {
     >
       <Typography variant="h2">{message}</Typography>
       <CircularProgress size="4rem" />
-    </Box>
+    </FlexBox>
   );
 }

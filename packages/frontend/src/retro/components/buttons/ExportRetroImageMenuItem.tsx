@@ -6,7 +6,7 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { useExportRetroContext } from "../../context/ExportRetroContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export default function ExportRetroImageButton() {
+export function ExportRetroImageMenuItem() {
   const { user } = useUserContext();
   const { boardRef } = useExportRetroContext();
 
@@ -18,12 +18,7 @@ export default function ExportRetroImageButton() {
 
   return (
     <>
-      <MenuItem
-        aria-label="Export Retro"
-        color="primary"
-        onClick={handleExport}
-        disabled={!isModerator(user)}
-      >
+      <MenuItem aria-label="Export Retro" onClick={handleExport} disabled={!isModerator(user)}>
         <ListItemIcon>
           <PhotoCamera fontSize="small" />
         </ListItemIcon>

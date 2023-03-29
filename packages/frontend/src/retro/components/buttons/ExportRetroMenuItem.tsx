@@ -6,7 +6,7 @@ import { useRetroContext } from "../../context/RetroContext";
 import { RetroSchemaV1 } from "../../types/retroSchema";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
-export default function ExportRetroButton() {
+export function ExportRetroMenuItem() {
   const { user } = useUserContext();
   const { retroState } = useRetroContext();
 
@@ -31,12 +31,7 @@ export default function ExportRetroButton() {
 
   return (
     <>
-      <MenuItem
-        aria-label="Export Retro"
-        color="primary"
-        onClick={handleExport}
-        disabled={!isModerator(user)}
-      >
+      <MenuItem aria-label="Export Retro" onClick={handleExport} disabled={!isModerator(user)}>
         <ListItemIcon>
           <GetApp fontSize="small" />
         </ListItemIcon>

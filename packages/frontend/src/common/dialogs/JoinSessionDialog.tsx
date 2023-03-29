@@ -17,7 +17,7 @@ import { generateId } from "../utils/generateId";
 
 import { getRoomConfiguration } from "../adapter/backendAdapter";
 import { useNamespace } from "../hooks/useNamespace";
-import TextInput from "../components/TextInput";
+import { TextInput } from "../components/TextInput";
 import { useErrorContext } from "../context/ErrorContext";
 
 interface JoinSessionDialogProps extends DialogProps {
@@ -26,7 +26,7 @@ interface JoinSessionDialogProps extends DialogProps {
   navigateToRoom: () => void;
 }
 
-export default function JoinSessionDialog({
+export function JoinSessionDialog({
   isOpen,
   close,
   roomId,
@@ -91,11 +91,9 @@ export default function JoinSessionDialog({
       onClose={handleClose}
       aria-labelledby="join-poker-dialog-title"
     >
-      <DialogTitle id="join-poker-dialog-title">Join Poker Session</DialogTitle>
+      <DialogTitle id="join-poker-dialog-title">Join Session</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Please provide a name, so that your team can recognize your estimation.
-        </DialogContentText>
+        <DialogContentText>Please provide your name for this session</DialogContentText>
         <TextInput
           onSubmit={handleSubmit}
           required
@@ -110,10 +108,8 @@ export default function JoinSessionDialog({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} color="primary" disabled={!isValid}>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleSubmit} disabled={!isValid}>
           Join
         </Button>
       </DialogActions>

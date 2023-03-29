@@ -5,7 +5,7 @@ interface TooltipIconButtonProps extends IconButtonProps {
   tooltipText: string;
 }
 
-export default function TooltipIconButton({
+export function TooltipIconButton({
   tooltipText,
   onClick,
   children,
