@@ -221,6 +221,9 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
       );
       return { ...state, waitingList: remainingWaitingUsers };
     }
+    case "IS_VOTING_ENABLED_CHANGED": {
+      return { ...state, isVotingEnabled: action.isEnabled };
+    }
     case "DISCONNECT": {
       const { participants, waitingList } = state;
       const disconnectedUserId = action.payload;

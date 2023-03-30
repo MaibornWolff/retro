@@ -5,5 +5,5 @@ import { useRetroContext } from "../context/RetroContext";
 export function RetroTitle() {
   const { retroState } = useRetroContext();
 
-  return <Typography variant="h5">{retroState.title}</Typography>;
+  return <Typography variant="h4">{retroState.title}</Typography>;
 }

@@ -90,6 +90,11 @@ export interface ChangeRetroFormatAction extends BaseAction {
   payload: string;
 }
 
+export interface IsVotingEnabledChangedAction extends BaseAction {
+  type: "IS_VOTING_ENABLED_CHANGED";
+  isEnabled: boolean;
+}
+
 export type RetroAction =
   | PeerToPeerAction<RetroState>
   | CardUpvoteAction
@@ -109,4 +114,5 @@ export type RetroAction =
   | ToggleRetroBlurAction
   | ToggleCardDiscussedAction
   | ChangeRetroFormatAction
-  | SortCardsByVotesDescendingAction;
+  | SortCardsByVotesDescendingAction
+  | IsVotingEnabledChangedAction;
