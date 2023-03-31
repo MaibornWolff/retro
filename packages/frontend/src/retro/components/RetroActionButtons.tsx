@@ -7,6 +7,7 @@ import { useUserContext } from "../../common/context/UserContext";
 import { SetupSessionButton } from "../../common/components/buttons/SetupSessionButton";
 import { ToggleRetroBlurButton } from "./buttons/ToggleRetroBlurButton";
 import { CreateColumnButton } from "./buttons/CreateColumnButton";
+import { ToggleRetroVotingButton } from "./ToggleRetroVotingButton";
 
 export function RetroActionButtons() {
   const { user } = useUserContext();
@@ -36,6 +37,9 @@ export function RetroActionButtons() {
       </Grid>
       <Grid item>
         <ToggleRetroBlurButton />
+      </Grid>
+      <Grid item>
+        <ToggleRetroVotingButton />
       </Grid>
     </Grid>
   );

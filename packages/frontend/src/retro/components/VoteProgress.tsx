@@ -8,10 +8,10 @@ import { useVotesLeft } from "../hooks/useVotesLeft";
 export function VoteProgress() {
   const { user } = useUserContext();
   const { retroState } = useRetroContext();
-  const { maxVoteCount } = retroState;
+  const { maxVoteCount, isVotingEnabled } = retroState;
   const votesLeft = useVotesLeft();
 
-  if (!user.id) return null;
+  if (!user.id || !isVotingEnabled) return null;
 
   return (
     <Box px={2} display="flex" alignItems="center">

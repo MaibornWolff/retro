@@ -24,7 +24,12 @@ export function ImportRetroMenuItem() {
 
     const retroJson = await file.text();
     const importedRetro: RetroSchemaV1 = JSON.parse(retroJson);
-    const retro: RetroState = { ...importedRetro, participants: {}, waitingList: {} };
+    const retro: RetroState = {
+      ...importedRetro,
+      participants: {},
+      waitingList: {},
+      isVotingEnabled: false,
+    };
     handleSetRetroState(retro);
   }
 
