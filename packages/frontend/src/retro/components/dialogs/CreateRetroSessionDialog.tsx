@@ -21,7 +21,7 @@ import { generateId } from "../../../common/utils/generateId";
 import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRoomContext } from "../../../common/context/RoomContext";
-import { AutoAcceptSwitch } from "../../../common/components/AutoAcceptSwitch";
+import { AutoAcceptCheckbox } from "../../../common/components/AutoAcceptCheckbox";
 
 export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -48,7 +48,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  const [isSwitchActivated, setIsSwitchActivated] = useState(isAutoAcceptActivated);
+  const [isCheckboxActivated, setIsCheckboxActivated] = useState(isAutoAcceptActivated);
 
   function handleClose() {
     setName("");
@@ -59,7 +59,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   }
 
   function toggleChecked() {
-    setIsSwitchActivated((prevState) => !prevState);
+    setIsCheckboxActivated((prevState) => !prevState);
   }
 
   function handleSubmit() {
@@ -76,7 +76,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
       role: "moderator",
     };
     setRoomId(roomId);
-    setIsAutoAcceptActivated(isSwitchActivated);
+    setIsAutoAcceptActivated(isCheckboxActivated);
     handleSetRetroState({ ...retroState, title });
     setUser(newUser);
     handleJoinSession(newUser);
@@ -123,14 +123,10 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
           <DialogContentText>Choose your retro format</DialogContentText>
           <RetroFormatSelect onFormatChange={setFormat} format={format} />
         </Box>
-        <Box>
-          <DialogContentText>Automatically accept all joining users</DialogContentText>
-          <AutoAcceptSwitch
-            isSwitchActivated={isAutoAcceptActivated}
-            toggleChecked={toggleChecked}
-            sx={{ justifyContent: "flex-end", marginLeft: 0 }}
-          />
-        </Box>
+        <AutoAcceptCheckbox
+          isCheckboxActivated={isCheckboxActivated}
+          toggleChecked={toggleChecked}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>

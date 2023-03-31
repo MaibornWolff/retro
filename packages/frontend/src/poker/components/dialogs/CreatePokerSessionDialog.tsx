@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
@@ -18,7 +17,7 @@ import { generateId } from "../../../common/utils/generateId";
 import { DialogProps, User } from "../../../common/types/commonTypes";
 import { TextInput } from "../../../common/components/TextInput";
 import { useNavigate } from "react-router-dom";
-import { AutoAcceptSwitch } from "../../../common/components/AutoAcceptSwitch";
+import { AutoAcceptCheckbox } from "../../../common/components/AutoAcceptCheckbox";
 
 export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -35,10 +34,10 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  const [isSwitchActivated, setIsSwitchActivated] = useState(isAutoAcceptActivated);
+  const [isCheckboxActivated, setIsCheckboxActivated] = useState(isAutoAcceptActivated);
 
   const toggleChecked = () => {
-    setIsSwitchActivated((prev) => !prev);
+    setIsCheckboxActivated((prev) => !prev);
   };
 
   function handleClose() {
@@ -60,7 +59,7 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
       role: "moderator",
     };
     setRoomId(roomId);
-    setIsAutoAcceptActivated(isSwitchActivated);
+    setIsAutoAcceptActivated(isCheckboxActivated);
     setUser(newUser);
     handleJoinSession(newUser);
     navigate(`/poker/${roomId}`);
@@ -91,14 +90,10 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
           label="Name"
           type="text"
         />
-        <Box sx={{ mt: 2 }}>
-          <DialogContentText>Automatically accept all joining users</DialogContentText>
-          <AutoAcceptSwitch
-            isSwitchActivated={isAutoAcceptActivated}
-            toggleChecked={toggleChecked}
-            sx={{ justifyContent: "flex-end", marginLeft: 0 }}
-          />
-        </Box>
+        <AutoAcceptCheckbox
+          isCheckboxActivated={isCheckboxActivated}
+          toggleChecked={toggleChecked}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>

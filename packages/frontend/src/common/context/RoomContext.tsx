@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext, useState } from "react";
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 
 interface RoomContextProviderProps {
   children?: React.ReactNode;
@@ -16,6 +16,10 @@ export const RoomContext = React.createContext<RoomContextValues>(undefined!);
 export function RoomContextProvider(props: RoomContextProviderProps) {
   const [roomId, setRoomId] = useState("");
   const [isAutoAcceptActivated, setIsAutoAcceptActivated] = useState(false);
+
+  useEffect(() => {
+    console.log("isAutoAcceptActivated", isAutoAcceptActivated);
+  }, [isAutoAcceptActivated]);
 
   const value: RoomContextValues = {
     roomId,

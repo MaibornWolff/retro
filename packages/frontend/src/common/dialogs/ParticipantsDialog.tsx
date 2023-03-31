@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
   Button,
@@ -16,9 +16,11 @@ import { Participants } from "./Participants";
 import { UserByUserId } from "../../retro/types/retroTypes";
 import { WaitingList } from "./WaitingList";
 import { useRoomContext } from "../context/RoomContext";
-import { putIsAutoAcceptActivated } from "../adapter/backendAdapter";
 import { useNamespace } from "../hooks/useNamespace";
 import { AutoAcceptSwitch } from "../components/AutoAcceptSwitch";
+import { isModerator } from "../utils/participantsUtils";
+import { useUserContext } from "../context/UserContext";
+import { putIsAutoAcceptActivated } from "../adapter/backendAdapter";
 
 interface ParticipantDialogProps extends DialogProps {
   participants: UserByUserId;
@@ -44,14 +46,12 @@ export function ParticipantsDialog({
   const { isAutoAcceptActivated, setIsAutoAcceptActivated, roomId } = useRoomContext();
   const namespace = useNamespace();
   const isDividerVisible = !isEmpty(waitingList) && !isEmpty(participants);
-  const [isSwitchDisabled, setIsSwitchDisabled] = useState(false);
+  const { user } = useUserContext();
 
   async function toggleChecked() {
-    setIsSwitchDisabled(true);
     const toggledValue = !isAutoAcceptActivated;
     setIsAutoAcceptActivated(toggledValue);
     await putIsAutoAcceptActivated({ roomId, namespace, isActivated: toggledValue });
-    setIsSwitchDisabled(false);
   }
 
   return (
@@ -68,6 +68,18 @@ export function ParticipantsDialog({
         },
       }}
     >
+      {isModerator(user) && (
+        <DialogContent>
+          <Typography variant="h5" pb={1}>
+            Moderator Options
+          </Typography>
+          <AutoAcceptSwitch
+            isSwitchActivated={isAutoAcceptActivated}
+            toggleChecked={toggleChecked}
+            label={"Automatically accept joining users"}
+          />
+        </DialogContent>
+      )}
       <DialogContent>
         {!isEmpty(waitingList) && (
           <>
@@ -95,12 +107,7 @@ export function ParticipantsDialog({
           </>
         )}
       </DialogContent>
-      <DialogActions sx={{ justifyContent: "space-between" }}>
-        <AutoAcceptSwitch
-          isSwitchActivated={isAutoAcceptActivated}
-          toggleChecked={toggleChecked}
-          isDisabled={isSwitchDisabled}
-        />
+      <DialogActions>
         <Button onClick={close}>Close</Button>
       </DialogActions>
     </Dialog>

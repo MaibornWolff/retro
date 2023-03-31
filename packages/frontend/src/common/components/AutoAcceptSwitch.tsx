@@ -1,34 +1,23 @@
-import { BoxProps, FormControlLabel, Switch } from "@mui/material";
+import { FormControlLabel, Switch } from "@mui/material";
 import React from "react";
-import { isModerator } from "../utils/participantsUtils";
-import { useUserContext } from "../context/UserContext";
-import { FlexBox } from "./FlexBox";
 
-interface AutoAcceptSwitchProps extends BoxProps {
+interface AutoAcceptSwitchProps {
   isSwitchActivated: boolean;
   toggleChecked: () => void;
-  isDisabled?: boolean;
+  label?: string;
 }
 
 export function AutoAcceptSwitch({
   isSwitchActivated,
   toggleChecked,
-  isDisabled,
-  ...props
+  label,
 }: AutoAcceptSwitchProps) {
-  const { user } = useUserContext();
-
   return (
-    <FlexBox {...props}>
-      {isModerator(user) && (
-        <FormControlLabel
-          labelPlacement="start"
-          label="Auto-Accept"
-          control={
-            <Switch checked={isSwitchActivated} onChange={toggleChecked} disabled={isDisabled} />
-          }
-        />
-      )}
-    </FlexBox>
+    <FormControlLabel
+      sx={{ ml: 0, width: "100%", justifyContent: "space-between" }}
+      labelPlacement="start"
+      label={label ?? "Auto-Accept"}
+      control={<Switch color="success" checked={isSwitchActivated} onChange={toggleChecked} />}
+    />
   );
 }
