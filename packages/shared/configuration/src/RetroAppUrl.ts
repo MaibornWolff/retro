@@ -1,7 +1,7 @@
 interface URLProperties {
-  protocol?: string;
-  host?: string;
-  port?: string;
+  protocol: string;
+  host: string;
+  port: string;
 }
 
 export class RetroAppUrl {
@@ -17,9 +17,9 @@ export class RetroAppUrl {
     this.url = `${this.protocol}://${this.host}:${this.port}`;
   }
 
-  private static getValidatedProtocol(protocol?: string) {
-    if (protocol?.startsWith("http")) return "http";
-    if (protocol?.startsWith("https")) return "https";
+  private static getValidatedProtocol(protocol: string) {
+    if (protocol.startsWith("http")) return "http";
+    if (protocol.startsWith("https")) return "https";
     throw new Error("Invalid protocol. Must be 'http' or 'https'.");
   }
 
