@@ -10,8 +10,8 @@ interface CardPosition {
 }
 
 interface HighlightCardButtonProps {
-  handleHighlightCard: (at: CardPosition) => void;
-  handleUnhighlightCard: (at: CardPosition) => void;
+  handleHighlightCard: (position: CardPosition) => void;
+  handleUnhighlightCard: (position: CardPosition) => void;
   card: RetroCard;
   columnIndex: number;
 }

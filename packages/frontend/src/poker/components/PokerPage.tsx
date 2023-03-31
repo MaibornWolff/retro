@@ -13,7 +13,6 @@ import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 import { AppHeader } from "../../common/components/AppHeader";
 import { EstimationUnitSetupMenuItem } from "./buttons/EstimationUnitSetupMenuItem";
-import { FlexBox } from "../../common/components/FlexBox";
 import { NewParticipantSnackbar } from "../../common/components/NewParticipantSnackbar";
 import { PokerActionButtons } from "./PokerActionButtons";
 
@@ -90,7 +89,7 @@ export function PokerPage() {
       <PokerActionButtons />
       <PokerTitle />
       <PokerUsers />
-      <FlexBox mt={10}>{pokerState.showResults ? <PokerStats /> : null}</FlexBox>
+      {pokerState.showResults ? <PokerStats /> : null}
       <NewParticipantSnackbar
         isSnackbarOpen={snackbarOpen}
         handleCloseSnackbar={handleCloseSnackbar}
