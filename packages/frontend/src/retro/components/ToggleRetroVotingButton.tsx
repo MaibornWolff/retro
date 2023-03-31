@@ -14,6 +14,7 @@ export function ToggleRetroVotingButton() {
   const buttonIcon = isVotingEnabled ? <Stop /> : <PlayArrow />;
 
   function toggleIsVotingEnabled() {
+    if (!isModerator(user)) return;
     handleIsVotingEnabledChanged(!isVotingEnabled);
   }
 
