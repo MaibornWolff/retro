@@ -20,7 +20,7 @@ export function PokerStats() {
 
   const primaryColor = useTheme().palette.primary.main;
   return (
-    <FlexBox justifyContent="center" width="100%">
+    <FlexBox justifyContent="center" width="100%" mt={10}>
       <BarChart
         width={600}
         height={300}

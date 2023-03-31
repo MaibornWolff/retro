@@ -97,7 +97,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
             onChange={handleNameChange}
             error={isNameError}
             id="user-name"
-            label="Name"
+            label="Username"
             autoFocus
           />
         </Box>
@@ -112,7 +112,10 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
             label="Retro Name"
           />
         </Box>
-        <RetroFormatSelect onFormatChange={setFormat} format={format} />
+        <Box>
+          <DialogContentText>Please choose a Retro Format</DialogContentText>
+          <RetroFormatSelect onFormatChange={setFormat} format={format} />
+        </Box>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
