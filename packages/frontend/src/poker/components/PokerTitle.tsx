@@ -1,14 +1,14 @@
 import React from "react";
-import { Grid, Link, Typography, useTheme } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import { usePokerContext } from "../context/PokerContext";
+import { FlexBox } from "../../common/components/FlexBox";
 
 export function PokerTitle() {
   const { storyTitle, storyUrl } = usePokerContext().pokerState.story;
-  const theme = useTheme();
 
   return (
-    <Grid container direction="column" justifyContent="center" alignItems="center">
-      <Typography variant="h4" sx={{ padding: theme.spacing(2) }}>
+    <FlexBox justifyContent="center">
+      <Typography variant="h4" py={2}>
         {storyUrl ? (
           <Link href={storyUrl} target="_blank" rel="nofollow noreferrer">
             {storyTitle}
@@ -17,6 +17,6 @@ export function PokerTitle() {
           storyTitle
         )}
       </Typography>
-    </Grid>
+    </FlexBox>
   );
 }

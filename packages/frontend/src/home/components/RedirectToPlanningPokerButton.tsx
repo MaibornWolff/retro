@@ -1,10 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Fab, useTheme } from "@mui/material";
+import { Fab } from "@mui/material";
 import { Casino } from "@mui/icons-material";
 
 export function RedirectToPlanningPokerButton() {
-  const theme = useTheme();
   const navigate = useNavigate();
 
   function navigateToPlanningPoker() {
@@ -17,15 +16,11 @@ export function RedirectToPlanningPokerButton() {
       variant="extended"
       onClick={navigateToPlanningPoker}
       sx={{
-        margin: theme.spacing(1),
+        m: 1,
         minWidth: "11rem",
       }}
     >
-      <Casino
-        sx={{
-          marginRight: theme.spacing(1),
-        }}
-      />
+      <Casino sx={{ mr: 1 }} />
       Planning Poker
     </Fab>
   );

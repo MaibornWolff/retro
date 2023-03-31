@@ -31,7 +31,7 @@ export function ErrorPage() {
   }
 
   return (
-    <FlexBox sx={{ flexDirection: "column", alignItems: "center" }}>
+    <FlexBox flexDirection="column" alignItems="center">
       <h2
         style={{
           fontFamily: '"Permanent Marker", cursive',
@@ -41,7 +41,7 @@ export function ErrorPage() {
         Oh no, an error occurred :(
       </h2>
       <Typography variant="body1">{getErrorMessage()}</Typography>
-      <Link style={{ marginTop: "12px" }} to="/">
+      <Link style={{ marginTop: 1 }} to="/">
         Return to Homepage
       </Link>
     </FlexBox>

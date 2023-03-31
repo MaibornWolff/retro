@@ -67,7 +67,7 @@ export function ParticipantsDialog({
             />
           </>
         )}
-        {isDividerVisible && <Divider sx={{ marginY: 2 }} />}
+        {isDividerVisible && <Divider sx={{ my: 2 }} />}
         {!isEmpty(participants) && (
           <>
             <Typography variant="h5" pb={1}>

@@ -1,10 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Fab, useTheme } from "@mui/material";
+import { Fab } from "@mui/material";
 import { People } from "@mui/icons-material";
 
 export function RedirectToRetroButton() {
-  const theme = useTheme();
   const navigate = useNavigate();
 
   function navigateToRetro() {
@@ -17,15 +16,11 @@ export function RedirectToRetroButton() {
       variant="extended"
       onClick={navigateToRetro}
       sx={{
-        margin: theme.spacing(1),
+        m: 1,
         minWidth: "11rem",
       }}
     >
-      <People
-        sx={{
-          marginRight: theme.spacing(1),
-        }}
-      />
+      <People sx={{ mr: 1 }} />
       Retrospective
     </Fab>
   );

@@ -18,9 +18,11 @@ export function ActionButton({ onClick, isDisabled, label, icon, ...props }: Act
       onClick={onClick}
       disabled={isDisabled}
       sx={{
-        margin: theme.spacing(1),
-        borderRadius: "10px",
+        m: 1,
+        borderRadius: theme.spacing(2),
         boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
+        whiteSpace: "nowrap",
+        width: theme.spacing(22),
       }}
       startIcon={icon ?? undefined}
       fullWidth

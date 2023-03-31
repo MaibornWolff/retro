@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Snackbar } from "@mui/material";
+import { Box } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
 import { Navigate } from "react-router-dom";
 
@@ -14,10 +14,8 @@ import { isModerator, isWaitingUser } from "../../common/utils/participantsUtils
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { RetroTitle } from "./RetroTitle";
-import { RetroActionButtons } from "./RetroActionButtons";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
-import { Alert } from "../../common/components/Alert";
 import { AppHeader } from "../../common/components/AppHeader";
 import { QrCodeMenuItem } from "./buttons/QrCodeMenuItem";
 import { ExportRetroImageMenuItem } from "./buttons/ExportRetroImageMenuItem";
@@ -25,6 +23,8 @@ import { ExportRetroMenuItem } from "./buttons/ExportRetroMenuItem";
 import { ImportRetroMenuItem } from "./buttons/ImportRetroMenuItem";
 import { ManageVotesMenuItem } from "./buttons/ManageVotesMenuItem";
 import { FlexBox } from "../../common/components/FlexBox";
+import { NewParticipantSnackbar } from "../../common/components/NewParticipantSnackbar";
+import { RetroActionButtons } from "./RetroActionButtons";
 
 export function RetroPage() {
   const {
@@ -105,14 +105,12 @@ export function RetroPage() {
         <ImportRetroMenuItem />
         <QrCodeMenuItem />
       </AppHeader>
-      <Box sx={{ width: "100%" }} ref={boardRef}>
-        <FlexBox sx={{ width: "100%", justifyContent: "space-between", p: 2 }}>
+      <Box ref={boardRef}>
+        <FlexBox justifyContent="space-between" p={1} pl={2}>
           <RetroTitle />
           <VoteProgress />
         </FlexBox>
-        <FlexBox sx={{ gap: "1rem", p: 2 }}>
-          <RetroActionButtons />
-        </FlexBox>
+        <RetroActionButtons />
         <DragDropContext onDragEnd={onDragEnd}>
           <Columns />
         </DragDropContext>
@@ -122,13 +120,10 @@ export function RetroPage() {
           onMergeCards={handleMergeCards}
         />
       </Box>
-      <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleCloseSnackbar}>
-        <div>
-          <Alert onClose={handleCloseSnackbar} severity="info">
-            There is a new participant waiting to be accepted.
-          </Alert>
-        </div>
-      </Snackbar>
+      <NewParticipantSnackbar
+        isSnackbarOpen={snackbarOpen}
+        handleCloseSnackbar={handleCloseSnackbar}
+      />
     </>
   );
 }

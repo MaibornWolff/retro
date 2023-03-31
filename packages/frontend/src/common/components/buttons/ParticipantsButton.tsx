@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Button, Typography, useTheme } from "@mui/material";
+import { Badge, Button, Typography } from "@mui/material";
 import { People } from "@mui/icons-material";
 import { UserByUserId } from "../../../retro/types/retroTypes";
 import { useDialog } from "../../hooks/useDialog";
@@ -23,8 +23,6 @@ export function ParticipantsButton({
   onTransferModeratorRole,
 }: ParticipantButtonProps) {
   const { isOpen, openDialog, closeDialog } = useDialog();
-  const theme = useTheme();
-
   const waitingUsersCount = Object.values(waitingList).length;
 
   return (
@@ -33,7 +31,7 @@ export function ParticipantsButton({
         variant="text"
         aria-label="Open Participants"
         onClick={openDialog}
-        sx={{ marginRight: theme.spacing(1), textTransform: "none" }}
+        sx={{ mr: 1, textTransform: "none" }}
         startIcon={
           <>
             <Badge color="error" badgeContent={waitingUsersCount} max={99}>

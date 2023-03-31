@@ -5,6 +5,7 @@ import { CreatePokerSessionDialog } from "../../../poker/components/dialogs/Crea
 import { CreateRetroSessionDialog } from "../../../retro/components/dialogs/CreateRetroSessionDialog";
 import { useDialog } from "../../hooks/useDialog";
 import { ActionButton } from "./ActionButton";
+import { AddBox } from "@mui/icons-material";
 
 export function CreateSessionButton() {
   const { isOpen, closeDialog, openDialog } = useDialog(true);
@@ -14,7 +15,12 @@ export function CreateSessionButton() {
   return (
     <>
       {!isOpen && !user.id && (
-        <ActionButton onClick={openDialog} label="Create Session" isDisabled={Boolean(user.name)} />
+        <ActionButton
+          onClick={openDialog}
+          label="Create Session"
+          isDisabled={Boolean(user.name)}
+          icon={<AddBox />}
+        />
       )}
 
       {namespace === "poker" && <CreatePokerSessionDialog isOpen={isOpen} close={closeDialog} />}

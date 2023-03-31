@@ -5,6 +5,7 @@ import { RetroCard as RetroCardType } from "../../types/retroTypes";
 import { RetroCard } from "./RetroCard";
 import { useUserContext } from "../../../common/context/UserContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { Box } from "@mui/material";
 
 interface ItemProps {
   card: RetroCardType;
@@ -18,9 +19,9 @@ export function Card({ card, isBlurred, columnIndex }: ItemProps) {
   return (
     <Draggable draggableId={card.id} index={card.index} isDragDisabled={!isModerator(user)}>
       {(provided) => (
-        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+        <Box {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <RetroCard card={card} isBlurred={isBlurred} columnIndex={columnIndex} />
-        </div>
+        </Box>
       )}
     </Draggable>
   );

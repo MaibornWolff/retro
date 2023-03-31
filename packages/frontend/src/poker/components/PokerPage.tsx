@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Snackbar, useTheme } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
-import { PokerActionButtons } from "./PokerActionButtons";
 import { PokerTitle } from "./PokerTitle";
 import { PokerUsers } from "./PokerUsers";
 import { PokerStats } from "./PokerStats";
@@ -12,10 +10,11 @@ import { isModerator, isWaitingUser } from "../../common/utils/participantsUtils
 import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
-import { Alert } from "../../common/components/Alert";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
 import { AppHeader } from "../../common/components/AppHeader";
 import { EstimationUnitSetupMenuItem } from "./buttons/EstimationUnitSetupMenuItem";
+import { NewParticipantSnackbar } from "../../common/components/NewParticipantSnackbar";
+import { PokerActionButtons } from "./PokerActionButtons";
 
 export function PokerPage() {
   const {
@@ -29,7 +28,6 @@ export function PokerPage() {
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
   const roomIdFromPath = useRoomIdFromPath();
-  const theme = useTheme();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useFirstWaitingUser({ waitingList: pokerState.waitingList, onFirstUserWaiting: showSnackbar });
@@ -88,25 +86,14 @@ export function PokerPage() {
       >
         <EstimationUnitSetupMenuItem />
       </AppHeader>
-      <Grid container sx={{ flexGrow: 1 }} direction="column" justifyContent="space-between">
-        <PokerActionButtons />
-        <Grid item xs={12}>
-          <PokerTitle />
-        </Grid>
-        <Grid item xs={12}>
-          <PokerUsers />
-        </Grid>
-        <Grid item xs={12} sx={{ marginTop: theme.spacing(10) }}>
-          {pokerState.showResults ? <PokerStats /> : null}
-        </Grid>
-      </Grid>
-      <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleCloseSnackbar}>
-        <div>
-          <Alert onClose={handleCloseSnackbar} severity="info">
-            There is a new participant waiting to be accepted.
-          </Alert>
-        </div>
-      </Snackbar>
+      <PokerActionButtons />
+      <PokerTitle />
+      <PokerUsers />
+      {pokerState.showResults ? <PokerStats /> : null}
+      <NewParticipantSnackbar
+        isSnackbarOpen={snackbarOpen}
+        handleCloseSnackbar={handleCloseSnackbar}
+      />
     </>
   );
 }

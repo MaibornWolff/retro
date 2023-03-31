@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -88,7 +89,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
     >
       <DialogTitle id="form-dialog-create-retro">Create Retro Session</DialogTitle>
       <DialogContent sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <div>
+        <Box>
           <DialogContentText>Please enter your name</DialogContentText>
           <TextInput
             value={name}
@@ -96,11 +97,11 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
             onChange={handleNameChange}
             error={isNameError}
             id="user-name"
-            label="Name"
+            label="Username"
             autoFocus
           />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <DialogContentText>Please provide your name for this session</DialogContentText>
           <TextInput
             value={title}
@@ -110,8 +111,11 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
             id="retro-name"
             label="Retro Name"
           />
-        </div>
-        <RetroFormatSelect onFormatChange={setFormat} format={format} />
+        </Box>
+        <Box>
+          <DialogContentText>Please choose a Retro Format</DialogContentText>
+          <RetroFormatSelect onFormatChange={setFormat} format={format} />
+        </Box>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>

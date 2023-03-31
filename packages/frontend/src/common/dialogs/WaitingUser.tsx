@@ -29,14 +29,8 @@ export function WaitingUser({
 
   return (
     <>
-      <FlexBox
-        sx={{
-          alignItems: "center",
-          justifyContent: "space-between",
-          minHeight: "40px",
-        }}
-      >
-        <FlexBox sx={{ alignItems: "center", gap: "12px" }}>
+      <FlexBox alignItems="center" justifyContent="space-between" minHeight="40px">
+        <FlexBox alignItems="center" gap={1}>
           <Person />
           <Typography>{waitingUser.name}</Typography>
         </FlexBox>

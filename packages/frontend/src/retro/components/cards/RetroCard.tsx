@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { Highlight, HighlightOutlined } from "@mui/icons-material";
 import {
   Avatar,
+  Box,
   Card,
   CardActions,
   CardContent,
@@ -21,7 +21,7 @@ import { sumVotes } from "../../utils/retroUtils";
 import { RetroCardActions } from "./RetroCardActions";
 import { isModerator } from "../../../common/utils/participantsUtils";
 import { CardText } from "../../../poker/components/cards/CardText";
-import { TooltipIconButton } from "../../../common/components/buttons/TooltipIconButton";
+import { HighlightCardButton } from "../buttons/HighlightCardButton";
 
 interface RetroItemProps {
   card: RetroCardType;
@@ -43,92 +43,77 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
   const { user } = useUserContext();
   const { currentTheme } = useContext(ColorThemeContext);
   const theme = useTheme();
-
-  function toggleHighlight() {
-    if (retroState.highlightedCardId === id) {
-      handleUnhighlightCard({ cardIndex: card.index, columnIndex });
-    } else {
-      handleHighlightCard({ cardIndex: card.index, columnIndex });
-    }
-  }
-
+  const authors = owners.map(({ name }) => name);
+  const isSelectableText = !isBlurred || isModerator(user);
+  const blurValue = isModerator(user) ? "blur(1px)" : "blur(5px)";
+  const totalVotes = sumVotes(card);
+  const isVoted = sumVotes(card) > 0;
+  const voteBackgroundColor = isVoted ? theme.palette.secondary.main : theme.palette.primary.main;
+  const voteColor = isVoted
+    ? theme.palette.secondary.contrastText
+    : theme.palette.primary.contrastText;
   const highlightedCardStyle =
     retroState.highlightedCardId === id
       ? { border: "1px solid red" }
       : { border: `1px solid ${getCardBorderColor(currentTheme, theme)}` };
 
-  const blurValue = isModerator(user) ? "blur(1px)" : "blur(5px)";
-  const totalVotes = sumVotes(card);
-  const isVoted = sumVotes(card) > 0;
-  const authors = owners.map(({ name }) => name);
-  const isSelectableText = !isBlurred || isModerator(user);
-  const voteColor = isVoted
-    ? theme.palette.secondary.contrastText
-    : theme.palette.primary.contrastText;
-  const voteBackgroundColor = isVoted ? theme.palette.secondary.main : theme.palette.primary.main;
-
   return (
-    <div style={{ marginBottom: "1em" }}>
-      <Card
-        elevation={5}
-        sx={{
-          ...highlightedCardStyle,
-          filter: isBlurred ? blurValue : undefined,
-          borderRadius: "15px",
-        }}
-      >
-        <CardHeader
-          sx={{ padding: "8px" }}
-          avatar={
-            <Avatar
-              sx={{ color: voteColor, backgroundColor: voteBackgroundColor }}
-              aria-label="number of votes"
-            >
-              {totalVotes}
-            </Avatar>
-          }
-          title={
-            <Typography
-              variant="body2"
-              style={{
-                userSelect: !isSelectableText ? "none" : "auto",
-                maxWidth: "15vw",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              {authors}
-            </Typography>
-          }
-          action={
-            isModerator(user) && (
-              <div style={{ paddingTop: "0.5em", paddingRight: "0.5em" }}>
-                <TooltipIconButton
-                  tooltipText="Highlight Card"
-                  aria-label="Highlight"
-                  onClick={toggleHighlight}
-                >
-                  {retroState.highlightedCardId === id ? <Highlight /> : <HighlightOutlined />}
-                </TooltipIconButton>
-              </div>
-            )
-          }
-        />
-        <Divider />
-        <CardContent>
-          <Typography sx={{ whiteSpace: "pre-line" }} variant="body2" component="span">
-            <CardText isSelectable={isSelectableText} withHyperlinks={true} text={content} />
+    <Card
+      elevation={5}
+      sx={{
+        ...highlightedCardStyle,
+        filter: isBlurred ? blurValue : undefined,
+        borderRadius: theme.spacing(2),
+        my: 1,
+      }}
+    >
+      <CardHeader
+        avatar={
+          <Avatar
+            sx={{ color: voteColor, backgroundColor: voteBackgroundColor }}
+            aria-label="number of votes"
+          >
+            {totalVotes}
+          </Avatar>
+        }
+        title={
+          <Typography
+            variant="body2"
+            sx={{
+              userSelect: !isSelectableText ? "none" : "auto",
+              maxWidth: "15vw",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {authors}
           </Typography>
-        </CardContent>
-        <CardActions disableSpacing sx={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            {isDiscussed ? <Chip label="Discussed" variant="outlined" size="small" /> : null}
-          </div>
-          <RetroCardActions card={card} columnIndex={columnIndex} isBlurred={isBlurred} />
-        </CardActions>
-      </Card>
-    </div>
+        }
+        action={
+          isModerator(user) && (
+            <HighlightCardButton
+              card={card}
+              columnIndex={columnIndex}
+              handleHighlightCard={handleHighlightCard}
+              handleUnhighlightCard={handleUnhighlightCard}
+            />
+          )
+        }
+      />
+      <Divider />
+      <CardContent>
+        <Typography whiteSpace="pre-line" variant="body2" component="span">
+          <CardText isSelectable={isSelectableText} withHyperlinks={true} text={content} />
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box>
+          {isDiscussed ? <Chip label="Discussed" variant="outlined" size="small" /> : undefined}
+        </Box>
+        <RetroCardActions card={card} columnIndex={columnIndex} isBlurred={isBlurred} />
+      </CardActions>
+    </Card>
   );
 }
 

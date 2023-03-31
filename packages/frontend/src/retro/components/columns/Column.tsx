@@ -1,6 +1,6 @@
 import React from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { Card, Divider } from "@mui/material";
+import { Box, Card, Divider, useTheme } from "@mui/material";
 
 import { Cards } from "../cards/Cards";
 import { ColumnHeader } from "./column-header/ColumnHeader";
@@ -14,6 +14,7 @@ interface ColumnProps {
 
 export function Column({ column }: ColumnProps) {
   const { user } = useUserContext();
+  const theme = useTheme();
 
   return (
     <Draggable draggableId={column.id} index={column.index} isDragDisabled={!isModerator(user)}>
@@ -23,8 +24,8 @@ export function Column({ column }: ColumnProps) {
             display: "flex",
             flexDirection: "column",
             width: "25rem",
-            margin: "0.8em",
-            borderRadius: "15px",
+            mx: 2,
+            borderRadius: theme.spacing(2),
           }}
           {...providedDraggable.draggableProps}
           {...providedDraggable.dragHandleProps}
@@ -35,18 +36,16 @@ export function Column({ column }: ColumnProps) {
           <Divider />
           <Droppable droppableId={column.id} type="item" isCombineEnabled={true}>
             {(providedDroppable) => (
-              <div
-                style={{
-                  flex: 1,
-                  padding: "1em",
-                  transition: "background-color 0.2s ease",
-                }}
+              <Box
+                flex={1}
+                p={2}
+                sx={{ transition: "background-color 0.2s ease" }}
                 ref={providedDroppable.innerRef}
                 {...providedDroppable.droppableProps}
               >
                 <Cards column={column} />
                 {providedDroppable.placeholder}
-              </div>
+              </Box>
             )}
           </Droppable>
         </Card>
