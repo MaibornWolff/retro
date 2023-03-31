@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  frontend:
+    container_name: retro-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile-frontend
+    ports:
+      - "80:80"
+  backend:
+    container_name: retro-backend
+    build:
+      context: .
+      dockerfile: Dockerfile-backend
+    ports:
+      - "3001:3001"
+      - "3002:3002"
