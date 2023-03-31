@@ -7,6 +7,7 @@ import { DeleteCardButton } from "./DeleteCardButton";
 import { RemoveUpvoteCardButton } from "./RemoveUpvoteCardButton";
 import { UpvoteCardButton } from "./UpvoteCardButton";
 import { Box } from "@mui/material";
+import { useRetroContext } from "../../context/RetroContext";
 
 interface RetroCardActionsProps {
   card: RetroCard;
@@ -16,13 +17,23 @@ interface RetroCardActionsProps {
 
 export function RetroCardActions({ card, columnIndex, isBlurred }: RetroCardActionsProps) {
   const { user } = useUserContext();
+  const { retroState } = useRetroContext();
+  const { isVotingEnabled } = retroState;
 
   const isButtonDisabled = isBlurred && user.role === "participant";
 
   return (
     <Box>
-      <UpvoteCardButton disabled={isButtonDisabled} card={card} columnIndex={columnIndex} />
-      <RemoveUpvoteCardButton disabled={isButtonDisabled} card={card} columnIndex={columnIndex} />
+      {isVotingEnabled && (
+        <>
+          <UpvoteCardButton disabled={isButtonDisabled} card={card} columnIndex={columnIndex} />
+          <RemoveUpvoteCardButton
+            disabled={isButtonDisabled}
+            card={card}
+            columnIndex={columnIndex}
+          />
+        </>
+      )}
       <EditCardButton disabled={isButtonDisabled} card={card} columnIndex={columnIndex} />
       <MarkAsDiscussedButton disabled={isButtonDisabled} card={card} columnIndex={columnIndex} />
       <DeleteCardButton disabled={isButtonDisabled} card={card} columnIndex={columnIndex} />

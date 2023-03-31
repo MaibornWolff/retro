@@ -6,6 +6,7 @@ import { SetupSessionButton } from "../../common/components/buttons/SetupSession
 import { ToggleRetroBlurButton } from "./buttons/ToggleRetroBlurButton";
 import { CreateColumnButton } from "./buttons/CreateColumnButton";
 import { FlexBox } from "../../common/components/FlexBox";
+import { ToggleRetroVotingButton } from "./ToggleRetroVotingButton";
 
 export function RetroActionButtons() {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ export function RetroActionButtons() {
       />
       <CreateColumnButton />
       <ToggleRetroBlurButton />
+      <ToggleRetroVotingButton />
     </FlexBox>
   );
 }
