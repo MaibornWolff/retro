@@ -18,8 +18,7 @@ export async function getRoomConfiguration({
   if (!roomId) return;
   const response = await fetch(backendUrl + `/${namespace}/rooms/${roomId}`);
   if (!response.ok) return;
-  const body = await response.json().then((data) => data as RoomConfiguration);
-  return body;
+  return response.json();
 }
 
 export async function putIsAutoAcceptActivated({
@@ -28,7 +27,7 @@ export async function putIsAutoAcceptActivated({
   isActivated,
 }: SetIsAutoAcceptActivatedOptions) {
   if (!roomId) return false;
-  const url = backendUrl + `/${namespace}/rooms/${roomId}/isAutoAcceptActivated`;
+  const url = `${backendUrl}/${namespace}/rooms/${roomId}/isAutoAcceptActivated`;
   await fetch(url, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },

@@ -8,8 +8,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControlLabel,
-  Switch,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -23,6 +21,7 @@ import { generateId } from "../../../common/utils/generateId";
 import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRoomContext } from "../../../common/context/RoomContext";
+import { AutoAcceptSwitch } from "../../../common/components/AutoAcceptSwitch";
 
 export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -126,10 +125,9 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
         </Box>
         <Box>
           <DialogContentText>Automatically accept all joining users</DialogContentText>
-          <FormControlLabel
-            labelPlacement="start"
-            control={<Switch checked={isSwitchActivated} onChange={toggleChecked} />}
-            label="Auto-Accept"
+          <AutoAcceptSwitch
+            isSwitchActivated={isAutoAcceptActivated}
+            toggleChecked={toggleChecked}
             sx={{ justifyContent: "flex-end", marginLeft: 0 }}
           />
         </Box>

@@ -29,16 +29,14 @@ export function setupServer() {
   app.get("/:namespace/rooms/:roomId", (req, res) => {
     const { roomId, namespace } = req.params;
     const roomExists = io.of(`/${namespace}`).adapter.rooms.has(roomId);
-    roomExists ? res.status(200) : res.status(404);
     if (roomExists) {
       const roomConfiguration = roomStore.getRoomConfiguration(roomId);
-      return res.send(roomConfiguration);
-    } else {
-      return res.send();
+      return res.status(200).send(roomConfiguration);
     }
+    return res.status(404).send();
   });
 
-  app.put("/:namespace/rooms/:roomId/isAutoAcceptActivated", (req, res) => {
+  app.put("/:namespace/rooms/:roomId/is-auto-accept-activated", (req, res) => {
     const { roomId, namespace } = req.params;
     const roomExists = io.of(`/${namespace}`).adapter.rooms.has(roomId);
     roomExists ? res.status(200) : res.status(404);

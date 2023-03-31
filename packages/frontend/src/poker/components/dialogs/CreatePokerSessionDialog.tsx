@@ -7,8 +7,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControlLabel,
-  Switch,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -20,6 +18,7 @@ import { generateId } from "../../../common/utils/generateId";
 import { DialogProps, User } from "../../../common/types/commonTypes";
 import { TextInput } from "../../../common/components/TextInput";
 import { useNavigate } from "react-router-dom";
+import { AutoAcceptSwitch } from "../../../common/components/AutoAcceptSwitch";
 
 export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -94,10 +93,9 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
         />
         <Box sx={{ mt: 2 }}>
           <DialogContentText>Automatically accept all joining users</DialogContentText>
-          <FormControlLabel
-            labelPlacement="start"
-            control={<Switch checked={isSwitchActivated} onChange={toggleChecked} />}
-            label="Auto-Accept"
+          <AutoAcceptSwitch
+            isSwitchActivated={isAutoAcceptActivated}
+            toggleChecked={toggleChecked}
             sx={{ justifyContent: "flex-end", marginLeft: 0 }}
           />
         </Box>
