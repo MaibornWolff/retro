@@ -48,7 +48,7 @@ export function ParticipantsDialog({
   const isDividerVisible = !isEmpty(waitingList) && !isEmpty(participants);
   const { user } = useUserContext();
 
-  async function toggleChecked() {
+  async function toggleSwitch() {
     const toggledValue = !isAutoAcceptActivated;
     setIsAutoAcceptActivated(toggledValue);
     await putIsAutoAcceptActivated({ roomId, namespace, isActivated: toggledValue });
@@ -75,7 +75,7 @@ export function ParticipantsDialog({
           </Typography>
           <AutoAcceptSwitch
             isSwitchActivated={isAutoAcceptActivated}
-            toggleChecked={toggleChecked}
+            toggleSwitch={toggleSwitch}
             label={"Automatically accept joining users"}
           />
         </DialogContent>

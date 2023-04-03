@@ -3,13 +3,13 @@ import React from "react";
 
 interface AutoAcceptSwitchProps {
   isSwitchActivated: boolean;
-  toggleChecked: () => void;
+  toggleSwitch: () => void;
   label?: string;
 }
 
 export function AutoAcceptSwitch({
   isSwitchActivated,
-  toggleChecked,
+  toggleSwitch,
   label,
 }: AutoAcceptSwitchProps) {
   return (
@@ -17,7 +17,7 @@ export function AutoAcceptSwitch({
       sx={{ ml: 0, width: "100%", justifyContent: "space-between" }}
       labelPlacement="start"
       label={label ?? "Auto-Accept"}
-      control={<Switch color="success" checked={isSwitchActivated} onChange={toggleChecked} />}
+      control={<Switch color="success" checked={isSwitchActivated} onChange={toggleSwitch} />}
     />
   );
 }
