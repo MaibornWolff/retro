@@ -15,6 +15,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/lab": "5.0.0-alpha.117",
     "@mui/material": "^5.11.6",
+    "@shared/configuration": "*",
     "lodash": "^4.17.21",
     "nanoid": "^4.0.0",
     "peerjs": "^1.4.7",

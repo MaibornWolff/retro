@@ -11,8 +11,6 @@ import { findConnection, findUnconnectedUserIds } from "../utils/peerToPeerUtils
 import { usePeer } from "./usePeer";
 import { isEmpty } from "lodash";
 
-export const backendUrl = "http://localhost:3001";
-
 export interface UsePeerToPeerOptions<T, E extends BaseAction> {
   state: T;
   onDataReceived: (data: E | PeerToPeerAction<T>) => void;

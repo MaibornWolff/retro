@@ -5,10 +5,10 @@ interface FlexBoxProps extends BoxProps {
   children?: React.ReactNode;
 }
 
-export function FlexBox({ children, ...props }: FlexBoxProps) {
+export const FlexBox = React.forwardRef(({ children, ...props }: FlexBoxProps, ref: any) => {
   return (
-    <Box {...props} style={{ display: "flex" }}>
+    <Box {...props} ref={ref} display="flex">
       {children}
     </Box>
   );
-}
+});

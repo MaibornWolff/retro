@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { io, Socket } from "socket.io-client";
-import { backendUrl } from "./usePeerToPeer";
 import { useNamespace } from "./useNamespace";
 import { ClientToServerEvents, ServerToClientEvents } from "@shared/socket";
 import { useUserContext } from "../context/UserContext";
 import { useRoomContext } from "../context/RoomContext";
+import { configuration } from "@shared/configuration";
 import { User } from "../types/commonTypes";
 
 export function useSocket() {
@@ -13,6 +13,7 @@ export function useSocket() {
   const socketNamespace = useNamespace();
 
   const socket = useMemo(() => {
+    const backendUrl = configuration.backendUrl.url;
     console.debug(`Established socket connection with: ${backendUrl}`);
     return io(`${backendUrl}/${socketNamespace}`) as Socket<
       ServerToClientEvents,
@@ -29,8 +30,6 @@ export function useSocket() {
     socket.emit("acceptJoinRequest", { roomId, userId });
   }
 
-  // it would be nicer if we did not need the parameters here
-  // but after clicking join room in JoinRoomDialog, they seem to be not yet set.
   function emitJoinRoom({ user, roomId }: { user: User; roomId: string }) {
     socket.emit("joinRoom", { roomId, userId: user.id });
   }

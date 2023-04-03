@@ -40,7 +40,12 @@ export function AppHeader({
       sx={{ backgroundColor: theme.palette.background.paper }}
     >
       <Toolbar>
-        <Typography variant="h4" sx={{ flexGrow: 1, fontFamily: "Permanent Marker, cursive" }}>
+        <Typography
+          variant="h4"
+          flexGrow={1}
+          fontFamily="Permanent"
+          sx={{ fontFamily: "Permanent Marker, cursive" }}
+        >
           <Link to="/" style={{ textDecoration: "none", color: theme.palette.primary.main }}>
             {namespace === "poker" ? "Planning Poker" : "Retro"}
           </Link>

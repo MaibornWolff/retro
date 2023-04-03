@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Snackbar, Typography, useTheme } from "@mui/material";
+import { Box, Button, Snackbar, Typography } from "@mui/material";
 import { Share } from "@mui/icons-material";
 import { Alert } from "../Alert";
 
@@ -9,7 +9,6 @@ interface ShareSessionButtonProps {
 
 export function ShareSessionButton({ isDisabled = false }: ShareSessionButtonProps) {
   const [open, setOpen] = useState(false);
-  const theme = useTheme();
 
   // in an unsecure environment (e.g. HTTP) navigator.clipboard will be 'undefined'
   async function handleClick() {
@@ -39,18 +38,18 @@ export function ShareSessionButton({ isDisabled = false }: ShareSessionButtonPro
         variant="text"
         aria-label="Share this session"
         onClick={handleClick}
-        sx={{ marginRight: theme.spacing(1), textTransform: "none" }}
+        sx={{ mr: 1, textTransform: "none" }}
         startIcon={<Share />}
         disabled={isDisabled}
       >
         <Typography>Share Session</Typography>
       </Button>
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <div>
+        <Box>
           <Alert onClose={handleClose} severity="success">
             Successfully copied session URL to clipboard!
           </Alert>
-        </div>
+        </Box>
       </Snackbar>
     </>
   );

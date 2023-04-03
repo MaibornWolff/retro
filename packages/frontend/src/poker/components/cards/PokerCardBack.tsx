@@ -25,7 +25,7 @@ export function PokerCardBack({ voted, pokerUser, userVote }: PokerCardBackProps
       voted={voted}
       pokerUser={pokerUser}
       FooterComponent={
-        <Typography variant="h4" align="center" paddingBottom="16px" color={fontColor}>
+        <Typography variant="h4" align="center" pb={2} color={fontColor}>
           {pokerUnitType === "tshirt" ? getTShirtSizeFromValue(userVote) ?? "" : userVote ?? ""}
         </Typography>
       }

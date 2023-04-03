@@ -11,7 +11,6 @@ import {
   Slider,
   TextField,
   Typography,
-  useTheme,
 } from "@mui/material";
 import { DialogProps } from "../../../common/types/commonTypes";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
@@ -22,7 +21,6 @@ export function EstimationUnitSetupDialog({ isOpen, close }: DialogProps) {
   const { pokerState, handleSetPokerUnit } = usePokerContext();
   const [pokerUnit, setPokerUnit] = useState(pokerState.pokerUnit.unitType);
   const [unitRange, setUnitRange] = useState<number>(pokerState.pokerUnit.unitRangeHigh);
-  const theme = useTheme();
   const fullScreen = useFullscreen();
 
   function handleUnitChange(event: SelectChangeEvent) {
@@ -57,7 +55,7 @@ export function EstimationUnitSetupDialog({ isOpen, close }: DialogProps) {
           onChange={() => handleUnitChange}
           label="Poker Unit"
           fullWidth
-          sx={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }}
+          sx={{ my: 2 }}
         >
           <MenuItem value="fibonacci">Fibonacci</MenuItem>
           <MenuItem value="tshirt">T-Shirt Size</MenuItem>

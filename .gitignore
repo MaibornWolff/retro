@@ -44,7 +44,7 @@ Thumbs.db
 /build
 
 # env
-.env.*
+.env
 
 .idea
 /test-results/

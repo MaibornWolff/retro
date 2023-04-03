@@ -2,7 +2,6 @@
 
 - encryption of all communication
 - test in a real environment (users joining via the internet)
-- provide some config json (for properties like maxVoteCount and log level)
 - update contact data in legal docs
 - update license
 
@@ -10,7 +9,6 @@
 
 - adapt end to end tests to auto accept behaviour
 - add semantic release
-- What happened to column widths?
 - create / join buttons style and placement
 
 # Refactorings

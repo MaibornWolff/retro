@@ -1,7 +1,7 @@
-import { backendUrl } from "../hooks/usePeerToPeer";
+import { configuration } from "@shared/configuration";
 import { RoomConfiguration } from "../../../../shared/types/types";
 
-interface GetRoomConfigrationOptions {
+interface GetRoomConfigurationOptions {
   roomId?: string;
   namespace: string;
 }
@@ -11,12 +11,14 @@ interface SetIsAutoAcceptActivatedOptions {
   isActivated: boolean;
 }
 
+const backendUrl = configuration.backendUrl.url;
+
 export async function getRoomConfiguration({
   roomId,
   namespace,
-}: GetRoomConfigrationOptions): Promise<RoomConfiguration | undefined> {
+}: GetRoomConfigurationOptions): Promise<RoomConfiguration | undefined> {
   if (!roomId) return;
-  const response = await fetch(backendUrl + `/${namespace}/rooms/${roomId}`);
+  const response = await fetch(`${backendUrl}/${namespace}/rooms/${roomId}`);
   if (!response.ok) return;
   return await Promise.resolve(response.json());
 }

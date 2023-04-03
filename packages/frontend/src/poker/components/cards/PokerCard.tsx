@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, Typography, useTheme } from "@mui/material";
-import { LocalPolice } from "@mui/icons-material";
+import { LocalPolice, Person } from "@mui/icons-material";
 
 import { User } from "../../../common/types/commonTypes";
 import { isModerator } from "../../../common/utils/participantsUtils";
@@ -24,29 +24,19 @@ export function PokerCard({ voted, pokerUser, FooterComponent, DialogComponent }
     <>
       <Card
         sx={{
-          margin: theme.spacing(1),
+          m: 1,
           background: backgroundColor,
           color: fontColor,
           width: "12em",
           height: "16rem",
           display: "flex",
           flexDirection: "column",
-          borderRadius: "15px",
+          borderRadius: theme.spacing(2),
         }}
         elevation={5}
       >
-        <CardHeader
-          sx={{ height: "64px" }}
-          avatar={<>{isModerator(pokerUser) && <LocalPolice />}</>}
-        />
-        <CardContent
-          sx={{
-            width: "100%",
-            flexGrow: "1",
-            padding: "0px",
-            paddingX: "16px",
-          }}
-        >
+        <CardHeader avatar={isModerator(pokerUser) ? <LocalPolice /> : <Person />} />
+        <CardContent sx={{ flexGrow: "1" }}>
           <Typography align="center" variant="h6">
             <CardText text={pokerUser.name} isSelectable={false} withHyperlinks={false} />
           </Typography>

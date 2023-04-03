@@ -28,6 +28,7 @@ export function ImportRetroMenuItem() {
       ...importedRetro,
       participants: {},
       waitingList: {},
+      isVotingEnabled: false,
     };
     handleSetRetroState(retro);
   }

@@ -104,7 +104,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
             onChange={handleNameChange}
             error={isNameError}
             id="user-name"
-            label="Name"
+            label="Username"
             autoFocus
           />
         </Box>
@@ -120,7 +120,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
           />
         </Box>
         <Box>
-          <DialogContentText>Choose your retro format</DialogContentText>
+          <DialogContentText>Please choose a Retro Format</DialogContentText>
           <RetroFormatSelect onFormatChange={setFormat} format={format} />
         </Box>
         <AutoAcceptCheckbox

@@ -1,7 +1,7 @@
 {
-  "name": "@shared/logger",
+  "name": "@shared/configuration",
   "version": "1.0.0",
-  "description": "Provides logger",
+  "description": "Provides configurations for the Retro application",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -12,9 +12,5 @@
   "scripts": {
     "build": "rimraf dist && tsc -b",
     "build:watch": "rimraf dist && tsc -b --watch"
-  },
-  "dependencies": {
-    "@shared/configuration": "*",
-    "winston": "^3.8.2"
   }
 }
