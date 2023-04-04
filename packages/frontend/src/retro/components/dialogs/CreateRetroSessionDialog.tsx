@@ -41,14 +41,19 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
     isValid: isNameValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
   const [format, setFormat] = useState(defaultFormat);
-  const { retroState, handleChangeRetroFormat, handleSetRetroState, handleJoinSession } =
-    useRetroContext();
+  const {
+    retroState,
+    handleChangeRetroFormat,
+    handleSetRetroState,
+    handleJoinSession,
+    handleIsAutoAcceptEnabledChanged,
+  } = useRetroContext();
   const { user, setUser } = useUserContext();
-  const { setRoomId, isAutoAcceptActivated, setIsAutoAcceptActivated } = useRoomContext();
+  const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  const [isCheckboxActivated, setIsCheckboxActivated] = useState(isAutoAcceptActivated);
+  const [isCheckboxActivated, setIsCheckboxActivated] = useState(retroState.isAutoAcceptEnabled);
 
   function handleClose() {
     setName("");
@@ -59,6 +64,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   }
 
   function toggleChecked() {
+    console.log(`change ${isCheckboxActivated} to ${!isCheckboxActivated}`);
     setIsCheckboxActivated((prevState) => !prevState);
   }
 
@@ -76,7 +82,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
       role: "moderator",
     };
     setRoomId(roomId);
-    setIsAutoAcceptActivated(isCheckboxActivated);
+    handleIsAutoAcceptEnabledChanged(isCheckboxActivated);
     handleSetRetroState({ ...retroState, title });
     setUser(newUser);
     handleJoinSession(newUser);

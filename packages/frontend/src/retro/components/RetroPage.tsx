@@ -16,7 +16,6 @@ import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { RetroTitle } from "./RetroTitle";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
-import { useFetchRoomConfigurationWhenModerator } from "../../common/hooks/useFetchRoomConfigurationWhenModerator";
 import { AppHeader } from "../../common/components/AppHeader";
 import { QrCodeMenuItem } from "./buttons/QrCodeMenuItem";
 import { ExportRetroImageMenuItem } from "./buttons/ExportRetroImageMenuItem";
@@ -35,6 +34,7 @@ export function RetroPage() {
     handleAcceptJoinUser,
     handleRejectJoinUser,
     handleTransferModeratorRole,
+    handleIsAutoAcceptEnabledChanged,
   } = useRetroContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
@@ -44,7 +44,6 @@ export function RetroPage() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useFirstWaitingUser({ waitingList: retroState.waitingList, onFirstUserWaiting: showSnackbar });
-  useFetchRoomConfigurationWhenModerator();
 
   useEffect(() => {
     if (!roomIdFromPath) {
@@ -82,10 +81,12 @@ export function RetroPage() {
         <AppHeader
           participants={retroState.participants}
           waitingList={retroState.waitingList}
+          isAutoAcceptEnabled={retroState.isAutoAcceptEnabled}
           onKickUser={handleKickUser}
           onAcceptJoinUser={handleAcceptJoinUser}
           onRejectJoinUser={handleRejectJoinUser}
           onTransferModeratorRole={handleTransferModeratorRole}
+          onIsAutoAcceptEnabledChanged={handleIsAutoAcceptEnabledChanged}
         />
         <WaitingForApproval />
       </>
@@ -96,10 +97,12 @@ export function RetroPage() {
       <AppHeader
         participants={retroState.participants}
         waitingList={retroState.waitingList}
+        isAutoAcceptEnabled={retroState.isAutoAcceptEnabled}
         onKickUser={handleKickUser}
         onAcceptJoinUser={handleAcceptJoinUser}
         onRejectJoinUser={handleRejectJoinUser}
         onTransferModeratorRole={handleTransferModeratorRole}
+        onIsAutoAcceptEnabledChanged={handleIsAutoAcceptEnabledChanged}
       >
         <ManageVotesMenuItem />
         <ExportRetroImageMenuItem />

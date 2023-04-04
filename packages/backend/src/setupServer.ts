@@ -36,13 +36,13 @@ export function setupServer() {
     return res.status(404).send();
   });
 
-  app.put("/:namespace/rooms/:roomId/is-auto-accept-activated", (req, res) => {
+  app.put("/:namespace/rooms/:roomId/is-auto-accept-enabled", (req, res) => {
     const { roomId, namespace } = req.params;
     const roomExists = io.of(`/${namespace}`).adapter.rooms.has(roomId);
     roomExists ? res.status(200) : res.status(404);
     if (roomExists) {
-      const { isActivated }: RoomConfigurationRequestBody = req.body;
-      roomStore.updateIsAutoAcceptActivated(roomId, isActivated);
+      const { isEnabled }: RoomConfigurationRequestBody = req.body;
+      roomStore.updateIsAutoAcceptEnabled(roomId, isEnabled);
     }
     return res.send();
   });
@@ -52,12 +52,12 @@ export function setupServer() {
   namespaces.forEach((namespace) => {
     const ioNamespace = io.of(namespace);
     ioNamespace.on("connection", (socket: Socket) => {
-      socket.on("createRoom", async ({ roomId, userId, isAutoAcceptActivated }) => {
+      socket.on("createRoom", async ({ roomId, userId, isAutoAcceptEnabled }) => {
         await socket.join(roomId);
         const waitingRoomId = getWaitingRoomId(roomId);
         await socket.join(waitingRoomId);
 
-        roomStore.addRoom(roomId, { isAutoAcceptActivated });
+        roomStore.addRoom(roomId, { isAutoAcceptEnabled });
         connectionStore.addConnection(socket.id, {
           userId,
           waitingRoomId,
@@ -76,7 +76,7 @@ export function setupServer() {
         connectionStore.addConnection(socket.id, { userId, waitingRoomId });
         logger.debug("requestJoinRoom", { waitingRoomId, userId, userName });
         const roomConfiguration = roomStore.getRoomConfiguration(roomId);
-        if (roomConfiguration?.isAutoAcceptActivated) {
+        if (roomConfiguration?.isAutoAcceptEnabled) {
           await handleJoinRoom(socket, roomId, ioNamespace, userId);
         } else {
           socket.to(waitingRoomId).emit("requestedJoinRoom", { userId, userName });

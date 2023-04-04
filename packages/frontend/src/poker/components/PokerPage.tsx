@@ -11,7 +11,6 @@ import { useUserContext } from "../../common/context/UserContext";
 import { WaitingForApproval } from "../../common/components/WaitingForApproval";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { useFirstWaitingUser } from "../../common/components/useFirstWaitingUser";
-import { useFetchRoomConfigurationWhenModerator } from "../../common/hooks/useFetchRoomConfigurationWhenModerator";
 import { AppHeader } from "../../common/components/AppHeader";
 import { EstimationUnitSetupMenuItem } from "./buttons/EstimationUnitSetupMenuItem";
 import { NewParticipantSnackbar } from "../../common/components/NewParticipantSnackbar";
@@ -25,6 +24,7 @@ export function PokerPage() {
     handleAcceptJoinUser,
     handleRejectJoinUser,
     handleTransferModeratorRole,
+    handleIsAutoAcceptEnabledChanged,
   } = usePokerContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
@@ -32,7 +32,6 @@ export function PokerPage() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useFirstWaitingUser({ waitingList: pokerState.waitingList, onFirstUserWaiting: showSnackbar });
-  useFetchRoomConfigurationWhenModerator();
 
   useEffect(() => {
     if (!roomIdFromPath) {
@@ -67,10 +66,12 @@ export function PokerPage() {
         <AppHeader
           participants={pokerState.participants}
           waitingList={pokerState.waitingList}
+          isAutoAcceptEnabled={pokerState.isAutoAcceptEnabled}
           onKickUser={handleKickUser}
           onAcceptJoinUser={handleAcceptJoinUser}
           onRejectJoinUser={handleRejectJoinUser}
           onTransferModeratorRole={handleTransferModeratorRole}
+          onIsAutoAcceptEnabledChanged={handleIsAutoAcceptEnabledChanged}
         />
         <WaitingForApproval />
       </>
@@ -81,10 +82,12 @@ export function PokerPage() {
       <AppHeader
         participants={pokerState.participants}
         waitingList={pokerState.waitingList}
+        isAutoAcceptEnabled={pokerState.isAutoAcceptEnabled}
         onKickUser={handleKickUser}
         onAcceptJoinUser={handleAcceptJoinUser}
         onRejectJoinUser={handleRejectJoinUser}
         onTransferModeratorRole={handleTransferModeratorRole}
+        onIsAutoAcceptEnabledChanged={handleIsAutoAcceptEnabledChanged}
       >
         <EstimationUnitSetupMenuItem />
       </AppHeader>

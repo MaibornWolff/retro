@@ -6,28 +6,32 @@ import { useUserContext } from "../context/UserContext";
 import { ToggleThemeButton } from "./buttons/ToggleThemeButton";
 import { ShareSessionButton } from "./buttons/ShareSessionButton";
 import { ParticipantsButton } from "./buttons/ParticipantsButton";
-import { UserByUserId } from "../../retro/types/retroTypes";
 import { useNamespace } from "../hooks/useNamespace";
 import { SettingsButton } from "./buttons/SettingsButton";
+import { UserByUserId } from "../types/commonTypes";
 
 interface AppHeaderProps {
   participants: UserByUserId;
   waitingList: UserByUserId;
+  isAutoAcceptEnabled: boolean;
   onKickUser: (userId: string) => void;
   onRejectJoinUser: (userId: string) => void;
   onAcceptJoinUser: (userId: string) => void;
   onTransferModeratorRole: (userId: string) => void;
   children?: ReactNode;
+  onIsAutoAcceptEnabledChanged: (isEnabled: boolean) => void;
 }
 
 export function AppHeader({
   participants,
   waitingList,
+  isAutoAcceptEnabled,
   onKickUser,
   onRejectJoinUser,
   onAcceptJoinUser,
   onTransferModeratorRole,
   children,
+  onIsAutoAcceptEnabledChanged,
 }: AppHeaderProps) {
   const { user } = useUserContext();
   const theme = useTheme();
@@ -55,10 +59,12 @@ export function AppHeader({
         <ParticipantsButton
           participants={participants}
           waitingList={waitingList}
+          isAutoAcceptEnabled={isAutoAcceptEnabled}
           handleKickUser={onKickUser}
           onRejectJoinUser={onRejectJoinUser}
           onAcceptJoinUser={onAcceptJoinUser}
           onTransferModeratorRole={onTransferModeratorRole}
+          onIsAutoAcceptEnabledChanged={onIsAutoAcceptEnabledChanged}
         />
         <SettingsButton>{children}</SettingsButton>
       </Toolbar>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Button,
@@ -11,24 +11,25 @@ import {
   useTheme,
 } from "@mui/material";
 import { isEmpty } from "lodash";
-import { DialogProps } from "../types/commonTypes";
+import { DialogProps, UserByUserId } from "../types/commonTypes";
 import { Participants } from "./Participants";
-import { UserByUserId } from "../../retro/types/retroTypes";
 import { WaitingList } from "./WaitingList";
-import { useRoomContext } from "../context/RoomContext";
-import { useNamespace } from "../hooks/useNamespace";
 import { AutoAcceptSwitch } from "../components/AutoAcceptSwitch";
 import { isModerator } from "../utils/participantsUtils";
 import { useUserContext } from "../context/UserContext";
-import { putIsAutoAcceptActivated } from "../adapter/backendAdapter";
+import { putIsAutoAcceptEnabled } from "../adapter/backendAdapter";
+import { useRoomContext } from "../context/RoomContext";
+import { useNamespace } from "../hooks/useNamespace";
 
 interface ParticipantDialogProps extends DialogProps {
   participants: UserByUserId;
   waitingList: UserByUserId;
+  isAutoAcceptEnabled: boolean;
   onKickUser: (userId: string) => void;
   onRejectJoinUser: (userId: string) => void;
   onAcceptJoinUser: (userId: string) => void;
   onTransferModeratorRole: (userId: string) => void;
+  onIsAutoAcceptEnabledChanged: (isEnabled: boolean) => void;
 }
 
 export function ParticipantsDialog({
@@ -40,18 +41,22 @@ export function ParticipantsDialog({
   onTransferModeratorRole,
   participants,
   waitingList,
+  isAutoAcceptEnabled,
+  onIsAutoAcceptEnabledChanged,
 }: ParticipantDialogProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const { isAutoAcceptActivated, setIsAutoAcceptActivated, roomId } = useRoomContext();
-  const namespace = useNamespace();
+  const [isSwitchActivated, setIsSwitchActivated] = useState(isAutoAcceptEnabled);
   const isDividerVisible = !isEmpty(waitingList) && !isEmpty(participants);
   const { user } = useUserContext();
+  const { roomId } = useRoomContext();
+  const namespace = useNamespace();
 
   async function toggleSwitch() {
-    const toggledValue = !isAutoAcceptActivated;
-    setIsAutoAcceptActivated(toggledValue);
-    await putIsAutoAcceptActivated({ roomId, namespace, isActivated: toggledValue });
+    const toggledValue = !isSwitchActivated;
+    setIsSwitchActivated(toggledValue);
+    onIsAutoAcceptEnabledChanged(toggledValue);
+    await putIsAutoAcceptEnabled({ roomId, namespace, isEnabled: toggledValue });
   }
 
   return (
@@ -74,7 +79,7 @@ export function ParticipantsDialog({
             Moderator Options
           </Typography>
           <AutoAcceptSwitch
-            isSwitchActivated={isAutoAcceptActivated}
+            isSwitchActivated={isSwitchActivated}
             toggleSwitch={toggleSwitch}
             label={"Automatically accept joining users"}
           />

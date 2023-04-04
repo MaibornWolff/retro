@@ -1,5 +1,5 @@
 interface RoomConfiguration {
-  isAutoAcceptActivated: boolean;
+  isAutoAcceptEnabled: boolean;
 }
 
 export default class RoomStore {
@@ -17,9 +17,9 @@ export default class RoomStore {
     this.roomConfigurationByRoomId.set(roomId, roomConfiguration);
   }
 
-  updateIsAutoAcceptActivated(roomId: string, isActivated: boolean) {
+  updateIsAutoAcceptEnabled(roomId: string, isEnabled: boolean) {
     const config = this.getRoomConfiguration(roomId);
-    this.roomConfigurationByRoomId.set(roomId, { ...config, isAutoAcceptActivated: isActivated });
+    this.roomConfigurationByRoomId.set(roomId, { ...config, isAutoAcceptEnabled: isEnabled });
   }
 
   removeRoom(roomId: string) {

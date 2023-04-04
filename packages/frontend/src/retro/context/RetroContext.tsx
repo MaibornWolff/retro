@@ -47,6 +47,7 @@ const initialState: RetroState = {
   participants: {},
   waitingList: {},
   isVotingEnabled: false,
+  isAutoAcceptEnabled: false,
 };
 
 export interface RetroContextValues {
@@ -79,6 +80,7 @@ export interface RetroContextValues {
   handleAcceptJoinUser: (userId: string) => void;
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
   handleIsVotingEnabledChanged: (isEnabled: boolean) => void;
+  handleIsAutoAcceptEnabledChanged: (isEnabled: boolean) => void;
 }
 
 export const RetroContext = React.createContext<RetroContextValues>(undefined!);
@@ -220,6 +222,10 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     dispatchAndBroadcast({ type: "IS_VOTING_ENABLED_CHANGED", isEnabled });
   }
 
+  function handleIsAutoAcceptEnabledChanged(isEnabled: boolean) {
+    dispatchAndBroadcast({ type: "IS_AUTO_ACCEPT_ENABLED_CHANGED", isEnabled });
+  }
+
   const resetRetroState = useCallback(() => {
     dispatch({ type: "SET_RETRO_STATE", payload: initialState });
   }, []);
@@ -254,6 +260,7 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     handleAcceptJoinUser: acceptJoinUser,
     handleAddToWaitingList,
     handleIsVotingEnabledChanged,
+    handleIsAutoAcceptEnabledChanged,
   };
 
   return <RetroContext.Provider value={value}>{props.children}</RetroContext.Provider>;

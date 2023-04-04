@@ -5,10 +5,10 @@ interface GetRoomConfigurationOptions {
   roomId?: string;
   namespace: string;
 }
-interface SetIsAutoAcceptActivatedOptions {
+interface SetIsAutoAcceptEnabledOptions {
   roomId?: string;
   namespace: string;
-  isActivated: boolean;
+  isEnabled: boolean;
 }
 
 const backendUrl = configuration.backendUrl.url;
@@ -23,16 +23,16 @@ export async function getRoomConfiguration({
   return await Promise.resolve(response.json());
 }
 
-export async function putIsAutoAcceptActivated({
+export async function putIsAutoAcceptEnabled({
   roomId,
   namespace,
-  isActivated,
-}: SetIsAutoAcceptActivatedOptions) {
+  isEnabled,
+}: SetIsAutoAcceptEnabledOptions) {
   if (!roomId) return false;
-  const url = `${backendUrl}/${namespace}/rooms/${roomId}/is-auto-accept-activated`;
+  const url = `${backendUrl}/${namespace}/rooms/${roomId}/is-auto-accept-enabled`;
   await fetch(url, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ isActivated }),
+    body: JSON.stringify({ isEnabled }),
   });
 }

@@ -33,11 +33,11 @@ export interface ClientToServerEvents {
   createRoom: ({
     roomId,
     userId,
-    isAutoAcceptActivated,
+    isAutoAcceptEnabled,
   }: {
     roomId: string;
     userId: string;
-    isAutoAcceptActivated: boolean;
+    isAutoAcceptEnabled: boolean;
   }) => void;
   acceptJoinRequest: ({ roomId, userId }: { roomId: string; userId: string }) => void;
   rejectJoinRequest: ({ roomId, userId }: { roomId: string; userId: string }) => void;

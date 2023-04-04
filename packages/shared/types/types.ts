@@ -1,7 +1,7 @@
 export interface RoomConfiguration {
-  isAutoAcceptActivated: boolean;
+  isAutoAcceptEnabled: boolean;
 }
 
 export interface RoomConfigurationRequestBody {
-  isActivated: boolean;
+  isEnabled: boolean;
 }

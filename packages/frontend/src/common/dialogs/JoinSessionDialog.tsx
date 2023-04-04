@@ -14,7 +14,6 @@ import { useRoomContext } from "../context/RoomContext";
 import { useUserContext } from "../context/UserContext";
 import { DialogProps, User } from "../types/commonTypes";
 import { generateId } from "../utils/generateId";
-
 import { getRoomConfiguration } from "../adapter/backendAdapter";
 import { useNamespace } from "../hooks/useNamespace";
 import { TextInput } from "../components/TextInput";
@@ -42,7 +41,7 @@ export function JoinSessionDialog({
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
   const { setError } = useErrorContext();
-  const { setRoomId, setIsAutoAcceptActivated } = useRoomContext();
+  const { setRoomId } = useRoomContext();
   const { user, setUser } = useUserContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -60,7 +59,6 @@ export function JoinSessionDialog({
       setError({ type: "ROOM_NOT_FOUND" });
       return;
     }
-    const { isAutoAcceptActivated } = roomConfiguration;
     if (!isValid || user.id) {
       setIsError(true);
       return;
@@ -73,11 +71,8 @@ export function JoinSessionDialog({
       role: "participant",
     };
     setRoomId(roomId);
-    setIsAutoAcceptActivated(isAutoAcceptActivated);
     setUser(newUser);
-    if (!isAutoAcceptActivated) {
-      onAddToWaitingList({ userId: newUser.id, userName: name });
-    }
+    onAddToWaitingList({ userId: newUser.id, userName: name });
     navigateToRoom();
     handleClose();
   }

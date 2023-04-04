@@ -1,4 +1,4 @@
-import { RetroCard, RetroColumn, RetroState, UserByUserId } from "../types/retroTypes";
+import { RetroCard, RetroColumn, RetroState } from "../types/retroTypes";
 import { RetroAction } from "../types/retroActions";
 import {
   insertCardIntoColumn,
@@ -11,7 +11,7 @@ import {
 } from "../utils/retroUtils";
 import { retroFormatConfig } from "../config/formatConfig";
 import { generateId } from "../../common/utils/generateId";
-import { User } from "../../common/types/commonTypes";
+import { User, UserByUserId } from "../../common/types/commonTypes";
 import {
   findModerator,
   getRemainingParticipants,
@@ -241,6 +241,13 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
         ...state,
         participants: remainingParticipants,
         waitingList: remainingWaitingUsers,
+      };
+    }
+    case "IS_AUTO_ACCEPT_ENABLED_CHANGED": {
+      console.log("value changed to ", action.isEnabled);
+      return {
+        ...state,
+        isAutoAcceptEnabled: action.isEnabled,
       };
     }
     default:

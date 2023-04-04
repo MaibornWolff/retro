@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { UserByUserId } from "../../retro/types/retroTypes";
+import { UserByUserId } from "../types/commonTypes";
 
 export interface UseFirstWaitingUserOptions {
   waitingList: UserByUserId;

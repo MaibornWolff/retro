@@ -29,12 +29,12 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
   const { user, setUser } = useUserContext();
-  const { handleJoinSession } = usePokerContext();
-  const { setRoomId, isAutoAcceptActivated, setIsAutoAcceptActivated } = useRoomContext();
+  const { pokerState, handleJoinSession, handleIsAutoAcceptEnabledChanged } = usePokerContext();
+  const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  const [isCheckboxActivated, setIsCheckboxActivated] = useState(isAutoAcceptActivated);
+  const [isCheckboxActivated, setIsCheckboxActivated] = useState(pokerState.isAutoAcceptEnabled);
 
   const toggleChecked = () => {
     setIsCheckboxActivated((prev) => !prev);
@@ -51,6 +51,7 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
       setIsError(!isValid);
       return;
     }
+    handleIsAutoAcceptEnabledChanged(isCheckboxActivated);
     const roomId = generateId();
     const newUser: User = {
       ...user,
@@ -59,7 +60,6 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
       role: "moderator",
     };
     setRoomId(roomId);
-    setIsAutoAcceptActivated(isCheckboxActivated);
     setUser(newUser);
     handleJoinSession(newUser);
     navigate(`/poker/${roomId}`);
@@ -98,7 +98,7 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
         <Button onClick={handleSubmit} disabled={!isValid}>
-          Join
+          Create
         </Button>
       </DialogActions>
     </Dialog>

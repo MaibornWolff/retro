@@ -1,6 +1,6 @@
 import React from "react";
 import { Participant } from "./Participant";
-import { UserByUserId } from "../../retro/types/retroTypes";
+import { UserByUserId } from "../types/commonTypes";
 
 interface ParticipantsProps {
   participants: UserByUserId;
