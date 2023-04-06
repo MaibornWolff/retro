@@ -23,6 +23,7 @@ interface JoinSessionDialogProps extends DialogProps {
   roomId: string;
   onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
   navigateToRoom: () => void;
+  isAutoAcceptEnabled: boolean;
 }
 
 export function JoinSessionDialog({
@@ -31,6 +32,7 @@ export function JoinSessionDialog({
   roomId,
   onAddToWaitingList,
   navigateToRoom,
+  isAutoAcceptEnabled,
 }: JoinSessionDialogProps) {
   const {
     value: name,
@@ -72,7 +74,9 @@ export function JoinSessionDialog({
     };
     setRoomId(roomId);
     setUser(newUser);
-    onAddToWaitingList({ userId: newUser.id, userName: name });
+    if (!isAutoAcceptEnabled) {
+      onAddToWaitingList({ userId: newUser.id, userName: name });
+    }
     navigateToRoom();
     handleClose();
   }

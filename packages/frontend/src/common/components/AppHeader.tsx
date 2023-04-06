@@ -60,7 +60,7 @@ export function AppHeader({
           participants={participants}
           waitingList={waitingList}
           isAutoAcceptEnabled={isAutoAcceptEnabled}
-          handleKickUser={onKickUser}
+          onKickUser={onKickUser}
           onRejectJoinUser={onRejectJoinUser}
           onAcceptJoinUser={onAcceptJoinUser}
           onTransferModeratorRole={onTransferModeratorRole}

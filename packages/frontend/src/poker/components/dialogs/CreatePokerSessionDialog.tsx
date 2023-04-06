@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Dialog,
@@ -34,10 +34,9 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
-  const [isCheckboxActivated, setIsCheckboxActivated] = useState(pokerState.isAutoAcceptEnabled);
 
   const toggleChecked = () => {
-    setIsCheckboxActivated((prev) => !prev);
+    handleIsAutoAcceptEnabledChanged(!pokerState.isAutoAcceptEnabled);
   };
 
   function handleClose() {
@@ -51,7 +50,6 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
       setIsError(!isValid);
       return;
     }
-    handleIsAutoAcceptEnabledChanged(isCheckboxActivated);
     const roomId = generateId();
     const newUser: User = {
       ...user,
@@ -91,7 +89,7 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
           type="text"
         />
         <AutoAcceptCheckbox
-          isCheckboxActivated={isCheckboxActivated}
+          isCheckboxActivated={pokerState.isAutoAcceptEnabled}
           toggleChecked={toggleChecked}
         />
       </DialogContent>

@@ -11,7 +11,7 @@ export function WaitingForApproval() {
       justifyContent="center"
       flexDirection="column"
       width="100%"
-      height="100vh"
+      height="90vh"
       gap="8rem"
     >
       <Typography variant="h2">{message}</Typography>

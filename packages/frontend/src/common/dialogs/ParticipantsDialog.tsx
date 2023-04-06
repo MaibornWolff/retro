@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
   Button,
@@ -46,15 +46,13 @@ export function ParticipantsDialog({
 }: ParticipantDialogProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const [isSwitchActivated, setIsSwitchActivated] = useState(isAutoAcceptEnabled);
   const isDividerVisible = !isEmpty(waitingList) && !isEmpty(participants);
   const { user } = useUserContext();
   const { roomId } = useRoomContext();
   const namespace = useNamespace();
 
   async function toggleSwitch() {
-    const toggledValue = !isSwitchActivated;
-    setIsSwitchActivated(toggledValue);
+    const toggledValue = !isAutoAcceptEnabled;
     onIsAutoAcceptEnabledChanged(toggledValue);
     await putIsAutoAcceptEnabled({ roomId, namespace, isEnabled: toggledValue });
   }
@@ -79,7 +77,7 @@ export function ParticipantsDialog({
             Moderator Options
           </Typography>
           <AutoAcceptSwitch
-            isSwitchActivated={isSwitchActivated}
+            isSwitchActivated={isAutoAcceptEnabled}
             toggleSwitch={toggleSwitch}
             label={"Automatically accept joining users"}
           />

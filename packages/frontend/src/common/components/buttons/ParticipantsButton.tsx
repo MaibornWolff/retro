@@ -9,7 +9,7 @@ interface ParticipantButtonProps {
   participants: UserByUserId;
   waitingList: UserByUserId;
   isAutoAcceptEnabled: boolean;
-  handleKickUser: (userId: string) => void;
+  onKickUser: (userId: string) => void;
   onRejectJoinUser: (userId: string) => void;
   onAcceptJoinUser: (userId: string) => void;
   onTransferModeratorRole: (userId: string) => void;
@@ -20,7 +20,7 @@ export function ParticipantsButton({
   participants,
   waitingList,
   isAutoAcceptEnabled,
-  handleKickUser,
+  onKickUser,
   onRejectJoinUser,
   onAcceptJoinUser,
   onTransferModeratorRole,
@@ -52,7 +52,7 @@ export function ParticipantsButton({
         participants={participants}
         waitingList={waitingList}
         isAutoAcceptEnabled={isAutoAcceptEnabled}
-        onKickUser={handleKickUser}
+        onKickUser={onKickUser}
         onAcceptJoinUser={onAcceptJoinUser}
         onRejectJoinUser={onRejectJoinUser}
         onTransferModeratorRole={onTransferModeratorRole}
