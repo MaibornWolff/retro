@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -21,6 +20,7 @@ import { generateId } from "../../../common/utils/generateId";
 import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRoomContext } from "../../../common/context/RoomContext";
+import { useRouter } from "next/navigation";
 
 export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -46,7 +46,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const navigate = useNavigate();
+  const { push } = useRouter();
 
   function handleClose() {
     setName("");
@@ -74,7 +74,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
     setUser(newUser);
     handleJoinSession(newUser);
     handleChangeRetroFormat(format);
-    navigate(`/retro/${roomId}`);
+    push(`/retro/${roomId}`);
     handleClose();
   }
 

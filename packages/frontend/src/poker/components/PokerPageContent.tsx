@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 
 import { PokerTitle } from "./PokerTitle";
 import { PokerUsers } from "./PokerUsers";
@@ -15,8 +14,10 @@ import { AppHeader } from "../../common/components/AppHeader";
 import { EstimationUnitSetupMenuItem } from "./buttons/EstimationUnitSetupMenuItem";
 import { NewParticipantSnackbar } from "../../common/components/NewParticipantSnackbar";
 import { PokerActionButtons } from "./PokerActionButtons";
+import { useRouter } from "next/navigation";
 
-export function PokerPage() {
+export function PokerPageContent() {
+  const { push } = useRouter();
   const {
     pokerState,
     resetPokerState,
@@ -47,6 +48,10 @@ export function PokerPage() {
     };
   });
 
+  useEffect(() => {
+    if (error) push("/error");
+  }, [error, push]);
+
   function showSnackbar() {
     if (isModerator(user)) setSnackbarOpen(true);
   }
@@ -56,8 +61,6 @@ export function PokerPage() {
 
     setSnackbarOpen(false);
   };
-
-  if (error) return <Navigate to="/error" />;
 
   if (isWaitingUser(pokerState.waitingList, user.id))
     return (

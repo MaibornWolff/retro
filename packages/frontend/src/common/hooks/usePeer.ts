@@ -1,7 +1,9 @@
-import { useMemo } from "react";
-import Peer from "peerjs";
+import { useEffect, useRef } from "react";
+
 import { useUserContext } from "../context/UserContext";
 import { configuration } from "@shared/configuration";
+import type Peer from "peerjs";
+import { isClientSide } from "../utils/isClientSide";
 
 const peerOptions = {
   host: configuration.signalingServerUrl.host,
@@ -9,11 +11,16 @@ const peerOptions = {
 };
 
 export function usePeer() {
+  const peer = useRef<Peer>();
   const { user } = useUserContext();
 
-  return useMemo(() => {
-    if (!user.id) return;
+  useEffect(() => {
+    if (!user.id || !isClientSide()) return;
 
-    return new Peer(user.id, peerOptions);
+    void import("peerjs").then(({ default: Peer }) => {
+      peer.current = new Peer(user.id, peerOptions);
+    });
   }, [user.id]);
+
+  return peer.current;
 }

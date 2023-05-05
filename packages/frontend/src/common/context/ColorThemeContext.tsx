@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { createTheme, Theme } from "@mui/material";
+import { createTheme, CssBaseline, Theme } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
 
 interface Props {
   children?: React.ReactNode;
@@ -78,6 +79,9 @@ export function ColorThemeContextProvider(props: Props) {
   };
 
   return (
-    <ColorThemeContext.Provider value={contextValues}>{props.children}</ColorThemeContext.Provider>
+    <ColorThemeContext.Provider value={contextValues}>
+      <CssBaseline />
+      <ThemeProvider theme={currentTheme}>{props.children}</ThemeProvider>
+    </ColorThemeContext.Provider>
   );
 }

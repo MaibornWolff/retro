@@ -3,6 +3,7 @@
 # compiled output
 dist
 tmp
+build
 /out-tsc
 
 # dependencies

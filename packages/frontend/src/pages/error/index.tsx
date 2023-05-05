@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
+
 import { Typography } from "@mui/material";
+import { useErrorContext } from "../../common/context/ErrorContext";
+import { FlexBox } from "../../common/components/FlexBox";
 
-import { useErrorContext } from "./common/context/ErrorContext";
-import { FlexBox } from "./common/components/FlexBox";
-
-export function ErrorPage() {
+const Index = () => {
   const { error, resetError } = useErrorContext();
   const errorType = useRef<string | undefined>(undefined);
 
@@ -41,9 +41,11 @@ export function ErrorPage() {
         Oh no, an error occurred :(
       </h2>
       <Typography variant="body1">{getErrorMessage()}</Typography>
-      <Link style={{ marginTop: 1 }} to="/">
+      <Link style={{ marginTop: 1 }} href="/">
         Return to Homepage
       </Link>
     </FlexBox>
   );
-}
+};
+
+export default Index;
