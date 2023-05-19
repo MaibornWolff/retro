@@ -4,7 +4,7 @@ import React from "react";
 
 export function WelcomeTypewriter() {
   return (
-    <Typography variant="h2" m={2}>
+    <Typography variant="h2" m={2} zIndex={2}>
       <Typewriter
         onInit={(typewriter: any) => {
           typewriter.start();
