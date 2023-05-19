@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 import { useUserContext } from "../context/UserContext";
 import { configuration } from "@shared/configuration";
@@ -11,16 +11,17 @@ const peerOptions = {
 };
 
 export function usePeer() {
-  const peer = useRef<Peer>();
+  const [peer, setPeer] = useState<Peer | undefined>(undefined);
   const { user } = useUserContext();
 
   useEffect(() => {
     if (!user.id || !isClientSide()) return;
 
     void import("peerjs").then(({ default: Peer }) => {
-      peer.current = new Peer(user.id, peerOptions);
+      const newPeer = new Peer(user.id, peerOptions);
+      setPeer(newPeer);
     });
   }, [user.id]);
 
-  return peer.current;
+  return peer;
 }

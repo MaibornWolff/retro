@@ -16,6 +16,7 @@ export function PokerActionButtons() {
   function navigateToRoom() {
     push(`/poker/${roomId ?? ""}`);
   }
+
   return (
     <FlexBox flexDirection="row" p={1}>
       <SetupSessionButton
