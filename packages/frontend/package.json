@@ -26,6 +26,7 @@
     "react-component-export-image": "^1.0.6",
     "react-dom": "^18.2.0",
     "recharts": "^2.3.2",
+    "sharp": "^0.32.1",
     "socket.io-client": "^4.5.4",
     "styled-components": "^5.3.6",
     "typewriter-effect": "^2.19.0"
