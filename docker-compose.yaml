@@ -4,14 +4,15 @@ services:
     container_name: retro-frontend
     build:
       context: .
-      dockerfile: Dockerfile-frontend
+      dockerfile: ./packages/frontend/Dockerfile
     ports:
       - "80:80"
   backend:
     container_name: retro-backend
     build:
       context: .
-      dockerfile: Dockerfile-backend
+      dockerfile: ./packages/backend/Dockerfile
+
     ports:
       - "3001:3001"
       - "3002:3002"
