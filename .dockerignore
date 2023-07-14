@@ -1,0 +1,9 @@
+dist
+node_modules
+build
+*.md
+*.log
+/assets
+/e2e
+.env
+.idea
