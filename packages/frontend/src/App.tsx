@@ -18,6 +18,28 @@ import { ExportRetroContextProvider } from "./retro/context/ExportRetroContext";
 export function App() {
   const { currentTheme } = useContext(ColorThemeContext);
 
+  const retroPage = (
+    <RoomContextProvider>
+      <UserContextProvider>
+        <RetroContextProvider>
+          <ExportRetroContextProvider>
+            <RetroPage />
+          </ExportRetroContextProvider>
+        </RetroContextProvider>
+      </UserContextProvider>
+    </RoomContextProvider>
+  );
+
+  const pokerPage = (
+    <RoomContextProvider>
+      <UserContextProvider>
+        <PokerContextProvider>
+          <PokerPage />
+        </PokerContextProvider>
+      </UserContextProvider>
+    </RoomContextProvider>
+  );
+
   return (
     <ErrorContextProvider>
       <ThemeProvider theme={currentTheme}>
@@ -25,32 +47,10 @@ export function App() {
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route
-              path="/retro/*"
-              element={
-                <RoomContextProvider>
-                  <UserContextProvider>
-                    <RetroContextProvider>
-                      <ExportRetroContextProvider>
-                        <RetroPage />
-                      </ExportRetroContextProvider>
-                    </RetroContextProvider>
-                  </UserContextProvider>
-                </RoomContextProvider>
-              }
-            />
-            <Route
-              path="/poker/*"
-              element={
-                <RoomContextProvider>
-                  <UserContextProvider>
-                    <PokerContextProvider>
-                      <PokerPage />
-                    </PokerContextProvider>
-                  </UserContextProvider>
-                </RoomContextProvider>
-              }
-            />
+            <Route path="/retro" element={retroPage} />
+            <Route path="/retro/:sessionId" element={retroPage} />
+            <Route path="/poker" element={pokerPage} />
+            <Route path="/poker/:sessionId" element={pokerPage} />
             <Route path="/error" element={<ErrorPage />} />
           </Routes>
         </Router>

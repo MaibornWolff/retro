@@ -5,3 +5,5 @@ build
 *.log
 /assets
 /e2e
+.env
+.idea
