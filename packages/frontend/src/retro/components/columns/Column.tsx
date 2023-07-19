@@ -25,6 +25,7 @@ export function Column({ column }: ColumnProps) {
             flexDirection: "column",
             width: "25rem",
             mx: 2,
+            mb: 1,
             borderRadius: theme.spacing(2),
           }}
           {...providedDraggable.draggableProps}
