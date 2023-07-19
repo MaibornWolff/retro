@@ -34,6 +34,7 @@ export function RetroPage() {
     handleAcceptJoinUser,
     handleRejectJoinUser,
     handleTransferModeratorRole,
+    handleIsAutoAcceptEnabledChanged,
   } = useRetroContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
@@ -80,10 +81,12 @@ export function RetroPage() {
         <AppHeader
           participants={retroState.participants}
           waitingList={retroState.waitingList}
+          isAutoAcceptEnabled={retroState.isAutoAcceptEnabled}
           onKickUser={handleKickUser}
           onAcceptJoinUser={handleAcceptJoinUser}
           onRejectJoinUser={handleRejectJoinUser}
           onTransferModeratorRole={handleTransferModeratorRole}
+          onIsAutoAcceptEnabledChanged={handleIsAutoAcceptEnabledChanged}
         />
         <WaitingForApproval />
       </>
@@ -94,10 +97,12 @@ export function RetroPage() {
       <AppHeader
         participants={retroState.participants}
         waitingList={retroState.waitingList}
+        isAutoAcceptEnabled={retroState.isAutoAcceptEnabled}
         onKickUser={handleKickUser}
         onAcceptJoinUser={handleAcceptJoinUser}
         onRejectJoinUser={handleRejectJoinUser}
         onTransferModeratorRole={handleTransferModeratorRole}
+        onIsAutoAcceptEnabledChanged={handleIsAutoAcceptEnabledChanged}
       >
         <ManageVotesMenuItem />
         <ExportRetroImageMenuItem />

@@ -11,7 +11,7 @@ import { ToggleRetroVotingButton } from "./ToggleRetroVotingButton";
 export function RetroActionButtons() {
   const navigate = useNavigate();
   const roomId = useRoomIdFromPath();
-  const { handleAddToWaitingList } = useRetroContext();
+  const { handleAddToWaitingList, retroState } = useRetroContext();
 
   function navigateToRoom() {
     navigate(`/retro/${roomId ?? ""}`);
@@ -23,6 +23,7 @@ export function RetroActionButtons() {
         roomId={roomId}
         navigateToRoom={navigateToRoom}
         onAddToWaitingList={handleAddToWaitingList}
+        isAutoAcceptEnabled={retroState.isAutoAcceptEnabled}
       />
       <CreateColumnButton />
       <ToggleRetroBlurButton />

@@ -6,9 +6,8 @@ import {
   getRemainingParticipantsWithNewModerator,
   hasRemainingModerator,
 } from "../../common/utils/participantsUtils";
-import { User } from "../../common/types/commonTypes";
+import { User, UserByUserId } from "../../common/types/commonTypes";
 import { initialUserState } from "../../common/context/UserContext";
-import { UserByUserId } from "../../retro/types/retroTypes";
 
 export const pokerReducer = (state: PokerState, action: PokerAction): PokerState => {
   switch (action.type) {
@@ -102,6 +101,12 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
         ...state,
         participants: remainingParticipants,
         waitingList: remainingWaitingUsers,
+      };
+    }
+    case "IS_AUTO_ACCEPT_ENABLED_CHANGED": {
+      return {
+        ...state,
+        isAutoAcceptEnabled: action.isEnabled,
       };
     }
     default:

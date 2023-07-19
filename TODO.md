@@ -7,9 +7,9 @@
 
 # Improvement
 
+- adapt end to end tests to auto accept behaviour
 - add semantic release
 - create / join buttons style and placement
-- add possibility for moderator to activate / deactivate voting retro cards
 
 # Refactorings
 

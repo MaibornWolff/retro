@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { PeerConnection, usePeerConnections } from "./usePeerConnections";
-import { BaseAction, ErrorState, User } from "../types/commonTypes";
+import { ApplicationState, BaseAction, ErrorState, User } from "../types/commonTypes";
 import { isModerator } from "../utils/participantsUtils";
 import { PeerToPeerAction } from "../types/peerToPeerTypes";
 import { useRoomContext } from "../context/RoomContext";
@@ -21,7 +21,7 @@ export interface UsePeerToPeerOptions<T, E extends BaseAction> {
   onJoinRoomRejected?: (userId: string) => void;
 }
 
-export function usePeerToPeer<T, E extends BaseAction>({
+export function usePeerToPeer<T extends ApplicationState, E extends BaseAction>({
   state,
   onDataReceived,
   onUserDisconnected,
@@ -40,7 +40,8 @@ export function usePeerToPeer<T, E extends BaseAction>({
     emitRejectJoinUser,
     emitDataListenerEstablished,
     emitJoinRoom,
-  } = useSocket();
+    emitCreateRoom,
+  } = useSocket({ state });
   const peer = usePeer();
   const { addPeerConnection, removePeerConnection, readyPeerConnection, peerConnections } =
     usePeerConnections({
@@ -140,7 +141,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     });
 
     socket.on("acceptedJoinRequest", ({ userId }) => {
-      if (userId === user.id) emitJoinRoom();
+      if (userId === user.id) emitJoinRoom({ roomId, user });
     });
 
     socket.on("rejectedJoinRequest", ({ userId }) => {
@@ -201,7 +202,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
       return;
     }
     if (isModerator(user)) {
-      emitJoinRoom();
+      emitCreateRoom();
     } else {
       emitRequestJoinRoom();
     }

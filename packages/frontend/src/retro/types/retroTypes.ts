@@ -1,4 +1,4 @@
-import { User } from "../../common/types/commonTypes";
+import { ApplicationState, User } from "../../common/types/commonTypes";
 
 export interface RetroCard {
   id: string;
@@ -17,17 +17,14 @@ export interface RetroColumn {
   isBlurred: boolean;
 }
 
-export interface RetroState {
+export interface RetroState extends ApplicationState {
   title: string;
   format: string;
   columns: RetroColumn[];
   isBlurred: boolean;
   maxVoteCount: number;
   highlightedCardId?: string;
-  participants: UserByUserId;
-  waitingList: UserByUserId;
   isVotingEnabled: boolean;
 }
 
 export type VotesByUserId = Record<string, number>;
-export type UserByUserId = Record<string, User>;

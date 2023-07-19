@@ -5,8 +5,13 @@ import { ClientToServerEvents, ServerToClientEvents } from "@shared/socket";
 import { useUserContext } from "../context/UserContext";
 import { useRoomContext } from "../context/RoomContext";
 import { configuration } from "@shared/configuration";
+import { ApplicationState, User } from "../types/commonTypes";
 
-export function useSocket() {
+interface UseSocketProps {
+  state: ApplicationState;
+}
+
+export function useSocket({ state }: UseSocketProps) {
   const { user } = useUserContext();
   const { roomId } = useRoomContext();
   const socketNamespace = useNamespace();
@@ -29,8 +34,16 @@ export function useSocket() {
     socket.emit("acceptJoinRequest", { roomId, userId });
   }
 
-  function emitJoinRoom() {
+  function emitJoinRoom({ user, roomId }: { user: User; roomId: string }) {
     socket.emit("joinRoom", { roomId, userId: user.id });
+  }
+
+  function emitCreateRoom() {
+    socket.emit("createRoom", {
+      roomId,
+      userId: user.id,
+      isAutoAcceptEnabled: state.isAutoAcceptEnabled,
+    });
   }
 
   function emitRequestJoinRoom() {
@@ -52,5 +65,6 @@ export function useSocket() {
     emitRejectJoinUser,
     emitDataListenerEstablished,
     emitRequestJoinRoom,
+    emitCreateRoom,
   };
 }

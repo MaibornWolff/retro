@@ -17,6 +17,7 @@ import { generateId } from "../../../common/utils/generateId";
 import { DialogProps, User } from "../../../common/types/commonTypes";
 import { TextInput } from "../../../common/components/TextInput";
 import { useNavigate } from "react-router-dom";
+import { AutoAcceptCheckbox } from "../../../common/components/AutoAcceptCheckbox";
 
 export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -28,11 +29,15 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
   const { user, setUser } = useUserContext();
-  const { handleJoinSession } = usePokerContext();
+  const { pokerState, handleJoinSession, handleIsAutoAcceptEnabledChanged } = usePokerContext();
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
+
+  const toggleChecked = () => {
+    handleIsAutoAcceptEnabledChanged(!pokerState.isAutoAcceptEnabled);
+  };
 
   function handleClose() {
     setName("");
@@ -58,6 +63,7 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
     navigate(`/poker/${roomId}`);
     handleClose();
   }
+
   return (
     <Dialog
       fullWidth
@@ -65,9 +71,9 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
       fullScreen={fullScreen}
       open={isOpen}
       onClose={handleClose}
-      aria-labelledby="join-session-dialog-title"
+      aria-labelledby="create-session-dialog-title"
     >
-      <DialogTitle id="join-session-dialog-title">Create Planning Poker Session</DialogTitle>
+      <DialogTitle id="create-session-dialog-title">Create Planning Poker Session</DialogTitle>
       <DialogContent>
         <DialogContentText>Please provide your name for this session</DialogContentText>
         <TextInput
@@ -82,11 +88,15 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
           label="Name"
           type="text"
         />
+        <AutoAcceptCheckbox
+          isCheckboxActivated={pokerState.isAutoAcceptEnabled}
+          toggleChecked={toggleChecked}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
         <Button onClick={handleSubmit} disabled={!isValid}>
-          Join
+          Create
         </Button>
       </DialogActions>
     </Dialog>

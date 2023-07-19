@@ -11,7 +11,7 @@ import { PokerResultButton } from "./buttons/PokerResultButton";
 export function PokerActionButtons() {
   const navigate = useNavigate();
   const roomId = useRoomIdFromPath();
-  const { handleAddToWaitingList } = usePokerContext();
+  const { handleAddToWaitingList, pokerState } = usePokerContext();
 
   function navigateToRoom() {
     navigate(`/poker/${roomId ?? ""}`);
@@ -22,6 +22,7 @@ export function PokerActionButtons() {
         roomId={roomId}
         navigateToRoom={navigateToRoom}
         onAddToWaitingList={handleAddToWaitingList}
+        isAutoAcceptEnabled={pokerState.isAutoAcceptEnabled}
       />
       <SetStoryButton />
       <ResetVotesButton />

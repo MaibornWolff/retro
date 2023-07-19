@@ -1,11 +1,9 @@
-import { UserByUserId } from "../../retro/types/retroTypes";
+import { ApplicationState } from "../../common/types/commonTypes";
 
-export interface PokerState {
+export interface PokerState extends ApplicationState {
   story: PokerStory;
   pokerUnit: PokerUnit;
-  participants: UserByUserId;
   showResults: boolean;
-  waitingList: UserByUserId;
   votes: VoteByUserId;
 }
 

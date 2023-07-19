@@ -21,6 +21,7 @@ import { generateId } from "../../../common/utils/generateId";
 import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRoomContext } from "../../../common/context/RoomContext";
+import { AutoAcceptCheckbox } from "../../../common/components/AutoAcceptCheckbox";
 
 export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -40,8 +41,14 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
     isValid: isNameValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
   const [format, setFormat] = useState(defaultFormat);
-  const { retroState, handleChangeRetroFormat, handleSetRetroState, handleJoinSession } =
-    useRetroContext();
+  const {
+    retroState,
+    handleChangeRetroFormat,
+    handleSetRetroState,
+    handleJoinSession,
+    handleIsAutoAcceptEnabledChanged,
+  } = useRetroContext();
+  const { isAutoAcceptEnabled } = retroState;
   const { user, setUser } = useUserContext();
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
@@ -54,6 +61,10 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
     close();
     setIsNameError(false);
     setIsTitleError(false);
+  }
+
+  function toggleChecked() {
+    handleIsAutoAcceptEnabledChanged(!retroState.isAutoAcceptEnabled);
   }
 
   function handleSubmit() {
@@ -116,6 +127,10 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
           <DialogContentText>Please choose a Retro Format</DialogContentText>
           <RetroFormatSelect onFormatChange={setFormat} format={format} />
         </Box>
+        <AutoAcceptCheckbox
+          isCheckboxActivated={isAutoAcceptEnabled}
+          toggleChecked={toggleChecked}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>

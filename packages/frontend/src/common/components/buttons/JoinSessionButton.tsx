@@ -9,12 +9,14 @@ interface JoinSessionButtonProps {
   roomId: string;
   navigateToRoom: () => void;
   onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
+  isAutoAcceptEnabled: boolean;
 }
 
 export function JoinSessionButton({
   roomId,
   navigateToRoom,
   onAddToWaitingList,
+  isAutoAcceptEnabled,
 }: JoinSessionButtonProps) {
   const { isOpen, closeDialog, openDialog } = useDialog(true);
   const { user } = useUserContext();
@@ -35,6 +37,7 @@ export function JoinSessionButton({
         roomId={roomId}
         onAddToWaitingList={onAddToWaitingList}
         navigateToRoom={navigateToRoom}
+        isAutoAcceptEnabled={isAutoAcceptEnabled}
       />
     </>
   );

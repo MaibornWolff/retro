@@ -24,6 +24,7 @@ export function PokerPage() {
     handleAcceptJoinUser,
     handleRejectJoinUser,
     handleTransferModeratorRole,
+    handleIsAutoAcceptEnabledChanged,
   } = usePokerContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
@@ -65,10 +66,12 @@ export function PokerPage() {
         <AppHeader
           participants={pokerState.participants}
           waitingList={pokerState.waitingList}
+          isAutoAcceptEnabled={pokerState.isAutoAcceptEnabled}
           onKickUser={handleKickUser}
           onAcceptJoinUser={handleAcceptJoinUser}
           onRejectJoinUser={handleRejectJoinUser}
           onTransferModeratorRole={handleTransferModeratorRole}
+          onIsAutoAcceptEnabledChanged={handleIsAutoAcceptEnabledChanged}
         />
         <WaitingForApproval />
       </>
@@ -79,10 +82,12 @@ export function PokerPage() {
       <AppHeader
         participants={pokerState.participants}
         waitingList={pokerState.waitingList}
+        isAutoAcceptEnabled={pokerState.isAutoAcceptEnabled}
         onKickUser={handleKickUser}
         onAcceptJoinUser={handleAcceptJoinUser}
         onRejectJoinUser={handleRejectJoinUser}
         onTransferModeratorRole={handleTransferModeratorRole}
+        onIsAutoAcceptEnabledChanged={handleIsAutoAcceptEnabledChanged}
       >
         <EstimationUnitSetupMenuItem />
       </AppHeader>

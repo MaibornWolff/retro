@@ -1,26 +1,30 @@
 import React from "react";
 import { Badge, Button, Typography } from "@mui/material";
 import { People } from "@mui/icons-material";
-import { UserByUserId } from "../../../retro/types/retroTypes";
 import { useDialog } from "../../hooks/useDialog";
 import { ParticipantsDialog } from "../../dialogs/ParticipantsDialog";
+import { UserByUserId } from "../../types/commonTypes";
 
 interface ParticipantButtonProps {
   participants: UserByUserId;
   waitingList: UserByUserId;
-  handleKickUser: (userId: string) => void;
+  isAutoAcceptEnabled: boolean;
+  onKickUser: (userId: string) => void;
   onRejectJoinUser: (userId: string) => void;
   onAcceptJoinUser: (userId: string) => void;
   onTransferModeratorRole: (userId: string) => void;
+  onIsAutoAcceptEnabledChanged: (isEnabled: boolean) => void;
 }
 
 export function ParticipantsButton({
   participants,
   waitingList,
-  handleKickUser,
+  isAutoAcceptEnabled,
+  onKickUser,
   onRejectJoinUser,
   onAcceptJoinUser,
   onTransferModeratorRole,
+  onIsAutoAcceptEnabledChanged,
 }: ParticipantButtonProps) {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const waitingUsersCount = Object.values(waitingList).length;
@@ -47,10 +51,12 @@ export function ParticipantsButton({
         close={closeDialog}
         participants={participants}
         waitingList={waitingList}
-        onKickUser={handleKickUser}
+        isAutoAcceptEnabled={isAutoAcceptEnabled}
+        onKickUser={onKickUser}
         onAcceptJoinUser={onAcceptJoinUser}
         onRejectJoinUser={onRejectJoinUser}
         onTransferModeratorRole={onTransferModeratorRole}
+        onIsAutoAcceptEnabledChanged={onIsAutoAcceptEnabledChanged}
       />
     </>
   );

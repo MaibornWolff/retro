@@ -39,6 +39,7 @@ export interface PokerContextValues {
   handleRejectJoinUser: (userId: string) => void;
   handleAcceptJoinUser: (userId: string) => void;
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
+  handleIsAutoAcceptEnabledChanged: (isEnabled: boolean) => void;
 }
 
 const initialState: PokerState = {
@@ -54,6 +55,7 @@ const initialState: PokerState = {
   showResults: false,
   waitingList: {},
   votes: {},
+  isAutoAcceptEnabled: false,
 };
 
 export const PokerContext = React.createContext<PokerContextValues>(undefined!);
@@ -138,6 +140,10 @@ export function PokerContextProvider(props: PokerContextProviderProps) {
     dispatchAndBroadcast({ type: "JOIN_SESSION", payload });
   }
 
+  function handleIsAutoAcceptEnabledChanged(isEnabled: boolean) {
+    dispatchAndBroadcast({ type: "IS_AUTO_ACCEPT_ENABLED_CHANGED", isEnabled });
+  }
+
   const resetPokerState = useCallback(() => {
     dispatch({ type: "INITIALIZE_STATE", payload: initialState });
   }, []);
@@ -158,6 +164,7 @@ export function PokerContextProvider(props: PokerContextProviderProps) {
     handleAddToWaitingList,
     handleRejectJoinUser: rejectJoinUser,
     handleAcceptJoinUser: acceptJoinUser,
+    handleIsAutoAcceptEnabledChanged,
   };
 
   return <PokerContext.Provider value={value}>{props.children}</PokerContext.Provider>;

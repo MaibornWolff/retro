@@ -1,13 +1,38 @@
 import { configuration } from "@shared/configuration";
+import { RoomConfiguration } from "../../../../shared/types/types";
 
-interface RoomIdExistsOptions {
+interface GetRoomConfigurationOptions {
   roomId?: string;
   namespace: string;
 }
+interface SetIsAutoAcceptEnabledOptions {
+  roomId?: string;
+  namespace: string;
+  isEnabled: boolean;
+}
 
-export async function roomIdExists({ roomId, namespace }: RoomIdExistsOptions): Promise<boolean> {
-  if (!roomId) return false;
-  const backendUrl = configuration.backendUrl.url;
+const backendUrl = configuration.backendUrl.url;
+
+export async function getRoomConfiguration({
+  roomId,
+  namespace,
+}: GetRoomConfigurationOptions): Promise<RoomConfiguration | undefined> {
+  if (!roomId) return;
   const response = await fetch(`${backendUrl}/${namespace}/rooms/${roomId}`);
-  return response.status === 200;
+  if (!response.ok) return;
+  return await Promise.resolve(response.json());
+}
+
+export async function putIsAutoAcceptEnabled({
+  roomId,
+  namespace,
+  isEnabled,
+}: SetIsAutoAcceptEnabledOptions) {
+  if (!roomId) return false;
+  const url = `${backendUrl}/${namespace}/rooms/${roomId}/is-auto-accept-enabled`;
+  await fetch(url, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ isEnabled }),
+  });
 }

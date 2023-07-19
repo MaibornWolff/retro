@@ -1,3 +1,11 @@
+export type UserByUserId = Record<string, User>;
+
+export interface ApplicationState {
+  waitingList: UserByUserId;
+  participants: UserByUserId;
+  isAutoAcceptEnabled: boolean;
+}
+
 export interface BaseAction {
   type: string;
 }

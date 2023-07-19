@@ -7,12 +7,14 @@ interface SetupSessionButtonProps {
   roomId?: string;
   navigateToRoom: () => void;
   onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
+  isAutoAcceptEnabled: boolean;
 }
 
 export function SetupSessionButton({
   navigateToRoom,
   onAddToWaitingList,
   roomId,
+  isAutoAcceptEnabled,
 }: SetupSessionButtonProps) {
   const { user } = useUserContext();
 
@@ -23,6 +25,7 @@ export function SetupSessionButton({
       roomId={roomId}
       navigateToRoom={navigateToRoom}
       onAddToWaitingList={onAddToWaitingList}
+      isAutoAcceptEnabled={isAutoAcceptEnabled}
     />
   ) : (
     <CreateSessionButton />

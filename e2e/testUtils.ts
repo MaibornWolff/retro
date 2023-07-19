@@ -22,5 +22,5 @@ export async function setupPokerPage(page: Page) {
   await page.goto("/");
   await page.getByRole("button", { name: "Planning Poker" }).click();
   await page.getByLabel("Name").fill("User 1");
-  await page.getByRole("button", { name: "Join" }).click();
+  await page.getByRole("button", { name: "Create" }).click();
 }

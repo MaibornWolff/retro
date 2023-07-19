@@ -34,6 +34,11 @@ export interface RemoveFromWaitingListAction extends BaseAction {
   payload: { userId: string };
 }
 
+export interface IsAutoAcceptEnabledChangedAction extends BaseAction {
+  type: "IS_AUTO_ACCEPT_ENABLED_CHANGED";
+  isEnabled: boolean;
+}
+
 export type PeerToPeerAction<T> =
   | InitializeStateAction<T>
   | JoinSessionAction
@@ -41,4 +46,5 @@ export type PeerToPeerAction<T> =
   | KickAction
   | TransferModeratorRoleAction
   | RemoveFromWaitingListAction
-  | AddToWaitingListAction;
+  | AddToWaitingListAction
+  | IsAutoAcceptEnabledChangedAction;

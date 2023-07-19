@@ -1,6 +1,5 @@
 import { determineNewModerator } from "./determineNewModerator";
-import { User } from "../types/commonTypes";
-import { UserByUserId } from "../../retro/types/retroTypes";
+import { User, UserByUserId } from "../types/commonTypes";
 
 export function getRemainingParticipants<T extends User>(
   participants: Record<string, T>,

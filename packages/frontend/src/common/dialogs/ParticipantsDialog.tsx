@@ -11,18 +11,25 @@ import {
   useTheme,
 } from "@mui/material";
 import { isEmpty } from "lodash";
-import { DialogProps } from "../types/commonTypes";
+import { DialogProps, UserByUserId } from "../types/commonTypes";
 import { Participants } from "./Participants";
-import { UserByUserId } from "../../retro/types/retroTypes";
 import { WaitingList } from "./WaitingList";
+import { AutoAcceptSwitch } from "../components/AutoAcceptSwitch";
+import { isModerator } from "../utils/participantsUtils";
+import { useUserContext } from "../context/UserContext";
+import { putIsAutoAcceptEnabled } from "../adapter/backendAdapter";
+import { useRoomContext } from "../context/RoomContext";
+import { useNamespace } from "../hooks/useNamespace";
 
 interface ParticipantDialogProps extends DialogProps {
   participants: UserByUserId;
   waitingList: UserByUserId;
+  isAutoAcceptEnabled: boolean;
   onKickUser: (userId: string) => void;
   onRejectJoinUser: (userId: string) => void;
   onAcceptJoinUser: (userId: string) => void;
   onTransferModeratorRole: (userId: string) => void;
+  onIsAutoAcceptEnabledChanged: (isEnabled: boolean) => void;
 }
 
 export function ParticipantsDialog({
@@ -34,11 +41,21 @@ export function ParticipantsDialog({
   onTransferModeratorRole,
   participants,
   waitingList,
+  isAutoAcceptEnabled,
+  onIsAutoAcceptEnabledChanged,
 }: ParticipantDialogProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
   const isDividerVisible = !isEmpty(waitingList) && !isEmpty(participants);
+  const { user } = useUserContext();
+  const { roomId } = useRoomContext();
+  const namespace = useNamespace();
+
+  async function toggleSwitch() {
+    const toggledValue = !isAutoAcceptEnabled;
+    onIsAutoAcceptEnabledChanged(toggledValue);
+    await putIsAutoAcceptEnabled({ roomId, namespace, isEnabled: toggledValue });
+  }
 
   return (
     <Dialog
@@ -54,6 +71,18 @@ export function ParticipantsDialog({
         },
       }}
     >
+      {isModerator(user) && (
+        <DialogContent>
+          <Typography variant="h5" pb={1}>
+            Moderator Options
+          </Typography>
+          <AutoAcceptSwitch
+            isSwitchActivated={isAutoAcceptEnabled}
+            toggleSwitch={toggleSwitch}
+            label={"Automatically accept joining users"}
+          />
+        </DialogContent>
+      )}
       <DialogContent>
         {!isEmpty(waitingList) && (
           <>
