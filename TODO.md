@@ -1,5 +1,6 @@
 # Mandatory
 
+- Deploy internally once
 - encryption of all communication
 - test in a real environment (users joining via the internet)
 - update contact data in legal docs
