@@ -3,7 +3,7 @@
 
 validate_branch_name() {
   local branch=$(git rev-parse --abbrev-ref HEAD)
-  local regex="^(feature|fix|hotfix|release|refactor|perf|tech|docs|dependabot)\/[a-zA-Z0-9_]+(\/[a-zA-Z0-9_]+)*$"
+  local regex="^master|(feature|fix|hotfix|release|refactor|perf|tech|docs|dependabot)\/[a-zA-Z0-9_]+(\/[a-zA-Z0-9_]+)*$"
   if ! [[ $branch =~ $regex ]]; then
     echo "Your commit was rejected due to branching name"
     echo "Please rename your branch with '(feature|fix|hotfix|release|refactor|perf|tech|docs)/test_123' syntax"
