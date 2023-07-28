@@ -5,6 +5,7 @@ export interface ApplicationConfiguration {
   backendUrl: RetroAppUrl;
   retro: RetroConfiguration;
   signalingServerUrl: RetroAppUrl;
+  corsOrigins: string | string[];
 }
 
 export interface RetroConfiguration {

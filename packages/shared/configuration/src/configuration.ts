@@ -1,6 +1,8 @@
 import { ApplicationConfiguration } from "./types";
 import { RetroAppUrl } from "./RetroAppUrl";
 
+export const configuration = getConfiguration();
+
 function getConfiguration(): ApplicationConfiguration {
   const backendUrl = new RetroAppUrl({
     protocol: process.env.REACT_APP_BACKEND_PROTOCOL ?? "http",
@@ -21,7 +23,14 @@ function getConfiguration(): ApplicationConfiguration {
     retro: {
       maxVoteCount: Number(process.env.REACT_APP_RETRO_MAX_VOTE_COUNT) ?? 3,
     },
+    corsOrigins: parseCorsOrigins(process.env.CORS_ORIGIN) ?? "*",
   };
 }
 
-export const configuration = getConfiguration();
+function parseCorsOrigins(list?: string): string[] | string | undefined {
+  if (!list) return undefined;
+
+  const origins = list.split(",").map((origin) => origin.trim());
+  if (origins.length <= 1) return list;
+  return origins;
+}

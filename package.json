@@ -6,7 +6,6 @@
     "build": "nx run-many --targets=build --all",
     "build:frontend": "nx build frontend",
     "build:backend": "nx build backend",
-    "build:shared": "nx build shared",
     "start:backend": "nx start backend",
     "watch": "nx run-many --targets=build:watch --all",
     "frontend:dev": "nx start frontend",
