@@ -1,4 +1,4 @@
-import { ApplicationConfiguration } from "./types";
+import { ApplicationConfiguration, CorsOrigins } from "./types";
 import { RetroAppUrl } from "./RetroAppUrl";
 
 export const configuration = getConfiguration();
@@ -27,7 +27,7 @@ function getConfiguration(): ApplicationConfiguration {
   };
 }
 
-function parseCorsOrigins(list?: string): string[] | string | undefined {
+function parseCorsOrigins(list?: string): CorsOrigins | undefined {
   if (!list) return undefined;
 
   const origins = list.split(",").map((origin) => origin.trim());

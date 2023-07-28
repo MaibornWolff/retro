@@ -1,11 +1,13 @@
 import { RetroAppUrl } from "./RetroAppUrl";
 
+export type CorsOrigins = string | string[];
+
 export interface ApplicationConfiguration {
   logLevel: string;
   backendUrl: RetroAppUrl;
   retro: RetroConfiguration;
   signalingServerUrl: RetroAppUrl;
-  corsOrigins: string | string[];
+  corsOrigins: CorsOrigins;
 }
 
 export interface RetroConfiguration {
