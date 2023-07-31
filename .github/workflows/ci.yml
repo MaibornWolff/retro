@@ -43,6 +43,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     environment: release
+    needs: [build]
     steps:
       - name: Publish Frontend Docker Image
         uses: elgohr/Publish-Docker-Github-Action@v5
