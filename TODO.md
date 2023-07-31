@@ -8,6 +8,7 @@
 
 # Improvement
 
+- allow multiple docker image tags. we simply overwrite latest right now
 - add semantic release
 - create / join buttons style and placement
 - add possibility for moderator to activate / deactivate voting retro cards

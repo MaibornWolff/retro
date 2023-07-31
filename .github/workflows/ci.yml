@@ -39,3 +39,27 @@ jobs:
       - name: Run e2e tests
         if: ${{ vars.SKIP_E2E != 'true' }}
         run: npm run e2e
+
+  release:
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - name: Publish Frontend Docker Image
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          default_branch: master
+          name: retro/retro-frontend
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          tags: "latest"
+          workdir: ./packages/frontend
+
+      - name: Publish Backend Docker Image
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          default_branch: master
+          name: retro/retro-backend
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          tags: "latest"
+          workdir: ./packages/backend
