@@ -67,7 +67,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           tags: "latest"
-          workdir: ./packages/frontend
+          dockerfile: ./packages/frontend/Dockerfile
 
       - name: Publish Backend Docker Image
         uses: elgohr/Publish-Docker-Github-Action@v5
@@ -77,4 +77,4 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           tags: "latest"
-          workdir: ./packages/backend
+          dockerfile: ./packages/backend/Dockerfile
