@@ -63,7 +63,7 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           default_branch: master
-          name: retro/retro-frontend
+          name: retroapp/retro-frontend
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           tags: "latest"
@@ -73,7 +73,7 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           default_branch: master
-          name: retro/retro-backend
+          name: retroapp/retro-backend
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           tags: "latest"
