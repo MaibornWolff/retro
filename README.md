@@ -43,7 +43,8 @@ The `.env` file should contain everything required to start the application loca
 ```
 $ npm run frontend:dev
 $ npm run backend:dev
-$ npm run watch:shared
+$ npm run signaling:dev
+$ npm run watch
 ```
 
 | Application | Port |
