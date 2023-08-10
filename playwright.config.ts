@@ -36,6 +36,12 @@ export default defineConfig({
       timeout: 120 * 1000,
       reuseExistingServer: !process.env.CI,
     },
+    {
+      command: "npm run signaling:dev",
+      port: 3002,
+      timeout: 120 * 1000,
+      reuseExistingServer: !process.env.CI,
+    },
   ],
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
