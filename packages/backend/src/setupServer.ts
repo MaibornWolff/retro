@@ -1,11 +1,12 @@
 import express from "express";
 import http from "http";
 import { Server, Socket } from "socket.io";
-import cors from "cors";
+import cors, { CorsOptions } from "cors";
 
 import { ClientToServerEvents, ServerToClientEvents } from "@shared/socket";
 import { ConnectionStore } from "./store/ConnectionStore";
 import { logger } from "@shared/logger";
+import { configuration } from "@shared/configuration";
 
 export function setupServer() {
   const app = express();
@@ -13,14 +14,16 @@ export function setupServer() {
 
   const connectionStore = new ConnectionStore();
 
+  const corsOptions: CorsOptions = {
+    origin: configuration.corsOrigins,
+  };
+
   const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
-    cors: {
-      origin: "*", // TODO: add proper CORS config
-    },
+    cors: corsOptions,
     allowEIO3: true,
   });
 
-  app.use(cors());
+  app.use(cors(corsOptions));
 
   app.get("/:namespace/rooms/:roomId", (req, res) => {
     const { roomId, namespace } = req.params;

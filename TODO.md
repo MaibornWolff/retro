@@ -1,5 +1,6 @@
 # Mandatory
 
+- Deploy internally once
 - encryption of all communication
 - test in a real environment (users joining via the internet)
 - update contact data in legal docs
@@ -7,6 +8,7 @@
 
 # Improvement
 
+- allow multiple docker image tags. we simply overwrite latest right now
 - add semantic release
 - create / join buttons style and placement
 - add possibility for moderator to activate / deactivate voting retro cards

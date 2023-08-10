@@ -1,12 +1,11 @@
 {
-  "name": "webrtc-poc",
+  "name": "retro",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "build": "nx run-many --targets=build --all",
     "frontend:build": "nx build frontend",
     "backend:build": "nx build backend",
-    "shared:build": "nx build shared",
     "frontend:start": "nx start frontend",
     "backend:start": "nx start backend",
     "watch": "nx run-many --targets=build:watch --all",
@@ -19,7 +18,10 @@
     "format": "prettier --write .",
     "prepare": "husky install",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "contributors:add": "all-contributors add",
+    "contributors:check": "all-contributors check",
+    "contributors:generate": "all-contributors generate"
   },
   "private": true,
   "devDependencies": {
