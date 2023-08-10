@@ -200,6 +200,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
       onError({ type: "DISCONNECTED" });
       return;
     }
+
     if (isModerator(user)) {
       emitJoinRoom();
     } else {

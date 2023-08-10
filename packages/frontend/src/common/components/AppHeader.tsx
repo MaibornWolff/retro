@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, useTheme } from "@mui/material";
 
 import { useUserContext } from "../context/UserContext";
@@ -9,6 +8,7 @@ import { ParticipantsButton } from "./buttons/ParticipantsButton";
 import { UserByUserId } from "../../retro/types/retroTypes";
 import { useNamespace } from "../hooks/useNamespace";
 import { SettingsButton } from "./buttons/SettingsButton";
+import Link from "next/link";
 
 interface AppHeaderProps {
   participants: UserByUserId;
@@ -46,7 +46,7 @@ export function AppHeader({
           fontFamily="Permanent"
           sx={{ fontFamily: "Permanent Marker, cursive" }}
         >
-          <Link to="/" style={{ textDecoration: "none", color: theme.palette.primary.main }}>
+          <Link href="/" style={{ textDecoration: "none", color: theme.palette.primary.main }}>
             {namespace === "poker" ? "Planning Poker" : "Retro"}
           </Link>
         </Typography>

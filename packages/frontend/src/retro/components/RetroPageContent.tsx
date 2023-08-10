@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { DragDropContext } from "react-beautiful-dnd";
-import { Navigate } from "react-router-dom";
 
 import { MergeCardsDialog } from "./dialogs/MergeCardsDialog";
 import { VoteProgress } from "./VoteProgress";
@@ -25,8 +24,10 @@ import { ManageVotesMenuItem } from "./buttons/ManageVotesMenuItem";
 import { FlexBox } from "../../common/components/FlexBox";
 import { NewParticipantSnackbar } from "../../common/components/NewParticipantSnackbar";
 import { RetroActionButtons } from "./RetroActionButtons";
+import { useRouter } from "next/navigation";
 
-export function RetroPage() {
+export function RetroPageContent() {
+  const { push } = useRouter();
   const {
     retroState,
     resetRetroState,
@@ -73,7 +74,10 @@ export function RetroPage() {
     };
   }, [retroState.title]);
 
-  if (error) return <Navigate to="/error" />;
+  useEffect(() => {
+    if (error) push("/error");
+  }, [error, push]);
+
   if (isWaitingUser(retroState.waitingList, user.id))
     return (
       <>

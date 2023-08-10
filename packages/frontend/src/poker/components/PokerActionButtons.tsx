@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useRoomIdFromPath } from "../../common/hooks/useRoomIdFromPath";
 import { usePokerContext } from "../context/PokerContext";
 import { FlexBox } from "../../common/components/FlexBox";
@@ -7,15 +6,17 @@ import { SetupSessionButton } from "../../common/components/buttons/SetupSession
 import { SetStoryButton } from "./buttons/SetStoryButton";
 import { ResetVotesButton } from "./buttons/ResetVotesButton";
 import { PokerResultButton } from "./buttons/PokerResultButton";
+import { useRouter } from "next/navigation";
 
 export function PokerActionButtons() {
-  const navigate = useNavigate();
+  const { push } = useRouter();
   const roomId = useRoomIdFromPath();
   const { handleAddToWaitingList } = usePokerContext();
 
   function navigateToRoom() {
-    navigate(`/poker/${roomId ?? ""}`);
+    push(`/poker/${roomId ?? ""}`);
   }
+
   return (
     <FlexBox flexDirection="row" p={1}>
       <SetupSessionButton

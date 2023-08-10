@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./packages/frontend/Dockerfile
     ports:
-      - "80:80"
+      - "3000:3000"
   backend:
     container_name: retro-backend
     build:

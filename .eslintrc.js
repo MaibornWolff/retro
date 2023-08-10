@@ -36,6 +36,7 @@ module.exports = {
     "@typescript-eslint/restrict-plus-operands": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/triple-slash-reference": "off",
     "prettier/prettier": "warn",
   },
 };

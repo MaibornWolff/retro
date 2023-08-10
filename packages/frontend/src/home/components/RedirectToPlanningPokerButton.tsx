@@ -1,13 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Fab } from "@mui/material";
 import { Casino } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 export function RedirectToPlanningPokerButton() {
-  const navigate = useNavigate();
+  const { push } = useRouter();
 
   function navigateToPlanningPoker() {
-    navigate(`/poker`);
+    push(`/poker`);
   }
 
   return (

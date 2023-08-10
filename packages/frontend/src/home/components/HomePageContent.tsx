@@ -1,26 +1,16 @@
 import React from "react";
-import { Box } from "@mui/material";
 
 import { RedirectToRetroButton } from "./RedirectToRetroButton";
-import hero from "../assets/hero.jpg";
 import { RedirectToPlanningPokerButton } from "./RedirectToPlanningPokerButton";
 import { FlexBox } from "../../common/components/FlexBox";
 import { WelcomeTypewriter } from "./WelcomeTypewriter";
+import Image from "next/image";
+import { Box } from "@mui/material";
 
-export function HomePage() {
+export function HomePageContent() {
   return (
-    <Box
-      width="100%"
-      height="100vh"
-      position="fixed"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${hero})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-      }}
-    >
+    <Box position="relative">
+      <Image src="/hero.jpg" alt="hero-content" fill style={{ objectFit: "cover" }} />
       <FlexBox minHeight="100vh" justifyContent="center" alignItems="center" flexDirection="column">
         <WelcomeTypewriter />
         <FlexBox flexDirection="row">

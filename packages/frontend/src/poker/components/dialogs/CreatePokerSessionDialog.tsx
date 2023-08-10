@@ -16,7 +16,7 @@ import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInp
 import { generateId } from "../../../common/utils/generateId";
 import { DialogProps, User } from "../../../common/types/commonTypes";
 import { TextInput } from "../../../common/components/TextInput";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -32,7 +32,7 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const navigate = useNavigate();
+  const { push } = useRouter();
 
   function handleClose() {
     setName("");
@@ -55,7 +55,7 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
     setRoomId(roomId);
     setUser(newUser);
     handleJoinSession(newUser);
-    navigate(`/poker/${roomId}`);
+    push(`/poker/${roomId}`);
     handleClose();
   }
   return (

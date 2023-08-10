@@ -1,13 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Fab } from "@mui/material";
 import { People } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 export function RedirectToRetroButton() {
-  const navigate = useNavigate();
+  const { push } = useRouter();
 
   function navigateToRetro() {
-    navigate(`/retro`);
+    push(`/retro`);
   }
 
   return (

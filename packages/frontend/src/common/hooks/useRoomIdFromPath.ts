@@ -1,9 +1,7 @@
-import { useMatch } from "react-router-dom";
-import { useNamespace } from "./useNamespace";
+import { useRouter } from "next/router";
 
 export function useRoomIdFromPath() {
-  const path = useNamespace();
-  const pattern = `/${path}/:roomId`;
-  const match = useMatch(pattern);
-  return match?.params.roomId;
+  const router = useRouter();
+  const { roomId } = router.query;
+  return roomId?.[0];
 }

@@ -1,10 +1,9 @@
-import { useLocation } from "react-router-dom";
+import { useRouter } from "next/router";
 
 export function useNamespace() {
-  const location = useLocation();
+  const { pathname } = useRouter();
+  const pathName = pathname.slice(1);
+  const endOfPathName = pathName.indexOf("/");
 
-  const pathname = location.pathname.slice(1);
-  const endOfPathName = pathname.indexOf("/");
-
-  return endOfPathName === -1 ? pathname : pathname.slice(0, endOfPathName);
+  return endOfPathName === -1 ? pathName : pathName.slice(0, endOfPathName);
 }
