@@ -3,5 +3,5 @@ WORKDIR /app
 COPY ./ /app/
 
 RUN npm ci
-RUN npm run build:backend
-CMD ["npm", "run", "start:backend"]
+RUN npm run backend:build
+CMD ["npm", "run", "backend:start"]
