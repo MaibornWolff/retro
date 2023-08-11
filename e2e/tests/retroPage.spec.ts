@@ -1,13 +1,14 @@
 import { expect, test } from "@playwright/test";
-import { joinNewUser, setupRetroPage } from "./testUtils";
+import { HeaderPageObject } from "../pageobjects/Header";
+import { JoinSessionDialogPageObject } from "../pageobjects/JoinSessionDialog";
+import { RetroPagePageObject } from "../pageobjects/RetroPage";
 
-test("should have all required elements as moderator", async ({ page }) => {
-  await setupRetroPage(page);
+test("should have all required elements as moderator", async ({ page, context }) => {
+  const retroPage = new RetroPagePageObject(page, context);
+  await retroPage.setup();
 
-  await page.getByRole("button", { name: "Add Column" }).click();
-  await page.getByRole("textbox").fill("New Column");
-  await page.getByRole("button", { name: "Create" }).click();
-  await page.getByRole("button", { name: "Blur Board" }).click();
+  await retroPage.addColumn();
+  await retroPage.blurBoard();
 
   await expect(page).toHaveTitle(/Retro/);
   await expect(page.getByRole("button", { name: "Unblur Board" })).toBeVisible();
@@ -19,19 +20,18 @@ test("should have all required elements as moderator", async ({ page }) => {
 });
 
 test("should accept user and show required elements as participant", async ({ context, page }) => {
+  const retroPage = new RetroPagePageObject(page, context);
+  const header = new HeaderPageObject(page, context);
+  const joinSessionDialog = new JoinSessionDialogPageObject(page, context);
+
+  await retroPage.setup();
+
   const newUser = "User 2";
-  await setupRetroPage(page);
+  const newPage = await joinSessionDialog.joinNewUser({ username: newUser });
 
-  const urlWithRoomId: string = page.url();
-  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
-
-  await page.getByRole("button", { name: "Participants" }).click();
-
-  await page
-    .getByRole("listitem")
-    .filter({ hasText: newUser })
-    .getByRole("button", { name: "Accept User" })
-    .click();
+  await header.openParticipants();
+  await header.acceptParticipant(newUser);
+  await header.closeParticipants();
 
   await expect(newPage.getByRole("button", { name: "Blur Board" })).not.toBeVisible();
   await expect(newPage.getByRole("button", { name: "Add Column" })).not.toBeVisible();
@@ -42,18 +42,17 @@ test("should accept user and show required elements as participant", async ({ co
 });
 
 test("should reject user and show error page", async ({ context, page }) => {
+  const retroPage = new RetroPagePageObject(page, context);
+  const header = new HeaderPageObject(page, context);
+  const joinSessionDialog = new JoinSessionDialogPageObject(page, context);
+
+  await retroPage.setup();
+
   const newUser = "User 2";
-  await setupRetroPage(page);
+  const newPage = await joinSessionDialog.joinNewUser({ username: newUser });
 
-  const urlWithRoomId: string = page.url();
-  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
-
-  await page.getByRole("button", { name: "Participants" }).click();
-  await page
-    .getByRole("listitem")
-    .filter({ hasText: newUser })
-    .getByRole("button", { name: "Reject User" })
-    .click();
+  await header.openParticipants();
+  await header.rejectParticipant(newUser);
 
   await expect(page.getByRole("listitem", { name: newUser })).not.toBeVisible();
   await expect(newPage.getByRole("heading", { name: "Test Session" })).not.toBeVisible();
@@ -62,23 +61,18 @@ test("should reject user and show error page", async ({ context, page }) => {
 });
 
 test("should kick user and show error page", async ({ context, page }) => {
+  const retroPage = new RetroPagePageObject(page, context);
+  const header = new HeaderPageObject(page, context);
+  const joinSessionDialog = new JoinSessionDialogPageObject(page, context);
+
+  await retroPage.setup();
+
   const newUser = "User 2";
-  await setupRetroPage(page);
+  const newPage = await joinSessionDialog.joinNewUser({ username: newUser });
 
-  const urlWithRoomId: string = page.url();
-  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
-  await page.getByRole("button", { name: "Participants" }).click();
-
-  await page
-    .getByRole("listitem")
-    .filter({ hasText: newUser })
-    .getByRole("button", { name: "Accept User" })
-    .click();
-  await page
-    .getByRole("listitem")
-    .filter({ hasText: newUser })
-    .getByRole("button", { name: "Kick user" })
-    .click();
+  await header.openParticipants();
+  await header.acceptParticipant(newUser);
+  await header.kickParticipant(newUser);
 
   await expect(page.getByRole("listitem", { name: newUser })).not.toBeVisible();
   await expect(newPage.getByRole("heading", { name: "Test Session" })).not.toBeVisible();
@@ -87,25 +81,19 @@ test("should kick user and show error page", async ({ context, page }) => {
 });
 
 test("should accept user and transfer moderator role", async ({ context, page }) => {
+  const retroPage = new RetroPagePageObject(page, context);
+  const header = new HeaderPageObject(page, context);
+  const joinSessionDialog = new JoinSessionDialogPageObject(page, context);
+
+  await retroPage.setup();
+
   const newUser = "User 2";
-  await setupRetroPage(page);
+  const newPage = await joinSessionDialog.joinNewUser({ username: newUser });
 
-  const urlWithRoomId: string = page.url();
-  const newPage = await joinNewUser(urlWithRoomId, context, newUser);
-
-  await page.getByRole("button", { name: "Participants" }).click();
-  await page
-    .getByRole("listitem")
-    .filter({ hasText: newUser })
-    .getByRole("button", { name: "Accept User" })
-    .click();
-  await page
-    .getByRole("listitem")
-    .filter({ hasText: newUser })
-    .getByRole("button", { name: "Transfer Moderator Role" })
-    .click();
-  await page.getByRole("button", { name: "Yes, transfer" }).click();
-  await page.getByRole("button", { name: "Close" }).click();
+  await header.openParticipants();
+  await header.acceptParticipant(newUser);
+  await header.transferModeratorRole(newUser);
+  await header.closeParticipants();
 
   await expect(newPage.getByRole("heading", { name: "Test Session" })).toBeVisible();
   await expect(newPage.getByRole("button", { name: "Blur Board" })).toBeVisible();
