@@ -12,7 +12,10 @@ services:
     build:
       context: .
       dockerfile: ./packages/backend/Dockerfile
-
     ports:
       - "3001:3001"
-      - "3002:3002"
+  signaling:
+    container_name: retro-signaling
+    image: peerjs/peerjs-server
+    ports:
+      - "3002:9000"
