@@ -1,11 +1,17 @@
 version: "3.9"
 services:
   frontend:
-    image: retroapp/retro-frontend
+    container_name: retro-frontend
+    build:
+      context: .
+      dockerfile: ./packages/frontend/Dockerfile
     ports:
       - "3000:3000"
   backend:
-    image: retroapp/retro-backend
+    container_name: retro-backend
+    build:
+      context: .
+      dockerfile: ./packages/backend/Dockerfile
     ports:
       - "3001:3001"
   signaling:
