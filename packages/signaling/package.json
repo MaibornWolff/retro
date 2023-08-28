@@ -6,7 +6,7 @@
   "license": "ISC",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "nodemon --esm src/index.ts",
+    "dev": "nodemon src/index.ts",
     "build": "rimraf dist && tsc -b"
   },
   "dependencies": {
