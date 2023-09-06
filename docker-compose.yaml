@@ -3,7 +3,7 @@ services:
   frontend:
     image: retroapp/retro-frontend
     ports:
-      - "3000:3000"
+      - "80:80"
   backend:
     image: retroapp/retro-backend
     ports:
