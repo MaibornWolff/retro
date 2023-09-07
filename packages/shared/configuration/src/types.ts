@@ -2,8 +2,10 @@ import { RetroAppUrl } from "./RetroAppUrl";
 
 export type CorsOrigins = string | string[];
 
+export type LogLevel = "info" | "warn" | "error" | "debug";
+
 export interface ApplicationConfiguration {
-  logLevel: string;
+  logLevel: LogLevel;
   backendUrl: RetroAppUrl;
   retro: RetroConfiguration;
   signalingServerUrl: RetroAppUrl;

@@ -1,4 +1,4 @@
-import { ApplicationConfiguration, CorsOrigins } from "./types";
+import { ApplicationConfiguration, CorsOrigins, LogLevel } from "./types";
 import { RetroAppUrl } from "./RetroAppUrl";
 
 export const configuration = getConfiguration();
@@ -17,7 +17,7 @@ function getConfiguration(): ApplicationConfiguration {
   });
 
   return {
-    logLevel: process.env.LOG_LEVEL ?? "info",
+    logLevel: validateLogLevel(process.env.LOG_LEVEL) ?? "info",
     backendUrl,
     signalingServerUrl,
     retro: {
@@ -33,4 +33,11 @@ function parseCorsOrigins(list?: string): CorsOrigins | undefined {
   const origins = list.split(",").map((origin) => origin.trim());
   if (origins.length <= 1) return list;
   return origins;
+}
+
+function validateLogLevel(logLevel?: string): LogLevel | undefined {
+  const validLogLevels: LogLevel[] = ["debug", "info", "warn", "error"];
+  if (logLevel && !validLogLevels.some((level) => level === logLevel))
+    throw Error(`Invalid log level '${logLevel}'. Allowed levels: ${validLogLevels}`);
+  return logLevel as LogLevel;
 }

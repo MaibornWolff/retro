@@ -10,6 +10,7 @@ import { useIsStateUpToDate } from "./useIsStateUpToDate";
 import { findConnection, findUnconnectedUserIds } from "../utils/peerToPeerUtils";
 import { usePeer } from "./usePeer";
 import { isEmpty } from "lodash";
+import { useLogger } from "./useLogger";
 
 export interface UsePeerToPeerOptions<T, E extends BaseAction> {
   state: T;
@@ -46,6 +47,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     usePeerConnections({
       onPeerConnectionReady: handlePeerConnectionReady,
     });
+  const logger = useLogger();
 
   function handlePeerConnectionReady(changes: PeerConnection[]) {
     if (!isModerator(user) || !isStateUpToDate.current) return;
@@ -59,14 +61,14 @@ export function usePeerToPeer<T, E extends BaseAction>({
     const connection = findConnection(peerConnections, userId);
     if (!connection) return;
 
-    console.debug("Sending event", { event, userId });
+    logger.debug("Sending event", { event, userId });
     connection.send(event);
   }
 
   function broadcastAction(action: E | PeerToPeerAction<T>) {
     if (isEmpty(peerConnections)) return;
 
-    console.debug("Broadcasting action", action);
+    logger.debug("Broadcasting action", action);
     peerConnections.forEach((connection) => {
       connection.send(action);
     });
@@ -77,7 +79,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     onUserDisconnected?.(disconnectedUserId);
     if (!closingConnection) return;
 
-    console.debug("Closing connection to", closingConnection.peer);
+    logger.debug("Closing connection to", closingConnection.peer);
     closingConnection.close();
     removePeerConnection(closingConnection.peer);
   }
@@ -90,7 +92,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     connectedUserId: string;
   }) {
     if (!peer) return;
-    console.debug("New user connected", {
+    logger.debug("New user connected", {
       connectedUserIds,
       connectedUserId,
       userId: user.id,
@@ -98,13 +100,13 @@ export function usePeerToPeer<T, E extends BaseAction>({
 
     const unconnectedUserIds = findUnconnectedUserIds(connectedUserIds, user.id, peerConnections);
     if (unconnectedUserIds.length === 0) {
-      console.debug("Connection to all users already established.");
+      logger.debug("Connection to all users already established.");
       return;
     }
 
     const newConnections = unconnectedUserIds.map((id) => peer.connect(id, { reliable: true }));
 
-    console.debug("Peer-Connections established with users:", unconnectedUserIds);
+    logger.debug("Peer-Connections established with users:", unconnectedUserIds);
     addPeerConnection(newConnections);
   }
 
@@ -120,7 +122,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
   }
 
   function handleOnData(data: E | PeerToPeerAction<T>) {
-    console.debug("Received event", data);
+    logger.debug("Received event", data);
     onDataReceived(data);
 
     if (data.type === "KICK") {
@@ -184,7 +186,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     });
 
     peer?.on("error", (error) => {
-      console.debug("Peer Connection Error: ", error);
+      logger.debug("Peer Connection Error: ", error);
     });
 
     return () => {

@@ -8,7 +8,7 @@ $ npm install
 
 ## Create .env file
 
-Create a `.env` file and simply copy the content of `.env.dev` into it.
+Create a `.env` file and simply copy the content of `.env.template` into it.
 The `.env` file should contain everything required to start the application locally.
 
 ## Run dev servers

@@ -5,15 +5,17 @@ import { ClientToServerEvents, ServerToClientEvents } from "@shared/socket";
 import { useUserContext } from "../context/UserContext";
 import { useRoomContext } from "../context/RoomContext";
 import { useConfigurationContext } from "../context/ConfigurationContext";
+import { useLogger } from "./useLogger";
 
 export function useSocket() {
   const { url: backendUrl } = useConfigurationContext().backendUrl;
   const { user } = useUserContext();
   const { roomId } = useRoomContext();
   const socketNamespace = useNamespace();
+  const logger = useLogger();
 
   const socket = useMemo(() => {
-    console.debug(`Established socket connection with: ${backendUrl}`);
+    logger.debug(`Established socket connection with: ${backendUrl}`);
     return io(`${backendUrl}/${socketNamespace}`) as Socket<
       ServerToClientEvents,
       ClientToServerEvents
