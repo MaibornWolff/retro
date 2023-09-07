@@ -4,9 +4,12 @@
 
 ## What is Retro?
 
-Retro is a tool that is used for retrospectives and planning poker sessions. The goal of Retro is to have an easy to use and secure way of having retro and planning poker sessions.
+Retro is a tool that is used for retrospectives and planning poker sessions. The goal of Retro is to have an easy to use
+and secure way of having retro and planning poker sessions.
 
-Retro uses a peer-to-peer approach, where all communication including retro and poker information is shared between users only and never reaches a backend server. The backend server is only used for signaling, which is the initial handshake between the participants in a room. This is possible by following the [WebRTC](https://webrtc.org/) protocol.
+Retro uses a peer-to-peer approach, where all communication including retro and poker information is shared between
+users only and never reaches a backend server. The backend server is only used for signaling, which is the initial
+handshake between the participants in a room. This is possible by following the [WebRTC](https://webrtc.org/) protocol.
 
 ## Retrospective
 
@@ -23,39 +26,38 @@ Retro uses a peer-to-peer approach, where all communication including retro and 
 
 ## Hosting
 
-TBD
+This application requires three services to be running and configured correctly.
+
+| Docker image                                                       | Exposed port |
+| ------------------------------------------------------------------ | ------------ |
+| [Retro Frontend](https://hub.docker.com/r/retroapp/retro-frontend) | 80           |
+| [Retro Backend](https://hub.docker.com/r/retroapp/retro-backend)   | 3001         |
+| [Signaling Server](https://hub.docker.com/r/peerjs/peerjs-server)  | 9000         |
+
+### Environment variables example
+
+#### Frontend
+
+- RETRO_MAX_VOTE_COUNT = 3
+- BACKEND_PROTOCOL = "https"
+- BACKEND_HOST = "my-api-domain.com"
+- BACKEND_PORT = 443
+- SIGNALING_SERVER_PROTOCOL = "https"
+- SIGNALING_SERVER_HOST = "my-signaling-domain.com"
+- SIGNALING_SERVER_PORT = 443
+
+#### Backend
+
+- CORS_ORIGIN = "my-api-domain.com,my-signaling-domain.com"
 
 ## Development
 
-### Install dependencies
-
-```
-$ npm install
-```
-
-### Create .env file
-
-Create a `.env` file and simply copy the content of `.env.dev` into it.
-The `.env` file should contain everything required to start the application locally.
-
-### Run dev servers
-
-```
-$ npm run frontend:dev
-$ npm run backend:dev
-$ npm run signaling:dev
-$ npm run watch
-```
-
-| Application | Port |
-| ----------- | :--: |
-| Frontend    | 3000 |
-| Backend     | 3001 |
-| Signaling   | 3002 |
+Quick start guide can be found [here](./documentation/development.md)
 
 ## Contributing
 
-For information on how to contribute, see [Contributing](https://github.com/MaibornWolff/retro/blob/master/CONTRIBUTING.md)
+For information on how to contribute,
+see [Contributing](https://github.com/MaibornWolff/retro/blob/master/CONTRIBUTING.md)
 
 ## Contributors ✨
 
@@ -90,4 +92,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.
+Contributions of any kind welcome!
