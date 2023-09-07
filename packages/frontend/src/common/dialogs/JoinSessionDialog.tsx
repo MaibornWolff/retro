@@ -15,7 +15,7 @@ import { useUserContext } from "../context/UserContext";
 import { DialogProps, User } from "../types/commonTypes";
 import { generateId } from "../utils/generateId";
 
-import { roomIdExists } from "../adapter/backendAdapter";
+import { useBackendAdapter } from "../adapter/backendAdapter";
 import { useNamespace } from "../hooks/useNamespace";
 import { TextInput } from "../components/TextInput";
 import { useErrorContext } from "../context/ErrorContext";
@@ -47,6 +47,7 @@ export function JoinSessionDialog({
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const namespace = useNamespace();
+  const { roomIdExists } = useBackendAdapter();
 
   function handleClose() {
     setName("");

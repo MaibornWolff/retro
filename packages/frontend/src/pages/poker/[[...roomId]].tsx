@@ -4,19 +4,28 @@ import { ExportRetroContextProvider } from "../../retro/context/ExportRetroConte
 import { RoomContextProvider } from "../../common/context/RoomContext";
 import { PokerPageContent } from "../../poker/components/PokerPageContent";
 import { PokerContextProvider } from "../../poker/context/PokerContext";
+import {
+  GlobalGetServerSideProps,
+  globalGetServerSideProps,
+} from "../../common/utils/globalGetServerSideProps";
+import { ConfigurationContextProvider } from "../../common/context/ConfigurationContext";
 
-const PokerRoomPage = () => {
+const PokerRoomPage = ({ configuration }: GlobalGetServerSideProps) => {
   return (
-    <RoomContextProvider>
-      <UserContextProvider>
-        <PokerContextProvider>
-          <ExportRetroContextProvider>
-            <PokerPageContent />
-          </ExportRetroContextProvider>
-        </PokerContextProvider>
-      </UserContextProvider>
-    </RoomContextProvider>
+    <ConfigurationContextProvider configuration={configuration}>
+      <RoomContextProvider>
+        <UserContextProvider>
+          <PokerContextProvider>
+            <ExportRetroContextProvider>
+              <PokerPageContent />
+            </ExportRetroContextProvider>
+          </PokerContextProvider>
+        </UserContextProvider>
+      </RoomContextProvider>
+    </ConfigurationContextProvider>
   );
 };
+
+export const getServerSideProps = { globalGetServerSideProps };
 
 export default PokerRoomPage;
