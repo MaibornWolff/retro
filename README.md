@@ -1,6 +1,6 @@
 # Retro - Reflect, Refine, Repeat
 
-![github_workflow](https://github.com/MaibornWolff/retro/actions/workflows/test.yml/badge.svg) ![GitHub release](https://img.shields.io/github/release/yduman/retro.svg?style=flat-square) ![GitHub](https://img.shields.io/github/license/yduman/retro.svg?style=flat-square) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+![github_workflow](https://github.com/MaibornWolff/retro/actions/workflows/ci.yml/badge.svg) ![GitHub release](https://img.shields.io/github/release/yduman/retro.svg?style=flat-square) ![GitHub](https://img.shields.io/github/license/yduman/retro.svg?style=flat-square) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 ## What is Retro?
 
