@@ -26,6 +26,6 @@ const PokerRoomPage = ({ configuration }: GlobalGetServerSideProps) => {
   );
 };
 
-export const getServerSideProps = { globalGetServerSideProps };
+export const getServerSideProps = globalGetServerSideProps;
 
 export default PokerRoomPage;
