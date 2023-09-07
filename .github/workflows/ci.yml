@@ -7,12 +7,6 @@ on:
   pull_request:
     branches:
       - master
-  workflow_dispatch:
-    inputs:
-      dockerTag:
-        description: "Docker tag"
-        required: true
-        default: "latest"
 
 jobs:
   build:
@@ -45,42 +39,3 @@ jobs:
       - name: Run e2e tests
         if: ${{ vars.SKIP_E2E != 'true' }}
         run: npm run e2e
-
-  release:
-    runs-on: ubuntu-latest
-    environment: release
-    needs: [build]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: "19"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build app
-        run: npm run build
-
-      - name: Publish Frontend Docker Image
-        uses: elgohr/Publish-Docker-Github-Action@v5
-        with:
-          default_branch: master
-          name: retroapp/retro-frontend
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          tags: ${{ github.event.inputs.dockerTag }}
-          dockerfile: ./packages/frontend/Dockerfile
-
-      - name: Publish Backend Docker Image
-        uses: elgohr/Publish-Docker-Github-Action@v5
-        with:
-          default_branch: master
-          name: retroapp/retro-backend
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          tags: ${{ github.event.inputs.dockerTag }}
-          dockerfile: ./packages/backend/Dockerfile
