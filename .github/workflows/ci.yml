@@ -7,6 +7,12 @@ on:
   pull_request:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      dockerTag:
+        description: "Docker tag"
+        required: true
+        default: "latest"
 
 jobs:
   build:
@@ -66,7 +72,7 @@ jobs:
           name: retroapp/retro-frontend
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          tags: "latest"
+          tags: ${{ github.event.inputs.dockerTag }}
           dockerfile: ./packages/frontend/Dockerfile
 
       - name: Publish Backend Docker Image
@@ -76,5 +82,5 @@ jobs:
           name: retroapp/retro-backend
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          tags: "latest"
+          tags: ${{ github.event.inputs.dockerTag }}
           dockerfile: ./packages/backend/Dockerfile
