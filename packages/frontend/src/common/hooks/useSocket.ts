@@ -4,15 +4,15 @@ import { useNamespace } from "./useNamespace";
 import { ClientToServerEvents, ServerToClientEvents } from "@shared/socket";
 import { useUserContext } from "../context/UserContext";
 import { useRoomContext } from "../context/RoomContext";
-import { configuration } from "@shared/configuration";
+import { useConfigurationContext } from "../context/ConfigurationContext";
 
 export function useSocket() {
+  const { url: backendUrl } = useConfigurationContext().backendUrl;
   const { user } = useUserContext();
   const { roomId } = useRoomContext();
   const socketNamespace = useNamespace();
 
   const socket = useMemo(() => {
-    const backendUrl = configuration.backendUrl.url;
     console.debug(`Established socket connection with: ${backendUrl}`);
     return io(`${backendUrl}/${socketNamespace}`) as Socket<
       ServerToClientEvents,

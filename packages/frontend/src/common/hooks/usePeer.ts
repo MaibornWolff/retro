@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 
 import { useUserContext } from "../context/UserContext";
-import { configuration } from "@shared/configuration";
 import type Peer from "peerjs";
 import { isClientSide } from "../utils/isClientSide";
-
-const peerOptions = {
-  host: configuration.signalingServerUrl.host,
-  port: configuration.signalingServerUrl.port,
-};
+import { useConfigurationContext } from "../context/ConfigurationContext";
 
 export function usePeer() {
+  const { signalingServerUrl } = useConfigurationContext();
   const [peer, setPeer] = useState<Peer | undefined>(undefined);
   const { user } = useUserContext();
+
+  const peerOptions = {
+    host: signalingServerUrl.host,
+    port: signalingServerUrl.port,
+  };
 
   useEffect(() => {
     if (!user.id || !isClientSide()) return;
@@ -21,6 +22,7 @@ export function usePeer() {
       const newPeer = new Peer(user.id, peerOptions);
       setPeer(newPeer);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.id]);
 
   return peer;
