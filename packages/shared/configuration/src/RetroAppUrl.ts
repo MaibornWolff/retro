@@ -18,8 +18,8 @@ export class RetroAppUrl {
   }
 
   private static getValidatedProtocol(protocol: string) {
-    if (protocol.startsWith("http")) return "http";
-    if (protocol.startsWith("https")) return "https";
+    if (protocol === "http") return "http";
+    if (protocol === "https") return "https";
     throw new Error("Invalid protocol. Must be 'http' or 'https'.");
   }
 
