@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import {
   Button,
   Dialog,
@@ -7,7 +7,6 @@ import {
   DialogTitle,
   FormControl,
   MenuItem,
-  SelectChangeEvent,
   Slider,
   TextField,
   Typography,
@@ -23,11 +22,11 @@ export function EstimationUnitSetupDialog({ isOpen, close }: DialogProps) {
   const [unitRange, setUnitRange] = useState<number>(pokerState.pokerUnit.unitRangeHigh);
   const fullScreen = useFullscreen();
 
-  function handleUnitChange(event: SelectChangeEvent) {
+  function handleUnitChange(event: ChangeEvent<HTMLInputElement>) {
     setPokerUnit(event.target.value as PokerUnitType);
   }
 
-  function handleFibRangeChange(event: any, newValue: number | number[]) {
+  function handleFibRangeChange(event: Event, newValue: number | number[]) {
     setUnitRange(newValue as number);
   }
 
@@ -36,6 +35,8 @@ export function EstimationUnitSetupDialog({ isOpen, close }: DialogProps) {
     handleSetPokerUnit(newPokerUnit);
     close();
   }
+
+  const showRangeSlider = pokerUnit !== "tshirt";
 
   return (
     <Dialog
@@ -52,7 +53,7 @@ export function EstimationUnitSetupDialog({ isOpen, close }: DialogProps) {
           select
           id="poker-unit-select"
           value={pokerUnit}
-          onChange={() => handleUnitChange}
+          onChange={handleUnitChange}
           label="Poker Unit"
           fullWidth
           sx={{ my: 2 }}
@@ -61,7 +62,7 @@ export function EstimationUnitSetupDialog({ isOpen, close }: DialogProps) {
           <MenuItem value="tshirt">T-Shirt Size</MenuItem>
           <MenuItem value="naturalnumbers">Natural Numbers</MenuItem>
         </TextField>
-        {pokerUnit === "tshirt" ? null : (
+        {showRangeSlider && (
           <FormControl fullWidth>
             <Typography id="range-slider" gutterBottom>
               Choose your maximum value
