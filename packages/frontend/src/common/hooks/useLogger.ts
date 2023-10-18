@@ -1,5 +1,5 @@
 import { useConfigurationContext } from "../context/ConfigurationContext";
-import { BrowserLogger } from "@shared/logger";
+import { BrowserLogger } from "@shared/browserlogger";
 
 export function useLogger() {
   const { logLevel } = useConfigurationContext();

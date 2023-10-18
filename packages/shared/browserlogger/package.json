@@ -1,0 +1,19 @@
+{
+  "name": "@shared/browserlogger",
+  "version": "1.0.0",
+  "description": "Provides logger for the browser",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "build": "rimraf dist && tsc -b",
+    "build:watch": "rimraf dist && tsc -b --watch"
+  },
+  "dependencies": {
+    "@shared/configuration": "*"
+  }
+}
