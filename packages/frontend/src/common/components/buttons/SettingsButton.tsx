@@ -37,14 +37,6 @@ export function SettingsButton({ children }: SettingsButtonProps) {
         keepMounted
         id="settings-appbar"
         anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
         open={open}
         onClose={handleClose}
         onClick={handleClose}
