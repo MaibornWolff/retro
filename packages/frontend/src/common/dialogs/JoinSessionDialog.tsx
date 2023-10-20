@@ -21,6 +21,7 @@ import { TextInput } from "../components/TextInput";
 import { useErrorContext } from "../context/ErrorContext";
 import { LocalStorage } from "../utils/localStorage";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { CallToActionButton } from "../components/buttons/CallToActionButton";
 
 interface JoinSessionDialogProps extends DialogProps {
   roomId: string;
@@ -112,9 +113,9 @@ export function JoinSessionDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSubmit} disabled={!isValid}>
+        <CallToActionButton onClick={handleSubmit} disabled={!isValid}>
           Join
-        </Button>
+        </CallToActionButton>
       </DialogActions>
     </Dialog>
   );

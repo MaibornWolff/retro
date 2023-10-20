@@ -6,6 +6,7 @@ import { TextInput } from "../../../common/components/TextInput";
 import { RetroCard } from "../../types/retroTypes";
 import { DialogProps } from "../../../common/types/commonTypes";
 import { useFullscreen } from "../../hooks/useFullscreen";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 interface EditCardDialogProps extends DialogProps {
   card: RetroCard;
@@ -69,9 +70,9 @@ export function EditCardDialog({ isOpen, close, card, columnIndex }: EditCardDia
       </DialogContent>
       <DialogActions>
         <Button onClick={close}>Cancel</Button>
-        <Button onClick={handleSave} disabled={!isValid}>
+        <CallToActionButton onClick={handleSave} disabled={!isValid}>
           Save
-        </Button>
+        </CallToActionButton>
       </DialogActions>
     </Dialog>
   );

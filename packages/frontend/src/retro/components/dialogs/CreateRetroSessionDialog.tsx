@@ -23,6 +23,7 @@ import { useRoomContext } from "../../../common/context/RoomContext";
 import { useRouter } from "next/navigation";
 import { LocalStorage } from "../../../common/utils/localStorage";
 import { useLocalStorage } from "../../../common/hooks/useLocalStorage";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -126,9 +127,12 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSubmit} disabled={!isNameValid || !isTitleValid || !format}>
+        <CallToActionButton
+          onClick={handleSubmit}
+          disabled={!isNameValid || !isTitleValid || !format}
+        >
           Create
-        </Button>
+        </CallToActionButton>
       </DialogActions>
     </Dialog>
   );

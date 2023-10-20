@@ -19,6 +19,7 @@ import { TextInput } from "../../../common/components/TextInput";
 import { useRouter } from "next/navigation";
 import { LocalStorage } from "../../../common/utils/localStorage";
 import { useLocalStorage } from "../../../common/hooks/useLocalStorage";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -92,9 +93,9 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSubmit} disabled={!isValid}>
+        <CallToActionButton onClick={handleSubmit} disabled={!isValid}>
           Join
-        </Button>
+        </CallToActionButton>
       </DialogActions>
     </Dialog>
   );

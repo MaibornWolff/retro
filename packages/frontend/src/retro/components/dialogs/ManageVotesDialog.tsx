@@ -13,6 +13,7 @@ import {
 import { DialogProps } from "../../../common/types/commonTypes";
 import { useFullscreen } from "../../hooks/useFullscreen";
 import { useRetroContext } from "../../context/RetroContext";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 export function ManageVotesDialog({ isOpen, close }: DialogProps) {
   const fullScreen = useFullscreen();
@@ -72,7 +73,7 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
       <DialogActions>
         <Button onClick={handleReset}>Reset Votes</Button>
         <Button onClick={handleCancel}>Cancel</Button>
-        <Button onClick={handleSave}>Save</Button>
+        <CallToActionButton onClick={handleSave}>Save</CallToActionButton>
       </DialogActions>
     </Dialog>
   );

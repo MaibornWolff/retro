@@ -9,6 +9,7 @@ import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { DialogProps } from "../../../common/types/commonTypes";
 import { useFullscreen } from "../../hooks/useFullscreen";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 interface CreateCardDialogProps extends DialogProps {
   columnIndex: number;
@@ -79,9 +80,9 @@ export function CreateCardDialog({ isOpen, close, columnIndex }: CreateCardDialo
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSubmit} disabled={!isValid}>
+        <CallToActionButton onClick={handleSubmit} disabled={!isValid}>
           Create
-        </Button>
+        </CallToActionButton>
       </DialogActions>
     </Dialog>
   );

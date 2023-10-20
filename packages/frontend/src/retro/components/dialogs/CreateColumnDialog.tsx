@@ -15,6 +15,7 @@ import { RetroColumn } from "../../types/retroTypes";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRetroContext } from "../../context/RetroContext";
 import { DialogProps } from "../../../common/types/commonTypes";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 export function CreateColumnDialog({ isOpen, close }: DialogProps) {
   const {
@@ -73,9 +74,9 @@ export function CreateColumnDialog({ isOpen, close }: DialogProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={closeDialog}>Cancel</Button>
-        <Button onClick={handleSubmit} disabled={!isValid}>
+        <CallToActionButton onClick={handleSubmit} disabled={!isValid}>
           Create
-        </Button>
+        </CallToActionButton>
       </DialogActions>
     </Dialog>
   );

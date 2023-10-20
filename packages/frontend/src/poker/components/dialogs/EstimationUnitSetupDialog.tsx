@@ -15,6 +15,7 @@ import { DialogProps } from "../../../common/types/commonTypes";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 import { PokerUnit, PokerUnitType } from "../../types/pokerTypes";
 import { usePokerContext } from "../../context/PokerContext";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 export function EstimationUnitSetupDialog({ isOpen, close }: DialogProps) {
   const { pokerState, handleSetPokerUnit } = usePokerContext();
@@ -79,7 +80,7 @@ export function EstimationUnitSetupDialog({ isOpen, close }: DialogProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={close}>Cancel</Button>
-        <Button onClick={handleSubmit}>Save</Button>
+        <CallToActionButton onClick={handleSubmit}>Save</CallToActionButton>
       </DialogActions>
     </Dialog>
   );
