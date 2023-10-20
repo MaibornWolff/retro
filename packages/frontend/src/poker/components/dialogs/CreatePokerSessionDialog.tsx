@@ -17,6 +17,8 @@ import { generateId } from "../../../common/utils/generateId";
 import { DialogProps, User } from "../../../common/types/commonTypes";
 import { TextInput } from "../../../common/components/TextInput";
 import { useRouter } from "next/navigation";
+import { LocalStorage } from "../../../common/utils/localStorage";
+import { useLocalStorage } from "../../../common/hooks/useLocalStorage";
 
 export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -33,6 +35,10 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { push } = useRouter();
+
+  useLocalStorage(() => {
+    setName(LocalStorage.getUserName());
+  });
 
   function handleClose() {
     setName("");
@@ -54,6 +60,7 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
     };
     setRoomId(roomId);
     setUser(newUser);
+    LocalStorage.setUserName(name);
     handleJoinSession(newUser);
     push(`/poker/${roomId}`);
     handleClose();

@@ -21,6 +21,8 @@ import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRoomContext } from "../../../common/context/RoomContext";
 import { useRouter } from "next/navigation";
+import { LocalStorage } from "../../../common/utils/localStorage";
+import { useLocalStorage } from "../../../common/hooks/useLocalStorage";
 
 export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const {
@@ -48,6 +50,10 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { push } = useRouter();
 
+  useLocalStorage(() => {
+    setName(LocalStorage.getUserName());
+  });
+
   function handleClose() {
     setName("");
     setTitle("");
@@ -72,6 +78,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
     setRoomId(roomId);
     handleSetRetroState({ ...retroState, title });
     setUser(newUser);
+    LocalStorage.setUserName(name);
     handleJoinSession(newUser);
     handleChangeRetroFormat(format);
     push(`/retro/${roomId}`);

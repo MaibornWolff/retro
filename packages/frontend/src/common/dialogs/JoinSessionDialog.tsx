@@ -19,6 +19,8 @@ import { useBackendAdapter } from "../adapter/backendAdapter";
 import { useNamespace } from "../hooks/useNamespace";
 import { TextInput } from "../components/TextInput";
 import { useErrorContext } from "../context/ErrorContext";
+import { LocalStorage } from "../utils/localStorage";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface JoinSessionDialogProps extends DialogProps {
   roomId: string;
@@ -49,6 +51,10 @@ export function JoinSessionDialog({
   const namespace = useNamespace();
   const { roomIdExists } = useBackendAdapter();
 
+  useLocalStorage(() => {
+    setName(LocalStorage.getUserName());
+  });
+
   function handleClose() {
     setName("");
     close();
@@ -73,6 +79,7 @@ export function JoinSessionDialog({
     };
     setRoomId(roomId);
     setUser(newUser);
+    LocalStorage.setUserName(name);
     onAddToWaitingList({ userId: newUser.id, userName: name });
     navigateToRoom();
     handleClose();
