@@ -17,7 +17,8 @@ import { CallToActionButton } from "../../../common/components/buttons/CallToAct
 
 export function ManageVotesDialog({ isOpen, close }: DialogProps) {
   const fullScreen = useFullscreen();
-  const { retroState, handleChangeMaxVote, handleResetVotes } = useRetroContext();
+  const { retroState, handleChangeMaxVote, handleResetVotes, handleIsVotingEnabledChanged } =
+    useRetroContext();
   const [voteCount, setVoteCount] = useState(retroState.maxVoteCount);
 
   function handleCancel() {
@@ -29,8 +30,9 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
     setVoteCount(newValue as number);
   }
 
-  function handleSave() {
+  function handleStart() {
     handleChangeMaxVote(voteCount);
+    handleIsVotingEnabledChanged(true);
     close();
   }
 
@@ -71,9 +73,9 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleReset}>Reset Votes</Button>
         <Button onClick={handleCancel}>Cancel</Button>
-        <CallToActionButton onClick={handleSave}>Save</CallToActionButton>
+        <Button onClick={handleReset}>Reset Votes</Button>
+        <CallToActionButton onClick={handleStart}>Start Voting</CallToActionButton>
       </DialogActions>
     </Dialog>
   );
