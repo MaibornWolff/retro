@@ -20,7 +20,6 @@ import { QrCodeMenuItem } from "./buttons/QrCodeMenuItem";
 import { ExportRetroImageMenuItem } from "./buttons/ExportRetroImageMenuItem";
 import { ExportRetroMenuItem } from "./buttons/ExportRetroMenuItem";
 import { ImportRetroMenuItem } from "./buttons/ImportRetroMenuItem";
-import { ManageVotesMenuItem } from "./buttons/ManageVotesMenuItem";
 import { FlexBox } from "../../common/components/FlexBox";
 import { NewParticipantSnackbar } from "../../common/components/NewParticipantSnackbar";
 import { RetroActionButtons } from "./RetroActionButtons";
@@ -103,7 +102,6 @@ export function RetroPageContent() {
         onRejectJoinUser={handleRejectJoinUser}
         onTransferModeratorRole={handleTransferModeratorRole}
       >
-        <ManageVotesMenuItem />
         <ExportRetroImageMenuItem />
         <ExportRetroMenuItem />
         <ImportRetroMenuItem />

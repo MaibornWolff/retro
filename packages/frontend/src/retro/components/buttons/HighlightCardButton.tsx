@@ -34,7 +34,6 @@ export function HighlightCardButton({
 
   return (
     <TooltipIconButton
-      sx={{ pt: 1, pr: 1 }}
       tooltipText="Highlight Card"
       aria-label="Highlight"
       onClick={toggleHighlight}
