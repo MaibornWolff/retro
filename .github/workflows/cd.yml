@@ -28,7 +28,7 @@ jobs:
           name: retroapp/retro-frontend
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          tags: ${{ github.event.inputs.dockerTag }}
+          tags: "${{ github.event.inputs.dockerTag }}, latest"
           dockerfile: ./packages/frontend/Dockerfile
 
       - name: Publish Backend Docker Image
@@ -38,5 +38,5 @@ jobs:
           name: retroapp/retro-backend
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          tags: ${{ github.event.inputs.dockerTag }}
+          tags: "${{ github.event.inputs.dockerTag }}, latest"
           dockerfile: ./packages/backend/Dockerfile
