@@ -12,7 +12,7 @@ import React from "react";
 import { useValidatedTextInput } from "../hooks/useValidatedTextInput";
 import { useRoomContext } from "../context/RoomContext";
 import { useUserContext } from "../context/UserContext";
-import { DialogProps, User } from "../types/commonTypes";
+import { User } from "../types/commonTypes";
 import { generateId } from "../utils/generateId";
 
 import { useBackendAdapter } from "../adapter/backendAdapter";
@@ -22,20 +22,16 @@ import { useErrorContext } from "../context/ErrorContext";
 import { LocalStorage } from "../utils/localStorage";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { CallToActionButton } from "../components/buttons/CallToActionButton";
+import { useDialog } from "../hooks/useDialog";
+import { useRedirect } from "../hooks/useRedirect";
+import { useRoomIdFromPath } from "../hooks/useRoomIdFromPath";
 
-interface JoinSessionDialogProps extends DialogProps {
-  roomId: string;
+interface JoinSessionDialogProps {
   onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
-  navigateToRoom: () => void;
 }
 
-export function JoinSessionDialog({
-  isOpen,
-  close,
-  roomId,
-  onAddToWaitingList,
-  navigateToRoom,
-}: JoinSessionDialogProps) {
+export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps) {
+  const { isOpen, closeDialog } = useDialog(true);
   const {
     value: name,
     setValue: setName,
@@ -44,8 +40,10 @@ export function JoinSessionDialog({
     handleChange,
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
+  const { redirectBackToHome, redirectToRoom } = useRedirect();
   const { setError } = useErrorContext();
   const { setRoomId } = useRoomContext();
+  const roomId = useRoomIdFromPath();
   const { user, setUser } = useUserContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -58,14 +56,15 @@ export function JoinSessionDialog({
 
   function handleClose() {
     setName("");
-    close();
+    closeDialog();
     setIsError(false);
   }
 
   async function handleSubmit() {
     const roomExists = await roomIdExists({ roomId, namespace });
-    if (!roomExists) {
+    if (!roomExists || !roomId) {
       setError({ type: "ROOM_NOT_FOUND" });
+      return;
     }
     if (!isValid || user.id) {
       setIsError(true);
@@ -82,7 +81,7 @@ export function JoinSessionDialog({
     setUser(newUser);
     LocalStorage.setUserName(name);
     onAddToWaitingList({ userId: newUser.id, userName: name });
-    navigateToRoom();
+    redirectToRoom(roomId);
     handleClose();
   }
 
@@ -92,7 +91,6 @@ export function JoinSessionDialog({
       maxWidth="sm"
       fullScreen={fullScreen}
       open={isOpen}
-      onClose={handleClose}
       aria-labelledby="join-poker-dialog-title"
     >
       <DialogTitle id="join-poker-dialog-title">Join Session</DialogTitle>
@@ -112,7 +110,7 @@ export function JoinSessionDialog({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={redirectBackToHome}>Back to Home</Button>
         <CallToActionButton onClick={handleSubmit} disabled={!isValid}>
           Join
         </CallToActionButton>

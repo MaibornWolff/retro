@@ -15,6 +15,7 @@ import { EstimationUnitSetupMenuItem } from "./buttons/EstimationUnitSetupMenuIt
 import { NewParticipantSnackbar } from "../../common/components/NewParticipantSnackbar";
 import { PokerActionButtons } from "./PokerActionButtons";
 import { useRouter } from "next/navigation";
+import { SetupSessionDialog } from "../../common/dialogs/SetupSessionDialog";
 
 export function PokerPageContent() {
   const { push } = useRouter();
@@ -25,6 +26,7 @@ export function PokerPageContent() {
     handleAcceptJoinUser,
     handleRejectJoinUser,
     handleTransferModeratorRole,
+    handleAddToWaitingList,
   } = usePokerContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
@@ -97,6 +99,7 @@ export function PokerPageContent() {
         isSnackbarOpen={snackbarOpen}
         handleCloseSnackbar={handleCloseSnackbar}
       />
+      <SetupSessionDialog onAddToWaitingList={handleAddToWaitingList} />
     </>
   );
 }

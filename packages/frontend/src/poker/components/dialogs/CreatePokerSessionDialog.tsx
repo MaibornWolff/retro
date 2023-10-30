@@ -14,14 +14,16 @@ import { useRoomContext } from "../../../common/context/RoomContext";
 import { useUserContext } from "../../../common/context/UserContext";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { generateId } from "../../../common/utils/generateId";
-import { DialogProps, User } from "../../../common/types/commonTypes";
+import { User } from "../../../common/types/commonTypes";
 import { TextInput } from "../../../common/components/TextInput";
-import { useRouter } from "next/navigation";
 import { LocalStorage } from "../../../common/utils/localStorage";
 import { useLocalStorage } from "../../../common/hooks/useLocalStorage";
 import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
+import { useDialog } from "../../../common/hooks/useDialog";
+import { useRedirect } from "../../../common/hooks/useRedirect";
 
-export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
+export function CreatePokerSessionDialog() {
+  const { isOpen, closeDialog } = useDialog(true);
   const {
     value: name,
     setValue: setName,
@@ -30,12 +32,12 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
     handleChange,
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
+  const { redirectBackToHome, redirectToRoom } = useRedirect();
   const { user, setUser } = useUserContext();
   const { handleJoinSession } = usePokerContext();
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const { push } = useRouter();
 
   useLocalStorage(() => {
     setName(LocalStorage.getUserName());
@@ -43,7 +45,7 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
 
   function handleClose() {
     setName("");
-    close();
+    closeDialog();
     setIsError(false);
   }
 
@@ -63,7 +65,7 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
     setUser(newUser);
     LocalStorage.setUserName(name);
     handleJoinSession(newUser);
-    push(`/poker/${roomId}`);
+    redirectToRoom(roomId);
     handleClose();
   }
   return (
@@ -72,7 +74,6 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
       maxWidth="sm"
       fullScreen={fullScreen}
       open={isOpen}
-      onClose={handleClose}
       aria-labelledby="join-session-dialog-title"
     >
       <DialogTitle id="join-session-dialog-title">Create Planning Poker Session</DialogTitle>
@@ -92,9 +93,9 @@ export function CreatePokerSessionDialog({ isOpen, close }: DialogProps) {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={redirectBackToHome}>Back to Home</Button>
         <CallToActionButton onClick={handleSubmit} disabled={!isValid}>
-          Join
+          Create
         </CallToActionButton>
       </DialogActions>
     </Dialog>
