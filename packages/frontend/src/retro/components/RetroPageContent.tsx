@@ -24,6 +24,7 @@ import { FlexBox } from "../../common/components/FlexBox";
 import { NewParticipantSnackbar } from "../../common/components/NewParticipantSnackbar";
 import { RetroActionButtons } from "./RetroActionButtons";
 import { useRouter } from "next/navigation";
+import { SetupSessionDialog } from "../../common/dialogs/SetupSessionDialog";
 
 export function RetroPageContent() {
   const { push } = useRouter();
@@ -34,6 +35,7 @@ export function RetroPageContent() {
     handleAcceptJoinUser,
     handleRejectJoinUser,
     handleTransferModeratorRole,
+    handleAddToWaitingList,
   } = useRetroContext();
   const { user, resetUser } = useUserContext();
   const { error } = useErrorContext();
@@ -126,6 +128,7 @@ export function RetroPageContent() {
         isSnackbarOpen={snackbarOpen}
         handleCloseSnackbar={handleCloseSnackbar}
       />
+      <SetupSessionDialog onAddToWaitingList={handleAddToWaitingList} />
     </>
   );
 }

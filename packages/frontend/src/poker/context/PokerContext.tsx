@@ -43,7 +43,7 @@ export interface PokerContextValues {
 
 const initialState: PokerState = {
   story: {
-    storyTitle: "",
+    storyTitle: "User Story",
     storyUrl: "",
   },
   pokerUnit: {

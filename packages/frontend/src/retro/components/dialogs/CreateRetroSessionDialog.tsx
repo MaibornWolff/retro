@@ -15,17 +15,20 @@ import { RetroFormatSelect } from "../RetroFormatSelect";
 import { defaultFormat } from "../../config/formatConfig";
 import { useUserContext } from "../../../common/context/UserContext";
 import { useRetroContext } from "../../context/RetroContext";
-import { DialogProps, User } from "../../../common/types/commonTypes";
+import { User } from "../../../common/types/commonTypes";
 import { generateId } from "../../../common/utils/generateId";
 import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRoomContext } from "../../../common/context/RoomContext";
-import { useRouter } from "next/navigation";
 import { LocalStorage } from "../../../common/utils/localStorage";
 import { useLocalStorage } from "../../../common/hooks/useLocalStorage";
 import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
+import { useDialog } from "../../../common/hooks/useDialog";
+import { useRedirect } from "../../../common/hooks/useRedirect";
 
-export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
+export function CreateRetroSessionDialog() {
+  const { isOpen, closeDialog } = useDialog(true);
+
   const {
     value: title,
     setValue: setTitle,
@@ -43,13 +46,13 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
     isValid: isNameValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
   const [format, setFormat] = useState(defaultFormat);
+  const { redirectBackToHome, redirectToRoom } = useRedirect();
   const { retroState, handleChangeRetroFormat, handleSetRetroState, handleJoinSession } =
     useRetroContext();
   const { user, setUser } = useUserContext();
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const { push } = useRouter();
 
   useLocalStorage(() => {
     setName(LocalStorage.getUserName());
@@ -58,7 +61,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
   function handleClose() {
     setName("");
     setTitle("");
-    close();
+    closeDialog();
     setIsNameError(false);
     setIsTitleError(false);
   }
@@ -82,7 +85,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
     LocalStorage.setUserName(name);
     handleJoinSession(newUser);
     handleChangeRetroFormat(format);
-    push(`/retro/${roomId}`);
+    redirectToRoom(roomId);
     handleClose();
   }
 
@@ -92,7 +95,6 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
       maxWidth="xs"
       fullScreen={fullScreen}
       open={isOpen}
-      onClose={handleClose}
       aria-labelledby="form-dialog-create-retro"
     >
       <DialogTitle id="form-dialog-create-retro">Create Retro Session</DialogTitle>
@@ -126,7 +128,7 @@ export function CreateRetroSessionDialog({ isOpen, close }: DialogProps) {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={redirectBackToHome}>Back to Home</Button>
         <CallToActionButton
           onClick={handleSubmit}
           disabled={!isNameValid || !isTitleValid || !format}
