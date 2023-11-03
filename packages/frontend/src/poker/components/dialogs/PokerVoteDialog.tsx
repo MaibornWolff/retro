@@ -7,23 +7,17 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
-import { PokerFibonacciSlider } from "../sliders/PokerFibonacciSlider";
-import { PokerNaturalNumbersSlider } from "../sliders/PokerNaturalNumbersSlider";
-import { PokerTShirtSlider } from "../sliders/PokerTShirtSlider";
 import { DialogProps } from "../../../common/types/commonTypes";
 import { useUserContext } from "../../../common/context/UserContext";
 import { usePokerContext } from "../../context/PokerContext";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
-
-function valueText(value: number) {
-  return `${value}`;
-}
+import { PokerVoteSlider } from "../PokerVoteSlider";
 
 export function PokerVoteDialog({ isOpen, close }: DialogProps) {
   const [vote, setVote] = useState<number>(0);
   const fullScreen = useFullscreen();
-  const { pokerState, handleSendVote } = usePokerContext();
+  const { handleSendVote } = usePokerContext();
   const { user } = useUserContext();
 
   function handleSliderChange(event: any, newValue: number | number[]) {
@@ -41,32 +35,6 @@ export function PokerVoteDialog({ isOpen, close }: DialogProps) {
     handleClose();
   }
 
-  function renderSlider() {
-    const { pokerUnit } = pokerState;
-    switch (pokerUnit.unitType) {
-      case "fibonacci":
-        return (
-          <PokerFibonacciSlider
-            maxValue={pokerUnit.unitRangeHigh}
-            onChange={handleSliderChange}
-            valueText={valueText}
-          />
-        );
-      case "naturalnumbers":
-        return (
-          <PokerNaturalNumbersSlider
-            maxValue={pokerUnit.unitRangeHigh}
-            onChange={handleSliderChange}
-            valueText={valueText}
-          />
-        );
-      case "tshirt":
-        return <PokerTShirtSlider onChange={handleSliderChange} />;
-      default:
-        return null;
-    }
-  }
-
   return (
     <Dialog
       fullWidth
@@ -81,7 +49,7 @@ export function PokerVoteDialog({ isOpen, close }: DialogProps) {
         <Typography id="vote-slider-label" gutterBottom>
           Estimation
         </Typography>
-        {renderSlider()}
+        <PokerVoteSlider onSliderChange={handleSliderChange} />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
