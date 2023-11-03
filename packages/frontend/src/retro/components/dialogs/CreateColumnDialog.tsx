@@ -31,9 +31,9 @@ export function CreateColumnDialog({ isOpen, close }: DialogProps) {
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   function closeDialog() {
+    close();
     setColumnTitle("");
     setIsError(false);
-    close();
   }
 
   function handleSubmit() {

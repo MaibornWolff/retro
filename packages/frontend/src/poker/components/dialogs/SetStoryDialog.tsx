@@ -36,10 +36,10 @@ export function SetStoryDialog({ isOpen, close }: DialogProps) {
   } = useValidatedTextInput({ initialValue: pokerState.story.storyUrl });
 
   function closeDialog() {
+    close();
     setStoryTitle(pokerState.story.storyTitle);
     setStoryUrl(pokerState.story.storyUrl ?? "");
     setIsStoryTitleError(false);
-    close();
   }
 
   function handleSubmit() {
