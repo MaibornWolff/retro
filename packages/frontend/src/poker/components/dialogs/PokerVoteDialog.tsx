@@ -14,6 +14,7 @@ import { DialogProps } from "../../../common/types/commonTypes";
 import { useUserContext } from "../../../common/context/UserContext";
 import { usePokerContext } from "../../context/PokerContext";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 function valueText(value: number) {
   return `${value}`;
@@ -84,7 +85,7 @@ export function PokerVoteDialog({ isOpen, close }: DialogProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <CallToActionButton onClick={handleSubmit}>Vote</CallToActionButton>
       </DialogActions>
     </Dialog>
   );

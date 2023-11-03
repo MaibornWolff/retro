@@ -3,10 +3,11 @@ import React, { useState } from "react";
 interface UseValidatedTextInputOptions {
   minLength?: number;
   maxLength?: number;
+  initialValue?: string;
 }
 
 export function useValidatedTextInput(options: UseValidatedTextInputOptions | undefined = {}) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(options.initialValue ?? "");
   const [isError, setIsError] = useState(false);
 
   function isValid(input: string) {

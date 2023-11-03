@@ -12,9 +12,10 @@ import { TextInput } from "../../../common/components/TextInput";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { usePokerContext } from "../../context/PokerContext";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 export function SetStoryDialog({ isOpen, close }: DialogProps) {
-  const { handleSetUserStory } = usePokerContext();
+  const { handleSetUserStory, pokerState } = usePokerContext();
   const fullScreen = useFullscreen();
   const {
     value: storyTitle,
@@ -23,17 +24,21 @@ export function SetStoryDialog({ isOpen, close }: DialogProps) {
     setIsError: setIsStoryTitleError,
     handleChange: handleStoryTitleChange,
     isValid: isStoryTitleValid,
-  } = useValidatedTextInput({ minLength: 1, maxLength: 400 });
+  } = useValidatedTextInput({
+    minLength: 1,
+    maxLength: 400,
+    initialValue: pokerState.story.storyTitle,
+  });
   const {
     value: storyUrl,
     setValue: setStoryUrl,
     handleChange: handleStoryUrlChange,
-  } = useValidatedTextInput();
+  } = useValidatedTextInput({ initialValue: pokerState.story.storyUrl });
 
   function closeDialog() {
-    setStoryTitle("");
+    setStoryTitle(pokerState.story.storyTitle);
+    setStoryUrl(pokerState.story.storyUrl ?? "");
     setIsStoryTitleError(false);
-    setStoryUrl("");
     close();
   }
 
@@ -57,7 +62,7 @@ export function SetStoryDialog({ isOpen, close }: DialogProps) {
       onClose={closeDialog}
       aria-labelledby="set-story-poker-dialog-title"
     >
-      <DialogTitle id="set-story-poker-dialog-title">User Story to Discuss</DialogTitle>
+      <DialogTitle id="set-story-poker-dialog-title">User Story to discuss</DialogTitle>
       <DialogContent>
         <DialogContentText>
           Provide the title of the user story and optionally an URL linking to it.
@@ -82,9 +87,9 @@ export function SetStoryDialog({ isOpen, close }: DialogProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={closeDialog}>Cancel</Button>
-        <Button onClick={handleSubmit} disabled={!isStoryTitleValid}>
+        <CallToActionButton onClick={handleSubmit} disabled={!isStoryTitleValid}>
           Set Story
-        </Button>
+        </CallToActionButton>
       </DialogActions>
     </Dialog>
   );
