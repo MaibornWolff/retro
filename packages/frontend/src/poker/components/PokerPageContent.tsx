@@ -97,7 +97,7 @@ export function PokerPageContent() {
       </FlexBox>
       <PokerTitle />
       <PokerUsers />
-      {pokerState.showResults ? <PokerStats /> : null}
+      {pokerState.showResults && <PokerStats />}
       <NewParticipantSnackbar
         isSnackbarOpen={snackbarOpen}
         handleCloseSnackbar={handleCloseSnackbar}
