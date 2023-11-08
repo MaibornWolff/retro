@@ -1,13 +1,10 @@
 import React from "react";
-import { FlexBox } from "../../common/components/FlexBox";
 import { ResetVotesButton } from "./buttons/ResetVotesButton";
 import { PokerResultButton } from "./buttons/PokerResultButton";
+import { usePokerContext } from "../context/PokerContext";
 
 export function PokerActionButtons() {
-  return (
-    <FlexBox flexDirection="row" p={1}>
-      <ResetVotesButton />
-      <PokerResultButton />
-    </FlexBox>
-  );
+  const { pokerState } = usePokerContext();
+  if (pokerState.showResults) return <ResetVotesButton />;
+  return <PokerResultButton />;
 }

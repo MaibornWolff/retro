@@ -16,6 +16,7 @@ import { NewParticipantSnackbar } from "../../common/components/NewParticipantSn
 import { PokerActionButtons } from "./PokerActionButtons";
 import { useRouter } from "next/navigation";
 import { SetupSessionDialog } from "../../common/dialogs/SetupSessionDialog";
+import { FlexBox } from "../../common/components/FlexBox";
 
 export function PokerPageContent() {
   const { push } = useRouter();
@@ -91,7 +92,9 @@ export function PokerPageContent() {
       >
         <EstimationUnitSetupMenuItem />
       </AppHeader>
-      <PokerActionButtons />
+      <FlexBox justifyContent="center" mt={2}>
+        <PokerActionButtons />
+      </FlexBox>
       <PokerTitle />
       <PokerUsers />
       {pokerState.showResults ? <PokerStats /> : null}
