@@ -10,6 +10,7 @@ import {
 import { DialogProps } from "../../../common/types/commonTypes";
 import { useFullscreen } from "../../../retro/hooks/useFullscreen";
 import { usePokerContext } from "../../context/PokerContext";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 export function ResetVotesDialog({ isOpen, close }: DialogProps) {
   const { handleResetUserStory } = usePokerContext();
@@ -36,7 +37,7 @@ export function ResetVotesDialog({ isOpen, close }: DialogProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={close}>No</Button>
-        <Button onClick={handleClick}>Yes</Button>
+        <CallToActionButton onClick={handleClick}>Yes</CallToActionButton>
       </DialogActions>
     </Dialog>
   );

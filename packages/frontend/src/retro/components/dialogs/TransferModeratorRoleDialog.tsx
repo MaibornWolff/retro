@@ -13,6 +13,7 @@ import {
 import { DialogProps, User } from "../../../common/types/commonTypes";
 import { useUserContext } from "../../../common/context/UserContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 interface TransferModeratorRoleDialogProps extends DialogProps {
   participant: User;
@@ -53,7 +54,9 @@ export function TransferModeratorRoleDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={close}>Cancel</Button>
-        <Button onClick={handleTransferModeratorRoleClick}>Yes, transfer</Button>
+        <CallToActionButton onClick={handleTransferModeratorRoleClick}>
+          Yes, transfer
+        </CallToActionButton>
       </DialogActions>
     </Dialog>
   );
