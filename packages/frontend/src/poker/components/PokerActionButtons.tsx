@@ -5,6 +5,7 @@ import { usePokerContext } from "../context/PokerContext";
 
 export function PokerActionButtons() {
   const { pokerState } = usePokerContext();
+
   if (pokerState.showResults) return <ResetVotesButton />;
   return <PokerResultButton />;
 }
