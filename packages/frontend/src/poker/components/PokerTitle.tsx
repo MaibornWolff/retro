@@ -8,25 +8,15 @@ import { SetStoryDialog } from "./dialogs/SetStoryDialog";
 import { useDialog } from "../../common/hooks/useDialog";
 import { useUserContext } from "../../common/context/UserContext";
 import { isModerator } from "../../common/utils/participantsUtils";
-import { useHover } from "../../common/hooks/useHover";
 
 export function PokerTitle() {
-  const { isHovered, handleHover, handleUnhover } = useHover();
   const { isOpen, closeDialog, openDialog } = useDialog(false);
   const { storyTitle, storyUrl } = usePokerContext().pokerState.story;
   const { user } = useUserContext();
 
-  const showEditButton = isModerator(user) && isHovered;
-
   return (
     <>
-      <FlexBox
-        justifyContent="center"
-        alignItems="center"
-        gap={1}
-        onMouseEnter={handleHover}
-        onMouseLeave={handleUnhover}
-      >
+      <FlexBox justifyContent="center" alignItems="center" gap={1}>
         <Typography variant="h4" py={2}>
           {storyUrl ? (
             <Link href={storyUrl} target="_blank" rel="nofollow noreferrer">
@@ -36,7 +26,7 @@ export function PokerTitle() {
             storyTitle
           )}
         </Typography>
-        {showEditButton && (
+        {isModerator(user) && (
           <TooltipIconButton aria-label="Edit" onClick={openDialog} tooltipText="Edit">
             <Edit />
           </TooltipIconButton>

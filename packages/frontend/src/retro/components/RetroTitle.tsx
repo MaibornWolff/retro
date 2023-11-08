@@ -8,27 +8,17 @@ import { Edit } from "@mui/icons-material";
 import { useDialog } from "../../common/hooks/useDialog";
 import { useUserContext } from "../../common/context/UserContext";
 import { SetRetroTitleDialog } from "./dialogs/SetRetroTitleDialog";
-import { useHover } from "../../common/hooks/useHover";
 
 export function RetroTitle() {
-  const { isHovered, handleHover, handleUnhover } = useHover();
   const { isOpen, closeDialog, openDialog } = useDialog(false);
   const { user } = useUserContext();
   const { retroState } = useRetroContext();
 
-  const showEditButton = isModerator(user) && isHovered;
-
   return (
     <>
-      <FlexBox
-        justifyContent="center"
-        alignItems="center"
-        gap={1}
-        onMouseEnter={handleHover}
-        onMouseLeave={handleUnhover}
-      >
+      <FlexBox justifyContent="center" alignItems="center" gap={1}>
         <Typography variant="h4">{retroState.title}</Typography>
-        {showEditButton && (
+        {isModerator(user) && (
           <TooltipIconButton aria-label="Edit" onClick={openDialog} tooltipText="Edit">
             <Edit />
           </TooltipIconButton>
