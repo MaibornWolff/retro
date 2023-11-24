@@ -43,7 +43,7 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
   const { user } = useUserContext();
   const { currentTheme } = useContext(ColorThemeContext);
   const theme = useTheme();
-  const authors = owners.map(({ name }) => name);
+  const authors = owners.map(({ name }) => name).join(", ");
   const isSelectableText = !isBlurred || isModerator(user);
   const blurValue = isModerator(user) ? "blur(1px)" : "blur(5px)";
   const totalVotes = sumVotes(card);
