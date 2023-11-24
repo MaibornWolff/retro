@@ -13,11 +13,9 @@ export function TooltipIconButton({
 }: TooltipIconButtonProps) {
   return (
     <Tooltip title={tooltipText}>
-      <span>
-        <IconButton {...props} size="small" onClick={onClick}>
-          {children}
-        </IconButton>
-      </span>
+      <IconButton {...props} size="small" onClick={onClick}>
+        {children}
+      </IconButton>
     </Tooltip>
   );
 }
