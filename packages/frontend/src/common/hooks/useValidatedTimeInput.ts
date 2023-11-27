@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { isNumber } from "lodash";
 
 interface useValidatedTimeInputOptions {
   formatLength?: number;
@@ -8,37 +9,25 @@ interface useValidatedTimeInputOptions {
 }
 export function useValidatedTimeInput(options: useValidatedTimeInputOptions | undefined = {}) {
   const [value, setValue] = useState(options.initialValue ?? 0);
-  const [formatedValue, setFormatedValue] = useState(
-    options.initialValue ? addLeadingZeros(options.initialValue) : addLeadingZeros(0)
-  );
+  const formattedValue = addLeadingZeros(value);
   const [isError, setIsError] = useState(false);
 
   function addLeadingZeros(value: number) {
     if (options.formatLength) {
       return ("0".repeat(options.formatLength) + value.toString()).slice(-options.formatLength);
-    } else {
-      return value;
     }
+    return value;
   }
 
-  function getAsNumber(input: string) {
-    return Number(input);
-  }
-
-  function isNumber(input: string) {
-    return !isNaN(parseFloat(input));
-  }
-
-  function isValid(input: number) {
+  function isValid() {
     if (!options) return true;
 
     const { minValue = Number.MIN_VALUE, maxValue = Number.MAX_VALUE } = options;
-    return input >= minValue && input <= maxValue;
+    return value >= minValue && value <= maxValue;
   }
   function changeValue(value: number) {
     setValue(value);
-    setFormatedValue(addLeadingZeros(value));
-    setIsError(!isValid(value));
+    setIsError(!isValid());
   }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -46,17 +35,17 @@ export function useValidatedTimeInput(options: useValidatedTimeInputOptions | un
       setIsError(true);
       return;
     }
-    const number = getAsNumber(event.target.value);
+    const number = Number(event.target.value);
     changeValue(number);
   }
 
   return {
     value,
-    formatedValue,
+    formattedValue,
     isError,
     setIsError,
     handleChange,
     changeValue,
-    isValid: isValid(value),
+    isValid,
   };
 }

@@ -1,5 +1,12 @@
 import React from "react";
-import { FormControl, FormHelperText, IconButton, OutlinedInput, TextField } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  IconButton,
+  OutlinedInput,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
 import { FlexBox } from "./FlexBox";
 import { useValidatedTimeInput } from "../hooks/useValidatedTimeInput";
@@ -9,52 +16,47 @@ interface TimePickerProps {
   seconds: number;
   isEditable: boolean;
 }
-export function TimePicker({
-  minutes: defaultMinutes,
-  seconds: defaultSeconds,
-  isEditable,
-}: TimePickerProps) {
+export function TimePicker({ minutes, seconds, isEditable }: TimePickerProps) {
   const {
-    formatedValue: formatedSeconds,
+    formattedValue: formattedSeconds,
     isError: isSecondsError,
     handleChange: handleSecondsChange,
   } = useValidatedTimeInput({
     formatLength: 2,
     maxValue: 60,
     minValue: 0,
-    initialValue: defaultSeconds,
+    initialValue: seconds,
   });
 
   const {
-    formatedValue: formatedMinutes,
+    formattedValue: formattedMinutes,
     isError: isMinutesError,
-    value: minutes,
     handleChange: handleMinutesChange,
     changeValue: changeMinutes,
   } = useValidatedTimeInput({
     formatLength: 2,
     minValue: 0,
-    initialValue: defaultMinutes,
+    maxValue: 99,
+    initialValue: minutes,
   });
 
-  function handleAddButtonClick() {
+  function handleIncrementClick() {
     changeMinutes(minutes + 1);
   }
-  function handleRemoveButtonClick() {
+  function handleDecrementClick() {
     changeMinutes(minutes - 1);
   }
-
+  // TO-DO: Live changes of running timer
   return (
     <FlexBox>
       <FormControl>
-        <IconButton onClick={handleRemoveButtonClick} size="small">
+        <IconButton onClick={handleDecrementClick} size="small">
           <Remove />
         </IconButton>
       </FormControl>
       <FormControl variant="filled">
         <TextField
-          id="timepicker-minutes"
-          value={formatedMinutes}
+          value={formattedMinutes}
           onChange={handleMinutesChange}
           autoFocus
           required
@@ -65,11 +67,10 @@ export function TimePicker({
         />
         <FormHelperText>Minutes</FormHelperText>
       </FormControl>
-      <span>:</span>
+      <Typography variant="caption">:</Typography>
       <FormControl variant="filled">
         <OutlinedInput
-          id="timepicker-seconds"
-          value={formatedSeconds}
+          value={formattedSeconds}
           onChange={handleSecondsChange}
           required
           size="small"
@@ -80,7 +81,7 @@ export function TimePicker({
         <FormHelperText>Seconds</FormHelperText>
       </FormControl>
       <FormControl>
-        <IconButton onClick={handleAddButtonClick} size="small">
+        <IconButton onClick={handleIncrementClick} size="small">
           <Add />
         </IconButton>
       </FormControl>

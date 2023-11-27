@@ -19,7 +19,7 @@ export function ToggleRetroTimerButton() {
     pauseTimer,
     isTimerRunning,
   } = useTimer({
-    timerFinished: handleTimerFinished,
+    onTimerFinished: handleTimerFinished,
     defaultDuration: 300000,
   });
 

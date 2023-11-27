@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 
 interface useTimerProps {
-  timerFinished: () => void;
+  onTimerFinished: () => void;
   defaultDuration: number;
 }
-export function useTimer({ timerFinished, defaultDuration }: useTimerProps) {
+export function useTimer({ onTimerFinished, defaultDuration }: useTimerProps) {
   const [isRunning, setIsRunning] = useState(false);
   const [duration, setDuration] = useState(defaultDuration);
   const finishTime = useMemo(() => Date.now() + duration, [duration]);
@@ -13,44 +13,45 @@ export function useTimer({ timerFinished, defaultDuration }: useTimerProps) {
   const seconds = getSeconds(milliseconds);
 
   function startTimer(duration: number) {
-    console.log("start timer with {} duration", duration);
-    console.log("current time is {}", Date.now());
     setDuration(duration);
     setMilliseconds(duration);
     setIsRunning(true);
   }
   function stopTimer() {
-    console.log("stop timer");
     setIsRunning(false);
   }
   function pauseTimer() {
     console.log("pause timer");
+    // TO-DO: write real pause logic
     setIsRunning(false);
   }
 
-  function createLabel(ms: number) {
-    return new Date(ms).toISOString().slice(14, 19);
+  function createLabel() {
+    return new Date(milliseconds).toISOString().slice(14, 19);
   }
   function getMinutes(ms: number) {
+    if (ms < 60000) {
+      return 0;
+    }
+
     console.log("minutes {}", Math.floor(ms / 1000 / 60));
     return Math.floor(ms / 1000 / 60);
   }
   function getSeconds(ms: number) {
-    console.log("seconds {}", (ms / 1000) % 60);
-    return (ms / 1000) % 60;
+    console.log("seconds {}", Math.round((ms / 1000) % 60));
+    return Math.round((ms / 1000) % 60);
   }
   useEffect(() => {
     function endTimer() {
       console.log("end timer");
       setIsRunning(false);
+      // TO-DO: Set Duration to last set timer length
       setDuration(-1);
-      timerFinished();
+      onTimerFinished();
     }
     function updateTimer() {
       console.log("Interval executed at remaining duration {}", milliseconds);
       setMilliseconds(finishTime - Date.now());
-      //   setMinutes(getMinutes(milliseconds));
-      //   setSeconds(getSeconds(milliseconds));
     }
     if (!isRunning) return;
 
@@ -65,12 +66,12 @@ export function useTimer({ timerFinished, defaultDuration }: useTimerProps) {
     return () => {
       clearInterval(interval);
     };
-  }, [finishTime, isRunning, milliseconds, timerFinished]);
+  }, [finishTime, isRunning, milliseconds, onTimerFinished]);
   return {
     milliseconds,
     minutes,
     seconds,
-    remainingTimeLabel: createLabel(milliseconds),
+    remainingTimeLabel: createLabel(),
     startTimer,
     stopTimer,
     pauseTimer,

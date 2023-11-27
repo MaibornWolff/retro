@@ -25,12 +25,12 @@ export function CreateTimerDialog({
 }: CreateTimerDialogProps) {
   const fullScreen = useFullscreen();
 
-  function handleSubmit() {
+  function handleTimerClick() {
     close();
     if (isTimerRunning) {
       stopTimer();
     } else {
-      startTimer(100000);
+      startTimer(15000);
     }
   }
 
@@ -53,8 +53,8 @@ export function CreateTimerDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={close}>Cancel</Button>
-        {isTimerRunning ? <Button onClick={pauseTimer}>Pause</Button> : undefined}
-        <CallToActionButton onClick={handleSubmit}>
+        {isTimerRunning && <Button onClick={pauseTimer}>Pause</Button>}
+        <CallToActionButton onClick={handleTimerClick}>
           {isTimerRunning ? "Stop" : "Start"}
         </CallToActionButton>
       </DialogActions>
