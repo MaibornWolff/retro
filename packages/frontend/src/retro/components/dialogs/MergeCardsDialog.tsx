@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { useFullscreen } from "../../hooks/useFullscreen";
+import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
 interface MergeCardsDialogProps {
   open: boolean;
@@ -41,9 +42,9 @@ export function MergeCardsDialog({ open, closeDialog, onMergeCards }: MergeCards
       </DialogContent>
       <DialogActions>
         <Button onClick={closeDialog}>Cancel</Button>
-        <Button onClick={mergeCards} autoFocus>
+        <CallToActionButton onClick={mergeCards} autoFocus>
           Merge
-        </Button>
+        </CallToActionButton>
       </DialogActions>
     </Dialog>
   );
