@@ -5,10 +5,15 @@ import { FlexBox } from "./FlexBox";
 import { useValidatedTimeInput } from "../hooks/useValidatedTimeInput";
 
 interface TimePickerProps {
-  defaultMinutes: number;
-  defaultSeconds: number;
+  minutes: number;
+  seconds: number;
+  isEditable: boolean;
 }
-export function TimePicker({ defaultMinutes, defaultSeconds }: TimePickerProps) {
+export function TimePicker({
+  minutes: defaultMinutes,
+  seconds: defaultSeconds,
+  isEditable,
+}: TimePickerProps) {
   const {
     formatedValue: formatedSeconds,
     isError: isSecondsError,
@@ -53,6 +58,7 @@ export function TimePicker({ defaultMinutes, defaultSeconds }: TimePickerProps) 
           onChange={handleMinutesChange}
           autoFocus
           required
+          disabled={isEditable}
           size="small"
           type="tel"
           error={isMinutesError}
@@ -68,6 +74,7 @@ export function TimePicker({ defaultMinutes, defaultSeconds }: TimePickerProps) 
           required
           size="small"
           type="tel"
+          disabled={isEditable}
           error={isSecondsError}
         />
         <FormHelperText>Seconds</FormHelperText>
