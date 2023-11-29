@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toNumber } from "lodash";
 
 interface useValidatedTimeInputOptions {
   initialValue?: number;
@@ -36,11 +37,11 @@ export function useValidatedTimeInput({
     setIsError(!isValid());
   }
   function onChange(event: React.ChangeEvent<HTMLInputElement>) {
-    if (!/^\d+$/.test(event.target.value)) {
+    const number = toNumber(event.target.value);
+    if (Number.isNaN(number)) {
       setIsError(true);
       return;
     }
-    const number = Number(event.target.value);
     changeValue(number);
   }
 
