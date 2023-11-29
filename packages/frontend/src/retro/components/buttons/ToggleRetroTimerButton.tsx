@@ -19,7 +19,7 @@ export function ToggleRetroTimerButton() {
     pauseTimer,
     isTimerRunning,
   } = useTimer({
-    onTimerFinished: handleTimerFinished,
+    onTimerFinish: handleTimerFinish,
     defaultDuration: 300000,
   });
 
@@ -29,7 +29,7 @@ export function ToggleRetroTimerButton() {
     }
     openDialog();
   }
-  function handleTimerFinished() {
+  function handleTimerFinish() {
     console.log("timer has finished");
   }
   return (

@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 
 interface useTimerProps {
-  onTimerFinished: () => void;
+  onTimerFinish: () => void;
   defaultDuration: number;
 }
-export function useTimer({ onTimerFinished, defaultDuration }: useTimerProps) {
+export function useTimer({ onTimerFinish, defaultDuration }: useTimerProps) {
   const [isRunning, setIsRunning] = useState(false);
   const [duration, setDuration] = useState(defaultDuration);
   const finishTime = useMemo(() => Date.now() + duration, [duration]);
@@ -47,7 +47,7 @@ export function useTimer({ onTimerFinished, defaultDuration }: useTimerProps) {
       setIsRunning(false);
       // TO-DO: Set Duration to last set timer length
       setDuration(-1);
-      onTimerFinished();
+      onTimerFinish();
     }
     function updateTimer() {
       console.log("Interval executed at remaining duration {}", milliseconds);
@@ -66,7 +66,7 @@ export function useTimer({ onTimerFinished, defaultDuration }: useTimerProps) {
     return () => {
       clearInterval(interval);
     };
-  }, [finishTime, isRunning, milliseconds, onTimerFinished]);
+  }, [finishTime, isRunning, milliseconds, onTimerFinish]);
   return {
     milliseconds,
     minutes,
