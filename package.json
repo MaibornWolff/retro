@@ -55,5 +55,9 @@
   "workspaces": [
     "packages/*",
     "packages/shared/*"
-  ]
+  ],
+  "dependencies": {
+    "react-particles": "^2.12.2",
+    "tsparticles": "^2.12.0"
+  }
 }

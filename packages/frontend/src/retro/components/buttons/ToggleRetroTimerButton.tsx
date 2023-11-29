@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Alarm } from "@mui/icons-material";
 import { ActionButton } from "../../../common/components/buttons/ActionButton";
 import { isModerator } from "../../../common/utils/participantsUtils";
+import { CreateTimerDialog } from "../dialogs/CreateTimerDialog";
+
 import { useUserContext } from "../../../common/context/UserContext";
 import { useDialog } from "../../../common/hooks/useDialog";
-import { CreateTimerDialog } from "../dialogs/CreateTimerDialog";
 import { useTimer } from "../../hooks/useTimer";
+
+import MaibornConfetti from "../../../common/components/MaibornConfetti";
 
 export function ToggleRetroTimerButton() {
   const { isOpen, closeDialog, openDialog } = useDialog();
   const { user } = useUserContext();
+  const [isParticlesActive, setIsParticlesActive] = useState(false);
+
   const {
     minutes,
     seconds,
@@ -29,9 +34,19 @@ export function ToggleRetroTimerButton() {
     }
     openDialog();
   }
+
   function handleTimerFinish() {
-    console.log("timer has finished");
+    setIsParticlesActive(true);
   }
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsParticlesActive(false);
+    }, 10000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isParticlesActive]);
+
   return (
     <>
       <ActionButton
@@ -50,6 +65,7 @@ export function ToggleRetroTimerButton() {
         stopTimer={stopTimer}
         pauseTimer={pauseTimer}
       />
+      {isParticlesActive && <MaibornConfetti />}
     </>
   );
 }
