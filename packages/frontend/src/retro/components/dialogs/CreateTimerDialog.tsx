@@ -27,7 +27,7 @@ export function CreateTimerDialog({
   const fullScreen = useFullscreen();
 
   const {
-    value: pickerSeconds,
+    value: pickedSeconds,
     formattedValue: formattedSeconds,
     isError: isSecondsError,
     onChange: onSecondsChange,
@@ -39,7 +39,7 @@ export function CreateTimerDialog({
   });
 
   const {
-    value: pickerMinutes,
+    value: pickedMinutes,
     formattedValue: formattedMinutes,
     isError: isMinutesError,
     onChange: onMinutesChange,
@@ -57,7 +57,7 @@ export function CreateTimerDialog({
     if (isTimerRunning) {
       stopTimer();
     } else {
-      const timerDuration = (pickerMinutes * 60 + pickerSeconds) * 1000;
+      const timerDuration = (pickedMinutes * 60 + pickedSeconds) * 1000;
       startTimer(timerDuration);
     }
   }
@@ -74,8 +74,8 @@ export function CreateTimerDialog({
       <DialogTitle id="new-card-dialog">Set Timer</DialogTitle>
       <DialogContent>
         <TimePicker
-          formattedMinutes={formattedMinutes}
-          formattedSeconds={formattedSeconds}
+          formattedMinutes={isTimerRunning ? remainingMinutes.toString() : formattedMinutes}
+          formattedSeconds={isTimerRunning ? remainingSeconds.toString() : formattedSeconds}
           isEditable={isTimerRunning}
           isMinutesError={isMinutesError}
           isSecondsError={isSecondsError}
