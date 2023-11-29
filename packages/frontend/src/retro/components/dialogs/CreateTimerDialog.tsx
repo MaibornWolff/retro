@@ -4,6 +4,7 @@ import { DialogProps } from "../../../common/types/commonTypes";
 import { useFullscreen } from "../../hooks/useFullscreen";
 import { TimePicker } from "../../../common/components/TimePicker";
 import React = require("react");
+import { useValidatedTimeInput } from "../../../common/hooks/useValidatedTimeInput";
 
 interface CreateTimerDialogProps extends DialogProps {
   startTimer: (duration: number) => void;
@@ -25,12 +26,39 @@ export function CreateTimerDialog({
 }: CreateTimerDialogProps) {
   const fullScreen = useFullscreen();
 
+  const {
+    value: pickerSeconds,
+    formattedValue: formattedSeconds,
+    isError: isSecondsError,
+    onChange: onSecondsChange,
+  } = useValidatedTimeInput({
+    formatLength: 2,
+    maxValue: 60,
+    minValue: 0,
+    initialValue: remainingSeconds,
+  });
+
+  const {
+    value: pickerMinutes,
+    formattedValue: formattedMinutes,
+    isError: isMinutesError,
+    onChange: onMinutesChange,
+    incrementTime: onMinutesIncrement,
+    decrementTime: onMinutesDecrement,
+  } = useValidatedTimeInput({
+    formatLength: 2,
+    minValue: 0,
+    maxValue: 99,
+    initialValue: remainingMinutes,
+  });
+
   function handleTimerClick() {
     close();
     if (isTimerRunning) {
       stopTimer();
     } else {
-      startTimer(15000);
+      const timerDuration = (pickerMinutes * 60 + pickerSeconds) * 1000;
+      startTimer(timerDuration);
     }
   }
 
@@ -46,9 +74,15 @@ export function CreateTimerDialog({
       <DialogTitle id="new-card-dialog">Set Timer</DialogTitle>
       <DialogContent>
         <TimePicker
-          minutes={remainingMinutes}
-          seconds={remainingSeconds}
+          formattedMinutes={formattedMinutes}
+          formattedSeconds={formattedSeconds}
           isEditable={isTimerRunning}
+          isMinutesError={isMinutesError}
+          isSecondsError={isSecondsError}
+          onSecondsChange={onSecondsChange}
+          onMinutesChange={onMinutesChange}
+          onMinutesIncrement={onMinutesIncrement}
+          onMinutesDecrement={onMinutesDecrement}
         />
       </DialogContent>
       <DialogActions>

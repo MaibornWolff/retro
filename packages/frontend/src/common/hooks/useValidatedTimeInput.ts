@@ -1,37 +1,42 @@
 import React, { useState } from "react";
-import { isNumber } from "lodash";
 
 interface useValidatedTimeInputOptions {
+  initialValue?: number;
   formatLength?: number;
   minValue?: number;
   maxValue?: number;
-  initialValue?: number;
 }
-export function useValidatedTimeInput(options: useValidatedTimeInputOptions | undefined = {}) {
-  const [value, setValue] = useState(options.initialValue ?? 0);
+export function useValidatedTimeInput({
+  initialValue,
+  formatLength,
+  maxValue = Number.MAX_VALUE,
+  minValue = Number.MIN_VALUE,
+}: useValidatedTimeInputOptions | undefined = {}) {
+  const [value, setValue] = useState(initialValue ?? 0);
   const formattedValue = addLeadingZeros(value);
   const [isError, setIsError] = useState(false);
 
   function addLeadingZeros(value: number) {
-    if (options.formatLength) {
-      return ("0".repeat(options.formatLength) + value.toString()).slice(-options.formatLength);
+    if (formatLength) {
+      return value.toString().padStart(formatLength, "0");
     }
-    return value;
+    return value.toString();
   }
-
+  function incrementTime(change: number) {
+    changeValue(value + change);
+  }
+  function decrementTime(change: number) {
+    changeValue(value - change);
+  }
   function isValid() {
-    if (!options) return true;
-
-    const { minValue = Number.MIN_VALUE, maxValue = Number.MAX_VALUE } = options;
     return value >= minValue && value <= maxValue;
   }
   function changeValue(value: number) {
     setValue(value);
     setIsError(!isValid());
   }
-
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    if (!isNumber(event.target.value)) {
+  function onChange(event: React.ChangeEvent<HTMLInputElement>) {
+    if (!/^\d+$/.test(event.target.value)) {
       setIsError(true);
       return;
     }
@@ -43,9 +48,8 @@ export function useValidatedTimeInput(options: useValidatedTimeInputOptions | un
     value,
     formattedValue,
     isError,
-    setIsError,
-    handleChange,
-    changeValue,
-    isValid,
+    onChange,
+    incrementTime,
+    decrementTime,
   };
 }
