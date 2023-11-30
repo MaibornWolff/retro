@@ -14,8 +14,8 @@
     "@mui/lab": "5.0.0-alpha.117",
     "@mui/material": "^5.11.6",
     "@shared/browserlogger": "*",
-    "@shared/socket": "*",
     "@shared/configuration": "*",
+    "@shared/socket": "*",
     "axios": "^1.6.0",
     "lodash": "^4.17.21",
     "nanoid": "^4.0.0",
@@ -27,10 +27,12 @@
     "react-card-flip": "^1.2.0",
     "react-component-export-image": "^1.0.6",
     "react-dom": "^18.2.0",
+    "react-particles": "^2.12.2",
     "recharts": "^2.3.2",
     "sharp": "^0.32.6",
     "socket.io-client": "^4.5.4",
     "styled-components": "^5.3.6",
+    "tsparticles": "^2.12.0",
     "typewriter-effect": "^2.19.0"
   },
   "devDependencies": {
