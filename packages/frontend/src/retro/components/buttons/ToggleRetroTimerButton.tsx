@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alarm } from "@mui/icons-material";
+import { Alarm, SnoozeOutlined } from "@mui/icons-material";
 import { ActionButton } from "../../../common/components/buttons/ActionButton";
 import { isModerator } from "../../../common/utils/participantsUtils";
 import { CreateTimerDialog } from "../dialogs/CreateTimerDialog";
@@ -15,6 +15,8 @@ export function ToggleRetroTimerButton() {
   const { user } = useUserContext();
   const [isParticlesActive, setIsParticlesActive] = useState(false);
 
+  const confettiDuration = 10000;
+
   const {
     minutes,
     seconds,
@@ -23,9 +25,10 @@ export function ToggleRetroTimerButton() {
     stopTimer,
     pauseTimer,
     isTimerRunning,
+    isTimerPaused,
   } = useTimer({
     onTimerFinish: handleTimerFinish,
-    defaultDuration: 300000,
+    runtime: 300000,
   });
 
   function handleOpenDialog() {
@@ -41,7 +44,7 @@ export function ToggleRetroTimerButton() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsParticlesActive(false);
-    }, 10000);
+    }, confettiDuration);
     return () => {
       clearTimeout(timeout);
     };
@@ -52,7 +55,7 @@ export function ToggleRetroTimerButton() {
       <ActionButton
         onClick={handleOpenDialog}
         label={isTimerRunning ? remainingTimeLabel : "Timer"}
-        icon={<Alarm />}
+        icon={isTimerPaused ? <SnoozeOutlined /> : <Alarm />}
         color={isTimerRunning ? "error" : undefined}
       />
       <CreateTimerDialog
@@ -60,6 +63,7 @@ export function ToggleRetroTimerButton() {
         close={closeDialog}
         startTimer={startTimer}
         isTimerRunning={isTimerRunning}
+        isTimerPaused={isTimerPaused}
         remainingMinutes={minutes}
         remainingSeconds={seconds}
         stopTimer={stopTimer}

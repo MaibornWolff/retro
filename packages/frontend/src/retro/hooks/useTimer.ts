@@ -19,6 +19,7 @@ export function useTimer({ onTimerFinish, runtime }: useTimerProps) {
   function stopTimer(isFinished: boolean = false) {
     console.log("Stop timer at ", new Date().toISOString());
     setIsRunning(false);
+    setIsPaused(false);
     if (isFinished) {
       onTimerFinish();
     }
@@ -26,8 +27,7 @@ export function useTimer({ onTimerFinish, runtime }: useTimerProps) {
 
   function pauseTimer() {
     console.log("pause timer");
-    // TO-DO: write real pause logic
-    setIsRunning(false);
+    setIsPaused(() => !isPaused);
   }
 
   function createLabel() {
@@ -38,48 +38,44 @@ export function useTimer({ onTimerFinish, runtime }: useTimerProps) {
     if (ms < 60000) {
       return 0;
     }
-
-    console.log("minutes {}", Math.floor(ms / 1000 / 60));
+    // console.log("minutes {}", Math.floor(ms / 1000 / 60));
     return Math.floor(ms / 1000 / 60);
   }
+
   function getSeconds(ms: number) {
-    console.log("seconds {}", Math.round((ms / 1000) % 60));
+    // console.log("seconds {}", Math.round((ms / 1000) % 60));
     return Math.round((ms / 1000) % 60);
   }
-  useEffect(() => {
-    function endTimer() {
-      console.log("end timer");
-      setIsRunning(false);
-      // TO-DO: Set Duration to last set timer length
-      setDuration(-1);
-      onTimerFinish();
-    }
-    function updateTimer() {
-      console.log("Interval executed at remaining duration {}", milliseconds);
-      setMilliseconds(finishTime - Date.now());
-    }
-    if (!isRunning) return;
 
-    if (milliseconds <= 0) {
-      endTimer();
+  useEffect(() => {
+    function updateTimer() {
+      setRemainingTime(() => remainingTime - 1000);
+    }
+    if (!isRunning || isPaused) return;
+
+    if (remainingTime <= 0) {
+      stopTimer(true);
       return;
     }
 
     const interval = setInterval(() => {
       updateTimer();
-    }, 500);
+    }, 1000);
+
     return () => {
       clearInterval(interval);
     };
-  }, [finishTime, isRunning, milliseconds, onTimerFinish]);
+  }, [isRunning, remainingTime, onTimerFinish, stopTimer, isPaused]);
+
   return {
-    milliseconds,
-    minutes,
-    seconds,
+    milliseconds: remainingTime,
+    minutes: getMinutes(remainingTime),
+    seconds: getSeconds(remainingTime),
     remainingTimeLabel: createLabel(),
     startTimer,
     stopTimer,
     pauseTimer,
     isTimerRunning: isRunning,
+    isTimerPaused: isPaused,
   };
 }

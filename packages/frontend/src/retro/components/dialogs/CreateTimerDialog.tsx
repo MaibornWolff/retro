@@ -11,6 +11,7 @@ interface CreateTimerDialogProps extends DialogProps {
   stopTimer: () => void;
   pauseTimer: () => void;
   isTimerRunning: boolean;
+  isTimerPaused: boolean;
   remainingMinutes: number;
   remainingSeconds: number;
 }
@@ -21,6 +22,7 @@ export function CreateTimerDialog({
   stopTimer,
   pauseTimer,
   isTimerRunning,
+  isTimerPaused,
   remainingMinutes,
   remainingSeconds,
 }: CreateTimerDialogProps) {
@@ -76,7 +78,7 @@ export function CreateTimerDialog({
         <TimePicker
           formattedMinutes={isTimerRunning ? remainingMinutes.toString() : formattedMinutes}
           formattedSeconds={isTimerRunning ? remainingSeconds.toString() : formattedSeconds}
-          isEditable={isTimerRunning}
+          isEditable={!isTimerRunning}
           isMinutesError={isMinutesError}
           isSecondsError={isSecondsError}
           onSecondsChange={onSecondsChange}
@@ -87,7 +89,9 @@ export function CreateTimerDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={close}>Cancel</Button>
-        {isTimerRunning && <Button onClick={pauseTimer}>Pause</Button>}
+        {isTimerRunning && (
+          <Button onClick={pauseTimer}>{isTimerPaused ? "Resume" : "Pause"}</Button>
+        )}
         <CallToActionButton onClick={handleTimerClick}>
           {isTimerRunning ? "Stop" : "Start"}
         </CallToActionButton>
