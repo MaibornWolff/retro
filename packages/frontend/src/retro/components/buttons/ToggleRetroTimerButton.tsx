@@ -56,7 +56,7 @@ export function ToggleRetroTimerButton() {
         onClick={handleOpenDialog}
         label={isTimerRunning ? remainingTimeLabel : "Timer"}
         icon={isTimerPaused ? <SnoozeOutlined /> : <Alarm />}
-        color={isTimerRunning ? "error" : undefined}
+        color={isTimerPaused ? "warning" : isTimerRunning ? "error" : undefined}
       />
       <CreateTimerDialog
         isOpen={isOpen}

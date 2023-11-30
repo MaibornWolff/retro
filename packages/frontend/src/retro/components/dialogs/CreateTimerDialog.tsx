@@ -90,7 +90,9 @@ export function CreateTimerDialog({
       <DialogActions>
         <Button onClick={close}>Cancel</Button>
         {isTimerRunning && (
-          <Button onClick={pauseTimer}>{isTimerPaused ? "Resume" : "Pause"}</Button>
+          <Button onClick={pauseTimer} color={isTimerPaused ? "warning" : undefined}>
+            {isTimerPaused ? "Resume" : "Pause"}
+          </Button>
         )}
         <CallToActionButton onClick={handleTimerClick}>
           {isTimerRunning ? "Stop" : "Start"}
