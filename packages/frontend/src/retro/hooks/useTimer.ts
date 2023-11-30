@@ -1,25 +1,29 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface useTimerProps {
   onTimerFinish: () => void;
-  defaultDuration: number;
+  runtime: number;
 }
-export function useTimer({ onTimerFinish, defaultDuration }: useTimerProps) {
+export function useTimer({ onTimerFinish, runtime }: useTimerProps) {
   const [isRunning, setIsRunning] = useState(false);
-  const [duration, setDuration] = useState(defaultDuration);
-  const finishTime = useMemo(() => Date.now() + duration, [duration]);
-  const [milliseconds, setMilliseconds] = useState(finishTime - Date.now());
-  const minutes = getMinutes(milliseconds);
-  const seconds = getSeconds(milliseconds);
+  const [isPaused, setIsPaused] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(runtime);
 
   function startTimer(duration: number) {
-    setDuration(duration);
-    setMilliseconds(duration);
+    console.log("Start Timer at ", new Date().toISOString());
+    // setRemainingTime(finishTime - Date.now());
+    setRemainingTime(duration);
     setIsRunning(true);
   }
-  function stopTimer() {
+
+  function stopTimer(isFinished: boolean = false) {
+    console.log("Stop timer at ", new Date().toISOString());
     setIsRunning(false);
+    if (isFinished) {
+      onTimerFinish();
+    }
   }
+
   function pauseTimer() {
     console.log("pause timer");
     // TO-DO: write real pause logic
@@ -27,8 +31,9 @@ export function useTimer({ onTimerFinish, defaultDuration }: useTimerProps) {
   }
 
   function createLabel() {
-    return new Date(milliseconds).toISOString().slice(14, 19);
+    return new Date(remainingTime).toISOString().slice(14, 19);
   }
+
   function getMinutes(ms: number) {
     if (ms < 60000) {
       return 0;

@@ -51,7 +51,7 @@ export function TimePicker({
           onChange={onMinutesChange}
           autoFocus
           required
-          disabled={isEditable}
+          disabled={!isEditable}
           size="small"
           type="tel"
           error={isMinutesError}
@@ -66,7 +66,7 @@ export function TimePicker({
           required
           size="small"
           type="tel"
-          disabled={isEditable}
+          disabled={!isEditable}
           error={isSecondsError}
         />
         <FormHelperText>Seconds</FormHelperText>
