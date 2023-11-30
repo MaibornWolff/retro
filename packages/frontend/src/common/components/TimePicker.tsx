@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  FormControl,
-  FormHelperText,
-  IconButton,
-  OutlinedInput,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { Add, Remove } from "@mui/icons-material";
+import { FormControl, FormHelperText, OutlinedInput, TextField, Typography } from "@mui/material";
 import { FlexBox } from "./FlexBox";
 
 interface TimePickerProps {
@@ -29,22 +21,9 @@ export function TimePicker({
   isSecondsError,
   onSecondsChange,
   onMinutesChange,
-  onMinutesIncrement,
-  onMinutesDecrement,
 }: TimePickerProps) {
-  // TO-DO: Live changes of running timer
   return (
     <FlexBox>
-      <FormControl>
-        <IconButton
-          onClick={() => {
-            onMinutesDecrement(1);
-          }}
-          size="small"
-        >
-          <Remove />
-        </IconButton>
-      </FormControl>
       <FormControl variant="filled">
         <TextField
           value={formattedMinutes}
@@ -70,16 +49,6 @@ export function TimePicker({
           error={isSecondsError}
         />
         <FormHelperText>Seconds</FormHelperText>
-      </FormControl>
-      <FormControl>
-        <IconButton
-          onClick={() => {
-            onMinutesIncrement(1);
-          }}
-          size="small"
-        >
-          <Add />
-        </IconButton>
       </FormControl>
     </FlexBox>
   );
