@@ -49,7 +49,7 @@ export function useTimer({ onTimerFinish, runtime }: useTimerProps) {
 
   useEffect(() => {
     function updateTimer() {
-      setRemainingTime(() => remainingTime - 1000);
+      setRemainingTime(() => Math.max(remainingTime - 1000, 0));
     }
     if (!isRunning || isPaused) return;
 
