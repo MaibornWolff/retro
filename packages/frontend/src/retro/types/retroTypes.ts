@@ -27,6 +27,9 @@ export interface RetroState {
   participants: UserByUserId;
   waitingList: UserByUserId;
   isVotingEnabled: boolean;
+  isTimerPaused: boolean;
+  isTimerRunning: boolean;
+  timerDuration: number;
 }
 
 export type VotesByUserId = Record<string, number>;

@@ -224,6 +224,18 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
     case "IS_VOTING_ENABLED_CHANGED": {
       return { ...state, isVotingEnabled: action.isEnabled };
     }
+    case "START_TIMER": {
+      console.log("START TIMER");
+      return { ...state, timerDuration: action.duration, isTimerRunning: true };
+    }
+    case "STOP_TIMER": {
+      console.log("STOP TIMER");
+      return { ...state, isTimerRunning: false };
+    }
+    case "PAUSE_TIMER": {
+      console.log("PAUSE TIMER");
+      return { ...state, isTimerPaused: false };
+    }
     case "DISCONNECT": {
       const { participants, waitingList } = state;
       const disconnectedUserId = action.payload;
