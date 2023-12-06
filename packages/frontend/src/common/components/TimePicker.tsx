@@ -10,8 +10,6 @@ interface TimePickerProps {
   isSecondsError: boolean;
   onSecondsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onMinutesChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onMinutesIncrement: (change: number) => void;
-  onMinutesDecrement: (change: number) => void;
 }
 export function TimePicker({
   formattedMinutes,

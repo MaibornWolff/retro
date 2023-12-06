@@ -45,8 +45,6 @@ export function CreateTimerDialog({
     formattedValue: formattedMinutes,
     isError: isMinutesError,
     onChange: onMinutesChange,
-    incrementTime: onMinutesIncrement,
-    decrementTime: onMinutesDecrement,
   } = useValidatedTimeInput({
     formatLength: 2,
     minValue: 0,
@@ -83,8 +81,6 @@ export function CreateTimerDialog({
           isSecondsError={isSecondsError}
           onSecondsChange={onSecondsChange}
           onMinutesChange={onMinutesChange}
-          onMinutesIncrement={onMinutesIncrement}
-          onMinutesDecrement={onMinutesDecrement}
         />
       </DialogContent>
       <DialogActions>
