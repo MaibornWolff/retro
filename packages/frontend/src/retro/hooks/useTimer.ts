@@ -1,81 +1,54 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useRetroContext } from "../context/RetroContext";
+import { TimerStatus } from "../types/retroTypes";
 
 interface useTimerProps {
   onTimerFinish: () => void;
-  runtime: number;
 }
-export function useTimer({ onTimerFinish, runtime }: useTimerProps) {
-  const [isRunning, setIsRunning] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const [remainingTime, setRemainingTime] = useState(runtime);
-
-  function startTimer(duration: number) {
-    console.log("Start Timer at ", new Date().toISOString());
-    // setRemainingTime(finishTime - Date.now());
-    setRemainingTime(duration);
-    setIsRunning(true);
-  }
-
-  function stopTimer(isFinished: boolean = false) {
-    console.log("Stop timer at ", new Date().toISOString());
-    setIsRunning(false);
-    setIsPaused(false);
-    if (isFinished) {
-      onTimerFinish();
-    }
-  }
-
-  function pauseTimer() {
-    console.log("pause timer");
-    setIsPaused(() => !isPaused);
-  }
+export function useTimer({ onTimerFinish }: useTimerProps) {
+  const { retroState } = useRetroContext();
+  const { timerStatus, timerDuration } = retroState;
+  const [timeRunning, setTimeRunning] = useState(0);
+  const intervalRef = useRef<NodeJS.Timer>();
+  const remainingTime = timerDuration - timeRunning;
 
   function createLabel() {
     return new Date(remainingTime).toISOString().slice(14, 19);
   }
 
-  function getMinutes(ms: number) {
-    if (ms < 60000) {
+  function getMinutes() {
+    if (remainingTime < 60000) {
       return 0;
     }
-    // console.log("minutes {}", Math.floor(ms / 1000 / 60));
-    return Math.floor(ms / 1000 / 60);
+    return Math.floor(remainingTime / 1000 / 60);
   }
 
-  function getSeconds(ms: number) {
-    // console.log("seconds {}", Math.round((ms / 1000) % 60));
-    return Math.round((ms / 1000) % 60);
+  function getSeconds() {
+    return Math.round((remainingTime / 1000) % 60);
   }
 
   useEffect(() => {
-    function updateTimer() {
-      setRemainingTime(() => Math.max(remainingTime - 1000, 0));
+    if (timerStatus === TimerStatus.RUNNING && remainingTime <= 0) {
+      setTimeRunning(0);
+      onTimerFinish();
     }
-    if (!isRunning || isPaused) return;
+  }, [remainingTime, onTimerFinish, timerStatus]);
 
-    if (remainingTime <= 0) {
-      stopTimer(true);
-      return;
+  useEffect(() => {
+    if (timerStatus === TimerStatus.RUNNING && !intervalRef.current) {
+      intervalRef.current = setInterval(() => {
+        setTimeRunning((timeRunning) => Math.min(timeRunning + 1000, timerDuration));
+      }, 1000);
+    } else if (timerStatus === TimerStatus.STOPPED && intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = undefined;
     }
-
-    const interval = setInterval(() => {
-      updateTimer();
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [isRunning, remainingTime, onTimerFinish, stopTimer, isPaused]);
+  }, [timerStatus, timeRunning, timerDuration]);
 
   return {
     milliseconds: remainingTime,
-    minutes: getMinutes(remainingTime),
-    seconds: getSeconds(remainingTime),
+    minutes: getMinutes(),
+    seconds: getSeconds(),
     remainingTimeLabel: createLabel(),
-    startTimer,
-    stopTimer,
-    pauseTimer,
-    isTimerRunning: isRunning,
-    isTimerPaused: isPaused,
   };
 }

@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useReducer } from "react";
 import { usePeerToPeer } from "../../common/hooks/usePeerToPeer";
-import { RetroState } from "../types/retroTypes";
+import { RetroState, TimerStatus } from "../types/retroTypes";
 import {
   CardRemoveUpvoteAction,
   CardUpvoteAction,
@@ -38,7 +38,6 @@ import { useConfigurationContext } from "../../common/context/ConfigurationConte
 interface RetroContextProviderProps {
   children?: React.ReactNode;
 }
-
 const initialState: RetroState = {
   title: "",
   format: "",
@@ -48,8 +47,7 @@ const initialState: RetroState = {
   participants: {},
   waitingList: {},
   isVotingEnabled: false,
-  isTimerPaused: false,
-  isTimerRunning: false,
+  timerStatus: TimerStatus.STOPPED,
   timerDuration: 0,
 };
 
