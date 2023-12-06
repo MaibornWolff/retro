@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRetroContext } from "../context/RetroContext";
 import { TimerStatus } from "../types/retroTypes";
 
 interface useTimerProps {
   onTimerFinish: () => void;
 }
+
 export function useTimer({ onTimerFinish }: useTimerProps) {
   const { retroState } = useRetroContext();
   const { timerStatus, timerDuration } = retroState;
@@ -38,8 +39,10 @@ export function useTimer({ onTimerFinish }: useTimerProps) {
       intervalRef.current = setInterval(() => {
         setTimeRunning((timeRunning) => Math.min(timeRunning + 1000, timerDuration));
       }, 1000);
-    } else if (timerStatus === TimerStatus.STOPPED && intervalRef.current) {
-      setTimeRunning(0);
+    } else if (timerStatus !== TimerStatus.RUNNING && intervalRef.current) {
+      if (timerStatus === TimerStatus.STOPPED) {
+        setTimeRunning(0);
+      }
       clearInterval(intervalRef.current);
       intervalRef.current = undefined;
     }

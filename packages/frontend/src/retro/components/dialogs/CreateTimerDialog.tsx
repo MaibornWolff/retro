@@ -1,38 +1,34 @@
-import { Button, Dialog, DialogContent, DialogTitle, DialogActions } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 import { DialogProps } from "../../../common/types/commonTypes";
 import { useFullscreen } from "../../hooks/useFullscreen";
 import { TimePicker } from "../../../common/components/TimePicker";
-import React = require("react");
 import { useValidatedTimeInput } from "../../../common/hooks/useValidatedTimeInput";
+import { useRetroContext } from "../../context/RetroContext";
+import { TimerStatus } from "../../types/retroTypes";
+import React = require("react");
 
 interface CreateTimerDialogProps extends DialogProps {
-  startTimer: (duration: number) => void;
-  stopTimer: () => void;
-  pauseTimer: () => void;
-  isTimerRunning: boolean;
-  isTimerPaused: boolean;
   remainingMinutes: number;
   remainingSeconds: number;
 }
 export function CreateTimerDialog({
   isOpen,
   close,
-  startTimer,
-  stopTimer,
-  pauseTimer,
-  isTimerRunning,
-  isTimerPaused,
   remainingMinutes,
   remainingSeconds,
 }: CreateTimerDialogProps) {
+  const { retroState, handleStartTimer, handleStopTimer, handlePauseTimer, handleResumeTimer } =
+    useRetroContext();
+  const { timerStatus } = retroState;
   const fullScreen = useFullscreen();
+  const isTimerRunning = timerStatus === TimerStatus.RUNNING;
 
   const {
     value: pickedSeconds,
     formattedValue: formattedSeconds,
     isError: isSecondsError,
-    onChange: onSecondsChange,
+    onChange: handleSecondsChange,
   } = useValidatedTimeInput({
     formatLength: 2,
     maxValue: 60,
@@ -44,7 +40,7 @@ export function CreateTimerDialog({
     value: pickedMinutes,
     formattedValue: formattedMinutes,
     isError: isMinutesError,
-    onChange: onMinutesChange,
+    onChange: handleMinutesChange,
   } = useValidatedTimeInput({
     formatLength: 2,
     minValue: 0,
@@ -54,11 +50,11 @@ export function CreateTimerDialog({
 
   function handleTimerClick() {
     close();
-    if (isTimerRunning) {
-      stopTimer();
-    } else {
+    if (timerStatus === TimerStatus.STOPPED) {
       const timerDuration = (pickedMinutes * 60 + pickedSeconds) * 1000;
-      startTimer(timerDuration);
+      handleStartTimer(timerDuration);
+    } else {
+      handleStopTimer();
     }
   }
 
@@ -79,19 +75,20 @@ export function CreateTimerDialog({
           isEditable={!isTimerRunning}
           isMinutesError={isMinutesError}
           isSecondsError={isSecondsError}
-          onSecondsChange={onSecondsChange}
-          onMinutesChange={onMinutesChange}
+          onSecondsChange={handleSecondsChange}
+          onMinutesChange={handleMinutesChange}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={close}>Cancel</Button>
-        {isTimerRunning && (
-          <Button onClick={pauseTimer} color={isTimerPaused ? "warning" : undefined}>
-            {isTimerPaused ? "Resume" : "Pause"}
+        {isTimerRunning && <Button onClick={handlePauseTimer}>Pause</Button>}
+        {timerStatus === TimerStatus.PAUSED && (
+          <Button onClick={handleResumeTimer} color="warning">
+            Resume
           </Button>
         )}
         <CallToActionButton onClick={handleTimerClick}>
-          {isTimerRunning ? "Stop" : "Start"}
+          {timerStatus === TimerStatus.STOPPED ? "Start" : "Stop"}
         </CallToActionButton>
       </DialogActions>
     </Dialog>

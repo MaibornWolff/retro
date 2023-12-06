@@ -38,6 +38,7 @@ import { useConfigurationContext } from "../../common/context/ConfigurationConte
 interface RetroContextProviderProps {
   children?: React.ReactNode;
 }
+
 const initialState: RetroState = {
   title: "",
   format: "",
@@ -84,6 +85,7 @@ export interface RetroContextValues {
   handleStartTimer: (duration: number) => void;
   handlePauseTimer: () => void;
   handleStopTimer: () => void;
+  handleResumeTimer: () => void;
 }
 
 export const RetroContext = React.createContext<RetroContextValues>(undefined!);
@@ -229,12 +231,19 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
   function handleStartTimer(duration: StartTimerAction["duration"]) {
     dispatchAndBroadcast({ type: "START_TIMER", duration });
   }
+
   function handlePauseTimer() {
     dispatchAndBroadcast({ type: "PAUSE_TIMER" });
   }
+
   function handleStopTimer() {
     dispatchAndBroadcast({ type: "STOP_TIMER" });
   }
+
+  function handleResumeTimer() {
+    dispatchAndBroadcast({ type: "START_TIMER", duration: state.timerDuration });
+  }
+
   const resetRetroState = useCallback(() => {
     dispatch({ type: "SET_RETRO_STATE", payload: initialState });
   }, []);
@@ -272,6 +281,7 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     handleStartTimer,
     handlePauseTimer,
     handleStopTimer,
+    handleResumeTimer,
   };
 
   return <RetroContext.Provider value={value}>{props.children}</RetroContext.Provider>;

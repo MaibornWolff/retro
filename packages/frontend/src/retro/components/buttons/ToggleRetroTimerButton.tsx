@@ -14,7 +14,7 @@ import { TimerStatus } from "../../types/retroTypes";
 
 export function ToggleRetroTimerButton() {
   const { isOpen, closeDialog, openDialog } = useDialog();
-  const { retroState, handleStartTimer, handlePauseTimer, handleStopTimer } = useRetroContext();
+  const { retroState, handleStopTimer } = useRetroContext();
   const { timerStatus } = retroState;
 
   const { user } = useUserContext();
@@ -47,13 +47,13 @@ export function ToggleRetroTimerButton() {
     };
   }, [isParticlesActive]);
 
-  if (!isModerator(user) && timerStatus !== TimerStatus.RUNNING) return null;
+  if (!isModerator(user) && timerStatus === TimerStatus.STOPPED) return null;
 
   return (
     <>
       <ActionButton
         onClick={handleOpenDialog}
-        label={timerStatus === TimerStatus.RUNNING ? remainingTimeLabel : "Timer"}
+        label={timerStatus !== TimerStatus.STOPPED ? remainingTimeLabel : "Timer"}
         icon={timerStatus === TimerStatus.PAUSED ? <SnoozeOutlined /> : <Alarm />}
         color={
           timerStatus === TimerStatus.PAUSED
@@ -66,13 +66,8 @@ export function ToggleRetroTimerButton() {
       <CreateTimerDialog
         isOpen={isOpen}
         close={closeDialog}
-        startTimer={handleStartTimer}
-        isTimerRunning={timerStatus === TimerStatus.RUNNING}
-        isTimerPaused={timerStatus === TimerStatus.PAUSED}
         remainingMinutes={minutes}
         remainingSeconds={seconds}
-        stopTimer={handleStopTimer}
-        pauseTimer={handlePauseTimer}
       />
       {isParticlesActive && <MaibornConfetti />}
     </>
