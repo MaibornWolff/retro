@@ -29,7 +29,6 @@ export function useTimer({ onTimerFinish }: useTimerProps) {
 
   useEffect(() => {
     if (timerStatus === TimerStatus.RUNNING && remainingTime <= 0) {
-      setTimeRunning(0);
       onTimerFinish();
     }
   }, [remainingTime, onTimerFinish, timerStatus]);
@@ -40,6 +39,7 @@ export function useTimer({ onTimerFinish }: useTimerProps) {
         setTimeRunning((timeRunning) => Math.min(timeRunning + 1000, timerDuration));
       }, 1000);
     } else if (timerStatus === TimerStatus.STOPPED && intervalRef.current) {
+      setTimeRunning(0);
       clearInterval(intervalRef.current);
       intervalRef.current = undefined;
     }
