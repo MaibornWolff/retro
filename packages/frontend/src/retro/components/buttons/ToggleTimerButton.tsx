@@ -14,12 +14,10 @@ export function ToggleTimerButton() {
   const { isOpen, closeDialog, openDialog } = useDialog();
   const { retroState, handleStopTimer } = useRetroContext();
   const { timerStatus } = retroState;
-
   const { user } = useUserContext();
-  const [isFinishEffectActive, setIsFinishEffectActive] = useState(false);
 
   const finishEffectLength = 5000;
-
+  const [isFinishEffectActive, setIsFinishEffectActive] = useState(false);
   const { minutes, seconds, remainingTimeLabel } = useTimer({
     onTimerFinish: handleTimerFinish,
   });
@@ -45,7 +43,8 @@ export function ToggleTimerButton() {
     };
   }, [isFinishEffectActive]);
 
-  if (!isModerator(user) && timerStatus === TimerStatus.STOPPED) return null;
+  if (!isModerator(user) && timerStatus === TimerStatus.STOPPED && !isFinishEffectActive)
+    return null;
 
   return (
     <>
