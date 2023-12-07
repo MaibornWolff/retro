@@ -3,7 +3,7 @@ import { Publish } from "@mui/icons-material";
 import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { useUserContext } from "../../../common/context/UserContext";
 import { RetroSchemaV1 } from "../../types/retroSchema";
-import { RetroState } from "../../types/retroTypes";
+import { RetroState, TimerStatus } from "../../types/retroTypes";
 import { useRetroContext } from "../../context/RetroContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
 
@@ -29,6 +29,8 @@ export function ImportRetroMenuItem() {
       participants: {},
       waitingList: {},
       isVotingEnabled: false,
+      timerStatus: TimerStatus.STOPPED,
+      timerDuration: 0,
     };
     handleSetRetroState(retro);
   }
