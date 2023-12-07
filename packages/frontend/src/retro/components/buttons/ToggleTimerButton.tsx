@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Alarm, SnoozeOutlined } from "@mui/icons-material";
-import { ActionButton } from "../../../common/components/buttons/ActionButton";
 import { isModerator } from "../../../common/utils/participantsUtils";
 import { CreateTimerDialog } from "../dialogs/CreateTimerDialog";
 import { useRetroContext } from "../../context/RetroContext";
-
 import { useUserContext } from "../../../common/context/UserContext";
 import { useDialog } from "../../../common/hooks/useDialog";
 import { useTimer } from "../../hooks/useTimer";
 
-import MaibornConfetti from "../../../common/components/MaibornConfetti";
 import { TimerStatus } from "../../types/retroTypes";
+import { WiggleActionButton } from "../../../common/components/buttons/WiggleActionButton";
 
 export function ToggleTimerButton() {
   const { isOpen, closeDialog, openDialog } = useDialog();
@@ -18,9 +16,9 @@ export function ToggleTimerButton() {
   const { timerStatus } = retroState;
 
   const { user } = useUserContext();
-  const [isParticlesActive, setIsParticlesActive] = useState(false);
+  const [isFinishEffectActive, setIsFinishEffectActive] = useState(false);
 
-  const confettiDuration = 10000;
+  const finishEffectLength = 5000;
 
   const { minutes, seconds, remainingTimeLabel } = useTimer({
     onTimerFinish: handleTimerFinish,
@@ -35,33 +33,34 @@ export function ToggleTimerButton() {
 
   function handleTimerFinish() {
     handleStopTimer();
-    setIsParticlesActive(true);
+    setIsFinishEffectActive(true);
   }
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setIsParticlesActive(false);
-    }, confettiDuration);
+      setIsFinishEffectActive(false);
+    }, finishEffectLength);
     return () => {
       clearTimeout(timeout);
     };
-  }, [isParticlesActive]);
+  }, [isFinishEffectActive]);
 
   if (!isModerator(user) && timerStatus === TimerStatus.STOPPED) return null;
 
   return (
     <>
-      <ActionButton
+      <WiggleActionButton
         onClick={handleOpenDialog}
         label={timerStatus !== TimerStatus.STOPPED ? remainingTimeLabel : "Timer"}
         icon={timerStatus === TimerStatus.PAUSED ? <SnoozeOutlined /> : <Alarm />}
         color={
           timerStatus === TimerStatus.PAUSED
             ? "info"
-            : timerStatus === TimerStatus.RUNNING
+            : timerStatus === TimerStatus.RUNNING || isFinishEffectActive
             ? "error"
             : undefined
         }
+        isWiggling={isFinishEffectActive}
       />
       <CreateTimerDialog
         isOpen={isOpen}
@@ -69,7 +68,6 @@ export function ToggleTimerButton() {
         remainingMinutes={minutes}
         remainingSeconds={seconds}
       />
-      {isParticlesActive && <MaibornConfetti />}
     </>
   );
 }
