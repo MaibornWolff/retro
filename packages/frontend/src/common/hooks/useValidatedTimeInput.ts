@@ -9,7 +9,7 @@ interface useValidatedTimeInputOptions {
 }
 export function useValidatedTimeInput({
   initialValue,
-  formatLength,
+  formatLength = 2,
   maxValue = Number.MAX_VALUE,
   minValue = Number.MIN_VALUE,
 }: useValidatedTimeInputOptions | undefined = {}) {
@@ -32,12 +32,20 @@ export function useValidatedTimeInput({
     setValue(value);
     setIsError(value < minValue || value > maxValue);
   }
+  function trimInput(input: string) {
+    if (input.length > formatLength) {
+      input = input.substring(input.length - formatLength, input.length);
+    }
+    return input;
+  }
   function onChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const number = toNumber(event.target.value);
+    const input = trimInput(event.target.value);
+    const number = toNumber(input);
     if (Number.isNaN(number)) {
       setIsError(true);
       return;
     }
+
     changeValue(number);
   }
 
