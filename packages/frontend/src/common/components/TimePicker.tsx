@@ -3,8 +3,8 @@ import { FormControl, FormHelperText, OutlinedInput, TextField, Typography } fro
 import { FlexBox } from "./FlexBox";
 
 interface TimePickerProps {
-  formattedMinutes: string;
-  formattedSeconds: string;
+  minutes: string;
+  seconds: string;
   isEditable: boolean;
   isMinutesError: boolean;
   isSecondsError: boolean;
@@ -12,8 +12,8 @@ interface TimePickerProps {
   onMinutesChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export function TimePicker({
-  formattedMinutes,
-  formattedSeconds,
+  minutes,
+  seconds,
   isEditable,
   isMinutesError,
   isSecondsError,
@@ -24,7 +24,7 @@ export function TimePicker({
     <FlexBox>
       <FormControl variant="filled">
         <TextField
-          value={formattedMinutes}
+          value={minutes}
           onChange={onMinutesChange}
           autoFocus
           required
@@ -38,7 +38,7 @@ export function TimePicker({
       <Typography variant="caption">:</Typography>
       <FormControl variant="filled">
         <OutlinedInput
-          value={formattedSeconds}
+          value={seconds}
           onChange={onSecondsChange}
           required
           size="small"

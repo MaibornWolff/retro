@@ -12,7 +12,7 @@ import { useTimer } from "../../hooks/useTimer";
 import MaibornConfetti from "../../../common/components/MaibornConfetti";
 import { TimerStatus } from "../../types/retroTypes";
 
-export function ToggleRetroTimerButton() {
+export function ToggleTimerButton() {
   const { isOpen, closeDialog, openDialog } = useDialog();
   const { retroState, handleStopTimer } = useRetroContext();
   const { timerStatus } = retroState;

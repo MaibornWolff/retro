@@ -14,7 +14,6 @@ export function useValidatedTimeInput({
   minValue = Number.MIN_VALUE,
 }: useValidatedTimeInputOptions | undefined = {}) {
   const [value, setValue] = useState(initialValue ?? 0);
-  const formattedValue = addLeadingZeros(value);
   const [isError, setIsError] = useState(false);
 
   function addLeadingZeros(value: number) {
@@ -29,12 +28,9 @@ export function useValidatedTimeInput({
   function decrementTime(change: number) {
     changeValue(value - change);
   }
-  function isValid() {
-    return value >= minValue && value <= maxValue;
-  }
   function changeValue(value: number) {
     setValue(value);
-    setIsError(!isValid());
+    setIsError(value < minValue || value > maxValue);
   }
   function onChange(event: React.ChangeEvent<HTMLInputElement>) {
     const number = toNumber(event.target.value);
@@ -47,7 +43,7 @@ export function useValidatedTimeInput({
 
   return {
     value,
-    formattedValue,
+    formattedValue: addLeadingZeros(value),
     isError,
     onChange,
     incrementTime,
