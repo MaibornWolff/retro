@@ -1,7 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 import { DialogProps } from "../../../common/types/commonTypes";
-import { useFullscreen } from "../../hooks/useFullscreen";
 import { TimePicker } from "../../../common/components/TimePicker";
 import { useValidatedTimeInput } from "../../../common/hooks/useValidatedTimeInput";
 import { useRetroContext } from "../../context/RetroContext";
@@ -21,8 +20,9 @@ export function CreateTimerDialog({
   const { retroState, handleStartTimer, handleStopTimer, handlePauseTimer, handleResumeTimer } =
     useRetroContext();
   const { timerStatus } = retroState;
-  const fullScreen = useFullscreen();
   const isTimerRunning = timerStatus === TimerStatus.RUNNING;
+  const isTimerPaused = timerStatus === TimerStatus.PAUSED;
+  const isTimerStopped = timerStatus === TimerStatus.STOPPED;
 
   const {
     value: pickedSeconds,
@@ -33,7 +33,7 @@ export function CreateTimerDialog({
     formatLength: 2,
     maxValue: 60,
     minValue: 0,
-    initialValue: remainingSeconds,
+    initialValue: 0,
   });
 
   const {
@@ -45,12 +45,12 @@ export function CreateTimerDialog({
     formatLength: 2,
     minValue: 0,
     maxValue: 99,
-    initialValue: remainingMinutes,
+    initialValue: 5,
   });
 
   function handleTimerClick() {
     close();
-    if (timerStatus === TimerStatus.STOPPED) {
+    if (isTimerStopped) {
       const timerDuration = (pickedMinutes * 60 + pickedSeconds) * 1000;
       handleStartTimer(timerDuration);
     } else {
@@ -59,19 +59,12 @@ export function CreateTimerDialog({
   }
 
   return (
-    <Dialog
-      fullWidth
-      maxWidth="xs"
-      fullScreen={fullScreen}
-      open={isOpen}
-      onClose={close}
-      aria-labelledby="new-card-dialog"
-    >
+    <Dialog fullWidth maxWidth="xs" open={isOpen} onClose={close} aria-labelledby="new-card-dialog">
       <DialogTitle id="new-card-dialog">Set Timer</DialogTitle>
       <DialogContent>
         <TimePicker
-          formattedMinutes={isTimerRunning ? remainingMinutes.toString() : formattedMinutes}
-          formattedSeconds={isTimerRunning ? remainingSeconds.toString() : formattedSeconds}
+          minutes={isTimerRunning || isTimerPaused ? remainingMinutes.toString() : formattedMinutes}
+          seconds={isTimerRunning || isTimerPaused ? remainingSeconds.toString() : formattedSeconds}
           isEditable={!isTimerRunning}
           isMinutesError={isMinutesError}
           isSecondsError={isSecondsError}
@@ -82,13 +75,9 @@ export function CreateTimerDialog({
       <DialogActions>
         <Button onClick={close}>Cancel</Button>
         {isTimerRunning && <Button onClick={handlePauseTimer}>Pause</Button>}
-        {timerStatus === TimerStatus.PAUSED && (
-          <Button onClick={handleResumeTimer} color="warning">
-            Resume
-          </Button>
-        )}
+        {isTimerPaused && <Button onClick={handleResumeTimer}>Resume</Button>}
         <CallToActionButton onClick={handleTimerClick}>
-          {timerStatus === TimerStatus.STOPPED ? "Start" : "Stop"}
+          {isTimerStopped ? "Start" : "Stop"}
         </CallToActionButton>
       </DialogActions>
     </Dialog>
