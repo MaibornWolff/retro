@@ -47,15 +47,14 @@ export function CreateTimerDialog({
     maxValue: 99,
     initialValue: 5,
   });
-
-  function handleTimerClick() {
+  function handleStartClick() {
     close();
-    if (isTimerStopped) {
-      const timerDuration = (pickedMinutes * 60 + pickedSeconds) * 1000;
-      handleStartTimer(timerDuration);
-    } else {
-      handleStopTimer();
-    }
+    const timerDuration = (pickedMinutes * 60 + pickedSeconds) * 1000;
+    handleStartTimer(timerDuration);
+  }
+  function handleStopClick() {
+    close();
+    handleStopTimer();
   }
 
   return (
@@ -76,7 +75,10 @@ export function CreateTimerDialog({
         <Button onClick={close}>Cancel</Button>
         {isTimerRunning && <Button onClick={handlePauseTimer}>Pause</Button>}
         {isTimerPaused && <Button onClick={handleResumeTimer}>Resume</Button>}
-        <CallToActionButton onClick={handleTimerClick} disabled={isMinutesError || isSecondsError}>
+        <CallToActionButton
+          onClick={isTimerStopped ? handleStartClick : handleStopClick}
+          disabled={isMinutesError || isSecondsError}
+        >
           {isTimerStopped ? "Start" : "Stop"}
         </CallToActionButton>
       </DialogActions>

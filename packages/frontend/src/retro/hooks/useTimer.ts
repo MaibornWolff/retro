@@ -7,8 +7,7 @@ interface useTimerProps {
 }
 
 export function useTimer({ onTimerFinish }: useTimerProps) {
-  const { retroState } = useRetroContext();
-  const { timerStatus, timerDuration } = retroState;
+  const { timerStatus, timerDuration } = useRetroContext().retroState;
   const [timeRunning, setTimeRunning] = useState(0);
   const intervalRef = useRef<NodeJS.Timer>();
   const remainingTime = timerDuration - timeRunning;

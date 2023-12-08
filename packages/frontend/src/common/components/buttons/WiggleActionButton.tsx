@@ -1,7 +1,7 @@
 import { Button, ButtonProps, useTheme } from "@mui/material";
 import React from "react";
 import { keyframes } from "@emotion/react";
-interface ActionButtonProps extends ButtonProps {
+interface WiggleActionButtonProps extends ButtonProps {
   onClick: () => void;
   label: string;
   isDisabled?: boolean;
@@ -17,7 +17,7 @@ export function WiggleActionButton({
   isWiggling,
   children,
   ...props
-}: ActionButtonProps) {
+}: WiggleActionButtonProps) {
   const theme = useTheme();
 
   const wiggle = keyframes`
