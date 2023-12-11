@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Alarm, SnoozeOutlined } from "@mui/icons-material";
 import { isModerator } from "../../../common/utils/participantsUtils";
 import { TimerDialog } from "../dialogs/TimerDialog";
@@ -9,6 +9,7 @@ import { useTimer } from "../../hooks/useTimer";
 
 import { TimerStatus } from "../../types/retroTypes";
 import { WiggleActionButton } from "../../../common/components/buttons/WiggleActionButton";
+import useTimedEffect from "../../hooks/useTimedEffect";
 
 export function OpenTimerDialogButton() {
   const { isOpen, closeDialog, openDialog } = useDialog();
@@ -16,35 +17,22 @@ export function OpenTimerDialogButton() {
   const { timerStatus } = retroState;
   const { user } = useUserContext();
 
-  const finishEffectLength = 3000;
-  const [isFinishEffectActive, setIsFinishEffectActive] = useState(false);
   const { minutes, seconds, remainingTimeLabel } = useTimer({
     onTimerFinish: handleTimerFinish,
   });
-
+  const { isEffectActive, startEffect } = useTimedEffect({ effectLength: 3000 });
   function handleOpenDialog() {
     if (!isModerator(user)) {
       return;
     }
     openDialog();
   }
-
   function handleTimerFinish() {
     handleStopTimer();
-    setIsFinishEffectActive(true);
+    startEffect();
   }
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsFinishEffectActive(false);
-    }, finishEffectLength);
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [isFinishEffectActive]);
-
-  if (!isModerator(user) && timerStatus === TimerStatus.STOPPED && !isFinishEffectActive)
-    return null;
+  if (!isModerator(user) && timerStatus === TimerStatus.STOPPED && !isEffectActive) return null;
 
   return (
     <>
@@ -55,11 +43,11 @@ export function OpenTimerDialogButton() {
         color={
           timerStatus === TimerStatus.PAUSED
             ? "info"
-            : timerStatus === TimerStatus.RUNNING || isFinishEffectActive
+            : timerStatus === TimerStatus.RUNNING || isEffectActive
             ? "error"
             : undefined
         }
-        isWiggling={isFinishEffectActive}
+        isWiggling={isEffectActive}
       />
       <TimerDialog
         isOpen={isOpen}
