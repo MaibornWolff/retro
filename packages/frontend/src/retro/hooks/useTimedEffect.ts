@@ -13,7 +13,7 @@ export default function useTimedEffect({ effectLength }: useFinishEffectProps) {
     return () => {
       clearTimeout(timeout);
     };
-  }, [isEffectActive]);
+  }, [isEffectActive, effectLength]);
 
   function startEffect() {
     setIsEffectActive(true);

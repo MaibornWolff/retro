@@ -13,7 +13,11 @@ export function useTimer({ onTimerFinish }: useTimerProps) {
   const remainingTime = timerDuration - timeRunning;
 
   function createLabel() {
-    return new Date(remainingTime).toISOString().slice(14, 19);
+    const timelabel = new Date(remainingTime).toISOString().slice(11, 19);
+    if (timelabel[0] === "0" && timelabel[1] === "0") {
+      return timelabel.slice(3, timelabel.length);
+    }
+    return timelabel;
   }
 
   function getMinutes() {
