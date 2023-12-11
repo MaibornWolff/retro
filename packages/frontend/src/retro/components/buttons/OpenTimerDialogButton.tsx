@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Alarm, SnoozeOutlined } from "@mui/icons-material";
 import { isModerator } from "../../../common/utils/participantsUtils";
-import { CreateTimerDialog } from "../dialogs/CreateTimerDialog";
+import { TimerDialog } from "../dialogs/TimerDialog";
 import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
 import { useDialog } from "../../../common/hooks/useDialog";
@@ -61,7 +61,7 @@ export function OpenTimerDialogButton() {
         }
         isWiggling={isFinishEffectActive}
       />
-      <CreateTimerDialog
+      <TimerDialog
         isOpen={isOpen}
         close={closeDialog}
         remainingMinutes={minutes}
