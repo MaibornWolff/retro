@@ -225,7 +225,6 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
       return { ...state, isVotingEnabled: action.isEnabled };
     }
     case "START_TIMER": {
-      console.log("START TIMER");
       return {
         ...state,
         timerDuration: action.duration,
@@ -233,11 +232,9 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
       };
     }
     case "STOP_TIMER": {
-      console.log("STOP TIMER");
       return { ...state, timerDuration: 0, timerStatus: TimerStatus.STOPPED };
     }
     case "PAUSE_TIMER": {
-      console.log("PAUSE TIMER");
       return { ...state, timerStatus: TimerStatus.PAUSED };
     }
     case "DISCONNECT": {

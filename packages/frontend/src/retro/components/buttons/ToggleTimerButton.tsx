@@ -16,7 +16,7 @@ export function ToggleTimerButton() {
   const { timerStatus } = retroState;
   const { user } = useUserContext();
 
-  const finishEffectLength = 5000;
+  const finishEffectLength = 3000;
   const [isFinishEffectActive, setIsFinishEffectActive] = useState(false);
   const { minutes, seconds, remainingTimeLabel } = useTimer({
     onTimerFinish: handleTimerFinish,
