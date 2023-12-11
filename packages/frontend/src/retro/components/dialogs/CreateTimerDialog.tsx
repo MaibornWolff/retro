@@ -58,8 +58,14 @@ export function CreateTimerDialog({
   }
 
   return (
-    <Dialog fullWidth maxWidth="xs" open={isOpen} onClose={close} aria-labelledby="new-card-dialog">
-      <DialogTitle id="new-card-dialog">Set Timer</DialogTitle>
+    <Dialog
+      fullWidth
+      maxWidth="xs"
+      open={isOpen}
+      onClose={close}
+      aria-labelledby="new-timer-dialog"
+    >
+      <DialogTitle id="new-timer-dialog">Set Timer</DialogTitle>
       <DialogContent>
         <TimePicker
           minutes={isTimerRunning || isTimerPaused ? remainingMinutes.toString() : formattedMinutes}
@@ -69,6 +75,7 @@ export function CreateTimerDialog({
           isSecondsError={isSecondsError}
           onSecondsChange={handleSecondsChange}
           onMinutesChange={handleMinutesChange}
+          onEnter={isTimerStopped ? handleStartClick : handleStopClick}
         />
       </DialogContent>
       <DialogActions>

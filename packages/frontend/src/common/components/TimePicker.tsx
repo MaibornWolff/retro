@@ -1,6 +1,6 @@
 import React from "react";
-import { FormControl, FormHelperText, OutlinedInput, TextField, Typography } from "@mui/material";
 import { FlexBox } from "./FlexBox";
+import { TextInput } from "./TextInput";
 
 interface TimePickerProps {
   minutes: string;
@@ -10,6 +10,7 @@ interface TimePickerProps {
   isSecondsError: boolean;
   onSecondsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onMinutesChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onEnter: () => void;
 }
 export function TimePicker({
   minutes,
@@ -19,35 +20,31 @@ export function TimePicker({
   isSecondsError,
   onSecondsChange,
   onMinutesChange,
+  onEnter,
 }: TimePickerProps) {
   return (
-    <FlexBox>
-      <FormControl variant="filled">
-        <TextField
-          value={minutes}
-          onChange={onMinutesChange}
-          autoFocus
-          required
-          disabled={!isEditable}
-          size="small"
-          type="tel"
-          error={isMinutesError}
-        />
-        <FormHelperText>Minutes</FormHelperText>
-      </FormControl>
-      <Typography variant="caption">:</Typography>
-      <FormControl variant="filled">
-        <OutlinedInput
-          value={seconds}
-          onChange={onSecondsChange}
-          required
-          size="small"
-          type="tel"
-          disabled={!isEditable}
-          error={isSecondsError}
-        />
-        <FormHelperText>Seconds</FormHelperText>
-      </FormControl>
+    <FlexBox sx={{ columnGap: "2%" }}>
+      <TextInput
+        value={minutes}
+        onChange={onMinutesChange}
+        onSubmit={onEnter}
+        autoFocus
+        required
+        disabled={!isEditable}
+        type="tel"
+        error={isMinutesError}
+        label="Minutes"
+      />
+      <TextInput
+        value={seconds}
+        onChange={onSecondsChange}
+        onSubmit={onEnter}
+        required
+        type="tel"
+        disabled={!isEditable}
+        error={isSecondsError}
+        label="Seconds"
+      />
     </FlexBox>
   );
 }
