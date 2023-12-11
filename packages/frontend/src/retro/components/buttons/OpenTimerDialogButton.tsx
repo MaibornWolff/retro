@@ -10,7 +10,7 @@ import { useTimer } from "../../hooks/useTimer";
 import { TimerStatus } from "../../types/retroTypes";
 import { WiggleActionButton } from "../../../common/components/buttons/WiggleActionButton";
 
-export function ToggleTimerButton() {
+export function OpenTimerDialogButton() {
   const { isOpen, closeDialog, openDialog } = useDialog();
   const { retroState, handleStopTimer } = useRetroContext();
   const { timerStatus } = retroState;

@@ -23,8 +23,9 @@ export function ActionButton({ onClick, isDisabled, label, icon, ...props }: Act
         boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
         whiteSpace: "nowrap",
         width: theme.spacing(22),
+        ...props.sx,
       }}
-      startIcon={icon ?? undefined}
+      startIcon={icon}
       fullWidth
     >
       {label}
