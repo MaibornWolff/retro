@@ -7,16 +7,20 @@ export default function useTimedEffect({ effectLength }: useFinishEffectProps) {
   const [isEffectActive, setIsEffectActive] = useState(false);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsEffectActive(false);
-    }, effectLength);
-    return () => {
-      clearTimeout(timeout);
-    };
+    if (isEffectActive) {
+      const timeout = setTimeout(() => {
+        setIsEffectActive(false);
+      }, effectLength);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
   }, [isEffectActive, effectLength]);
 
   function startEffect() {
-    setIsEffectActive(true);
+    if (!isEffectActive) {
+      setIsEffectActive(true);
+    }
   }
   return {
     isEffectActive,
