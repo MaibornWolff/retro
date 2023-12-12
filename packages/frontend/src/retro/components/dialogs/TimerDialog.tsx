@@ -31,7 +31,7 @@ export function TimerDialog({
     onChange: handleSecondsChange,
   } = useValidatedTimeInput({
     formatLength: 2,
-    maxValue: 60,
+    maxValue: 59,
     minValue: 0,
     initialValue: 0,
   });
@@ -41,6 +41,7 @@ export function TimerDialog({
     formattedValue: formattedMinutes,
     isError: isMinutesError,
     onChange: handleMinutesChange,
+    incrementTime: incrementMinutes,
   } = useValidatedTimeInput({
     formatLength: 2,
     minValue: 0,
@@ -56,6 +57,17 @@ export function TimerDialog({
     close();
     handleStopTimer();
   }
+  function handleTimerIncrement(minutes: number) {
+    if (isTimerRunning || isTimerPaused) {
+      const newDuration = ((remainingMinutes + minutes) * 60 + remainingSeconds) * 1000;
+      handleStartTimer(newDuration);
+      if (isTimerPaused) {
+        handlePauseTimer();
+      }
+    } else {
+      incrementMinutes(minutes);
+    }
+  }
 
   return (
     <Dialog
@@ -70,12 +82,13 @@ export function TimerDialog({
         <TimePicker
           minutes={isTimerRunning || isTimerPaused ? remainingMinutes.toString() : formattedMinutes}
           seconds={isTimerRunning || isTimerPaused ? remainingSeconds.toString() : formattedSeconds}
-          isEditable={!isTimerRunning}
+          isEditable={!isTimerRunning && !isTimerPaused}
           isMinutesError={isMinutesError}
           isSecondsError={isSecondsError}
           onSecondsChange={handleSecondsChange}
           onMinutesChange={handleMinutesChange}
           onEnter={isTimerStopped ? handleStartClick : handleStopClick}
+          onTimeIncrement={handleTimerIncrement}
         />
       </DialogContent>
       <DialogActions>

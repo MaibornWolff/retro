@@ -14,8 +14,7 @@ export function useValidatedTimeInput({
   minValue = Number.MIN_VALUE,
 }: useValidatedTimeInputOptions | undefined = {}) {
   const [value, setValue] = useState(initialValue ?? 0);
-  const [isError, setIsError] = useState(false);
-
+  const isError = value < minValue || value > maxValue;
   function addLeadingZeros(value: number) {
     if (formatLength) {
       return value.toString().padStart(formatLength, "0");
@@ -25,12 +24,8 @@ export function useValidatedTimeInput({
   function incrementTime(change: number) {
     changeValue(value + change);
   }
-  function decrementTime(change: number) {
-    changeValue(value - change);
-  }
   function changeValue(value: number) {
     setValue(value);
-    setIsError(value < minValue || value > maxValue);
   }
   function trimInput(input: string) {
     if (input.length > formatLength) {
@@ -42,7 +37,6 @@ export function useValidatedTimeInput({
     const input = trimInput(event.target.value);
     const number = toNumber(input);
     if (Number.isNaN(number)) {
-      setIsError(true);
       return;
     }
 
@@ -55,6 +49,5 @@ export function useValidatedTimeInput({
     isError,
     onChange,
     incrementTime,
-    decrementTime,
   };
 }
