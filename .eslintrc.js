@@ -42,6 +42,7 @@ module.exports = {
       "warn",
       { blankLine: "always", prev: "block-like", next: "function" },
       { blankLine: "always", prev: "const", next: "function" },
+      { blankLine: "always", prev: "function", next: "return" },
     ],
   },
 };

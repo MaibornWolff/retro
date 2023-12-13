@@ -18,6 +18,7 @@ export function QrCodeDialog({ isOpen, close }: DialogProps) {
   async function onRendered() {
     await QRCode.toCanvas(qrCanvas.current, window.location.href);
   }
+
   return (
     <Dialog
       fullScreen={fullScreen}

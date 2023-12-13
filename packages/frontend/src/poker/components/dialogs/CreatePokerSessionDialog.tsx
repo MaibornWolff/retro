@@ -73,6 +73,7 @@ export function CreatePokerSessionDialog() {
     redirectToRoom(roomId);
     handleClose();
   }
+
   return (
     <Dialog
       fullWidth

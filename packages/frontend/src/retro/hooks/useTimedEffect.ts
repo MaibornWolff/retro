@@ -20,6 +20,7 @@ export default function useTimedEffect({ effectLength }: useTimedEffectProps) {
   function startEffect() {
     setIsEffectActive(true);
   }
+
   return {
     isEffectActive,
     startEffect,
