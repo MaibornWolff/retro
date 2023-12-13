@@ -24,14 +24,6 @@ export function useValidatedTimeInput({
     return value.toString();
   }
 
-  function incrementTime(change: number) {
-    changeValue(value + change);
-  }
-
-  function changeValue(value: number) {
-    setValue(value);
-  }
-
   function trimInput(input: string) {
     if (input.length > formatLength) {
       return input.substring(input.length - formatLength, input.length);
@@ -42,11 +34,12 @@ export function useValidatedTimeInput({
   function onChange(event: React.ChangeEvent<HTMLInputElement>) {
     const input = trimInput(event.target.value);
     const number = toNumber(input);
+
     if (Number.isNaN(number)) {
       return;
     }
 
-    changeValue(number);
+    setValue(number);
   }
 
   return {
@@ -54,6 +47,8 @@ export function useValidatedTimeInput({
     formattedValue: addLeadingZeros(value),
     isError,
     onChange,
-    incrementTime,
+    incrementTime: (change: number) => {
+      setValue(value + change);
+    },
   };
 }
