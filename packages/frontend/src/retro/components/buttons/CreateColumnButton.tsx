@@ -16,7 +16,7 @@ export function CreateColumnButton() {
       <ActionButton
         onClick={openDialog}
         label={"Add Column"}
-        isDisabled={!isModerator(user)}
+        disabled={!isModerator(user)}
         icon={<Add />}
       />
       <CreateColumnDialog isOpen={isOpen} close={closeDialog} />
