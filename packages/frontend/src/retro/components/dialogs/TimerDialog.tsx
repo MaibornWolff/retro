@@ -6,6 +6,7 @@ import { TimePicker } from "../TimePicker";
 import { useValidatedTimeInput } from "../../hooks/useValidatedTimeInput";
 import { useRetroContext } from "../../context/RetroContext";
 import { TimerStatus } from "../../types/retroTypes";
+import { calculateMilliseconds } from "../../utils/timerUtils";
 
 interface TimerDialogProps extends DialogProps {
   remainingMinutes: number;
@@ -50,8 +51,7 @@ export function TimerDialog({
   });
 
   function handleStartClick() {
-    const timerDuration = (minutes * 60 + seconds) * 1000;
-    handleStartTimer(timerDuration);
+    handleStartTimer(calculateMilliseconds(minutes, seconds));
     close();
   }
 
@@ -62,11 +62,9 @@ export function TimerDialog({
 
   function handleTimerIncrement(minutes: number) {
     if (isTimerRunning) {
-      const newDuration = ((remainingMinutes + minutes) * 60 + remainingSeconds) * 1000;
-      handleStartTimer(newDuration);
+      handleStartTimer(calculateMilliseconds(remainingMinutes + minutes, remainingSeconds));
     } else if (isTimerPaused) {
-      const newDuration = ((remainingMinutes + minutes) * 60 + remainingSeconds) * 1000;
-      handlePauseTimer(newDuration);
+      handlePauseTimer(calculateMilliseconds(remainingMinutes + minutes, remainingSeconds));
     } else {
       incrementMinutes(minutes);
     }
