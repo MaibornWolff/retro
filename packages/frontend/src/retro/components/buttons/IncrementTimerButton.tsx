@@ -3,19 +3,17 @@ import { ActionButton } from "../../../common/components/buttons/ActionButton";
 
 interface IncrementTimerButtonProps {
   onTimerIncrement: (amount: number) => void;
-  incrementAmount: number;
-  label: string;
+  minutesToIncrement: number;
 }
 export default function IncrementTimerButton({
   onTimerIncrement,
-  incrementAmount,
-  label,
+  minutesToIncrement,
 }: IncrementTimerButtonProps) {
   return (
     <ActionButton
-      label={label}
+      label={`+${minutesToIncrement} Minutes`}
       onClick={() => {
-        onTimerIncrement(incrementAmount);
+        onTimerIncrement(minutesToIncrement);
       }}
     />
   );

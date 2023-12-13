@@ -50,21 +50,9 @@ export function TimePicker({
         />
       </FlexBox>
       <FlexBox>
-        <IncrementTimerButton
-          label={"+1 Minutes"}
-          onTimerIncrement={onTimerIncrement}
-          incrementAmount={1}
-        />
-        <IncrementTimerButton
-          label={"+3 Minutes"}
-          onTimerIncrement={onTimerIncrement}
-          incrementAmount={3}
-        />
-        <IncrementTimerButton
-          label={"+5 Minutes"}
-          onTimerIncrement={onTimerIncrement}
-          incrementAmount={5}
-        />
+        <IncrementTimerButton onTimerIncrement={onTimerIncrement} minutesToIncrement={1} />
+        <IncrementTimerButton onTimerIncrement={onTimerIncrement} minutesToIncrement={3} />
+        <IncrementTimerButton onTimerIncrement={onTimerIncrement} minutesToIncrement={5} />
       </FlexBox>
     </>
   );
