@@ -48,6 +48,7 @@ export function TimerDialog({
     maxValue: 99,
     initialValue: 5,
   });
+
   function handleStartClick() {
     close();
     const timerDuration = (pickedMinutes * 60 + pickedSeconds) * 1000;

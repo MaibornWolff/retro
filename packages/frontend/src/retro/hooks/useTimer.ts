@@ -19,6 +19,7 @@ export function useTimer({ onTimerFinish }: useTimerProps) {
     hourCycle: "h23",
     hour: minutes > 59 ? "numeric" : undefined,
   };
+
   function createLabel() {
     const date = new Date(0);
     date.setHours(0, 0, 0);

@@ -21,6 +21,7 @@ export function ToggleTimerDialogButton() {
     onTimerFinish: handleTimerFinish,
   });
   const { isEffectActive, startEffect } = useTimedEffect({ effectLength: 3000 });
+
   function handleOpenDialog() {
     if (!isModerator(user)) {
       return;
