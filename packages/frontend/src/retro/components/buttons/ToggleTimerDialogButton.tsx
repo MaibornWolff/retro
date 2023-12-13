@@ -8,7 +8,7 @@ import { useDialog } from "../../../common/hooks/useDialog";
 import { useTimer } from "../../hooks/useTimer";
 
 import { TimerStatus } from "../../types/retroTypes";
-import { WiggleActionButton } from "../../../common/components/buttons/WiggleActionButton";
+import { WiggleActionButton } from "./WiggleActionButton";
 import useTimedEffect from "../../hooks/useTimedEffect";
 
 export function ToggleTimerDialogButton() {

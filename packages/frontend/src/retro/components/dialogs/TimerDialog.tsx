@@ -1,13 +1,13 @@
+import React from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 import { DialogProps } from "../../../common/types/commonTypes";
-import { TimePicker } from "../../../common/components/TimePicker";
-import { useValidatedTimeInput } from "../../../common/hooks/useValidatedTimeInput";
+import { TimePicker } from "../TimePicker";
+import { useValidatedTimeInput } from "../../hooks/useValidatedTimeInput";
 import { useRetroContext } from "../../context/RetroContext";
 import { TimerStatus } from "../../types/retroTypes";
-import React = require("react");
 
-interface CreateTimerDialogProps extends DialogProps {
+interface TimerDialogProps extends DialogProps {
   remainingMinutes: number;
   remainingSeconds: number;
 }
@@ -16,7 +16,7 @@ export function TimerDialog({
   close,
   remainingMinutes,
   remainingSeconds,
-}: CreateTimerDialogProps) {
+}: TimerDialogProps) {
   const { retroState, handleStartTimer, handleStopTimer, handlePauseTimer, handleResumeTimer } =
     useRetroContext();
   const { timerStatus } = retroState;

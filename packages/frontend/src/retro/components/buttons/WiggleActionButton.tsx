@@ -1,7 +1,7 @@
+import React, { MouseEventHandler } from "react";
 import { ButtonProps } from "@mui/material";
 import { keyframes } from "@emotion/react";
-import { ActionButton } from "./ActionButton";
-import React, { MouseEventHandler } from "react";
+import { ActionButton } from "../../../common/components/buttons/ActionButton";
 
 interface WiggleActionButtonProps extends ButtonProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
