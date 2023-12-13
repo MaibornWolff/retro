@@ -88,7 +88,7 @@ export function TimerDialog({
           onSecondsChange={handleSecondsChange}
           onMinutesChange={handleMinutesChange}
           onEnter={isTimerStopped ? handleStartClick : handleStopClick}
-          onTimeIncrement={handleTimerIncrement}
+          onTimerIncrement={handleTimerIncrement}
         />
       </DialogContent>
       <DialogActions>

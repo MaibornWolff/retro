@@ -1,7 +1,7 @@
 import React from "react";
 import { FlexBox } from "./FlexBox";
 import { TextInput } from "./TextInput";
-import { ActionButton } from "./buttons/ActionButton";
+import IncrementTimerButton from "../../retro/components/buttons/IncrementTimerButton";
 interface TimePickerProps {
   minutes: string;
   seconds: string;
@@ -11,7 +11,7 @@ interface TimePickerProps {
   onSecondsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onMinutesChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onEnter: () => void;
-  onTimeIncrement: (increment: number) => void;
+  onTimerIncrement: (increment: number) => void;
 }
 export function TimePicker({
   minutes,
@@ -22,7 +22,7 @@ export function TimePicker({
   onSecondsChange,
   onMinutesChange,
   onEnter,
-  onTimeIncrement,
+  onTimerIncrement,
 }: TimePickerProps) {
   return (
     <>
@@ -50,23 +50,20 @@ export function TimePicker({
         />
       </FlexBox>
       <FlexBox>
-        <ActionButton
-          label="+1 Minutes"
-          onClick={() => {
-            onTimeIncrement(1);
-          }}
+        <IncrementTimerButton
+          label={"+1 Minutes"}
+          onTimerIncrement={onTimerIncrement}
+          incrementAmount={1}
         />
-        <ActionButton
-          label="+3 Minutes"
-          onClick={() => {
-            onTimeIncrement(3);
-          }}
+        <IncrementTimerButton
+          label={"+3 Minutes"}
+          onTimerIncrement={onTimerIncrement}
+          incrementAmount={3}
         />
-        <ActionButton
-          onClick={() => {
-            onTimeIncrement(5);
-          }}
-          label="+5 Minutes"
+        <IncrementTimerButton
+          label={"+5 Minutes"}
+          onTimerIncrement={onTimerIncrement}
+          incrementAmount={5}
         />
       </FlexBox>
     </>
