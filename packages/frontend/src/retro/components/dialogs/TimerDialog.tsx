@@ -25,7 +25,7 @@ export function TimerDialog({
   const isTimerStopped = timerStatus === TimerStatus.STOPPED;
 
   const {
-    value: pickedSeconds,
+    value: seconds,
     formattedValue: formattedSeconds,
     isError: isSecondsError,
     onChange: handleSecondsChange,
@@ -37,7 +37,7 @@ export function TimerDialog({
   });
 
   const {
-    value: pickedMinutes,
+    value: minutes,
     formattedValue: formattedMinutes,
     isError: isMinutesError,
     onChange: handleMinutesChange,
@@ -50,14 +50,14 @@ export function TimerDialog({
   });
 
   function handleStartClick() {
-    close();
-    const timerDuration = (pickedMinutes * 60 + pickedSeconds) * 1000;
+    const timerDuration = (minutes * 60 + seconds) * 1000;
     handleStartTimer(timerDuration);
+    close();
   }
 
   function handleStopClick() {
-    close();
     handleStopTimer();
+    close();
   }
 
   function handleTimerIncrement(minutes: number) {
@@ -83,9 +83,9 @@ export function TimerDialog({
       <DialogTitle id="new-timer-dialog">Set Timer</DialogTitle>
       <DialogContent>
         <TimePicker
-          minutes={isTimerRunning || isTimerPaused ? remainingMinutes.toString() : formattedMinutes}
-          seconds={isTimerRunning || isTimerPaused ? remainingSeconds.toString() : formattedSeconds}
-          isEditable={!isTimerRunning && !isTimerPaused}
+          minutes={isTimerStopped ? formattedMinutes : remainingMinutes.toString()}
+          seconds={isTimerStopped ? formattedSeconds : remainingSeconds.toString()}
+          isEditable={isTimerStopped}
           isMinutesError={isMinutesError}
           isSecondsError={isSecondsError}
           onSecondsChange={handleSecondsChange}
