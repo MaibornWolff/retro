@@ -53,10 +53,12 @@ export function TimerDialog({
     const timerDuration = (pickedMinutes * 60 + pickedSeconds) * 1000;
     handleStartTimer(timerDuration);
   }
+
   function handleStopClick() {
     close();
     handleStopTimer();
   }
+
   function handleTimerIncrement(minutes: number) {
     if (isTimerRunning || isTimerPaused) {
       const newDuration = ((remainingMinutes + minutes) * 60 + remainingSeconds) * 1000;

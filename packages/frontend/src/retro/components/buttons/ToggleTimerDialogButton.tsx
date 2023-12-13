@@ -27,6 +27,7 @@ export function ToggleTimerDialogButton() {
     }
     openDialog();
   }
+
   function handleTimerFinish() {
     handleStopTimer();
     startEffect();
