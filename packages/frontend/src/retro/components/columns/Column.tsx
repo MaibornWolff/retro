@@ -35,22 +35,22 @@ export function Column({ column }: ColumnProps) {
         >
           <ColumnHeader column={column} />
           <Divider />
-          <Box sx={{ overflowY: "scroll", height: "72vh" }}>
-            <Droppable droppableId={column.id} type="item" isCombineEnabled={true}>
-              {(providedDroppable) => (
-                <Box
-                  flex={1}
-                  p={2}
-                  sx={{ transition: "background-color 0.2s ease" }}
-                  ref={providedDroppable.innerRef}
-                  {...providedDroppable.droppableProps}
-                >
+          <Droppable droppableId={column.id} type="item" isCombineEnabled={true}>
+            {(providedDroppable) => (
+              <Box
+                flex={1}
+                p={2}
+                sx={{ transition: "background-color 0.2s ease" }}
+                ref={providedDroppable.innerRef}
+                {...providedDroppable.droppableProps}
+              >
+                <Box sx={{ overflowY: "auto", height: "72vh" }}>
                   <Cards column={column} />
                   {providedDroppable.placeholder}
                 </Box>
-              )}
-            </Droppable>
-          </Box>
+              </Box>
+            )}
+          </Droppable>
         </Card>
       )}
     </Draggable>
