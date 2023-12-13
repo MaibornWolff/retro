@@ -10,9 +10,11 @@ export function useTimer({ onTimerFinish }: useTimerProps) {
   const { timerStatus, timerDuration } = useRetroContext().retroState;
   const [timeRunning, setTimeRunning] = useState(0);
   const intervalRef = useRef<NodeJS.Timer>();
+
   const remainingTime = timerDuration - timeRunning;
   const minutes = Math.floor(remainingTime / 1000 / 60);
   const seconds = Math.round((remainingTime / 1000) % 60);
+
   const labelOptions: Intl.DateTimeFormatOptions = {
     minute: "numeric",
     second: "numeric",

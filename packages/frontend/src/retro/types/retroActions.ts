@@ -101,6 +101,7 @@ export interface StartTimerAction extends BaseAction {
 }
 export interface PauseTimerAction extends BaseAction {
   type: "PAUSE_TIMER";
+  duration: number;
 }
 export interface StopTimerAction extends BaseAction {
   type: "STOP_TIMER";

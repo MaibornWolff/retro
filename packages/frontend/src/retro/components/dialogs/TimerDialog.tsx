@@ -19,7 +19,7 @@ export function TimerDialog({
 }: TimerDialogProps) {
   const { retroState, handleStartTimer, handleStopTimer, handlePauseTimer, handleResumeTimer } =
     useRetroContext();
-  const { timerStatus } = retroState;
+  const { timerStatus, timerDuration } = retroState;
   const isTimerRunning = timerStatus === TimerStatus.RUNNING;
   const isTimerPaused = timerStatus === TimerStatus.PAUSED;
   const isTimerStopped = timerStatus === TimerStatus.STOPPED;
@@ -61,12 +61,12 @@ export function TimerDialog({
   }
 
   function handleTimerIncrement(minutes: number) {
-    if (isTimerRunning || isTimerPaused) {
+    if (isTimerRunning) {
       const newDuration = ((remainingMinutes + minutes) * 60 + remainingSeconds) * 1000;
       handleStartTimer(newDuration);
-      if (isTimerPaused) {
-        handlePauseTimer();
-      }
+    } else if (isTimerPaused) {
+      const newDuration = ((remainingMinutes + minutes) * 60 + remainingSeconds) * 1000;
+      handlePauseTimer(newDuration);
     } else {
       incrementMinutes(minutes);
     }
@@ -96,7 +96,15 @@ export function TimerDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={close}>Cancel</Button>
-        {isTimerRunning && <Button onClick={handlePauseTimer}>Pause</Button>}
+        {isTimerRunning && (
+          <Button
+            onClick={() => {
+              handlePauseTimer(timerDuration);
+            }}
+          >
+            Pause
+          </Button>
+        )}
         {isTimerPaused && <Button onClick={handleResumeTimer}>Resume</Button>}
         <CallToActionButton
           onClick={isTimerStopped ? handleStartClick : handleStopClick}
