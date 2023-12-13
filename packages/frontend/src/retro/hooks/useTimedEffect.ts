@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-interface useFinishEffectProps {
+interface useTimedEffectProps {
   effectLength: number;
 }
-export default function useTimedEffect({ effectLength }: useFinishEffectProps) {
+export default function useTimedEffect({ effectLength }: useTimedEffectProps) {
   const [isEffectActive, setIsEffectActive] = useState(false);
 
   useEffect(() => {
@@ -18,9 +18,7 @@ export default function useTimedEffect({ effectLength }: useFinishEffectProps) {
   }, [isEffectActive, effectLength]);
 
   function startEffect() {
-    if (!isEffectActive) {
-      setIsEffectActive(true);
-    }
+    setIsEffectActive(true);
   }
   return {
     isEffectActive,

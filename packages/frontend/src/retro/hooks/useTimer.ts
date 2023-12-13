@@ -11,24 +11,19 @@ export function useTimer({ onTimerFinish }: useTimerProps) {
   const [timeRunning, setTimeRunning] = useState(0);
   const intervalRef = useRef<NodeJS.Timer>();
   const remainingTime = timerDuration - timeRunning;
-
+  const minutes = Math.floor(remainingTime / 1000 / 60);
+  const seconds = Math.round((remainingTime / 1000) % 60);
+  const labelOptions: Intl.DateTimeFormatOptions = {
+    minute: "numeric",
+    second: "numeric",
+    hourCycle: "h23",
+    hour: minutes > 59 ? "numeric" : undefined,
+  };
   function createLabel() {
-    const timelabel = new Date(remainingTime).toISOString().slice(11, 19);
-    if (timelabel[0] === "0" && timelabel[1] === "0") {
-      return timelabel.slice(3, timelabel.length);
-    }
-    return timelabel;
-  }
-
-  function getMinutes() {
-    if (remainingTime < 60000) {
-      return 0;
-    }
-    return Math.floor(remainingTime / 1000 / 60);
-  }
-
-  function getSeconds() {
-    return Math.round((remainingTime / 1000) % 60);
+    const date = new Date(0);
+    date.setHours(0, 0, 0);
+    date.setTime(date.getTime() + remainingTime);
+    return new Intl.DateTimeFormat("de-DE", labelOptions).format(date);
   }
 
   useEffect(() => {
@@ -50,12 +45,13 @@ export function useTimer({ onTimerFinish }: useTimerProps) {
       clearInterval(intervalRef.current);
       intervalRef.current = undefined;
     }
-  }, [timerStatus, timeRunning, timerDuration]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timerStatus]);
 
   return {
     milliseconds: remainingTime,
-    minutes: getMinutes(),
-    seconds: getSeconds(),
+    minutes,
+    seconds,
     remainingTimeLabel: createLabel(),
   };
 }
