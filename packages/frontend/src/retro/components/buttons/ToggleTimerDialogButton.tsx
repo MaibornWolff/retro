@@ -23,9 +23,7 @@ export function ToggleTimerDialogButton() {
   const { isEffectActive, startEffect } = useTimedEffect({ effectLength: 3000 });
 
   function handleOpenDialog() {
-    if (!isModerator(user)) {
-      return;
-    }
+    if (!isModerator(user)) return;
     openDialog();
   }
 
