@@ -5,23 +5,23 @@ import IncrementTimerButton from "./buttons/IncrementTimerButton";
 interface TimePickerProps {
   minutes: string;
   seconds: string;
-  isEditable: boolean;
+  disabled: boolean;
   isMinutesError: boolean;
   isSecondsError: boolean;
   onSecondsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onMinutesChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onEnter: () => void;
+  onSubmit: () => void;
   onTimerIncrement: (increment: number) => void;
 }
 export function TimePicker({
   minutes,
   seconds,
-  isEditable,
+  disabled,
   isMinutesError,
   isSecondsError,
   onSecondsChange,
   onMinutesChange,
-  onEnter,
+  onSubmit,
   onTimerIncrement,
 }: TimePickerProps) {
   return (
@@ -30,10 +30,10 @@ export function TimePicker({
         <TextInput
           value={minutes}
           onChange={onMinutesChange}
-          onSubmit={onEnter}
+          onSubmit={onSubmit}
           autoFocus
           required
-          disabled={!isEditable}
+          disabled={disabled}
           type="tel"
           error={isMinutesError}
           label="Minutes"
@@ -41,10 +41,10 @@ export function TimePicker({
         <TextInput
           value={seconds}
           onChange={onSecondsChange}
-          onSubmit={onEnter}
+          onSubmit={onSubmit}
           required
           type="tel"
-          disabled={!isEditable}
+          disabled={disabled}
           error={isSecondsError}
           label="Seconds"
         />

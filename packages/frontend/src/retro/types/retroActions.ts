@@ -106,6 +106,10 @@ export interface PauseTimerAction extends BaseAction {
 export interface StopTimerAction extends BaseAction {
   type: "STOP_TIMER";
 }
+export interface IncrementTimerAction extends BaseAction {
+  type: "INCREMENT_TIMER";
+  duration: number;
+}
 
 export type RetroAction =
   | PeerToPeerAction<RetroState>
@@ -130,4 +134,5 @@ export type RetroAction =
   | IsVotingEnabledChangedAction
   | StartTimerAction
   | PauseTimerAction
-  | StopTimerAction;
+  | StopTimerAction
+  | IncrementTimerAction;

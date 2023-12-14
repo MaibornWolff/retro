@@ -18,8 +18,14 @@ export function TimerDialog({
   remainingMinutes,
   remainingSeconds,
 }: TimerDialogProps) {
-  const { retroState, handleStartTimer, handleStopTimer, handlePauseTimer, handleResumeTimer } =
-    useRetroContext();
+  const {
+    retroState,
+    handleStartTimer,
+    handleStopTimer,
+    handlePauseTimer,
+    handleResumeTimer,
+    handleIncrementTimer,
+  } = useRetroContext();
   const { timerStatus, timerDuration } = retroState;
   const isTimerRunning = timerStatus === TimerStatus.RUNNING;
   const isTimerPaused = timerStatus === TimerStatus.PAUSED;
@@ -61,12 +67,10 @@ export function TimerDialog({
   }
 
   function handleTimerIncrement(minutes: number) {
-    if (isTimerRunning) {
-      handleStartTimer(calculateMilliseconds(remainingMinutes + minutes, remainingSeconds));
-    } else if (isTimerPaused) {
-      handlePauseTimer(calculateMilliseconds(remainingMinutes + minutes, remainingSeconds));
-    } else {
+    if (isTimerStopped) {
       incrementMinutes(minutes);
+    } else {
+      handleIncrementTimer(calculateMilliseconds(remainingMinutes + minutes, remainingSeconds));
     }
   }
 
@@ -83,12 +87,12 @@ export function TimerDialog({
         <TimePicker
           minutes={isTimerStopped ? formattedMinutes : remainingMinutes.toString()}
           seconds={isTimerStopped ? formattedSeconds : remainingSeconds.toString()}
-          isEditable={isTimerStopped}
+          disabled={!isTimerStopped}
           isMinutesError={isMinutesError}
           isSecondsError={isSecondsError}
           onSecondsChange={handleSecondsChange}
           onMinutesChange={handleMinutesChange}
-          onEnter={isTimerStopped ? handleStartClick : handleStopClick}
+          onSubmit={isTimerStopped ? handleStartClick : handleStopClick}
           onTimerIncrement={handleTimerIncrement}
         />
       </DialogContent>

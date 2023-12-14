@@ -17,18 +17,19 @@ export function useValidatedTimeInput({
   const [value, setValue] = useState(initialValue ?? 0);
   const isError = value < minValue || value > maxValue;
 
-  function addLeadingZeros(value: number) {
-    if (formatLength) {
-      return value.toString().padStart(formatLength, "0");
-    }
-    return value.toString();
-  }
+  const formattedValue = formatLength
+    ? value.toString().padStart(formatLength, "0")
+    : value.toString();
 
   function trimInput(input: string) {
     if (input.length > formatLength) {
       return input.substring(input.length - formatLength, input.length);
     }
     return input;
+  }
+
+  function incrementTime(change: number) {
+    setValue(value + change);
   }
 
   function onChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -44,11 +45,9 @@ export function useValidatedTimeInput({
 
   return {
     value,
-    formattedValue: addLeadingZeros(value),
+    formattedValue,
     isError,
     onChange,
-    incrementTime: (change: number) => {
-      setValue(value + change);
-    },
+    incrementTime,
   };
 }

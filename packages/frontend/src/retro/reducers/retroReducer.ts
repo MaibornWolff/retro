@@ -237,6 +237,9 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
     case "PAUSE_TIMER": {
       return { ...state, timerDuration: action.duration, timerStatus: TimerStatus.PAUSED };
     }
+    case "INCREMENT_TIMER": {
+      return { ...state, timerDuration: action.duration };
+    }
     case "DISCONNECT": {
       const { participants, waitingList } = state;
       const disconnectedUserId = action.payload;
