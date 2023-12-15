@@ -24,7 +24,7 @@ export function TimerDialog({
     handleStopTimer,
     handlePauseTimer,
     handleResumeTimer,
-    handleIncrementTimer,
+    handleChangeTimer,
   } = useRetroContext();
   const { timerStatus, timerDuration } = retroState;
   const isTimerRunning = timerStatus === TimerStatus.RUNNING;
@@ -70,7 +70,7 @@ export function TimerDialog({
     if (isTimerStopped) {
       incrementMinutes(minutes);
     } else {
-      handleIncrementTimer(calculateMilliseconds(remainingMinutes + minutes, remainingSeconds));
+      handleChangeTimer(calculateMilliseconds(remainingMinutes + minutes, remainingSeconds));
     }
   }
 

@@ -84,7 +84,7 @@ export interface RetroContextValues {
   handleIsVotingEnabledChanged: (isEnabled: boolean) => void;
   handleStartTimer: (duration: number) => void;
   handlePauseTimer: (duration: number) => void;
-  handleIncrementTimer: (duration: number) => void;
+  handleChangeTimer: (duration: number) => void;
   handleStopTimer: () => void;
   handleResumeTimer: () => void;
 }
@@ -245,8 +245,8 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     dispatchAndBroadcast({ type: "START_TIMER", duration: state.timerDuration });
   }
 
-  function handleIncrementTimer(duration: StartTimerAction["duration"]) {
-    dispatchAndBroadcast({ type: "INCREMENT_TIMER", duration });
+  function handleChangeTimer(duration: StartTimerAction["duration"]) {
+    dispatchAndBroadcast({ type: "CHANGE_TIMER", duration });
   }
 
   const resetRetroState = useCallback(() => {
@@ -286,7 +286,7 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     handleStartTimer,
     handlePauseTimer,
     handleStopTimer,
-    handleIncrementTimer,
+    handleChangeTimer,
     handleResumeTimer,
   };
 

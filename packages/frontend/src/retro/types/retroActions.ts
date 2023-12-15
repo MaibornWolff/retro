@@ -106,8 +106,8 @@ export interface PauseTimerAction extends BaseAction {
 export interface StopTimerAction extends BaseAction {
   type: "STOP_TIMER";
 }
-export interface IncrementTimerAction extends BaseAction {
-  type: "INCREMENT_TIMER";
+export interface ChangeTimerAction extends BaseAction {
+  type: "CHANGE_TIMER";
   duration: number;
 }
 
@@ -135,4 +135,4 @@ export type RetroAction =
   | StartTimerAction
   | PauseTimerAction
   | StopTimerAction
-  | IncrementTimerAction;
+  | ChangeTimerAction;
