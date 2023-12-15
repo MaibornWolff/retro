@@ -26,7 +26,7 @@ export function TimerDialog({
     handleResumeTimer,
     handleChangeTimer,
   } = useRetroContext();
-  const { timerStatus, timerDuration } = retroState;
+  const { timerStatus } = retroState;
   const isTimerRunning = timerStatus === TimerStatus.RUNNING;
   const isTimerPaused = timerStatus === TimerStatus.PAUSED;
   const isTimerStopped = timerStatus === TimerStatus.STOPPED;
@@ -98,15 +98,7 @@ export function TimerDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={close}>Cancel</Button>
-        {isTimerRunning && (
-          <Button
-            onClick={() => {
-              handlePauseTimer(timerDuration);
-            }}
-          >
-            Pause
-          </Button>
-        )}
+        {isTimerRunning && <Button onClick={handlePauseTimer}>Pause</Button>}
         {isTimerPaused && <Button onClick={handleResumeTimer}>Resume</Button>}
         <CallToActionButton
           onClick={isTimerStopped ? handleStartClick : handleStopClick}

@@ -235,7 +235,7 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
       return { ...state, timerDuration: 0, timerStatus: TimerStatus.STOPPED };
     }
     case "PAUSE_TIMER": {
-      return { ...state, timerDuration: action.duration, timerStatus: TimerStatus.PAUSED };
+      return { ...state, timerStatus: TimerStatus.PAUSED };
     }
     case "CHANGE_TIMER": {
       return { ...state, timerDuration: action.duration };

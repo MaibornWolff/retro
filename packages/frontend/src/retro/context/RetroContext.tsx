@@ -83,7 +83,7 @@ export interface RetroContextValues {
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
   handleIsVotingEnabledChanged: (isEnabled: boolean) => void;
   handleStartTimer: (duration: number) => void;
-  handlePauseTimer: (duration: number) => void;
+  handlePauseTimer: () => void;
   handleChangeTimer: (duration: number) => void;
   handleStopTimer: () => void;
   handleResumeTimer: () => void;
@@ -233,8 +233,8 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     dispatchAndBroadcast({ type: "START_TIMER", duration });
   }
 
-  function handlePauseTimer(duration: StartTimerAction["duration"]) {
-    dispatchAndBroadcast({ type: "PAUSE_TIMER", duration });
+  function handlePauseTimer() {
+    dispatchAndBroadcast({ type: "PAUSE_TIMER" });
   }
 
   function handleStopTimer() {
