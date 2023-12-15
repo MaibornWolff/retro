@@ -183,10 +183,14 @@ export function usePeerToPeer<T, E extends BaseAction>({
       incomingConnection.on("close", () => {
         disconnectUser(incomingConnection.peer);
       });
+
+      incomingConnection.on("error", (error) => {
+        logger.error("Incoming Connection Error: ", error);
+      });
     });
 
     peer?.on("error", (error) => {
-      logger.debug("Peer Connection Error: ", error);
+      logger.error("Peer Connection Error: ", error);
     });
 
     return () => {
