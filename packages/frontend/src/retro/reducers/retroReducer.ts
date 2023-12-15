@@ -1,4 +1,4 @@
-import { RetroCard, RetroColumn, RetroState, UserByUserId } from "../types/retroTypes";
+import { RetroCard, RetroColumn, RetroState, TimerStatus, UserByUserId } from "../types/retroTypes";
 import { RetroAction } from "../types/retroActions";
 import {
   insertCardIntoColumn,
@@ -223,6 +223,22 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
     }
     case "IS_VOTING_ENABLED_CHANGED": {
       return { ...state, isVotingEnabled: action.isEnabled };
+    }
+    case "START_TIMER": {
+      return {
+        ...state,
+        timerDuration: action.duration,
+        timerStatus: TimerStatus.RUNNING,
+      };
+    }
+    case "STOP_TIMER": {
+      return { ...state, timerDuration: 0, timerStatus: TimerStatus.STOPPED };
+    }
+    case "PAUSE_TIMER": {
+      return { ...state, timerStatus: TimerStatus.PAUSED };
+    }
+    case "CHANGE_TIMER": {
+      return { ...state, timerDuration: action.duration };
     }
     case "DISCONNECT": {
       const { participants, waitingList } = state;

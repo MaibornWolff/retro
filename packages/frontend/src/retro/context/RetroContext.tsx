@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useReducer } from "react";
 import { usePeerToPeer } from "../../common/hooks/usePeerToPeer";
-import { RetroState } from "../types/retroTypes";
+import { RetroState, TimerStatus } from "../types/retroTypes";
 import {
   CardRemoveUpvoteAction,
   CardUpvoteAction,
@@ -16,6 +16,7 @@ import {
   RetroAction,
   SetRetroStateAction,
   SortCardsByVotesDescendingAction,
+  StartTimerAction,
   ToggleCardDiscussedAction,
   ToggleColumnBlurAction,
   UnhighlightCardAction,
@@ -47,6 +48,8 @@ const initialState: RetroState = {
   participants: {},
   waitingList: {},
   isVotingEnabled: false,
+  timerStatus: TimerStatus.STOPPED,
+  timerDuration: 0,
 };
 
 export interface RetroContextValues {
@@ -79,6 +82,11 @@ export interface RetroContextValues {
   handleAcceptJoinUser: (userId: string) => void;
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
   handleIsVotingEnabledChanged: (isEnabled: boolean) => void;
+  handleStartTimer: (duration: number) => void;
+  handlePauseTimer: () => void;
+  handleChangeTimer: (duration: number) => void;
+  handleStopTimer: () => void;
+  handleResumeTimer: () => void;
 }
 
 export const RetroContext = React.createContext<RetroContextValues>(undefined!);
@@ -221,6 +229,26 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     dispatchAndBroadcast({ type: "IS_VOTING_ENABLED_CHANGED", isEnabled });
   }
 
+  function handleStartTimer(duration: StartTimerAction["duration"]) {
+    dispatchAndBroadcast({ type: "START_TIMER", duration });
+  }
+
+  function handlePauseTimer() {
+    dispatchAndBroadcast({ type: "PAUSE_TIMER" });
+  }
+
+  function handleStopTimer() {
+    dispatchAndBroadcast({ type: "STOP_TIMER" });
+  }
+
+  function handleResumeTimer() {
+    dispatchAndBroadcast({ type: "START_TIMER", duration: state.timerDuration });
+  }
+
+  function handleChangeTimer(duration: StartTimerAction["duration"]) {
+    dispatchAndBroadcast({ type: "CHANGE_TIMER", duration });
+  }
+
   const resetRetroState = useCallback(() => {
     dispatch({ type: "SET_RETRO_STATE", payload: initialState });
   }, []);
@@ -255,6 +283,11 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     handleAcceptJoinUser: acceptJoinUser,
     handleAddToWaitingList,
     handleIsVotingEnabledChanged,
+    handleStartTimer,
+    handlePauseTimer,
+    handleStopTimer,
+    handleChangeTimer,
+    handleResumeTimer,
   };
 
   return <RetroContext.Provider value={value}>{props.children}</RetroContext.Provider>;

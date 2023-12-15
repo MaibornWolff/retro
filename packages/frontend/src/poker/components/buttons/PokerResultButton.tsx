@@ -20,7 +20,7 @@ export function PokerResultButton() {
     <ActionButton
       onClick={handleClick}
       label="Show Results"
-      isDisabled={noUserVoted}
+      disabled={noUserVoted}
       icon={<Visibility />}
     />
   );

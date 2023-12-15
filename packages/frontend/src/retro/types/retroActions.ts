@@ -95,6 +95,24 @@ export interface IsVotingEnabledChangedAction extends BaseAction {
   isEnabled: boolean;
 }
 
+export interface StartTimerAction extends BaseAction {
+  type: "START_TIMER";
+  duration: number;
+}
+
+export interface PauseTimerAction extends BaseAction {
+  type: "PAUSE_TIMER";
+}
+
+export interface StopTimerAction extends BaseAction {
+  type: "STOP_TIMER";
+}
+
+export interface ChangeTimerAction extends BaseAction {
+  type: "CHANGE_TIMER";
+  duration: number;
+}
+
 export type RetroAction =
   | PeerToPeerAction<RetroState>
   | CardUpvoteAction
@@ -115,4 +133,8 @@ export type RetroAction =
   | ToggleCardDiscussedAction
   | ChangeRetroFormatAction
   | SortCardsByVotesDescendingAction
-  | IsVotingEnabledChangedAction;
+  | IsVotingEnabledChangedAction
+  | StartTimerAction
+  | PauseTimerAction
+  | StopTimerAction
+  | ChangeTimerAction;

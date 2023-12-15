@@ -16,7 +16,11 @@ export interface RetroColumn {
   cards: RetroCard[];
   isBlurred: boolean;
 }
-
+export enum TimerStatus {
+  RUNNING,
+  PAUSED,
+  STOPPED,
+}
 export interface RetroState {
   title: string;
   format: string;
@@ -27,6 +31,8 @@ export interface RetroState {
   participants: UserByUserId;
   waitingList: UserByUserId;
   isVotingEnabled: boolean;
+  timerStatus: TimerStatus;
+  timerDuration: number;
 }
 
 export type VotesByUserId = Record<string, number>;

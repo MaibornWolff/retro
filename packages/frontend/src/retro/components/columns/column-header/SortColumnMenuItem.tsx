@@ -11,6 +11,7 @@ interface SortColumnMenuItemProps {
 export const SortColumnMenuItem = React.forwardRef(
   ({ column }: SortColumnMenuItemProps, ref: any) => {
     const { handleSortCardsByVotesDescending } = useRetroContext();
+
     function sortByVotesDescending() {
       handleSortCardsByVotesDescending(column.index);
     }

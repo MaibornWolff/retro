@@ -20,7 +20,7 @@ export function ResetVotesButton() {
       <ActionButton
         onClick={openDialog}
         label="Reset Votes"
-        isDisabled={noUserVoted}
+        disabled={noUserVoted}
         icon={<RestartAlt />}
       />
       <ResetVotesDialog isOpen={isOpen} close={closeDialog} />

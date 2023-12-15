@@ -15,6 +15,7 @@ import { CallToActionButton } from "../../../common/components/buttons/CallToAct
 export function ResetVotesDialog({ isOpen, close }: DialogProps) {
   const { handleResetUserStory } = usePokerContext();
   const fullScreen = useFullscreen();
+
   function handleClick() {
     handleResetUserStory();
     close();
