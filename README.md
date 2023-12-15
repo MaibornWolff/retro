@@ -34,6 +34,12 @@ This application requires three services to be running and configured correctly.
 | [Retro Backend](https://hub.docker.com/r/retroapp/retro-backend)   | 3001         |
 | [Signaling Server](https://hub.docker.com/r/peerjs/peerjs-server)  | 9000         |
 
+### WebRTC
+
+By default, the clients identify the IP address of the other peers by using a public STUN server by Google. A TURN
+server is not provided by default and must be hosted additionally. The frontend can be configured to overwrite the ice
+server urls.
+
 ### Environment variables example
 
 #### Frontend
@@ -45,6 +51,7 @@ This application requires three services to be running and configured correctly.
 - SIGNALING_SERVER_PROTOCOL = "https"
 - SIGNALING_SERVER_HOST = "my-signaling-domain.com"
 - SIGNALING_SERVER_PORT = 443
+- ICE_SERVER_URLS = "stun:stun.l.google.com:19302"
 
 #### Backend
 

@@ -24,7 +24,12 @@ function getConfiguration(): ApplicationConfiguration {
       maxVoteCount: Number(process.env.RETRO_MAX_VOTE_COUNT) ?? 3,
     },
     corsOrigins: parseCorsOrigins(process.env.CORS_ORIGIN) ?? "*",
+    iceServerUrls: parseStringList(process.env.ICE_SERVER_URLS) ?? ["stun:stun.l.google.com:19302"],
   };
+}
+
+function parseStringList(urls?: string) {
+  return urls?.split(",").map((origin) => origin.trim());
 }
 
 function parseCorsOrigins(list?: string): CorsOrigins | undefined {

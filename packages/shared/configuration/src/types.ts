@@ -10,6 +10,7 @@ export interface ApplicationConfiguration {
   retro: RetroConfiguration;
   signalingServerUrl: RetroAppUrl;
   corsOrigins: CorsOrigins;
+  iceServerUrls: string[];
 }
 
 export interface RetroConfiguration {

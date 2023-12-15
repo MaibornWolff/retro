@@ -6,13 +6,19 @@ import { isClientSide } from "../utils/isClientSide";
 import { useConfigurationContext } from "../context/ConfigurationContext";
 
 export function usePeer() {
-  const { signalingServerUrl } = useConfigurationContext();
+  const { signalingServerUrl, iceServerUrls } = useConfigurationContext();
   const [peer, setPeer] = useState<Peer | undefined>(undefined);
   const { user } = useUserContext();
 
+  const iceServers = iceServerUrls.map((url) => {
+    return { urls: url };
+  });
   const peerOptions = {
     host: signalingServerUrl.host,
     port: signalingServerUrl.port,
+    config: {
+      iceServers,
+    },
   };
 
   useEffect(() => {
