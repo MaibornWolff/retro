@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       dockerTag:
-        description: "Docker tag"
+        description: "Docker tag (latest should be updated as well)"
         required: true
-        default: "latest"
+        default: "<VERSION>, latest"
       commitRef:
         description: "Commit hash or branch"
         required: true
@@ -28,7 +28,7 @@ jobs:
           name: retroapp/retro-frontend
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          tags: "${{ github.event.inputs.dockerTag }}, latest"
+          tags: "${{ github.event.inputs.dockerTag }}"
           dockerfile: ./packages/frontend/Dockerfile
 
       - name: Publish Backend Docker Image
@@ -38,5 +38,5 @@ jobs:
           name: retroapp/retro-backend
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          tags: "${{ github.event.inputs.dockerTag }}, latest"
+          tags: "${{ github.event.inputs.dockerTag }}"
           dockerfile: ./packages/backend/Dockerfile
