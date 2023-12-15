@@ -7,7 +7,8 @@ interface useTimerProps {
 }
 
 export function useTimer({ onTimerFinish }: useTimerProps) {
-  const { timerStatus, timerDuration } = useRetroContext().retroState;
+  const { retroState, handleStopTimer } = useRetroContext();
+  const { timerStatus, timerDuration } = retroState;
   const [timeRunning, setTimeRunning] = useState(0);
   const intervalRef = useRef<NodeJS.Timer>();
 
@@ -35,9 +36,9 @@ export function useTimer({ onTimerFinish }: useTimerProps) {
 
   useEffect(() => {
     if (timerStatus === TimerStatus.RUNNING && remainingTime <= 0) {
-      onTimerFinish();
+      handleStopTimer();
     }
-  }, [remainingTime, onTimerFinish, timerStatus]);
+  }, [handleStopTimer, remainingTime, timerStatus]);
 
   useEffect(() => {
     if (timerStatus === TimerStatus.RUNNING && !intervalRef.current) {
@@ -45,6 +46,9 @@ export function useTimer({ onTimerFinish }: useTimerProps) {
         setTimeRunning((timeRunning) => Math.min(timeRunning + 1000, timerDuration));
       }, 1000);
     } else if (timerStatus !== TimerStatus.RUNNING && intervalRef.current) {
+      if (timerStatus === TimerStatus.STOPPED) {
+        onTimerFinish();
+      }
       clearInterval(intervalRef.current);
       intervalRef.current = undefined;
     }

@@ -13,23 +13,16 @@ import useTimedEffect from "../../hooks/useTimedEffect";
 
 export function ToggleTimerDialogButton() {
   const { isOpen, closeDialog, openDialog } = useDialog();
-  const { retroState, handleStopTimer } = useRetroContext();
+  const { retroState } = useRetroContext();
   const { timerStatus } = retroState;
   const { user } = useUserContext();
 
-  const { minutes, seconds, remainingTimeLabel } = useTimer({
-    onTimerFinish: handleTimerFinish,
-  });
   const { isEffectActive, startEffect } = useTimedEffect({ effectLength: 3000 });
+  const { minutes, seconds, remainingTimeLabel } = useTimer({ onTimerFinish: startEffect });
 
   function handleOpenDialog() {
     if (!isModerator(user)) return;
     openDialog();
-  }
-
-  function handleTimerFinish() {
-    handleStopTimer();
-    startEffect();
   }
 
   if (!isModerator(user) && timerStatus === TimerStatus.STOPPED && !isEffectActive) return null;
