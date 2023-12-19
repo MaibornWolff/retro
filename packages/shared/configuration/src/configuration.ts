@@ -68,11 +68,6 @@ function parseIceServer(input: string) {
   }
 
   return server;
-  /* return {
-    url: url.trim(),
-    username: username ? username.trim() : undefined,
-    credential: credential ? credential.trim() : undefined,
-  }; */
 }
 
 function splitOnPosition(value: string, position: number) {
