@@ -1,8 +1,8 @@
 import { describe, expect, test } from "@jest/globals";
 import { getConfiguration } from "./configuration";
 
-describe("iceurls parsing", () => {
-  test("valid example", () => {
+describe("Configuration - IceServers", () => {
+  test("ValidString_shouldParseTwoUrls", () => {
     process.env.ICE_SERVER_URLS =
       "stun:stun.l.google.com:19302,admin:ghbn:@@turn:test.turn.server:1914";
 
@@ -14,7 +14,7 @@ describe("iceurls parsing", () => {
 
     expect(configuration.iceServerUrls).toStrictEqual(awaitedResult);
   });
-  test("only url", () => {
+  test("ValidString_shouldParseSimpleUrl", () => {
     process.env.ICE_SERVER_URLS = "stun:stun.l.google.com:19302";
 
     const configuration = getConfiguration();
@@ -22,7 +22,7 @@ describe("iceurls parsing", () => {
 
     expect(configuration.iceServerUrls).toStrictEqual(awaitedResult);
   });
-  test("empty string", () => {
+  test("EmptyString_ShouldUseDefaultValue", () => {
     process.env.ICE_SERVER_URLS = "";
 
     const configuration = getConfiguration();
@@ -30,7 +30,7 @@ describe("iceurls parsing", () => {
 
     expect(configuration.iceServerUrls).toStrictEqual(awaitedResult);
   });
-  test("undefined value", () => {
+  test("Undefined_ShouldUseDefaultValue", () => {
     process.env.ICE_SERVER_URLS = undefined;
 
     const configuration = getConfiguration();
@@ -38,7 +38,7 @@ describe("iceurls parsing", () => {
 
     expect(configuration.iceServerUrls).toStrictEqual(awaitedResult);
   });
-  test("single credential", () => {
+  test("ValidString_ShouldParseOnlyUser", () => {
     process.env.ICE_SERVER_URLS = "admin@stun:stun.l.google.com:19302";
 
     const configuration = getConfiguration();
@@ -46,7 +46,7 @@ describe("iceurls parsing", () => {
 
     expect(configuration.iceServerUrls).toStrictEqual(awaitedResult);
   });
-  test("whitespaces", () => {
+  test("ValidWithWhitespaces_ShouldTrimCorrectly", () => {
     process.env.ICE_SERVER_URLS = " admin : pwST34d @ stun:stun.l.google.com:19302";
 
     const configuration = getConfiguration();
