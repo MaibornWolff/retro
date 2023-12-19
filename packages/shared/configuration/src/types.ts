@@ -19,6 +19,6 @@ export interface RetroConfiguration {
 
 export interface IceServerConfiguration {
   url: string;
-  credential?: string | undefined;
-  username?: string | undefined;
+  credential?: string;
+  username?: string;
 }

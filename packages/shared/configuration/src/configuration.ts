@@ -31,12 +31,8 @@ export function getConfiguration(): ApplicationConfiguration {
 }
 
 // ?? [{ url: "stun:stun.l.google.com:19302" }:IceServerConfiguration
-function parseIceServers(list?: string): IceServerConfiguration[] | undefined {
-  if (!list) return undefined;
-
-  return list.split(",").map(function (val) {
-    return parseIceServer(val);
-  });
+function parseIceServers(urls?: string): IceServerConfiguration[] | undefined {
+  return urls?.split(",")?.map((url) => parseIceServer(url));
 }
 
 function parseIceServer(input: string) {

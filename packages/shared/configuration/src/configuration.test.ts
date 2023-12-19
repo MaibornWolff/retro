@@ -1,59 +1,68 @@
-import { describe, expect, test } from "@jest/globals";
 import { getConfiguration } from "./configuration";
 
-describe("Configuration - IceServers", () => {
-  test("ValidString_shouldParseTwoUrls", () => {
-    process.env.ICE_SERVER_URLS =
-      "stun:stun.l.google.com:19302,admin:ghbn:@@turn:test.turn.server:1914";
+describe("Configuration - IceUrls", () => {
+  test("should parse multiple urls when multiple urls are valid", () => {
+    process.env = {
+      ...process.env,
+      ICE_SERVER_URLS: "stun:stun.l.google.com:19302,admin:ghbn:@@turn:test.turn.server:1914",
+    };
 
-    const configuration = getConfiguration();
-    const awaitedResult = [
+    const expectedUrls = [
       { url: "stun:stun.l.google.com:19302" },
       { url: "turn:test.turn.server:1914", credential: "ghbn:@", username: "admin" },
     ];
 
-    expect(configuration.iceServerUrls).toStrictEqual(awaitedResult);
+    const { iceServerUrls } = getConfiguration();
+
+    expect(iceServerUrls).toStrictEqual(expectedUrls);
   });
-  test("ValidString_shouldParseSimpleUrl", () => {
-    process.env.ICE_SERVER_URLS = "stun:stun.l.google.com:19302";
+  test("should parse url when a single url is given", () => {
+    process.env = { ...process.env, ICE_SERVER_URLS: "stun:stun.l.google.com:19302" };
+
+    const expectedUrls = [{ url: "stun:stun.l.google.com:19302" }];
+
+    const { iceServerUrls } = getConfiguration();
+
+    expect(iceServerUrls).toStrictEqual(expectedUrls);
+  });
+  test("should return default url when a empty string is given", () => {
+    process.env = { ...process.env, ICE_SERVER_URLS: "" };
+
+    const expectedUrls = [{ url: "stun:stun.l.google.com:19302" }];
+
+    const { iceServerUrls } = getConfiguration();
+
+    expect(iceServerUrls).toStrictEqual(expectedUrls);
+  });
+  test("should return default url when undefined is given", () => {
+    process.env = { ...process.env, ICE_SERVER_URLS: undefined };
+
+    const expectedUrls = [{ url: "stun:stun.l.google.com:19302" }];
+
+    const { iceServerUrls } = getConfiguration();
+
+    expect(iceServerUrls).toEqual(expectedUrls);
+  });
+  test("should return url with set username when url with single parameter given", () => {
+    process.env = { ...process.env, ICE_SERVER_URLS: "admin@stun:stun.l.google.com:19302" };
 
     const configuration = getConfiguration();
-    const awaitedResult = [{ url: "stun:stun.l.google.com:19302" }];
+    const expectedUrls = [{ url: "stun:stun.l.google.com:19302", username: "admin" }];
 
-    expect(configuration.iceServerUrls).toStrictEqual(awaitedResult);
+    expect(configuration.iceServerUrls).toStrictEqual(expectedUrls);
   });
-  test("EmptyString_ShouldUseDefaultValue", () => {
-    process.env.ICE_SERVER_URLS = "";
+  test("should return trimmed url when url with whitespaces is given", () => {
+    process.env = {
+      ...process.env,
+      ICE_SERVER_URLS: " admin : pwST34d @ stun:stun.l.google.com:19302",
+    };
 
-    const configuration = getConfiguration();
-    const awaitedResult = [{ url: "stun:stun.l.google.com:19302" }];
-
-    expect(configuration.iceServerUrls).toStrictEqual(awaitedResult);
-  });
-  test("Undefined_ShouldUseDefaultValue", () => {
-    process.env.ICE_SERVER_URLS = undefined;
-
-    const configuration = getConfiguration();
-    const awaitedResult = [{ url: "stun:stun.l.google.com:19302" }];
-
-    expect(configuration.iceServerUrls).toStrictEqual(awaitedResult);
-  });
-  test("ValidString_ShouldParseOnlyUser", () => {
-    process.env.ICE_SERVER_URLS = "admin@stun:stun.l.google.com:19302";
-
-    const configuration = getConfiguration();
-    const awaitedResult = [{ url: "stun:stun.l.google.com:19302", username: "admin" }];
-
-    expect(configuration.iceServerUrls).toStrictEqual(awaitedResult);
-  });
-  test("ValidWithWhitespaces_ShouldTrimCorrectly", () => {
-    process.env.ICE_SERVER_URLS = " admin : pwST34d @ stun:stun.l.google.com:19302";
-
-    const configuration = getConfiguration();
-    const awaitedResult = [
+    const expectedUrls = [
       { url: "stun:stun.l.google.com:19302", credential: "pwST34d", username: "admin" },
     ];
 
-    expect(configuration.iceServerUrls).toStrictEqual(awaitedResult);
+    const { iceServerUrls } = getConfiguration();
+
+    expect(iceServerUrls).toStrictEqual(expectedUrls);
   });
 });
