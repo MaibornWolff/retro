@@ -10,9 +10,15 @@ export interface ApplicationConfiguration {
   retro: RetroConfiguration;
   signalingServerUrl: RetroAppUrl;
   corsOrigins: CorsOrigins;
-  iceServerUrls: string[];
+  iceServerUrls: IceServerConfiguration[];
 }
 
 export interface RetroConfiguration {
   maxVoteCount: number;
+}
+
+export interface IceServerConfiguration {
+  url: string;
+  credential?: string | undefined;
+  username?: string | undefined;
 }
