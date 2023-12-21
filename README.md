@@ -51,7 +51,7 @@ server urls.
 - SIGNALING_SERVER_PROTOCOL = "https"
 - SIGNALING_SERVER_HOST = "my-signaling-domain.com"
 - SIGNALING_SERVER_PORT = 443
-- ICE_SERVER_URLS = "stun:stun.l.google.com:19302,user:password@turn:test.turn.server:1914"
+- ICE_SERVER_URLS = "stun://stun.l.google.com:19302,turn://user:password@test.turn.server:1914"
 
 #### Backend
 

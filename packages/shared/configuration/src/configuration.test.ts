@@ -1,14 +1,13 @@
 import { getConfiguration } from "./configuration";
-
 describe("Configuration - IceUrls", () => {
   test("should parse multiple urls when multiple urls are valid", () => {
     process.env = {
       ...process.env,
-      ICE_SERVER_URLS: "stun:stun.l.google.com:19302,admin:ghbn:@@turn:test.turn.server:1914",
+      ICE_SERVER_URLS: "stun://stun.l.google.com:19302,turn://admin:ghbn:@@test.turn.server:1914",
     };
 
     const expectedUrls = [
-      { url: "stun:stun.l.google.com:19302" },
+      { url: "stun:stun.l.google.com:19302", credential: undefined, username: undefined },
       { url: "turn:test.turn.server:1914", credential: "ghbn:@", username: "admin" },
     ];
 
@@ -17,9 +16,11 @@ describe("Configuration - IceUrls", () => {
     expect(iceServerUrls).toStrictEqual(expectedUrls);
   });
   test("should parse url when a single url is given", () => {
-    process.env = { ...process.env, ICE_SERVER_URLS: "stun:stun.l.google.com:19302" };
+    process.env = { ...process.env, ICE_SERVER_URLS: "stun://stun.l.google.com:19302" };
 
-    const expectedUrls = [{ url: "stun:stun.l.google.com:19302" }];
+    const expectedUrls = [
+      { url: "stun:stun.l.google.com:19302", credential: undefined, username: undefined },
+    ];
 
     const { iceServerUrls } = getConfiguration();
 
@@ -44,8 +45,10 @@ describe("Configuration - IceUrls", () => {
     expect(iceServerUrls).toEqual(expectedUrls);
   });
   test("should return url with set username when url with single parameter given", () => {
-    process.env = { ...process.env, ICE_SERVER_URLS: "admin@stun:stun.l.google.com:19302" };
-    const expectedUrls = [{ url: "stun:stun.l.google.com:19302", username: "admin" }];
+    process.env = { ...process.env, ICE_SERVER_URLS: "stun://admin@stun.l.google.com:19302" };
+    const expectedUrls = [
+      { url: "stun:stun.l.google.com:19302", username: "admin", credential: undefined },
+    ];
 
     const { iceServerUrls } = getConfiguration();
 
@@ -55,11 +58,11 @@ describe("Configuration - IceUrls", () => {
     process.env = {
       ...process.env,
       ICE_SERVER_URLS:
-        "stun:stun.l.google.com:19302, adm in :g hbn :@ @turn:test.turn.server:1914 ",
+        " stun://stun.l.google.com:19302, turn://adm in :g hbn :@ @test.turn.server:1914",
     };
 
     const expectedUrls = [
-      { url: "stun:stun.l.google.com:19302" },
+      { url: "stun:stun.l.google.com:19302", credential: undefined, username: undefined },
       { url: "turn:test.turn.server:1914", credential: "g hbn :@ ", username: "adm in " },
     ];
 

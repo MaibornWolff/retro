@@ -35,6 +35,16 @@ function parseIceServers(urls?: string): IceServerConfiguration[] | undefined {
 }
 
 function parseIceServer(input: string) {
+  const url = new URL(input);
+
+  return {
+    url: url.protocol + url.host,
+    credential: url.password ? decodeURIComponent(url.password) : undefined,
+    username: url.username ? decodeURIComponent(url.username) : undefined,
+  };
+}
+
+function parseIceServer2(input: string) {
   const server: IceServerConfiguration = {
     url: input,
   };
