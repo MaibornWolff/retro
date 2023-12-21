@@ -31,52 +31,17 @@ export function getConfiguration(): ApplicationConfiguration {
 
 function parseIceServers(urls?: string): IceServerConfiguration[] | undefined {
   if (urls?.trim().length === 0) return undefined;
-  return urls?.split(",")?.map((url) => parseIceServer(url.trim()));
+  return urls?.split(",")?.map((url) => parseIceServer(url));
 }
 
 function parseIceServer(input: string) {
-  const url = new URL(input);
+  const url = new URL(input.trim());
 
   return {
     url: url.protocol + url.host,
     credential: url.password ? decodeURIComponent(url.password) : undefined,
     username: url.username ? decodeURIComponent(url.username) : undefined,
   };
-}
-
-function parseIceServer2(input: string) {
-  const server: IceServerConfiguration = {
-    url: input,
-  };
-
-  if (input.includes("@")) {
-    const urlSplitPos = input.lastIndexOf("@");
-    const [parsedParameter, parsedUrl] = splitOnPosition(input, urlSplitPos);
-
-    if (parsedUrl) {
-      server.url = parsedUrl;
-
-      if (parsedParameter?.includes(":")) {
-        const credSplitPos = parsedParameter.indexOf(":");
-        const [parsedUser, parsedCredential] = splitOnPosition(parsedParameter, credSplitPos);
-
-        if (parsedUser) {
-          server.username = parsedUser;
-        }
-        if (parsedCredential) {
-          server.credential = parsedCredential;
-        }
-      } else if (parsedParameter) {
-        server.username = parsedParameter;
-      }
-    }
-  }
-
-  return server;
-}
-
-function splitOnPosition(value: string, position: number) {
-  return [value.slice(0, position), value.slice(position + 1)];
 }
 
 function parseCorsOrigins(list?: string): CorsOrigins | undefined {
