@@ -45,20 +45,22 @@ describe("Configuration - IceUrls", () => {
   });
   test("should return url with set username when url with single parameter given", () => {
     process.env = { ...process.env, ICE_SERVER_URLS: "admin@stun:stun.l.google.com:19302" };
-
-    const configuration = getConfiguration();
     const expectedUrls = [{ url: "stun:stun.l.google.com:19302", username: "admin" }];
 
-    expect(configuration.iceServerUrls).toStrictEqual(expectedUrls);
+    const { iceServerUrls } = getConfiguration();
+
+    expect(iceServerUrls).toStrictEqual(expectedUrls);
   });
   test("should return trimmed url when url with whitespaces is given", () => {
     process.env = {
       ...process.env,
-      ICE_SERVER_URLS: " admin : pwST34d @ stun:stun.l.google.com:19302",
+      ICE_SERVER_URLS:
+        "stun:stun.l.google.com:19302, adm in :g hbn :@ @turn:test.turn.server:1914 ",
     };
 
     const expectedUrls = [
-      { url: "stun:stun.l.google.com:19302", credential: "pwST34d", username: "admin" },
+      { url: "stun:stun.l.google.com:19302" },
+      { url: "turn:test.turn.server:1914", credential: "g hbn :@ ", username: "adm in " },
     ];
 
     const { iceServerUrls } = getConfiguration();

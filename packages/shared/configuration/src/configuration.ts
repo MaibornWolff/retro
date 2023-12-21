@@ -1,6 +1,5 @@
 import { ApplicationConfiguration, CorsOrigins, IceServerConfiguration, LogLevel } from "./types";
 import { RetroAppUrl } from "./RetroAppUrl";
-import * as process from "process";
 export const configuration = getConfiguration();
 
 export function getConfiguration(): ApplicationConfiguration {
@@ -30,14 +29,14 @@ export function getConfiguration(): ApplicationConfiguration {
   };
 }
 
-// ?? [{ url: "stun:stun.l.google.com:19302" }:IceServerConfiguration
 function parseIceServers(urls?: string): IceServerConfiguration[] | undefined {
-  return urls?.split(",")?.map((url) => parseIceServer(url));
+  if (urls?.trim().length === 0) return undefined;
+  return urls?.split(",")?.map((url) => parseIceServer(url.trim()));
 }
 
 function parseIceServer(input: string) {
   const server: IceServerConfiguration = {
-    url: input.trim(),
+    url: input,
   };
 
   if (input.includes("@")) {
@@ -45,20 +44,20 @@ function parseIceServer(input: string) {
     const [parsedParameter, parsedUrl] = splitOnPosition(input, urlSplitPos);
 
     if (parsedUrl) {
-      server.url = parsedUrl.trim();
+      server.url = parsedUrl;
 
       if (parsedParameter?.includes(":")) {
         const credSplitPos = parsedParameter.indexOf(":");
         const [parsedUser, parsedCredential] = splitOnPosition(parsedParameter, credSplitPos);
 
         if (parsedUser) {
-          server.username = parsedUser.trim();
+          server.username = parsedUser;
         }
         if (parsedCredential) {
-          server.credential = parsedCredential.trim();
+          server.credential = parsedCredential;
         }
       } else if (parsedParameter) {
-        server.username = parsedParameter.trim();
+        server.username = parsedParameter;
       }
     }
   }
