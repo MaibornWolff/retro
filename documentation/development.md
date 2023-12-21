@@ -25,3 +25,7 @@ $ npm run watch
 | Frontend    | 3000 |
 | Backend     | 3001 |
 | Signaling   | 3002 |
+
+## Testing
+
+Create frontend tests with **playwright** and normal unit tests with **jest**. Test files should be in the same directory as the working code file.

@@ -51,7 +51,7 @@ server urls.
 - SIGNALING_SERVER_PROTOCOL = "https"
 - SIGNALING_SERVER_HOST = "my-signaling-domain.com"
 - SIGNALING_SERVER_PORT = 443
-- ICE_SERVER_URLS = "stun:stun.l.google.com:19302"
+- ICE_SERVER_URLS = "stun://stun.l.google.com:19302,turn://user:password@test.turn.server:1914"
 
 #### Backend
 
@@ -90,6 +90,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/tobim-dev"><img src="https://avatars3.githubusercontent.com/u/15176413?v=4?s=100" width="100px;" alt="Tobias"/><br /><sub><b>Tobias</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=tobim-dev" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://yduman.github.io/"><img src="https://avatars0.githubusercontent.com/u/11931774?v=4?s=100" width="100px;" alt="Yadullah Duman"/><br /><sub><b>Yadullah Duman</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=yduman" title="Code">💻</a> <a href="https://github.com/MaibornWolff/retro/pulls?q=is%3Apr+reviewed-by%3Ayduman" title="Reviewed Pull Requests">👀</a> <a href="#ideas-yduman" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ravensinth"><img src="https://avatars0.githubusercontent.com/u/1155772?v=4?s=100" width="100px;" alt="ravensinth"/><br /><sub><b>ravensinth</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=ravensinth" title="Code">💻</a></td>
+        <td align="center" valign="top" width="14.28%"><a href="https://github.com/Nomandes"><img src="https://avatars.githubusercontent.com/u/15905668?v=4?s100" width="100px;" alt="Manuel Lehé"/><br /><sub><b>Manuel Lehé</b></sub></a><br /><a href="https://github.com/MaibornWolff/retro/commits?author=Nomandes" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
