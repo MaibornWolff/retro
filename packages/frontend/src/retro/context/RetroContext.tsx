@@ -48,6 +48,7 @@ const initialState: RetroState = {
   participants: {},
   waitingList: {},
   isVotingEnabled: false,
+  cardVotingLimit: 1,
   timerStatus: TimerStatus.STOPPED,
   timerDuration: 0,
 };
@@ -82,6 +83,7 @@ export interface RetroContextValues {
   handleAcceptJoinUser: (userId: string) => void;
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
   handleIsVotingEnabledChanged: (isEnabled: boolean) => void;
+  handleCardVotingLimitChanged: (limit: number) => void;
   handleStartTimer: (duration: number) => void;
   handlePauseTimer: () => void;
   handleChangeTimer: (duration: number) => void;
@@ -229,6 +231,11 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     dispatchAndBroadcast({ type: "IS_VOTING_ENABLED_CHANGED", isEnabled });
   }
 
+  function handleCardVotingLimitChanged(limit: number) {
+    console.log("Voting changed to ", limit);
+    dispatchAndBroadcast({ type: "CARD_VOTING_LIMIT_CHANGED", limit });
+  }
+
   function handleStartTimer(duration: StartTimerAction["duration"]) {
     dispatchAndBroadcast({ type: "START_TIMER", duration });
   }
@@ -283,6 +290,7 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     handleAcceptJoinUser: acceptJoinUser,
     handleAddToWaitingList,
     handleIsVotingEnabledChanged,
+    handleCardVotingLimitChanged,
     handleStartTimer,
     handlePauseTimer,
     handleStopTimer,

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import {
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   FormControl,
+  FormControlLabel,
   Slider,
   Typography,
 } from "@mui/material";
@@ -17,9 +19,15 @@ import { CallToActionButton } from "../../../common/components/buttons/CallToAct
 
 export function ManageVotesDialog({ isOpen, close }: DialogProps) {
   const fullScreen = useFullscreen();
-  const { retroState, handleChangeMaxVote, handleResetVotes, handleIsVotingEnabledChanged } =
-    useRetroContext();
+  const {
+    retroState,
+    handleChangeMaxVote,
+    handleResetVotes,
+    handleIsVotingEnabledChanged,
+    handleCardVotingLimitChanged,
+  } = useRetroContext();
   const [voteCount, setVoteCount] = useState(retroState.maxVoteCount);
+  const [isVotingPerCardLimited, setIsVotingPerCardLimited] = useState(true);
 
   function handleCancel() {
     setVoteCount(retroState.maxVoteCount);
@@ -30,9 +38,14 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
     setVoteCount(newValue as number);
   }
 
+  function handleVotingLimitChange(event: ChangeEvent<HTMLInputElement>) {
+    setIsVotingPerCardLimited(event.target.checked);
+  }
+
   function handleStart() {
     handleChangeMaxVote(voteCount);
     handleIsVotingEnabledChanged(true);
+    handleCardVotingLimitChanged(isVotingPerCardLimited ? 1 : 999);
     close();
   }
 
@@ -71,6 +84,10 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
         <Typography variant="body1">
           Everybody has <strong>{voteCount}</strong> votes
         </Typography>
+        <FormControlLabel
+          control={<Checkbox checked={isVotingPerCardLimited} onChange={handleVotingLimitChange} />}
+          label="One Vote per Card"
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancel}>Cancel</Button>

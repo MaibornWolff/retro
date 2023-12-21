@@ -31,6 +31,7 @@ export interface RetroState {
   participants: UserByUserId;
   waitingList: UserByUserId;
   isVotingEnabled: boolean;
+  cardVotingLimit: number;
   timerStatus: TimerStatus;
   timerDuration: number;
 }
