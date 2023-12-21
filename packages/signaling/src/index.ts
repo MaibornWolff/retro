@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
-import { configuration } from "@shared/configuration";
+import { getConfiguration } from "@shared/configuration";
 import { spawn } from "child_process";
 import { logger } from "@shared/logger";
 
 dotenv.config();
 
-const signalingServerPort = configuration.signalingServerUrl.port;
+const signalingServerPort = getConfiguration().signalingServerUrl.port;
 
 const peerServer = spawn("peerjs", ["--port", String(signalingServerPort)]);
 

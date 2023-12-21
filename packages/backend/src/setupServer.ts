@@ -6,7 +6,7 @@ import cors, { CorsOptions } from "cors";
 import { ClientToServerEvents, ServerToClientEvents } from "@shared/socket";
 import { ConnectionStore } from "./store/ConnectionStore";
 import { logger } from "@shared/logger";
-import { configuration } from "@shared/configuration";
+import { getConfiguration } from "@shared/configuration";
 
 export function setupServer() {
   const app = express();
@@ -15,7 +15,7 @@ export function setupServer() {
   const connectionStore = new ConnectionStore();
 
   const corsOptions: CorsOptions = {
-    origin: configuration.corsOrigins,
+    origin: getConfiguration().corsOrigins,
   };
 
   const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {

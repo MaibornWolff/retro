@@ -1,11 +1,11 @@
 import { setupServer } from "./setupServer";
 import { logger } from "@shared/logger";
 import dotenv from "dotenv";
-import { configuration } from "@shared/configuration";
+import { getConfiguration } from "@shared/configuration";
 
 dotenv.config();
 
-const serverPort = configuration.backendUrl.port;
+const serverPort = getConfiguration().backendUrl.port;
 
 const server = setupServer();
 
