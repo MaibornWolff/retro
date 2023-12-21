@@ -32,6 +32,9 @@ jobs:
       - name: Build app
         run: npm run build
 
+      - name: Test
+        run: npm test
+
       - name: Install playwright browsers
         if: ${{ vars.SKIP_E2E != 'true' }}
         run: npx playwright install --with-deps

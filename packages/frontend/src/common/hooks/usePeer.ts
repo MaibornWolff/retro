@@ -10,14 +10,11 @@ export function usePeer() {
   const [peer, setPeer] = useState<Peer | undefined>(undefined);
   const { user } = useUserContext();
 
-  const iceServers = iceServerUrls.map((url) => {
-    return { urls: url };
-  });
   const peerOptions = {
     host: signalingServerUrl.host,
     port: signalingServerUrl.port,
     config: {
-      iceServers,
+      iceServers: iceServerUrls,
     },
   };
 
