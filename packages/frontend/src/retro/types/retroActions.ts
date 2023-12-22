@@ -94,6 +94,10 @@ export interface IsVotingEnabledChangedAction extends BaseAction {
   type: "IS_VOTING_ENABLED_CHANGED";
   isEnabled: boolean;
 }
+export interface CardVotingLimitChangedAction extends BaseAction {
+  type: "CARD_VOTING_LIMIT_CHANGED";
+  limit: number;
+}
 
 export interface StartTimerAction extends BaseAction {
   type: "START_TIMER";
@@ -134,6 +138,7 @@ export type RetroAction =
   | ChangeRetroFormatAction
   | SortCardsByVotesDescendingAction
   | IsVotingEnabledChangedAction
+  | CardVotingLimitChangedAction
   | StartTimerAction
   | PauseTimerAction
   | StopTimerAction
