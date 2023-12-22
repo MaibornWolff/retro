@@ -86,7 +86,7 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
         </Typography>
         <FormControlLabel
           control={<Checkbox checked={isVotingPerCardLimited} onChange={handleVotingLimitChange} />}
-          label="One Vote per Card"
+          label="Maximum one vote per card"
         />
       </DialogContent>
       <DialogActions>
