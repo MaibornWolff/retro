@@ -45,7 +45,7 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
   function handleStart() {
     handleChangeMaxVote(voteCount);
     handleIsVotingEnabledChanged(true);
-    handleCardVotingLimitChanged(isVotingPerCardLimited ? 1 : 999);
+    handleCardVotingLimitChanged(isVotingPerCardLimited ? 1 : Number.MAX_VALUE);
     close();
   }
 
