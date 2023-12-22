@@ -29,6 +29,7 @@ export function ImportRetroMenuItem() {
       participants: {},
       waitingList: {},
       isVotingEnabled: false,
+      cardVotingLimit: Number.MAX_VALUE,
       timerStatus: TimerStatus.STOPPED,
       timerDuration: 0,
     };
