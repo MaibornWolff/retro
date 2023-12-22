@@ -27,9 +27,13 @@ export function ToggleRetroVotingButton() {
   return (
     <>
       {isVotingEnabled ? (
-        <ActionButton onClick={handleStopVoting} label={"Stop Voting"} icon={<Stop />} />
+        <ActionButton onClick={handleStopVoting} icon={<Stop />}>
+          Stop Voting
+        </ActionButton>
       ) : (
-        <ActionButton onClick={handleStartVoting} label={"Voting"} icon={<HowToVote />} />
+        <ActionButton onClick={handleStartVoting} icon={<HowToVote />}>
+          Voting
+        </ActionButton>
       )}
       <ManageVotesDialog isOpen={isOpen} close={closeDialog} />
     </>

@@ -20,5 +20,9 @@ export function ToggleRetroBlurButton() {
 
   if (!isModerator(user)) return null;
 
-  return <ActionButton onClick={toggleRetroBlur} label={buttonText} icon={buttonIcon} />;
+  return (
+    <ActionButton onClick={toggleRetroBlur} icon={buttonIcon}>
+      {buttonText}
+    </ActionButton>
+  );
 }

@@ -31,7 +31,6 @@ export function ToggleTimerDialogButton() {
     <>
       <WiggleActionButton
         onClick={handleOpenDialog}
-        label={timerStatus !== TimerStatus.STOPPED ? remainingTimeLabel : "Timer"}
         icon={timerStatus === TimerStatus.PAUSED ? <SnoozeOutlined /> : <Alarm />}
         color={
           timerStatus === TimerStatus.PAUSED
@@ -41,7 +40,9 @@ export function ToggleTimerDialogButton() {
             : undefined
         }
         isWiggling={isEffectActive}
-      />
+      >
+        {timerStatus !== TimerStatus.STOPPED ? remainingTimeLabel : "Timer"}
+      </WiggleActionButton>
       <TimerDialog
         isOpen={isOpen}
         close={closeDialog}
