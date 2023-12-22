@@ -3,11 +3,10 @@ import React, { MouseEventHandler } from "react";
 
 interface ActionButtonProps extends ButtonProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
-  label: string;
   icon?: React.ReactNode;
 }
 
-export function ActionButton({ onClick, label, icon, ...props }: ActionButtonProps) {
+export function ActionButton({ onClick, icon, children, ...props }: ActionButtonProps) {
   const theme = useTheme();
 
   return (
@@ -26,7 +25,7 @@ export function ActionButton({ onClick, label, icon, ...props }: ActionButtonPro
       startIcon={icon}
       fullWidth
     >
-      {label}
+      {children}
     </Button>
   );
 }
