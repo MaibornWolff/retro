@@ -17,6 +17,7 @@ declare module "@mui/material/styles" {
     highlightColorPrimary: string;
     highlightColorSecondary: string;
   }
+
   interface Palette {
     highlightColorPrimary: string;
     highlightColorSecondary: string;
