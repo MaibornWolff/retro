@@ -232,7 +232,6 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
   }
 
   function handleCardVotingLimitChanged(limit: number) {
-    console.log("Voting changed to ", limit);
     dispatchAndBroadcast({ type: "CARD_VOTING_LIMIT_CHANGED", limit });
   }
 

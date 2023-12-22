@@ -27,7 +27,9 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
     handleCardVotingLimitChanged,
   } = useRetroContext();
   const [voteCount, setVoteCount] = useState(retroState.maxVoteCount);
-  const [isVotingPerCardLimited, setIsVotingPerCardLimited] = useState(true);
+  const [isMaxVotesPerCardLimited, setIsMaxVotesPerCardLimited] = useState(
+    retroState.cardVotingLimit === 1
+  );
 
   function handleCancel() {
     setVoteCount(retroState.maxVoteCount);
@@ -39,13 +41,13 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
   }
 
   function handleVotingLimitChange(event: ChangeEvent<HTMLInputElement>) {
-    setIsVotingPerCardLimited(event.target.checked);
+    setIsMaxVotesPerCardLimited(event.target.checked);
   }
 
   function handleStart() {
     handleChangeMaxVote(voteCount);
     handleIsVotingEnabledChanged(true);
-    handleCardVotingLimitChanged(isVotingPerCardLimited ? 1 : Number.MAX_VALUE);
+    handleCardVotingLimitChanged(isMaxVotesPerCardLimited ? 1 : Number.MAX_VALUE);
     close();
   }
 
@@ -85,7 +87,9 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
           Everybody has <strong>{voteCount}</strong> votes
         </Typography>
         <FormControlLabel
-          control={<Checkbox checked={isVotingPerCardLimited} onChange={handleVotingLimitChange} />}
+          control={
+            <Checkbox checked={isMaxVotesPerCardLimited} onChange={handleVotingLimitChange} />
+          }
           label="Maximum one vote per card"
         />
       </DialogContent>
