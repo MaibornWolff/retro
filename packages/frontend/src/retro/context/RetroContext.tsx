@@ -44,7 +44,7 @@ const initialState: RetroState = {
   format: "",
   columns: [],
   isBlurred: false,
-  maxVoteCount: 0,
+  maxVoteCount: 1,
   participants: {},
   waitingList: {},
   isVotingEnabled: false,
