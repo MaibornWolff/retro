@@ -1,6 +1,5 @@
 import { ApplicationConfiguration, CorsOrigins, IceServerConfiguration, LogLevel } from "./types";
 import { RetroAppUrl } from "./RetroAppUrl";
-export const configuration = getConfiguration();
 
 export function getConfiguration(): ApplicationConfiguration {
   const backendUrl = new RetroAppUrl({

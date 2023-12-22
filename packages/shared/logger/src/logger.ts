@@ -1,5 +1,5 @@
 import { createLogger as createWinstonLogger, format, transports } from "winston";
-import { configuration } from "@shared/configuration";
+import { getConfiguration } from "@shared/configuration";
 
 const loggerFormat = format.combine(
   format.timestamp({
@@ -11,7 +11,7 @@ const loggerFormat = format.combine(
 );
 
 export const logger = createLogger({
-  logLevel: configuration.logLevel,
+  logLevel: getConfiguration().logLevel,
 });
 
 export function createLogger({ withConsolePipe = true, logLevel }: CreateLoggerOptions) {
