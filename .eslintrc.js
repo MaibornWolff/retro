@@ -37,12 +37,15 @@ module.exports = {
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/triple-slash-reference": "off",
-    "prettier/prettier": "warn",
-    "padding-line-between-statements": [
+    "padding-line-between-statements": "off",
+    "@typescript-eslint/padding-line-between-statements": [
       "warn",
-      { blankLine: "always", prev: "block-like", next: "function" },
-      { blankLine: "always", prev: "const", next: "function" },
-      { blankLine: "always", prev: "function", next: "return" },
+      {
+        blankLine: "always",
+        prev: "*",
+        next: ["interface", "type", "function"],
+      },
     ],
+    "prettier/prettier": "warn",
   },
 };
