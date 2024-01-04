@@ -20,6 +20,6 @@
   "devDependencies": {
     "@shared/socket": "*",
     "nodemon": "^3.0.2",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.2"
   }
 }
