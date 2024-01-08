@@ -20,12 +20,11 @@ import { generateId } from "../../../common/utils/generateId";
 import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRoomContext } from "../../../common/context/RoomContext";
-import { LocalStorage } from "../../../common/utils/localStorage";
-import { useLocalStorage } from "../../../common/hooks/useLocalStorage";
 import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 import { useDialog } from "../../../common/hooks/useDialog";
 import { useRedirect } from "../../../common/hooks/useRedirect";
 import UserNameInputField from "./UsernameInputField";
+import useLocalStorageName from "../../hooks/useLocalStorageName";
 
 export function CreateRetroSessionDialog() {
   const { isOpen, closeDialog } = useDialog(true);
@@ -51,15 +50,12 @@ export function CreateRetroSessionDialog() {
   const { retroState, handleChangeRetroFormat, handleSetRetroState, handleJoinSession } =
     useRetroContext();
   const { user, setUser } = useUserContext();
-  const [isNameStorageAllowed, setIsNameStorageAllowed] = useState(false);
+  const { isStorageAllowed, saveNameLocally, handleAllowanceChange } = useLocalStorageName({
+    setName,
+  });
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
-  useLocalStorage(() => {
-    setName(LocalStorage.getUserName());
-    setIsNameStorageAllowed(LocalStorage.getNameStorePermission());
-  });
 
   function handleClose() {
     setName("");
@@ -85,23 +81,11 @@ export function CreateRetroSessionDialog() {
     setRoomId(roomId);
     handleSetRetroState({ ...retroState, title });
     setUser(newUser);
-    if (isNameStorageAllowed) {
-      LocalStorage.setUserName(name);
-    }
+    saveNameLocally(name);
     handleJoinSession(newUser);
     handleChangeRetroFormat(format);
     redirectToRoom(roomId);
     handleClose();
-  }
-
-  function handleStorageAllowanceChange(event: React.ChangeEvent<HTMLInputElement>) {
-    if (event.target.checked) {
-      LocalStorage.setUserName(name);
-    } else {
-      LocalStorage.removeUserName();
-    }
-    LocalStorage.setNameStorePermission(event.target.checked);
-    setIsNameStorageAllowed(event.target.checked);
   }
 
   return (
@@ -121,9 +105,11 @@ export function CreateRetroSessionDialog() {
             onSubmit={handleSubmit}
             onChange={handleNameChange}
             isError={isNameError}
-            isStorageAllowed={isNameStorageAllowed}
+            isStorageAllowed={isStorageAllowed}
             storagePermissionLabel="Allow local username storage"
-            onStorageAllowanceChange={handleStorageAllowanceChange}
+            onStorageAllowanceChange={(event) => {
+              handleAllowanceChange(event.target.checked);
+            }}
           />
         </Box>
         <Box>
