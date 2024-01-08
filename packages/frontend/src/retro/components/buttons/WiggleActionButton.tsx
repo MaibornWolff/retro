@@ -5,14 +5,13 @@ import { ActionButton } from "../../../common/components/buttons/ActionButton";
 
 interface WiggleActionButtonProps extends ButtonProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
-  label: string;
   icon?: React.ReactNode;
   isWiggling: boolean;
 }
 
 export function WiggleActionButton({
   onClick,
-  label,
+  children,
   icon,
   isWiggling,
   ...props
@@ -33,11 +32,12 @@ export function WiggleActionButton({
   `;
   return (
     <ActionButton
-      label={label}
       onClick={onClick}
       icon={icon}
       sx={{ animation: isWiggling ? `${wiggle} 0.5s ease infinite` : undefined }}
       {...props}
-    />
+    >
+      {children}
+    </ActionButton>
   );
 }

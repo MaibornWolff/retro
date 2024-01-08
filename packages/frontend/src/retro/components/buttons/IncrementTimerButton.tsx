@@ -9,12 +9,9 @@ export default function IncrementTimerButton({
   onTimerIncrement,
   minutesToIncrement,
 }: IncrementTimerButtonProps) {
-  return (
-    <ActionButton
-      label={`+${minutesToIncrement} Minutes`}
-      onClick={() => {
-        onTimerIncrement(minutesToIncrement);
-      }}
-    />
-  );
+  function handleTimeIncrement() {
+    onTimerIncrement(minutesToIncrement);
+  }
+
+  return <ActionButton onClick={handleTimeIncrement}>+{minutesToIncrement} Minutes</ActionButton>;
 }

@@ -17,11 +17,8 @@ export function PokerResultButton() {
   }
 
   return (
-    <ActionButton
-      onClick={handleClick}
-      label="Show Results"
-      disabled={noUserVoted}
-      icon={<Visibility />}
-    />
+    <ActionButton onClick={handleClick} disabled={noUserVoted} icon={<Visibility />}>
+      Show Results
+    </ActionButton>
   );
 }
