@@ -57,8 +57,6 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
     setIsError(false);
   }
 
-  function handleStorageAllowanceChange() {}
-
   async function handleSubmit() {
     const roomExists = await roomIdExists({ roomId, namespace });
     if (!roomExists || !roomId) {
