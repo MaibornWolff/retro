@@ -8,7 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useValidatedTextInput } from "../hooks/useValidatedTextInput";
 import { useRoomContext } from "../context/RoomContext";
 import { useUserContext } from "../context/UserContext";
@@ -49,7 +49,14 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const namespace = useNamespace();
   const { roomIdExists } = useBackendAdapter();
+  const [isRoomIdReady, setIsRoomIdReady] = useState(false);
+  const isRoomExistend = roomIdExists({ roomId, namespace }).then((response) => {
+    setIsRoomIdReady(response);
+  });
 
+  useEffect(() => {
+    console.log("Rooms is Ready!", isRoomExistend);
+  }, [isRoomIdReady]);
   useLocalStorage(() => {
     setName(LocalStorage.getUserName());
   });
