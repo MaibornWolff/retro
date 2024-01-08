@@ -6,6 +6,7 @@ import { FlexBox } from "../../common/components/FlexBox";
 import { WelcomeTypewriter } from "./WelcomeTypewriter";
 import Image from "next/image";
 import { Box } from "@mui/material";
+import Footer from "../../common/components/Footer";
 
 export function HomePageContent() {
   return (
@@ -17,6 +18,7 @@ export function HomePageContent() {
           <RedirectToRetroButton />
           <RedirectToPlanningPokerButton />
         </FlexBox>
+        <Footer />
       </FlexBox>
     </Box>
   );
