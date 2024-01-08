@@ -38,7 +38,7 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
     handleChange,
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
-  const { isStorageAllowed, saveNameLocally, handleAllowanceChange } = useLocalStorageName({
+  const { isStorageAllowed, trySavingNameLocally, handleAllowanceChange } = useLocalStorageName({
     setName,
   });
   const { redirectBackToHome, redirectToRoom } = useRedirect();
@@ -76,7 +76,7 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
     };
     setRoomId(roomId);
     setUser(newUser);
-    saveNameLocally(name);
+    trySavingNameLocally(name);
     onAddToWaitingList({ userId: newUser.id, userName: name });
     redirectToRoom(roomId);
     handleClose();

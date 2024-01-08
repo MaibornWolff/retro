@@ -1,6 +1,6 @@
-import { useLocalStorage } from "../../common/hooks/useLocalStorage";
 import { useState } from "react";
 import { LocalStorage } from "../../common/utils/localStorage";
+import { useLocalStorage } from "../../common/hooks/useLocalStorage";
 
 interface useLocalStorageNameProps {
   setName: (name: string) => void;
@@ -13,7 +13,7 @@ export default function useLocalStorageName({ setName }: useLocalStorageNameProp
     setIsStorageAllowed(LocalStorage.getNameStorePermission());
   });
 
-  function saveNameLocally(name: string) {
+  function trySavingNameLocally(name: string) {
     if (isStorageAllowed) {
       LocalStorage.setUserName(name);
     }
@@ -27,5 +27,5 @@ export default function useLocalStorageName({ setName }: useLocalStorageNameProp
     setIsStorageAllowed(isAllowed);
   }
 
-  return { isStorageAllowed, saveNameLocally, handleAllowanceChange };
+  return { isStorageAllowed, trySavingNameLocally, handleAllowanceChange };
 }

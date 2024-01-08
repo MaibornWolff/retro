@@ -50,7 +50,7 @@ export function CreateRetroSessionDialog() {
   const { retroState, handleChangeRetroFormat, handleSetRetroState, handleJoinSession } =
     useRetroContext();
   const { user, setUser } = useUserContext();
-  const { isStorageAllowed, saveNameLocally, handleAllowanceChange } = useLocalStorageName({
+  const { isStorageAllowed, trySavingNameLocally, handleAllowanceChange } = useLocalStorageName({
     setName,
   });
   const { setRoomId } = useRoomContext();
@@ -81,7 +81,7 @@ export function CreateRetroSessionDialog() {
     setRoomId(roomId);
     handleSetRetroState({ ...retroState, title });
     setUser(newUser);
-    saveNameLocally(name);
+    trySavingNameLocally(name);
     handleJoinSession(newUser);
     handleChangeRetroFormat(format);
     redirectToRoom(roomId);
