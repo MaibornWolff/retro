@@ -25,6 +25,7 @@ import { useLocalStorage } from "../../../common/hooks/useLocalStorage";
 import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 import { useDialog } from "../../../common/hooks/useDialog";
 import { useRedirect } from "../../../common/hooks/useRedirect";
+import UserNameInputField from "./UsernameInputField";
 
 export function CreateRetroSessionDialog() {
   const { isOpen, closeDialog } = useDialog(true);
@@ -50,12 +51,14 @@ export function CreateRetroSessionDialog() {
   const { retroState, handleChangeRetroFormat, handleSetRetroState, handleJoinSession } =
     useRetroContext();
   const { user, setUser } = useUserContext();
+  const [isNameStorageAllowed, setIsNameStorageAllowed] = useState(false);
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   useLocalStorage(() => {
     setName(LocalStorage.getUserName());
+    setIsNameStorageAllowed(LocalStorage.getNameStorePermission());
   });
 
   function handleClose() {
@@ -82,11 +85,23 @@ export function CreateRetroSessionDialog() {
     setRoomId(roomId);
     handleSetRetroState({ ...retroState, title });
     setUser(newUser);
-    LocalStorage.setUserName(name);
+    if (isNameStorageAllowed) {
+      LocalStorage.setUserName(name);
+    }
     handleJoinSession(newUser);
     handleChangeRetroFormat(format);
     redirectToRoom(roomId);
     handleClose();
+  }
+
+  function handleStorageAllowanceChange(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.checked) {
+      LocalStorage.setUserName(name);
+    } else {
+      LocalStorage.removeUserName();
+    }
+    LocalStorage.setNameStorePermission(event.target.checked);
+    setIsNameStorageAllowed(event.target.checked);
   }
 
   return (
@@ -100,19 +115,19 @@ export function CreateRetroSessionDialog() {
       <DialogTitle id="form-dialog-create-retro">Create Retro Session</DialogTitle>
       <DialogContent sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <Box>
-          <DialogContentText>Please enter your name</DialogContentText>
-          <TextInput
-            value={name}
+          <UserNameInputField
+            userName={name}
+            label="Please enter your name"
             onSubmit={handleSubmit}
             onChange={handleNameChange}
-            error={isNameError}
-            id="user-name"
-            label="Username"
-            autoFocus
+            isError={isNameError}
+            isStorageAllowed={isNameStorageAllowed}
+            storagePermissionLabel="Allow local username storage"
+            onStorageAllowanceChange={handleStorageAllowanceChange}
           />
         </Box>
         <Box>
-          <DialogContentText>Please provide your name for this session</DialogContentText>
+          <DialogContentText>Please provide a name for this session</DialogContentText>
           <TextInput
             value={title}
             onSubmit={handleSubmit}

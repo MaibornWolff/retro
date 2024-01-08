@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   useMediaQuery,
   useTheme,
@@ -17,7 +16,6 @@ import { generateId } from "../utils/generateId";
 
 import { useBackendAdapter } from "../adapter/backendAdapter";
 import { useNamespace } from "../hooks/useNamespace";
-import { TextInput } from "../components/TextInput";
 import { useErrorContext } from "../context/ErrorContext";
 import { LocalStorage } from "../utils/localStorage";
 import { useLocalStorage } from "../hooks/useLocalStorage";
@@ -25,6 +23,7 @@ import { CallToActionButton } from "../components/buttons/CallToActionButton";
 import { useDialog } from "../hooks/useDialog";
 import { useRedirect } from "../hooks/useRedirect";
 import { useRoomIdFromPath } from "../hooks/useRoomIdFromPath";
+import UserNameInputField from "../../retro/components/dialogs/UsernameInputField";
 
 interface JoinSessionDialogProps {
   onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
@@ -59,6 +58,8 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
     closeDialog();
     setIsError(false);
   }
+
+  function handleStorageAllowanceChange() {}
 
   async function handleSubmit() {
     const roomExists = await roomIdExists({ roomId, namespace });
@@ -95,18 +96,15 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
     >
       <DialogTitle id="join-poker-dialog-title">Join Session</DialogTitle>
       <DialogContent>
-        <DialogContentText>Please provide your name for this session</DialogContentText>
-        <TextInput
+        <UserNameInputField
+          userName={name}
+          label="Please provide your name for this session"
           onSubmit={handleSubmit}
-          required
-          autoFocus
-          fullWidth
-          value={name}
           onChange={handleChange}
-          error={isError}
-          id="user-name"
-          label="Name"
-          type="text"
+          isError={isError}
+          isStorageAllowed={true}
+          storagePermissionLabel="Allow local username storage"
+          onStorageAllowanceChange={handleStorageAllowanceChange}
         />
       </DialogContent>
       <DialogActions>
