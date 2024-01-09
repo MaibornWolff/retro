@@ -43,7 +43,7 @@ module.exports = {
       {
         blankLine: "always",
         prev: "*",
-        next: ["interface", "type", "function"],
+        next: ["interface", "type", "function", "export"],
       },
     ],
     "prettier/prettier": "warn",

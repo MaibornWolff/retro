@@ -12,6 +12,7 @@ interface UserNameInputFieldProps {
   isStorageAllowed: boolean;
   onStorageAllowanceChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
 export default function UserNameInputField({
   userName,
   label,

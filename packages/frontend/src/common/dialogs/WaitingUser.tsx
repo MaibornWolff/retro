@@ -12,6 +12,7 @@ interface WaitingUserProps {
   handleRejectJoinUser: (userId: string) => void;
   handleAcceptJoinUser: (userId: string) => void;
 }
+
 export function WaitingUser({
   waitingUser,
   handleRejectJoinUser,

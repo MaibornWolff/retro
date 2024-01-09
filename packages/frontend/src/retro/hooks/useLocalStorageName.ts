@@ -5,6 +5,7 @@ import { useLocalStorage } from "../../common/hooks/useLocalStorage";
 interface useLocalStorageNameProps {
   setName: (name: string) => void;
 }
+
 export default function useLocalStorageName({ setName }: useLocalStorageNameProps) {
   const [isStorageAllowed, setIsStorageAllowed] = useState(false);
 

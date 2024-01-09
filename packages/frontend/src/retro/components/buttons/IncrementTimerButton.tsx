@@ -5,6 +5,7 @@ interface IncrementTimerButtonProps {
   onTimerIncrement: (amount: number) => void;
   minutesToIncrement: number;
 }
+
 export default function IncrementTimerButton({
   onTimerIncrement,
   minutesToIncrement,

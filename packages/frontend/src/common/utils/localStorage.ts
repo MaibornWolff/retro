@@ -21,6 +21,7 @@ function getNameStorePermission(): boolean {
   const value = localStorage.getItem(usernameStorePermissionKey);
   return value === "true";
 }
+
 export const LocalStorage = {
   setUserName,
   getUserName,
