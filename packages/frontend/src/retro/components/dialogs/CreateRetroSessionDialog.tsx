@@ -101,10 +101,10 @@ export function CreateRetroSessionDialog() {
         <Box>
           <UserNameInputField
             userName={name}
-            textFieldId="user-name"
+            id="user-name"
             onSubmit={handleSubmit}
             onChange={handleNameChange}
-            isError={isNameError}
+            error={isNameError}
             isStorageAllowed={isStorageAllowed}
             onStorageAllowanceChange={(event) => {
               handleAllowanceChange(event.target.checked);

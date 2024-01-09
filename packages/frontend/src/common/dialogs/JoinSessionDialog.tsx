@@ -94,10 +94,10 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
       <DialogContent>
         <UserNameInputField
           userName={name}
-          textFieldId="user-name"
+          id="user-name"
           onSubmit={handleSubmit}
           onChange={handleChange}
-          isError={isError}
+          error={isError}
           isStorageAllowed={isStorageAllowed}
           onStorageAllowanceChange={(event) => {
             handleAllowanceChange(event.target.checked);

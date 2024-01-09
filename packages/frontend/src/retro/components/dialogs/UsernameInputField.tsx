@@ -8,10 +8,6 @@ interface UserNameInputFieldProps extends TextInputProps {
   label?: string;
   textFieldLabel?: string;
   storagePermissionLabel?: string;
-  textFieldId: string;
-  onSubmit: () => void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  isError: boolean;
   isStorageAllowed: boolean;
   onStorageAllowanceChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -21,10 +17,10 @@ export default function UserNameInputField({
   label = "Please enter your name",
   storagePermissionLabel = "Remember me",
   textFieldLabel = "Username",
-  textFieldId = "user-name",
+  id,
   onSubmit,
   onChange,
-  isError,
+  error,
   isStorageAllowed,
   onStorageAllowanceChange,
   ...props
@@ -36,8 +32,7 @@ export default function UserNameInputField({
         value={userName}
         onSubmit={onSubmit}
         onChange={onChange}
-        error={isError}
-        id={textFieldId}
+        error={error}
         label={textFieldLabel}
         {...props}
       />
@@ -47,7 +42,10 @@ export default function UserNameInputField({
         label={storagePermissionLabel}
         sx={{ marginRight: 0 }}
       />
-      <Tooltip title="If checked, the username will be persisted in the local storage of your browser for future sessions. Unchecking the box will remove this information from your browser again. Your username will only be shared while collaborating and will not be persisted on any server or transmitted to any external service.">
+      <Tooltip
+        arrow
+        title="If checked, the username will be persisted in the local storage of your browser for future sessions. Unchecking the box will remove this information from your browser again. Your username will only be shared while collaborating and will not be persisted on any server or transmitted to any external service."
+      >
         <IconButton>
           <InfoIcon />
         </IconButton>
