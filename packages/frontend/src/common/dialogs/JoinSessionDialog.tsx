@@ -94,15 +94,15 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
       <DialogContent>
         <UserNameInputField
           userName={name}
-          label="Please provide your name for this session"
+          textFieldId="user-name"
           onSubmit={handleSubmit}
           onChange={handleChange}
           isError={isError}
           isStorageAllowed={isStorageAllowed}
-          storagePermissionLabel="Allow local username storage"
           onStorageAllowanceChange={(event) => {
             handleAllowanceChange(event.target.checked);
           }}
+          autoFocus
         />
       </DialogContent>
       <DialogActions>

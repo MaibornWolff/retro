@@ -101,12 +101,11 @@ export function CreateRetroSessionDialog() {
         <Box>
           <UserNameInputField
             userName={name}
-            label="Please enter your name"
+            textFieldId="user-name"
             onSubmit={handleSubmit}
             onChange={handleNameChange}
             isError={isNameError}
             isStorageAllowed={isStorageAllowed}
-            storagePermissionLabel="Allow local username storage"
             onStorageAllowanceChange={(event) => {
               handleAllowanceChange(event.target.checked);
             }}
@@ -121,6 +120,7 @@ export function CreateRetroSessionDialog() {
             error={isTitleError}
             id="retro-name"
             label="Retro Name"
+            autoFocus
           />
         </Box>
         <Box>
