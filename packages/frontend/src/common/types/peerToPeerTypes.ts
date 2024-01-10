@@ -19,8 +19,8 @@ export interface KickAction extends BaseAction {
   type: "KICK";
 }
 
-export interface TransferModeratorRoleAction extends BaseAction {
-  type: "TRANSFER_MODERATOR_ROLE";
+export interface PromoteToModeratorAction extends BaseAction {
+  type: "PROMOTE_TO_MODERATOR";
   payload: string;
 }
 
@@ -39,6 +39,6 @@ export type PeerToPeerAction<T> =
   | JoinSessionAction
   | DisconnectAction
   | KickAction
-  | TransferModeratorRoleAction
+  | PromoteToModeratorAction
   | RemoveFromWaitingListAction
   | AddToWaitingListAction;

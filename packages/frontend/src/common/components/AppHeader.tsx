@@ -16,7 +16,7 @@ interface AppHeaderProps {
   onKickUser: (userId: string) => void;
   onRejectJoinUser: (userId: string) => void;
   onAcceptJoinUser: (userId: string) => void;
-  onTransferModeratorRole: (userId: string) => void;
+  onPromoteToModerator: (userId: string) => void;
   children?: ReactNode;
 }
 
@@ -26,7 +26,7 @@ export function AppHeader({
   onKickUser,
   onRejectJoinUser,
   onAcceptJoinUser,
-  onTransferModeratorRole,
+  onPromoteToModerator,
   children,
 }: AppHeaderProps) {
   const { user } = useUserContext();
@@ -58,7 +58,7 @@ export function AppHeader({
           handleKickUser={onKickUser}
           onRejectJoinUser={onRejectJoinUser}
           onAcceptJoinUser={onAcceptJoinUser}
-          onTransferModeratorRole={onTransferModeratorRole}
+          onPromoteToModerator={onPromoteToModerator}
         />
         <SettingsButton>{children}</SettingsButton>
       </Toolbar>

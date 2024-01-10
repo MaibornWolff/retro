@@ -63,7 +63,7 @@ export function CreatePokerSessionDialog() {
       ...user,
       id: generateId(),
       name,
-      role: "moderator",
+      isModerator: true,
     };
     setRoomId(roomId);
     setUser(newUser);

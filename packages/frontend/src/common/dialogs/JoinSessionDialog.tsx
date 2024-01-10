@@ -75,7 +75,7 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
       ...user,
       id: generateId(),
       name,
-      role: "participant",
+      isModerator: false,
     };
     setRoomId(roomId);
     setUser(newUser);

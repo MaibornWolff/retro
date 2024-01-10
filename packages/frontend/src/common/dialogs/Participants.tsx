@@ -5,13 +5,13 @@ import { UserByUserId } from "../../retro/types/retroTypes";
 interface ParticipantsProps {
   participants: UserByUserId;
   handleKickUser: (userId: string) => void;
-  handleTransferModeratorRole: (userId: string) => void;
+  handlePromoteToModerator: (userId: string) => void;
 }
 
 export function Participants({
   participants,
   handleKickUser,
-  handleTransferModeratorRole,
+  handlePromoteToModerator,
 }: ParticipantsProps) {
   return (
     <ul style={{ margin: 0, padding: 0 }}>
@@ -20,7 +20,7 @@ export function Participants({
           <Participant
             participant={participant}
             handleKickUser={handleKickUser}
-            handleTransferModeratorRole={handleTransferModeratorRole}
+            handlePromoteToModerator={handlePromoteToModerator}
           />
         </li>
       ))}

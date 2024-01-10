@@ -7,7 +7,7 @@ interface UserContextProviderProps {
 
 export const initialUserState: User = {
   id: "",
-  role: "participant",
+  isModerator: false,
   name: "",
 };
 

@@ -20,7 +20,7 @@ export function RetroCardActions({ card, columnIndex, isBlurred }: RetroCardActi
   const { retroState } = useRetroContext();
   const { isVotingEnabled } = retroState;
 
-  const isButtonDisabled = isBlurred && user.role === "participant";
+  const isButtonDisabled = isBlurred && !user.isModerator;
 
   return (
     <Box>

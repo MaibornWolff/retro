@@ -41,17 +41,17 @@ export class HeaderPageObject extends PageObject {
     await this.page.getByRole("listitem").filter({ hasText: username }).isHidden();
   }
 
-  async transferModeratorRole(username: string) {
+  async promoteToModerator(username: string) {
     await this.page
       .getByRole("listitem")
       .filter({ hasText: username })
-      .getByRole("button", { name: "Transfer Moderator Role" })
+      .getByRole("button", { name: "Promote to Moderator" })
       .click();
-    await this.page.getByRole("button", { name: "Yes, transfer" }).click();
+    await this.page.getByRole("button", { name: "Yes, promote" }).click();
     await this.page
       .getByRole("listitem")
       .filter({ hasText: username })
-      .getByRole("button", { name: "Transfer Moderator Role", disabled: true })
+      .getByRole("button", { name: "Promote to Moderator", disabled: true })
       .isVisible();
   }
 

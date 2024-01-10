@@ -11,7 +11,7 @@ interface ParticipantButtonProps {
   handleKickUser: (userId: string) => void;
   onRejectJoinUser: (userId: string) => void;
   onAcceptJoinUser: (userId: string) => void;
-  onTransferModeratorRole: (userId: string) => void;
+  onPromoteToModerator: (userId: string) => void;
 }
 
 export function ParticipantsButton({
@@ -20,7 +20,7 @@ export function ParticipantsButton({
   handleKickUser,
   onRejectJoinUser,
   onAcceptJoinUser,
-  onTransferModeratorRole,
+  onPromoteToModerator,
 }: ParticipantButtonProps) {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const waitingUsersCount = Object.values(waitingList).length;
@@ -50,7 +50,7 @@ export function ParticipantsButton({
         onKickUser={handleKickUser}
         onAcceptJoinUser={onAcceptJoinUser}
         onRejectJoinUser={onRejectJoinUser}
-        onTransferModeratorRole={onTransferModeratorRole}
+        onPromoteToModerator={onPromoteToModerator}
       />
     </>
   );

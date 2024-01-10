@@ -24,12 +24,12 @@ export function getRemainingParticipantsWithNewModerator<T extends User>(
   };
 }
 
-export function findModerator<T extends User>(participants: Record<string, T>) {
-  return Object.values(participants).find((participant) => isModerator(participant));
+export function findModerators<T extends User>(participants: Record<string, T>) {
+  return Object.values(participants).filter((participant) => isModerator(participant));
 }
 
 export function isModerator(user: User) {
-  return user.role === "moderator";
+  return user.isModerator;
 }
 
 export function hasRemainingModerator<T extends User>(
@@ -37,7 +37,7 @@ export function hasRemainingModerator<T extends User>(
   disconnectedUserId: string
 ) {
   return Object.values(participants).some(
-    ({ id, role }) => disconnectedUserId !== id && role === "moderator"
+    ({ id, isModerator }) => disconnectedUserId !== id && isModerator
   );
 }
 

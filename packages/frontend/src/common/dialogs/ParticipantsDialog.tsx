@@ -22,7 +22,7 @@ interface ParticipantDialogProps extends DialogProps {
   onKickUser: (userId: string) => void;
   onRejectJoinUser: (userId: string) => void;
   onAcceptJoinUser: (userId: string) => void;
-  onTransferModeratorRole: (userId: string) => void;
+  onPromoteToModerator: (userId: string) => void;
 }
 
 export function ParticipantsDialog({
@@ -31,7 +31,7 @@ export function ParticipantsDialog({
   onKickUser,
   onRejectJoinUser,
   onAcceptJoinUser,
-  onTransferModeratorRole,
+  onPromoteToModerator,
   participants,
   waitingList,
 }: ParticipantDialogProps) {
@@ -76,7 +76,7 @@ export function ParticipantsDialog({
             <Participants
               participants={participants}
               handleKickUser={onKickUser}
-              handleTransferModeratorRole={onTransferModeratorRole}
+              handlePromoteToModerator={onPromoteToModerator}
             />
           </>
         )}
