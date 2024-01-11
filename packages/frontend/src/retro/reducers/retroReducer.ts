@@ -186,9 +186,9 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
       };
     }
     case "JOIN_SESSION": {
-      const { name, id, isModerator } = action.payload;
+      const { name, id, role } = action.payload;
       const remainingWaitingUsers = getRemainingParticipants(state.waitingList, id);
-      const newParticipant: User = { ...initialParticipant, name, id, isModerator };
+      const newParticipant: User = { ...initialParticipant, name, id, role };
       return {
         ...state,
         participants: { ...state.participants, [id]: newParticipant },
@@ -201,7 +201,7 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
       if (!user || !currentModerators.length) return state;
       const participants: UserByUserId = {
         ...state.participants,
-        [action.payload]: { ...user, isModerator: true },
+        [action.payload]: { ...user, role: "moderator" },
       };
       return { ...state, participants };
     }
@@ -246,7 +246,7 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
       const { participants, waitingList } = state;
       const disconnectedUserId = action.payload;
       const hasRemainingModerator = Object.values(participants).some(
-        ({ id, isModerator }) => disconnectedUserId !== id && isModerator
+        ({ id, role }) => disconnectedUserId !== id && role === "moderator"
       );
 
       const remainingParticipants = hasRemainingModerator
@@ -268,6 +268,6 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
 
 const initialParticipant: User = {
   id: "",
-  isModerator: false,
+  role: "participant",
   name: "",
 };

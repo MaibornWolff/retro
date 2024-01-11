@@ -42,9 +42,9 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
         pokerUnit: action.payload,
       };
     case "JOIN_SESSION": {
-      const { name, id, isModerator } = action.payload;
+      const { name, id, role } = action.payload;
       const remainingWaitingUsers = getRemainingParticipants(state.waitingList, id);
-      const newParticipant: User = { ...initialUserState, name, id, isModerator };
+      const newParticipant: User = { ...initialUserState, name, id, role };
       return {
         ...state,
         participants: { ...state.participants, [id]: newParticipant },
@@ -69,7 +69,7 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
       if (!user || !currentModerators.length) return state;
       const participants: UserByUserId = {
         ...state.participants,
-        [action.payload]: { ...user, isModerator: true },
+        [action.payload]: { ...user, role: "moderator" },
       };
       return { ...state, participants };
     }

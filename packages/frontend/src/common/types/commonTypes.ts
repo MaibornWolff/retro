@@ -2,9 +2,11 @@ export interface BaseAction {
   type: string;
 }
 
+export type UserRole = "moderator" | "participant";
+
 export interface User {
   id: string;
-  isModerator: boolean;
+  role: UserRole;
   name: string;
 }
 

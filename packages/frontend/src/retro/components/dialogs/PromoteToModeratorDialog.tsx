@@ -48,7 +48,7 @@ export function PromoteToModeratorDialog({
       <DialogTitle id="promote-to-moderator-dialog">Promote to moderator</DialogTitle>
       <DialogContent>
         <Typography>
-          Do you really want promote <strong> {participant.name}</strong> to a moderator?
+          Do you really want promote <strong> {participant.name} </strong> to moderator?
         </Typography>
       </DialogContent>
       <DialogActions>

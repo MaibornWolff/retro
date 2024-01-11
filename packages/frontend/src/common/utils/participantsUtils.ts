@@ -29,7 +29,7 @@ export function findModerators<T extends User>(participants: Record<string, T>) 
 }
 
 export function isModerator(user: User) {
-  return user.isModerator;
+  return user.role === "moderator";
 }
 
 export function hasRemainingModerator<T extends User>(
@@ -37,7 +37,7 @@ export function hasRemainingModerator<T extends User>(
   disconnectedUserId: string
 ) {
   return Object.values(participants).some(
-    ({ id, isModerator }) => disconnectedUserId !== id && isModerator
+    ({ id, role }) => disconnectedUserId !== id && role === "moderator"
   );
 }
 

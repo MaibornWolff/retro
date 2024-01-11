@@ -77,7 +77,7 @@ export function CreateRetroSessionDialog() {
       ...user,
       id: generateId(),
       name,
-      isModerator: true,
+      role: "moderator",
     };
     setRoomId(roomId);
     handleSetRetroState({ ...retroState, title });
