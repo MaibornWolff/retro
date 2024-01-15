@@ -26,10 +26,10 @@ const Index = () => {
           <ToggleThemeButton />
         </Toolbar>
       </AppBar>
-      <Box>
-        <h1>Impressum</h1>
-        <h2>MaibornWolff GmbH Theresienhöhe 13 80339 München</h2>
-        <p>
+      <Box sx={{ maxWidth: "80%", justifyContent: "center" }}>
+        <Typography variant="h1">Impressum</Typography>
+        <Typography variant="h2">MaibornWolff GmbH Theresienhöhe 13 80339 München</Typography>
+        <Typography variant="body1">
           Telefon: +49 89 544 253 000
           <br />
           Telefax: +49 89 544 253 099
@@ -82,7 +82,7 @@ const Index = () => {
           <br />
           Geschäftsführer: Volker Maiborn, Holger Wolff, Alexander Hofmann, Florian Theimer, Marcus
           Adlwart, Dr. Martina Beck, Christian Loos
-        </p>
+        </Typography>
       </Box>
     </>
   );
