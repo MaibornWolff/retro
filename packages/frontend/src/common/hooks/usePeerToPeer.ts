@@ -62,6 +62,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     if (!connection) return;
 
     logger.debug("Sending event", { event, userId });
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     connection.send(event);
   }
 
@@ -70,6 +71,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
 
     logger.debug("Broadcasting action", action);
     peerConnections.forEach((connection) => {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       connection.send(action);
     });
   }
