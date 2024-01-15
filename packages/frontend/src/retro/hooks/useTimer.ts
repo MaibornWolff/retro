@@ -10,7 +10,7 @@ export function useTimer({ onTimerFinish }: useTimerProps) {
   const { retroState, handleStopTimer } = useRetroContext();
   const { timerStatus, timerDuration } = retroState;
   const [timeRunning, setTimeRunning] = useState(0);
-  const intervalRef = useRef<NodeJS.Timer>();
+  const intervalRef = useRef<NodeJS.Timeout>();
 
   const remainingTime = timerDuration - timeRunning;
   const minutes = Math.floor(remainingTime / 1000 / 60);
