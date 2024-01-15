@@ -18,7 +18,7 @@ export function CardText({ text, isSelectable, withHyperlinks }: CardTextProps) 
         `<a href="${editedUrl}" target="_blank" style={{    color: theme.palette.primary.main,
     borderBottom: "dashed 1px",
     borderColor: theme.palette.primary.main,
-    textDecoration: "none"}}>${url}</a>`
+    textDecoration: "none"}}>${url}</a>`,
       );
     });
 

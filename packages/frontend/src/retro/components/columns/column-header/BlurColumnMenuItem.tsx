@@ -28,5 +28,5 @@ export const BlurColumnMenuItem = React.forwardRef(
         <ListItemText primary={menuItemText} />
       </MenuItem>
     );
-  }
+  },
 );

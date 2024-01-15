@@ -36,8 +36,8 @@ export function ToggleTimerDialogButton() {
           timerStatus === TimerStatus.PAUSED
             ? "info"
             : timerStatus === TimerStatus.RUNNING || isEffectActive
-            ? "error"
-            : undefined
+              ? "error"
+              : undefined
         }
         isWiggling={isEffectActive}
       >

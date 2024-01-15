@@ -31,7 +31,7 @@ export function remove<T extends { index: number }>(list: T[], index: number): T
 export function move<T extends { index: number }>(
   list: T[],
   fromIndex: number,
-  toIndex: number
+  toIndex: number,
 ): T[] {
   const movedItem = list[fromIndex];
   if (!movedItem) return list;
@@ -50,7 +50,7 @@ export function replace<T extends { index: number }>(list: T[], index: number, v
 export function insertCardIntoColumn(
   columns: RetroColumn[],
   card: RetroCard,
-  columnIndex: number
+  columnIndex: number,
 ): RetroColumn[] {
   const column = columns[columnIndex];
   if (!column) return columns;
@@ -62,7 +62,7 @@ export function insertCardIntoColumn(
 export function removeCardFromColumn(
   columns: RetroColumn[],
   cardIndex: number,
-  columnIndex: number
+  columnIndex: number,
 ): RetroColumn[] {
   const column = columns[columnIndex];
   if (!column) return columns;
@@ -75,7 +75,7 @@ export function replaceCardInColumn(
   columns: RetroColumn[],
   cardIndex: number,
   columnIndex: number,
-  card: RetroCard
+  card: RetroCard,
 ): RetroColumn[] {
   const column = columns[columnIndex];
   if (!column) return columns;
@@ -88,7 +88,7 @@ export function replaceCardContent(
   columns: RetroColumn[],
   cardIndex: number,
   columnIndex: number,
-  cardContent: string
+  cardContent: string,
 ): RetroColumn[] {
   const column = columns[columnIndex];
   const card = column?.cards[cardIndex];

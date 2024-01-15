@@ -12,5 +12,4 @@ validate_branch_name() {
 }
 
 npx lint-staged
-npx pretty-quick --staged
 validate_branch_name

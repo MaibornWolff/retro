@@ -7,7 +7,7 @@ const loggerFormat = format.combine(
   }),
   format.errors({ stack: true }),
   format.splat(),
-  format.json()
+  format.json(),
 );
 
 export const logger = createLogger({

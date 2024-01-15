@@ -30,7 +30,7 @@ export default function RetroRoomPage({ configuration }: GlobalGetServerSideProp
 }
 
 export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
   resetServerContext();
   const globalProps = await globalGetServerSideProps(context);

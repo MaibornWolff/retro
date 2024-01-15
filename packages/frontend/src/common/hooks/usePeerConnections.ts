@@ -19,7 +19,7 @@ export function usePeerConnections({
 
   useEffect(() => {
     const isReadyChanges = difference(peerConnections, previousPeerConnectionsRef.current).filter(
-      (connection) => connection.isReady
+      (connection) => connection.isReady,
     );
     onPeerConnectionReady(isReadyChanges);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,14 +41,14 @@ export function usePeerConnections({
 
   const removePeerConnection = (userId: string) => {
     peerConnectionsRef.current = peerConnectionsRef.current.filter(
-      (connection) => userId !== connection.peer
+      (connection) => userId !== connection.peer,
     );
 
     setPeerConnections((oldState) => {
       previousPeerConnectionsRef.current = [...oldState];
 
       const remainingPeerConnections = oldState.filter(
-        (connection) => connection.userId !== userId
+        (connection) => connection.userId !== userId,
       );
       return [...remainingPeerConnections];
     });
