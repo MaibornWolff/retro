@@ -109,6 +109,7 @@ export function CreateRetroSessionDialog() {
             onStorageAllowanceChange={(event) => {
               handleAllowanceChange(event.target.checked);
             }}
+            autoFocus
           />
         </Box>
         <Box>
@@ -120,7 +121,6 @@ export function CreateRetroSessionDialog() {
             error={isTitleError}
             id="retro-name"
             label="Retro Name"
-            autoFocus
           />
         </Box>
         <Box>
