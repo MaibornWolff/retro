@@ -20,7 +20,7 @@
     "lodash": "^4.17.21",
     "nanoid": "^5.0.4",
     "next": "^14.0.4",
-    "peerjs": "^1.4.7",
+    "peerjs": "^1.5.2",
     "qrcode": "^1.5.3",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
