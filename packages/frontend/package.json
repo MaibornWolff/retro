@@ -24,7 +24,7 @@
     "qrcode": "^1.5.3",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
-    "react-card-flip": "^1.2.0",
+    "react-card-flip": "^1.2.2",
     "react-component-export-image": "^1.0.6",
     "react-dom": "^18.2.0",
     "recharts": "^2.3.2",
