@@ -27,7 +27,7 @@
     "react-card-flip": "^1.2.2",
     "react-component-export-image": "^1.0.6",
     "react-dom": "^18.2.0",
-    "recharts": "^2.3.2",
+    "recharts": "^2.10.4",
     "sharp": "^0.33.2",
     "socket.io-client": "^4.7.4",
     "typewriter-effect": "^2.21.0"
