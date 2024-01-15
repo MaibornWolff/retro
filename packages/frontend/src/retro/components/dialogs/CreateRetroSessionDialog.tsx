@@ -20,11 +20,11 @@ import { generateId } from "../../../common/utils/generateId";
 import { TextInput } from "../../../common/components/TextInput";
 import { useValidatedTextInput } from "../../../common/hooks/useValidatedTextInput";
 import { useRoomContext } from "../../../common/context/RoomContext";
-import { LocalStorage } from "../../../common/utils/localStorage";
-import { useLocalStorage } from "../../../common/hooks/useLocalStorage";
 import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 import { useDialog } from "../../../common/hooks/useDialog";
 import { useRedirect } from "../../../common/hooks/useRedirect";
+import UserNameInputField from "./UsernameInputField";
+import useLocalStorageName from "../../hooks/useLocalStorageName";
 
 export function CreateRetroSessionDialog() {
   const { isOpen, closeDialog } = useDialog(true);
@@ -50,13 +50,12 @@ export function CreateRetroSessionDialog() {
   const { retroState, handleChangeRetroFormat, handleSetRetroState, handleJoinSession } =
     useRetroContext();
   const { user, setUser } = useUserContext();
+  const { isStorageAllowed, trySavingNameLocally, handleAllowanceChange } = useLocalStorageName({
+    setName,
+  });
   const { setRoomId } = useRoomContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
-  useLocalStorage(() => {
-    setName(LocalStorage.getUserName());
-  });
 
   function handleClose() {
     setName("");
@@ -82,7 +81,7 @@ export function CreateRetroSessionDialog() {
     setRoomId(roomId);
     handleSetRetroState({ ...retroState, title });
     setUser(newUser);
-    LocalStorage.setUserName(name);
+    trySavingNameLocally(name);
     handleJoinSession(newUser);
     handleChangeRetroFormat(format);
     redirectToRoom(roomId);
@@ -100,19 +99,21 @@ export function CreateRetroSessionDialog() {
       <DialogTitle id="form-dialog-create-retro">Create Retro Session</DialogTitle>
       <DialogContent sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <Box>
-          <DialogContentText>Please enter your name</DialogContentText>
-          <TextInput
-            value={name}
+          <UserNameInputField
+            userName={name}
+            id="user-name"
             onSubmit={handleSubmit}
             onChange={handleNameChange}
             error={isNameError}
-            id="user-name"
-            label="Username"
+            isStorageAllowed={isStorageAllowed}
+            onStorageAllowanceChange={(event) => {
+              handleAllowanceChange(event.target.checked);
+            }}
             autoFocus
           />
         </Box>
         <Box>
-          <DialogContentText>Please provide your name for this session</DialogContentText>
+          <DialogContentText>Please provide a name for this session</DialogContentText>
           <TextInput
             value={title}
             onSubmit={handleSubmit}

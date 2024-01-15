@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   useMediaQuery,
   useTheme,
@@ -17,14 +16,13 @@ import { generateId } from "../utils/generateId";
 
 import { useBackendAdapter } from "../adapter/backendAdapter";
 import { useNamespace } from "../hooks/useNamespace";
-import { TextInput } from "../components/TextInput";
 import { useErrorContext } from "../context/ErrorContext";
-import { LocalStorage } from "../utils/localStorage";
-import { useLocalStorage } from "../hooks/useLocalStorage";
 import { CallToActionButton } from "../components/buttons/CallToActionButton";
 import { useDialog } from "../hooks/useDialog";
 import { useRedirect } from "../hooks/useRedirect";
 import { useRoomIdFromPath } from "../hooks/useRoomIdFromPath";
+import UserNameInputField from "../../retro/components/dialogs/UsernameInputField";
+import useLocalStorageName from "../../retro/hooks/useLocalStorageName";
 
 interface JoinSessionDialogProps {
   onAddToWaitingList: ({ userId, userName }: { userId: string; userName: string }) => void;
@@ -40,6 +38,9 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
     handleChange,
     isValid,
   } = useValidatedTextInput({ minLength: 1, maxLength: 40 });
+  const { isStorageAllowed, trySavingNameLocally, handleAllowanceChange } = useLocalStorageName({
+    setName,
+  });
   const { redirectBackToHome, redirectToRoom } = useRedirect();
   const { setError } = useErrorContext();
   const { setRoomId } = useRoomContext();
@@ -49,10 +50,6 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const namespace = useNamespace();
   const { roomIdExists } = useBackendAdapter();
-
-  useLocalStorage(() => {
-    setName(LocalStorage.getUserName());
-  });
 
   function handleClose() {
     setName("");
@@ -79,7 +76,7 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
     };
     setRoomId(roomId);
     setUser(newUser);
-    LocalStorage.setUserName(name);
+    trySavingNameLocally(name);
     onAddToWaitingList({ userId: newUser.id, userName: name });
     redirectToRoom(roomId);
     handleClose();
@@ -95,18 +92,17 @@ export function JoinSessionDialog({ onAddToWaitingList }: JoinSessionDialogProps
     >
       <DialogTitle id="join-poker-dialog-title">Join Session</DialogTitle>
       <DialogContent>
-        <DialogContentText>Please provide your name for this session</DialogContentText>
-        <TextInput
+        <UserNameInputField
+          userName={name}
+          id="user-name"
           onSubmit={handleSubmit}
-          required
-          autoFocus
-          fullWidth
-          value={name}
           onChange={handleChange}
           error={isError}
-          id="user-name"
-          label="Name"
-          type="text"
+          isStorageAllowed={isStorageAllowed}
+          onStorageAllowanceChange={(event) => {
+            handleAllowanceChange(event.target.checked);
+          }}
+          autoFocus
         />
       </DialogContent>
       <DialogActions>

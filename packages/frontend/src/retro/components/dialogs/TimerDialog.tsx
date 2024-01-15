@@ -12,6 +12,7 @@ interface TimerDialogProps extends DialogProps {
   remainingMinutes: number;
   remainingSeconds: number;
 }
+
 export function TimerDialog({
   isOpen,
   close,

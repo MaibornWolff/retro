@@ -10,6 +10,7 @@ interface CircularProgressWithLabelProps {
   maxValue: number;
   currentValue: number;
 }
+
 export function CircularProgressWithLabel({
   maxValue,
   currentValue,
