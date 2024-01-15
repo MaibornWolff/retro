@@ -26,5 +26,5 @@ export const SortColumnMenuItem = React.forwardRef(
         </MenuItem>
       </>
     );
-  }
+  },
 );

@@ -34,10 +34,10 @@ test("should accept user, vote and show results", async ({ page, context }) => {
   const frontCards = page.locator(".react-card-front");
   await expect(frontCards).toHaveCount(2);
   await expect(
-    frontCards.filter({ has: page.getByRole("heading", { name: "User 1" }) })
+    frontCards.filter({ has: page.getByRole("heading", { name: "User 1" }) }),
   ).toBeVisible();
   await expect(
-    frontCards.filter({ has: page.getByRole("heading", { name: newUser }) })
+    frontCards.filter({ has: page.getByRole("heading", { name: newUser }) }),
   ).toBeVisible();
 
   await pokerPage.vote(8);

@@ -71,7 +71,7 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
         columns: insertCardIntoColumn(
           state.columns,
           action.payload.card,
-          action.payload.columnIndex
+          action.payload.columnIndex,
         ),
       };
     case "DELETE_CARD": {
@@ -89,7 +89,7 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
           state.columns,
           action.payload.cardIndex,
           action.payload.columnIndex,
-          action.payload.cardContent
+          action.payload.cardContent,
         ),
       };
     case "CREATE_COLUMN":
@@ -136,7 +136,7 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
           state.columns,
           action.payload.cardIndex,
           action.payload.columnIndex,
-          updatedCard
+          updatedCard,
         ),
       };
     }
@@ -217,7 +217,7 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
     case "REMOVE_FROM_WAITING_LIST": {
       const remainingWaitingUsers = getRemainingParticipants(
         state.waitingList,
-        action.payload.userId
+        action.payload.userId,
       );
       return { ...state, waitingList: remainingWaitingUsers };
     }
@@ -247,7 +247,7 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
       const { participants, waitingList } = state;
       const disconnectedUserId = action.payload;
       const hasRemainingModerator = Object.values(participants).some(
-        ({ id, role }) => disconnectedUserId !== id && role === "moderator"
+        ({ id, role }) => disconnectedUserId !== id && role === "moderator",
       );
 
       const remainingParticipants = hasRemainingModerator
