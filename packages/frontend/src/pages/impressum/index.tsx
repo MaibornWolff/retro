@@ -1,31 +1,11 @@
 import React from "react";
-import { AppBar, Box, Toolbar, Typography, useTheme } from "@mui/material";
-import Link from "next/link";
-import { ToggleThemeButton } from "../../common/components/buttons/ToggleThemeButton";
+import { Box, Typography } from "@mui/material";
+import { Header } from "../../common/components/Header";
 
 const Index = () => {
-  const theme = useTheme();
   return (
     <>
-      <AppBar
-        position="static"
-        enableColorOnDark={true}
-        sx={{ backgroundColor: theme.palette.background.paper }}
-      >
-        <Toolbar>
-          <Typography
-            variant="h4"
-            flexGrow={1}
-            fontFamily="Permanent"
-            sx={{ fontFamily: "Permanent Marker, cursive" }}
-          >
-            <Link href="/" style={{ textDecoration: "none", color: theme.palette.primary.main }}>
-              Retro
-            </Link>
-          </Typography>
-          <ToggleThemeButton />
-        </Toolbar>
-      </AppBar>
+      <Header />
       <Box sx={{ maxWidth: "80%", justifyContent: "center" }}>
         <Typography variant="h1">Impressum</Typography>
         <Typography variant="h2">MaibornWolff GmbH Theresienhöhe 13 80339 München</Typography>
