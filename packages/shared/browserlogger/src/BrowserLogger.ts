@@ -1,6 +1,6 @@
 import { LogLevel } from "@shared/configuration";
 
-export type LogFn = (message?: any, ...optionalParams: any[]) => void;
+export type LogFn = (message?: unknown, ...optionalParams: unknown[]) => void;
 
 export interface Logger {
   debug: LogFn;
@@ -13,7 +13,7 @@ export interface BrowserLoggerOptions {
   level?: LogLevel;
 }
 
-const NO_OP: LogFn = (_message?: any, ..._optionalParams: any[]) => {};
+const NO_OP: LogFn = (_message?: unknown, ..._optionalParams: unknown[]) => {};
 
 export class BrowserLogger implements Logger {
   readonly debug: LogFn;

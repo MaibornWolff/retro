@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Ref } from "react";
 import { Sort } from "@mui/icons-material";
 import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { RetroColumn } from "../../../types/retroTypes";
@@ -9,7 +9,7 @@ interface SortColumnMenuItemProps {
 }
 
 export const SortColumnMenuItem = React.forwardRef(
-  ({ column }: SortColumnMenuItemProps, ref: any) => {
+  ({ column }: SortColumnMenuItemProps, ref: Ref<HTMLLIElement>) => {
     const { handleSortCardsByVotesDescending } = useRetroContext();
 
     function sortByVotesDescending() {

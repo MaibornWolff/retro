@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Ref } from "react";
 import { BlurOff, BlurOn } from "@mui/icons-material";
 import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { RetroColumn } from "../../../types/retroTypes";
@@ -11,7 +11,7 @@ interface BlurColumnMenuItemProperties {
 }
 
 export const BlurColumnMenuItem = React.forwardRef(
-  ({ column }: BlurColumnMenuItemProperties, ref: any) => {
+  ({ column }: BlurColumnMenuItemProperties, ref: Ref<HTMLLIElement>) => {
     const { handleToggleColumnBlur } = useRetroContext();
     const { user } = useUserContext();
 

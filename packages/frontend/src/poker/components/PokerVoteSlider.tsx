@@ -5,7 +5,7 @@ import { PokerNaturalNumbersSlider } from "./sliders/PokerNaturalNumbersSlider";
 import { PokerTShirtSlider } from "./sliders/PokerTShirtSlider";
 
 interface PokerVoteSliderProps {
-  onSliderChange: (event: any, newValue: number | number[]) => void;
+  onSliderChange: (event: Event, newValue: number | number[]) => void;
 }
 
 export function PokerVoteSlider({ onSliderChange }: PokerVoteSliderProps) {
