@@ -1,6 +1,5 @@
 import React from "react";
 import { Header, HeaderProps } from "./Header";
-import { ToggleThemeButton } from "./buttons/ToggleThemeButton";
 import { ShareSessionButton } from "./buttons/ShareSessionButton";
 import { ParticipantsButton } from "./buttons/ParticipantsButton";
 import { UserByUserId } from "../../retro/types/retroTypes";
@@ -28,7 +27,6 @@ export function AppHeader({
   const { user } = useUserContext();
   return (
     <Header>
-      <ToggleThemeButton />
       <ShareSessionButton isDisabled={!user.id} />
       <ParticipantsButton
         participants={participants}
