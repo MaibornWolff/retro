@@ -6,7 +6,7 @@ interface ArticleBoxProps {
 }
 export default function ArticleBox({ children }: ArticleBoxProps) {
   return (
-    <Box sx={{ justifyContent: "center", display: "flex" }}>
+    <Box sx={{ justifyContent: "center", display: "flex", marginTop: "2rem" }}>
       <Box maxWidth="lg">{children}</Box>
     </Box>
   );

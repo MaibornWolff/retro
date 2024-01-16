@@ -25,7 +25,7 @@ export function HomePageContent() {
             <RedirectToPlanningPokerButton />
           </FlexBox>
         </FlexBox>
-        <Footer />
+        <Footer isTransparent={true} />
       </Box>
     </>
   );
