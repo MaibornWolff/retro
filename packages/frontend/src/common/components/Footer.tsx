@@ -13,6 +13,7 @@ export default function Footer({ isTransparent = false }: FooterProps) {
         bottom: 0,
         width: "100%",
         backgroundColor: isTransparent ? "transparent" : undefined,
+        marginBottom: "1rem",
       }}
     >
       <Box
