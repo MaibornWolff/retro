@@ -1,14 +1,15 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Header } from "../../common/components/Header";
+import ArticleBox from "../../common/components/ArticleBox";
 
 const Index = () => {
   return (
     <>
       <Header />
-      <Box sx={{ maxWidth: "80%", justifyContent: "center" }}>
-        <Typography variant="h1">Impressum</Typography>
-        <Typography variant="h2">MaibornWolff GmbH Theresienhöhe 13 80339 München</Typography>
+      <ArticleBox>
+        <Typography variant="h2">Impressum</Typography>
+        <Typography variant="h4">MaibornWolff GmbH Theresienhöhe 13 80339 München</Typography>
         <Typography variant="body1">
           Telefon: +49 89 544 253 000
           <br />
@@ -63,7 +64,7 @@ const Index = () => {
           Geschäftsführer: Volker Maiborn, Holger Wolff, Alexander Hofmann, Florian Theimer, Marcus
           Adlwart, Dr. Martina Beck, Christian Loos
         </Typography>
-      </Box>
+      </ArticleBox>
     </>
   );
 };

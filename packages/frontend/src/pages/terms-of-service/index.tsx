@@ -1,14 +1,16 @@
 import React from "react";
-import { Box } from "@mui/material";
 import { Header } from "../../common/components/Header";
+import ArticleBox from "../../common/components/ArticleBox";
+import { Typography } from "@mui/material";
 
 const Index = () => {
   return (
     <>
       <Header />
-      <Box>
-        <h1>Terms of Service</h1>
-        <p>
+      <ArticleBox>
+        <Typography variant="h2">Terms of Service</Typography>
+        <br />
+        <Typography variant="body1">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
           invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
           accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
@@ -20,9 +22,9 @@ const Index = () => {
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
           invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
           accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea tak
-        </p>
-        <h2>Your Usage and Responsibilities</h2>
-        <p>
+        </Typography>
+        <Typography variant="h4">Your Usage and Responsibilities</Typography>
+        <Typography variant="body1">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
           invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
           accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
@@ -35,7 +37,7 @@ const Index = () => {
           et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
           amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
           consequat, vel illum dolore eu f
-        </p>
+        </Typography>
         <ol>
           <li>
             Copyright: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
@@ -85,8 +87,8 @@ const Index = () => {
             voluptua. At vero eos et accusam et justo duo dolores
           </li>
         </ol>
-        <h2>Intellectual Property of MaibornWolff</h2>
-        <p>
+        <Typography variant="h4">Intellectual Property of MaibornWolff</Typography>
+        <Typography variant="body1">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
           invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
           accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
@@ -99,16 +101,16 @@ const Index = () => {
           et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
           amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
           consequat, vel illum dolore eu f
-        </p>
-        <h2>Liability, Warranty, Indemnification</h2>
-        <p>
+        </Typography>
+        <Typography variant="h4">Liability, Warranty, Indemnification</Typography>
+        <Typography variant="body1">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
           invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
           accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
           sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
           elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
           diam voluptua. At vero eos et accusam et justo duo dolores et e
-        </p>
+        </Typography>
         <ol>
           <li>
             Copyright: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
@@ -139,22 +141,22 @@ const Index = () => {
             aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et e
           </li>
         </ol>
-        <h2>Privacy</h2>
-        <p>
+        <Typography variant="h4">Privacy</Typography>
+        <Typography variant="body1">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
           invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
           accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
           sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
           elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
           diam voluptua. At vero eos et accusam et justo duo dolores et e
-        </p>
-        <h2>Miscellaneous</h2>
-        <p>
+        </Typography>
+        <Typography variant="h4">Miscellaneous</Typography>
+        <Typography variant="body1">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
           invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
           accusam et justo duo dolores
-        </p>
-      </Box>
+        </Typography>
+      </ArticleBox>
     </>
   );
 };
