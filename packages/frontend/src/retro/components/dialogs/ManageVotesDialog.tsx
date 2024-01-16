@@ -36,7 +36,7 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
     close();
   }
 
-  function handleVoteCountChange(event: any, newValue: number | number[]) {
+  function handleVoteCountChange(event: Event, newValue: number | number[]) {
     setVoteCount(newValue as number);
   }
 

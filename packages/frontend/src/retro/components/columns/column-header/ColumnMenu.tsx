@@ -15,17 +15,17 @@ interface ColumnMenuProps {
 }
 
 export function ColumnMenu({ column }: ColumnMenuProps) {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement>();
   const { user } = useUserContext();
 
   if (!isModerator(user)) return null;
 
-  function openMenu(event: any) {
+  function openMenu(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     setAnchorEl(event.currentTarget);
   }
 
   function closeMenu() {
-    setAnchorEl(null);
+    setAnchorEl(undefined);
   }
 
   const open = Boolean(anchorEl);

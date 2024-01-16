@@ -9,7 +9,7 @@ interface DeleteColumnMenuItemProps {
 }
 
 export const DeleteColumnMenuItem = React.forwardRef(
-  ({ columnIndex }: DeleteColumnMenuItemProps, ref: any) => {
+  ({ columnIndex }: DeleteColumnMenuItemProps, ref: React.Ref<HTMLLIElement>) => {
     const { isOpen, closeDialog, openDialog } = useDialog();
 
     return (

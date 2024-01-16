@@ -7,15 +7,15 @@ interface SettingsButtonProps {
 }
 
 export function SettingsButton({ children }: SettingsButtonProps) {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<Element>();
   const open = Boolean(anchorEl);
 
-  const handleSettings = (event: any) => {
+  const handleSettings = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorEl(undefined);
   };
 
   return (

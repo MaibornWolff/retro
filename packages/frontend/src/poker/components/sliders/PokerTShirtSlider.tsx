@@ -3,14 +3,14 @@ import { Slider } from "@mui/material";
 import { getTShirtSizesMarks } from "../../utils/pokerUtils";
 
 interface PokerTShirtSliderProps {
-  onChange: (event: any, newValue: number | number[]) => void;
+  onChange: (event: Event, newValue: number | number[]) => void;
 }
 
-export function PokerTShirtSlider(props: PokerTShirtSliderProps) {
+export function PokerTShirtSlider({ onChange }: PokerTShirtSliderProps) {
   return (
     <Slider
       defaultValue={0}
-      onChange={props.onChange}
+      onChange={onChange}
       aria-labelledby="vote-slider-label"
       step={null}
       marks={getTShirtSizesMarks()}
