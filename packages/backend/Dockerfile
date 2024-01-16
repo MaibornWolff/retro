@@ -1,4 +1,4 @@
-FROM node:19.8.1-alpine3.16 as build
+FROM node:21-alpine3.18 as build
 WORKDIR /app
 COPY ./ /app/
 

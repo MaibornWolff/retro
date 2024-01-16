@@ -3,11 +3,11 @@ import { DataConnection } from "peerjs";
 export function findUnconnectedUserIds(
   connectedUserIds: string[],
   myUserId: string,
-  peerConnections: DataConnection[]
+  peerConnections: DataConnection[],
 ) {
   return connectedUserIds.filter(
     (connectedUserId) =>
-      connectedUserId !== myUserId && !isConnected(peerConnections, connectedUserId)
+      connectedUserId !== myUserId && !isConnected(peerConnections, connectedUserId),
   );
 }
 

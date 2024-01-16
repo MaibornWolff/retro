@@ -7,7 +7,7 @@ dotenv.config();
 
 const signalingServerPort = getConfiguration().signalingServerUrl.port;
 
-const peerServer = spawn("peerjs", ["--port", String(signalingServerPort)]);
+const peerServer = spawn("peerjs", ["--port", String(signalingServerPort)], { shell: true });
 
 peerServer.on("error", (error) => {
   logger.error("Error when spawning the process: ", error);

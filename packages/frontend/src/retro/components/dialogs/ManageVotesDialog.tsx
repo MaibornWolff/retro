@@ -28,7 +28,7 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
   } = useRetroContext();
   const [voteCount, setVoteCount] = useState(retroState.maxVoteCount);
   const [isMaxVotesPerCardLimited, setIsMaxVotesPerCardLimited] = useState(
-    retroState.cardVotingLimit === 1
+    retroState.cardVotingLimit === 1,
   );
 
   function handleCancel() {

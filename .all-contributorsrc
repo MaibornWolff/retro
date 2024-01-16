@@ -1,7 +1,5 @@
 {
-  "files": [
-    "README.md"
-  ],
+  "files": ["README.md"],
   "imageSize": 100,
   "commit": false,
   "contributors": [
@@ -10,117 +8,84 @@
       "name": "Adrian Endrich",
       "avatar_url": "https://avatars2.githubusercontent.com/u/2622069?v=4",
       "profile": "https://github.com/mrpatpat",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "ClaasBusemann",
       "name": "Claas Busemann",
       "avatar_url": "https://avatars2.githubusercontent.com/u/65392929?v=4",
       "profile": "https://github.com/ClaasBusemann",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "PaulaBre",
       "name": "PaulaBre",
       "avatar_url": "https://avatars2.githubusercontent.com/u/65403162?v=4",
       "profile": "https://github.com/PaulaBre",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "tobim-dev",
       "name": "Tobias",
       "avatar_url": "https://avatars3.githubusercontent.com/u/15176413?v=4",
       "profile": "https://github.com/tobim-dev",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "ravensinth",
       "name": "ravensinth",
       "avatar_url": "https://avatars0.githubusercontent.com/u/1155772?v=4",
       "profile": "https://github.com/ravensinth",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "2mawi2",
       "name": "Marius Wichtner",
       "avatar_url": "https://avatars2.githubusercontent.com/u/17811051?v=4",
       "profile": "https://github.com/2mawi2",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "yduman",
       "name": "Yadullah Duman",
       "avatar_url": "https://avatars0.githubusercontent.com/u/11931774?v=4",
       "profile": "https://yduman.github.io/",
-      "contributions": [
-        "code",
-        "review",
-        "ideas"
-      ]
+      "contributions": ["code", "review", "ideas"]
     },
     {
       "login": "sillydomnom",
       "name": "Dominik Schumann",
       "avatar_url": "https://avatars.githubusercontent.com/u/18489820?v=4",
       "profile": "https://github.com/sillydomnom",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "NearW",
       "name": "Ben Willenbring",
       "avatar_url": "https://avatars.githubusercontent.com/u/12533626?v=4",
       "profile": "https://github.com/NearW",
-      "contributions": [
-        "code",
-        "ideas",
-        "maintenance",
-        "projectManagement"
-      ]
+      "contributions": ["code", "ideas", "maintenance", "projectManagement"]
     },
     {
       "login": "dostulataa",
       "name": "Lukas Richter",
       "avatar_url": "https://avatars.githubusercontent.com/u/7762085?v=4",
       "profile": "https://github.com/dostulataa",
-      "contributions": [
-        "code",
-        "ideas",
-        "maintenance",
-        "projectManagement"
-      ]
+      "contributions": ["code", "ideas", "maintenance", "projectManagement"]
     },
     {
       "login": "Hall-Ma",
       "name": "Maria Hallmann",
       "avatar_url": "https://avatars.githubusercontent.com/u/72517530?v=4",
       "profile": "https://github.com/Hall-Ma",
-      "contributions": [
-        "code",
-        "test"
-      ]
+      "contributions": ["code", "test"]
     },
     {
       "login": "xWorkerBeex",
       "name": "Martin Schröder",
       "avatar_url": "https://avatars.githubusercontent.com/u/8974341?v=4",
       "profile": "https://github.com/xWorkerBeex",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 7,

@@ -4,7 +4,7 @@ import { UserByUserId } from "../../retro/types/retroTypes";
 
 export function getRemainingParticipants<T extends User>(
   participants: Record<string, T>,
-  disconnectedUserId: string
+  disconnectedUserId: string,
 ): Record<string, T> {
   const { [disconnectedUserId]: _disconnectedUser, ...remainingParticipants } = participants;
   return { ...remainingParticipants };
@@ -12,7 +12,7 @@ export function getRemainingParticipants<T extends User>(
 
 export function getRemainingParticipantsWithNewModerator<T extends User>(
   participants: Record<string, T>,
-  disconnectedUserId: string
+  disconnectedUserId: string,
 ): Record<string, T> {
   const { [disconnectedUserId]: _disconnectedUser, ...remainingParticipants } = participants;
   const newModerator = determineNewModerator(Object.values(remainingParticipants));
@@ -34,10 +34,10 @@ export function isModerator(user: User) {
 
 export function hasRemainingModerator<T extends User>(
   participants: Record<string, T>,
-  disconnectedUserId: string
+  disconnectedUserId: string,
 ) {
   return Object.values(participants).some(
-    ({ id, role }) => disconnectedUserId !== id && role === "moderator"
+    ({ id, role }) => disconnectedUserId !== id && role === "moderator",
   );
 }
 

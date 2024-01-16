@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 interface useTimedEffectProps {
   effectLength: number;
 }
+
 export default function useTimedEffect({ effectLength }: useTimedEffectProps) {
   const [isEffectActive, setIsEffectActive] = useState(false);
 

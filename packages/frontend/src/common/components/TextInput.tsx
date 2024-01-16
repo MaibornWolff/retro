@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 import { StandardTextFieldProps } from "@mui/material/TextField/TextField";
 import { ErrorHelperText } from "./ErrorHelperText";
 
-interface TextInputProps extends StandardTextFieldProps {
+export interface TextInputProps extends StandardTextFieldProps {
   onSubmit: () => void;
   errorHelperText?: string;
 }

@@ -14,6 +14,7 @@ interface ParticipantProps {
   handleKickUser: (userId: string) => void;
   handleTransferModeratorRole: (userId: string) => void;
 }
+
 export function Participant({
   participant,
   handleKickUser,

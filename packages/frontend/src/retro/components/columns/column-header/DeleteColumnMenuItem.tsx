@@ -23,5 +23,5 @@ export const DeleteColumnMenuItem = React.forwardRef(
         <DeleteColumnDialog isOpen={isOpen} close={closeDialog} columnIndex={columnIndex} />
       </>
     );
-  }
+  },
 );

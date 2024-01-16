@@ -24,5 +24,5 @@ export const EditColumnMenuItem = React.forwardRef(
         <EditColumnDialog isOpen={isOpen} close={closeDialog} column={column} />
       </>
     );
-  }
+  },
 );

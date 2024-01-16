@@ -85,7 +85,7 @@ export const pokerReducer = (state: PokerState, action: PokerAction): PokerState
     case "REMOVE_FROM_WAITING_LIST": {
       const remainingWaitingUsers = getRemainingParticipants(
         state.waitingList,
-        action.payload.userId
+        action.payload.userId,
       );
       return { ...state, waitingList: remainingWaitingUsers };
     }
