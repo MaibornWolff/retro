@@ -17,6 +17,7 @@ import { PokerActionButtons } from "./PokerActionButtons";
 import { useRouter } from "next/navigation";
 import { SetupSessionDialog } from "../../common/dialogs/SetupSessionDialog";
 import { FlexBox } from "../../common/components/FlexBox";
+import Footer from "../../common/components/Footer";
 
 export function PokerPageContent() {
   const { push } = useRouter();
@@ -103,6 +104,7 @@ export function PokerPageContent() {
         handleCloseSnackbar={handleCloseSnackbar}
       />
       <SetupSessionDialog onAddToWaitingList={handleAddToWaitingList} />
+      <Footer />
     </>
   );
 }

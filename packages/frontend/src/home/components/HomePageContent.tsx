@@ -10,16 +10,23 @@ import Footer from "../../common/components/Footer";
 
 export function HomePageContent() {
   return (
-    <Box position="relative">
-      <Image src="/hero.jpg" alt="hero-content" fill style={{ objectFit: "cover" }} />
-      <FlexBox minHeight="100vh" justifyContent="center" alignItems="center" flexDirection="column">
-        <WelcomeTypewriter />
-        <FlexBox flexDirection="row">
-          <RedirectToRetroButton />
-          <RedirectToPlanningPokerButton />
+    <>
+      <Box position="relative">
+        <Image src="/hero.jpg" alt="hero-content" fill style={{ objectFit: "cover" }} />
+        <FlexBox
+          minHeight="100vh"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
+        >
+          <WelcomeTypewriter />
+          <FlexBox flexDirection="row">
+            <RedirectToRetroButton />
+            <RedirectToPlanningPokerButton />
+          </FlexBox>
         </FlexBox>
         <Footer />
-      </FlexBox>
-    </Box>
+      </Box>
+    </>
   );
 }
