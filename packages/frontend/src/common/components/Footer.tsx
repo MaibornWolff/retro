@@ -4,6 +4,7 @@ import { Box, Link, Paper } from "@mui/material";
 interface FooterProps {
   isTransparent?: boolean;
 }
+
 export default function Footer({ isTransparent = false }: FooterProps) {
   return (
     <Paper
@@ -24,16 +25,27 @@ export default function Footer({ isTransparent = false }: FooterProps) {
           justifyContent: "center",
         }}
       >
-        <Link href="/privacy" color={isTransparent ? "#000000" : undefined}>
+        <Link href="/privacy" color={isTransparent ? "#000000" : undefined} underline="hover">
           Privacy
         </Link>
-        <Link href="/terms-of-service" color={isTransparent ? "#000000" : undefined}>
+        ·
+        <Link
+          href="/terms-of-service"
+          color={isTransparent ? "#000000" : undefined}
+          underline="hover"
+        >
           Terms
         </Link>
-        <Link href="/impressum" color={isTransparent ? "#000000" : undefined}>
+        ·
+        <Link href="/impressum" color={isTransparent ? "#000000" : undefined} underline="hover">
           Impressum
         </Link>
-        <Link href="https://www.maibornwolff.de" color={isTransparent ? "#000000" : undefined}>
+        ·
+        <Link
+          href="https://www.maibornwolff.de"
+          color={isTransparent ? "#000000" : undefined}
+          underline="hover"
+        >
           @MaibornWolff
         </Link>
       </Box>

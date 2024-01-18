@@ -1,10 +1,7 @@
-import React, { ReactNode } from "react";
+import React, { PropsWithChildren } from "react";
 import { Box } from "@mui/material";
 
-interface ArticleBoxProps {
-  children: ReactNode;
-}
-export default function ArticleBox({ children }: ArticleBoxProps) {
+export default function ArticleBox({ children }: PropsWithChildren) {
   return (
     <Box sx={{ justifyContent: "center", display: "flex", marginTop: "2rem" }}>
       <Box maxWidth="lg">{children}</Box>
