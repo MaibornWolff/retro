@@ -8,11 +8,13 @@
     "start": "next start -p 80"
   },
   "dependencies": {
+    "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.5",
     "@mui/lab": "5.0.0-alpha.161",
     "@mui/material": "^5.15.5",
+    "@mui/material-nextjs": "^5.15.5",
     "@shared/browserlogger": "*",
     "@shared/configuration": "*",
     "@shared/socket": "*",

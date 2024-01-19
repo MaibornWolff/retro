@@ -1,3 +1,4 @@
+"use client";
 import React, { Dispatch, SetStateAction, useCallback, useContext, useState } from "react";
 import { ErrorState } from "../types/commonTypes";
 
