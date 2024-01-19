@@ -1,23 +1,19 @@
-"use client";
-
-import { GlobalGetServerSideProps } from "../../../common/utils/globalGetServerSideProps";
+import React, { PropsWithChildren } from "react";
+import { getConfiguration } from "@shared/configuration";
 import { ConfigurationContextProvider } from "../../../common/context/ConfigurationContext";
 import { RoomContextProvider } from "../../../common/context/RoomContext";
 import { UserContextProvider } from "../../../common/context/UserContext";
 import { RetroContextProvider } from "../../../retro/context/RetroContext";
 import { ExportRetroContextProvider } from "../../../retro/context/ExportRetroContext";
-import { RetroPageContent } from "../../../retro/components/RetroPageContent";
-import React from "react";
 
-export default function RetroRoomPage({ configuration }: GlobalGetServerSideProps) {
+export default function Layout({ children }: PropsWithChildren) {
+  const configuration = JSON.parse(JSON.stringify(getConfiguration()));
   return (
     <ConfigurationContextProvider configuration={configuration}>
       <RoomContextProvider>
         <UserContextProvider>
           <RetroContextProvider>
-            <ExportRetroContextProvider>
-              <RetroPageContent />
-            </ExportRetroContextProvider>
+            <ExportRetroContextProvider>{children}</ExportRetroContextProvider>
           </RetroContextProvider>
         </UserContextProvider>
       </RoomContextProvider>

@@ -1,27 +1,22 @@
 import React from "react";
 import { Fab } from "@mui/material";
 import { Casino } from "@mui/icons-material";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function RedirectToPlanningPokerButton() {
-  const { push } = useRouter();
-
-  function navigateToPlanningPoker() {
-    push(`/poker`);
-  }
-
   return (
-    <Fab
-      size="large"
-      variant="extended"
-      onClick={navigateToPlanningPoker}
-      sx={{
-        m: 1,
-        minWidth: "11rem",
-      }}
-    >
-      <Casino sx={{ mr: 1 }} />
-      Planning Poker
-    </Fab>
+    <Link href="/poker">
+      <Fab
+        size="large"
+        variant="extended"
+        sx={{
+          m: 1,
+          minWidth: "11rem",
+        }}
+      >
+        <Casino sx={{ mr: 1 }} />
+        Planning Poker
+      </Fab>
+    </Link>
   );
 }

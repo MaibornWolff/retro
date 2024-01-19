@@ -1,25 +1,8 @@
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { resetServerContext } from "react-beautiful-dnd";
-import {
-  GlobalGetServerSideProps,
-  globalGetServerSideProps,
-} from "../../../common/utils/globalGetServerSideProps";
-import RetroRoomPage from "./retroRoomPage";
+"use client";
 
-/*export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext,
-) => {
-  resetServerContext();
-  const globalProps = await globalGetServerSideProps(context);
-  return { ...globalProps };
-};*/
+import React from "react";
+import { RetroPageContent } from "../../../retro/components/RetroPageContent";
 
-function getConfiguration() {
-  resetServerContext();
-  const globalProps = await globalGetServerSideProps(context);
-  return { ...globalProps };
-}
-
-export default async function Page() {
-  return <RetroRoomPage configuration={getConfiguration()} />;
+export default function Page() {
+  return <RetroPageContent />;
 }

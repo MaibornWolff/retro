@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useCallback, useContext, useReducer } from "react";
 import { usePeerToPeer } from "../../common/hooks/usePeerToPeer";
 import { RetroState, TimerStatus } from "../types/retroTypes";

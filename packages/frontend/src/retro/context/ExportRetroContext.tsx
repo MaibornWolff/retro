@@ -1,3 +1,5 @@
+"use client";
+
 import React, { MutableRefObject, useContext, useRef } from "react";
 
 interface ExportRetroContextProviderProps {

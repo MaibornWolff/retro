@@ -1,16 +1,17 @@
-import React, { useEffect, useRef } from "react";
-import Link from "next/link";
+"use client";
 
+import React, { useEffect, useRef } from "react";
 import { Typography } from "@mui/material";
+import Link from "next/link";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { FlexBox } from "../../common/components/FlexBox";
 
-const Index = () => {
-  const { error, resetError } = useErrorContext();
+export default function Page() {
+  const { error: customError, resetError } = useErrorContext();
   const errorType = useRef<string | undefined>(undefined);
 
   useEffect(() => {
-    errorType.current = error?.type;
+    errorType.current = customError?.type;
     resetError();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -29,7 +30,6 @@ const Index = () => {
         return "You were disconnected from the session.";
     }
   }
-
   return (
     <FlexBox flexDirection="column" alignItems="center">
       <h2
@@ -46,6 +46,4 @@ const Index = () => {
       </Link>
     </FlexBox>
   );
-};
-
-export default Index;
+}

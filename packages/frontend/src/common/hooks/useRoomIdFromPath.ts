@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 
 export function useRoomIdFromPath() {
-  const router = useRouter();
-  const { roomId } = router.query;
+  const params = useParams();
+  const roomId = params.roomId;
   return roomId?.[0];
 }

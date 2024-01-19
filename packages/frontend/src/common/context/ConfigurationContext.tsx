@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useContext } from "react";
 import { ApplicationConfiguration } from "@shared/configuration";
 

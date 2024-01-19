@@ -10,7 +10,7 @@ import { useIsStateUpToDate } from "./useIsStateUpToDate";
 import { findConnection, findUnconnectedUserIds } from "../utils/peerToPeerUtils";
 import { usePeer } from "./usePeer";
 import { isEmpty } from "lodash";
-import { useLogger } from "./useLogger";
+// import { useLogger } from "./useLogger";
 
 export interface UsePeerToPeerOptions<T, E extends BaseAction> {
   state: T;
@@ -47,7 +47,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     usePeerConnections({
       onPeerConnectionReady: handlePeerConnectionReady,
     });
-  const logger = useLogger();
+  // const logger = useLogger();
 
   function handlePeerConnectionReady(changes: PeerConnection[]) {
     if (!isModerator(user) || !isStateUpToDate.current) return;
@@ -61,7 +61,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     const connection = findConnection(peerConnections, userId);
     if (!connection) return;
 
-    logger.debug("Sending event", { event, userId });
+    // logger.debug("Sending event", { event, userId });
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     connection.send(event);
   }
@@ -69,7 +69,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
   function broadcastAction(action: E | PeerToPeerAction<T>) {
     if (isEmpty(peerConnections)) return;
 
-    logger.debug("Broadcasting action", action);
+    // logger.debug("Broadcasting action", action);
     peerConnections.forEach((connection) => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       connection.send(action);
@@ -81,7 +81,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
     onUserDisconnected?.(disconnectedUserId);
     if (!closingConnection) return;
 
-    logger.debug("Closing connection to", closingConnection.peer);
+    // logger.debug("Closing connection to", closingConnection.peer);
     closingConnection.close();
     removePeerConnection(closingConnection.peer);
   }
@@ -94,21 +94,21 @@ export function usePeerToPeer<T, E extends BaseAction>({
     connectedUserId: string;
   }) {
     if (!peer) return;
-    logger.debug("New user connected", {
+    /*logger.debug("New user connected", {
       connectedUserIds,
       connectedUserId,
       userId: user.id,
-    });
+    });*/
 
     const unconnectedUserIds = findUnconnectedUserIds(connectedUserIds, user.id, peerConnections);
     if (unconnectedUserIds.length === 0) {
-      logger.debug("Connection to all users already established.");
+      // logger.debug("Connection to all users already established.");
       return;
     }
 
     const newConnections = unconnectedUserIds.map((id) => peer.connect(id, { reliable: true }));
 
-    logger.debug("Peer-Connections established with users:", unconnectedUserIds);
+    // logger.debug("Peer-Connections established with users:", unconnectedUserIds);
     addPeerConnection(newConnections);
   }
 
@@ -124,7 +124,7 @@ export function usePeerToPeer<T, E extends BaseAction>({
   }
 
   function handleOnData(data: E | PeerToPeerAction<T>) {
-    logger.debug("Received event", data);
+    // logger.debug("Received event", data);
     onDataReceived(data);
 
     if (data.type === "KICK") {
@@ -187,12 +187,12 @@ export function usePeerToPeer<T, E extends BaseAction>({
       });
 
       incomingConnection.on("error", (error) => {
-        logger.error("Incoming Connection Error: ", error);
+        // logger.error("Incoming Connection Error: ", error);
       });
     });
 
     peer?.on("error", (error) => {
-      logger.error("Peer Connection Error: ", error);
+      // logger.error("Peer Connection Error: ", error);
     });
 
     return () => {

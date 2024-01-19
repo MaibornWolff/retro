@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Dispatch, SetStateAction, useContext, useState } from "react";
 
 interface RoomContextProviderProps {

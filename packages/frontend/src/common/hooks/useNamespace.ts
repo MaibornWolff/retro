@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 export function useNamespace() {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const pathName = pathname.slice(1);
   const endOfPathName = pathName.indexOf("/");
 
