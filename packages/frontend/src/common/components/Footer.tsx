@@ -1,54 +1,49 @@
 import React from "react";
-import { Box, Link, Paper } from "@mui/material";
+import { Box, Link, Paper, useTheme } from "@mui/material";
 
-interface FooterProps {
-  isTransparent?: boolean;
-}
-
-export default function Footer({ isTransparent = false }: FooterProps) {
+export default function Footer() {
+  const theme = useTheme();
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        position: "absolute",
-        bottom: 0,
-        width: "100%",
-        backgroundColor: isTransparent ? "transparent" : undefined,
-        marginBottom: "1rem",
-      }}
-    >
-      <Box
+    <footer>
+      <Paper
+        elevation={0}
+        square
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: 1,
-          justifyContent: "center",
+          position: "fixed",
+          bottom: 0,
+          width: "100%",
+          backgroundColor: theme.palette.background.paper,
+          height: theme.spacing(4),
         }}
       >
-        <Link href="/privacy" color={isTransparent ? "#000000" : undefined} underline="hover">
-          Privacy
-        </Link>
-        ·
-        <Link
-          href="/terms-of-service"
-          color={isTransparent ? "#000000" : undefined}
-          underline="hover"
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 1,
+            justifyContent: "center",
+            marginBottom: theme.spacing(1),
+            marginTop: theme.spacing(1),
+            fontSize: "0.8rem",
+          }}
         >
-          Terms
-        </Link>
-        ·
-        <Link href="/impressum" color={isTransparent ? "#000000" : undefined} underline="hover">
-          Impressum
-        </Link>
-        ·
-        <Link
-          href="https://www.maibornwolff.de"
-          color={isTransparent ? "#000000" : undefined}
-          underline="hover"
-        >
-          @MaibornWolff
-        </Link>
-      </Box>
-    </Paper>
+          <Link href="/privacy" underline="hover">
+            Privacy
+          </Link>
+          ·
+          <Link href="/terms-of-service" underline="hover">
+            Terms
+          </Link>
+          ·
+          <Link href="/impressum" underline="hover">
+            Impressum
+          </Link>
+          ·
+          <Link href="https://www.maibornwolff.de" underline="hover">
+            @MaibornWolff
+          </Link>
+        </Box>
+      </Paper>
+    </footer>
   );
 }

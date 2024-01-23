@@ -25,7 +25,6 @@ import { NewParticipantSnackbar } from "../../common/components/NewParticipantSn
 import { RetroActionButtons } from "./RetroActionButtons";
 import { useRouter } from "next/navigation";
 import { SetupSessionDialog } from "../../common/dialogs/SetupSessionDialog";
-import Footer from "../../common/components/Footer";
 
 export function RetroPageContent() {
   const { push } = useRouter();
@@ -46,7 +45,6 @@ export function RetroPageContent() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useFirstWaitingUser({ waitingList: retroState.waitingList, onFirstUserWaiting: showSnackbar });
-
   useEffect(() => {
     if (!roomIdFromPath) {
       resetUser();
@@ -130,7 +128,6 @@ export function RetroPageContent() {
         handleCloseSnackbar={handleCloseSnackbar}
       />
       <SetupSessionDialog onAddToWaitingList={handleAddToWaitingList} />
-      <Footer />
     </>
   );
 }

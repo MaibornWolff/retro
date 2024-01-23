@@ -4,13 +4,18 @@ import "../index.css";
 import { ErrorContextProvider } from "../common/context/ErrorContext";
 import { ColorThemeContextProvider } from "../common/context/ColorThemeContext";
 import { CssBaseline } from "@mui/material";
+import Footer from "../common/components/Footer";
+import MainContainer from "../common/components/MainContainer";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ErrorContextProvider>
       <ColorThemeContextProvider>
         <CssBaseline />
-        <Component {...pageProps} />
+        <MainContainer>
+          <Component {...pageProps} />
+        </MainContainer>
+        <Footer />
       </ColorThemeContextProvider>
     </ErrorContextProvider>
   );
