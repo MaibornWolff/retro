@@ -15,24 +15,24 @@ import { useUserContext } from "../../../common/context/UserContext";
 import { isModerator } from "../../../common/utils/participantsUtils";
 import { CallToActionButton } from "../../../common/components/buttons/CallToActionButton";
 
-interface TransferModeratorRoleDialogProps extends DialogProps {
+interface PromoteToModeratorDialogProps extends DialogProps {
   participant: User;
-  handleTransferModeratorRole: (userId: string) => void;
+  handlePromoteToModerator: (userId: string) => void;
 }
 
-export function TransferModeratorRoleDialog({
+export function PromoteToModeratorDialog({
   isOpen,
   close,
   participant,
-  handleTransferModeratorRole,
-}: TransferModeratorRoleDialogProps) {
+  handlePromoteToModerator,
+}: PromoteToModeratorDialogProps) {
   const { user } = useUserContext();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-  function handleTransferModeratorRoleClick() {
+  function handlePromoteToModeratorClick() {
     if (!isModerator(user) || isModerator(participant)) return;
-    handleTransferModeratorRole(participant.id);
+    handlePromoteToModerator(participant.id);
     close();
   }
 
@@ -43,19 +43,18 @@ export function TransferModeratorRoleDialog({
       fullScreen={fullScreen}
       open={isOpen}
       onClose={close}
-      aria-labelledby="transfer-moderator-role-dialog"
+      aria-labelledby="promote-to-moderator-dialog"
     >
-      <DialogTitle id="transfer-moderator-role-dialog">Transfer moderator role</DialogTitle>
+      <DialogTitle id="promote-to-moderator-dialog">Promote to moderator</DialogTitle>
       <DialogContent>
         <Typography>
-          Do you really want to lose your moderator role and transfer it to
-          <strong> {participant.name}</strong>?
+          Do you really want promote <strong> {participant.name} </strong> to moderator?
         </Typography>
       </DialogContent>
       <DialogActions>
         <Button onClick={close}>Cancel</Button>
-        <CallToActionButton onClick={handleTransferModeratorRoleClick}>
-          Yes, transfer
+        <CallToActionButton onClick={handlePromoteToModeratorClick}>
+          Yes, promote
         </CallToActionButton>
       </DialogActions>
     </Dialog>

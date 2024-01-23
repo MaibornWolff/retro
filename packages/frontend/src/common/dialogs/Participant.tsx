@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { AddModerator, LocalPolice, Person, RemoveCircle } from "@mui/icons-material";
-import { TransferModeratorRoleDialog } from "../../retro/components/dialogs/TransferModeratorRoleDialog";
+import { PromoteToModeratorDialog } from "../../retro/components/dialogs/PromoteToModeratorDialog";
 import { isModerator } from "../utils/participantsUtils";
 import { useUserContext } from "../context/UserContext";
 import { User } from "../types/commonTypes";
@@ -12,13 +12,13 @@ import { TooltipIconButton } from "../components/buttons/TooltipIconButton";
 interface ParticipantProps {
   participant: User;
   handleKickUser: (userId: string) => void;
-  handleTransferModeratorRole: (userId: string) => void;
+  handlePromoteToModerator: (userId: string) => void;
 }
 
 export function Participant({
   participant,
   handleKickUser,
-  handleTransferModeratorRole,
+  handlePromoteToModerator,
 }: ParticipantProps) {
   const { isOpen, openDialog, closeDialog } = useDialog();
 
@@ -40,10 +40,10 @@ export function Participant({
           {isModerator(user) && (
             <>
               <TooltipIconButton
-                aria-label="Transfer Moderator Role"
+                aria-label="Promote to Moderator"
                 onClick={openDialog}
                 disabled={isModerator(participant)}
-                tooltipText="Transfer Moderator Role"
+                tooltipText="Promote to Moderator"
               >
                 <AddModerator />
               </TooltipIconButton>
@@ -60,11 +60,11 @@ export function Participant({
           )}
         </Box>
       </FlexBox>
-      <TransferModeratorRoleDialog
+      <PromoteToModeratorDialog
         participant={participant}
         isOpen={isOpen}
         close={closeDialog}
-        handleTransferModeratorRole={handleTransferModeratorRole}
+        handlePromoteToModerator={handlePromoteToModerator}
       />
     </>
   );

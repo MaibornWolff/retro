@@ -80,7 +80,7 @@ test("should kick user and show error page", async ({ context, page }) => {
   expect(newPage.url()).toContain("error");
 });
 
-test("should accept user and transfer moderator role", async ({ context, page }) => {
+test("should accept user and promote to moderator", async ({ context, page }) => {
   const retroPage = new RetroPagePageObject(page, context);
   const header = new HeaderPageObject(page, context);
   const joinSessionDialog = new JoinSessionDialogPageObject(page, context);
@@ -92,7 +92,7 @@ test("should accept user and transfer moderator role", async ({ context, page })
 
   await header.openParticipants();
   await header.acceptParticipant(newUser);
-  await header.transferModeratorRole(newUser);
+  await header.promoteToModerator(newUser);
   await header.closeParticipants();
 
   await expect(newPage.getByRole("heading", { name: "Test Session" })).toBeVisible();

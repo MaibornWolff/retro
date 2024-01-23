@@ -26,8 +26,8 @@ import {
   AddToWaitingListAction,
   DisconnectAction,
   JoinSessionAction,
+  PromoteToModeratorAction,
   RemoveFromWaitingListAction,
-  TransferModeratorRoleAction,
 } from "../../common/types/peerToPeerTypes";
 import { useUserContext } from "../../common/context/UserContext";
 import { useErrorContext } from "../../common/context/ErrorContext";
@@ -78,7 +78,7 @@ export interface RetroContextValues {
   handleChangeRetroFormat: (payload: ChangeRetroFormatAction["payload"]) => void;
   handleKickUser: (userId: string) => void;
   handleJoinSession: (payload: JoinSessionAction["payload"]) => void;
-  handleTransferModeratorRole: (payload: TransferModeratorRoleAction["payload"]) => void;
+  handlePromoteToModerator: (payload: PromoteToModeratorAction["payload"]) => void;
   handleRejectJoinUser: (userId: string) => void;
   handleAcceptJoinUser: (userId: string) => void;
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
@@ -223,8 +223,8 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     dispatchAndBroadcast({ type: "JOIN_SESSION", payload });
   }
 
-  function handleTransferModeratorRole(payload: TransferModeratorRoleAction["payload"]) {
-    dispatchAndBroadcast({ type: "TRANSFER_MODERATOR_ROLE", payload });
+  function handlePromoteToModerator(payload: PromoteToModeratorAction["payload"]) {
+    dispatchAndBroadcast({ type: "PROMOTE_TO_MODERATOR", payload });
   }
 
   function handleIsVotingEnabledChanged(isEnabled: boolean) {
@@ -284,7 +284,7 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     handleChangeRetroFormat,
     handleKickUser,
     handleJoinSession,
-    handleTransferModeratorRole,
+    handlePromoteToModerator,
     handleRejectJoinUser: rejectJoinUser,
     handleAcceptJoinUser: acceptJoinUser,
     handleAddToWaitingList,

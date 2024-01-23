@@ -34,7 +34,7 @@ export function RetroPageContent() {
     handleKickUser,
     handleAcceptJoinUser,
     handleRejectJoinUser,
-    handleTransferModeratorRole,
+    handlePromoteToModerator,
     handleAddToWaitingList,
   } = useRetroContext();
   const { user, resetUser } = useUserContext();
@@ -88,7 +88,7 @@ export function RetroPageContent() {
           onKickUser={handleKickUser}
           onAcceptJoinUser={handleAcceptJoinUser}
           onRejectJoinUser={handleRejectJoinUser}
-          onTransferModeratorRole={handleTransferModeratorRole}
+          onPromoteToModerator={handlePromoteToModerator}
         />
         <WaitingForApproval />
       </>
@@ -102,7 +102,7 @@ export function RetroPageContent() {
         onKickUser={handleKickUser}
         onAcceptJoinUser={handleAcceptJoinUser}
         onRejectJoinUser={handleRejectJoinUser}
-        onTransferModeratorRole={handleTransferModeratorRole}
+        onPromoteToModerator={handlePromoteToModerator}
       >
         <ExportRetroImageMenuItem />
         <ExportRetroMenuItem />

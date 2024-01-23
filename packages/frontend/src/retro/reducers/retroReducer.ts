@@ -13,7 +13,7 @@ import { retroFormatConfig } from "../config/formatConfig";
 import { generateId } from "../../common/utils/generateId";
 import { User } from "../../common/types/commonTypes";
 import {
-  findModerator,
+  findModerators,
   getRemainingParticipants,
   getRemainingParticipantsWithNewModerator,
 } from "../../common/utils/participantsUtils";
@@ -195,14 +195,13 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
         waitingList: remainingWaitingUsers,
       };
     }
-    case "TRANSFER_MODERATOR_ROLE": {
+    case "PROMOTE_TO_MODERATOR": {
       const user = state.participants[action.payload];
-      const currentModerator = findModerator(state.participants);
-      if (!user || !currentModerator) return state;
+      const currentModerators = findModerators(state.participants);
+      if (!user || !currentModerators.length) return state;
       const participants: UserByUserId = {
         ...state.participants,
         [action.payload]: { ...user, role: "moderator" },
-        [currentModerator.id]: { ...currentModerator, role: "participant" },
       };
       return { ...state, participants };
     }

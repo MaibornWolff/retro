@@ -12,8 +12,8 @@ import { useErrorContext } from "../../common/context/ErrorContext";
 import {
   AddToWaitingListAction,
   JoinSessionAction,
+  PromoteToModeratorAction,
   RemoveFromWaitingListAction,
-  TransferModeratorRoleAction,
 } from "../../common/types/peerToPeerTypes";
 import { useSyncUser } from "../../common/hooks/useSyncUser";
 import { useUserContext } from "../../common/context/UserContext";
@@ -33,7 +33,7 @@ export interface PokerContextValues {
   handleResetUserStory: () => void;
   handleSetPokerUnit: (payload: SetPokerUnitAction["payload"]) => void;
   handleSendVote: (payload: SendVoteAction["payload"]) => void;
-  handleTransferModeratorRole: (payload: TransferModeratorRoleAction["payload"]) => void;
+  handlePromoteToModerator: (payload: PromoteToModeratorAction["payload"]) => void;
   handleKickUser: (userId: string) => void;
   handleJoinSession: (payload: JoinSessionAction["payload"]) => void;
   handleRejectJoinUser: (userId: string) => void;
@@ -127,8 +127,8 @@ export function PokerContextProvider(props: PokerContextProviderProps) {
     dispatchAndBroadcast({ type: "SEND_VOTE", payload });
   }
 
-  function handleTransferModeratorRole(payload: TransferModeratorRoleAction["payload"]) {
-    dispatchAndBroadcast({ type: "TRANSFER_MODERATOR_ROLE", payload });
+  function handlePromoteToModerator(payload: PromoteToModeratorAction["payload"]) {
+    dispatchAndBroadcast({ type: "PROMOTE_TO_MODERATOR", payload });
   }
 
   function handleKickUser(userId: string) {
@@ -153,7 +153,7 @@ export function PokerContextProvider(props: PokerContextProviderProps) {
     handleResetUserStory,
     handleSetPokerUnit,
     handleSendVote,
-    handleTransferModeratorRole,
+    handlePromoteToModerator,
     handleKickUser,
     handleJoinSession,
     handleAddToWaitingList,

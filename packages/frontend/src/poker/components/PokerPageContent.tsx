@@ -26,7 +26,7 @@ export function PokerPageContent() {
     handleKickUser,
     handleAcceptJoinUser,
     handleRejectJoinUser,
-    handleTransferModeratorRole,
+    handlePromoteToModerator,
     handleAddToWaitingList,
   } = usePokerContext();
   const { user, resetUser } = useUserContext();
@@ -74,7 +74,7 @@ export function PokerPageContent() {
           onKickUser={handleKickUser}
           onAcceptJoinUser={handleAcceptJoinUser}
           onRejectJoinUser={handleRejectJoinUser}
-          onTransferModeratorRole={handleTransferModeratorRole}
+          onPromoteToModerator={handlePromoteToModerator}
         />
         <WaitingForApproval />
       </>
@@ -88,7 +88,7 @@ export function PokerPageContent() {
         onKickUser={handleKickUser}
         onAcceptJoinUser={handleAcceptJoinUser}
         onRejectJoinUser={handleRejectJoinUser}
-        onTransferModeratorRole={handleTransferModeratorRole}
+        onPromoteToModerator={handlePromoteToModerator}
       >
         <EstimationUnitSetupMenuItem />
       </AppHeader>
