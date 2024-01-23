@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Link, Paper, useTheme } from "@mui/material";
+import { FlexBox } from "./FlexBox";
 
 export default function Footer() {
   const theme = useTheme();
@@ -16,16 +17,13 @@ export default function Footer() {
           height: theme.spacing(4),
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: 1,
-            justifyContent: "center",
-            marginBottom: theme.spacing(1),
-            marginTop: theme.spacing(1),
-            fontSize: "0.8rem",
-          }}
+        <FlexBox
+          flexDirection="row"
+          gap={1}
+          justifyContent="center"
+          marginBottom={theme.spacing(1)}
+          marginTop={theme.spacing(1)}
+          fontSize="0.8rem"
         >
           <Link href="/privacy" underline="hover">
             Privacy
@@ -42,7 +40,7 @@ export default function Footer() {
           <Link href="https://www.maibornwolff.de" underline="hover">
             @MaibornWolff
           </Link>
-        </Box>
+        </FlexBox>
       </Paper>
     </footer>
   );
