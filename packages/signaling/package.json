@@ -9,14 +9,12 @@
     "dev": "nodemon src/index.ts",
     "build": "rimraf dist && tsc -b"
   },
-  "dependencies": {
+  "devDependencies": {
     "@shared/configuration": "*",
     "@shared/logger": "*",
-    "dotenv": "^16.3.1",
-    "peer": "^0.6.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.2",
+    "dotenv": "^16.3.2",
+    "nodemon": "^3.0.3",
+    "peer": "^1.0.2",
     "ts-node": "^10.9.2"
   }
 }

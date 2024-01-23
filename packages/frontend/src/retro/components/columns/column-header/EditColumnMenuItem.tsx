@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Ref } from "react";
 import { Edit } from "@mui/icons-material";
 import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { EditColumnDialog } from "../../dialogs/EditColumnDialog";
@@ -10,7 +10,7 @@ interface EditColumnMenuItemProps {
 }
 
 export const EditColumnMenuItem = React.forwardRef(
-  ({ column }: EditColumnMenuItemProps, ref: any) => {
+  ({ column }: EditColumnMenuItemProps, ref: Ref<HTMLLIElement>) => {
     const { isOpen, closeDialog, openDialog } = useDialog();
 
     return (

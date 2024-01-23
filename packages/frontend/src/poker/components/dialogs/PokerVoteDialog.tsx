@@ -20,7 +20,7 @@ export function PokerVoteDialog({ isOpen, close }: DialogProps) {
   const { handleSendVote } = usePokerContext();
   const { user } = useUserContext();
 
-  function handleSliderChange(event: any, newValue: number | number[]) {
+  function handleSliderChange(event: Event, newValue: number | number[]) {
     const vote = Array.isArray(newValue) ? newValue[0] : newValue;
     setVote(vote ?? 0);
   }
