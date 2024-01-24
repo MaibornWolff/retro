@@ -42,3 +42,9 @@ jobs:
       - name: Run e2e tests
         if: ${{ vars.SKIP_E2E != 'true' }}
         run: npm run e2e
+
+      - name: CycloneDX Node.js Generate SBOM
+        uses: CycloneDX/gh-node-module-generatebom@v1.0.3
+        with:
+          path: "./"
+          output: "./retro.sbom.xml"
