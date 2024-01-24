@@ -1,0 +1,19 @@
+name: Retro CI
+
+on:
+  push:
+    branches:
+      - sbom_action
+  pull_request:
+    branches:
+      - sbom_action
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: CycloneDX Node.js Generate SBOM
+        uses: CycloneDX/gh-node-module-generatebom@v1.0.3
+        with:
+          path: "./"
+          output: "./retro.sbom.xml"
