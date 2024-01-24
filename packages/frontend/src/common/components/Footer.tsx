@@ -37,7 +37,25 @@ export default function Footer() {
             Impressum
           </Link>
           ·
-          <Link href="https://www.maibornwolff.de" underline="hover">
+          <Link
+            href="https://github.com/MaibornWolff/retro"
+            underline="hover"
+            target="_blank"
+            rel="noopener"
+          >
+            @GitHub
+          </Link>
+          ·
+          <Link
+            href="https://github.com/MaibornWolff/retro/issues/new"
+            underline="hover"
+            target="_blank"
+            rel="noopener"
+          >
+            Report a Bug
+          </Link>
+          ·
+          <Link href="https://www.maibornwolff.de" underline="hover" target="_blank" rel="noopener">
             @MaibornWolff
           </Link>
         </FlexBox>
