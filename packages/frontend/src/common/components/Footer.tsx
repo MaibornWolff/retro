@@ -38,7 +38,7 @@ export default function Footer() {
               <Link href={href} underline="hover" target="_blank" rel="noopener">
                 {label}
               </Link>
-              {index !== links.length - 1 ? "." : undefined}
+              {index !== links.length - 1 ? "·" : undefined}
             </>
           ))}
         </FlexBox>
