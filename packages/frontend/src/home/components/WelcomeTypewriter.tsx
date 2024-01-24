@@ -12,7 +12,7 @@ export function WelcomeTypewriter() {
         options={{
           strings: [
             "Welcome to Retro.",
-            "Willkommen zu Retro.",
+            "Willkommen zur Retro.",
             "Bienvenue à Retro.",
             "Selamat Datang di Retro.",
           ],
