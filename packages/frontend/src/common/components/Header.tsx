@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, ReactNode } from "react";
+import React, { PropsWithChildren } from "react";
 import { AppBar, Toolbar, Typography, useTheme, Link } from "@mui/material";
 import { useNamespace } from "../hooks/useNamespace";
 import { ToggleThemeButton } from "./buttons/ToggleThemeButton";
