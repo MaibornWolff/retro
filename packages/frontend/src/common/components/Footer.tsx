@@ -25,15 +25,15 @@ export default function Footer() {
           marginTop={theme.spacing(1)}
           fontSize="0.8rem"
         >
-          <Link href="/privacy" underline="hover">
+          <Link href="/privacy" underline="hover" target="_blank" rel="noopener">
             Privacy
           </Link>
           ·
-          <Link href="/terms-of-service" underline="hover">
+          <Link href="/terms-of-service" underline="hover" target="_blank" rel="noopener">
             Terms
           </Link>
           ·
-          <Link href="/impressum" underline="hover">
+          <Link href="/impressum" underline="hover" target="_blank" rel="noopener">
             Impressum
           </Link>
           ·
