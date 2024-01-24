@@ -1,12 +1,12 @@
-import React from "react";
-import { Header, HeaderProps } from "./Header";
+import React, { PropsWithChildren } from "react";
+import { Header } from "./Header";
 import { ShareSessionButton } from "./buttons/ShareSessionButton";
 import { ParticipantsButton } from "./buttons/ParticipantsButton";
 import { UserByUserId } from "../../retro/types/retroTypes";
 import { SettingsButton } from "./buttons/SettingsButton";
 import { useUserContext } from "../context/UserContext";
 
-interface AppHeaderProps extends HeaderProps {
+interface AppHeaderProps extends PropsWithChildren {
   participants: UserByUserId;
   waitingList: UserByUserId;
   onKickUser: (userId: string) => void;
