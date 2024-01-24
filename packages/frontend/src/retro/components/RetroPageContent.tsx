@@ -45,7 +45,6 @@ export function RetroPageContent() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useFirstWaitingUser({ waitingList: retroState.waitingList, onFirstUserWaiting: showSnackbar });
-
   useEffect(() => {
     if (!roomIdFromPath) {
       resetUser();
