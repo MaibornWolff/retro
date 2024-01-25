@@ -12,7 +12,7 @@
   "devDependencies": {
     "@shared/configuration": "*",
     "@shared/logger": "*",
-    "dotenv": "^16.4.0",
+    "dotenv": "^16.4.1",
     "nodemon": "^3.0.3",
     "peer": "^1.0.2",
     "ts-node": "^10.9.2"
