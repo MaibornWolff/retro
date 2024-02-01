@@ -35,7 +35,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.202",
     "@types/nanoid": "^3.0.0",
-    "@types/node": "^20.11.13",
+    "@types/node": "^20.11.16",
     "@types/peerjs": "^1.1.0",
     "@types/qrcode": "^1.5.5",
     "@types/react": "^18.2.48",
