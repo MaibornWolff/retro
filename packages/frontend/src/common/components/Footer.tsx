@@ -11,6 +11,7 @@ export default function Footer() {
     { href: "https://github.com/MaibornWolff/retro", label: "@Github" },
     { href: "https://github.com/MaibornWolff/retro/issues/new", label: "Report a Bug" },
     { href: "https://www.maibornwolff.de", label: "@MaibornWolff" },
+    { href: "https://github.com/MaibornWolff/retro/network/dependencies", label: "SBOM" },
   ];
   return (
     <footer>
