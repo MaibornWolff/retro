@@ -1,9 +1,17 @@
 import React from "react";
-import { Box, Link, Paper, useTheme } from "@mui/material";
+import { Link, Paper, useTheme } from "@mui/material";
 import { FlexBox } from "./FlexBox";
 
 export default function Footer() {
   const theme = useTheme();
+  const links: { href: string; label: string }[] = [
+    { href: "/privacy", label: "Privacy" },
+    { href: "/terms-of-service", label: "Terms" },
+    { href: "/impressum", label: "Impressum" },
+    { href: "https://github.com/MaibornWolff/retro", label: "@Github" },
+    { href: "https://github.com/MaibornWolff/retro/issues/new", label: "Report a Bug" },
+    { href: "https://www.maibornwolff.de", label: "@MaibornWolff" },
+  ];
   return (
     <footer>
       <Paper
@@ -25,21 +33,14 @@ export default function Footer() {
           marginTop={theme.spacing(1)}
           fontSize="0.8rem"
         >
-          <Link href="/privacy" underline="hover">
-            Privacy
-          </Link>
-          ·
-          <Link href="/terms-of-service" underline="hover">
-            Terms
-          </Link>
-          ·
-          <Link href="/impressum" underline="hover">
-            Impressum
-          </Link>
-          ·
-          <Link href="https://www.maibornwolff.de" underline="hover">
-            @MaibornWolff
-          </Link>
+          {links.map(({ href, label }, index) => (
+            <>
+              <Link href={href} underline="hover" target="_blank" rel="noopener">
+                {label}
+              </Link>
+              {index !== links.length - 1 ? "·" : undefined}
+            </>
+          ))}
         </FlexBox>
       </Paper>
     </footer>
