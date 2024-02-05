@@ -23,11 +23,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: CycloneDX generate SBOM
-        uses: CycloneDX/gh-node-module-generatebom@v1.0.3
-        with:
-          output: "./retro.sbom.xml"
-
       - name: Prettier check
         run: npm run format:check
 
