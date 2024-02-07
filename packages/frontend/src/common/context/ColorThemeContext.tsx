@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createTheme, Theme } from "@mui/material";
+import { createTheme, responsiveFontSizes, Theme } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 
 interface Props {
@@ -24,6 +24,23 @@ declare module "@mui/material/styles" {
   }
 }
 
+const typography = {
+  typography: {
+    htmlFontSize: 16,
+    h1: {
+      fontSize: "4rem",
+    },
+    h2: {
+      fontSize: "3rem",
+    },
+    h3: {
+      fontSize: "2rem",
+    },
+    h4: {
+      fontSize: "1.8rem",
+    },
+  },
+};
 const lightTheme = createTheme({
   palette: {
     mode: "light",
@@ -40,6 +57,7 @@ const lightTheme = createTheme({
     highlightColorPrimary: "#f05a96",
     highlightColorSecondary: "#82c864",
   },
+  ...typography,
 });
 
 const darkTheme = createTheme({
@@ -58,6 +76,7 @@ const darkTheme = createTheme({
     highlightColorPrimary: "#b41964",
     highlightColorSecondary: "#14b400",
   },
+  ...typography,
 });
 
 export const ColorThemeContext = React.createContext<ColorThemeContextValues>(undefined!);
@@ -81,7 +100,7 @@ export function ColorThemeContextProvider(props: Props) {
 
   return (
     <ColorThemeContext.Provider value={contextValues}>
-      <ThemeProvider theme={currentTheme}>{props.children}</ThemeProvider>
+      <ThemeProvider theme={responsiveFontSizes(currentTheme)}>{props.children}</ThemeProvider>
     </ColorThemeContext.Provider>
   );
 }
