@@ -4,14 +4,6 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 
 ## Your Usage and Responsibilities
 
-### H3 Content
-
-#### H4 Content
-
-##### H5 Content
-
-###### H6 Content
-
 1. Content of Communications
 2. Copyright:
 3. Digital Millennium Copyright Act:
