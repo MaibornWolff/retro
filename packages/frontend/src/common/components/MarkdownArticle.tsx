@@ -1,50 +1,38 @@
 import Markdown from "react-markdown";
 import ArticleBox from "./ArticleBox";
 import React, { PropsWithChildren } from "react";
-import { Typography } from "@mui/material";
+import { Typography, TypographyVariant } from "@mui/material";
 
 interface MarkdownArticleProps {
   mdContent: string;
 }
 
+interface componentMapping {
+  markdownComponent: string;
+  muiTypoVariant: TypographyVariant;
+}
+
 export default function MarkdownArticle({ mdContent }: MarkdownArticleProps) {
-  const components = {
-    h1: ({ children }: PropsWithChildren) => (
-      <Typography variant="h1" sx={{ marginBottom: "1rem" }}>
+  const componentMappings: componentMapping[] = [
+    { markdownComponent: "h1", muiTypoVariant: "h1" },
+    { markdownComponent: "h2", muiTypoVariant: "h2" },
+    { markdownComponent: "h3", muiTypoVariant: "h3" },
+    { markdownComponent: "h4", muiTypoVariant: "h4" },
+    { markdownComponent: "h5", muiTypoVariant: "h5" },
+    { markdownComponent: "h6", muiTypoVariant: "h6" },
+    { markdownComponent: "p", muiTypoVariant: "body1" },
+  ];
+
+  const components: { [key: string]: React.ComponentType<PropsWithChildren> } = {};
+
+  componentMappings.reduce((acc, { markdownComponent, muiTypoVariant }) => {
+    acc[markdownComponent] = ({ children }: PropsWithChildren) => (
+      <Typography variant={muiTypoVariant} sx={{ marginBottom: "1rem" }}>
         {children}
       </Typography>
-    ),
-    h2: ({ children }: PropsWithChildren) => (
-      <Typography variant="h2" sx={{ marginBottom: "1rem" }}>
-        {children}
-      </Typography>
-    ),
-    h3: ({ children }: PropsWithChildren) => (
-      <Typography variant="h3" sx={{ marginBottom: "1rem" }}>
-        {children}
-      </Typography>
-    ),
-    h4: ({ children }: PropsWithChildren) => (
-      <Typography variant="h4" sx={{ marginBottom: "1rem" }}>
-        {children}
-      </Typography>
-    ),
-    h5: ({ children }: PropsWithChildren) => (
-      <Typography variant="h5" sx={{ marginBottom: "1rem" }}>
-        {children}
-      </Typography>
-    ),
-    h6: ({ children }: PropsWithChildren) => (
-      <Typography variant="h6" sx={{ marginBottom: "1rem" }}>
-        {children}
-      </Typography>
-    ),
-    p: ({ children }: PropsWithChildren) => (
-      <Typography variant="body1" sx={{ marginBottom: "1rem" }}>
-        {children}
-      </Typography>
-    ),
-  };
+    );
+    return acc;
+  }, components);
   return (
     <ArticleBox>
       <Markdown components={components}>{mdContent}</Markdown>
