@@ -7,32 +7,29 @@ interface MarkdownArticleProps {
   mdContent: string;
 }
 
-interface componentMapping {
-  markdownComponent: string;
-  muiTypoVariant: TypographyVariant;
-}
-
 export default function MarkdownArticle({ mdContent }: MarkdownArticleProps) {
-  const componentMappings: componentMapping[] = [
-    { markdownComponent: "h1", muiTypoVariant: "h1" },
-    { markdownComponent: "h2", muiTypoVariant: "h2" },
-    { markdownComponent: "h3", muiTypoVariant: "h3" },
-    { markdownComponent: "h4", muiTypoVariant: "h4" },
-    { markdownComponent: "h5", muiTypoVariant: "h5" },
-    { markdownComponent: "h6", muiTypoVariant: "h6" },
-    { markdownComponent: "p", muiTypoVariant: "body1" },
-  ];
+  const muiTypoVariantByMarkdownComponent: Record<string, TypographyVariant> = {
+    h1: "h1",
+    h2: "h2",
+    h3: "h3",
+    h4: "h4",
+    h5: "h5",
+    h6: "h6",
+    p: "body1",
+  };
 
-  const components: { [key: string]: React.ComponentType<PropsWithChildren> } = {};
-
-  componentMappings.reduce((acc, { markdownComponent, muiTypoVariant }) => {
-    acc[markdownComponent] = ({ children }: PropsWithChildren) => (
-      <Typography variant={muiTypoVariant} sx={{ marginBottom: "1rem" }}>
-        {children}
-      </Typography>
-    );
-    return acc;
-  }, components);
+  const components = Object.fromEntries(
+    Object.entries(muiTypoVariantByMarkdownComponent).map(
+      ([markdownComponent, typographyVariant]) => [
+        markdownComponent,
+        ({ children }: PropsWithChildren) => (
+          <Typography variant={typographyVariant} sx={{ marginBottom: "1rem" }}>
+            {children}
+          </Typography>
+        ),
+      ],
+    ),
+  );
   return (
     <ArticleBox>
       <Markdown components={components}>{mdContent}</Markdown>
