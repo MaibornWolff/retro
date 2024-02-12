@@ -15,7 +15,7 @@ export function Header({ children }: PropsWithChildren) {
     >
       <Toolbar>
         <Typography
-          variant="h4"
+          variant="menuTitle"
           flexGrow={1}
           fontFamily="Permanent"
           sx={{ fontFamily: "Permanent Marker, cursive" }}

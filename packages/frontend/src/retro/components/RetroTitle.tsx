@@ -17,7 +17,7 @@ export function RetroTitle() {
   return (
     <>
       <FlexBox justifyContent="center" alignItems="center" gap={1}>
-        <Typography variant="h4">{retroState.title}</Typography>
+        <Typography variant="title">{retroState.title}</Typography>
         {isModerator(user) && (
           <TooltipIconButton aria-label="Edit" onClick={openDialog} tooltipText="Edit">
             <Edit />

@@ -12,6 +12,14 @@ export interface ColorThemeContextValues {
   setLightTheme: () => void;
 }
 
+// Update the Typography's variant prop options
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    title: true;
+    menuTitle: true;
+  }
+}
+
 declare module "@mui/material/styles" {
   interface PaletteOptions {
     highlightColorPrimary: string;
@@ -22,8 +30,30 @@ declare module "@mui/material/styles" {
     highlightColorPrimary: string;
     highlightColorSecondary: string;
   }
-}
 
+  interface TypographyVariants {
+    title: React.CSSProperties;
+    menuTitle: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    title?: React.CSSProperties;
+    menuTitle: React.CSSProperties;
+  }
+}
+const components = {
+  components: {
+    MuiTypography: {
+      defaultProps: {
+        variantMapping: {
+          title: "h1",
+          menuTitle: "span",
+        },
+      },
+    },
+  },
+};
 const typography = {
   typography: {
     htmlFontSize: 16,
@@ -38,6 +68,12 @@ const typography = {
     },
     h4: {
       fontSize: "1.8rem",
+    },
+    title: {
+      fontSize: "2.125rem",
+    },
+    menuTitle: {
+      fontSize: "2.125rem",
     },
   },
 };
@@ -58,6 +94,7 @@ const lightTheme = createTheme({
     highlightColorSecondary: "#82c864",
   },
   ...typography,
+  ...components,
 });
 
 const darkTheme = createTheme({
