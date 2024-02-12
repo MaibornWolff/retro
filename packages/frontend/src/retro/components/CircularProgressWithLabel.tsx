@@ -31,7 +31,7 @@ export function CircularProgressWithLabel({
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="h6" component="div">
+        <Typography variant="caption" component="div" sx={{ fontSize: "1.25rem" }}>
           {currentValue}
         </Typography>
       </FlexBox>
