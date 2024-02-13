@@ -13,7 +13,7 @@ import {
   useTheme,
 } from "@mui/material";
 
-import { ColorThemeContext } from "../../../common/context/ColorThemeContext";
+import { ThemeContext } from "../../../common/context/ThemeContext";
 import { RetroCard as RetroCardType } from "../../types/retroTypes";
 import { useRetroContext } from "../../context/RetroContext";
 import { useUserContext } from "../../../common/context/UserContext";
@@ -41,7 +41,7 @@ function _RetroCard({ card, isBlurred, columnIndex }: RetroItemProps) {
   const { isDiscussed, content, owners, id } = card;
   const { retroState, handleHighlightCard, handleUnhighlightCard } = useRetroContext();
   const { user } = useUserContext();
-  const { currentTheme } = useContext(ColorThemeContext);
+  const { currentTheme } = useContext(ThemeContext);
   const theme = useTheme();
   const authors = owners.map(({ name }) => name).join(", ");
   const isSelectableText = !isBlurred || isModerator(user);

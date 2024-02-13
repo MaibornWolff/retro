@@ -2,7 +2,7 @@ import React from "react";
 import { AppProps } from "next/app";
 import "../index.css";
 import { ErrorContextProvider } from "../common/context/ErrorContext";
-import { ColorThemeContextProvider } from "../common/context/ColorThemeContext";
+import { ThemeContextProvider } from "../common/context/ThemeContext";
 import { CssBaseline } from "@mui/material";
 import Footer from "../common/components/Footer";
 import MainContainer from "../common/components/MainContainer";
@@ -10,13 +10,13 @@ import MainContainer from "../common/components/MainContainer";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ErrorContextProvider>
-      <ColorThemeContextProvider>
+      <ThemeContextProvider>
         <CssBaseline />
         <MainContainer>
           <Component {...pageProps} />
         </MainContainer>
         <Footer />
-      </ColorThemeContextProvider>
+      </ThemeContextProvider>
     </ErrorContextProvider>
   );
 };
