@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Brightness6 } from "@mui/icons-material";
 import { Button, Typography } from "@mui/material";
-import { ColorThemeContext } from "../../context/ColorThemeContext";
+import { ThemeContext } from "../../context/ThemeContext";
 
 export function ToggleThemeButton() {
-  const { currentTheme, setDarkTheme, setLightTheme } = useContext(ColorThemeContext);
+  const { currentTheme, setDarkTheme, setLightTheme } = useContext(ThemeContext);
 
   function toggleTheme() {
     if (currentTheme.palette.mode === "dark") {
