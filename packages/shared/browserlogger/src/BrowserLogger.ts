@@ -24,6 +24,7 @@ export class BrowserLogger implements Logger {
   constructor(options?: BrowserLoggerOptions) {
     const { level } = options ?? {};
 
+    // eslint-disable-next-line no-console
     this.error = console.error.bind(console);
     if (level === "error") {
       this.warn = NO_OP;
@@ -32,6 +33,7 @@ export class BrowserLogger implements Logger {
       return;
     }
 
+    // eslint-disable-next-line no-console
     this.warn = console.warn.bind(console);
     if (level === "warn") {
       this.info = NO_OP;
@@ -39,12 +41,14 @@ export class BrowserLogger implements Logger {
       return;
     }
 
+    // eslint-disable-next-line no-console
     this.info = console.info.bind(console);
     if (level === "info") {
       this.debug = NO_OP;
       return;
     }
 
+    // eslint-disable-next-line no-console
     this.debug = console.debug.bind(console);
   }
 }
