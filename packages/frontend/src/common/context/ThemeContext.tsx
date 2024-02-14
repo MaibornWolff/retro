@@ -2,43 +2,10 @@ import React, { PropsWithChildren, useState } from "react";
 import { createTheme, responsiveFontSizes, Theme, ThemeOptions } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 
-export interface ColorThemeContextValues {
+export interface ThemeContextValues {
   currentTheme: Theme;
   setDarkTheme: () => void;
   setLightTheme: () => void;
-}
-
-declare module "@mui/material/styles" {
-  interface PaletteOptions {
-    highlightColorPrimary: string;
-    highlightColorSecondary: string;
-  }
-
-  interface Palette {
-    highlightColorPrimary: string;
-    highlightColorSecondary: string;
-  }
-
-  interface TypographyVariants {
-    title: React.CSSProperties;
-    menuTitle: React.CSSProperties;
-    label: React.CSSProperties;
-  }
-
-  // allow configuration using `createTheme`
-  interface TypographyVariantsOptions {
-    title?: React.CSSProperties;
-    menuTitle?: React.CSSProperties;
-    label?: React.CSSProperties;
-  }
-}
-// Update the Typography's variant prop options
-declare module "@mui/material/Typography" {
-  interface TypographyPropsVariantOverrides {
-    title: true;
-    menuTitle: true;
-    label: true;
-  }
 }
 
 const components: ThemeOptions["components"] = {
@@ -122,27 +89,7 @@ const darkTheme = createTheme({
   },
 });
 
-console.log({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#303030",
-    },
-    secondary: {
-      main: "#00b4f0",
-    },
-    background: {
-      default: "#B0BEC5",
-      paper: "#CFD8DC",
-    },
-    highlightColorPrimary: "#f05a96",
-    highlightColorSecondary: "#82c864",
-  },
-  ...typography,
-  ...components,
-});
-
-export const ThemeContext = React.createContext<ColorThemeContextValues>(undefined!);
+export const ThemeContext = React.createContext<ThemeContextValues>(undefined!);
 
 export function ThemeContextProvider(props: PropsWithChildren) {
   const [currentTheme, setCurrentTheme] = useState(darkTheme);
