@@ -50,6 +50,7 @@ module.exports = {
       },
     ],
     "@next/next/no-html-link-for-pages": ["error", join(__dirname, "packages/frontend/src/pages")],
+    "no-console": "warn",
     "prettier/prettier": "warn",
   },
 };

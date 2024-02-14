@@ -6,6 +6,6 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "incremental": true,
   },
-  "include": ["next-env.d.ts", "src", ".next/types/**/*.ts"],
+  "include": ["types.d.ts", "mui.types.d.ts", "next-env.d.ts", "src", ".next/types/**/*.ts"],
   "exclude": ["node_modules"],
 }

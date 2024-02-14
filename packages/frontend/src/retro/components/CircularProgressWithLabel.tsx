@@ -31,9 +31,7 @@ export function CircularProgressWithLabel({
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="h6" component="div">
-          {currentValue}
-        </Typography>
+        <Typography variant="label">{currentValue}</Typography>
       </FlexBox>
     </Box>
   );

@@ -17,7 +17,7 @@ export function PokerTitle() {
   return (
     <>
       <FlexBox justifyContent="center" alignItems="center" gap={1}>
-        <Typography variant="h4" py={2}>
+        <Typography variant="title" py={2}>
           {storyUrl ? (
             <Link href={storyUrl} target="_blank" rel="nofollow noreferrer">
               {storyTitle}

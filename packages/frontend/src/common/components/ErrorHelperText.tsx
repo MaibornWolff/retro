@@ -10,7 +10,7 @@ export function ErrorHelperText({ isError, message }: ErrorHelperTextProps) {
   if (!isError || !message) return null;
 
   return (
-    <Typography variant="caption" color="error">
+    <Typography variant="label" color="error">
       {message}
     </Typography>
   );

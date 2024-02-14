@@ -14,12 +14,7 @@ export function Header({ children }: PropsWithChildren) {
       sx={{ backgroundColor: theme.palette.background.paper }}
     >
       <Toolbar>
-        <Typography
-          variant="h4"
-          flexGrow={1}
-          fontFamily="Permanent"
-          sx={{ fontFamily: "Permanent Marker, cursive" }}
-        >
+        <Typography variant="menuTitle" flexGrow={1}>
           <Link href="/" style={{ textDecoration: "none", color: theme.palette.primary.main }}>
             {namespace === "poker" ? "Planning Poker" : "Retro"}
           </Link>

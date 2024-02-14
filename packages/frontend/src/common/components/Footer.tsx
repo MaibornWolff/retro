@@ -36,7 +36,7 @@ export default function Footer() {
         >
           {links.map(({ href, label }, index) => (
             <>
-              <Link href={href} underline="hover" target="_blank" rel="noopener">
+              <Link href={href} underline="hover" target="_blank" rel="noopener" key={index + href}>
                 {label}
               </Link>
               {index !== links.length - 1 ? "·" : undefined}
