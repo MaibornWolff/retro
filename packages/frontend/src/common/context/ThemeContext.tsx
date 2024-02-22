@@ -1,6 +1,14 @@
-import React, { PropsWithChildren, useState } from "react";
-import { createTheme, responsiveFontSizes, Theme, ThemeOptions } from "@mui/material";
+import React, { PropsWithChildren, useMemo, useState } from "react";
+import {
+  createTheme,
+  responsiveFontSizes,
+  Theme,
+  ThemeOptions,
+  useMediaQuery,
+} from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { LocalStorage, ThemeStatus } from "../utils/localStorage";
 
 export interface ThemeContextValues {
   currentTheme: Theme;
@@ -92,14 +100,30 @@ const darkTheme = createTheme({
 export const ThemeContext = React.createContext<ThemeContextValues>(undefined!);
 
 export function ThemeContextProvider(props: PropsWithChildren) {
-  const [currentTheme, setCurrentTheme] = useState(darkTheme);
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [themeChoice, setThemeChoice] = useState<ThemeStatus>(ThemeStatus.not_set);
+
+  const currentTheme = useMemo(() => {
+    switch (themeChoice) {
+      case ThemeStatus.dark:
+        return darkTheme;
+      case ThemeStatus.light:
+        return lightTheme;
+      case ThemeStatus.not_set:
+        return prefersDarkMode ? darkTheme : lightTheme;
+    }
+  }, [prefersDarkMode, themeChoice]);
+
+  useLocalStorage(() => {
+    setThemeChoice(LocalStorage.getThemePreference());
+  });
 
   function setDarkTheme() {
-    setCurrentTheme(darkTheme);
+    setThemeChoice(ThemeStatus.dark);
   }
 
   function setLightTheme() {
-    setCurrentTheme(lightTheme);
+    setThemeChoice(ThemeStatus.light);
   }
 
   const contextValues = {
