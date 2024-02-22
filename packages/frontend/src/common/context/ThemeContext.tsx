@@ -61,8 +61,12 @@ const lightTheme = createTheme({
     highlightColorPrimary: "#f05a96",
     highlightColorSecondary: "#82c864",
   },
-  ...typography,
-  ...components,
+  typography: {
+    ...typography,
+  },
+  components: {
+    ...components,
+  },
 });
 
 const darkTheme = createTheme({
