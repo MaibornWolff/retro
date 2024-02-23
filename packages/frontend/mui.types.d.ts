@@ -32,3 +32,5 @@ declare module "@mui/material/Typography" {
     label: true;
   }
 }
+
+export type RetroPaletteMode = "highContrast" | PaletteMode;

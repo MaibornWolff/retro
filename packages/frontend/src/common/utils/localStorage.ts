@@ -1,12 +1,8 @@
+import { RetroPaletteMode } from "../../../mui.types";
+
 const userNameKey = "userName";
 const usernameStorePermissionKey = "userAllowsNameStorage";
-const themePreference = "themePreference";
-
-export enum ThemeStatus {
-  not_set = "not_set",
-  dark = "dark",
-  light = "light",
-}
+const themeKey = "theme";
 
 function setUserName(userName: string) {
   localStorage.setItem(userNameKey, userName);
@@ -29,16 +25,16 @@ function getNameStorePermission(): boolean {
   return value === "true";
 }
 
-function setThemeStatus(status: ThemeStatus) {
-  localStorage.setItem(themePreference, status);
+function setThemeStatus(theme: RetroPaletteMode) {
+  localStorage.setItem(themeKey, theme);
 }
 
-function getThemePreference(): ThemeStatus {
-  const value = localStorage.getItem(themePreference);
+function getThemePreference(): RetroPaletteMode | undefined {
+  const value = localStorage.getItem(themeKey);
   if (value === null) {
-    return ThemeStatus.not_set;
+    return undefined;
   } else {
-    return ThemeStatus[value as keyof typeof ThemeStatus];
+    return value;
   }
 }
 
