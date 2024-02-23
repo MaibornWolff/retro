@@ -56,8 +56,12 @@ export const themes: Record<RetroPaletteMode, Theme> = {
       highlightColorPrimary: "#f05a96",
       highlightColorSecondary: "#82c864",
     },
-    ...typography,
-    ...components,
+    typography: {
+      ...typography,
+    },
+    components: {
+      ...components,
+    },
   }),
   dark: createTheme({
     palette: {
