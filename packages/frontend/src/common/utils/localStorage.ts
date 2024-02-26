@@ -1,4 +1,4 @@
-import { RetroPaletteMode } from "../../../mui.types";
+import { PaletteMode } from "@mui/material";
 
 const userNameKey = "userName";
 const usernameStorePermissionKey = "userAllowsNameStorage";
@@ -25,16 +25,16 @@ function getNameStorePermission(): boolean {
   return value === "true";
 }
 
-function setThemeStatus(theme: RetroPaletteMode) {
+function setThemeStatus(theme: PaletteMode) {
   localStorage.setItem(themeKey, theme);
 }
 
-function getThemePreference(): RetroPaletteMode | undefined {
+function getThemePreference(): PaletteMode | undefined {
   const value = localStorage.getItem(themeKey);
   if (value === null) {
     return undefined;
   } else {
-    return value;
+    return value as PaletteMode;
   }
 }
 
