@@ -1,5 +1,4 @@
-import { createTheme, Theme, ThemeOptions } from "@mui/material";
-import { RetroPaletteMode } from "../../../mui.types";
+import { createTheme, PaletteMode, Theme, ThemeOptions } from "@mui/material";
 
 const components: ThemeOptions["components"] = {
   MuiTypography: {
@@ -39,7 +38,7 @@ const typography: ThemeOptions["typography"] = {
   },
 };
 
-export const themes: Record<RetroPaletteMode, Theme> = {
+export const themes: Record<PaletteMode, Theme> = {
   light: createTheme({
     palette: {
       mode: "light",
