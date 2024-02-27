@@ -36,7 +36,7 @@ export default function Footer() {
         >
           {links.map(({ href, label }, index) => (
             <React.Fragment key={index + href}>
-              <Link href={href} underline="hover" target="_blank" rel="noopener" key={index + href}>
+              <Link href={href} underline="hover" target="_blank" rel="noopener">
                 {label}
               </Link>
               {index !== links.length - 1 ? "·" : undefined}
