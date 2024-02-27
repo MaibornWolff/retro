@@ -4,13 +4,13 @@ import { Button, Typography } from "@mui/material";
 import { ThemeContext } from "../../context/ThemeContext";
 
 export function ToggleThemeButton() {
-  const { currentTheme, setDarkTheme, setLightTheme } = useContext(ThemeContext);
+  const { currentTheme, setTheme } = useContext(ThemeContext);
 
   function toggleTheme() {
     if (currentTheme.palette.mode === "dark") {
-      setLightTheme();
+      setTheme("light");
     } else {
-      setDarkTheme();
+      setTheme("dark");
     }
   }
 

@@ -35,12 +35,12 @@ export default function Footer() {
           fontSize="0.8rem"
         >
           {links.map(({ href, label }, index) => (
-            <>
-              <Link href={href} underline="hover" target="_blank" rel="noopener" key={index + href}>
+            <React.Fragment key={index + href}>
+              <Link href={href} underline="hover" target="_blank" rel="noopener">
                 {label}
               </Link>
               {index !== links.length - 1 ? "·" : undefined}
-            </>
+            </React.Fragment>
           ))}
         </FlexBox>
       </Paper>
