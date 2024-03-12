@@ -35,7 +35,7 @@
     "typewriter-effect": "^2.21.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.202",
+    "@types/lodash": "^4.17.0",
     "@types/nanoid": "^3.0.0",
     "@types/node": "^20.11.13",
     "@types/peerjs": "^1.1.0",
