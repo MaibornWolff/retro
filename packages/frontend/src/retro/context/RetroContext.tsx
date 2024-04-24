@@ -33,7 +33,6 @@ import { useUserContext } from "../../common/context/UserContext";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { useSyncUser } from "../../common/hooks/useSyncUser";
 import { ErrorState } from "../../common/types/commonTypes";
-import { useConfigurationContext } from "../../common/context/ConfigurationContext";
 
 interface RetroContextProviderProps {
   children?: React.ReactNode;
@@ -94,8 +93,7 @@ export interface RetroContextValues {
 export const RetroContext = React.createContext<RetroContextValues>(undefined!);
 
 export function RetroContextProvider(props: RetroContextProviderProps) {
-  const { maxVoteCount } = useConfigurationContext().retro;
-  const [state, dispatch] = useReducer(retroReducer, { ...initialState, maxVoteCount });
+  const [state, dispatch] = useReducer(retroReducer, { ...initialState });
   const { user } = useUserContext();
   const { setError } = useErrorContext();
 
