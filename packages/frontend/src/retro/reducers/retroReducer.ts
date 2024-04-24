@@ -224,8 +224,8 @@ export const retroReducer = (state: RetroState, action: RetroAction): RetroState
     case "IS_VOTING_ENABLED_CHANGED": {
       return { ...state, isVotingEnabled: action.isEnabled };
     }
-    case "CARD_VOTING_LIMIT_CHANGED": {
-      return { ...state, cardVotingLimit: action.limit };
+    case "IS_MULTIPLE_VOTES_PER_CARD_ALLOWED_CHANGED": {
+      return { ...state, isMultipleVotesPerCardAllowed: action.isAllowed };
     }
     case "START_TIMER": {
       return {

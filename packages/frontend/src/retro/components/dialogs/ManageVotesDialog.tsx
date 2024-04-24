@@ -24,11 +24,11 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
     handleChangeMaxVote,
     handleResetVotes,
     handleIsVotingEnabledChanged,
-    handleCardVotingLimitChanged,
+    handleIsMultipleVotesPerCardAllowedChanged,
   } = useRetroContext();
   const [voteCount, setVoteCount] = useState(retroState.maxVoteCount);
-  const [isMaxVotesPerCardLimited, setIsMaxVotesPerCardLimited] = useState(
-    retroState.cardVotingLimit === 1,
+  const [isMultipleVotesPerCardAllowed, setIsMultipleVotesPerCardAllowed] = useState(
+    retroState.isMultipleVotesPerCardAllowed,
   );
 
   function handleCancel() {
@@ -40,14 +40,14 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
     setVoteCount(newValue as number);
   }
 
-  function handleVotingLimitChange(event: ChangeEvent<HTMLInputElement>) {
-    setIsMaxVotesPerCardLimited(event.target.checked);
+  function handleIsMultipleVotesPerCardAllowedChange(event: ChangeEvent<HTMLInputElement>) {
+    setIsMultipleVotesPerCardAllowed(event.target.checked);
   }
 
   function handleStart() {
     handleChangeMaxVote(voteCount);
     handleIsVotingEnabledChanged(true);
-    handleCardVotingLimitChanged(isMaxVotesPerCardLimited ? 1 : Number.MAX_VALUE);
+    handleIsMultipleVotesPerCardAllowedChanged(isMultipleVotesPerCardAllowed);
     close();
   }
 
@@ -67,7 +67,7 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
       aria-labelledby="vote-count-dialog"
       aria-describedby="vote-count-dialog-description"
     >
-      <DialogTitle id="vote-count-dialog">Vote Count Settings</DialogTitle>
+      <DialogTitle id="vote-count-dialog">Voting Settings</DialogTitle>
       <DialogContent>
         <FormControl fullWidth>
           <Typography id="vote-count-label" gutterBottom>
@@ -79,18 +79,23 @@ export function ManageVotesDialog({ isOpen, close }: DialogProps) {
             valueLabelDisplay="auto"
             aria-labelledby="vote-count-slider"
             getAriaValueText={getValueText}
+            defaultValue={1}
             min={1}
             max={10}
+            marks
           />
         </FormControl>
         <Typography variant="body1">
-          Everybody has <strong>{voteCount}</strong> votes
+          Everybody has <strong>{voteCount}</strong> {voteCount === 1 ? "vote" : "votes"}
         </Typography>
         <FormControlLabel
           control={
-            <Checkbox checked={isMaxVotesPerCardLimited} onChange={handleVotingLimitChange} />
+            <Checkbox
+              checked={isMultipleVotesPerCardAllowed}
+              onChange={handleIsMultipleVotesPerCardAllowedChange}
+            />
           }
-          label="Maximum one vote per card"
+          label="Allow multiple votes per card"
         />
       </DialogContent>
       <DialogActions>

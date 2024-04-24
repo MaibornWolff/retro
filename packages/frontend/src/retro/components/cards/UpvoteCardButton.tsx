@@ -14,10 +14,10 @@ interface UpvoteItemButtonProps extends IconButtonProps {
 
 export function UpvoteCardButton({ columnIndex, card, ...props }: UpvoteItemButtonProps) {
   const { retroState, handleUpvoteCard } = useRetroContext();
-  const { cardVotingLimit } = retroState;
+  const { isMultipleVotesPerCardAllowed } = retroState;
   const { user } = useUserContext();
   const votesLeft = useVotesLeft();
-  const votingLimitReached = (card.votes[user.id] ?? 0) >= cardVotingLimit;
+  const votingLimitReached = !isMultipleVotesPerCardAllowed && (card.votes[user.id] ?? 0) >= 1;
   const canUpvote = votesLeft > 0 && !votingLimitReached;
 
   function handleUpvote() {
