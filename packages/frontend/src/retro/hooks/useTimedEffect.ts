@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useSound from "use-sound";
 
 interface useTimedEffectProps {
   effectLength: number;
@@ -6,6 +7,7 @@ interface useTimedEffectProps {
 
 export default function useTimedEffect({ effectLength }: useTimedEffectProps) {
   const [isEffectActive, setIsEffectActive] = useState(false);
+  const [playTimeExpiredSound] = useSound("/sfx/timer_expired.wav");
 
   useEffect(() => {
     if (isEffectActive) {
@@ -20,6 +22,7 @@ export default function useTimedEffect({ effectLength }: useTimedEffectProps) {
 
   function startEffect() {
     setIsEffectActive(true);
+    playTimeExpiredSound();
   }
 
   return {
