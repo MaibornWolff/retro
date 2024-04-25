@@ -17,23 +17,15 @@ export function ToggleTimerDialogButton() {
   const { timerStatus } = retroState;
   const { user } = useUserContext();
 
-  const { isWiggleEffectActive, startWiggleEffect, playTimeExpiredSound } = useTimedEffect({
-    effectLength: 3000,
-  });
-  const { minutes, seconds, remainingTimeLabel } = useTimer({ onTimerFinish: handleTimerFinished });
+  const { isEffectActive, startEffect } = useTimedEffect({ effectLength: 3000 });
+  const { minutes, seconds, remainingTimeLabel } = useTimer({ onTimerFinish: startEffect });
 
   function handleOpenDialog() {
     if (!isModerator(user)) return;
     openDialog();
   }
 
-  function handleTimerFinished() {
-    playTimeExpiredSound();
-    startWiggleEffect();
-  }
-
-  if (!isModerator(user) && timerStatus === TimerStatus.STOPPED && !isWiggleEffectActive)
-    return null;
+  if (!isModerator(user) && timerStatus === TimerStatus.STOPPED && !isEffectActive) return null;
 
   return (
     <>
@@ -43,11 +35,11 @@ export function ToggleTimerDialogButton() {
         color={
           timerStatus === TimerStatus.PAUSED
             ? "info"
-            : timerStatus === TimerStatus.RUNNING || isWiggleEffectActive
+            : timerStatus === TimerStatus.RUNNING || isEffectActive
               ? "error"
               : undefined
         }
-        isWiggling={isWiggleEffectActive}
+        isWiggling={isEffectActive}
       >
         {timerStatus !== TimerStatus.STOPPED ? remainingTimeLabel : "Timer"}
       </WiggleActionButton>

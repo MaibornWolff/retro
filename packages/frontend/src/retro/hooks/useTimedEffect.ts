@@ -6,27 +6,27 @@ interface useTimedEffectProps {
 }
 
 export default function useTimedEffect({ effectLength }: useTimedEffectProps) {
-  const [isWiggleEffectActive, setIsWiggleEffectActive] = useState(false);
+  const [isEffectActive, setIsEffectActive] = useState(false);
   const [playTimeExpiredSound] = useSound("/sfx/timer_expired.wav");
 
   useEffect(() => {
-    if (isWiggleEffectActive) {
+    if (isEffectActive) {
       const timeout = setTimeout(() => {
-        setIsWiggleEffectActive(false);
+        setIsEffectActive(false);
       }, effectLength);
       return () => {
         clearTimeout(timeout);
       };
     }
-  }, [isWiggleEffectActive, effectLength]);
+  }, [isEffectActive, effectLength]);
 
-  function startWiggleEffect() {
-    setIsWiggleEffectActive(true);
+  function startEffect() {
+    setIsEffectActive(true);
+    playTimeExpiredSound();
   }
 
   return {
-    isWiggleEffectActive,
-    startWiggleEffect,
-    playTimeExpiredSound,
+    isEffectActive,
+    startEffect,
   };
 }
