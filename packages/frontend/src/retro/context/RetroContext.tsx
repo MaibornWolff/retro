@@ -86,7 +86,6 @@ export interface RetroContextValues {
   handleCardVotingLimitChanged: (limit: number) => void;
   handleStartTimer: (duration: number) => void;
   handlePauseTimer: () => void;
-  handleChangeTimer: (duration: number) => void;
   handleStopTimer: () => void;
   handleResumeTimer: () => void;
 }
@@ -251,10 +250,6 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     dispatchAndBroadcast({ type: "START_TIMER", duration: state.timerDuration });
   }
 
-  function handleChangeTimer(duration: StartTimerAction["duration"]) {
-    dispatchAndBroadcast({ type: "CHANGE_TIMER", duration });
-  }
-
   const resetRetroState = useCallback(() => {
     dispatch({ type: "SET_RETRO_STATE", payload: initialState });
   }, []);
@@ -293,7 +288,6 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     handleStartTimer,
     handlePauseTimer,
     handleStopTimer,
-    handleChangeTimer,
     handleResumeTimer,
   };
 
