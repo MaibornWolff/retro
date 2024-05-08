@@ -33,6 +33,7 @@
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@playwright/test": "^1.43.1",
+    "@reduxjs/toolkit": "^2.2.3",
     "@types/jest": "^29.5.11",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.8.0",
