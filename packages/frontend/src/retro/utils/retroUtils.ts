@@ -1,4 +1,4 @@
-import { RetroCard, RetroColumn } from "../types/retroTypes";
+import { RetroCard, RetroColumn, VotesByUserId } from "../types/retroTypes";
 import { sum } from "lodash";
 
 export function find<T extends { id: string }>(list?: T[], id?: string) {
@@ -16,8 +16,8 @@ export function replaceColumns(oldColumns: RetroColumn[], newColumns: RetroColum
   });
 }
 
-export function sumVotes(card: RetroCard): number {
-  return sum(Object.values(card.votes));
+export function sumVotes(votes: VotesByUserId): number {
+  return sum(Object.values(votes));
 }
 
 export function insertCard(cards: RetroCard[], card: RetroCard, index: number): RetroCard[] {
