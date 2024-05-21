@@ -16,7 +16,7 @@
     "@shared/browserlogger": "*",
     "@shared/configuration": "*",
     "@shared/socket": "*",
-    "axios": "^1.6.7",
+    "axios": "^1.7.2",
     "lodash": "^4.17.21",
     "nanoid": "^5.0.4",
     "next": "^14.2.2",
