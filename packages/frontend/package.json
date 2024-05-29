@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start -p 80"
+    "build": "next build && cp -r public build/standalone/packages/frontend && cp -r build/static build/standalone/packages/frontend/build/static",
+    "start": "PORT=80 node build/standalone/packages/frontend/server.js",
+    "startstandalone": "PORT=80 node server.js"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
