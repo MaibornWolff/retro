@@ -4,8 +4,8 @@
     "jsx": "preserve",
     "noEmit": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "incremental": true,
+    "incremental": true
   },
   "include": ["types.d.ts", "mui.types.d.ts", "next-env.d.ts", "src", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }
