@@ -10,6 +10,7 @@ import { useTimer } from "../../hooks/useTimer";
 import { TimerStatus } from "../../types/retroTypes";
 import { WiggleActionButton } from "./WiggleActionButton";
 import useTimedEffect from "../../hooks/useTimedEffect";
+import useSound from "use-sound";
 
 export function ToggleTimerDialogButton() {
   const { isOpen, closeDialog, openDialog } = useDialog();
@@ -18,11 +19,17 @@ export function ToggleTimerDialogButton() {
   const { user } = useUserContext();
 
   const { isEffectActive, startEffect } = useTimedEffect({ effectLength: 3000 });
-  const { minutes, seconds, remainingTimeLabel } = useTimer({ onTimerFinish: startEffect });
+  const { minutes, seconds, remainingTimeLabel } = useTimer({ onTimerFinish: handleTimerExpired });
+  const [playTimeExpiredSound] = useSound("/sfx/timer_expired.wav");
 
   function handleOpenDialog() {
     if (!isModerator(user)) return;
     openDialog();
+  }
+
+  function handleTimerExpired() {
+    playTimeExpiredSound();
+    startEffect();
   }
 
   if (!isModerator(user) && timerStatus === TimerStatus.STOPPED && !isEffectActive) return null;
