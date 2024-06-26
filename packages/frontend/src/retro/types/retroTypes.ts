@@ -33,7 +33,7 @@ export interface RetroState {
   participants: UserByUserId;
   waitingList: UserByUserId;
   isVotingEnabled: boolean;
-  cardVotingLimit: number;
+  isMultipleVotesPerCardAllowed: boolean;
   timerStatus: TimerStatus;
   timerDuration: number;
 }

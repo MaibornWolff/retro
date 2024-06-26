@@ -33,7 +33,6 @@ import { useUserContext } from "../../common/context/UserContext";
 import { useErrorContext } from "../../common/context/ErrorContext";
 import { useSyncUser } from "../../common/hooks/useSyncUser";
 import { ErrorState } from "../../common/types/commonTypes";
-import { useConfigurationContext } from "../../common/context/ConfigurationContext";
 
 interface RetroContextProviderProps {
   children?: React.ReactNode;
@@ -44,11 +43,11 @@ const initialState: RetroState = {
   format: "",
   columns: [],
   isBlurred: false,
-  maxVoteCount: 0,
+  maxVoteCount: 1,
   participants: {},
   waitingList: {},
   isVotingEnabled: false,
-  cardVotingLimit: 1,
+  isMultipleVotesPerCardAllowed: true,
   timerStatus: TimerStatus.STOPPED,
   timerDuration: 0,
 };
@@ -83,7 +82,7 @@ export interface RetroContextValues {
   handleAcceptJoinUser: (userId: string) => void;
   handleAddToWaitingList: (payload: AddToWaitingListAction["payload"]) => void;
   handleIsVotingEnabledChanged: (isEnabled: boolean) => void;
-  handleCardVotingLimitChanged: (limit: number) => void;
+  handleIsMultipleVotesPerCardAllowedChanged: (isAllowed: boolean) => void;
   handleStartTimer: (duration: number) => void;
   handlePauseTimer: () => void;
   handleChangeTimer: (duration: number) => void;
@@ -94,8 +93,7 @@ export interface RetroContextValues {
 export const RetroContext = React.createContext<RetroContextValues>(undefined!);
 
 export function RetroContextProvider(props: RetroContextProviderProps) {
-  const { maxVoteCount } = useConfigurationContext().retro;
-  const [state, dispatch] = useReducer(retroReducer, { ...initialState, maxVoteCount });
+  const [state, dispatch] = useReducer(retroReducer, { ...initialState });
   const { user } = useUserContext();
   const { setError } = useErrorContext();
 
@@ -231,8 +229,8 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     dispatchAndBroadcast({ type: "IS_VOTING_ENABLED_CHANGED", isEnabled });
   }
 
-  function handleCardVotingLimitChanged(limit: number) {
-    dispatchAndBroadcast({ type: "CARD_VOTING_LIMIT_CHANGED", limit });
+  function handleIsMultipleVotesPerCardAllowedChanged(isAllowed: boolean) {
+    dispatchAndBroadcast({ type: "IS_MULTIPLE_VOTES_PER_CARD_ALLOWED_CHANGED", isAllowed });
   }
 
   function handleStartTimer(duration: StartTimerAction["duration"]) {
@@ -289,7 +287,7 @@ export function RetroContextProvider(props: RetroContextProviderProps) {
     handleAcceptJoinUser: acceptJoinUser,
     handleAddToWaitingList,
     handleIsVotingEnabledChanged,
-    handleCardVotingLimitChanged,
+    handleIsMultipleVotesPerCardAllowedChanged,
     handleStartTimer,
     handlePauseTimer,
     handleStopTimer,

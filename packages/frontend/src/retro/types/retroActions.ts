@@ -17,6 +17,11 @@ export interface MaxVoteChangeAction extends BaseAction {
   payload: number;
 }
 
+export interface IsMultipleVotesPerCardAllowedChangedAction extends BaseAction {
+  type: "IS_MULTIPLE_VOTES_PER_CARD_ALLOWED_CHANGED";
+  isAllowed: boolean;
+}
+
 export interface VoteResetAction extends BaseAction {
   type: "VOTE_RESET";
 }
@@ -123,6 +128,7 @@ export type RetroAction =
   | CardUpvoteAction
   | CardRemoveUpvoteAction
   | MaxVoteChangeAction
+  | IsMultipleVotesPerCardAllowedChangedAction
   | VoteResetAction
   | SetRetroStateAction
   | HighlightCardAction

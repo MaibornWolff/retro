@@ -18,9 +18,6 @@ export function getConfiguration(): ApplicationConfiguration {
     logLevel: validateLogLevel(process.env.LOG_LEVEL) ?? "info",
     backendUrl,
     signalingServerUrl,
-    retro: {
-      maxVoteCount: Number(process.env.RETRO_MAX_VOTE_COUNT) ?? 3,
-    },
     corsOrigins: parseCorsOrigins(process.env.CORS_ORIGIN) ?? "*",
     iceServerUrls: parseIceServers(process.env.ICE_SERVER_URLS) ?? [
       { url: "stun:stun.l.google.com:19302" },
