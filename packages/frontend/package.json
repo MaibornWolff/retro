@@ -37,7 +37,7 @@
   "devDependencies": {
     "@types/lodash": "^4.17.5",
     "@types/nanoid": "^3.0.0",
-    "@types/node": "^22.4.0",
+    "@types/node": "^22.6.0",
     "@types/peerjs": "1.1.0",
     "@types/react": "^18.3.3",
     "@types/react-beautiful-dnd": "^13.1.8",
