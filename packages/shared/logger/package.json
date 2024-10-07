@@ -15,6 +15,6 @@
   },
   "dependencies": {
     "@shared/configuration": "*",
-    "winston": "^3.14.0"
+    "winston": "^3.15.0"
   }
 }
