@@ -29,7 +29,7 @@
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
     "react-qr-code": "^2.0.15",
-    "recharts": "^2.12.7",
+    "recharts": "^2.13.3",
     "sharp": "^0.33.4",
     "socket.io-client": "^4.7.5",
     "typewriter-effect": "^2.21.0"
