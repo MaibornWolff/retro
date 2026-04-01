@@ -1,0 +1,36 @@
+name: Create SBOM
+run-name: create-sbom
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    name: Generate SBOM with cdxgen
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
+        with:
+          node-version: "24"
+
+      - name: Install cdxgen
+        run: npm install -g @cyclonedx/cdxgen@12.1.3
+
+      - name: Generate SBOM
+        run: cdxgen -o sbom.json --spec-version 1.5
+
+      - name: Upload SBOM as artifact
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7
+        with:
+          name: sbom
+          path: sbom.json
