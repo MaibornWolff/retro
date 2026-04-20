@@ -7,4 +7,5 @@ module.exports = {
     return config;
   },
   distDir: "build",
+  output: "standalone",
 };
