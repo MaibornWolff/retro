@@ -31,7 +31,7 @@
   "private": true,
   "devDependencies": {
     "@commitlint/cli": "^19.4.0",
-    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/config-conventional": "^19.5.0",
     "@playwright/test": "^1.46.0",
     "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^7.17.0",
